@@ -16,6 +16,7 @@ import { join } from 'path';
 import { logVerbose } from '../yargs/utils';
 import { readRepoConfig } from './config';
 import { getOpen, getOutPath } from '../../options';
+import { getInteractive } from '../yargs/options';
 
 export function saveUserFlow(flow: UserFlow, name: string): string {
   const { outPath }: UserFlowCliConfig = readRepoConfig();
@@ -49,8 +50,8 @@ export async function captureUserFlow(
   // generate and save report
   const fileName = saveUserFlow(flow, flowOptions.name);
 
-  // open report
-  if (getOpen()) {
+  // open report if requested and not in executed in CI
+  if (getOpen() && !getInteractive()) {
     open(fileName, { wait: false });
   }
 }
