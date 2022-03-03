@@ -25,9 +25,9 @@ jobs:
       - name: install
         run: yarn
       - name: build
-        run: nx build cli
+        run: npm run build
       - name: test
-        run: nx test cli
+        run: npm run test
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
