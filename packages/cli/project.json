@@ -56,6 +56,12 @@
           }
         ]
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "commitMessageFormat": "chore(${projectName}): release version ${version}"
+      }
     }
   },
   "tags": []
