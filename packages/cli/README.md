@@ -1,4 +1,4 @@
-#@user-flow/cli
+#@push-based/user-flow
 
 This is a small library to organize and run Lighthouse UserFlow scripts in an organized and scalable way with CI automation in place 🛸.
 
@@ -12,7 +12,7 @@ This is a small library to organize and run Lighthouse UserFlow scripts in an or
 ## Install
 
 Run 
-`npm i @user-flow/cli --save`  or `yarn i @user-flow/cli` 
+`npm i @push-based/user-flow --save`  or `yarn i @push-based/user-flow` 
 to install the library.
 
 ## Usage
@@ -40,7 +40,7 @@ import {
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 
 // Optional overright lounchsettings of puppeteer
 const launcheOptions: LauncheOptions = {
@@ -85,11 +85,11 @@ module.exports = userFlowProvider;
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
-`npx @user-flow/cli --targetUrl=https://localhost:4200`
+`npx @push-based/user-flow --targetUrl=https://localhost:4200`
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
-`npx @user-flow/cli --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
+`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
 
 ## CLI options
 
@@ -184,7 +184,7 @@ In our case we have the sidebar, and the target page displaying the list.
 We extend from the Ufo class to get the page object set up for us and ensure the sidebar creation got passed the page object in the actual user-flow.
 
 > **ℹ Tip:**
-> To ensure the page object is available in an UFO you can extend from `Ufo` provided in `@user-flow/cli`.
+> To ensure the page object is available in an UFO you can extend from `Ufo` provided in `@push-based/user-flow`.
 
 **./ufo/sidebar.ufo.ts**
 ```typescript
@@ -243,7 +243,7 @@ import {
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider
-} from '@user-flow/cli';
+} from '@push-based/user-flow';
 
 const flowOptions: UserFlowOptions = {
   name: 'Category to Detail Navigation - Cold',
@@ -280,4 +280,4 @@ module.exports = userFlowProvider;
 
 To run the user flows use the `-p` option to point to the new config file
 
-`npx @user-flow/cli -p=./my-app-user-flows/.user-flowrc.json`
+`npx @push-based/user-flow -p=./my-app-user-flows/.user-flowrc.json`

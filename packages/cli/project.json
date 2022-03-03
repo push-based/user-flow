@@ -21,6 +21,19 @@
         "passWithNoTests": true
       }
     },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "cd ./dist/packages/cli"
+          },
+          {
+            "command": "npx semantic-release"
+          }
+        ]
+      }
+    },
     "link": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

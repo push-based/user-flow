@@ -1,5 +1,5 @@
 {
-  "name": "@user-flow/cli",
+  "name": "@push-based/user-flow",
   "version": "0.0.1",
   "type": "commonjs",
   "main": "src/index.js",
@@ -11,5 +11,8 @@
     "lighthouse": "^9.4.0",
     "puppeteer": "^13.4.1",
     "prettier": "^2.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

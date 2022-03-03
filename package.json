@@ -1,13 +1,14 @@
 {
-  "name": "user-flow",
+  "name": "@push-based/user-flow",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "nx": "nx",
     "build": "nx build cli",
     "test": "nx test cli",
-    "cli:link": "nx link cli",
-    "run": "npx @user-flow/cli capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/"
+    "publish": "nx publish cli",
+    "link": "nx link cli",
+    "capture": "npx @user-flow/cli capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/"
   },
   "private": true,
   "dependencies": {
