@@ -164,10 +164,10 @@ Move `.user-flowrc.json` into `my-app-user-flows` and change the configuration t
 ### Fixtures
 Fixtures maintain all your UI related selector login. Mostly this are strings but also getter functions are possible to be organized here.
 
-> **ℹ Tip:**
-> Avoid selectors that are connected to layout and styles e.g. `#main-side-bar div.header-wrapper .hamburger-btn`.
-> Instead introduce a data attribute only related to user flow tests e.g. `*[data-uf="sidebar--main-btn"]`
-> Usage: `<button data-uf="sidebar--main-bt">...</button>`
+> **ℹ Tip:**  
+> Avoid selectors that are connected to layout and styles e.g. `#main-side-bar div.header-wrapper .hamburger-btn`.  
+> Instead introduce a data attribute only related to user flow tests e.g. `*[data-uf="sidebar--main-btn"]`  
+> Usage: `<button data-uf="sidebar--main-bt">...</button>`  
 
 ```typescript
   const sidebarBtnSelector = '*[data-uf="sidebar--main-btn"]';
@@ -183,8 +183,8 @@ This objects are composeable, meaning they maintain units that can be reused wit
 In our case we have the sidebar, and the target page displaying the list.
 We extend from the Ufo class to get the page object set up for us and ensure the sidebar creation got passed the page object in the actual user-flow.
 
-> **ℹ Tip:**
-> To ensure the page object is available in an UFO you can extend from `Ufo` provided in `@user-flow/cli`.
+> **ℹ Tip:**  
+> To ensure the page object is available in an UFO you can extend from `Ufo` provided in `@user-flow/cli`.  
 
 **./ufo/sidebar.ufo.ts**
 ```typescript
