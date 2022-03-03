@@ -17,6 +17,7 @@ export function resolveAnyFile<T>(path: string): T {
   path = join(process.cwd(), path);
   let file;
 
+  // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
