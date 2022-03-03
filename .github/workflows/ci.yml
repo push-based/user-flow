@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -21,6 +21,6 @@ jobs:
       - name: install
         run: yarn
       - name: build
-        run: nx build cli
+        run: npm run build
       - name: test
-        run: nx test cli
+        run: npm run test
