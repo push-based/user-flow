@@ -6,7 +6,8 @@
     "types": ["node"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": false
+    "importHelpers": false,
+    "module": "commonjs"
   },
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
