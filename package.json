@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "cli:build": "nx build cli",
+    "build": "nx build cli",
+    "test": "nx test cli",
     "cli:link": "nx link cli",
-    "cli": "nx build cli && nx link cli && nx update cli",
     "run": "npx @user-flow/cli capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/"
   },
   "private": true,

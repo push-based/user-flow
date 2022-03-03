@@ -3,7 +3,7 @@ name: release
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - "*.md"
 
@@ -25,9 +25,9 @@ jobs:
       - name: install
         run: yarn
       - name: build
-        run: npm run build
+        run: nx build cli
       - name: test
-        run: npm run test
+        run: nx test cli
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
