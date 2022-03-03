@@ -3,11 +3,11 @@
 This is a small library to organize and run Lighthouse UserFlow scripts in an organized and scalable way with CI automation in place 🛸.
 
 **Benefits**
-- No boiler plate
-- Write tests directly in TypeScript (no compilation with `tsc` needed)
-- Use best practices out of the box
-- Scale with UFO's 🛸
-- Run it in your CI automations  
+- ♥ No boiler plate
+- 📘 Write tests directly in TypeScript (no compilation with `tsc` needed)
+- 🦮 Use best practices out of the box
+- 🛸 Scale with UFO's
+- ⚙ Run it in your CI automations  
 
 ## Install
 
@@ -17,7 +17,7 @@ to install the library.
 
 ## Usage
 
-1. Setup `.user-flowrc.json`;
+1. Setup `.user-flowrc.json`
 
 ```json
 {
@@ -29,6 +29,9 @@ to install the library.
   "targetUrl": "https://localhost"
 }
 ```
+
+Optionally skip this step and pass the options directly as CLI params or skip the config file completely (useful for CI integrations):  
+`npx @user-flow/cli --ufPath=./ --outPath=./ --targetUrl=https://localhost:4200`
 
 2. Create a `my-user-flow.uf.ts` file.
 
@@ -42,7 +45,7 @@ import {
   UserFlowProvider
 } from '@user-flow/cli';
 
-// Optional overright lounchsettings of puppeteer
+// Optional overwrite lounchsettings of puppeteer
 const launcheOptions: LauncheOptions = {
   headless: true
 };
@@ -85,33 +88,44 @@ module.exports = userFlowProvider;
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
-`npx @user-flow/cli --targetUrl=https://localhost:4200`
+`npx @user-flow/cli capture`
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
-`npx @user-flow/cli --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
+`npx @user-flow/cli capture --targetUrl=https://localhost:4200`.
 
-## CLI options
+## Global CLI options
 
-|  Option         |  Description     |  Type   |
-| --------------- | ---------------- | ------- |
-| --help          | Show help        |                                   [boolean] |
-| --version       | Show version number       |                          [boolean] |
-| --cfgPath, -p   | Path to user-flow.config.json. e.g. `./user-flowrc.json` | [string] |
-| --targetUrl, -t | URL to analyze |      [string] |
-| --ufPath, -f    | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)       |      [string] |                         
-| --outPath, -o   | output folder for the user-flow reports |            [string] |
-| --open, -e      | Opens browser automatically after the user-flow is captured. (true by default) |  [boolean] [default: true]  |                              
-| --verbose, -v   | Run with verbose logging | [boolean] |
+|  Option         |  Description                                                                                               |  Type                     |
+| --------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------- |
+| --help          | Show help                                                                                                  | [boolean]                 |
+| --version       | Show version number                                                                                        | [boolean]                 |
+| --verbose, -v   | Run with verbose logging                                                                                   | [boolean]                 |
 | --interactive   | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. | [boolean] [default: true] |
+| --cfgPath, -p   | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   | [string]                  |
 
+## CLI Commands
 
+### `capture`
+
+The `capture` command is the default command and used to load user-flow files live, execut them and store the results.
+ 
+**Run**  
+`npx @user-flow/cli capture <options>` or `npx @user-flow/cli  <options>` as it is the default command
+
+**Options**  
+|  Option         |  Description                                                                   |  Type                     |
+| --------------- | ------------------------------------------------------------------------------ | ------------------------- |
+| --help          | Show help                                                                      | [boolean]                 |
+| --targetUrl, -t | URL to analyze                                                                 | [string]                  |
+| --ufPath, -f    | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)              | [string] [default: './']  |                         
+| --outPath, -o   | output folder for the user-flow reports                                        | [string] [default: './']  |
+| --open, -e      | Opens browser automatically after the user-flow is captured. (true by default) | [boolean] [default: true] |                              
 
 ## Write user-flows with UFO's 🛸
 
 When writing tests for multiple interactions or pages, or even for different platforms you are forced to organize your code propperly.
 Otherwise, the amount of low-level code get's a night mare to maintain...
-
 
 **This is the reason we introduced UFO's!**  
 **Organize cluttery code 👽 in developer friendly shells 🛸**  
@@ -120,7 +134,6 @@ It pays off to organize your code in a reusable way and abstract certain differe
 - UI selectors (the actual DOM selectors which may change often even if the UI stays visually the same)
 - Atomic UI interactions and performance relevant logic
 - User interaction flow including all steps and measures
-
 
 UFO's (user-flow objects) are a very similar to the concept of [PageObjects](https://martinfowler.com/bliki/PageObject.html) where you separate the API's for accessing the actual UI form the application related code.
 The difference however is that the higher layer focuses on performance related interactions.
@@ -148,6 +161,8 @@ Let's first think about the folder structure and how we organize the different p
    ┗ 📂user-flow
      ┗ 📜my-user-flow.uf.ts
 ```
+
+We reccomend to have the user-flow related code in one folder and output the results to `dist/my-app-user-flows`.
 
 ### Setup 
 Move `.user-flowrc.json` into `my-app-user-flows` and change the configuration to:
