@@ -1,4 +1,4 @@
-#@user-flow/cli
+# @user-flow/cli
 
 This is a small library to organize and run Lighthouse UserFlow scripts in an organized and scalable way with CI automation in place 🛸.
 
@@ -11,8 +11,8 @@ This is a small library to organize and run Lighthouse UserFlow scripts in an or
 
 ## Install
 
-Run 
-`npm i @user-flow/cli --save`  or `yarn i @user-flow/cli` 
+Run  
+`npm i @user-flow/cli --save`  or `yarn i @user-flow/cli`   
 to install the library.
 
 ## Usage
