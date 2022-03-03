@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@user-flow/cli": ["packages/cli/src/index.ts"],
+      "@user-flow/test": ["packages/test/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

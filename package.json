@@ -2,17 +2,39 @@
   "name": "user-flow",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "cli:build": "nx build cli",
+    "cli:link": "nx link cli",
+    "cli": "nx build cli && nx link cli && nx update cli",
+    "run": "npx @user-flow/cli capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/"
+  },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@types/puppeteer": "^5.4.5",
+    "@types/yargs": "^17.0.8",
+    "lighthouse": "^9.4.0",
+    "puppeteer": "^13.4.1",
+    "ts-node": "^10.6.0",
+    "tslib": "^2.0.0"
+  },
   "devDependencies": {
     "@nrwl/cli": "13.8.3",
+    "@nrwl/eslint-plugin-nx": "13.8.3",
+    "@nrwl/jest": "13.8.3",
     "@nrwl/js": "13.8.3",
+    "@nrwl/linter": "13.8.3",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/tao": "13.8.3",
     "@nrwl/workspace": "13.8.3",
-    "@types/node": "16.11.7",
+    "@types/jest": "27.0.2",
+    "@types/node": "^16.11.7",
+    "@typescript-eslint/eslint-plugin": "~5.10.0",
+    "@typescript-eslint/parser": "~5.10.0",
+    "eslint": "~8.7.0",
+    "eslint-config-prettier": "8.1.0",
+    "jest": "27.2.3",
     "prettier": "^2.5.1",
+    "ts-jest": "27.0.5",
     "typescript": "~4.5.2"
   }
 }

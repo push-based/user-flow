@@ -1,0 +1,35 @@
+name: release
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "*.md"
+
+jobs:
+  release:
+    if: github.repository == 'ts-code-health/deprecation-manager'
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install
+        run: yarn
+      - name: build
+        run: npm run build
+      - name: test
+        run: npm run test
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: cd ./dist/packages/deprecation-crawler && npx semantic-release
