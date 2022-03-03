@@ -11,7 +11,7 @@ import {
   UserFlowProvider,
   UserFlowCliConfig
 } from '../../types/model';
-import { resolveAnyFile } from './file';
+import { resolveAnyFile, toFileName } from './file';
 import { join } from 'path';
 import { logVerbose } from '../yargs/utils';
 import { readRepoConfig } from './config';
@@ -25,7 +25,7 @@ export function saveUserFlow(flow: UserFlow, name: string): string {
   }
 
   const report = flow.generateReport();
-  const fileName = join(outPath, `${name}.user-flow-report.html`);
+  const fileName = join(outPath, `${toFileName(name)}.user-flow-report.html`);
   writeFileSync(fileName, report);
   return fileName;
 }
