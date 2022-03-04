@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.9](https://github.com/push-based/user-flows/compare/cli-0.0.8...cli-0.0.9) (2022-03-04)
+
+
+### Bug Fixes
+
+* add tslib to deps ([f4561c3](https://github.com/push-based/user-flows/commit/f4561c3d6dd3d2eb7b8cd42ae0ef1207ab9b317e))
+
+
+
 ## [0.0.8](https://github.com/push-based/user-flows/compare/cli-0.0.7...cli-0.0.8) (2022-03-04)
 
 
