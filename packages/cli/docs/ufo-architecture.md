@@ -28,7 +28,7 @@ Let's first think about the folder structure and how we organize the different p
 📦my-app
  ┣ 📂src
  ┣ 📂dist
-   ┗ 📂my-app-user-flows
+ ┣ ┗ 📂my-app-user-flows
  ┣ ...
  ┗ 📂my-app-user-flows
    ┣ 📜.user-flowrc.json
