@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.4](https://github.com/push-based/user-flows/compare/cli-0.0.3...cli-0.0.4) (2022-03-04)
+
+
+### Bug Fixes
+
+* target relations and npm deploy ([d336586](https://github.com/push-based/user-flows/commit/d336586ca7f1652970a7138cd28563afbafff26d))
+
+
+
 ## [0.0.3](https://github.com/push-based/user-flows/compare/cli-0.0.2...cli-0.0.3) (2022-03-03)
 
 
