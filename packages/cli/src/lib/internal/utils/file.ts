@@ -21,7 +21,7 @@ export function resolveAnyFile<T>(path: string): T {
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
-    // so that imports in the `.uf.ts` files work.
+    // so that imports in the `*.uf.ts` files work.
     require('ts-node').register({
       "compilerOptions": {
         "module": "commonjs"
