@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.12](https://github.com/push-based/user-flows/compare/cli-0.0.11...cli-0.0.12) (2022-03-04)
+
+
+### Bug Fixes
+
+* adopt bin path ([71c72f1](https://github.com/push-based/user-flows/commit/71c72f1ab4ad07f95a75fccb2bb1a95aa4340486))
+
+
+
 ## [0.0.11](https://github.com/push-based/user-flows/compare/cli-0.0.10...cli-0.0.11) (2022-03-04)
 
 
