@@ -3,9 +3,7 @@
   "version": "0.0.11",
   "type": "commonjs",
   "main": "src/index.js",
-  "bin": {
-    "cli": "src/cli.js"
-  },
+  "bin": "src/cli.js",
   "dependencies": {
     "tslib": "^2.3.1",
     "yargs": "^15.4.1",
