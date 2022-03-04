@@ -1,13 +1,13 @@
 
 
-## Write user-flows with UFO's 🛸
+## Write lighthouse user flows with UFO's 🛸
 
 When writing tests for multiple interactions or pages, or even for different platforms you are forced to organize your code propperly.
 Otherwise, the amount of low-level code get's a night mare to maintain...
 
 
 **This is the reason we introduced UFO's!**  
-**Organize cluttery code 👽 in developer friendly shells 🛸**  
+**Organize cluttery lighthouse user flows code 👽 in developer friendly shells 🛸**  
 
 It pays off to organize your code in a reusable way and abstract certain different layers of logic:
 - UI selectors (the actual DOM selectors which may change often even if the UI stays visually the same)
@@ -68,7 +68,7 @@ Fixtures maintain all your UI related selector login. Mostly this are strings bu
   const movieListImgSelector = (idx: number): string => `*[data-uf="movie-list--img-${idx}"]`;
 ```
 
-### UFO's 🛸
+### UFO's 🛸 - user flow objects
 
 User flow objects maintain UI elements relevant for the interactions and to determine when certain interactions like navigation or rendering are done. 
 This objects are composeable, meaning they maintain units that can be reused within each other or grouped to bigger units.
