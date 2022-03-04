@@ -17,6 +17,9 @@
 - ☑ Advanced architecture with UFO's 🛸
 - ☑ Run it in your CI  
 
+![user-flow--example](https://user-images.githubusercontent.com/10064416/156825271-a6257002-714c-4016-a300-738cbcdb366f.png)
+
+
 # Install
 
 Run 
