@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.11](https://github.com/push-based/user-flows/compare/cli-0.0.10...cli-0.0.11) (2022-03-04)
+
+
+### Bug Fixes
+
+* runCli polish ([a068722](https://github.com/push-based/user-flows/commit/a0687228cbd9d749493f706bbfc1b0412c9094a7))
+
+
+
 ## [0.0.10](https://github.com/push-based/user-flows/compare/cli-0.0.9...cli-0.0.10) (2022-03-04)
 
 
