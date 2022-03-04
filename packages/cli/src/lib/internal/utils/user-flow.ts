@@ -14,7 +14,7 @@ import {
 import { resolveAnyFile, toFileName } from './file';
 import { join } from 'path';
 import { logVerbose } from '../yargs/utils';
-import { readRepoConfig } from './config';
+import { readRepoConfig } from '../config/config';
 import { getOpen, getOutPath } from '../../options';
 import { getInteractive } from '../yargs/options';
 

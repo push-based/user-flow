@@ -8,6 +8,8 @@ import puppeteer, {
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
+export { UserFlowCliConfig } from '../internal/config/model';
+
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
   extraPrefsFirefox?: Record<string, unknown>;
@@ -33,11 +35,7 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn
   launchOptions?: LaunchOptions,
 };
-export type UserFlowCliConfig = {
-  targetUrl: string,
-  ufPath: string,
-  outPath: string
-};
+
 
 /**
  * This class is used in the user-flow interactions to ensure the context of the flow is available in UFO's

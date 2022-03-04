@@ -1,7 +1,7 @@
 import { YargsCommandObject } from '../internal/yargs/model';
 import { getCliParam } from '../internal/yargs/utils';
 import { captureUserFlow, loadUserFlows } from '../internal/utils/user-flow';
-import { readRepoConfig } from '../internal/utils/config';
+import { readRepoConfig } from '../internal/config/config';
 import { UserFlowCliConfig } from '@user-flow/cli';
 
 export const captureUserFlowsCommand: YargsCommandObject = {
