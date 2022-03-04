@@ -18,6 +18,16 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 ### Bug Fixes
 
 * edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
+* test all peer-dependencies ([9c38b71](https://github.com/push-based/user-flows/commit/9c38b71069e4002b302db1193fd0d0730f69ec5e))
+
+
+
+## [0.0.10](https://github.com/push-based/user-flows/compare/cli-0.0.9...cli-0.0.10) (2022-03-04)
+
+
+### Bug Fixes
+
+* edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
 
 
 
