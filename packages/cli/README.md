@@ -37,6 +37,11 @@ You can also use `npx` to run it in e.g. the CI setup:
 
 1. Setup `.user-flowrc.json`;
 
+`npx @push-based/user-flow init`
+
+This results in the following file:
+
+**./.user-flowrc.json**
 ```json
 {
   // Path to user flows from root directory
@@ -131,6 +136,14 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 | **`--interactive`**         | `boolean` | `undefined` | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
 
 ## Commands 
+
+### `init` command
+
+Run command over:  
+`@npx @push-based/user-flow init`  
+
+Description:  
+This command helps you to setup a `.user-flowrc.json` and fill it over CLI prompts.
 
 ### `capture` command
 
