@@ -116,7 +116,7 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 **This is the reason we introduced UFO's!**
 **Organize clutter code 👽 in developer friendly shells 🛸**
 
-See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
+**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
 
 # CLI
 
