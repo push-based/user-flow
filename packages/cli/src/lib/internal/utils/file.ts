@@ -1,5 +1,5 @@
-import { join } from 'path';
-import { existsSync, readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 
 /**
  * Ensures the file exists before reading it
@@ -9,6 +9,17 @@ export function readFile(path: string) {
     return readFileSync(path, 'utf-8');
   }
   return '';
+}
+
+/**
+ * Ensures the folder exists before writing it
+ */
+export function writeFile(path: string, data: any) {
+  const dir = dirname(path);
+  if (!existsSync(dir)) {
+    mkdirSync(dir)
+  }
+  return writeFileSync(path, data);
 }
 
 

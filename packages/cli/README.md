@@ -7,11 +7,12 @@ This is a small library to organize and run Lighthouse UserFlow scripts in an or
 ---
 
 **Benefits**
+- Zero setup cost
 - No boiler plate
-- Write tests directly in TypeScript (no compilation with `tsc` needed)
+- Write tests directly in TypeScript (we compile them live)
 - Use best practices out of the box
-- Scale with UFO's 🛸
-- Run it in your CI automations  
+- Advanced architecture with UFO's 🛸
+- Run it in your CI  
 
 # Install
 
@@ -53,8 +54,8 @@ import {
   UserFlowProvider
 } from '@push-based/user-flow';
 
-// Optional overright lounchsettings of puppeteer
-const launcheOptions: LaunchOptions = {
+// Optional overright lounch settings of puppeteer
+const launchOptions: LaunchOptions = {
   headless: true
 };
 
@@ -87,7 +88,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 const userFlowProvider: UserFlowProvider = {
   flowOptions,
   interactions,
-  launcheOptions
+  launchOptions
 };
 
 module.exports = userFlowProvider;
@@ -107,7 +108,7 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
 
 **This is the reason we introduced UFO's!**
-**Organize cluttery code 👽 in developer friendly shells 🛸**
+**Organize clutter code 👽 in developer friendly shells 🛸**
 
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
 

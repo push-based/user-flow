@@ -1,0 +1,1 @@
+{ "outPath": "./user-flows", "targetUrl": "https://angular-movies-a12d3.web.app/", "ufPath": "packages/user-flow-example/src/lib/minimal/user-flow" }

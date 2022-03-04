@@ -56,7 +56,7 @@ export async function ensureUfPath(
       {
         type: 'input',
         name: 'ufPath',
-        message: 'What is the directory to store results in?',
+        message: 'What is the directory provides the user-flows?',
         initial: suggestion,
         skip: !!config.ufPath
       }
@@ -66,7 +66,7 @@ export async function ensureUfPath(
 
   return {
     ...config,
-    outPath: suggestion
+    ufPath: suggestion
   };
 }
 

@@ -1,5 +1,5 @@
 import { YargsCommandObject } from '../internal/yargs/model';
-import { logVerbose } from '../internal/yargs/utils';
+import { log, logVerbose } from '../internal/yargs/utils';
 import { readRepoConfig, updateRepoConfig } from '../internal/config/config';
 import { UserFlowCliConfig } from '@user-flow/cli';
 import { ensureCfgPath, ensureOutPath, ensureTargetUrl, ensureUfPath } from '../internal/config/setup';
@@ -10,7 +10,9 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      await run();
+      const cfg = await run();
+      log('user-flow CLI is set up now! 🎉')
+      logVerbose(cfg);
     }
   }
 };
@@ -23,8 +25,8 @@ export async function run(): Promise<UserFlowCliConfig> {
   const config = {
     ...repoConfig,
     ...(await ensureOutPath(repoConfig)
-       // .then(ensureUfPath)
-      //  .then(ensureTargetUrl)
+        .then(ensureUfPath)
+        .then(ensureTargetUrl)
       // defaults should be last as it takes user settings
     )
   };

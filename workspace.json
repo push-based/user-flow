@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "cli": "packages/cli"
+    "cli": "packages/cli",
+    "user-flow-example": "packages/user-flow-example"
   }
 }
