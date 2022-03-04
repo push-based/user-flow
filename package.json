@@ -8,13 +8,16 @@
     "test": "nx test cli",
     "publish": "nx affected --target version",
     "link": "nx link cli",
-    "capture": "npx @user-flow/cli capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/",
+    "@user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
+    "@user-flow:init": "npm run @user-flow -- init",
+    "@user-flow:capture": "npm run @user-flow -- capture --ufPath=./packages/movies-user-flows/src/user-flows --targetUrl=https://angular-movies-a12d3.web.app/",
     "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
     "@types/puppeteer": "^5.4.5",
     "@types/yargs": "^17.0.8",
+    "enquirer": "^2.3.6",
     "lighthouse": "^9.4.0",
     "puppeteer": "^13.4.1",
     "ts-node": "^10.6.0",

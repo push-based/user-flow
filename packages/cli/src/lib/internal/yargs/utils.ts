@@ -62,13 +62,3 @@ export function logVerbose(message: string, enforceLog = false): void {
   }
 }
 
-export function formatCode(
-  code: string,
-  parser: PrettierOptions['parser'] = 'typescript'
-) {
-  const prettierConfig = resolveConfig.sync(__dirname);
-  return prettier(code, {
-    parser,
-    ...prettierConfig
-  }).trim();
-}

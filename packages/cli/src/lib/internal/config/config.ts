@@ -1,29 +1,25 @@
 import { UserFlowCliConfig } from '@user-flow/cli';
 import { readFile } from '../utils/file';
 import { writeFileSync } from "fs";
-import { formatCode, getConfigPath, logVerbose } from '../yargs/utils';
-import { outPath, ufPath } from './constants';
+import { getConfigPath, logVerbose } from '../yargs/utils';
+import { formatCode } from '../utils/format-code';
 
-export function readRepoConfig(): UserFlowCliConfig {
-  const crawlerConfigPath = getConfigPath();
-  const repoConfigFile = readFile(crawlerConfigPath) || '{}';
+export function readRepoConfig(cfgPath: string = ''): UserFlowCliConfig {
+  const configPath = cfgPath || getConfigPath();
+  const repoConfigFile = readFile(configPath) || '{}';
   return JSON.parse(repoConfigFile);
 }
 
-export function updateRepoConfig(config: UserFlowCliConfig): void {
-  const configPath = getConfigPath();
+export function updateRepoConfig(config: UserFlowCliConfig, cfgPath: string = ''): void {
+  const configPath = cfgPath || getConfigPath();
   logVerbose(`update config under ${configPath}`);
-  writeFileSync(configPath, formatCode(JSON.stringify(config), 'json'));
+
+  // NOTICE: this is needed for better git flow.
+  // Touch a file only if needed
+  if (JSON.stringify(readRepoConfig()) !== JSON.stringify(config)) {
+    writeFileSync(configPath, formatCode(JSON.stringify(config), 'json'));
+  } else {
+    logVerbose(`No updates for ${configPath} to save.`);
+  }
 }
 
-
-export function ensureConfigDefaults(
-  userConfig: UserFlowCliConfig
-): UserFlowCliConfig {
-  return {
-    ufPath,
-    outPath,
-    // override defaults with user settings
-    ...userConfig,
-  };
-}
