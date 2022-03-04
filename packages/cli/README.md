@@ -115,7 +115,7 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
 `npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
 
-# Advanced Architecture
+# [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
 Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
 
