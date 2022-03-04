@@ -16,8 +16,15 @@ This is a small library to organize and run Lighthouse UserFlow scripts in an or
 # Install
 
 Run 
-`npm i @push-based/user-flow --save`  or `yarn i @push-based/user-flow` 
-to install the library.
+`npm i @push-based/user-flow --save-dev`  or `yarn i @push-based/user-flow --dev` 
+to install the library.  
+  
+After that you can run:  
+`user-flow --help`or `user-flow --help`  
+
+## Run without install
+You can also use `npx` to run it in e.g. the CI setup:
+`npx @push-based/user-flow --help`
 
 # Quick Start
 
@@ -39,7 +46,7 @@ to install the library.
 **./my-user-flow.uf.ts**
 ```typescript
 import {
-  LauncheOptions,
+  LaunchOptions,
   UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
@@ -47,7 +54,7 @@ import {
 } from '@push-based/user-flow';
 
 // Optional overright lounchsettings of puppeteer
-const launcheOptions: LauncheOptions = {
+const launcheOptions: LaunchOptions = {
   headless: true
 };
 
