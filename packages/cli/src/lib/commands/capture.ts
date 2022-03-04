@@ -1,7 +1,7 @@
 import { YargsCommandObject } from '../internal/yargs/model';
-import { getCliParam } from '../internal/yargs/utils';
+import { getCliParam, logVerbose } from '../internal/yargs/utils';
 import { captureUserFlow, loadUserFlows } from '../internal/utils/user-flow';
-import { readRepoConfig } from '../internal/utils/config';
+import { readRepoConfig } from '../internal/config/config';
 import { UserFlowCliConfig } from '@user-flow/cli';
 
 export const captureUserFlowsCommand: YargsCommandObject = {
@@ -9,9 +9,7 @@ export const captureUserFlowsCommand: YargsCommandObject = {
   description: 'Run a set of user flows and save the result',
   module: {
     handler: async (argv: any) => {
-      if (argv.verbose) {
-        console.info(`run "capture" as a yargs command`);
-      }
+      logVerbose(`run "capture" as a yargs command`);
       const cfg: UserFlowCliConfig = readRepoConfig();
       await run(cfg);
     }
@@ -19,7 +17,7 @@ export const captureUserFlowsCommand: YargsCommandObject = {
 };
 
 export async function run(cfg: UserFlowCliConfig): Promise<void> {
-  const {ufPath, targetUrl} = cfg;
+  const { ufPath, targetUrl } = cfg;
 
   // Check if targetUrl is given
   const _targetUrl: string | false = targetUrl || getCliParam(['targetUrl', 't']);

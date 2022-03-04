@@ -1,0 +1,33 @@
+{
+  "root": "packages/user-flow-example",
+  "sourceRoot": "packages/user-flow-example/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/user-flow-example",
+        "main": "packages/user-flow-example/src/index.ts",
+        "tsConfig": "packages/user-flow-example/tsconfig.lib.json",
+        "assets": ["packages/user-flow-example/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/user-flow-example/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/user-flow-example"],
+      "options": {
+        "jestConfig": "packages/user-flow-example/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

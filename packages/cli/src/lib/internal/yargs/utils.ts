@@ -56,19 +56,12 @@ export function getConfigPath(): string {
   return getStringParam(argPath, './.user-flowrc.json');
 }
 
-export function logVerbose(message: string, enforceLog = false): void {
+export function logVerbose(message: string | number | Symbol | Object | Array<any>, enforceLog = false): void {
   if (getVerboseFlag() || enforceLog) {
     return console.log(message);
   }
 }
-
-export function formatCode(
-  code: string,
-  parser: PrettierOptions['parser'] = 'typescript'
-) {
-  const prettierConfig = resolveConfig.sync(__dirname);
-  return prettier(code, {
-    parser,
-    ...prettierConfig
-  }).trim();
+export function log(message: string | number | Symbol | Object | Array<any>): void {
+    return console.log(message);
 }
+

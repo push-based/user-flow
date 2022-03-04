@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@user-flow/cli": ["packages/cli/src/index.ts"]
+      "@user-flow/cli": ["packages/cli/src/index.ts"],
+      "@user-flow/user-flow-example": [
+        "packages/user-flow-example/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
