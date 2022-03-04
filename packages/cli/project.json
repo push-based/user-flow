@@ -21,17 +21,41 @@
         "passWithNoTests": true
       }
     },
-    "publish": {
-      "executor": "@nrwl/workspace:run-commands",
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
-        "commands": [
-          {
-            "command": "cd ./dist/packages/cli"
-          },
-          {
-            "command": "npx semantic-release"
-          }
-        ]
+        "commitMessageFormat": "release(${projectName}): ${version}"
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "dependsOn": [
+        {
+          "target": "version",
+          "projects": "self"
+        }
+      ],
+      "options": {
+        "tag": "${tag}",
+        "notesFile": "./packages/cli/CHANGELOG.md"
+      }
+    },
+    "npm": {
+      "dependsOn": [
+        {
+          "target": "version",
+          "projects": "self"
+        }
+      ],
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
       }
     },
     "link": {
@@ -47,20 +71,17 @@
         ]
       }
     },
-    "update": {
+    "release": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
           {
-            "command": "npm link @user-flow/cli"
+            "command": "nx github cli"
+          },
+          {
+            "command": "nx npm cli"
           }
         ]
-      }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "commitMessageFormat": "release(${projectName}): ${version}"
       }
     }
   },
