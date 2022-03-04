@@ -2,14 +2,51 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.0.12](https://github.com/push-based/user-flows/compare/cli-0.0.11...cli-0.0.12) (2022-03-04)
+
+
+### Bug Fixes
+
+* adopt bin path ([71c72f1](https://github.com/push-based/user-flows/commit/71c72f1ab4ad07f95a75fccb2bb1a95aa4340486))
+
+
+
+## [0.0.11](https://github.com/push-based/user-flows/compare/cli-0.0.10...cli-0.0.11) (2022-03-04)
+
+
+### Bug Fixes
+
+* runCli polish ([a068722](https://github.com/push-based/user-flows/commit/a0687228cbd9d749493f706bbfc1b0412c9094a7))
+
+
+
 ## [0.0.10](https://github.com/push-based/user-flows/compare/cli-0.0.9...cli-0.0.10) (2022-03-04)
 
 
 ### Bug Fixes
 
+* changelog ([26c4ae4](https://github.com/push-based/user-flows/commit/26c4ae450334ab05866499265c1af9cb312d6965))
+* changelog ([604a666](https://github.com/push-based/user-flows/commit/604a666b3aeb1d48e8ae437212ceef89526f8e8d))
+* edit commenst ([fd11d2b](https://github.com/push-based/user-flows/commit/fd11d2b5cea7b40d7dbe6c12e161f6eaea53ad48))
 * edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
+* test all peer-dependencies ([9c38b71](https://github.com/push-based/user-flows/commit/9c38b71069e4002b302db1193fd0d0730f69ec5e))
 
 
+
+## [0.0.10](https://github.com/push-based/user-flows/compare/cli-0.0.9...cli-0.0.10) (2022-03-04)
+
+
+### Bug Fixes
+
+* changelog ([604a666](https://github.com/push-based/user-flows/commit/604a666b3aeb1d48e8ae437212ceef89526f8e8d))
+* edit commenst ([fd11d2b](https://github.com/push-based/user-flows/commit/fd11d2b5cea7b40d7dbe6c12e161f6eaea53ad48))
+* edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
+* test all peer-dependencies ([9c38b71](https://github.com/push-based/user-flows/commit/9c38b71069e4002b302db1193fd0d0730f69ec5e))
+* edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
+* test all peer-dependencies ([9c38b71](https://github.com/push-based/user-flows/commit/9c38b71069e4002b302db1193fd0d0730f69ec5e))
+* edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
+* test all peer-dependencies ([9c38b71](https://github.com/push-based/user-flows/commit/9c38b71069e4002b302db1193fd0d0730f69ec5e))
+* edit deps ([5395c8c](https://github.com/push-based/user-flows/commit/5395c8c4620a64dc331102e5e594902500af9116))
 
 ## [0.0.9](https://github.com/push-based/user-flows/compare/cli-0.0.8...cli-0.0.9) (2022-03-04)
 
