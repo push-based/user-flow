@@ -6,8 +6,10 @@
   "bin": {
     "cli": "src/cli.js"
   },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
   "peerDependencies": {
-    "tslib": "^2.3.1",
     "yargs": "^15.4.1",
     "ts-node": "^10.6.0",
     "lighthouse": "^9.4.0",
