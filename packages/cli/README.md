@@ -1,6 +1,10 @@
-#@push-based/user-flow
+# @push-based/user-flow
+
+---
 
 This is a small library to organize and run Lighthouse UserFlow scripts in an organized and scalable way with CI automation in place 🛸.
+
+---
 
 **Benefits**
 - No boiler plate
@@ -9,13 +13,13 @@ This is a small library to organize and run Lighthouse UserFlow scripts in an or
 - Scale with UFO's 🛸
 - Run it in your CI automations  
 
-## Install
+# Install
 
 Run 
 `npm i @push-based/user-flow --save`  or `yarn i @push-based/user-flow` 
 to install the library.
 
-## Usage
+# Quick Start
 
 1. Setup `.user-flowrc.json`;
 
@@ -91,20 +95,34 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
 `npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
 
-## CLI options
+# CLI
 
-|  Option         |  Description     |  Type   |
-| --------------- | ---------------- | ------- |
-| --help          | Show help        |                                   [boolean] |
-| --version       | Show version number       |                          [boolean] |
-| --cfgPath, -p   | Path to user-flow.config.json. e.g. `./user-flowrc.json` | [string] |
-| --targetUrl, -t | URL to analyze |      [string] |
-| --ufPath, -f    | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)       |      [string] |                         
-| --outPath, -o   | output folder for the user-flow reports |            [string] |
-| --open, -e      | Opens browser automatically after the user-flow is captured. (true by default) |  [boolean] [default: true]  |                              
-| --verbose, -v   | Run with verbose logging | [boolean] |
-| --interactive   | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. | [boolean] [default: true] |
+## Global Options
 
+|  Option                     |  Type     | Default     |  Description                                                                                               |  
+| --------------------------- | --------- | ----------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--help`**                | `boolean` | `undefined` | Show help                                                                                                  |  
+| **`--version`**             | `boolean` | `undefined` | Show version number                                                                                        |  
+| **`--cfgPath`**, **`-p`**   | `boolean` | `undefined` | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
+| **`--verbose`**, **`-v`**   | `boolean` | `undefined` | Run with verbose logging                                                                                   |  
+| **`--interactive`**         | `boolean` | `undefined` | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
+
+## Commands 
+
+### `capture` command
+
+Run command over:  
+`@npx @push-based/user-flow capture <options>`  
+
+Description:  
+This command executes a set of user-flow definitions against the target URL and saves the output.
+
+|  Option                     |  Type     | Default     |  Description                                                                                               |  
+| --------------------------- | --------- | ----------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--targetUrl`**, **`-t`** | `boolean` | `undefined` | URL to analyze                                                                                             |  
+| **`--ufPath`**, **`-f`**    | `boolean` | `undefined` | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`--outPath`**, **`-o`**   | `boolean` | `undefined` | output folder for the user-flow reports                                                                    |  
+| **`--open`**, **`-e`**      | `boolean` | `undefined` | Opens browser automatically after the user-flow is captured                                                |  
 
 
 ## Write user-flows with UFO's 🛸
