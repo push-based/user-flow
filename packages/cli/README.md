@@ -5,7 +5,7 @@
 [![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
 
 
-### This is a small library to organize and run Lighthouse UserFlow scripts in an organized and scalable way with CI automation in place 🛸
+### This is a small library to organize and run lighthouse user flow scripts in an organized and scalable way with CI automation in place 🛸
 
 ---
 
@@ -35,6 +35,10 @@ You can also use `npx` to run it in e.g. the CI setup:
 `npx @push-based/user-flow --help`
 
 # Quick Start
+
+0. For basic information have a look at the following links:
+- [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
+- [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
 
 1. Setup `.user-flowrc.json`;
 
