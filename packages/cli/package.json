@@ -1,5 +1,5 @@
 {
-  "name": "@user-flow",
+  "name": "@push-based/user-flow",
   "version": "0.0.12",
   "type": "commonjs",
   "main": "src/index.js",
@@ -11,6 +11,7 @@
     "ts-node": "^10.6.0",
     "lighthouse": "^9.4.0",
     "puppeteer": "^13.4.1",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "enquirer": "^2.3.6"
   }
 }
