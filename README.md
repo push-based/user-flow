@@ -93,17 +93,17 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
 ## CLI options
 
-|  Option         |  Description     |  Type   |
-| --------------- | ---------------- | ------- |
-| --help          | Show help        |                                   [boolean] |
-| --version       | Show version number       |                          [boolean] |
-| --cfgPath, -p   | Path to user-flow.config.json. e.g. `./user-flowrc.json` | [string] |
-| --targetUrl, -t | URL to analyze |      [string] |
-| --ufPath, -f    | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)       |      [string] |                         
-| --outPath, -o   | output folder for the user-flow reports |            [string] |
-| --open, -e      | Opens browser automatically after the user-flow is captured. (true by default) |  [boolean] [default: true]  |                              
-| --verbose, -v   | Run with verbose logging | [boolean] |
-| --interactive   | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. | [boolean] [default: true] |
+|  Option             |  Description     |  Type   |
+| ------------------- | ---------------- | ------- |
+| `--help`            | Show help        |                                   [boolean] |
+| `--version`         | Show version number       |                          [boolean] |
+| `--cfgPath`, `-p`   | Path to user-flow.config.json. e.g. `./user-flowrc.json` | [string] |
+| `--targetUrl`, `-t` | URL to analyze |      [string] |
+| `--ufPath`, `-f`    | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)       |      [string] |                         
+| `--outPath`, `-o`   | output folder for the user-flow reports |            [string] |
+| `--open`, `-e`      | Opens browser automatically after the user-flow is captured. (true by default) |  [boolean] [default: true]  |                              
+| `--verbose`, `-v`   | Run with verbose logging | [boolean] |
+| `--interactive`     | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. | [boolean] [default: true] |
 
 
 
