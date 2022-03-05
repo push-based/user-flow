@@ -13,6 +13,17 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 
 
+## [0.1.1](https://github.com/push-based/user-flows/compare/cli-0.1.0...cli-0.1.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* add logs ([b56c62e](https://github.com/push-based/user-flows/commit/b56c62ecf0e9bc46437ca55a776d7c5407266328))
+* cli param overwrite ([fc0778d](https://github.com/push-based/user-flows/commit/fc0778df0135f2c13aa01df6cf1669c6cf625b60))
+* collaps params of capturre fn to obj ([b0f7572](https://github.com/push-based/user-flows/commit/b0f75722ef4e04fb895ae20e2b940f129780414c))
+
+
+
 # [0.1.0](https://github.com/push-based/user-flows/compare/cli-0.0.11...cli-0.1.0) (2022-03-04)
 
 
