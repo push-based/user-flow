@@ -134,20 +134,28 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 
 ## Global Options
 
-|  Option                     |  Type     | Default     |  Description                                                                                               |  
-| --------------------------- | --------- | ----------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--help`**                | `boolean` | `undefined` | Show help                                                                                                  |  
-| **`--version`**             | `boolean` | `undefined` | Show version number                                                                                        |  
-| **`--cfgPath`**, **`-p`**   | `boolean` | `undefined` | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
-| **`--verbose`**, **`-v`**   | `boolean` | `undefined` | Run with verbose logging                                                                                   |  
-| **`--interactive`**         | `boolean` | `undefined` | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
+|  Option                     |  Type     | Default              |  Description                                                                                               |  
+| --------------------------- | --------- | -------------------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--help`**                | `boolean` | `undefined`          | Show help                                                                                                  |  
+| **`--version`**             | `boolean` | `undefined`          | Show version number                                                                                        |  
+| **`--cfgPath`**, **`-p`**   | `string`  | `./user-flowrc.json` | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
+| **`--verbose`**, **`-v`**   | `boolean` | `undefined`          | Run with verbose logging                                                                                   |  
+| **`--interactive`**         | `boolean` | `true`               | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
 
 ## Commands 
+
+### `*` command
+
+Run the default command over:  
+`@npx @push-based/user-flow <options>`  
+
+Description:  
+The default command forwards all options to the [`capture`]().
 
 ### `init` command
 
 Run command over:  
-`@npx @push-based/user-flow init`  
+`@npx @push-based/user-flow init <options>`  
 
 Description:  
 This command helps you to setup a `.user-flowrc.json` and fill it over CLI prompts.
@@ -155,14 +163,14 @@ This command helps you to setup a `.user-flowrc.json` and fill it over CLI promp
 ### `capture` command
 
 Run command over:  
-`@npx @push-based/user-flow capture <options>`  
+`@npx @push-based/user-flow capture <options>`  or `@npx @push-based/user-flow <options>` as it is the efault command.  
 
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
-|  Option                     |  Type     | Default     |  Description                                                                                               |  
-| --------------------------- | --------- | ----------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--targetUrl`**, **`-t`** | `boolean` | `undefined` | URL to analyze                                                                                             |  
-| **`--ufPath`**, **`-f`**    | `boolean` | `undefined` | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
-| **`--outPath`**, **`-o`**   | `boolean` | `undefined` | output folder for the user-flow reports                                                                    |  
-| **`--open`**, **`-e`**      | `boolean` | `undefined` | Opens browser automatically after the user-flow is captured                                                |  
+|  Option                     |  Type     | Default        |  Description                                                                                               |  
+| --------------------------- | --------- | -------------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--targetUrl`**, **`-t`** | `string`  | `undefined`    | URL to analyze                                                                                             |  
+| **`--ufPath`**, **`-f`**    | `string`  | `./user-flows` | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`--outPath`**, **`-o`**   | `string`  | `./`           | output folder for the user-flow reports                                                                    |  
+| **`--open`**, **`-e`**      | `boolean` | `true`         | Opens browser automatically after the user-flow is captured                                                |  
