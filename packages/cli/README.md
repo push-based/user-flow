@@ -1,11 +1,10 @@
 # @push-based/user-flow
-
+#### Lighthouse user flows done right!
 ---
 
 [![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
 
-
-### This is a small library to organize and run lighthouse user flow scripts in an organized and scalable way with CI automation in place 🛸
+### This is a library & CLI to organize and run lighthouse user flows in an organized and scalable way 🛸 with CI automation in place
 
 ---
 
@@ -40,7 +39,8 @@ You can also use `npx` to run it in e.g. the CI setup:
 - [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
 - [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
 
-1. Setup `.user-flowrc.json`;
+
+1. Setup the `.user-flowrc.json` config file
 
 `npx @push-based/user-flow init`
 
@@ -57,6 +57,7 @@ This results in the following file:
   "targetUrl": "https://localhost"
 }
 ```
+
 
 2. Create a `my-user-flow.uf.ts` file.
 
@@ -109,6 +110,7 @@ const userFlowProvider: UserFlowProvider = {
 
 module.exports = userFlowProvider;
 ```
+
 
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
