@@ -2,6 +2,24 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.1.0](https://github.com/push-based/user-flows/compare/cli-0.0.11...cli-0.1.0) (2022-03-05)
+
+
+### Bug Fixes
+
+* add dependency ([62b1349](https://github.com/push-based/user-flows/commit/62b1349bd42f59f6a235b7f9ec439fdf75c94258))
+* adopt bin path ([71c72f1](https://github.com/push-based/user-flows/commit/71c72f1ab4ad07f95a75fccb2bb1a95aa4340486))
+* cli param overwrite ([fc0778d](https://github.com/push-based/user-flows/commit/fc0778df0135f2c13aa01df6cf1669c6cf625b60))
+* collaps params of capturre fn to obj ([b0f7572](https://github.com/push-based/user-flows/commit/b0f75722ef4e04fb895ae20e2b940f129780414c))
+
+
+### Features
+
+* add default command ([11e36aa](https://github.com/push-based/user-flows/commit/11e36aa20265914464bd5548d4e263ec84d02650))
+* introduce init command ([2467966](https://github.com/push-based/user-flows/commit/24679660b59f892f8a2e53c67da5ab1ded402905))
+
+
+
 # [0.1.0](https://github.com/push-based/user-flows/compare/cli-0.0.11...cli-0.1.0) (2022-03-04)
 
 
