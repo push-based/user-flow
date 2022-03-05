@@ -36,7 +36,7 @@ export async function captureUserFlow(
   userFlowProvider: UserFlowProvider
 ) {
   const {launchOptions, flowOptions, interactions} = userFlowProvider;
-  logVerbose(`Capture user-flow report: ${flowOptions.name} on URL ${baseUrl}`);
+  logVerbose(`Capture user-flow report: "${flowOptions.name}" on URL ${baseUrl}`);
 
   // setup ppt, and start flow
   const browser: Browser = await puppeteer.launch(launchOptions);
