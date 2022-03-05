@@ -30,8 +30,8 @@ const targetUrlParam = {
  * Check for targetUrl params from cli command
  */
 export function getTargetUrl(): string {
-  const argPath = getCliParam(['targetUrl', 't']);
-  return getStringParam(argPath);
+  const targetUrl = getCliParam(['targetUrl', 't']);
+  return getStringParam(targetUrl);
 }
 
 const ufPathParam = {
@@ -46,8 +46,8 @@ const ufPathParam = {
  * Check for ufPath params from cli command
  */
 export function getUfPath(): string {
-  const argPath = getCliParam(['ufPath', 'f']);
-  return getStringParam(argPath);
+  const ufPath = getCliParam(['ufPath', 'f']);
+  return getStringParam(ufPath);
 }
 
 const outPathParam = {
@@ -62,8 +62,8 @@ const outPathParam = {
  * Check for outPath params from cli command
  */
 export function getOutPath(): string {
-  const argPath = getCliParam(['outPath', 'o']);
-  return getStringParam(argPath);
+  const outPath = getCliParam(['outPath', 'o']);
+  return getStringParam(outPath);
 }
 
 const openParam = {
@@ -78,8 +78,8 @@ const openParam = {
  * Check for open params from cli command
  */
 export function getOpen(): boolean {
-  const argPath = getCliParam(['open', 'e']);
-  return getBooleanParam(argPath);
+  const open = getCliParam(['open', 'e']);
+  return getBooleanParam(open);
 }
 
 export const options: Record<string, Options> = {
