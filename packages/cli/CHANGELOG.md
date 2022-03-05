@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.2](https://github.com/push-based/user-flows/compare/cli-0.1.1...cli-0.1.2) (2022-03-05)
+
+
+### Bug Fixes
+
+* remove unused import ([0dff047](https://github.com/push-based/user-flows/commit/0dff047af63f853f03b36fb9432ab1602ccce607))
+
+
+
 ## [0.1.1](https://github.com/push-based/user-flows/compare/cli-0.1.0...cli-0.1.1) (2022-03-05)
 
 
