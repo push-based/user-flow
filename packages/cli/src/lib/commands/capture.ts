@@ -20,20 +20,20 @@ export async function run(cfg: UserFlowCliConfig): Promise<void> {
   const { ufPath, targetUrl } = cfg;
 
   // Check if targetUrl is given
-  const _targetUrl: string | false = targetUrl || getCliParam(['targetUrl', 't']);
+  const _targetUrl: string | false = getCliParam(['targetUrl', 't']) || targetUrl || false;
   if (_targetUrl == false) {
     throw new Error('Target URL is required. Either through the console as `--targetUrl` or in the `user-flow.config.json`');
   }
 
   // Check if path to user-flows is given
-  const _ufPath: string | false = ufPath || getCliParam(['ufPath', 'f']);
+  const _ufPath: string | false = getCliParam(['ufPath', 'f']) || ufPath || false;
   if (_ufPath == false) {
     throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `user-flow.config.json`');
   }
 
   // Load and run user-flows in parallel
-  const userFlows = loadUserFlows(ufPath);
+  const userFlows = loadUserFlows(_ufPath);
   await Promise.all(userFlows.map(({ interactions, flowOptions, launchOptions }) => {
-    captureUserFlow(targetUrl, flowOptions, interactions, launchOptions).catch(console.error);
+    captureUserFlow(_targetUrl, flowOptions, interactions, launchOptions).catch(console.error);
   }));
 }
