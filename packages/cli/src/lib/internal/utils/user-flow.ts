@@ -33,11 +33,11 @@ export function saveUserFlow(flow: UserFlow, name: string): string {
 
 export async function captureUserFlow(
   baseUrl: string,
-  flowOptions: UserFlowOptions,
-  interactions: UserFlowInteractionsFn,
-  launchOptions: LaunchOptions = { headless: false }
+  userFlowProvider: UserFlowProvider
 ) {
+  const {launchOptions, flowOptions, interactions} = userFlowProvider;
   logVerbose(`Capture user-flow report: ${flowOptions.name}`);
+
   // setup ppt, and start flow
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();

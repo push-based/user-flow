@@ -33,7 +33,7 @@ export async function run(cfg: UserFlowCliConfig): Promise<void> {
 
   // Load and run user-flows in parallel
   const userFlows = loadUserFlows(_ufPath);
-  await Promise.all(userFlows.map(({ interactions, flowOptions, launchOptions }) => {
-    captureUserFlow(_targetUrl, flowOptions, interactions, launchOptions).catch(console.error);
-  }));
+  await Promise.all(userFlows.map((provider) =>
+    captureUserFlow(_targetUrl, provider).catch(console.error)
+  ));
 }
