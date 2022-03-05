@@ -1,5 +1,9 @@
 export type UserFlowCliConfig = {
-  targetUrl: string,
-  ufPath: string,
-  outPath: string
+  collect: {
+    url: string,
+    ufPath: string,
+  },
+  persist: {
+    outPath: string
+  }
 };

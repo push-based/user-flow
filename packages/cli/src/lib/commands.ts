@@ -1,12 +1,12 @@
 import { YargsCommandObject } from './internal/yargs/model';
-import { captureUserFlowsCommand } from './commands/capture';
+import { collectUserFlowsCommand } from './commands/collect';
 import { initCommand } from './commands/init';
 
 export const commands: YargsCommandObject[] = [
   initCommand,
-  captureUserFlowsCommand,
+  collectUserFlowsCommand,
   {
-    ...captureUserFlowsCommand,
+    ...collectUserFlowsCommand,
     command: '*'
   }
 ];

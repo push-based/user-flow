@@ -49,15 +49,18 @@ This results in the following file:
 **./.user-flowrc.json**
 ```json
 {
-  // Path to user flows from root directory
-  "ufPath": "./",
-  // Output path for the reports from root directory
-  "outPath": "./",
-  // URL to analyze
-  "targetUrl": "https://localhost"
+    "collect": {
+        // URL to analyze
+        "url": "https://localhost",
+        // Path to user flows from root directory
+        "ufPath": "./"
+    },
+    "persist": {
+        // Output path for the reports from root directory
+        "outPath": "./"
+    }
 }
 ```
-
 
 2. Create a `my-user-flow.uf.ts` file.
 
@@ -115,11 +118,11 @@ module.exports = userFlowProvider;
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
-`npx @push-based/user-flow --targetUrl=https://localhost:4200`
+`npx @push-based/user-flow --url=https://localhost:4200`
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
-`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --targetUrl=https://localhost:4200` to build the library.
+`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`
 
 # [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
@@ -147,7 +150,7 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 ### `*` command
 
 Run the default command over:  
-`@npx @push-based/user-flow <options>`  
+`@npx @push-based/user-flow [options]`  
 
 Description:  
 The default command forwards all options to the [`capture`]().
@@ -155,22 +158,22 @@ The default command forwards all options to the [`capture`]().
 ### `init` command
 
 Run command over:  
-`@npx @push-based/user-flow init <options>`  
+`@npx @push-based/user-flow init [options]`  
 
 Description:  
 This command helps you to setup a `.user-flowrc.json` and fill it over CLI prompts.
 
-### `capture` command
+### `collect` command
 
 Run command over:  
-`@npx @push-based/user-flow capture <options>`  or `@npx @push-based/user-flow <options>` as it is the efault command.  
+`@npx @push-based/user-flow collect [options]`  or `@npx @push-based/user-flow [options]` as it is the default command.  
 
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
 |  Option                     |  Type     | Default        |  Description                                                                                               |  
 | --------------------------- | --------- | -------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--targetUrl`**, **`-t`** | `string`  | `undefined`    | URL to analyze                                                                                             |  
-| **`--ufPath`**, **`-f`**    | `string`  | `./user-flows` | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`--url`**, **`-t`**       | `string`  | `undefined`    | URL to analyze                                                                                             |  
+| **`--ufPath`**, **`-f`**    | `string`  | `./`           | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
 | **`--outPath`**, **`-o`**   | `string`  | `./`           | output folder for the user-flow reports                                                                    |  
 | **`--open`**, **`-e`**      | `boolean` | `true`         | Opens browser automatically after the user-flow is captured                                                |  

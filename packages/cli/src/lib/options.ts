@@ -18,8 +18,8 @@ export function getCfgPath(): string {
   return getStringParam(argPath);
 }
 
-const targetUrlParam = {
-  targetUrl: {
+const urlParam = {
+  url: {
     alias: 't',
     type: 'string',
     description: 'URL to analyze'
@@ -27,11 +27,11 @@ const targetUrlParam = {
 };
 
 /**
- * Check for targetUrl params from cli command
+ * Check for url params from cli command
  */
-export function getTargetUrl(): string {
-  const targetUrl = getCliParam(['targetUrl', 't']);
-  return getStringParam(targetUrl);
+export function getUrl(): string {
+  const url = getCliParam(['url', 't']);
+  return getStringParam(url);
 }
 
 const ufPathParam = {
@@ -70,7 +70,7 @@ const openParam = {
   open: {
     alias: 'e',
     type: 'boolean',
-    description: 'Opens browser automatically after the user-flow is captured. (true by default)'
+    description: 'Opens browser automatically after the user-flow is collected. (true by default)'
   } as Options
 };
 
@@ -84,10 +84,10 @@ export function getOpen(): boolean {
 
 export const options: Record<string, Options> = {
   ...cfgPathParam,
-  ...targetUrlParam,
+  ...urlParam,
   ...ufPathParam,
-    ...outPathParam,
-    ...openParam,
-    ...verboseParam,
-   ...interactiveParam
+  ...outPathParam,
+  ...openParam,
+  ...verboseParam,
+  ...interactiveParam
 };

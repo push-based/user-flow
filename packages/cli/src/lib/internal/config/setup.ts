@@ -27,7 +27,7 @@ export async function ensureCfgPath(
 export async function ensureOutPath(
   config: UserFlowCliConfig
 ): Promise<UserFlowCliConfig> {
-  let suggestion = config.outPath || USER_FLOW_RESULT_DIR;
+  let suggestion = config?.persist?.outPath || USER_FLOW_RESULT_DIR;
   if (getInteractive()) {
     const { outPath } = await prompt<{ outPath: string }>([
       {
@@ -35,7 +35,7 @@ export async function ensureOutPath(
         name: 'outPath',
         message: 'What is the directory to store results in?',
         initial: suggestion,
-        skip: !!config.outPath
+        skip: !!config?.persist?.outPath
       }
     ]);
     suggestion = outPath;
@@ -43,14 +43,14 @@ export async function ensureOutPath(
 
   return {
     ...config,
-    outPath: suggestion
+    persist: {...config?.persist, outPath: suggestion}
   };
 }
 
 export async function ensureUfPath(
   config: UserFlowCliConfig
 ): Promise<UserFlowCliConfig> {
-  let suggestion = config.ufPath || USER_FLOWS_DIR;
+  let suggestion = config?.collect?.ufPath || USER_FLOWS_DIR;
   if (getInteractive()) {
     const { ufPath } = await prompt<{ ufPath: string }>([
       {
@@ -58,7 +58,7 @@ export async function ensureUfPath(
         name: 'ufPath',
         message: 'What is the directory provides the user-flows?',
         initial: suggestion,
-        skip: !!config.ufPath
+        skip: !!config?.collect?.ufPath
       }
     ]);
     suggestion = ufPath;
@@ -66,31 +66,31 @@ export async function ensureUfPath(
 
   return {
     ...config,
-    ufPath: suggestion
+    collect: {...config?.collect, ufPath: suggestion}
   };
 }
 
-export async function ensureTargetUrl(
+export async function ensureUrl(
   config: UserFlowCliConfig
 ): Promise<UserFlowCliConfig> {
-  let suggestion = config.targetUrl;
+  let suggestion = config?.collect?.url || '';
 
   if (getInteractive()) {
-    const { targetUrl } = await prompt<{ targetUrl: string }>([
+    const { url } = await prompt<{ url: string }>([
       {
         type: 'input',
-        name: 'targetUrl',
+        name: 'url',
         message: 'What is the URL to run the user flows for?',
         initial: suggestion,
-        skip: !!config.targetUrl
+        skip: !!config?.collect?.url
       }
     ]);
-    suggestion = targetUrl;
+    suggestion = url;
   }
 
   return {
     ...config,
-    targetUrl: suggestion
+    collect: {...config?.collect, url: suggestion}
   };
 }
 

@@ -2,7 +2,7 @@ import { YargsCommandObject } from '../internal/yargs/model';
 import { log, logVerbose } from '../internal/yargs/utils';
 import { readRepoConfig, updateRepoConfig } from '../internal/config/config';
 import { UserFlowCliConfig } from '@user-flow/cli';
-import { ensureCfgPath, ensureOutPath, ensureTargetUrl, ensureUfPath } from '../internal/config/setup';
+import { ensureCfgPath, ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -24,9 +24,9 @@ export async function run(): Promise<UserFlowCliConfig> {
 
   const config = {
     ...repoConfig,
-    ...(await ensureOutPath(repoConfig)
+    ...(await ensureUrl(repoConfig)
         .then(ensureUfPath)
-        .then(ensureTargetUrl)
+        .then(ensureOutPath)
       // defaults should be last as it takes user settings
     )
   };

@@ -2,21 +2,25 @@ import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './model';
 import { getVerboseFlag } from './options';
-import { format as prettier, Options as PrettierOptions, resolveConfig } from 'prettier';
+import { readRepoConfig } from '../config/config';
 
 export function setupYargs(
   commands: YargsCommandObject[],
   options: { [key: string]: Options }
 ) {
-  commands.forEach((command) => {
-    yargs.command(
+  yargs.options(options)
+    .parserConfiguration({'boolean-negation': true})
+    .recommendCommands()
+    .example([
+      ['init', 'Setup user-flows over prompts']
+    ]);
+
+  commands.forEach((command) => yargs.command(
       command.command,
       command.description,
       () => {},
       command.module.handler
-    );
-  });
-  yargs.options(options).recommendCommands();
+    ));
 
   return yargs;
 }
@@ -25,6 +29,7 @@ export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
 }) {
+  // `.argv` to get ars as plain obj
   setupYargs(cliCfg.commands, cliCfg.options).argv;
 }
 
