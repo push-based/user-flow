@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.4](https://github.com/push-based/user-flows/compare/cli-0.1.3...cli-0.1.4) (2022-03-06)
+
+
+### Bug Fixes
+
+* headless is false by default ([5b2b0ef](https://github.com/push-based/user-flows/commit/5b2b0ef5d9b4d18587e23efbed2ee0405b648261))
+
+
+
 ## [0.1.3](https://github.com/push-based/user-flows/compare/cli-0.1.2...cli-0.1.3) (2022-03-05)
 
 
