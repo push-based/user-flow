@@ -26,7 +26,9 @@ export async function collectFlow(
   collectOptions: UserFlowCliConfig['collect'],
   userFlowProvider: UserFlowProvider
 ) {
-  const {launchOptions, flowOptions, interactions} = userFlowProvider;
+  let {launchOptions, flowOptions, interactions} = userFlowProvider;
+  // @TODO consider CI vs dev mode
+  launchOptions = launchOptions || { headless: false};
   logVerbose(`Capture user-flow report: "${flowOptions.name}" on URL ${collectOptions.url}`);
 
   // setup ppt, and start flow
