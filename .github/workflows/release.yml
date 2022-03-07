@@ -18,9 +18,9 @@ jobs:
         node-version: [14.x]
 
     steps:
-      - name: Setup git user to "Push-based Bot"
+      - name: Setup git user to "push-based.io - bot"
         shell: bash
-        run: git config user.email "-" && git config user.name "Push-based Bot"
+        run: git config user.email "opensource@push-based.io" && git config user.name "Push-based Bot"
       - uses: actions/checkout@v1
         with:
           fetch-depth: 0
