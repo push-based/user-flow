@@ -20,6 +20,9 @@ export interface UserFlowOptions {
   name: string;
 }
 
+/**
+ * used inside of `UserFlowInteractionsFn`
+ */
 export interface StepOptions {
   stepName: string;
 }
