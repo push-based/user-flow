@@ -13,7 +13,6 @@
     "@user-flow:capture": "npm run @user-flow -- capture --ufPath=./packages/movies-user-flows/src/user-flows --url=https://angular-movies-a12d3.web.app/",
     "prepare": "husky install"
   },
-  "private": true,
   "dependencies": {
     "@types/puppeteer": "^5.4.5",
     "@types/yargs": "^17.0.8",
