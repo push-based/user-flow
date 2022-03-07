@@ -93,4 +93,3 @@ export async function ensureUrl(
     collect: {...config?.collect, url: suggestion}
   };
 }
-
