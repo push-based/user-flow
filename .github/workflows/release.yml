@@ -18,16 +18,17 @@ jobs:
         node-version: [14.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Setup git user to "push-based.io - bot"
         shell: bash
-        run: git config user.email "opensource@push-based.io" && git config user.name "Push-based Bot"
+        run: git config user.email "opensource@push-based.io" && git config user.name "push-based.io - bot"
       - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
       - name: install
         run: yarn
       - name: build
