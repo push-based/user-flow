@@ -45,7 +45,7 @@ export type UserFlowProvider = {
 export class Ufo {
   protected page: Page;
 
-  constructor({ page }: { page: Page }) {
+  constructor({ page }: UserFlowContext) {
     this.page = page;
   }
 };
