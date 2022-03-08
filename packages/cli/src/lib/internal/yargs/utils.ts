@@ -34,26 +34,26 @@ export function runCli(cliCfg: {
 }
 
 
-export function getCliParam(names: string[]): string | false {
+export function getCliParam(names: string[]): string | undefined {
   // @TODO move  cli stuff into separate task
   // Check for tag params from cli command
   const params = Object.keys(yargs.argv)
     .filter((k) => names.includes(k))
     .map((k) => (yargs as any).argv[k].toString().trim())
     .filter((p) => !!p);
-  return params.length ? params.pop() : false;
+  return params.length ? params.pop() : undefined;
 }
 
 
-export function getBooleanParam(paramValue: string | boolean): boolean {
-  if (paramValue === false) {
+export function getBooleanParam(paramValue: string | undefined): boolean {
+  if (paramValue === undefined) {
     return false;
   }
   return paramValue !== 'false';
 }
 
-export function getStringParam(paramValue: string | false, fallBack = ''): string {
-  return paramValue !== false ? paramValue : fallBack;
+export function getStringParam(paramValue: string | undefined, fallBack = ''): string {
+  return paramValue !== undefined ? paramValue : fallBack;
 }
 
 export function getConfigPath(): string {

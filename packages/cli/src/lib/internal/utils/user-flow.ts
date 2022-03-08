@@ -11,13 +11,10 @@ import {
 import { resolveAnyFile, toFileName, writeFile } from './file';
 import { join } from 'path';
 import { logVerbose } from '../yargs/utils';
-import { readRepoConfig } from '../config/config';
-import { getOpen, getOutPath } from '../../options';
-import { getInteractive } from '../yargs/options';
 
 export function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowCliConfig['persist']): string {
   const report = flow.generateReport();
-  const fileName = join(outPath, `${toFileName(name)}.user-flow-report.html`);
+  const fileName = join(outPath, `${toFileName(name)}.uf.html`);
   writeFile(fileName, report);
   return fileName;
 }
@@ -29,7 +26,7 @@ export async function collectFlow(
   let {launchOptions, flowOptions, interactions} = userFlowProvider;
   // @TODO consider CI vs dev mode
   launchOptions = launchOptions || { headless: false};
-  logVerbose(`Capture user-flow report: "${flowOptions.name}" on URL ${collectOptions.url}`);
+  logVerbose(`Collect user-flow: "${flowOptions.name}" from URL ${collectOptions.url}`);
 
   // setup ppt, and start flow
   const browser: Browser = await puppeteer.launch(launchOptions);

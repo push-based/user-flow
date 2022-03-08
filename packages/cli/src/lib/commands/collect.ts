@@ -15,15 +15,16 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       logVerbose(`run "collect" as a yargs command with args:`);
       logVerbose(argv);
       const cfg: UserFlowCliConfig = readRepoConfig();
+      const openReport: boolean = argv.open !== undefined ? argv.open : false;
       argv.url && (cfg.collect.url = argv.url);
       argv.ufPath && (cfg.collect.ufPath = argv.ufPath);
       argv.outPath && (cfg.persist.outPath = argv.outPath);
-      await run(cfg);
+      await run(cfg, openReport);
     }
   }
 };
 
-export async function run(cfg: UserFlowCliConfig): Promise<void> {
+export async function run(cfg: UserFlowCliConfig, openReport: boolean): Promise<void> {
 
   const { collect, persist } = cfg;
   const { url, ufPath } = collect;
@@ -47,10 +48,9 @@ export async function run(cfg: UserFlowCliConfig): Promise<void> {
       .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
       .then((fileName) => {
         // open report if requested and not in executed in CI
-        if (getOpen() && !getInteractive()) {
+        if (openReport && getInteractive()) {
           open(fileName, { wait: false });
         }
       })
-      .catch(console.error)
   ));
 }
