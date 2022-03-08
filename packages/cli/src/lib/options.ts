@@ -26,14 +26,6 @@ const urlParam = {
   } as Options
 };
 
-/**
- * Check for url params from cli command
- */
-export function getUrl(): string {
-  const url = getCliParam(['url', 't']);
-  return getStringParam(url);
-}
-
 const ufPathParam = {
   ufPath: {
     alias: 'f',
@@ -41,14 +33,6 @@ const ufPathParam = {
     description: 'folder containing user-flow files to run. (`*.uf.ts` or `*.uf.js`)'
   } as Options
 };
-
-/**
- * Check for ufPath params from cli command
- */
-export function getUfPath(): string {
-  const ufPath = getCliParam(['ufPath', 'f']);
-  return getStringParam(ufPath);
-}
 
 const outPathParam = {
   outPath: {
@@ -70,7 +54,8 @@ const openParam = {
   open: {
     alias: 'e',
     type: 'boolean',
-    description: 'Opens browser automatically after the user-flow is collected. (true by default)'
+    description: 'Opens browser automatically after the user-flow is collected. (true by default)',
+    default: true
   } as Options
 };
 
@@ -78,7 +63,7 @@ const openParam = {
  * Check for open params from cli command
  */
 export function getOpen(): boolean {
-  const open = getCliParam(['open', 'e']);
+  const open = getCliParam(['open', 'e']) || 'true';
   return getBooleanParam(open);
 }
 
@@ -91,3 +76,5 @@ export const options: Record<string, Options> = {
   ...verboseParam,
   ...interactiveParam
 };
+
+
