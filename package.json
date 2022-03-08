@@ -10,7 +10,7 @@
     "link": "nx link cli",
     "@user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@user-flow:init": "npm run @user-flow -- init",
-    "@user-flow:capture": "npm run @user-flow -- capture --ufPath=./packages/movies-user-flows/src/user-flows --url=https://angular-movies-a12d3.web.app/",
+    "@user-flow:capture": "npm run @user-flow -- capture --ufPath=./packages/user-flow-example/src/lib/minimal/user-flow --url=https://angular-movies-a12d3.web.app",
     "prepare": "husky install"
   },
   "dependencies": {
