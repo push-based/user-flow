@@ -1,4 +1,4 @@
-export type UserFlowCliConfig = {
+export type UserFlowRcConfig = {
   collect: {
     url: string,
     ufPath: string,

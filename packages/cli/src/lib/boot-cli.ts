@@ -1,5 +1,10 @@
 import { runCli } from './internal/yargs/utils';
 import { commands } from './commands';
-import { options } from './options';
+import { readRcConfig } from './internal/config/config';
+import { CORE_OPTIONS } from './core/options';
 
-(async () => runCli({ commands: commands, options: options }))();
+const {collect, persist} = readRcConfig();
+
+(async () => runCli({ commands: commands, options: {
+    ...CORE_OPTIONS
+  }, config: {...collect, ...persist} }))();

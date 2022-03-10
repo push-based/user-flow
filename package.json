@@ -10,12 +10,12 @@
     "link": "nx link cli",
     "@user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@user-flow:init": "npm run @user-flow -- init",
-    "@user-flow:capture": "npm run @user-flow -- capture --ufPath=./packages/user-flow-example/src/lib/minimal/user-flow --url=https://angular-movies-a12d3.web.app",
+    "@user-flow:collect": "npm run @user-flow -- capture --ufPath=./packages/user-flow-example/src/lib/minimal/user-flow --url=https://angular-movies-a12d3.web.app",
     "prepare": "husky install"
   },
   "dependencies": {
     "@types/puppeteer": "^5.4.5",
-    "@types/yargs": "^17.0.8",
+    "@types/yargs": "^17.0.9",
     "enquirer": "^2.3.6",
     "lighthouse": "^9.4.0",
     "puppeteer": "^13.4.1",

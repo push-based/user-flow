@@ -1,12 +1,15 @@
 import { YargsCommandObject } from '../internal/yargs/model';
-import { log, logVerbose } from '../internal/yargs/utils';
-import { readRepoConfig, updateRepoConfig } from '../internal/config/config';
-import { UserFlowCliConfig } from '@user-flow/cli';
+import { log, logVerbose } from '../core/loggin/index';
+import { readRcConfig, updateRepoConfig } from '../internal/config/config';
+import { UserFlowRcConfig } from '@user-flow/cli';
 import { ensureCfgPath, ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
+import yargs from 'yargs';
+import { param } from './collect/options/open';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
   description: 'Setup .user-flowrc.json',
+  builder: (y) => y.option(param),
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
@@ -17,9 +20,9 @@ export const initCommand: YargsCommandObject = {
   }
 };
 
-export async function run(): Promise<UserFlowCliConfig> {
+export async function run(): Promise<UserFlowRcConfig> {
   const cfgPath = await ensureCfgPath();
-  const repoConfig = readRepoConfig(cfgPath);
+  const repoConfig = readRcConfig(cfgPath);
   // const isFirstRun = Object.keys(repoConfig).length <= 0;
 
   const config = {
