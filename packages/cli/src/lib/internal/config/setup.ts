@@ -1,21 +1,21 @@
-import { UserFlowCliConfig } from './model';
-import { getInteractive } from '../yargs/options';
+import { UserFlowRcConfig } from './model';
+import { get as interactive } from '../../core/options/interactive';
 import { CONFIG_NAME, CONFIG_PATH, USER_FLOW_RESULT_DIR, USER_FLOWS_DIR } from './constants';
 import { prompt } from 'enquirer';
 import { join } from 'path';
-import { getCfgPath } from '../../options';
+import { get as getRcPath } from '../../core/options/rc';
 
 export async function ensureCfgPath(
 ): Promise<string> {
   let suggestion = CONFIG_PATH;
-  if (getInteractive()) {
+  if (interactive()) {
     const { cfgPath } = await prompt<{ cfgPath: string }>([
       {
         type: 'input',
         name: 'cfgPath',
         message: `What is the folder to your ${CONFIG_NAME} file?`,
         initial: suggestion,
-        skip: !!getCfgPath()
+        skip: !!getRcPath()
       }
     ]);
     suggestion = cfgPath;
@@ -25,10 +25,10 @@ export async function ensureCfgPath(
 }
 
 export async function ensureOutPath(
-  config: UserFlowCliConfig
-): Promise<UserFlowCliConfig> {
+  config: UserFlowRcConfig
+): Promise<UserFlowRcConfig> {
   let suggestion = config?.persist?.outPath || USER_FLOW_RESULT_DIR;
-  if (getInteractive()) {
+  if (interactive()) {
     const { outPath } = await prompt<{ outPath: string }>([
       {
         type: 'input',
@@ -48,10 +48,10 @@ export async function ensureOutPath(
 }
 
 export async function ensureUfPath(
-  config: UserFlowCliConfig
-): Promise<UserFlowCliConfig> {
+  config: UserFlowRcConfig
+): Promise<UserFlowRcConfig> {
   let suggestion = config?.collect?.ufPath || USER_FLOWS_DIR;
-  if (getInteractive()) {
+  if (interactive()) {
     const { ufPath } = await prompt<{ ufPath: string }>([
       {
         type: 'input',
@@ -71,11 +71,11 @@ export async function ensureUfPath(
 }
 
 export async function ensureUrl(
-  config: UserFlowCliConfig
-): Promise<UserFlowCliConfig> {
+  config: UserFlowRcConfig
+): Promise<UserFlowRcConfig> {
   let suggestion = config?.collect?.url || '';
 
-  if (getInteractive()) {
+  if (interactive()) {
     const { url } = await prompt<{ url: string }>([
       {
         type: 'input',
