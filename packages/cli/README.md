@@ -123,12 +123,12 @@ You can directly run the cli command. The typescript files will get resolved and
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
-`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`
-
-4. Additional development process optimizations
-For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only.  
-
-This is a multitude faster e.g. 53s vs 3s for a simple 2 step flow with navigation.
+`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`  
+  
+  
+> ** 🤓 DX Tip:  
+> For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
+> This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
 # [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
