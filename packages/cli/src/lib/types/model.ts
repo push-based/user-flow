@@ -81,7 +81,7 @@ export class UserFlowMock {
     return Promise.resolve();
   }
 
-  async endTimespan({stepName}: StepOptions): Promise<void> {
+  async endTimespan({stepName}: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#endTimespan: ${stepName}`);
     return Promise.resolve();
   }
