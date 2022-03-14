@@ -14,6 +14,7 @@
 - ☑ No boiler plate
 - ☑ Write tests directly in TypeScript (we compile them live)
 - ☑ Use best practices out of the box
+- ☑ Excellent DX through `--dryRun` options 
 - ☑ Advanced architecture with UFO's 🛸
 - ☑ Run it in your CI  
 
@@ -124,6 +125,11 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
 `npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`
 
+4. Additional development process optimizations
+For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only.  
+
+This is a multitude faster e.g. 53s vs 3s for a simple 2 step flow with navigation.
+
 # [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
 Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
@@ -140,10 +146,11 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 |  Option                     |  Type     | Default                     |  Description                                                                                               |  
 | --------------------------- | --------- | --------------------------- |----------------------------------------------------------------------------------------------------------- |  
 | **`--help`**                | `boolean` | `undefined`                 | Show help                                                                                                  |  
-| **`--version`**             | `boolean` | `undefined`                 | Show version number of cli                                                                                        |  
+| **`--version`**             | `boolean` | `undefined`                 | Show version number of cli                                                                                 |  
 | **`--cfgPath`**, **`-p`**   | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
 | **`--verbose`**, **`-v`**   | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
 | **`--interactive`**         | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
+| **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Commands 
 
@@ -185,4 +192,16 @@ This command executes a set of user-flow definitions against the target URL and 
 
 ### `logVerbose`
 
-A functions that logs the passed string only if the CIL options `--verbose` or `-v`is true.
+A function that logs the passed string only if the CIL options `--verbose` or `-v`is true. 
+
+**Usage**
+
+```typescript
+import { logVerbose } from "@push-based/user-flow";
+// ...
+
+logVerbose('test');
+```
+
+`npx @push-based/user-flow` logs nothing  
+`npx @push-based/user-flow --verbose` logs "test"
