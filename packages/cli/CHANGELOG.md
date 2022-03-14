@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.1](https://github.com/push-based/user-flows/compare/cli-0.2.0...cli-0.2.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* rc path option ([12e7b7f](https://github.com/push-based/user-flows/commit/12e7b7f7497244662fe21bbefaac83758e9fef67))
+
+
+
 # [0.2.0](https://github.com/push-based/user-flows/compare/cli-0.1.4...cli-0.2.0) (2022-03-14)
 
 
