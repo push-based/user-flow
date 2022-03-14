@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.2](https://github.com/push-based/user-flows/compare/cli-0.2.1...cli-0.2.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* process sequential ([bb32e2c](https://github.com/push-based/user-flows/commit/bb32e2c81deb6b08f3314a0e24c55b1adadce083))
+
+
+
 ## [0.2.1](https://github.com/push-based/user-flows/compare/cli-0.2.0...cli-0.2.1) (2022-03-14)
 
 
