@@ -5,6 +5,7 @@ import { UserFlowRcConfig } from '@user-flow/cli';
 import { USER_FLOW_RESULT_DIR } from '../../internal/config/constants';
 import { logVerbose } from '../../core/loggin/index';
 import { get as interactive } from '../../core/options/interactive';
+import { get as dryRun } from '../../core/options/dryRun';
 import { get as open } from './options/open';
 import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
@@ -44,10 +45,10 @@ export async function run(cfg: CollectOptions): Promise<void> {
   const userFlows = loadFlow(ufPath);
   await Promise.all(userFlows.map((provider) =>
     collectFlow({ url, ufPath }, provider)
-      .then((flow) => persistFlow(flow, provider.flowOptions.name, { outPath }))
+      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : '')
       .then((fileName) => {
         // open report if requested and not in executed in CI
-        if (open() && interactive()) {
+        if (!dryRun() && open() && interactive()) {
           openFileInBrowser(fileName, { wait: false });
         }
       })

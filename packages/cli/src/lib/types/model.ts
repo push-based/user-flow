@@ -8,7 +8,10 @@ import puppeteer, {
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { UserFlowRcConfig } from '../internal/config/model';
+
 export { UserFlowRcConfig } from '../internal/config/model';
+import FlowResult from 'lighthouse/types/lhr/flow';
+import { logVerbose } from '../core/loggin';
 
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
@@ -51,3 +54,61 @@ export class Ufo {
     this.page = page;
   }
 };
+
+
+export class UserFlowMock {
+
+  protected page: Page;
+
+  /**
+   * @param {LH.NavigationRequestor} requestor
+   * @param {StepOptions=} stepOptions
+   */
+  async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
+    logVerbose(`flow#navigate: ${stepName || requestor}`);
+    return this.page.goto(requestor);
+  }
+
+  constructor(page: Page, { name }: UserFlowOptions) {
+    this.page = page;
+  }
+
+  /**
+   * @param {StepOptions=} stepOptions
+   */
+  async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#startTimespan: ${stepName}`);
+    return Promise.resolve();
+  }
+
+  async endTimespan({stepName}: StepOptions): Promise<void> {
+    logVerbose(`flow#endTimespan: ${stepName}`);
+    return Promise.resolve();
+  }
+
+  /**
+   * @param {StepOptions=} stepOptions
+   */
+  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#snapshot: ${stepName}`);
+    return Promise.resolve();
+  }
+
+  /**
+   * @return {LH.FlowResult}
+   */
+  getFlowResult(): FlowResult {
+    logVerbose(`flow#getFlowResult`);
+    return {} as FlowResult;
+  }
+
+  /**
+   * @return {string}
+   */
+  generateReport(): string {
+    logVerbose(`flow#generateReport`);
+    return '';
+  }
+
+}
+

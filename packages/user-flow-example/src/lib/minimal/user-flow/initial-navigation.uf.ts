@@ -1,8 +1,3 @@
-// Setup UserFlow options
-const flowOptions = {
-  name: 'Initial Navigation',
-};
-
 // Your custom interactions with the page
 const interactions = async (ctx: any): Promise<any> => {
   const { flow, page, browser, collectOptions } = ctx;
@@ -10,30 +5,27 @@ const interactions = async (ctx: any): Promise<any> => {
 
   const testUrl = `${url}`;
 
-  const sideMenuBtnSelector = '*[data-uf]="main-btn"';
-  const firstMovieListImg = '*[data-uf]="movie-0"';
+  const sideMenuBtnSelector = '*[data-uf="menu-btn"]';
+  const topRatedListBtn = '*[data-uf="menu-cat-topRated"]';
+  const firstMovieListImg = '*[data-uf="movie-0"]';
 
   await flow.navigate(testUrl);
-/*
-  await flow.startTimespan({
-    stepName: 'Navigate to list page',
-  });
+
+  await flow.startTimespan({ stepName: 'Navigate to top rated'});
 
   await page.waitForSelector(sideMenuBtnSelector);
   await page.click(sideMenuBtnSelector);
+  await page.waitForSelector(topRatedListBtn);
+  await page.click(topRatedListBtn);
   await page.waitForSelector(firstMovieListImg);
 
   await flow.endTimespan();
-*/
-  return Promise.resolve();
+
 };
 
-const userFlowProvider = {
-  flowOptions,
-  interactions,
-  launchOptions: {
-    headless: false
-  }
+module.exports = {
+  flowOptions: {
+    name: 'Initial Navigation'
+  },
+  interactions
 };
-
-module.exports = userFlowProvider;
