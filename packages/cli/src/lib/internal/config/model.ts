@@ -6,4 +6,4 @@ export type UserFlowRcConfig = {
   persist: {
     outPath: string
   }
-};
+} & Object;
