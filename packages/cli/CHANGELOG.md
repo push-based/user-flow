@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.2.0](https://github.com/push-based/user-flows/compare/cli-0.1.4...cli-0.2.0) (2022-03-14)
+
+
+### Bug Fixes
+
+* add animation period ([1e5452d](https://github.com/push-based/user-flows/commit/1e5452d8a36d4538ab6a91aec086f50bb8babbba))
+* add docs ([d2915d5](https://github.com/push-based/user-flows/commit/d2915d5385f50cc27e26089bc839ecbc2f1a681d))
+* adopt options handling ([1ee701a](https://github.com/push-based/user-flows/commit/1ee701ac4a1b24ee87c7e7c12090c4b18db51997))
+* remove unused options ([9e4deac](https://github.com/push-based/user-flows/commit/9e4deacd527f057937747d10e04703d67c86980c))
+* test ci release ([5ee1180](https://github.com/push-based/user-flows/commit/5ee118084d32b30a79c1ae073f016072d86b0b4a))
+* test2 ci release ([5411809](https://github.com/push-based/user-flows/commit/5411809ea9f4d017990efb0964ea011d6d85a361))
+
+
+### Features
+
+* implement dry run flag ([ad7b6a6](https://github.com/push-based/user-flows/commit/ad7b6a63786cc0d8f748592c8cffa863ac1554e3))
+
+
+
 ## [0.1.4](https://github.com/push-based/user-flows/compare/cli-0.1.3...cli-0.1.4) (2022-03-06)
 
 
