@@ -126,7 +126,7 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 `npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`  
   
   
-> ** 🤓 DX Tip:  
+> **🤓 DX Tip:**  
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
