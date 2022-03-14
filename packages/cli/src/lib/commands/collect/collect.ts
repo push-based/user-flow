@@ -43,8 +43,8 @@ export async function run(cfg: CollectOptions): Promise<void> {
 
   // Load and run user-flows in parallel
   const userFlows = loadFlow(ufPath);
-  await sequeltial(userFlows.map((provider) =>
-    (_: any) => collectFlow({ url, ufPath }, provider)
+  await sequeltial(userFlows.map(({ exports: provider, path }) =>
+    (_: any) => collectFlow({ url, ufPath }, { ...provider, path})
       .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : '')
       .then((fileName) => {
         // open report if requested and not in executed in CI

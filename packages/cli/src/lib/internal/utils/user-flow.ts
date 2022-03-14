@@ -23,12 +23,13 @@ export function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowR
 
 export async function collectFlow(
   collectOptions: UserFlowRcConfig['collect'],
-  userFlowProvider: UserFlowProvider
+  userFlowProvider: UserFlowProvider & {path: string}
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
-  // @TODO consider CI vs dev mode
+  // @TODO consider CI vs dev mode => headless, open, persist etc
   launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false,  width: 800, height: 600  }  };
   logVerbose(`Collect user-flow: "${flowOptions.name}" from URL ${collectOptions.url}`);
+  logVerbose(`File path: ${userFlowProvider.path}`);
   let start = Date.now();
   // setup ppt, and start flow
   const browser: Browser = await puppeteer.launch(launchOptions);
@@ -44,8 +45,8 @@ export async function collectFlow(
   return flow;
 }
 
-export function loadFlow(path: string): UserFlowProvider[] {
-  const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider>(join(path, p)));
+export function loadFlow(path: string): ({exports: UserFlowProvider, path: string})[] {
+  const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & {path: string}>(join(path, p)));
   return flows;
 }
 

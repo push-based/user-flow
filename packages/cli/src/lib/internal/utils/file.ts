@@ -23,7 +23,7 @@ export function writeFile(path: string, data: any) {
 }
 
 
-export function resolveAnyFile<T>(path: string): T {
+export function resolveAnyFile<T>(path: string): {exports: T, path: string} {
   // start path from cwd
   path = join(process.cwd(), path);
   let file;
@@ -47,7 +47,7 @@ export function resolveAnyFile<T>(path: string): T {
   // `export default { ... }`. The ESM format is compiled into:
   // `{ default: { ... } }`
   const exports = file.default || file;
-  return exports;
+  return { exports, path };
 }
 
 
