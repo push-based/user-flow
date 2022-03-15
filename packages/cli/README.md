@@ -1,6 +1,7 @@
 # @push-based/user-flow
 ## Lighthouse user flows done right!
 
+[![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
 <section>
   <br/>
