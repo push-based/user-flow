@@ -13,6 +13,17 @@ This file was generated using [@jscutlery/semver](https://github.com/jscutlery/s
 
 
 
+## [0.2.3](https://github.com/push-based/user-flows/compare/cli-0.2.2...cli-0.2.3) (2022-03-15)
+
+
+### Bug Fixes
+
+* add logging for path ([70f8c5c](https://github.com/push-based/user-flows/commit/70f8c5c3b6fb27d101ec677c0274c3c0f4f964f4))
+* update package json ([47cdf3e](https://github.com/push-based/user-flows/commit/47cdf3e218c0caf6763670de40c6ceadd42dc0b3))
+* update readme with shield ([3dd06b5](https://github.com/push-based/user-flows/commit/3dd06b598f9dc7a6dffc043be0e51ab89bdf801f))
+
+
+
 ## [0.2.3](https://github.com/push-based/user-flows/compare/cli-0.2.2...cli-0.2.3) (2022-03-14)
 
 
