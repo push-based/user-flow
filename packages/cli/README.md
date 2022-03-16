@@ -215,3 +215,7 @@ logVerbose('test');
 
 `npx @push-based/user-flow` logs nothing  
 `npx @push-based/user-flow --verbose` logs "test"
+
+## Examples
+
+- [angular-movies](https://github.com/tastejs/angular-movies/tree/main/projects/movies-user-flows/src)
