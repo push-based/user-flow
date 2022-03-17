@@ -3,13 +3,6 @@
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
-<section>
-  <br/>
-  <b>powered by 
-    <img height="40" width="auto" title="push-based.io" src="https://user-images.githubusercontent.com/10064416/158282835-d577b7dc-17f0-4269-9ebc-8f17bfc2ec9c.png" />
-  </b>
-</section>
-
 ---
 
 [![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
@@ -219,3 +212,11 @@ logVerbose('test');
 ## Examples
 
 - [angular-movies](https://github.com/tastejs/angular-movies/tree/main/projects/movies-user-flows/src)
+
+
+<section>
+  <br/>
+  <b>powered by 
+    <a href="push-based.io"><img height="40" width="auto" title="push-based.io" src="https://user-images.githubusercontent.com/10064416/158282835-d577b7dc-17f0-4269-9ebc-8f17bfc2ec9c.png" /></a>
+  </b>
+</section>
