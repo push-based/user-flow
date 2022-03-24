@@ -24,6 +24,5 @@ module.exports = {
     await page.click(topRatedListBtn);
     await page.waitForSelector(firstMovieListImg);
     await flow.endTimespan();
-
   }
 };
