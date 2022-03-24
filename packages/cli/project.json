@@ -30,7 +30,9 @@
         }
       ],
       "options": {
-        "commitMessageFormat": "release(${projectName}): ${version}"
+        "commitMessageFormat": "release(${projectName}): ${version}",
+        "noVerify": true,
+        "push": true
       }
     },
     "github": {
