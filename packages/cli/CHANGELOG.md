@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.2.4](https://github.com/push-based/user-flow/compare/cli-0.2.3...cli-0.2.4) (2022-03-24)
+
+
+### Bug Fixes
+
+* add todo for unstable mock ([cb4a020](https://github.com/push-based/user-flow/commit/cb4a020779310f4618e7c678e975ab56dc98d0e9))
+
+
+
 ## [0.2.3](https://github.com/push-based/user-flows/compare/cli-0.2.2...cli-0.2.3) (2022-03-15)
 
 
