@@ -30,7 +30,7 @@
         }
       ],
       "options": {
-        "postTargets": ["cli:npm", "cli:github"]
+        "postTargets": ["cli:npm", "cli:github"],
         "commitMessageFormat": "release(${projectName}): ${version}",
         "noVerify": true,
         "push": true
@@ -40,7 +40,7 @@
       "executor": "@jscutlery/semver:github",
       "options": {
         "tag": "${tag}",
-        "notesFile": "./packages/cli/CHANGELOG.md"
+        "notesFile": "${notes}"
       }
     },
     "npm": {
@@ -65,7 +65,7 @@
     "release": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "nx version cli"
+        "command": "nx run cli:version"
       }
     }
   },
