@@ -6,7 +6,7 @@
     "nx": "nx",
     "build": "nx build cli",
     "test": "nx test cli",
-    "publish": "nx npm cli",
+    "publish": "nx run cli:publish",
     "link": "nx link cli",
     "@user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@user-flow:init": "npm run @user-flow -- init",
