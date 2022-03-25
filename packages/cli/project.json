@@ -30,6 +30,7 @@
         }
       ],
       "options": {
+        "postTargets": ["cli:npm", "cli:github"]
         "commitMessageFormat": "release(${projectName}): ${version}",
         "noVerify": true,
         "push": true
@@ -37,24 +38,12 @@
     },
     "github": {
       "executor": "@jscutlery/semver:github",
-      "dependsOn": [
-        {
-          "target": "version",
-          "projects": "self"
-        }
-      ],
       "options": {
         "tag": "${tag}",
         "notesFile": "./packages/cli/CHANGELOG.md"
       }
     },
     "npm": {
-      "dependsOn": [
-        {
-          "target": "version",
-          "projects": "self"
-        }
-      ],
       "executor": "ngx-deploy-npm:deploy",
       "options": {
         "access": "public"
@@ -76,14 +65,7 @@
     "release": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": [
-          {
-            "command": "nx github cli"
-          },
-          {
-            "command": "nx npm cli"
-          }
-        ]
+        "command": "nx version cli"
       }
     }
   },
