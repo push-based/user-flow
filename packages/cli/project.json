@@ -38,7 +38,7 @@
         }
       ],
       "options": {
-        "postTargets": ["cli:npm", "cli:github"],
+        "postTargets": ["cli:npm"],
         "commitMessageFormat": "release(${projectName}): ${version}",
         "noVerify": true,
         "push": true
@@ -53,12 +53,6 @@
     },
     "npm": {
       "executor": "ngx-deploy-npm:deploy",
-      "dependsOn": [
-        {
-          "target": "version",
-          "projects": "self"
-        }
-      ],
       "options": {
         "access": "public"
       }
