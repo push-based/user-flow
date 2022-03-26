@@ -2,8 +2,7 @@ import { YargsCommandObject } from '../internal/yargs/model';
 import { log, logVerbose } from '../core/loggin/index';
 import { readRcConfig, updateRepoConfig } from '../internal/config/config';
 import { UserFlowRcConfig } from '../types/model';
-import { ensureCfgPath, ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
-import yargs from 'yargs';
+import { ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
 import { param } from './collect/options/open';
 import { get as getRcPath } from '../core/options/rc';
 
