@@ -2,7 +2,7 @@
   "extends": "@nrwl/workspace/presets/core.json",
   "npmScope": "user-flow",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "origin/main"
   },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
