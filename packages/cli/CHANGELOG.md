@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.3.1](https://github.com/push-based/user-flow/compare/cli-0.3.0...cli-0.3.1) (2022-03-26)
+
+
+### Bug Fixes
+
+* updated LH user-flow version ([7342ba0](https://github.com/push-based/user-flow/commit/7342ba06262915c19a6ccf578e578a2a10006377))
+* updated LH user-flow version ([2fc107d](https://github.com/push-based/user-flow/commit/2fc107d17a8c0edce74491e48941ecd5bec62eee))
+
+
+
 # [0.3.0](https://github.com/push-based/user-flow/compare/cli-0.2.4...cli-0.3.0) (2022-03-26)
 
 
