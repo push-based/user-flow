@@ -1,0 +1,36 @@
+{
+  "migrations": [
+    {
+      "version": "13.9.0-beta.0",
+      "description": "Update the decorate-angular-cli script to require nx instead of @nrwl/cli",
+      "cli": "nx",
+      "implementation": "./src/migrations/update-13-9-0/update-decorate-cli",
+      "package": "@nrwl/workspace",
+      "name": "13-9-0-update-decorate-cli"
+    },
+    {
+      "version": "13.9.0-beta.0",
+      "description": "Replace @nrwl/tao with nx",
+      "cli": "nx",
+      "implementation": "./src/migrations/update-13-9-0/replace-tao-with-nx",
+      "package": "@nrwl/workspace",
+      "name": "13-9-0-replace-tao-with-nx"
+    },
+    {
+      "cli": "nx",
+      "version": "13.8.5-beta.1",
+      "description": "Renames @nrwl/js:node to @nrwl/node:node",
+      "factory": "./src/migrations/update-13-8-5/update-node-executor",
+      "package": "@nrwl/js",
+      "name": "update-node-executor"
+    },
+    {
+      "cli": "nx",
+      "version": "13.8.5-beta.1",
+      "description": "Adjust .swcrc to .lib.swcrc",
+      "factory": "./src/migrations/update-13-8-5/update-swcrc",
+      "package": "@nrwl/js",
+      "name": "update-swcrc"
+    }
+  ]
+}
