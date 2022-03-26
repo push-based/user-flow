@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.3.0](https://github.com/push-based/user-flow/compare/cli-0.2.4...cli-0.3.0) (2022-03-26)
+
+
+### Bug Fixes
+
+* ci npm release ([d4c7b5c](https://github.com/push-based/user-flow/commit/d4c7b5c17c3a6dbdb63ee9d83963f277cc5d6777))
+* disable gh release ([60c0738](https://github.com/push-based/user-flow/commit/60c073833cbfbcc1a5fe049d31fd6935c3724ef1))
+* enable gh release ([a225be0](https://github.com/push-based/user-flow/commit/a225be00291314258d655f7fd22ac09caab458ff))
+* remove unused imports ([0a810fa](https://github.com/push-based/user-flow/commit/0a810fa6cb5280e11a4b1aea1c8bea391d8eb92f))
+
+
+### Features
+
+* enable different rc files ([26aebb6](https://github.com/push-based/user-flow/commit/26aebb641141431f0d5843ee21b2c361f1f7f69d))
+
+
+
 ## [0.2.4](https://github.com/push-based/user-flow/compare/cli-0.2.3...cli-0.2.4) (2022-03-24)
 
 
