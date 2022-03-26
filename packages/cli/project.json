@@ -48,7 +48,7 @@
       "executor": "@jscutlery/semver:github",
       "options": {
         "tag": "${tag}",
-        "notesFile": "${notes}"
+        "notes": "${notes}"
       }
     },
     "npm": {
@@ -68,12 +68,6 @@
             "command": "npm link -f"
           }
         ]
-      }
-    },
-    "release": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "nx run cli:version"
       }
     }
   },
