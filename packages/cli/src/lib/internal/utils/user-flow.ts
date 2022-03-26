@@ -14,9 +14,11 @@ import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
 
 
-export function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowRcConfig['persist']): string {
-  const report = flow.generateReport();
+export async function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowRcConfig['persist']): Promise<string> {
+  const report = await flow.generateReport();
+  console.log('report', typeof report, report);
   const fileName = join(outPath, `${toFileName(name)}.uf.html`);
+  console.log('fileName', typeof fileName, fileName);
   writeFile(fileName, report);
   return fileName;
 }
@@ -27,7 +29,7 @@ export async function collectFlow(
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
   // @TODO consider CI vs dev mode => headless, open, persist etc
-  launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false,  width: 800, height: 600  }  };
+  launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
   logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
   logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();
@@ -50,7 +52,7 @@ export function loadFlow(path: string): ({exports: UserFlowProvider, path: strin
   try {
     ufDirectory = readdirSync(path)
   } catch (e) {
-    throw new Error(`upPath: ${path} is no directory`)
+    throw new Error(`ufPath: ${path} is no directory`)
   }
   const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & {path: string}>(join(path, p)));
   return flows;

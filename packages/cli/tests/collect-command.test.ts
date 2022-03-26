@@ -7,6 +7,7 @@ import {
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as path from 'path';
+import { UserFlowRcConfig } from '@push-based/user-flow/cli';
 
 const defaultCommand = [CLI_PATH];
 const collectCommand = [CLI_PATH, 'collect'];
@@ -16,6 +17,14 @@ const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) 
 
 const uf1Name = 'Sandbox Setup UF1';
 const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
+
+function cleanSetupOutputFolder(rootPath: string, cfg: UserFlowRcConfig) {
+  rimraf(path.join(rootPath, cfg.persist.outPath), (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
 
 describe('collect command', () => {
   it('should be default', async () => {
@@ -53,11 +62,7 @@ describe('collect command in empty sandbox', () => {
 
 describe('collect command in setup sandbox', () => {
   afterEach(() => {
-    rimraf(path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'deprecations'), (err) => {
-      if (err) {
-        console.error(err);
-      }
-    });
+    cleanSetupOutputFolder(SETUP_SANDBOX_PATH, setupSandboxCfg);
   });
   it('should exit if wrong ufPath is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
@@ -68,9 +73,9 @@ describe('collect command in setup sandbox', () => {
       }
     );
 
-    expect(exitCode).toBe(1);
-    expect(stderr).toContain(`upPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
+    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
     expect(stdout).toBe('');
+    expect(exitCode).toBe(1);
   });
 
   it('should load ufPath and execute the user-flow in dryRun', async () => {
@@ -82,11 +87,12 @@ describe('collect command in setup sandbox', () => {
       }
     );
 
-    expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
     expect(stdout).toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
     expect(stdout).toContain(`Duration: ${uf1Name}`);
+    expect(exitCode).toBe(0);
+
   }, 20_000);
 
   it('should load ufPath and execute the user-flow with verbose information', async () => {
@@ -99,11 +105,12 @@ describe('collect command in setup sandbox', () => {
       }
     );
 
-    expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).not.toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
     expect(stdout).not.toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
     expect(stdout).not.toContain(`Duration: ${uf1Name}`);
+    expect(exitCode).toBe(0);
+
     // Check report file is not created
     try {
       fs.readFileSync(uf1OutPath).toString('utf8');
@@ -123,10 +130,10 @@ describe('collect command in setup sandbox', () => {
       }
     );
 
-    expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
     expect(stdout).toContain(`Duration: ${uf1Name}`);
+    expect(exitCode).toBe(0);
 
     // Check report file and content of report
     const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');

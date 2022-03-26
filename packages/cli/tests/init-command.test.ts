@@ -47,13 +47,12 @@ describe('init command in empty sandbox', () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
-      [cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER],
+      ['', cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER],
       {
         testPath: EMPTY_SANDBOX_PATH
       }
     );
 
-    // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).toContain(ASK_URL);
