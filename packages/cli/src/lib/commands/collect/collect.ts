@@ -1,7 +1,7 @@
 import { YargsCommandObject } from '../../internal/yargs/model';
 import { collectFlow, persistFlow, loadFlow } from '../../internal/utils/user-flow';
 import { readRcConfig } from '../../internal/config/config';
-import { UserFlowRcConfig } from '@user-flow/cli';
+import { UserFlowRcConfig } from '../../types/model';
 import { USER_FLOW_RESULT_DIR } from '../../internal/config/constants';
 import { logVerbose } from '../../core/loggin/index';
 import { get as interactive } from '../../core/options/interactive';
@@ -33,12 +33,12 @@ export async function run(cfg: CollectOptions): Promise<void> {
 
   // Check if url is given
   if (!url) {
-    throw new Error('URL is required. Either through the console as `--url` or in the `user-flow.config.json`');
+    throw new Error('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
   }
 
   // Check if path to user-flows is given
   if (!ufPath) {
-    throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `user-flow.config.json`');
+    throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `.user-flowrc.json`');
   }
 
   // Load and run user-flows in parallel

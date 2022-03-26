@@ -15,8 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@user-flow/cli": ["packages/cli/src/index.ts"],
-      "@user-flow/user-flow-example": [
+      "@push-based/user-flow/cli": ["packages/cli/src/index.ts"],
+      "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
+      "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
+      "user-flow-example": [
         "packages/user-flow-example/src/index.ts"
       ]
     }

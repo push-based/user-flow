@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "cli": "packages/cli",
+    "sandbox-empty": "packages/sandbox-empty",
+    "sandbox-setup": "packages/sandbox-setup",
     "user-flow-example": "packages/user-flow-example"
   }
 }

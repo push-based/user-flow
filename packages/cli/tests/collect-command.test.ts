@@ -1,0 +1,139 @@
+import * as cliPromptTest from 'cli-prompts-test';
+import {
+  CLI_PATH,
+  EMPTY_SANDBOX_PATH,
+  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
+} from './fixtures';
+import * as fs from 'fs';
+import * as rimraf from 'rimraf';
+import * as path from 'path';
+
+const defaultCommand = [CLI_PATH];
+const collectCommand = [CLI_PATH, 'collect'];
+
+const setupSandboxCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
+const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
+
+const uf1Name = 'Sandbox Setup UF1';
+const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
+
+describe('collect command', () => {
+  it('should be default', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      defaultCommand,
+      [],
+      {
+        // we use the empty command to stop collecting at the beginning as we just test id the default fallback works
+        testPath: EMPTY_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(1);
+    expect(stdout).toBe('');
+    expect(stderr).toContain('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
+
+  });
+});
+describe('collect command in empty sandbox', () => {
+  it('should throw missing url error', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      collectCommand,
+      [cliPromptTest.ENTER],
+      {
+        testPath: EMPTY_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(1);
+    expect(stdout).toBe('');
+    expect(stderr).toContain('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
+
+  });
+});
+
+describe('collect command in setup sandbox', () => {
+  afterEach(() => {
+    rimraf(path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'deprecations'), (err) => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  });
+  it('should exit if wrong ufPath is given', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...defaultCommand, `-p=./${USER_FLOW_RC_WRONG_JSON_NAME}`],
+      [cliPromptTest.ENTER],
+      {
+        testPath: SETUP_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(1);
+    expect(stderr).toContain(`upPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
+    expect(stdout).toBe('');
+  });
+
+  it('should load ufPath and execute the user-flow in dryRun', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommand, '-v', '--dryRun'],
+      [cliPromptTest.ENTER],
+      {
+        testPath: SETUP_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`Duration: ${uf1Name}`);
+  }, 20_000);
+
+  it('should load ufPath and execute the user-flow with verbose information', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      // dryRun is here to get faster tests
+      [...collectCommand, '--dryRun'],
+      [cliPromptTest.ENTER],
+      {
+        testPath: SETUP_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+    expect(stdout).not.toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
+    expect(stdout).not.toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
+    expect(stdout).not.toContain(`Duration: ${uf1Name}`);
+    // Check report file is not created
+    try {
+      fs.readFileSync(uf1OutPath).toString('utf8');
+    } catch (e: any) {
+      expect(e.message).toContain('no such file or directory');
+    }
+
+  }, 20_000);
+
+  it('should load ufPath and execute the user-flow', async () => {
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommand, '-v'],
+      [],
+      {
+        testPath: SETUP_SANDBOX_PATH
+      }
+    );
+
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`Duration: ${uf1Name}`);
+
+    // Check report file and content of report
+    const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');
+    expect(reportHTML).toBeTruthy();
+    expect(reportHTML).toContain(`"name":"${uf1Name}"`);
+
+
+  }, 60_000);
+
+});
