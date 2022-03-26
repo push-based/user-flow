@@ -9,7 +9,7 @@ module.exports = {
     await flow.navigate(testUrl);
   },
   launchOptions: {
-    // to be able to run tests in the CLI
-    headless: false
+    // to be able to run tests in the CLI without chrome popping up (for debugging switch it off)
+    headless: true
   }
 };

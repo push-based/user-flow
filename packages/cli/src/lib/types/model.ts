@@ -106,11 +106,11 @@ export class UserFlowMock {
   }
 
   /**
-   * @return {string}
+   * @return {Promise<string>}
    */
-  generateReport(): string {
+  generateReport(): Promise<string> {
     logVerbose(`flow#generateReport`);
-    return '';
+    return Promise.resolve('');
   }
 
 }
