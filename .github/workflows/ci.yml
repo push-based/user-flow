@@ -21,6 +21,6 @@ jobs:
       - name: install
         run: yarn
       - name: build
-        run: nx affected:build
+        run: npm run nx -- affected:build
       - name: test
-        run: nx affected:test
+        run: npm run nx -- affected:test
