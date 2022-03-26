@@ -38,7 +38,7 @@
         }
       ],
       "options": {
-        "postTargets": ["cli:npm"],
+        "postTargets": ["cli:npm", "cli:github"],
         "commitMessageFormat": "release(${projectName}): ${version}",
         "noVerify": true,
         "push": true
