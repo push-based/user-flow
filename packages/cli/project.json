@@ -53,6 +53,12 @@
     },
     "npm": {
       "executor": "ngx-deploy-npm:deploy",
+      "dependsOn": [
+        {
+          "target": "version",
+          "projects": "self"
+        }
+      ],
       "options": {
         "access": "public"
       }
