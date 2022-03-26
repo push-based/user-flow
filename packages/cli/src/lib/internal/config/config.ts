@@ -1,4 +1,4 @@
-import { UserFlowRcConfig } from '@user-flow/cli';
+import { UserFlowRcConfig } from '../../types/model';
 import { readFile, writeFile } from '../utils/file';
 import { formatCode } from '../utils/format-code';
 import { logVerbose } from '../../core/loggin';
@@ -7,7 +7,6 @@ import { get as getRcPath } from '../../core/options/rc';
 export function readRcConfig(cfgPath: string = ''): UserFlowRcConfig {
   const configPath = cfgPath || getRcPath();
   const repoConfigFile = readFile(configPath) || '{}';
-  logVerbose('repoConfigFile: ' + JSON.stringify(repoConfigFile))
   return JSON.parse(repoConfigFile);
 }
 

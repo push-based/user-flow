@@ -9,7 +9,7 @@ import {
   UserFlowRcConfig, UserFlowMock
 } from '../../types/model';
 import { resolveAnyFile, toFileName, writeFile } from './file';
-import { join } from 'path';
+import { join, normalize } from 'path';
 import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
 
@@ -28,8 +28,8 @@ export async function collectFlow(
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
   // @TODO consider CI vs dev mode => headless, open, persist etc
   launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false,  width: 800, height: 600  }  };
-  logVerbose(`Collect user-flow: "${flowOptions.name}" from URL ${collectOptions.url}`);
-  logVerbose(`File path: ${userFlowProvider.path}`);
+  logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
+  logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();
   // setup ppt, and start flow
   const browser: Browser = await puppeteer.launch(launchOptions);
@@ -39,13 +39,19 @@ export async function collectFlow(
 
   // run custom interactions
   await interactions({ flow, page, browser, collectOptions });
-  logVerbose(`duration: ${(Date.now() - start) / 1000}`);
+  logVerbose(`Duration: ${flowOptions.name}: ${(Date.now() - start) / 1000}`);
   await browser.close();
 
   return flow;
 }
 
 export function loadFlow(path: string): ({exports: UserFlowProvider, path: string})[] {
+  let ufDirectory = [];
+  try {
+    ufDirectory = readdirSync(path)
+  } catch (e) {
+    throw new Error(`upPath: ${path} is no directory`)
+  }
   const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & {path: string}>(join(path, p)));
   return flows;
 }

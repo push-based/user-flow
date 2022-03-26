@@ -5,25 +5,6 @@ import { prompt } from 'enquirer';
 import { join } from 'path';
 import { get as getRcPath } from '../../core/options/rc';
 
-export async function ensureCfgPath(
-): Promise<string> {
-  let suggestion = CONFIG_PATH;
-  if (interactive()) {
-    const { cfgPath } = await prompt<{ cfgPath: string }>([
-      {
-        type: 'input',
-        name: 'cfgPath',
-        message: `What is the folder to your ${CONFIG_NAME} file?`,
-        initial: suggestion,
-        skip: !!getRcPath()
-      }
-    ]);
-    suggestion = cfgPath;
-  }
-
-  return join(suggestion, CONFIG_NAME);
-}
-
 export async function ensureOutPath(
   config: UserFlowRcConfig
 ): Promise<UserFlowRcConfig> {

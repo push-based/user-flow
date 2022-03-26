@@ -1,9 +1,10 @@
+import { UserFlowContext } from "@push-based/user-flow/cli";
 module.exports = {
   flowOptions: {
     name: 'Initial Navigation'
   },
-  interactions: async (ctx: any): Promise<any> => {
-    const { flow, page, collectOptions } = ctx as any;
+  interactions: async (ctx: UserFlowContext): Promise<any> => {
+    const { flow, page, collectOptions } = ctx;
     const { url } = collectOptions;
 
     const testUrl = `${url}`;

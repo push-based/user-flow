@@ -1,10 +1,11 @@
 import { YargsCommandObject } from '../internal/yargs/model';
 import { log, logVerbose } from '../core/loggin/index';
 import { readRcConfig, updateRepoConfig } from '../internal/config/config';
-import { UserFlowRcConfig } from '@user-flow/cli';
+import { UserFlowRcConfig } from '../types/model';
 import { ensureCfgPath, ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
 import yargs from 'yargs';
 import { param } from './collect/options/open';
+import { get as getRcPath } from '../core/options/rc';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -21,8 +22,8 @@ export const initCommand: YargsCommandObject = {
 };
 
 export async function run(): Promise<UserFlowRcConfig> {
-  const cfgPath = await ensureCfgPath();
-  const repoConfig = readRcConfig(cfgPath);
+  const rcPath = getRcPath();
+  const repoConfig = readRcConfig(rcPath);
   // const isFirstRun = Object.keys(repoConfig).length <= 0;
 
   const config = {
@@ -34,7 +35,7 @@ export async function run(): Promise<UserFlowRcConfig> {
     )
   };
 
-  updateRepoConfig(config, cfgPath);
+  updateRepoConfig(config, rcPath);
 
   return config;
 }

@@ -13,6 +13,14 @@
         "assets": ["packages/cli/*.md", "packages/cli/src/cli.js"]
       }
     },
+    "sandbox": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/cli"],
+      "options": {
+        "jestConfig": "packages/cli/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/cli"],

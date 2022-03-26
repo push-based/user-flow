@@ -1,5 +1,6 @@
 import { join, dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { logVerbose } from '../../core/loggin';
 
 /**
  * Ensures the file exists before reading it
@@ -8,6 +9,7 @@ export function readFile(path: string) {
   if (existsSync(path)) {
     return readFileSync(path, 'utf-8');
   }
+  logVerbose(path + ' does not exist.')
   return '';
 }
 
