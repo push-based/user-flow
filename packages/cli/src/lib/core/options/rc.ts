@@ -9,7 +9,7 @@ export const param: Param = {
   rcPath: {
     alias: 'p',
     type: 'string',
-    description: 'Path to user-flow.config.json. e.g. `./user-flow.config.json`'
+    description: 'Path to user-flow.config.json. e.g. `./user-flowrc.json`'
   }
 };
 
