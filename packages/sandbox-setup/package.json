@@ -1,0 +1,9 @@
+{
+  "name": "sendbox-setup",
+  "version": "0.0.0",
+  "main": "dist/index.html",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd dist && npx http-server --port 1337"
+  }
+}

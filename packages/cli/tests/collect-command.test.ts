@@ -2,7 +2,11 @@ import * as cliPromptTest from 'cli-prompts-test';
 import {
   CLI_PATH,
   EMPTY_SANDBOX_PATH,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
+  SETUP_SANDBOX_PATH,
+  SETUP_SANDBOX_RC,
+  SETUP_SANDBOX_STATIC_RC,
+  SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_STATIC_JSON_NAME,
+  USER_FLOW_RC_WRONG_JSON_NAME
 } from './fixtures';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
@@ -14,9 +18,12 @@ const collectCommand = [CLI_PATH, 'collect'];
 
 const setupSandboxCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
 const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
+const setupSandboxStaticDistCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
 
 const uf1Name = 'Sandbox Setup UF1';
+const ufStaticName = 'Sandbox Setup Static Dist';
 const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
+const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxStaticDistCfg.persist.outPath, 'sandbox-setup-static-dist.uf.html');
 
 function cleanSetupOutputFolder(rootPath: string, cfg: UserFlowRcConfig) {
   rimraf(path.join(rootPath, cfg.persist.outPath), (err) => {
@@ -120,7 +127,7 @@ describe('collect command in setup sandbox', () => {
 
   }, 20_000);
 
-  it('should load ufPath and execute the user-flow', async () => {
+  it('should load ufPath, execute the user-flow and save the file', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v'],
@@ -132,6 +139,30 @@ describe('collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`Duration: ${uf1Name}`);
+    expect(exitCode).toBe(0);
+
+    // Check report file and content of report
+    const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');
+    expect(reportHTML).toBeTruthy();
+    expect(reportHTML).toContain(`"name":"${uf1Name}"`);
+
+
+  }, 60_000);
+
+
+  it('should load use serve command and pass the test including output', async () => {
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`, '-v'],
+      [],
+      {
+        testPath: SETUP_SANDBOX_PATH
+      }
+    );
+
+    expect(stderr).toBe('');
+    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxStaticDistCfg.collect.url}`);
     expect(stdout).toContain(`Duration: ${uf1Name}`);
     expect(exitCode).toBe(0);
 

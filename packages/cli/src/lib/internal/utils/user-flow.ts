@@ -1,5 +1,4 @@
 import { readdirSync } from 'fs';
-import * as open from 'open';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 import * as puppeteer from 'puppeteer';
@@ -12,19 +11,17 @@ import { resolveAnyFile, toFileName, writeFile } from './file';
 import { join, normalize } from 'path';
 import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
-
+import { CollectOptions } from '../../commands/collect/model';
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowRcConfig['persist']): Promise<string> {
   const report = await flow.generateReport();
-  console.log('report', typeof report, report);
   const fileName = join(outPath, `${toFileName(name)}.uf.html`);
-  console.log('fileName', typeof fileName, fileName);
   writeFile(fileName, report);
   return fileName;
 }
 
 export async function collectFlow(
-  collectOptions: UserFlowRcConfig['collect'],
+  collectOptions: { url: string },
   userFlowProvider: UserFlowProvider & {path: string}
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;

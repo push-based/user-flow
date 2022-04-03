@@ -34,7 +34,7 @@ export type UserFlowContext = {
   browser: Browser;
   page: Page;
   flow: UserFlow;
-  collectOptions: UserFlowRcConfig['collect']
+  collectOptions: { url: string }
 }
 export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>;
 

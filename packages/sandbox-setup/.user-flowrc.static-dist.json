@@ -1,0 +1,10 @@
+{
+  "collect": {
+    "url": "http://172.19.192.1:1337",
+    "ufPath": "./src/lib/user-flows-static-dist",
+    "startServerCommand": "npm start"
+  },
+  "persist": {
+    "outPath": "./measures"
+  }
+}

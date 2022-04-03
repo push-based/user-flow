@@ -1,7 +1,13 @@
 # sandbox-setup
 
-This library was generated with [Nx](https://nx.dev).
+This repository serves a a sandbox for different CLI features in a already configured environment
 
-## Running unit tests
+## .RC files
 
-Run `nx test sandbox-setup` to execute the unit tests via [Jest](https://jestjs.io).
+- .user-flowrc.json
+- .user-flowrc.wrong.json
+- .user-flowrc.static-dist.json
+
+## Connamds tested
+
+- @push-based/user-flow -p .user-flowrc.static-dist.json --dryRun
