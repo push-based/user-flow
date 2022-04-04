@@ -26,10 +26,11 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       // I suggest a single function returning a promise.
       // This fn takes the serve options as well ans the run block and makes shure execution is done correctly and errors are forwarded too.
       // In there we compose easier to test fn's
-      const killServer = await startServerIfNeeded({ serveCommand, awaitServeStdout }, logVerbose).catch(
+      let killServer = await startServerIfNeeded({ serveCommand, awaitServeStdout }, logVerbose).catch(
         e => {
           err = e;
           logVerbose(e);
+          return () => void 0;
         }
       )
 
