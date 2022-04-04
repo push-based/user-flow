@@ -187,6 +187,7 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--ufPath`**, **`-f`**    | `string`  | `user-flowrc` setting | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
 | **`--outPath`**, **`-o`**   | `string`  | `user-flowrc` setting | output folder for the user-flow reports                                                                    |  
 | **`--open`**, **`-e`**      | `boolean` | `true`                | Opens browser automatically after the user-flow is captured                                                |  
+| **`--open`**, **`-e`**      | `boolean` | `true`                | Opens browser automatically after the user-flow is captured                                                |  
 
 
 ## Debugging

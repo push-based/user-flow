@@ -154,7 +154,7 @@ describe('collect command in setup sandbox', () => {
   it('should load use serve command and pass the test including output', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`, '-v'],
+      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`, '-v', '--dryRun'],
       [],
       {
         testPath: SETUP_SANDBOX_PATH
@@ -162,14 +162,16 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxStaticDistCfg.collect.url}`);
-    expect(stdout).toContain(`Duration: ${uf1Name}`);
+    expect(stdout).toContain(`Starting up http-server, serving ./`);
+    expect(stdout).toContain(`${setupSandboxStaticDistCfg.collect.awaitServeStdout}`);
+    expect(stdout).toContain(`Collect: ${ufStaticName} from URL ${setupSandboxStaticDistCfg.collect.url}`);
+    expect(stdout).toContain(`Duration: ${ufStaticName}`);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');
+    const reportHTML = fs.readFileSync(ufStaticOutPath).toString('utf8');
     expect(reportHTML).toBeTruthy();
-    expect(reportHTML).toContain(`"name":"${uf1Name}"`);
+    expect(reportHTML).toContain(`"name":"${ufStaticName}"`);
 
 
   }, 60_000);

@@ -5,15 +5,15 @@ import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import {
   UserFlowProvider,
-  UserFlowRcConfig, UserFlowMock
+  UserFlowMock
 } from '../../types/model';
 import { resolveAnyFile, toFileName, writeFile } from './file';
 import { join, normalize } from 'path';
 import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
-import { CollectOptions } from '../../commands/collect/model';
+import { PersistOptions } from '../config/model';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowRcConfig['persist']): Promise<string> {
+export async function persistFlow(flow: UserFlow, name: string, { outPath }: PersistOptions): Promise<string> {
   const report = await flow.generateReport();
   const fileName = join(outPath, `${toFileName(name)}.uf.html`);
   writeFile(fileName, report);
@@ -21,16 +21,20 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath }: Use
 }
 
 export async function collectFlow(
-  collectOptions: { url: string },
+  collectOptions: { url: string, dryRun: boolean },
   userFlowProvider: UserFlowProvider & {path: string}
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
   // @TODO consider CI vs dev mode => headless, open, persist etc
-  launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
+  // if dryRun run in headful mode for better debugging
+  launchOptions && (launchOptions.headless = collectOptions.dryRun ? false : launchOptions.headless)
+  launchOptions = launchOptions || { headless: !collectOptions.dryRun, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
   logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
   logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();
+
   // setup ppt, and start flow
+  logVerbose(`launchOptions: ${JSON.stringify(launchOptions)}`);
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 

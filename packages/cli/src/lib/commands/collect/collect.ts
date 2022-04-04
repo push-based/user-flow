@@ -7,9 +7,8 @@ import { get as dryRun } from '../../core/options/dryRun';
 import { get as openOpt } from './options/open';
 import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
-import { CollectOptions } from './model';
-import { exec, ExecOptions } from 'child_process';
-import { startServerIfNeeded } from './serve-build';
+import { CollectCommandOptions } from './model';
+import { startServerIfNeeded } from './serve-command';
 
 
 export const collectUserFlowsCommand: YargsCommandObject = {
@@ -20,16 +19,35 @@ export const collectUserFlowsCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
       logVerbose(argv);
-      const { url, ufPath, outPath, openReport, isSinglePageApplication, startServerCommand, staticDistDir } = argv as CollectOptions;
-      await run({ url, ufPath, outPath, openReport, isSinglePageApplication, startServerCommand, staticDistDir });
+      const { url, ufPath, outPath, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
+
+      let err = undefined;
+      // @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
+      // I suggest a single function returning a promise.
+      // This fn takes the serve options as well ans the run block and makes shure execution is done correctly and errors are forwarded too.
+      // In there we compose easier to test fn's
+      const killServer = await startServerIfNeeded({ serveCommand, awaitServeStdout }, logVerbose).catch(
+        e => {
+          err = e;
+          logVerbose(e);
+        }
+      )
+
+
+      if(!err) {
+        // if server started correctly run the user-flows
+        await run({ url, ufPath, outPath, openReport });
+      }
+
+      killServer();
     }
   }
 };
 
 
-export async function run(cfg: CollectOptions): Promise<void> {
+export async function run(cfg: CollectCommandOptions): Promise<void> {
 
-  let { url, ufPath, outPath, startServerCommand } = cfg;
+  let { url, ufPath, outPath } = cfg;
   outPath = outPath || USER_FLOW_RESULT_DIR;
 
   // Check if url is given
@@ -42,12 +60,11 @@ export async function run(cfg: CollectOptions): Promise<void> {
     throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `.user-flowrc.json`');
   }
 
-  // Serve build folder
-  const closeServer = startServerIfNeeded(cfg);
   // Load and run user-flows in parallel
   const userFlows = loadFlow(ufPath);
+
   await sequeltial(userFlows.map(({ exports: provider, path }) =>
-    (_: any) => collectFlow({ url }, { ...provider, path})
+    (_: any) => collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
       .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : '')
       .then((fileName) => {
         // open report if requested and not in executed in CI
@@ -57,7 +74,6 @@ export async function run(cfg: CollectOptions): Promise<void> {
       })
   ));
 
-  await closeServer();
 }
 
 async function sequeltial(set: Array<(res: any) => Promise<any>>) {

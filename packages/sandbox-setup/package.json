@@ -4,6 +4,8 @@
   "main": "dist/index.html",
   "license": "MIT",
   "scripts": {
-    "start": "cd dist && npx http-server --port 1337"
+    "start1": "node serve.js",
+    "start": "cd dist && npx http-server --port 4600",
+    "@user-flow": "npx ../../dist/packages/cli/src/cli.js collect -v -p ./.user-flowrc.static-dist.json"
   }
 }

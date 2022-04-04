@@ -2,8 +2,8 @@ import { param as open } from './open';
 import { param as ufPath } from './ufPath';
 import { param as outPath } from './outPath';
 import { param as url } from './url';
-import { param as staticDistDir } from './staticDistDir';
-import { param as isSinglePageApplication } from './isSinglePageApplication';
+import { param as serveCommand } from './serveCommand';
+import { param as awaitServeStdout } from './awaitServeStdout';
 
 
 export const COLLECT_OPTIONS = {
@@ -11,6 +11,6 @@ export const COLLECT_OPTIONS = {
   ...ufPath,
   ...outPath,
   ...open,
-  ...staticDistDir,
-  ...isSinglePageApplication
+  ...serveCommand,
+  ...awaitServeStdout
 };

@@ -10,16 +10,19 @@
     "link": "nx link cli",
     "@user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@user-flow:init": "npm run @user-flow -- init",
-    "@user-flow:collect": "npm run @user-flow -- collect --rcPath=./packages/user-flow-example/.user-flowrc.json",
+    "@user-flow:collect": "npm run @user-flow -- collect",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/concurrently": "^7.0.0",
     "@types/puppeteer": "^5.4.5",
     "@types/yargs": "^17.0.9",
     "compression": "^1.7.4",
+    "concurrently": "^7.1.0",
     "enquirer": "^2.3.6",
     "express": "^4.17.3",
     "lighthouse": "^9.4.0",
+    "npm-run-all": "^4.1.5",
     "puppeteer": "^13.4.1",
     "ts-node": "^10.6.0",
     "tslib": "^2.3.1"

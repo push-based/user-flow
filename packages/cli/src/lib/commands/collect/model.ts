@@ -1,3 +1,3 @@
-import { UserFlowRcConfig } from '@push-based/user-flow/cli';
+import { PersistOptions, CollectOptions  } from '../../internal/config/model';
 
-export type CollectOptions = UserFlowRcConfig['collect'] & UserFlowRcConfig['persist'] & { openReport: boolean };
+export type CollectCommandOptions = CollectOptions & PersistOptions & { openReport: boolean };
