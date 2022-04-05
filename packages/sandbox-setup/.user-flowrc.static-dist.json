@@ -1,6 +1,6 @@
 {
   "collect": {
-    "url": "http://127.0.0.1:4600",
+    "url": "http://127.0.0.1:4100",
     "ufPath": "./src/lib/user-flows-static-dist",
     "serveCommand": "npm run start",
     "awaitServeStdout": "Available on:"

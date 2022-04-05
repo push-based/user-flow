@@ -1,1 +1,1 @@
-export * from './lib/user-flows/s';
+export * from '../../cli/src/lib/commands/collect/spawn-background-process';
