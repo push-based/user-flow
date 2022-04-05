@@ -21,7 +21,7 @@ const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) 
 const setupSandboxStaticDistCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
 
 const uf1Name = 'Sandbox Setup UF1';
-const ufStaticName = 'Sandbox Setup Static Dist';
+const ufStaticName = 'Sandbox Setup StaticDist';
 const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
 const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxStaticDistCfg.persist.outPath, 'sandbox-setup-static-dist.uf.html');
 
@@ -79,9 +79,8 @@ describe('collect command in setup sandbox', () => {
         testPath: SETUP_SANDBOX_PATH
       }
     );
-
-    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
     expect(stdout).toBe('');
+    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
     expect(exitCode).toBe(1);
   });
 
@@ -127,6 +126,7 @@ describe('collect command in setup sandbox', () => {
 
   }, 20_000);
 
+  // @TODO use remote location config
   it('should load ufPath, execute the user-flow and save the file', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
@@ -145,7 +145,7 @@ describe('collect command in setup sandbox', () => {
     // Check report file and content of report
     const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');
     expect(reportHTML).toBeTruthy();
-    expect(reportHTML).toContain(`"name":"${uf1Name}"`);
+    expect(reportHTML).toContain(`${uf1Name}`);
 
 
   }, 60_000);
@@ -154,26 +154,23 @@ describe('collect command in setup sandbox', () => {
   it('should load use serve command and pass the test including output', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`, '-v', '--dryRun'],
+      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`],
       [],
       {
         testPath: SETUP_SANDBOX_PATH
       }
     );
 
+
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Starting up http-server, serving ./`);
-    expect(stdout).toContain(`${setupSandboxStaticDistCfg.collect.awaitServeStdout}`);
-    expect(stdout).toContain(`Collect: ${ufStaticName} from URL ${setupSandboxStaticDistCfg.collect.url}`);
-    expect(stdout).toContain(`Duration: ${ufStaticName}`);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
     const reportHTML = fs.readFileSync(ufStaticOutPath).toString('utf8');
     expect(reportHTML).toBeTruthy();
-    expect(reportHTML).toContain(`"name":"${ufStaticName}"`);
+    expect(reportHTML).toContain(`${ufStaticName}`);
 
 
-  }, 60_000);
+  }, 90_000);
 
 });

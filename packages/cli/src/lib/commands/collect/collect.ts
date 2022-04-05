@@ -54,12 +54,13 @@ export async function run(cfg: CollectCommandOptions): Promise<void> {
 
   await sequeltial(userFlows.map(({ exports: provider, path }) =>
     (_: any) => collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
-      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : '')
+      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : Promise.resolve(''))
       .then((fileName) => {
         // open report if requested and not in executed in CI
         if (!dryRun() && openOpt() && interactive()) {
           openFileInBrowser(fileName, { wait: false });
         }
+        return Promise.resolve();
       })
   ));
 

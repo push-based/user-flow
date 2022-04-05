@@ -3,7 +3,7 @@ import * as path from "path";
 export const USER_FLOW_RC_JSON_NAME = ".user-flowrc.json";
 export const USER_FLOW_RC_WRONG_JSON_NAME = ".user-flowrc.wrong.json";
 export const USER_FLOW_RC_STATIC_JSON_NAME = ".user-flowrc.static-dist.json";
-export const DEFAULT_USER_FLOW_RC_JSON = { "collect": { "url": "", "ufPath": "./" }, "persist": { "outPath": "./" } };
+export const DEFAULT_USER_FLOW_RC_JSON = { "collect": { "url": "default-url", "ufPath": "./" }, "persist": { "outPath": "./" } };
 export const CUSTOM_USER_FLOW_RC_JSON = {"collect": { "url": "https://google.com", "ufPath": "./src/lib/user-flows" }, "persist": { "outPath": "./measures" } };
 
 export const CLI_PATH = path.join(__dirname, '..', '..', '..', 'dist', 'packages', 'cli', 'src', 'cli.js');

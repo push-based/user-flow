@@ -17,7 +17,7 @@ describe('init command in setup sandbox', () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
-      [cliPromptTest.ENTER],
+      [],
       {
         testPath: SETUP_SANDBOX_PATH
       }
@@ -46,7 +46,12 @@ describe('init command in empty sandbox', () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
-      ['', cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER],
+      [
+        'default-url', cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+      ],
       {
         testPath: EMPTY_SANDBOX_PATH
       }
@@ -70,12 +75,13 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        url, cliPromptTest.ENTER,
+        url, cliPromptTest.ENTER, cliPromptTest.ENTER,
         ufPath, cliPromptTest.ENTER,
         outPath, cliPromptTest.ENTER
       ],
       {
-        testPath: EMPTY_SANDBOX_PATH
+        testPath: EMPTY_SANDBOX_PATH,
+        timeout: 500
       }
     );
 
@@ -87,7 +93,7 @@ describe('init command in empty sandbox', () => {
     expect(stdout).toContain(SETUP_CONFIRM);
 
     const config = JSON.parse(fs.readFileSync(EMPTY_SANDBOX_RC) as any);
-    expect(config).toEqual(CUSTOM_USER_FLOW_RC_JSON)
-  });
+    expect(config).toEqual(CUSTOM_USER_FLOW_RC_JSON);
+  }, 20_000);
 
 });
