@@ -12,7 +12,12 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as path from 'path';
 import { UserFlowRcConfig } from '@push-based/user-flow/cli';
+import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const CLI_PROMPT_TEST_CFG = {
+  testPath: SETUP_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX',
+}
 const defaultCommand = [CLI_PATH];
 const collectCommand = [CLI_PATH, 'collect'];
 
@@ -39,6 +44,7 @@ describe('collect command', () => {
       defaultCommand,
       [],
       {
+        ...CLI_PROMPT_TEST_CFG,
         // we use the empty command to stop collecting at the beginning as we just test id the default fallback works
         testPath: EMPTY_SANDBOX_PATH
       }
@@ -75,9 +81,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...defaultCommand, `-p=./${USER_FLOW_RC_WRONG_JSON_NAME}`],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
     expect(stdout).toBe('');
     expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
@@ -88,9 +92,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v', '--dryRun'],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -106,9 +108,7 @@ describe('collect command in setup sandbox', () => {
       // dryRun is here to get faster tests
       [...collectCommand, '--dryRun'],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -132,9 +132,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v'],
       [],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -156,9 +154,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`],
       [],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
 

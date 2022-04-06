@@ -8,18 +8,21 @@ import {
   SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC,
   USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
 } from './fixtures';
+import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const CLI_PROMPT_TEST_CFG = {
+  testPath: SETUP_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX',
+}
 const initCommand = [CLI_PATH, 'init', '-v'];
-const colllectCommand = [CLI_PATH, 'collect', '-v'];
+
 describe('.rc.json in setup sandbox', () => {
   it('should load default name if no param is given', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     // Assertions
@@ -37,9 +40,7 @@ describe('.rc.json in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, `-p=${USER_FLOW_RC_WRONG_JSON_NAME}`],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
@@ -57,9 +58,7 @@ describe('.rc.json in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, `-p=wrong/path/to/file.json`],
       [],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
