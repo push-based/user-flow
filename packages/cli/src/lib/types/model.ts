@@ -9,9 +9,9 @@ import puppeteer, {
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { UserFlowRcConfig } from '../internal/config/model';
 
-export { UserFlowRcConfig } from '../internal/config/model';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { logVerbose } from '../core/loggin';
+export { UserFlowRcConfig } from '../internal/config/model';
 
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
@@ -34,7 +34,7 @@ export type UserFlowContext = {
   browser: Browser;
   page: Page;
   flow: UserFlow;
-  collectOptions: UserFlowRcConfig['collect']
+  collectOptions: { url: string }
 }
 export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>;
 

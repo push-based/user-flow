@@ -1,4 +1,4 @@
 {
   "collect": { "url": "https://angular-movies-a12d3.web.app", "ufPath": "./packages/user-flow-example/src/lib/minimal/user-flow" },
-  "persist": { "outPath": "./tmp/user-flow-reports" }
+  "persist": { "outPath": "./packages/user-flow-example/src/measures" }
 }

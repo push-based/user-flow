@@ -13,18 +13,20 @@
     "web performance",
     "performance",
     "lighthouse",
-    "user flows",
+    "UX",
+    "user flow",
     "CI",
     "CWV"
   ],
-  "dependencies": {},
-  "peerDependencies": {
+  "peerDdependencies": {},
+  "dependencies": {
     "tslib": "^2.3.1",
-    "yargs": "^15.4.1",
+    "yargs": ">=15.4.1",
     "ts-node": "^10.6.0",
     "lighthouse": "^9.5.0",
     "puppeteer": "^13.4.1",
     "prettier": "^2.5.1",
-    "enquirer": "^2.3.6"
+    "enquirer": "^2.3.6",
+    "concurrently": "^7.1.0"
   }
 }

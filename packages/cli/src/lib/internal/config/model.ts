@@ -1,9 +1,17 @@
+export type CollectOptions = {
+  url: string,
+  ufPath: string,
+  // @TODO get better typing for if serveCommand is given await is required
+  serveCommand?: string,
+  awaitServeStdout?: string
+}
+
+export type PersistOptions = {
+  outPath: string
+}
+
+
 export type UserFlowRcConfig = {
-  collect: {
-    url: string,
-    ufPath: string,
-  },
-  persist: {
-    outPath: string
-  }
+  collect: CollectOptions,
+  persist: PersistOptions
 } & Object;

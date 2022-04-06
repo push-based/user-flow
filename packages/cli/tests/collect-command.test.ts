@@ -2,21 +2,33 @@ import * as cliPromptTest from 'cli-prompts-test';
 import {
   CLI_PATH,
   EMPTY_SANDBOX_PATH,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
+  SETUP_SANDBOX_PATH,
+  SETUP_SANDBOX_RC,
+  SETUP_SANDBOX_STATIC_RC,
+  SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_STATIC_JSON_NAME,
+  USER_FLOW_RC_WRONG_JSON_NAME
 } from './fixtures';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import * as path from 'path';
 import { UserFlowRcConfig } from '@push-based/user-flow/cli';
+import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const CLI_PROMPT_TEST_CFG = {
+  testPath: SETUP_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX',
+}
 const defaultCommand = [CLI_PATH];
 const collectCommand = [CLI_PATH, 'collect'];
 
 const setupSandboxCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
 const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
+const setupSandboxStaticDistCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
 
 const uf1Name = 'Sandbox Setup UF1';
+const ufStaticName = 'Sandbox Setup StaticDist';
 const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
+const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxStaticDistCfg.persist.outPath, 'sandbox-setup-static-dist.uf.html');
 
 function cleanSetupOutputFolder(rootPath: string, cfg: UserFlowRcConfig) {
   rimraf(path.join(rootPath, cfg.persist.outPath), (err) => {
@@ -32,6 +44,7 @@ describe('collect command', () => {
       defaultCommand,
       [],
       {
+        ...CLI_PROMPT_TEST_CFG,
         // we use the empty command to stop collecting at the beginning as we just test id the default fallback works
         testPath: EMPTY_SANDBOX_PATH
       }
@@ -68,13 +81,10 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...defaultCommand, `-p=./${USER_FLOW_RC_WRONG_JSON_NAME}`],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
-
-    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
     expect(stdout).toBe('');
+    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
     expect(exitCode).toBe(1);
   });
 
@@ -82,9 +92,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v', '--dryRun'],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -100,9 +108,7 @@ describe('collect command in setup sandbox', () => {
       // dryRun is here to get faster tests
       [...collectCommand, '--dryRun'],
       [cliPromptTest.ENTER],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -120,14 +126,13 @@ describe('collect command in setup sandbox', () => {
 
   }, 20_000);
 
-  it('should load ufPath and execute the user-flow', async () => {
+  // @TODO use remote location config
+  it('should load ufPath, execute the user-flow and save the file', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v'],
       [],
-      {
-        testPath: SETUP_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(stderr).toBe('');
@@ -138,9 +143,30 @@ describe('collect command in setup sandbox', () => {
     // Check report file and content of report
     const reportHTML = fs.readFileSync(uf1OutPath).toString('utf8');
     expect(reportHTML).toBeTruthy();
-    expect(reportHTML).toContain(`"name":"${uf1Name}"`);
+    expect(reportHTML).toContain(`${uf1Name}`);
 
 
   }, 60_000);
+
+
+  it('should load use serve command and pass the test including output', async () => {
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`],
+      [],
+      CLI_PROMPT_TEST_CFG
+    );
+
+
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+
+    // Check report file and content of report
+    const reportHTML = fs.readFileSync(ufStaticOutPath).toString('utf8');
+    expect(reportHTML).toBeTruthy();
+    expect(reportHTML).toContain(`${ufStaticName}`);
+
+
+  }, 90_000);
 
 });

@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import * as cliPromptTest from 'cli-prompts-test';
 import {
   ASK_OUT_PATH,
@@ -8,18 +7,23 @@ import {
   CLI_PATH,
   CUSTOM_USER_FLOW_RC_JSON,
   DEFAULT_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC,
-  USER_FLOW_RC_JSON_NAME
+  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC
 } from './fixtures';
+import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const CLI_PROMPT_TEST_CFG = {
+  testPath: EMPTY_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX',
+}
 const initCommand = [CLI_PATH, 'init'];
 describe('init command in setup sandbox', () => {
   it('should inform about the already existing setup', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
-      [cliPromptTest.ENTER],
+      [],
       {
+        ...CLI_PROMPT_TEST_CFG,
         testPath: SETUP_SANDBOX_PATH
       }
     );
@@ -47,10 +51,13 @@ describe('init command in empty sandbox', () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
-      ['', cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER, cliPromptTest.ENTER],
-      {
-        testPath: EMPTY_SANDBOX_PATH
-      }
+      [
+        'default-url', cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+        cliPromptTest.ENTER,
+      ],
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(exitCode).toBe(0);
@@ -75,9 +82,7 @@ describe('init command in empty sandbox', () => {
         ufPath, cliPromptTest.ENTER,
         outPath, cliPromptTest.ENTER
       ],
-      {
-        testPath: EMPTY_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(exitCode).toBe(0);
@@ -88,7 +93,7 @@ describe('init command in empty sandbox', () => {
     expect(stdout).toContain(SETUP_CONFIRM);
 
     const config = JSON.parse(fs.readFileSync(EMPTY_SANDBOX_RC) as any);
-    expect(config).toEqual(CUSTOM_USER_FLOW_RC_JSON)
-  });
+    expect(config).toEqual(CUSTOM_USER_FLOW_RC_JSON);
+  }, 20_000);
 
 });

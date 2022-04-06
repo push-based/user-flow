@@ -1,39 +1,45 @@
 import { readdirSync } from 'fs';
-import * as open from 'open';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import {
   UserFlowProvider,
-  UserFlowRcConfig, UserFlowMock
+  UserFlowMock
 } from '../../types/model';
 import { resolveAnyFile, toFileName, writeFile } from './file';
 import { join, normalize } from 'path';
 import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
+import { PersistOptions } from '../config/model';
+import { detectCliMode } from '../../cli-modes';
 
-
-export async function persistFlow(flow: UserFlow, name: string, { outPath }: UserFlowRcConfig['persist']): Promise<string> {
+export async function persistFlow(flow: UserFlow, name: string, { outPath }: PersistOptions): Promise<string> {
   const report = await flow.generateReport();
-  console.log('report', typeof report, report);
   const fileName = join(outPath, `${toFileName(name)}.uf.html`);
-  console.log('fileName', typeof fileName, fileName);
   writeFile(fileName, report);
   return fileName;
 }
 
 export async function collectFlow(
-  collectOptions: UserFlowRcConfig['collect'],
+  collectOptions: { url: string, dryRun: boolean },
   userFlowProvider: UserFlowProvider & {path: string}
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
-  // @TODO consider CI vs dev mode => headless, open, persist etc
   launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
+  // @TODO consider CI vs dev mode => headless, open, persist etc
+
+  if(detectCliMode() !== 'DEFAULT') {
+    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`)
+    launchOptions.headless = true
+  }
+
   logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
   logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();
+
   // setup ppt, and start flow
+  logVerbose(`launchOptions: ${JSON.stringify(launchOptions)}`);
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 
