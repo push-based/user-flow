@@ -181,13 +181,14 @@ Run command over:
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
-|  Option                     |  Type     | Default               |  Description                                                                                               |  
-| --------------------------- | --------- | --------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--url`**, **`-t`**       | `string`  | `user-flowrc` setting | URL to analyze                                                                                             |  
-| **`--ufPath`**, **`-f`**    | `string`  | `user-flowrc` setting | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
-| **`--outPath`**, **`-o`**   | `string`  | `user-flowrc` setting | output folder for the user-flow reports                                                                    |  
-| **`--open`**, **`-e`**      | `boolean` | `true`                | Opens browser automatically after the user-flow is captured                                                |  
-| **`--open`**, **`-e`**      | `boolean` | `true`                | Opens browser automatically after the user-flow is captured                                                |  
+|  Option                            |  Type     | Default                |  Description                                                                                               |  
+| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--url`**, **`-t`**              | `string`  | `.user-flowrc` setting | URL to analyze                                                                                             |  
+| **`--ufPath`**, **`-f`**           | `string`  | `.user-flowrc` setting | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`--outPath`**, **`-o`**          | `string`  | `.user-flowrc` setting | output folder for the user-flow reports                                                                    |  
+| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`--serveCommand`**, **`-s`**     | `string ` | `.user-flowrc` setting | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
+| **`--awaitServeStdout`**, **`-a`** | `string ` | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 
 
 ## Debugging
