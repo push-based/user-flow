@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.4.0](https://github.com/push-based/user-flow/compare/cli-0.3.0...cli-0.4.0) (2022-04-06)
+
+
+### Bug Fixes
+
+* change logic of background process ([cf49b20](https://github.com/push-based/user-flow/commit/cf49b2018bd08b5657b4d936fe84fe7653d6233e))
+* remove type error ([a664903](https://github.com/push-based/user-flow/commit/a664903b8a81caa75776ceeeecb10965fafb23c5))
+* updated LH user-flow version ([7342ba0](https://github.com/push-based/user-flow/commit/7342ba06262915c19a6ccf578e578a2a10006377))
+* updated LH user-flow version ([2fc107d](https://github.com/push-based/user-flow/commit/2fc107d17a8c0edce74491e48941ecd5bec62eee))
+
+
+### Features
+
+* add serveCommand feature to docs ([e1ebc52](https://github.com/push-based/user-flow/commit/e1ebc522c2e357cb75a0fd7f67ec5a9519fb759d))
+
+
+
 ## [0.3.1](https://github.com/push-based/user-flow/compare/cli-0.3.0...cli-0.3.1) (2022-03-26)
 
 
