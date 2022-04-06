@@ -12,6 +12,7 @@ import { join, normalize } from 'path';
 import { logVerbose } from '../../core/loggin';
 import { get as dryRun } from '../../core/options/dryRun';
 import { PersistOptions } from '../config/model';
+import { detectCliMode } from '../../cli-modes';
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath }: PersistOptions): Promise<string> {
   const report = await flow.generateReport();
@@ -25,10 +26,14 @@ export async function collectFlow(
   userFlowProvider: UserFlowProvider & {path: string}
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
+  launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
   // @TODO consider CI vs dev mode => headless, open, persist etc
-  // if dryRun run in headful mode for better debugging
-  launchOptions && (launchOptions.headless = collectOptions.dryRun ? false : launchOptions.headless)
-  launchOptions = launchOptions || { headless: !collectOptions.dryRun, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
+
+  if(detectCliMode() !== 'DEFAULT') {
+    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`)
+    launchOptions.headless = true
+  }
+
   logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
   logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();

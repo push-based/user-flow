@@ -9,7 +9,12 @@ import {
   DEFAULT_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM,
   SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC
 } from './fixtures';
+import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const CLI_PROMPT_TEST_CFG = {
+  testPath: EMPTY_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX',
+}
 const initCommand = [CLI_PATH, 'init'];
 describe('init command in setup sandbox', () => {
   it('should inform about the already existing setup', async () => {
@@ -18,6 +23,7 @@ describe('init command in setup sandbox', () => {
       initCommand,
       [],
       {
+        ...CLI_PROMPT_TEST_CFG,
         testPath: SETUP_SANDBOX_PATH
       }
     );
@@ -51,9 +57,7 @@ describe('init command in empty sandbox', () => {
         cliPromptTest.ENTER,
         cliPromptTest.ENTER,
       ],
-      {
-        testPath: EMPTY_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(exitCode).toBe(0);
@@ -78,9 +82,7 @@ describe('init command in empty sandbox', () => {
         ufPath, cliPromptTest.ENTER,
         outPath, cliPromptTest.ENTER
       ],
-      {
-        testPath: EMPTY_SANDBOX_PATH
-      }
+      CLI_PROMPT_TEST_CFG
     );
 
     expect(exitCode).toBe(0);
