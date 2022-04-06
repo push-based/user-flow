@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import * as cliPromptTest from 'cli-prompts-test';
 import {
   ASK_OUT_PATH,
@@ -75,13 +74,12 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        url, cliPromptTest.ENTER, cliPromptTest.ENTER,
+        url, cliPromptTest.ENTER,
         ufPath, cliPromptTest.ENTER,
         outPath, cliPromptTest.ENTER
       ],
       {
-        testPath: EMPTY_SANDBOX_PATH,
-        timeout: 500
+        testPath: EMPTY_SANDBOX_PATH
       }
     );
 

@@ -22,13 +22,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       const { url, ufPath, outPath, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
       let err = undefined;
-      await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport }), { serveCommand, awaitServeStdout }).catch(
-        e => {
-          err = e;
-          logVerbose(e);
-          return () => void 0;
-        }
-      )
+      await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport }), { serveCommand, awaitServeStdout })
     }
   }
 };
