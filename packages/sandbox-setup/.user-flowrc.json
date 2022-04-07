@@ -1,4 +1,4 @@
 {
   "collect": { "url": "https://google.com", "ufPath": "./src/lib/user-flows" },
-  "persist": { "outPath": "./measures" }
+  "persist": { "outPath": "./measures", "format": ["json"] }
 }

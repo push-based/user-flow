@@ -1,0 +1,12 @@
+{
+  "collect": {
+    "url": "c",
+    "ufPath": "c",
+    "serveCommand": "c",
+    "awaitServeStdout": "c"
+  },
+  "persist": {
+    "outPath": "c",
+    "format": ["json"]
+  }
+}

@@ -4,16 +4,20 @@ import * as cliPromptTest from 'cli-prompts-test';
 import {
   CLI_PATH,
   CUSTOM_USER_FLOW_RC_JSON,
-  DEFAULT_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC,
+  DEFAULT_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM, SETUP_SANDBOX_CUSTOM_RC,
+  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_CUSTOM_JSON_NAME,
   USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
 } from './fixtures';
 import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
 const CLI_PROMPT_TEST_CFG = {
   testPath: SETUP_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX',
-}
+  [CLI_MODE_PROPERTY]: 'SANDBOX'
+};
+const CLI_OPTIONS_TEST_CFG = {
+  testPath: EMPTY_SANDBOX_PATH,
+  [CLI_MODE_PROPERTY]: 'SANDBOX'
+};
 const initCommand = [CLI_PATH, 'init', '-v'];
 
 describe('.rc.json in setup sandbox', () => {
@@ -54,6 +58,73 @@ describe('.rc.json in setup sandbox', () => {
     expect(stdout).toContain(`persist: { outPath: '${config.persist.outPath}' }`);
 
   });
+  it('should take params from cli', async () => {
+    const { collect, persist } = JSON.parse(fs.readFileSync(SETUP_SANDBOX_CUSTOM_RC) as any);
+    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
+    let { outPath, format } = persist;
+    format = format[0];
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand,
+        `--url=${url}`,
+        `--ufPath=${ufPath}`,
+        `--outPath=${outPath}`,
+        `--format=${format}`,
+        `--serveCommand=${serveCommand}`,
+        `--awaitServeStdout=${awaitServeStdout}`
+      ],
+      [],
+      CLI_OPTIONS_TEST_CFG
+    );
+
+    // Assertions
+    expect(stderr).toBe('');
+    expect(stdout).toContain(`url: '${url}'`);
+    expect(stdout).toContain(`serveCommand: '${serveCommand}'`);
+    expect(stdout).toContain(`awaitServeStdout: '${awaitServeStdout}'`);
+    expect(stdout).toContain(`ufPath: '${ufPath}'`);
+    expect(stdout).toContain(`outPath: '${outPath}'`);
+    expect(stdout).toContain(`format: [ '${format}' ]`);
+    expect(exitCode).toBe(0);
+  });
+
+  it('should validate params from cli', async () => {
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand,
+        `--interactive=false`,
+        `--url=`
+      ],
+      [],
+      CLI_OPTIONS_TEST_CFG
+    );
+
+    // Assertions
+    // expect(stdout).toBe('');
+    expect(stderr).toContain(`URL is required. Either through the console as \`--url\` or in the \`.user-flow.json\``);
+
+    expect(exitCode).toBe(1);
+  });
+it('should validate params from rc', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand,
+        `--interactive=false`,
+        `-p=${SETUP_SANDBOX_WRONG_RC}`
+      ],
+      [],
+      CLI_OPTIONS_TEST_CFG
+    );
+
+    // Assertions
+    // expect(stdout).toBe('');
+    expect(stderr).toContain(`Wrong format "wrong"`);
+
+    expect(exitCode).toBe(1);
+  });
+
   it('should log and ask if specified file does not exist', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, `-p=wrong/path/to/file.json`],

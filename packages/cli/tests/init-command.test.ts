@@ -11,6 +11,10 @@ import {
 } from './fixtures';
 import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
+const UP = cliPromptTest.UP;
+const DOWN = cliPromptTest.DOWN;
+const SPACE = cliPromptTest.SPACE;
+const ENTER = cliPromptTest.ENTER;
 const CLI_PROMPT_TEST_CFG = {
   testPath: EMPTY_SANDBOX_PATH,
   [CLI_MODE_PROPERTY]: 'SANDBOX',
@@ -29,12 +33,13 @@ describe('init command in setup sandbox', () => {
     );
 
     // Assertions
-    expect(exitCode).toBe(0);
+
     expect(stderr).toBe('');
     expect(stdout).not.toContain(ASK_URL);
     expect(stdout).not.toContain(ASK_UF_PATH);
     expect(stdout).not.toContain(ASK_OUT_PATH);
     expect(stdout).toContain(SETUP_CONFIRM);
+    expect(exitCode).toBe(0);
 
     const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
     expect(config).toEqual(CUSTOM_USER_FLOW_RC_JSON);
@@ -52,10 +57,11 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        'default-url', cliPromptTest.ENTER,
-        cliPromptTest.ENTER,
-        cliPromptTest.ENTER,
-        cliPromptTest.ENTER,
+        'default-url', ENTER,
+        ENTER,
+        ENTER,
+        SPACE, ENTER,
+        ENTER,
       ],
       CLI_PROMPT_TEST_CFG
     );
@@ -78,9 +84,10 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        url, cliPromptTest.ENTER,
-        ufPath, cliPromptTest.ENTER,
-        outPath, cliPromptTest.ENTER
+        url, ENTER,
+        ufPath, ENTER,
+        DOWN, SPACE, ENTER,
+        outPath, ENTER,
       ],
       CLI_PROMPT_TEST_CFG
     );

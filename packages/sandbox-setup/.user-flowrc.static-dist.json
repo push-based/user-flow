@@ -6,6 +6,7 @@
     "awaitServeStdout": "Available on:"
   },
   "persist": {
-    "outPath": "./measures"
+    "outPath": "./measures",
+    "format": ["jons"]
   }
 }

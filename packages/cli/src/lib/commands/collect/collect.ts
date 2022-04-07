@@ -9,6 +9,8 @@ import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
 import { CollectCommandOptions } from './model';
 import { startServerIfNeeded } from './serve-command';
+import { run as ensureConfig } from '../init';
+import yargs from 'yargs';
 
 
 export const collectUserFlowsCommand: YargsCommandObject = {
@@ -19,6 +21,10 @@ export const collectUserFlowsCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
       logVerbose(argv);
+
+      // get validation and errors for RC & options configurations
+      ensureConfig(yargs.argv as any);
+
       const { url, ufPath, outPath, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
       await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport }), { serveCommand, awaitServeStdout })
@@ -30,17 +36,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
 export async function run(cfg: CollectCommandOptions): Promise<void> {
 
   let { url, ufPath, outPath } = cfg;
-  outPath = outPath || USER_FLOW_RESULT_DIR;
 
-  // Check if url is given
-  if (!url) {
-    throw new Error('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
-  }
-
-  // Check if path to user-flows is given
-  if (!ufPath) {
-    throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `.user-flowrc.json`');
-  }
 
   // Load and run user-flows in parallel
   const userFlows = loadFlow(ufPath);

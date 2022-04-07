@@ -7,6 +7,7 @@ import puppeteer, {
 } from 'puppeteer';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+// import { Json } from 'lighthouse/types/config';
 import { UserFlowRcConfig } from '../internal/config/model';
 
 import FlowResult from 'lighthouse/types/lhr/flow';
@@ -20,7 +21,7 @@ export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & Br
 
 export interface UserFlowOptions {
   name: string;
-}
+} // & { page: Page, config?: Json, configContext }
 
 /**
  * used inside of `UserFlowInteractionsFn`

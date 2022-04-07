@@ -4,6 +4,7 @@
     "ufPath": "./wrong/user-flows"
   },
   "persist": {
-    "outPath": "./wrong/measures"
+    "outPath": "./wrong/measures",
+    "format": ["wrong"]
   }
 }
