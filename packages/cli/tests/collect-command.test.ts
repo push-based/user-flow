@@ -4,9 +4,7 @@ import {
   EMPTY_SANDBOX_PATH,
   SETUP_SANDBOX_PATH,
   SETUP_SANDBOX_RC,
-  SETUP_SANDBOX_STATIC_RC,
-  SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_STATIC_JSON_NAME,
-  USER_FLOW_RC_WRONG_JSON_NAME
+  SETUP_SANDBOX_STATIC_RC, USER_FLOW_RC_STATIC_JSON_NAME
 } from './fixtures';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
@@ -22,7 +20,6 @@ const defaultCommand = [CLI_PATH];
 const collectCommand = [CLI_PATH, 'collect'];
 
 const setupSandboxCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
-const setupSandboxWrongCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
 const setupSandboxStaticDistCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
 
 const uf1Name = 'Sandbox Setup UF1';
@@ -79,12 +76,16 @@ describe('collect command in setup sandbox', () => {
   });
   it('should exit if wrong ufPath is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...defaultCommand, `-p=./${USER_FLOW_RC_WRONG_JSON_NAME}`],
+      [
+        ...collectCommand,
+        `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`,
+        `--ufPath=WRONG`
+      ],
       [cliPromptTest.ENTER],
       CLI_PROMPT_TEST_CFG
     );
     expect(stdout).toBe('');
-    expect(stderr).toContain(`ufPath: ${setupSandboxWrongCfg.collect.ufPath} is no directory`);
+    expect(stderr).toContain(`ufPath: WRONG is no directory`);
     expect(exitCode).toBe(1);
   });
 

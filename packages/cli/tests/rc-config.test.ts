@@ -3,10 +3,9 @@ import * as path from 'path';
 import * as cliPromptTest from 'cli-prompts-test';
 import {
   CLI_PATH,
-  CUSTOM_USER_FLOW_RC_JSON,
-  DEFAULT_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM, SETUP_SANDBOX_CUSTOM_RC,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_WRONG_RC, USER_FLOW_RC_CUSTOM_JSON_NAME,
-  USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_WRONG_JSON_NAME
+  CUSTOM_USER_FLOW_RC_JSON, EMPTY_SANDBOX_PATH, SETUP_CONFIRM,
+  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_STATIC_RC,
+  USER_FLOW_RC_JSON_NAME, USER_FLOW_RC_STATIC_JSON_NAME
 } from './fixtures';
 import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
 
@@ -42,24 +41,24 @@ describe('.rc.json in setup sandbox', () => {
   });
   it('should load specified file from given param', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, `-p=${USER_FLOW_RC_WRONG_JSON_NAME}`],
+      [...initCommand, `-p=${USER_FLOW_RC_STATIC_JSON_NAME}`],
       [cliPromptTest.ENTER],
       CLI_PROMPT_TEST_CFG
     );
 
-    const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
+    const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
 
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).toContain(SETUP_CONFIRM);
-    expect(stdout).toContain(`Update config under ${USER_FLOW_RC_WRONG_JSON_NAME}`);
+    expect(stdout).toContain(`Update config under ${USER_FLOW_RC_STATIC_JSON_NAME}`);
     expect(stdout).toContain(`url: '${config.collect.url}', ufPath: '${config.collect.ufPath}'`);
     expect(stdout).toContain(`persist: { outPath: '${config.persist.outPath}' }`);
 
   });
   it('should take params from cli', async () => {
-    const { collect, persist } = JSON.parse(fs.readFileSync(SETUP_SANDBOX_CUSTOM_RC) as any);
+    const { collect, persist } = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
     const { url, ufPath, serveCommand, awaitServeStdout } = collect;
     let { outPath, format } = persist;
     format = format[0];
@@ -112,7 +111,7 @@ it('should validate params from rc', async () => {
       [
         ...initCommand,
         `--interactive=false`,
-        `-p=${SETUP_SANDBOX_WRONG_RC}`
+        `--format=json`
       ],
       [],
       CLI_OPTIONS_TEST_CFG
@@ -131,8 +130,6 @@ it('should validate params from rc', async () => {
       [],
       CLI_PROMPT_TEST_CFG
     );
-
-    const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_WRONG_RC) as any);
 
     // Assertions
     expect(exitCode).toBe(0);
