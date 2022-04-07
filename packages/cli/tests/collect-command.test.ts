@@ -3,45 +3,43 @@ import {
   CLI_PATH,
   EMPTY_SANDBOX_PATH,
   SETUP_SANDBOX_PATH,
+  DEFAULT_USER_FLOW_RC_JSON,
   SETUP_SANDBOX_RC,
-  SETUP_SANDBOX_STATIC_RC, USER_FLOW_RC_STATIC_JSON_NAME
+  SETUP_SANDBOX_STATIC_RC,
+  STATIC_USER_FLOW_RC_JSON,
+  STATIC_USER_FLOW_RC_JSON_NAME
 } from './fixtures';
 import * as fs from 'fs';
-import * as rimraf from 'rimraf';
+
 import * as path from 'path';
 import { UserFlowRcConfig } from '@push-based/user-flow/cli';
 import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
+import { resetSetupSandbox } from './utils';
 
-const CLI_PROMPT_TEST_CFG = {
+const CLI_SETUP_TEST_CFG = {
   testPath: SETUP_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX',
-}
+  [CLI_MODE_PROPERTY]: 'SANDBOX'
+};
 const defaultCommand = [CLI_PATH];
 const collectCommand = [CLI_PATH, 'collect'];
 
-const setupSandboxCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
-const setupSandboxStaticDistCfg = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
-
 const uf1Name = 'Sandbox Setup UF1';
 const ufStaticName = 'Sandbox Setup StaticDist';
-const uf1OutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxCfg.persist.outPath, 'sandbox-setup-uf1.uf.html');
-const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, setupSandboxStaticDistCfg.persist.outPath, 'sandbox-setup-static-dist.uf.html');
+const ufPathRemote = path.join('./src/lib/user-flows-remote-url');
+const ufPathStatic = path.join('./src/lib/user-flows-static-dist');
+const uf1OutPath = path.join(SETUP_SANDBOX_PATH, DEFAULT_USER_FLOW_RC_JSON.persist.outPath, 'sandbox-setup-uf1.uf.html');
+const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, STATIC_USER_FLOW_RC_JSON.persist.outPath, 'sandbox-setup-static-dist.uf.html');
 
-function cleanSetupOutputFolder(rootPath: string, cfg: UserFlowRcConfig) {
-  rimraf(path.join(rootPath, cfg.persist.outPath), (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-}
 
 describe('collect command', () => {
+  beforeEach(() => resetSetupSandbox());
+
   it('should be default', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       defaultCommand,
       [],
       {
-        ...CLI_PROMPT_TEST_CFG,
+        ...CLI_SETUP_TEST_CFG,
         // we use the empty command to stop collecting at the beginning as we just test id the default fallback works
         testPath: EMPTY_SANDBOX_PATH
       }
@@ -53,7 +51,10 @@ describe('collect command', () => {
 
   });
 });
+
 describe('collect command in empty sandbox', () => {
+  beforeEach(() => resetSetupSandbox());
+
   it('should throw missing url error', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       collectCommand,
@@ -71,18 +72,16 @@ describe('collect command in empty sandbox', () => {
 });
 
 describe('collect command in setup sandbox', () => {
-  afterEach(() => {
-    cleanSetupOutputFolder(SETUP_SANDBOX_PATH, setupSandboxCfg);
-  });
+  beforeEach(() => resetSetupSandbox());
   it('should exit if wrong ufPath is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...collectCommand,
-        `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`,
+        `-p=./${STATIC_USER_FLOW_RC_JSON_NAME}`,
         `--ufPath=WRONG`
       ],
       [cliPromptTest.ENTER],
-      CLI_PROMPT_TEST_CFG
+      CLI_SETUP_TEST_CFG
     );
     expect(stdout).toBe('');
     expect(stderr).toContain(`ufPath: WRONG is no directory`);
@@ -91,14 +90,14 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath and execute the user-flow in dryRun', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, '-v', '--dryRun'],
+      [...collectCommand, '-v', `-p=${STATIC_USER_FLOW_RC_JSON_NAME}`, `--ufPath=${ufPathStatic}`, '--dryRun'],
       [cliPromptTest.ENTER],
-      CLI_PROMPT_TEST_CFG
+      CLI_SETUP_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
-    expect(stdout).toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`Collject: ${uf1Name} from URL ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
+    expect(stdout).toContain(`flow#navigate: ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
     expect(stdout).toContain(`Duration: ${uf1Name}`);
     expect(exitCode).toBe(0);
 
@@ -109,12 +108,12 @@ describe('collect command in setup sandbox', () => {
       // dryRun is here to get faster tests
       [...collectCommand, '--dryRun'],
       [cliPromptTest.ENTER],
-      CLI_PROMPT_TEST_CFG
+      CLI_SETUP_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expect(stdout).not.toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
-    expect(stdout).not.toContain(`flow#navigate: ${setupSandboxCfg.collect.url}`);
+    expect(stdout).not.toContain(`Collect: ${uf1Name} from URL ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
+    expect(stdout).not.toContain(`flow#navigate: ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
     expect(stdout).not.toContain(`Duration: ${uf1Name}`);
     expect(exitCode).toBe(0);
 
@@ -133,11 +132,11 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, '-v'],
       [],
-      CLI_PROMPT_TEST_CFG
+      CLI_SETUP_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${setupSandboxCfg.collect.url}`);
+    expect(stdout).toContain(`Collect: ${uf1Name} from URL ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
     expect(stdout).toContain(`Duration: ${uf1Name}`);
     expect(exitCode).toBe(0);
 
@@ -150,12 +149,12 @@ describe('collect command in setup sandbox', () => {
   }, 60_000);
 
 
-  it('should load use serve command and pass the test including output', async () => {
+  it('should use serve command and pass the test including output', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `-p=./${USER_FLOW_RC_STATIC_JSON_NAME}`],
+      [...collectCommand, `-p=./${STATIC_USER_FLOW_RC_JSON_NAME}`],
       [],
-      CLI_PROMPT_TEST_CFG
+      CLI_SETUP_TEST_CFG
     );
 
 

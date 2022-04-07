@@ -1,6 +1,6 @@
 module.exports = {
   flowOptions: {
-    name: 'Sandbox Setup - Remote location'
+    name: 'Sandbox Setup - Remote URL'
   },
   interactions: async (ctx: any): Promise<any> => {
     const { flow, collectOptions } = ctx as any;

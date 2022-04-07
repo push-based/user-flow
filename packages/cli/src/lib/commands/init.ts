@@ -24,7 +24,7 @@ export const initCommand: YargsCommandObject = {
 function getCLIConfig(rcPath: string, argv: Partial<UserFlowRcConfig>): UserFlowRcConfig {
 
   const repoConfig = readRcConfig(rcPath);
-  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format} = argv as any as (keyof CollectOptions & keyof PersistOptions);
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format} = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
   const cfg = {
     collect: {
