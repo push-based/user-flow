@@ -27,18 +27,21 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
   return new Promise((resolve, reject) => {
     const sub = new Subscription();
     const res = concurrently([serveCommand]);
-    const endRes = res.result
-      // We resolve when the awaited value arrives
-      //.then(resolve)
-      .catch(e => {
-        reject(`Error while executing "${serveCommand}"`);
-      });
     const cR = res.commands[0];
     const stopServer = () => {
       logVerbose('stop server');
       sub.unsubscribe();
       cR.kill();
     }
+    const endRes = res.result
+      // We resolve when the awaited value arrives
+      //.then(resolve)
+      .catch(e => {
+        stopServer();
+        reject(`Error while executing "${serveCommand}"`);
+      });
+
+
 
     let isCollecting = false;
     sub.add(cR.stdout.subscribe(
@@ -51,6 +54,7 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
           workTargetingServer()
             .then(resolve)
             .catch(e => {
+              stopServer();
               reject('Error while running user flows. ' + e)
             }).finally(stopServer);
         }

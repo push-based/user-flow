@@ -42,7 +42,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(stdout).toContain(`url: '${DEFAULT_USER_FLOW_RC_JSON.collect.url}'`);
     expect(stdout).toContain(`ufPath: '${DEFAULT_USER_FLOW_RC_JSON.collect.ufPath}'`);
     expect(stdout).toContain(`outPath: '${DEFAULT_USER_FLOW_RC_JSON.persist.outPath}'`);
-    expect(stdout).toContain(`format: [ '${DEFAULT_USER_FLOW_RC_JSON.persist.format[0]}' ]`);
+    expect(stdout).toContain(`format: [ '${DEFAULT_USER_FLOW_RC_JSON.persist.format[0]}', '${DEFAULT_USER_FLOW_RC_JSON.persist.format[1]}' ]`);
 
     const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_RC) as any);
     expect(config).toEqual(DEFAULT_USER_FLOW_RC_JSON);
@@ -50,7 +50,7 @@ describe('.rc.json in setup sandbox', () => {
   it('should load specified file from given param', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, `-p=${STATIC_USER_FLOW_RC_JSON_NAME}`],
-      [cliPromptTest.ENTER],
+      [],
       CLI_SETUP_TEST_CFG
     );
 

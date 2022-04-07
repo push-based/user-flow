@@ -30,7 +30,6 @@ const ufPathStatic = path.join('./src/lib/user-flows-static-dist');
 const uf1OutPath = path.join(SETUP_SANDBOX_PATH, DEFAULT_USER_FLOW_RC_JSON.persist.outPath, 'sandbox-setup-uf1.uf.html');
 const ufStaticOutPath = path.join(SETUP_SANDBOX_PATH, STATIC_USER_FLOW_RC_JSON.persist.outPath, 'sandbox-setup-static-dist.uf.html');
 
-
 describe('collect command', () => {
   beforeEach(() => resetSetupSandbox());
 
@@ -47,7 +46,7 @@ describe('collect command', () => {
 
     expect(exitCode).toBe(1);
     expect(stdout).toBe('');
-    expect(stderr).toContain('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
+    expect(stderr).toContain('Error: ufPath: undefined is no directory');
 
   });
 });
@@ -57,18 +56,17 @@ describe('collect command in empty sandbox', () => {
 
   it('should throw missing url error', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      collectCommand,
+      [...collectCommand, '--url= ', `-p=./${STATIC_USER_FLOW_RC_JSON_NAME}`],
       [cliPromptTest.ENTER],
-      {
-        testPath: EMPTY_SANDBOX_PATH
-      }
+      CLI_SETUP_TEST_CFG
     );
 
+    expect(stderr).toContain('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
     expect(exitCode).toBe(1);
     expect(stdout).toBe('');
-    expect(stderr).toContain('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
 
-  });
+  }, 40_000);
+
 });
 
 describe('collect command in setup sandbox', () => {
@@ -96,25 +94,25 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Collject: ${uf1Name} from URL ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
-    expect(stdout).toContain(`flow#navigate: ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
-    expect(stdout).toContain(`Duration: ${uf1Name}`);
+    expect(stdout).toContain(`Collect: ${ufStaticName} from URL ${STATIC_USER_FLOW_RC_JSON.collect.url}`);
+    expect(stdout).toContain(`flow#navigate: ${STATIC_USER_FLOW_RC_JSON.collect.url}`);
+    expect(stdout).toContain(`Duration: ${ufStaticName}`);
     expect(exitCode).toBe(0);
 
-  }, 20_000);
+  }, 40_000);
 
   it('should load ufPath and execute the user-flow with verbose information', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       // dryRun is here to get faster tests
-      [...collectCommand, '--dryRun'],
+      [...collectCommand,`-p=${STATIC_USER_FLOW_RC_JSON_NAME}`, `--ufPath=${ufPathStatic}`, '--dryRun'],
       [cliPromptTest.ENTER],
       CLI_SETUP_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expect(stdout).not.toContain(`Collect: ${uf1Name} from URL ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
+    expect(stdout).not.toContain(`Collect: ${ufStaticName} from URL ${STATIC_USER_FLOW_RC_JSON.collect.url}`);
     expect(stdout).not.toContain(`flow#navigate: ${DEFAULT_USER_FLOW_RC_JSON.collect.url}`);
-    expect(stdout).not.toContain(`Duration: ${uf1Name}`);
+    expect(stdout).not.toContain(`Duration: ${ufStaticName}`);
     expect(exitCode).toBe(0);
 
     // Check report file is not created
@@ -124,13 +122,13 @@ describe('collect command in setup sandbox', () => {
       expect(e.message).toContain('no such file or directory');
     }
 
-  }, 20_000);
+  }, 40_000);
 
   // @TODO use remote location config
   it('should load ufPath, execute the user-flow and save the file', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, '-v'],
+      [...collectCommand, `-p=${STATIC_USER_FLOW_RC_JSON_NAME}`, `--url=https://google.com`, `--ufPath=${ufPathStatic}`,'-v'],
       [],
       CLI_SETUP_TEST_CFG
     );
@@ -146,7 +144,7 @@ describe('collect command in setup sandbox', () => {
     expect(reportHTML).toContain(`${uf1Name}`);
 
 
-  }, 60_000);
+  }, 90_000);
 
 
   it('should use serve command and pass the test including output', async () => {
