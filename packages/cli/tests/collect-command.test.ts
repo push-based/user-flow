@@ -54,10 +54,8 @@ describe('collect command in setup sandbox', () => {
       [cliPromptTest.ENTER],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
-    expect(stdout).toBe('');
     expect(stderr).toContain(ERROR_URL_REQUIRED);
     expect(exitCode).toBe(1);
-    expect(stdout).toBe('');
 
   }, 40_000);
 
@@ -67,10 +65,9 @@ describe('collect command in setup sandbox', () => {
       [cliPromptTest.ENTER],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
-    expect(stdout).toBe('');
+
     expect(stderr).toContain(INIT_COMMAND__ASK_URL);
     expect(exitCode).toBe(1);
-    expect(stdout).toBe('');
 
   }, 40_000);
 
