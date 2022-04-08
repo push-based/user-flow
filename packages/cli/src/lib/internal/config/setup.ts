@@ -87,9 +87,9 @@ export async function ensureUrl(
   }
 
   // Validate
-  console.log('Validate: ', suggestion);
+  console.log('Validate: ', new URL(suggestion));
   // Check if url is given
-  if (suggestion === '' && suggestion === undefined) {
+  if (suggestion === '' || suggestion === undefined) {
     throw new Error('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
   }
 

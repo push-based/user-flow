@@ -42,8 +42,7 @@ describe('.rc.json in empty sandbox', () => {
     );
 
     // Assertions
-    // expect(stdout).toBe('');
-    expect(stderr).toContain(`URL is required. Either through the console as \`--url\` or in the \`.user-flow.json\``);
+    expect(stderr).toContain(`ERR_INVALID_URL`);
 
     expect(exitCode).toBe(1);
   });

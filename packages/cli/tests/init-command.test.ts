@@ -88,6 +88,7 @@ describe('init command in empty sandbox', () => {
     // Assertions
 
     // STDOUT
+    expect(stdout).toContain('.user-flowrc.json does not exist.');
     // prompts
     expectPromptsInStdout(stdout);
     // setup log
