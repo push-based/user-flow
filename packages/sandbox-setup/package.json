@@ -1,11 +1,1 @@
-{
-  "name": "sendbox-setup",
-  "version": "0.0.0",
-  "main": "dist/index.html",
-  "license": "MIT",
-  "scripts": {
-    "start1": "node serve.js",
-    "start": "cd dist && npx http-server --port 4100",
-    "@push-based/user-flow": "npx ../../dist/packages/cli/src/cli.js"
-  }
-}
+{"name":"sendbox-setup","version":"0.0.0","main":"dist/index.html","license":"MIT","scripts":{"start":"cd dist && npx http-server --port 5004","@push-based/user-flow":"npx ../../dist/packages/cli/src/cli.js"}}

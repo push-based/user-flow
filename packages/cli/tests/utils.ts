@@ -8,7 +8,7 @@ import {
   DEFAULT_USER_FLOW_RC_JSON, DEFAULT_USER_FLOW_RC_JSON_NAME,
   EMPTY_SANDBOX_PATH, SETUP_SANDBOX_PATH,
   STATIC_USER_FLOW_RC_JSON,
-  STATIC_USER_FLOW_RC_JSON_NAME
+  STATIC_USER_FLOW_RC_JSON_NAME, STATIC_USER_FLOW_SERVE_PORT
 } from './fixtures';
 
 export function exec(command: string, cwd?: string): Promise<string> {
@@ -53,22 +53,4 @@ export function resetEmptySandbox(): void {
   if (fs.existsSync(f)) {
     fs.rmSync(f);
   }
-}
-
-export function resetSetupSandbox(): void {
-
-  rimraf(path.join(SETUP_SANDBOX_PATH, DEFAULT_USER_FLOW_RC_JSON.persist.outPath), (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-  fs.writeFileSync(path.join(SETUP_SANDBOX_PATH, STATIC_USER_FLOW_RC_JSON_NAME), JSON.stringify(STATIC_USER_FLOW_RC_JSON));
-  fs.writeFileSync(path.join(SETUP_SANDBOX_PATH, DEFAULT_USER_FLOW_RC_JSON_NAME), JSON.stringify({
-    collect: {
-      ...DEFAULT_USER_FLOW_RC_JSON.collect,
-    },
-    persist: {
-      ...DEFAULT_USER_FLOW_RC_JSON.persist,
-    }
-  }));
 }

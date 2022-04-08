@@ -38,7 +38,7 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
       //.then(resolve)
       .catch(e => {
         stopServer();
-        reject(`Error while executing "${serveCommand}"`);
+        reject('Error while executing ' + serveCommand);
       });
 
 

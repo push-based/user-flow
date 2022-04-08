@@ -1,6 +1,6 @@
 import { YargsCommandObject } from '../../internal/yargs/model';
 import { collectFlow, persistFlow, loadFlow } from '../../internal/utils/user-flow';
-import { USER_FLOW_RESULT_DIR } from '../../internal/config/constants';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../internal/config/constants';
 import { logVerbose } from '../../core/loggin/index';
 import { get as interactive } from '../../core/options/interactive';
 import { get as dryRun } from '../../core/options/dryRun';
@@ -23,11 +23,11 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       logVerbose(argv);
 
       // get validation and errors for RC & options configurations
-      ensureConfig(yargs.argv as any);
+      ensureConfig(argv);
 
-      const { url, ufPath, outPath, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
+      const { url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
-      await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport }), { serveCommand, awaitServeStdout })
+      await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport, format }), { serveCommand, awaitServeStdout })
     }
   }
 };
@@ -35,7 +35,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
 
 export async function run(cfg: CollectCommandOptions): Promise<void> {
 
-  let { url, ufPath, outPath } = cfg;
+  let { url, ufPath, outPath, format } = cfg;
 
 
   // Load and run user-flows in parallel
@@ -43,11 +43,12 @@ export async function run(cfg: CollectCommandOptions): Promise<void> {
 
   await sequeltial(userFlows.map(({ exports: provider, path }) =>
     (_: any) => collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
-      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath }) : Promise.resolve(''))
-      .then((fileName) => {
+      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath, format }) : Promise.resolve(['']))
+      .then((fileNames) => {
         // open report if requested and not in executed in CI
         if (!dryRun() && openOpt() && interactive()) {
-          openFileInBrowser(fileName, { wait: false });
+          const file = fileNames.find(i => i.includes('.html'));
+          file && openFileInBrowser(file, { wait: false });
         }
         return Promise.resolve();
       })

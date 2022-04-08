@@ -1,6 +1,6 @@
 import { UserFlowRcConfig } from './model';
 import { get as interactive } from '../../core/options/interactive';
-import { CONFIG_NAME, CONFIG_PATH, USER_FLOW_RESULT_DIR, USER_FLOWS_DIR } from './constants';
+import { DEFAULT_RC_NAME, DEFAULT_RC_PATH, DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
 import { prompt } from 'enquirer';
 import { join } from 'path';
 import { get as getRcPath } from '../../core/options/rc';
@@ -9,7 +9,8 @@ import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../commands/coll
 export async function ensureOutPath(
   config: UserFlowRcConfig
 ): Promise<UserFlowRcConfig> {
-  let suggestion = config?.persist?.outPath || USER_FLOW_RESULT_DIR;
+
+    let suggestion = config?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
   if (interactive()) {
     const { outPath } = await prompt<{ outPath: string }>([
       {
@@ -37,7 +38,7 @@ export async function ensureOutPath(
 export async function ensureUfPath(
   config: UserFlowRcConfig
 ): Promise<UserFlowRcConfig> {
-  let suggestion = config?.collect?.ufPath || USER_FLOWS_DIR;
+  let suggestion = config?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
   if (interactive()) {
     const { ufPath } = await prompt<{ ufPath: string }>([
       {
@@ -66,7 +67,7 @@ export async function ensureUrl(
   config: UserFlowRcConfig
 ): Promise<UserFlowRcConfig> {
 
-  let suggestion = config?.collect?.url || '';
+  let suggestion = config?.collect?.url ? config?.collect?.url.trim() : '';
 
   if (interactive()) {
     const { url } = await prompt<{ url: string }>([
@@ -75,15 +76,20 @@ export async function ensureUrl(
         name: 'url',
         message: 'What is the URL to run the user flows for?',
         initial: suggestion,
-        skip: !!suggestion
+        skip: suggestion !== ''
       }
     ]);
+
+    if(!url) {
+      return ensureUrl(config)
+    }
     suggestion = url || suggestion;
   }
 
   // Validate
+  console.log('Validate: ', suggestion);
   // Check if url is given
-  if (!suggestion) {
+  if (suggestion === '' && suggestion === undefined) {
     throw new Error('URL is required. Either through the console as `--url` or in the `.user-flow.json`');
   }
 
@@ -95,27 +101,34 @@ export async function ensureUrl(
 }
 
 
+/**
+ * Takes the provided value form the cfg and evaluates it.
+ * if CLI is interative it checks the given format and prompts the user if the value is not given
+ * @param config
+ */
 export async function ensureFormat(
   config: UserFlowRcConfig
 ): Promise<UserFlowRcConfig> {
   let suggestion: string[] = [];
-  const cfgFormat = config?.persist?.format;
-  if (cfgFormat) {
-    suggestion = Array.isArray(cfgFormat) ? cfgFormat : [cfgFormat];
+
+  let cfgFormat: string[] = [];
+  if(config?.persist?.format) {
+    cfgFormat = Array.isArray(config.persist.format) ? config.persist.format : [config.persist.format];
   }
 
-  if (Array.isArray(suggestion) && suggestion.length === 0) {
+  if (cfgFormat.length === 0) {
     suggestion = REPORT_FORMAT_VALUES;
+  } else {
+    suggestion = cfgFormat;
   }
-
 
   if (interactive()) {
 
-    const { format }: { format: string[] } = !suggestion?.length ? await prompt<{ format: string[] }>([
+    const { format }: { format: string[] | undefined } = cfgFormat.length === 0 ? await prompt<{ format: string[] }>([
       {
         type: 'multiselect',
         name: 'format',
-        message: 'What is the format of user-flows? (use ⬇/⬆ to navigate, and SPACE key to select)',
+        message: 'What is the format of user-flow reports? (use ⬇/⬆ to navigate, and SPACE key to select)',
         choices: REPORT_FORMAT_OPTIONS,
         // @NOTICE typing is broken here
         result(value: string): string {
@@ -123,7 +136,7 @@ export async function ensureFormat(
           return values.map(name => REPORT_FORMAT_OPTIONS.find(i => i.name === name)?.value + '') as any as string;
         }
       }
-    ]) : { format: suggestion };
+    ]) : { format: cfgFormat };
 
     suggestion = format;
     if (suggestion.length === 0) {

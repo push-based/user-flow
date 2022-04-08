@@ -1,32 +1,36 @@
-import * as fs from 'fs';
 import * as cliPromptTest from 'cli-prompts-test';
-import {
-  ASK_OUT_PATH,
-  ASK_UF_PATH,
-  ASK_URL,
-  CLI_PATH,
-  DEFAULT_USER_FLOW_RC_JSON, DEFAULT_USER_FLOW_RC_JSON_NAME, EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC, SETUP_CONFIRM,
-  SETUP_SANDBOX_PATH, SETUP_SANDBOX_RC, SETUP_SANDBOX_STATIC_RC, STATIC_USER_FLOW_RC_JSON
-} from './fixtures';
-import { CLI_MODE_PROPERTY } from '../src/lib/cli-modes';
-import { resetEmptySandbox, resetSetupSandbox } from './utils';
-import { UserFlowRcConfig } from '@push-based/user-flow/cli';
-import path = require('path');
 
-const UP = cliPromptTest.UP;
-const DOWN = cliPromptTest.DOWN;
-const SPACE = cliPromptTest.SPACE;
-const ENTER = cliPromptTest.ENTER;
-const CLI_EMPTY_TEST_CFG = {
-  testPath: EMPTY_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX'
-};
-const initCommand = [CLI_PATH, 'init'];
+import { CLI_PATH } from './fixtures/cli-bin-path';
+import { ENTER, UP, DOWN, SPACE } from './fixtures/keyboard';
+
+import {
+  EMPTY_SANDBOX_CLI_TEST_CFG,
+  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
+  resetEmptySandbox
+} from './fixtures/empty-sandbox';
+
+import {
+  resetSetupSandbox,
+  SETUP_SANDBOX_CLI_TEST_CFG,
+  SETUP_SANDBOX_DEFAULT_RC_JSON,
+  SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON, SETUP_SANDBOX_STATIC_RC_PATH
+} from './fixtures/setup-sandbox';
+
+import {
+  expectCollectToCreateRc,
+  expectNoPromptsInStdout,
+  expectOutputRcInStdout,
+  expectPromptsInStdout
+} from './utils/cli-expectations';
+
+const initCommand = [CLI_PATH, 'init', '-v'];
 
 describe('init command in setup sandbox', () => {
 
   beforeEach(() => {
-    resetEmptySandbox();
+    resetSetupSandbox();
+  });
+  afterEach(() => {
     resetSetupSandbox();
   });
 
@@ -35,23 +39,22 @@ describe('init command in setup sandbox', () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [],
-      {
-        ...CLI_EMPTY_TEST_CFG,
-        testPath: SETUP_SANDBOX_PATH
-      }
+      SETUP_SANDBOX_CLI_TEST_CFG
     );
 
     // Assertions
 
-    expect(stderr).toBe('');
-    expect(stdout).not.toContain(ASK_URL);
-    expect(stdout).not.toContain(ASK_UF_PATH);
-    expect(stdout).not.toContain(ASK_OUT_PATH);
-    expect(stdout).toContain(SETUP_CONFIRM);
-    expect(exitCode).toBe(0);
+    // STDOUT
+    // prompts
+    expectNoPromptsInStdout(stdout);
+    // setup log
+    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
 
-    const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
-    expect(config).toEqual(STATIC_USER_FLOW_RC_JSON);
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+
+    // file output
+    expectCollectToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
 });
@@ -60,58 +63,66 @@ describe('init command in empty sandbox', () => {
 
   beforeEach(() => {
     resetEmptySandbox();
-    resetSetupSandbox();
+  });
+  afterEach(() => {
+    resetEmptySandbox();
   });
 
-  it('should generate a valid rc.json if we accept default values', async () => {
+  it('should generate a valid rc.json if we accept suggested values', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        'default-url', ENTER,
+        //url
+        EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
+        // ufPath
         ENTER,
+        // format
+        SPACE, DOWN, SPACE, ENTER,
+        // outPath
         ENTER,
-        ENTER,
-        ENTER
       ],
-      CLI_EMPTY_TEST_CFG
+      EMPTY_SANDBOX_CLI_TEST_CFG
     );
 
+    // Assertions
+
+    // STDOUT
+    // prompts
+    expectPromptsInStdout(stdout);
+    // setup log
+    expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain(ASK_URL);
-    expect(stdout).toContain(ASK_UF_PATH);
-    expect(stdout).toContain(ASK_OUT_PATH);
-    expect(stdout).toContain(SETUP_CONFIRM);
 
-    const config = JSON.parse(fs.readFileSync(EMPTY_SANDBOX_RC) as any);
-    expect(config).toEqual(DEFAULT_USER_FLOW_RC_JSON);
+    expectCollectToCreateRc(EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should generate a valid rc.json if we answer with custom values', async () => {
-    const { collect, persist } = STATIC_USER_FLOW_RC_JSON;
+    const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
     const { url, ufPath, awaitServeStdout, serveCommand } = collect;
-    const { outPath, format } = persist;
+    const { outPath } = persist;
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [
-        url, ENTER, ENTER,
-        ufPath, ENTER, ENTER,
-        DOWN, DOWN, SPACE, ENTER, ENTER,
+        // url
+        url, ENTER,
+        // ufPath
+        ufPath, ENTER,
+        // json format
+        DOWN, DOWN, SPACE, ENTER,
         outPath, ENTER
       ],
-      CLI_EMPTY_TEST_CFG
+      EMPTY_SANDBOX_CLI_TEST_CFG
     );
 
-    expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain(ASK_URL);
-    expect(stdout).toContain(ASK_UF_PATH);
-    expect(stdout).toContain(ASK_OUT_PATH);
-    expect(stdout).toContain(SETUP_CONFIRM);
+    expectPromptsInStdout(stdout);
+    expect(exitCode).toBe(0);
 
-    const config = JSON.parse(fs.readFileSync(path.join(EMPTY_SANDBOX_RC)) as any);
-    // expect(config).toEqual({ collect: { url, ufPath }, persist: { outPath, format } });
+    //
+    expectCollectToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON);
+
   }, 40_000);
 
 });

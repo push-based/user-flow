@@ -51,6 +51,7 @@ function getCLIConfig(rcPath: string, argv: Partial<UserFlowRcConfig>): UserFlow
 export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcConfig> {
   const rcPath = getRcPath();
   const cliCfg = getCLIConfig(rcPath, argv);
+  console.log('run init', argv)
   const config = {
     ...cliCfg,
     ...(await ensureUrl(cliCfg)
