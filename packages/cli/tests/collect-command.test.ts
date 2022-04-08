@@ -56,7 +56,7 @@ describe('collect command in empty sandbox', () => {
 
   it('should throw missing url error', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, '--url= ', `-p=./${STATIC_USER_FLOW_RC_JSON_NAME}`],
+      [...collectCommand, '--url=', `-p=./${STATIC_USER_FLOW_RC_JSON_NAME}`, '-v'],
       [cliPromptTest.ENTER],
       CLI_SETUP_TEST_CFG
     );
@@ -70,7 +70,9 @@ describe('collect command in empty sandbox', () => {
 });
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(() => resetSetupSandbox());
+  beforeEach(() => {
+    resetSetupSandbox();
+  });
   it('should exit if wrong ufPath is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
@@ -82,7 +84,7 @@ describe('collect command in setup sandbox', () => {
       CLI_SETUP_TEST_CFG
     );
     expect(stdout).toBe('');
-    expect(stderr).toContain(`ufPath: WRONG is no directory`);
+    expect(stderr).toContain(`Error ufPath: `);
     expect(exitCode).toBe(1);
   });
 

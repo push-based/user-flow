@@ -66,6 +66,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(stdout).toContain(`format: [ '${config.persist.format[0]}' ]`);
     expect(exitCode).toBe(0);
   });
+
   it('should take params from cli', async () => {
     const { collect, persist } = JSON.parse(fs.readFileSync(SETUP_SANDBOX_STATIC_RC) as any);
     const { url, ufPath, serveCommand, awaitServeStdout } = collect;
@@ -143,4 +144,5 @@ describe('.rc.json in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(stdout).toContain('wrong/path/to/file.json does not exist');
   });
+
 });

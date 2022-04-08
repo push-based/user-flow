@@ -6,7 +6,7 @@ export const DEFAULT_USER_FLOW_RC_JSON = { "collect": { "url": "default-url", "u
 export const STATIC_USER_FLOW_RC_JSON_NAME = ".user-flowrc.static-dist.json";
 export const STATIC_USER_FLOW_RC_JSON = {
   "collect": {
-    "url": "http://127.0.0.1:4800",
+    "url": "http://127.0.0.1:4910",
     "ufPath": "./src/lib/user-flows-static-dist",
     "serveCommand": "npm run start",
     "awaitServeStdout": "Available on:"
