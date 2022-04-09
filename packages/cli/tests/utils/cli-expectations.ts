@@ -73,7 +73,8 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
   }
 }
 
-export function expectCollectToCreateRc(rcPath: string, cfg: UserFlowRcConfig) {
+export function expectEnsureConfigToCreateRc(rcPath: string, cfg: UserFlowRcConfig) {
+  expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
   expect(config).toEqual(cfg);
 }

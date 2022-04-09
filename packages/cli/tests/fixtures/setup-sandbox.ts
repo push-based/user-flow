@@ -9,7 +9,7 @@ export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
-export const STATIC_USER_FLOW_SERVE_PORT = '5024';
+export const STATIC_USER_FLOW_SERVE_PORT = '5026';
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
@@ -66,17 +66,17 @@ export async function resetSetupSandbox(): Promise<void> {
   // await exec(`npx kill-port 127.0.0.1:${STATIC_USER_FLOW_SERVE_PORT}`);
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());
-/*
+
   fs.writeFileSync(SETUP_SANDBOX_DEFAULT_RC_PATH, JSON.stringify(SETUP_SANDBOX_DEFAULT_RC_JSON));
   rimraf(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }
   });
-*/
+  /**/
   fs.writeFileSync(SETUP_SANDBOX_STATIC_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_JSON));
 
-  /*rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
+  rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }
@@ -87,7 +87,7 @@ export async function resetSetupSandbox(): Promise<void> {
     if (err) {
       Promise.resolve(err);
     }
-  });*/
+  });/**/
 
   packageJson.scripts.start = STATIC_USER_FLOW_SERVE_COMMAND;
   fs.writeFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH, JSON.stringify(packageJson));

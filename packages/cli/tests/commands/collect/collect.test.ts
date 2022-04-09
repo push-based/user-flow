@@ -21,12 +21,8 @@ const uf1Name = 'Sandbox Setup UF1';
 const uf1OutPathJons = path.join(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, 'sandbox-setup-uf1.uf.json');
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(() => {
-    resetSetupSandbox();
-  });
-  afterEach(() => {
-    resetSetupSandbox();
-  });
+  beforeEach(async () => resetSetupSandbox());
+  afterEach(async () => resetSetupSandbox());
 
 
   it('should load ufPath, execute the user-flow on a remote URL and save the file', async () => {

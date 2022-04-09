@@ -36,7 +36,7 @@ describe('collect command in dryRun in setup sandbox', () => {
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
-    expect(stderr).toContain('INVALID_URL');
+    expect(stderr).toContain('URL is required');
     expect(exitCode).toBe(1);
 
   }, 40_000);
@@ -59,7 +59,7 @@ describe('collect command in dryRun in setup sandbox', () => {
 
   it('should load ufPath and execute the user-flow', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandStaticRc, `--ufPath=${SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath}`, '--dryRun'],
+      [...collectCommandStaticRc, `--ufPath=${SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath}`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
