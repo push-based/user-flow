@@ -42,7 +42,7 @@ describe('.rc.json in empty sandbox', () => {
     );
 
     // Assertions
-    expect(stderr).toContain(`ERR_INVALID_URL`);
+    expect(stderr).toContain(`URL is required`);
 
     expect(exitCode).toBe(1);
   });
