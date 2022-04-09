@@ -23,6 +23,8 @@ import {
   expectPromptsInStdout
 } from '../../utils/cli-expectations';
 import { ERROR_UF_PATH_REQUIRED } from '../../fixtures/cli-errors';
+import { readdirSync } from 'fs';
+import * as path  from 'path';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -53,17 +55,6 @@ describe('init command in setup sandbox', () => {
     // file output
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
-
-});
-
-describe('init command in empty sandbox', () => {
-
-  beforeEach(async () => {
-    await resetEmptySandbox();
-  });
-  afterEach(async () => {
-    await resetEmptySandbox();
-  });
   it('should throw missing url error', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, '--interactive=false', '--url='],
@@ -74,23 +65,12 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(1);
 
   }, 40_000);
+});
 
-  it('should exit if wrong ufPath is given', async () => {
-    const wrongPath = 'WRONG';
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-        `--ufPath=${wrongPath}`
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+describe('init command in empty sandbox', () => {
 
-    expect(stderr).toContain(ERROR_UF_PATH_REQUIRED(wrongPath));
-    expect(exitCode).toBe(1);
-    expect(stdout).toContain('stoop server');
-  });
-
+  beforeEach(async () => resetEmptySandbox());
+  afterEach(async () => resetEmptySandbox());
 
   it('should generate a valid rc.json if we accept suggested values', async () => {
 
@@ -120,7 +100,7 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
 
-   // expectEnsureConfigToCreateRc(EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should generate a valid rc.json if we answer with custom values', async () => {
@@ -135,7 +115,7 @@ describe('init command in empty sandbox', () => {
         // ufPath
         ufPath, ENTER,
         // json format
-        DOWN, DOWN, SPACE, ENTER,
+        DOWN, SPACE, ENTER,
         outPath, ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
@@ -146,7 +126,7 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS, SETUP_SANDBOX_STATIC_RC_JSON);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {collect:{url, ufPath}, persist: {outPath, format: ['json']}});
 
   }, 40_000);
 

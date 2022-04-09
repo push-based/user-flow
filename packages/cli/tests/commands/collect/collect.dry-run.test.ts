@@ -15,6 +15,7 @@ import {
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
 import { ERROR_UF_PATH_REQUIRED } from '../../fixtures/cli-errors';
+import { readdirSync } from "fs";
 
 const collectCommand = [CLI_PATH, 'collect', '-v', '--dryRun'];
 const collectCommandStaticRc = [...collectCommand, `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`];
@@ -29,7 +30,6 @@ describe('collect command in dryRun in setup sandbox', () => {
   afterEach(() => {
     resetSetupSandbox();
   });
-
 
   it('should load ufPath and execute the user-flow', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(

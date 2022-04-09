@@ -3,6 +3,7 @@ import { get as interactive } from '../../core/options/interactive';
 import { DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
 import { prompt } from 'enquirer';
 import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../commands/collect/constats';
+import { mkdirSync, readdirSync } from 'fs';
 
 export async function ensureOutPath(
   config: UserFlowRcConfig
@@ -53,6 +54,12 @@ export async function ensureUfPath(
   // Check if path to user-flows is given
   if (!suggestion) {
     throw new Error('Path to user flows is required. Either through the console as `--ufPath` or in the `.user-flowrc.json`');
+  }
+
+  try {
+    readdirSync(suggestion);
+  } catch (e) {
+    mkdirSync(suggestion)
   }
 
   return {
