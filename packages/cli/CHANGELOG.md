@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.5.0](https://github.com/push-based/user-flow/compare/cli-0.4.2...cli-0.5.0) (2022-04-09)
+
+
+### Features
+
+* add format option & tests ([75ee589](https://github.com/push-based/user-flow/commit/75ee5893cfa24d184a2016867475e1451c08f4f2))
+
+
+
 ## [0.4.2](https://github.com/push-based/user-flow/compare/cli-0.4.1...cli-0.4.2) (2022-04-06)
 
 
