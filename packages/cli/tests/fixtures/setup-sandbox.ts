@@ -9,7 +9,7 @@ export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
-export const STATIC_USER_FLOW_SERVE_PORT = '5026';
+export const STATIC_USER_FLOW_SERVE_PORT = '5027';
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';

@@ -30,32 +30,6 @@ describe('collect command in dryRun in setup sandbox', () => {
     resetSetupSandbox();
   });
 
-  it('should throw missing url error', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, '--interactive=false', '--url='],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
-    expect(stderr).toContain('URL is required');
-    expect(exitCode).toBe(1);
-
-  }, 40_000);
-
-  it('should exit if wrong ufPath is given', async () => {
-    const wrongPath = 'WRONG';
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...collectCommandStaticRc,
-        `--ufPath=${wrongPath}`
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
-
-    expect(stderr).toContain(ERROR_UF_PATH_REQUIRED(wrongPath));
-    expect(exitCode).toBe(1);
-    expect(stdout).toContain('stop server');
-  });
 
   it('should load ufPath and execute the user-flow', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(

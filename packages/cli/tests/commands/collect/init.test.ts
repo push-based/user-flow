@@ -22,6 +22,7 @@ import {
   expectOutputRcInStdout,
   expectPromptsInStdout
 } from '../../utils/cli-expectations';
+import { ERROR_UF_PATH_REQUIRED } from '../../fixtures/cli-errors';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -61,8 +62,35 @@ describe('init command in empty sandbox', () => {
     await resetEmptySandbox();
   });
   afterEach(async () => {
-   // await resetEmptySandbox();
+    await resetEmptySandbox();
   });
+  it('should throw missing url error', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...initCommand, '--interactive=false', '--url='],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+    expect(stderr).toContain('URL is required');
+    expect(exitCode).toBe(1);
+
+  }, 40_000);
+
+  it('should exit if wrong ufPath is given', async () => {
+    const wrongPath = 'WRONG';
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand,
+        `--ufPath=${wrongPath}`
+      ],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+
+    expect(stderr).toContain(ERROR_UF_PATH_REQUIRED(wrongPath));
+    expect(exitCode).toBe(1);
+    expect(stdout).toContain('stoop server');
+  });
+
 
   it('should generate a valid rc.json if we accept suggested values', async () => {
 
