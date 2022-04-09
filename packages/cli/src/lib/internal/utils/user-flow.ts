@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
+
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import {
@@ -14,24 +15,43 @@ import { get as dryRun } from '../../core/options/dryRun';
 import { PersistOptions } from '../config/model';
 import { detectCliMode } from '../../cli-modes';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath }: PersistOptions): Promise<string> {
+type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
+
+const _persistMethod = new Map<string, PersistFn>();
+
+_persistMethod.set('html', async ({ outPath, flow, name }) => {
   const report = await flow.generateReport();
   const fileName = join(outPath, `${toFileName(name)}.uf.html`);
   writeFile(fileName, report);
   return fileName;
+});
+
+_persistMethod.set('json', async ({ outPath, flow, name }) => {
+    const report = await flow.createFlowResult();
+    const fileName = join(outPath, `${toFileName(name)}.uf.json`);
+    writeFile(fileName, JSON.stringify(report));
+    return fileName;
+  }
+);
+
+export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+  return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
 }
 
 export async function collectFlow(
   collectOptions: { url: string, dryRun: boolean },
-  userFlowProvider: UserFlowProvider & {path: string}
+  userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let { launchOptions, flowOptions, interactions } = userFlowProvider;
-  launchOptions = launchOptions || { headless: false, defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600  }  };
+  launchOptions = launchOptions || {
+    headless: false,
+    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
+  };
   // @TODO consider CI vs dev mode => headless, open, persist etc
 
-  if(detectCliMode() !== 'DEFAULT') {
-    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`)
-    launchOptions.headless = true
+  if (detectCliMode() !== 'DEFAULT') {
+    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
+    launchOptions.headless = true;
   }
 
   logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
@@ -53,14 +73,14 @@ export async function collectFlow(
   return flow;
 }
 
-export function loadFlow(path: string): ({exports: UserFlowProvider, path: string})[] {
+export function loadFlow(path: string): ({ exports: UserFlowProvider, path: string })[] {
   let ufDirectory = [];
   try {
-    ufDirectory = readdirSync(path)
+    ufDirectory = readdirSync(path);
   } catch (e) {
-    throw new Error(`ufPath: ${path} is no directory`)
+    throw new Error(`ufPath: ${path} is no directory`);
   }
-  const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & {path: string}>(join(path, p)));
+  const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(path, p)));
   return flows;
 }
 

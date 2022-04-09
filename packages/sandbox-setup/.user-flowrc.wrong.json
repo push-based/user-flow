@@ -1,9 +1,0 @@
-{
-  "collect": {
-    "url": "wrong",
-    "ufPath": "./wrong/user-flows"
-  },
-  "persist": {
-    "outPath": "./wrong/measures"
-  }
-}

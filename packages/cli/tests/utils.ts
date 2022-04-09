@@ -15,10 +15,10 @@ export function exec(command: string, cwd?: string): Promise<string> {
       try {
         const isDir = fs.lstatSync(cwd).isDirectory();
         if (!isDir) {
-          reject(`Sandbox directory ${cwd} invalide`);
+          reject(`Sandbox directory ${cwd} invalid`);
         }
       } catch (e) {
-        reject(`Sandbox directory ${cwd} invalide`);
+        reject(`Sandbox directory ${cwd} invalid`);
       }
       cwd && (execOptions.cwd = cwd);
     }

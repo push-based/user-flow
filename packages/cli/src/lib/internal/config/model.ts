@@ -7,9 +7,9 @@ export type CollectOptions = {
 }
 
 export type PersistOptions = {
-  outPath: string
+  outPath: string,
+  format: string[]
 }
-
 
 export type UserFlowRcConfig = {
   collect: CollectOptions,

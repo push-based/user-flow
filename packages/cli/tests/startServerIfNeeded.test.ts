@@ -3,6 +3,7 @@ import { startServerIfNeeded } from '../src/lib/commands/collect/serve-command';
 import spyOn = jest.spyOn;
 
 describe('startServerIfNeeded', () => {
+
   it('should throw if serveCommand is provided but no await string', async () => {
     const o = {
       serveCommand: 'npm run start'
@@ -77,7 +78,7 @@ describe('startServerIfNeeded', () => {
       return undefined;
     });
 
-    expect(err).toContain(`Error while executing "${o.serveCommand}"`);
+    expect(err).toContain(`Error while executing ${o.serveCommand}`);
     expect(res).toBe(undefined);
 
   });

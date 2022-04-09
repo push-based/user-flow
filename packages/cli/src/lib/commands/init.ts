@@ -1,10 +1,11 @@
 import { YargsCommandObject } from '../internal/yargs/model';
 import { log, logVerbose } from '../core/loggin/index';
-import { readRcConfig, updateRepoConfig } from '../internal/config/config';
+import { updateRepoConfig } from '../internal/config/config';
 import { UserFlowRcConfig } from '../types/model';
-import { ensureOutPath, ensureUrl, ensureUfPath } from '../internal/config/setup';
+import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../internal/config/setup';
 import { param } from './collect/options/open';
 import { get as getRcPath } from '../core/options/rc';
+import { CollectOptions, PersistOptions } from '../internal/config/model';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -13,27 +14,46 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      const cfg = await run();
-      log('user-flow CLI is set up now! 🎉')
+      const cfg = await run(argv);
+      log('user-flow CLI is set up now! 🎉');
       logVerbose(cfg);
     }
   }
 };
 
-export async function run(): Promise<UserFlowRcConfig> {
-  const rcPath = getRcPath();
-  const repoConfig = readRcConfig(rcPath);
-  // const isFirstRun = Object.keys(repoConfig).length <= 0;
+function getCLIConfigFromArgv(argv: Partial<UserFlowRcConfig>): UserFlowRcConfig {
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format} = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
+  const cfg: UserFlowRcConfig = {
+    collect: {
+      url,
+      ufPath,
+      serveCommand,
+      awaitServeStdout
+    },
+    persist: {
+      outPath,
+      format
+    }
+  };
+
+  return cfg;
+}
+
+export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcConfig> {
+  const cliCfg = getCLIConfigFromArgv(argv);
+  //console.log('run init', cliCfg)
   const config = {
-    ...repoConfig,
-    ...(await ensureUrl(repoConfig)
+    ...cliCfg,
+    ...(await ensureUrl(cliCfg)
         .then(ensureUfPath)
+        .then(ensureFormat)
         .then(ensureOutPath)
       // defaults should be last as it takes user settings
     )
   };
 
+  const rcPath = getRcPath();
   updateRepoConfig(config, rcPath);
 
   return config;
