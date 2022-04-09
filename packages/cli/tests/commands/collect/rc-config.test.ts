@@ -152,7 +152,7 @@ describe('.rc.json in setup sandbox', () => {
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain('wrong/path/to/file.json does not exist');
+    expect(stdout).toContain(INIT_COMMAND__ASK_URL);
   });
 
 });
