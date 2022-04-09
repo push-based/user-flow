@@ -14,11 +14,12 @@ export function readRcConfig(cfgPath: string = ''): UserFlowRcConfig {
 export function updateRepoConfig(config: UserFlowRcConfig, cfgPath: string = ''): void {
   const configPath = cfgPath || getRcPath();
   logVerbose(`Update config under ${configPath}`);
-
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
+
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
     writeFile(configPath, formatCode(JSON.stringify(config), 'json'));
+    logVerbose(`New config ${JSON.stringify(config)}`);
   } else {
     logVerbose(`No updates for ${configPath} to save.`);
   }

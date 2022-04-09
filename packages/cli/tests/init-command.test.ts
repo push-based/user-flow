@@ -1,7 +1,7 @@
 import * as cliPromptTest from 'cli-prompts-test';
 
 import { CLI_PATH } from './fixtures/cli-bin-path';
-import { ENTER, UP, DOWN, SPACE } from './fixtures/keyboard';
+import { ENTER, DOWN, SPACE } from './fixtures/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
@@ -27,12 +27,8 @@ const initCommand = [CLI_PATH, 'init', '-v'];
 
 describe('init command in setup sandbox', () => {
 
-  beforeEach(() => {
-    resetSetupSandbox();
-  });
-  afterEach(() => {
-    resetSetupSandbox();
-  });
+  beforeEach(async () => resetSetupSandbox());
+  afterEach(async () => resetSetupSandbox());
 
   it('should inform about the already existing setup', async () => {
 
@@ -61,11 +57,11 @@ describe('init command in setup sandbox', () => {
 
 describe('init command in empty sandbox', () => {
 
-  beforeEach(() => {
-    resetEmptySandbox();
+  beforeEach(async () => {
+    await resetEmptySandbox();
   });
-  afterEach(() => {
-    resetEmptySandbox();
+  afterEach(async () => {
+    await resetEmptySandbox();
   });
 
   it('should generate a valid rc.json if we accept suggested values', async () => {

@@ -1,6 +1,6 @@
 import { YargsCommandObject } from '../internal/yargs/model';
 import { log, logVerbose } from '../core/loggin/index';
-import { readRcConfig, updateRepoConfig } from '../internal/config/config';
+import { updateRepoConfig } from '../internal/config/config';
 import { UserFlowRcConfig } from '../types/model';
 import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../internal/config/setup';
 import { param } from './collect/options/open';
@@ -21,37 +21,28 @@ export const initCommand: YargsCommandObject = {
   }
 };
 
-function getCLIConfig(rcPath: string, argv: Partial<UserFlowRcConfig>): UserFlowRcConfig {
-
-  const repoConfig = readRcConfig(rcPath);
+function getCLIConfigFromArgv(argv: Partial<UserFlowRcConfig>): UserFlowRcConfig {
   const { url, ufPath, serveCommand, awaitServeStdout, outPath, format} = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
-  const cfg = {
+  const cfg: UserFlowRcConfig = {
     collect: {
-      ...repoConfig.collect,
+      url,
+      ufPath,
+      serveCommand,
+      awaitServeStdout
     },
     persist: {
-      ...repoConfig.persist,
-      outPath, format
+      outPath,
+      format
     }
   };
-
-  // collect
-  url && (cfg.collect.url = url);
-  ufPath && (cfg.collect.ufPath = ufPath);
-  serveCommand && (cfg.collect.serveCommand = serveCommand);
-  awaitServeStdout && (cfg.collect.awaitServeStdout = awaitServeStdout);
-  // persist
-  outPath && (cfg.persist.outPath = outPath);
-  format && (cfg.persist.format = format);
 
   return cfg;
 }
 
 export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcConfig> {
-  const rcPath = getRcPath();
-  const cliCfg = getCLIConfig(rcPath, argv);
-  console.log('run init', argv)
+  const cliCfg = getCLIConfigFromArgv(argv);
+  //console.log('run init', cliCfg)
   const config = {
     ...cliCfg,
     ...(await ensureUrl(cliCfg)
@@ -61,7 +52,9 @@ export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcCo
       // defaults should be last as it takes user settings
     )
   };
+  console.log('ensured ', config);
 
+  const rcPath = getRcPath();
   updateRepoConfig(config, rcPath);
 
   return config;

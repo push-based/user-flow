@@ -11,7 +11,7 @@
     "@push-based/user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect",
-    "@push-based/user-flow:sandboxsetup": "cd packages/sandbox-setup && npm run @push-based/user-flow -- collect -p .user-flowrc.static-dist.json",
+    "@push-based/user-flow:sandboxsetup": "cd packages/sandbox-setup && npm run @push-based/user-flow -- -p .user-flowrc.static-dist.json",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -53,6 +53,7 @@
     "eslint-config-prettier": "8.1.0",
     "husky": "^7.0.0",
     "jest": "27.2.3",
+    "kill-port": "^1.6.1",
     "ngx-deploy-npm": "^3.1.2",
     "nx": "13.9.5",
     "prettier": "^2.5.1",

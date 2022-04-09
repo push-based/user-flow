@@ -36,10 +36,11 @@ export const EMPTY_SANDBOX_CLI_TEST_CFG = {
   [CLI_MODE_PROPERTY]: 'SANDBOX'
 };
 
-export function resetEmptySandbox(): void {
+export async function resetEmptySandbox(): Promise<void> {
   const f = path.join(EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS);
 
   if (fs.existsSync(f)) {
     fs.rmSync(f);
   }
+  return Promise.resolve();
 }

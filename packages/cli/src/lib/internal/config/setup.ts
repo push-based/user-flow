@@ -1,9 +1,7 @@
 import { UserFlowRcConfig } from './model';
 import { get as interactive } from '../../core/options/interactive';
-import { DEFAULT_RC_NAME, DEFAULT_RC_PATH, DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
+import { DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
 import { prompt } from 'enquirer';
-import { join } from 'path';
-import { get as getRcPath } from '../../core/options/rc';
 import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../commands/collect/constats';
 
 export async function ensureOutPath(
@@ -80,14 +78,11 @@ export async function ensureUrl(
       }
     ]);
 
-    if(!url) {
-      return ensureUrl(config)
-    }
     suggestion = url || suggestion;
   }
 
   // Validate
-  console.log('Validate: ', new URL(suggestion));
+
   // Check if url is given
   if (suggestion === '' || suggestion === undefined) {
     throw new Error('URL is required. Either through the console as `--url` or in the `.user-flow.json`');

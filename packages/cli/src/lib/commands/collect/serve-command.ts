@@ -13,6 +13,7 @@ const log = logVerbose;
 
 export async function startServerIfNeeded(workTargetingServer: () => Promise<any>, cfg: Pick<CollectOptions, 'serveCommand' | 'awaitServeStdout'> = {}): Promise<any> {
 
+  logVerbose('startServerIfNeeded 11111111111');
   const { serveCommand, awaitServeStdout } = cfg;
 
 
@@ -27,19 +28,19 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
   return new Promise((resolve, reject) => {
     const sub = new Subscription();
     const res = concurrently([serveCommand]);
+
     const cR = res.commands[0];
     const stopServer = () => {
       logVerbose('stop server');
-      sub.unsubscribe();
       cR.kill();
+      sub.unsubscribe();
     }
     const endRes = res.result
       // We resolve when the awaited value arrives
-      //.then(resolve)
+      .then(() => console.log('concurrently res'))
       .catch(e => {
-        stopServer();
         reject('Error while executing ' + serveCommand);
-      });
+      }).finally(stopServer);
 
 
 
@@ -54,7 +55,6 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
           workTargetingServer()
             .then(resolve)
             .catch(e => {
-              stopServer();
               reject('Error while running user flows. ' + e)
             }).finally(stopServer);
         }

@@ -12,7 +12,6 @@ import { startServerIfNeeded } from './serve-command';
 import { run as ensureConfig } from '../init';
 import yargs from 'yargs';
 
-
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
   description: 'Run a set of user flows and save the result',
@@ -23,20 +22,23 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       logVerbose(argv);
 
       // get validation and errors for RC & options configurations
-      ensureConfig(argv);
+      await ensureConfig(argv);
 
       const { url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
-      await startServerIfNeeded(() => run({ url, ufPath, outPath, openReport, format }), { serveCommand, awaitServeStdout })
+      const r = startServerIfNeeded(() => {
+        console.log('Available on:');
+        return Promise.resolve();
+      }, { serveCommand, awaitServeStdout });
+
+      logVerbose('RRRRRRR'+r);
     }
   }
 };
 
-
 export async function run(cfg: CollectCommandOptions): Promise<void> {
 
   let { url, ufPath, outPath, format } = cfg;
-
 
   // Load and run user-flows in parallel
   const userFlows = loadFlow(ufPath);
