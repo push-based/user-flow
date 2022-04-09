@@ -2,10 +2,10 @@ import * as fs from 'fs';
 import * as cliPromptTest from 'cli-prompts-test';
 import {
   CLI_PATH
-} from './fixtures/cli-bin-path';
+} from '../../fixtures/cli-bin-path';
 import {
   resetEmptySandbox, EMPTY_SANDBOX_CLI_TEST_CFG
-} from './fixtures/empty-sandbox';
+} from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandbox,
@@ -14,9 +14,9 @@ import {
   SETUP_SANDBOX_DEFAULT_RC_NAME,
   SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
-} from './fixtures/setup-sandbox';
-import { INIT_COMMAND__ASK_URL, INIT_COMMAND__SETUP_CONFIRM } from './fixtures/cli-prompts';
-import { expectOutputRcInStdout } from './utils/cli-expectations';
+} from '../../fixtures/setup-sandbox';
+import { INIT_COMMAND__ASK_URL, INIT_COMMAND__SETUP_CONFIRM } from '../../fixtures/cli-prompts';
+import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 
 
 const initCommand = [CLI_PATH, 'init', '-v'];

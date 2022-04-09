@@ -26,12 +26,10 @@ export const collectUserFlowsCommand: YargsCommandObject = {
 
       const { url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
-      const r = startServerIfNeeded(() => {
-        console.log('Available on:');
-        return Promise.resolve();
+      const r = await startServerIfNeeded(() => {
+        return run({ url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout});
       }, { serveCommand, awaitServeStdout });
 
-      logVerbose('RRRRRRR'+r);
     }
   }
 };

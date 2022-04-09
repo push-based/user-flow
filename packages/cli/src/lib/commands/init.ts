@@ -52,7 +52,6 @@ export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcCo
       // defaults should be last as it takes user settings
     )
   };
-  console.log('ensured ', config);
 
   const rcPath = getRcPath();
   updateRepoConfig(config, rcPath);

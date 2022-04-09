@@ -1,0 +1,1 @@
+{"collect":{"url":"https://google.com","ufPath":"./src/lib/user-flows","serveCommand":"npm run start","awaitServeStdout":"Available on:"},"persist":{"outPath":"./measures","format":["json"]}}

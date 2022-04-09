@@ -1,27 +1,27 @@
 import * as cliPromptTest from 'cli-prompts-test';
 
-import { CLI_PATH } from './fixtures/cli-bin-path';
-import { ENTER, DOWN, SPACE } from './fixtures/keyboard';
+import { CLI_PATH } from '../../fixtures/cli-bin-path';
+import { ENTER, DOWN, SPACE } from '../../fixtures/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
   EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
   resetEmptySandbox
-} from './fixtures/empty-sandbox';
+} from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandbox,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON, SETUP_SANDBOX_STATIC_RC_PATH
-} from './fixtures/setup-sandbox';
+} from '../../fixtures/setup-sandbox';
 
 import {
   expectCollectToCreateRc,
   expectNoPromptsInStdout,
   expectOutputRcInStdout,
   expectPromptsInStdout
-} from './utils/cli-expectations';
+} from '../../utils/cli-expectations';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -30,7 +30,7 @@ describe('init command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandbox());
   afterEach(async () => resetSetupSandbox());
 
-  it('should inform about the already existing setup', async () => {
+  it('should inform about the already existing cli-setup', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,

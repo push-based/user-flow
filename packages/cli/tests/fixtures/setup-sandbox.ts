@@ -9,7 +9,7 @@ export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
-export const STATIC_USER_FLOW_SERVE_PORT = '5017';
+export const STATIC_USER_FLOW_SERVE_PORT = '5024';
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
@@ -32,12 +32,29 @@ export const SETUP_SANDBOX_STATIC_RC_JSON = {
   }
 };
 
+export const SETUP_SANDBOX_REMOTE_RC_NAME = '.user-flowrc.remote.json';
+export const SETUP_SANDBOX_REMOTE_RC_JSON = {
+  'collect': {
+    'url': 'https://google.com',
+    'ufPath': './src/lib/user-flows',
+    'serveCommand': 'npm run start',
+    'awaitServeStdout': 'Available on:'
+  },
+  'persist': {
+    'outPath': './measures',
+    'format': ['json']
+  }
+};
+
 export const SETUP_SANDBOX_DEFAULT_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_NAME);
 export const SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
 
 export const SETUP_SANDBOX_STATIC_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_NAME);
 export const SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
-export const SETUP_SANDBOX_STATIC_COLLECT_UF_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.collect.ufPath);
+
+export const SETUP_SANDBOX_REMOTE_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_NAME);
+export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_JSON.persist.outPath);
+
 
 export const SETUP_SANDBOX_CLI_TEST_CFG = {
   testPath: SETUP_SANDBOX_PATH,
@@ -49,20 +66,28 @@ export async function resetSetupSandbox(): Promise<void> {
   // await exec(`npx kill-port 127.0.0.1:${STATIC_USER_FLOW_SERVE_PORT}`);
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());
-
+/*
   fs.writeFileSync(SETUP_SANDBOX_DEFAULT_RC_PATH, JSON.stringify(SETUP_SANDBOX_DEFAULT_RC_JSON));
   rimraf(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }
   });
-
+*/
   fs.writeFileSync(SETUP_SANDBOX_STATIC_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_JSON));
-  rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
+
+  /*rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }
   });
+
+  fs.writeFileSync(SETUP_SANDBOX_REMOTE_RC_PATH, JSON.stringify(SETUP_SANDBOX_REMOTE_RC_JSON));
+  rimraf(SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH, (err) => {
+    if (err) {
+      Promise.resolve(err);
+    }
+  });*/
 
   packageJson.scripts.start = STATIC_USER_FLOW_SERVE_COMMAND;
   fs.writeFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH, JSON.stringify(packageJson));
