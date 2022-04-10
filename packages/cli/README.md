@@ -207,6 +207,14 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--awaitServeStdout`**, **`-a`** | `string ` | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 
 
+## View Reports
+
+You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
+The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
+This format is very good for programmatic processing and foundation for most of the features of this lib. 
+
+[![Lighhouse Viewer - FiledDrop area]()]
+
 ## Debugging
 
 `@push-based/user-flow` ships with small helpers for logging and debugging.
