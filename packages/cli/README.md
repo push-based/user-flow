@@ -215,7 +215,8 @@ This command executes a set of user-flow definitions against the target URL and 
 
 Use the `.user-flowrc.json` propertiy `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
 
-You can also use use the CLI option `--format` to choose a format.
+You can also use use the CLI option `--format` to choose a format.  
+
 For a single format run: `@push-based/user-flow collect --format html` and  
 for multiple formats `@push-based/user-flow collect --format html --format json`.
 
@@ -223,7 +224,7 @@ You can either export the report as `HTML` or `JSON` format. The html file can b
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
 
-[![Lighhouse Viewer - FiledDrop area]()]
+![Lighhouse Viewer - FiledDrop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
 
 ## Debugging
 
