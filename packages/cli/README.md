@@ -218,29 +218,31 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--url`**, **`-t`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
 | **`--ufPath`**, **`-u`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
 | **`--outPath`**, **`-o`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
-| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
 | **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
 | **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 | **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
+| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
 
 ## Report Formats and Viewer
 
-@push-based/user-flow supports 2 different formats and aligns with the official viewer.
-- `html`
-- `json`
+You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
 
 Use the `.user-flowrc.json` propertiy `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
 
 You can also use use the CLI option `--format` to choose a format.  
 
-For a single format run: `@push-based/user-flow collect --format html` and  
-for multiple formats `@push-based/user-flow collect --format html --format json`.
+- single format: `@push-based/user-flow collect --format html`  
+- multiple formats: `@push-based/user-flow collect --format html --format json`  
 
-You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
+> **🤓 DX Tip:**  
+> For a faster development process you can use the `--open` option to automatically open the report in the browser.
+> The CLI will serve either the HTML report or opens the lighthouse report viewer
+> e.g. `@push-based/user-flow collect --open`   
+
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
 
-![Lighhouse Viewer - FiledDrop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
+![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
 
 ## Debugging
 
@@ -266,5 +268,8 @@ logVerbose('test');
 
 - [angular-movies](https://github.com/tastejs/angular-movies/tree/main/projects/movies-user-flows/src)
 
+## Resources
+
+-  [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/)
 
 made with ❤ by [push-based.io](https://www.push-based.io)
