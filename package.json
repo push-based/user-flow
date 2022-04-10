@@ -10,6 +10,7 @@
     "test": "nx build cli && nx test cli",
     "publish": "nx run cli",
     "link": "nx link cli",
+    "lh": "lighthouse https://example.com --budget-path=./budget.json",
     "@push-based/user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect",
