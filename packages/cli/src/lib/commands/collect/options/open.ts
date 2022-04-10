@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './open.model';
-import { ArgvT } from '../../../internal/yargs/model';
+import { ArgvT } from '../../../internal/utils/yargs/types';
 
 export const param: Param = {
   open: {

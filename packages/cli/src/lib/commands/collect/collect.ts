@@ -1,6 +1,5 @@
-import { YargsCommandObject } from '../../internal/yargs/model';
+import { YargsCommandObject } from '../../internal/utils/yargs/types';
 import { collectFlow, persistFlow, loadFlow } from '../../internal/utils/user-flow';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../internal/config/constants';
 import { logVerbose } from '../../core/loggin/index';
 import { get as interactive } from '../../core/options/interactive';
 import { get as dryRun } from '../../core/options/dryRun';

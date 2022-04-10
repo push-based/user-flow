@@ -7,13 +7,13 @@ import { Browser, Page } from 'puppeteer';
 import {
   UserFlowProvider,
   UserFlowMock
-} from '../../types/model';
-import { resolveAnyFile, toFileName, writeFile } from './file';
+} from '../../../types/model';
+import { resolveAnyFile, toFileName, writeFile } from '../file';
 import { join, normalize } from 'path';
-import { logVerbose } from '../../core/loggin';
-import { get as dryRun } from '../../core/options/dryRun';
-import { PersistOptions } from '../config/model';
-import { detectCliMode } from '../../cli-modes';
+import { logVerbose } from '../../../core/loggin';
+import { get as dryRun } from '../../../core/options/dryRun';
+import { PersistOptions } from '../../config/model';
+import { detectCliMode } from '../../../cli-modes';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
@@ -35,6 +35,7 @@ _persistMethod.set('json', async ({ outPath, flow, name }) => {
 );
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+  // @Notice: there might be a bug in user flow and Promise's
   return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
 }
 

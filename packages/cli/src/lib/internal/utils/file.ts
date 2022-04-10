@@ -1,6 +1,7 @@
-import { join, dirname } from 'path';
+import { extname, join, dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from '../../core/loggin';
+import { getParserFromExtname, formatCode } from './prettier';
 
 /**
  * Ensures the file exists before reading it
@@ -9,23 +10,28 @@ export function readFile(path: string) {
   if (existsSync(path)) {
     return readFileSync(path, 'utf-8');
   }
-  logVerbose(path + ' does not exist.')
+  logVerbose(path + ' does not exist.');
   return '';
 }
 
 /**
  * Ensures the folder exists before writing it
  */
-export function writeFile(path: string, data: any) {
-  const dir = dirname(path);
+export function writeFile(filePath: string, data: string) {
+  const dir = dirname(filePath);
   if (!existsSync(dir)) {
-    mkdirSync(dir)
+    logVerbose(`Created dir ${dir} to save ${filePath}`);
+    mkdirSync(dir);
   }
-  return writeFileSync(path, data);
+
+  // @TODO implement a check that saves the file only if the content is different => git noise
+  const ext = extname(filePath);
+  const formattedData = formatCode(data, getParserFromExtname(ext));
+  return writeFileSync(filePath, formattedData);
 }
 
 
-export function resolveAnyFile<T>(path: string): {exports: T, path: string} {
+export function resolveAnyFile<T>(path: string): { exports: T, path: string } {
   // start path from cwd
   path = join(process.cwd(), path);
   let file;
@@ -36,8 +42,8 @@ export function resolveAnyFile<T>(path: string): {exports: T, path: string} {
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
     // so that imports in the `*.uf.ts` files work.
     require('ts-node').register({
-      "compilerOptions": {
-        "module": "commonjs"
+      'compilerOptions': {
+        'module': 'commonjs'
       }
     });
   }

@@ -1,12 +1,9 @@
 {
   "collect": {
-    "url": "http://127.0.0.1:4910",
-    "ufPath": "./src/lib/user-flows-static-dist",
+    "url": "http://127.0.0.1:5056",
+    "ufPath": "./packages/sandbox-setup/src/lib/user-flows-static-dist",
     "serveCommand": "cd ./packages/sandbox-setup && npm run start",
     "awaitServeStdout": "Available on:"
   },
-  "persist": {
-    "outPath": "./measures",
-    "format": ["json"]
-  }
+  "persist": { "outPath": "./measures", "format": ["json"] }
 }
