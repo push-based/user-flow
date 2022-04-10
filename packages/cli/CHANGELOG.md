@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.5.3](https://github.com/push-based/user-flow/compare/cli-0.5.2...cli-0.5.3) (2022-04-10)
+
+
+### Bug Fixes
+
+* formats alias overlap ([c9d9b66](https://github.com/push-based/user-flow/commit/c9d9b66b5ab89ea82f7bc85cde1c05a781e63d32))
+* remove import ([9ecddbf](https://github.com/push-based/user-flow/commit/9ecddbfa13436018049c20d2fb51aa447e49d39e))
+* use prettier in reset scripts ([9266f0b](https://github.com/push-based/user-flow/commit/9266f0b2bdacddeeff41769fa14dd06d06ffa66f))
+* use prettier to format data before save to avoid merge conflicts ([d0939ed](https://github.com/push-based/user-flow/commit/d0939ed73bef404c603ee6cb55929f5fa28256f8))
+
+
+
 ## [0.5.2](https://github.com/push-based/user-flow/compare/cli-0.5.1...cli-0.5.2) (2022-04-10)
 
 
