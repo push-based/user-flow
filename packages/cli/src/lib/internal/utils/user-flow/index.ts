@@ -14,6 +14,8 @@ import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../core/options/dryRun';
 import { PersistOptions } from '../../config/model';
 import { detectCliMode } from '../../../cli-modes';
+import { DEFAULT_ASSERT_BUDGET_PATH } from '../../config/constants';
+import { readBudgets } from '../budgets';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
@@ -40,10 +42,17 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 }
 
 export async function collectFlow(
-  collectOptions: { url: string, dryRun: boolean },
+  cliOption: { url: string, dryRun: boolean },
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
-  let { launchOptions, flowOptions, interactions } = userFlowProvider;
+  let {
+    launchOptions,
+    // object containing the LH setting for budgets
+    flowOptions,
+    interactions
+  } = userFlowProvider;
+
+  // object containing the options for pupeteer/chromium
   launchOptions = launchOptions || {
     headless: false,
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
@@ -55,7 +64,7 @@ export async function collectFlow(
     launchOptions.headless = true;
   }
 
-  logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
+  logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
   logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
   let start = Date.now();
 
@@ -64,10 +73,29 @@ export async function collectFlow(
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 
+  console.log('flowOptions');
+  console.table(flowOptions);
+  if (flowOptions?.config === undefined)
+    flowOptions.config = {
+      settings: {
+        budgets: []
+      }
+    };
+
+  if (flowOptions.config?.settings === undefined)
+    flowOptions.config.settings = {
+      budgets: []
+    };
+
+  console.log('flowOptions after');
+  console.table(flowOptions);
+
+  flowOptions.config.settings.budgets = readBudgets(DEFAULT_ASSERT_BUDGET_PATH);
+
   const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
 
   // run custom interactions
-  await interactions({ flow, page, browser, collectOptions });
+  await interactions({ flow, page, browser, collectOptions: cliOption });
   logVerbose(`Duration: ${flowOptions.name}: ${(Date.now() - start) / 1000}`);
   await browser.close();
 

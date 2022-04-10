@@ -222,6 +222,7 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 | **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
 | **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`--budget-path`**, **`-b`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
 
 ## Report Formats and Viewer
 

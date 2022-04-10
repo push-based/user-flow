@@ -1,4 +1,4 @@
-import puppeteer, {
+import {
   Browser,
   BrowserConnectOptions,
   BrowserLaunchArgumentOptions,
@@ -7,11 +7,12 @@ import puppeteer, {
 } from 'puppeteer';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
-// import { Json } from 'lighthouse/types/config';
+import * as Config from 'lighthouse/types/config';
 import { UserFlowRcConfig } from '../internal/config/model';
 
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { logVerbose } from '../core/loggin';
+
 export { UserFlowRcConfig } from '../internal/config/model';
 
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
@@ -19,9 +20,9 @@ export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & Br
   extraPrefsFirefox?: Record<string, unknown>;
 }
 
-export interface UserFlowOptions {
+export type UserFlowOptions = {
   name: string;
-} // & { page: Page, config?: Json, configContext }
+} & { page: import('puppeteer').Page, config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
 
 /**
  * used inside of `UserFlowInteractionsFn`
@@ -29,7 +30,6 @@ export interface UserFlowOptions {
 export interface StepOptions {
   stepName: string;
 }
-
 
 export type UserFlowContext = {
   browser: Browser;
@@ -85,7 +85,7 @@ export class UserFlowMock {
     return Promise.resolve();
   }
 
-  async endTimespan({stepName}: StepOptions = {} as StepOptions): Promise<void> {
+  async endTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#endTimespan: ${stepName}`);
     return Promise.resolve();
   }
