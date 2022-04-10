@@ -171,6 +171,22 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 | **`--interactive`**         | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
 | **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
+## CLI interaction
+
+We provide general interaction through the keyboard or `stdin` directly for testing and other crazy hacks.
+
+### Multiselect choices
+
+ These key combinations can be used on _multiple_ choice prompts.For more details see [enquirer - multiselect](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md)
+
+ | **command**       | **description**                                                                                                      |
+ | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
+ | <kbd>space</kbd>  | Toggle the currently selected choice when `options.multiple` is true.                                                |
+ | <kbd>number</kbd> | Move the pointer to the choice at the given index. Also toggles the selected choice when `options.multiple` is true. |
+ | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |
+ | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
+ | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
+ 
 ## Commands 
 
 ### `*` command
