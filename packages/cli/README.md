@@ -199,13 +199,31 @@ This command executes a set of user-flow definitions against the target URL and 
 
 |  Option                            |  Type     | Default                |  Description                                                                                               |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--url`**, **`-t`**              | `string`  | `.user-flowrc` setting | URL to analyze                                                                                             |  
-| **`--ufPath`**, **`-f`**           | `string`  | `.user-flowrc` setting | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
-| **`--outPath`**, **`-o`**          | `string`  | `.user-flowrc` setting | output folder for the user-flow reports                                                                    |  
+| **`--url`**, **`-t`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
+| **`--ufPath`**, **`-u`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`--outPath`**, **`-o`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
 | **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
-| **`--serveCommand`**, **`-s`**     | `string ` | `.user-flowrc` setting | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
-| **`--awaitServeStdout`**, **`-a`** | `string ` | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
+| **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
+| **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
+| **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
 
+## Report Formats and Viewer
+
+@push-based/user-flow supports 2 different formats and aligns with the official viewer.
+- `html`
+- `json`
+
+Use the `.user-flowrc.json` propertiy `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
+
+You can also use use the CLI option `--format` to choose a format.
+For a single format run: `@push-based/user-flow collect --format html` and  
+for multiple formats `@push-based/user-flow collect --format html --format json`.
+
+You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
+The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
+This format is very good for programmatic processing and foundation for most of the features of this lib. 
+
+[![Lighhouse Viewer - FiledDrop area]()]
 
 ## Debugging
 
