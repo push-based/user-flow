@@ -1,4 +1,4 @@
-import { YargsCommandObject } from '../internal/yargs/model';
+import { YargsCommandObject } from '../internal/utils/yargs/types';
 import { log, logVerbose } from '../core/loggin/index';
 import { updateRepoConfig } from '../internal/config/config';
 import { UserFlowRcConfig } from '../types/model';

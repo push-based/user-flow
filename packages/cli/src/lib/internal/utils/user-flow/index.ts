@@ -7,13 +7,13 @@ import { Browser, Page } from 'puppeteer';
 import {
   UserFlowProvider,
   UserFlowMock
-} from '../../types/model';
-import { resolveAnyFile, toFileName, writeFile } from './file';
+} from '../../../types/model';
+import { resolveAnyFile, toFileName, writeFile } from '../file';
 import { join, normalize } from 'path';
-import { logVerbose } from '../../core/loggin';
-import { get as dryRun } from '../../core/options/dryRun';
-import { PersistOptions } from '../config/model';
-import { detectCliMode } from '../../cli-modes';
+import { logVerbose } from '../../../core/loggin';
+import { get as dryRun } from '../../../core/options/dryRun';
+import { PersistOptions } from '../../config/model';
+import { detectCliMode } from '../../../cli-modes';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 

@@ -1,6 +1,6 @@
 import { argv, Options } from 'yargs';
 import { Param } from './outPath.model';
-import { ArgvT } from '../../../internal/yargs/model';
+import { ArgvT } from '../../../internal/utils/yargs/types';
 
 export const param: Param = {
   outPath: {

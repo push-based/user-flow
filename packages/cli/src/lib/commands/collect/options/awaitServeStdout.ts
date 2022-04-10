@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './awaitServeStdout.model';
-import { ArgvT } from '../../../internal/yargs/model';
+import { ArgvT } from '../../../internal/utils/yargs/types';
 
 // inspired by: https://github.com/GoogleChrome/lighthouse-ci/blob/main/packages/cli/src/collect/collect.js#L28-L98
 export const param: Param = {

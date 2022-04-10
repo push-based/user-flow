@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './rc.model';
-import { ArgvT } from '../../internal/yargs/model';
+import { ArgvT } from '../../internal/utils/yargs/types';
 import { DEFAULT_RC_NAME, DEFAULT_RC_PATH, DEFAULT_COLLECT_UF_PATH } from '../../internal/config/constants';
 import { join } from 'path';
 import { logVerbose } from '../loggin';

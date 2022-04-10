@@ -1,6 +1,6 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
-import { YargsCommandObject } from './model';
+import { YargsCommandObject } from './types';
 
 export function setupYargs(
   commands: YargsCommandObject[],

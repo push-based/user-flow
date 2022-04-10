@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
 import { exec } from '../utils';
+import { writeFile } from '../../src/lib/internal/utils/file';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -67,14 +68,14 @@ export async function resetSetupSandbox(): Promise<void> {
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());
 
-  fs.writeFileSync(SETUP_SANDBOX_DEFAULT_RC_PATH, JSON.stringify(SETUP_SANDBOX_DEFAULT_RC_JSON));
+  writeFile(SETUP_SANDBOX_DEFAULT_RC_PATH, JSON.stringify(SETUP_SANDBOX_DEFAULT_RC_JSON));
   rimraf(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }
   });
   /**/
-  fs.writeFileSync(SETUP_SANDBOX_STATIC_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_JSON));
+  writeFile(SETUP_SANDBOX_STATIC_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_JSON));
 
   rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
     if (err) {
@@ -82,7 +83,7 @@ export async function resetSetupSandbox(): Promise<void> {
     }
   });
 
-  fs.writeFileSync(SETUP_SANDBOX_REMOTE_RC_PATH, JSON.stringify(SETUP_SANDBOX_REMOTE_RC_JSON));
+  writeFile(SETUP_SANDBOX_REMOTE_RC_PATH, JSON.stringify(SETUP_SANDBOX_REMOTE_RC_JSON));
   rimraf(SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
@@ -90,7 +91,7 @@ export async function resetSetupSandbox(): Promise<void> {
   });/**/
 
   packageJson.scripts.start = STATIC_USER_FLOW_SERVE_COMMAND;
-  fs.writeFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH, JSON.stringify(packageJson));
+  writeFile(SETUP_SANDBOX_PACKAGE_JSON_PATH, JSON.stringify(packageJson));
 
   return Promise.resolve();
 }

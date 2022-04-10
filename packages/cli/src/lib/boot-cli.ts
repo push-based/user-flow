@@ -1,4 +1,4 @@
-import { runCli } from './internal/yargs/utils';
+import { runCli } from './internal/utils/yargs';
 import { commands } from './commands';
 import { readRcConfig } from './internal/config/config';
 import { CORE_OPTIONS } from './core/options';
