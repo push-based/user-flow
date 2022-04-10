@@ -37,7 +37,7 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
     };
     const endRes = res.result
       // We resolve when the awaited value arrives
-      .then((v) => console.log('concurrently res', v))
+      // .then((v) => console.log('concurrently resolve', v))
       .catch(e => {
         reject('Error while executing ' + serveCommand);
       }).finally();

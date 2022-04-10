@@ -1,4 +1,4 @@
-import { argv, Options } from 'yargs';
+import { argv } from 'yargs';
 import { Param } from './format.model';
 import { ArgvT } from '../../../internal/yargs/model';
 

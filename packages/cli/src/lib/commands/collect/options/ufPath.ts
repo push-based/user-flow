@@ -4,7 +4,7 @@ import { ArgvT } from '../../../internal/yargs/model';
 
 export const param: Param = {
   ufPath: {
-    alias: 'f',
+    alias: 'u',
     type: 'string',
     description: 'folder containing user-flow files to run. (`*.uf.ts` or `*.uf.js`)'
   }

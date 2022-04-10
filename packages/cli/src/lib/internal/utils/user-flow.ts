@@ -35,6 +35,7 @@ _persistMethod.set('json', async ({ outPath, flow, name }) => {
 );
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+  // @Notice: there might be a bug in user flow and Promise's
   return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
 }
 
