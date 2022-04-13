@@ -13,6 +13,7 @@
 
 **Benefits**
 
+- ☑ Measure Runtime performance in your CI
 - ☑ Zero setup cost
 - ☑ No boiler plate
 - ☑ Write tests directly in TypeScript (we compile them live)
