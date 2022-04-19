@@ -267,5 +267,8 @@ logVerbose('test');
 
 - [angular-movies](https://github.com/tastejs/angular-movies/tree/main/projects/movies-user-flows/src)
 
+## Resources
+
+- [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
 
 made with ❤ by [push-based.io](https://www.push-based.io)
