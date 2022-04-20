@@ -2,9 +2,10 @@ import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/internal/config/constant
 import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
+
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
-import { exec } from '../utils';
 import { writeFile } from '../../src/lib/internal/utils/file';
+import { kill } from '../utils/kill';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -62,9 +63,9 @@ export const SETUP_SANDBOX_CLI_TEST_CFG = {
   [CLI_MODE_PROPERTY]: 'SANDBOX'
 };
 
-export async function resetSetupSandbox(): Promise<void> {
+export async function resetSetupSandboxAndKillPorts(): Promise<void> {
 
-  // await exec(`npx kill-port 127.0.0.1:${STATIC_USER_FLOW_SERVE_PORT}`);
+  await kill({port: STATIC_USER_FLOW_SERVE_PORT});
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());
 
