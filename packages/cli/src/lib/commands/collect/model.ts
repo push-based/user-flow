@@ -1,3 +1,3 @@
-import { PersistOptions, CollectOptions  } from '../../internal/config/model';
+import { PersistOptions, CollectOptions, AssertOptions } from '../../internal/config/model';
 
-export type CollectCommandOptions = CollectOptions & PersistOptions & { openReport: boolean };
+export type CollectCommandOptions = CollectOptions & PersistOptions & AssertOptions & { openReport: boolean };

@@ -10,7 +10,7 @@ import {
 } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandbox,
+  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON, SETUP_SANDBOX_STATIC_RC_PATH
@@ -30,8 +30,8 @@ const initCommand = [CLI_PATH, 'init', '-v'];
 
 describe('init command in setup sandbox', () => {
 
-  beforeEach(async () => resetSetupSandbox());
-  afterEach(async () => resetSetupSandbox());
+  beforeEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should inform about the already existing cli-setup', async () => {
 

@@ -5,6 +5,7 @@ module.exports = {
     name: 'Sandbox Setup StaticDist',
     config: {
       settings: {
+        budgets: ''
       }
     }
   },
@@ -13,7 +14,7 @@ module.exports = {
     const { url } = collectOptions;
     const testUrl = `${url}`;
     await flow.navigate(testUrl);
-
+/*
     const btn = '#btn';
     const img = '#img';
 
@@ -21,7 +22,7 @@ module.exports = {
     await flow.startTimespan();
     await page.click(btn);
     await page.waitForSelector(img);
-    await flow.endTimespan();
+    await flow.endTimespan();*/
   },
   launchOptions: {
     // to be able to run tests in the CLI without chrome popping up (for debugging switch it off)

@@ -10,7 +10,7 @@
         "outputPath": "dist/packages/cli",
         "main": "packages/cli/src/index.ts",
         "tsConfig": "packages/cli/tsconfig.lib.json",
-        "assets": ["packages/cli/*.md", "packages/cli/src/cli.js"]
+        "assets": ["packages/cli/*.md", "packages/cli/src/cli.js", "packages/cli/*.schema.json"]
       }
     },
     "sandbox": {

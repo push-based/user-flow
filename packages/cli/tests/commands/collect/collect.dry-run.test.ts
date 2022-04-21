@@ -4,7 +4,7 @@ import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandbox,
+  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_STATIC_RC_JSON,
@@ -24,10 +24,10 @@ const ufStaticName = 'Sandbox Setup StaticDist';
 
 describe('collect command in dryRun in setup sandbox', () => {
   beforeEach(() => {
-    resetSetupSandbox();
+    resetSetupSandboxAndKillPorts();
   });
   afterEach(() => {
-    resetSetupSandbox();
+    resetSetupSandboxAndKillPorts();
   });
 
   it('should load ufPath and execute the user-flow', async () => {

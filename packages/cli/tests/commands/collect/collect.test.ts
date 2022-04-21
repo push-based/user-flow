@@ -4,7 +4,7 @@ import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandbox,
+  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_REMOTE_RC_NAME, SETUP_SANDBOX_STATIC_RC_JSON, SETUP_SANDBOX_STATIC_RC_NAME
@@ -25,7 +25,7 @@ const ufStaticName = 'Sandbox Setup StaticDist';
 const uf1OutPath = path.join(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, 'sandbox-setup-uf1.uf.html');
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(async () => resetSetupSandbox());
+  beforeEach(async () => resetSetupSandboxAndKillPorts());
   // afterEach(async () => resetSetupSandbox());
 
 

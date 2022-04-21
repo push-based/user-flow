@@ -5,17 +5,19 @@
   "scripts": {
     "nx": "nx",
     "build": "nx build cli",
+    "kill": "npx kill-port 5032",
     "updateSandboxes": "npm run test -- --testNamePattern=cli-setup",
     "reset": "npm run build && npm run updateSandboxes",
     "test": "nx build cli && nx test cli",
     "publish": "nx run cli",
     "link": "nx link cli",
-    "lh": "lighthouse https://example.com --budget-path=./budget.json",
+    "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
     "@push-based/user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
-    "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect",
-    "@push-based/user-flow:sandboxsetup": "npm run build && cd packages/sandbox-setup && npm run @push-based/user-flow -- -p .user-flowrc.static-dist.json",
+    "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
+    "@push-based/user-flow:sandboxsetup": "npm run build && cd packages/sandbox-setup && npm run @push-based/user-flow -- -p .user-flowrc.static-dist.json  -v",
+    "@push-based/user-flow:sandboxsetup-budgets": "npm run build && cd packages/sandbox-setup && npm run @push-based/user-flow -- -p .user-flowrc.static-dist.budgets.json -e=true -v",
     "prepare": "husky install"
   },
   "dependencies": {

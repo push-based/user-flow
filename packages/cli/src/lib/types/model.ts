@@ -12,6 +12,8 @@ import { UserFlowRcConfig } from '../internal/config/model';
 
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { logVerbose } from '../core/loggin';
+import { Modify } from '../internal/utils/types';
+import Budget from 'lighthouse/types/lhr/budget';
 
 export { UserFlowRcConfig } from '../internal/config/model';
 
@@ -39,8 +41,18 @@ export type UserFlowContext = {
 }
 export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>;
 
+/**
+ * budgets: path to budgets file
+ */
+interface UserFlowCLIOptions {
+  config: {
+    settings: {
+      budgets: string | Budget[] | undefined
+    }
+  }
+};
 export type UserFlowProvider = {
-  flowOptions: UserFlowOptions,
+  flowOptions: UserFlowOptions & UserFlowCLIOptions,
   interactions: UserFlowInteractionsFn
   launchOptions?: LaunchOptions,
 };

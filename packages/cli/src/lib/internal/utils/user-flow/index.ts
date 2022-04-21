@@ -14,8 +14,9 @@ import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../core/options/dryRun';
 import { PersistOptions } from '../../config/model';
 import { detectCliMode } from '../../../cli-modes';
-import { DEFAULT_ASSERT_BUDGET_PATH } from '../../config/constants';
 import { readBudgets } from '../budgets';
+import Budget from 'lighthouse/types/lhr/budget';
+import * as Config from 'lighthouse/types/config';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
@@ -46,51 +47,33 @@ export async function collectFlow(
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
-    launchOptions,
+    path,
     // object containing the LH setting for budgets
-    flowOptions,
-    interactions
+    flowOptions: providerFlowOptions,
+    interactions,
+    launchOptions
   } = userFlowProvider;
+
+  const { config, ...rest } = providerFlowOptions;
+  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(providerFlowOptions.config) };
 
   // object containing the options for pupeteer/chromium
   launchOptions = launchOptions || {
     headless: false,
+    // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
   // @TODO consider CI vs dev mode => headless, open, persist etc
-
   if (detectCliMode() !== 'DEFAULT') {
     logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
     launchOptions.headless = true;
   }
-
-  logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
-  logVerbose(`File path: ${normalize(userFlowProvider.path)}`);
-  let start = Date.now();
-
-  // setup ppt, and start flow
-  logVerbose(`launchOptions: ${JSON.stringify(launchOptions)}`);
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 
-  console.log('flowOptions');
-  console.table(flowOptions);
-  if (flowOptions?.config === undefined)
-    flowOptions.config = {
-      settings: {
-        budgets: []
-      }
-    };
-
-  if (flowOptions.config?.settings === undefined)
-    flowOptions.config.settings = {
-      budgets: []
-    };
-
-  console.log('flowOptions after');
-  console.table(flowOptions);
-
-  flowOptions.config.settings.budgets = readBudgets(DEFAULT_ASSERT_BUDGET_PATH);
+  logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
+  logVerbose(`File path: ${normalize(path)}`);
+  let start = Date.now();
 
   const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
 
@@ -113,3 +96,18 @@ export function loadFlow(path: string): ({ exports: UserFlowProvider, path: stri
   return flows;
 }
 
+function parseUserFlowOptionsConfig(flowOptionsConfig?: UserFlowProvider['flowOptions']['config']): Config.default.Json {
+  flowOptionsConfig = flowOptionsConfig || {} as any;
+  // @ts-ignore
+  flowOptionsConfig?.extends || (flowOptionsConfig.extends = 'lighthouse:default');
+
+  // if budgets are given
+  if (flowOptionsConfig?.settings?.budgets) {
+    logVerbose('format given budgets')
+    let budgets: Budget[] = flowOptionsConfig?.settings?.budgets;
+    budgets && (budgets = Array.isArray(budgets) ? budgets : readBudgets(budgets));
+    flowOptionsConfig.settings.budgets = budgets;
+  }
+
+  return flowOptionsConfig as any as Config.default.Json;
+}

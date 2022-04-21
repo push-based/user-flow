@@ -8,7 +8,7 @@ import {
 } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandbox,
+  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_NAME,
@@ -50,10 +50,10 @@ describe('.rc.json in empty sandbox', () => {
 });
 describe('.rc.json in setup sandbox', () => {
   beforeEach(() => {
-    resetSetupSandbox();
+    resetSetupSandboxAndKillPorts();
   });
   afterEach(() => {
-    resetSetupSandbox();
+    resetSetupSandboxAndKillPorts();
   });
   it('should take params from cli', async () => {
     const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;

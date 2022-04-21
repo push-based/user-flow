@@ -23,10 +23,10 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       // get validation and errors for RC & options configurations
       await ensureConfig(argv);
 
-      const { url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
+      const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
 
       const r = await startServerIfNeeded(() => {
-        return run({ url, ufPath, outPath, format, openReport, serveCommand, awaitServeStdout});
+        return run({ url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout });
       }, { serveCommand, awaitServeStdout });
 
     }
@@ -35,22 +35,52 @@ export const collectUserFlowsCommand: YargsCommandObject = {
 
 export async function run(cfg: CollectCommandOptions): Promise<void> {
 
-  let { url, ufPath, outPath, format } = cfg;
+  let { url, ufPath, outPath, format, budgetPath, budgets } = cfg;
 
   // Load and run user-flows in parallel
   const userFlows = loadFlow(ufPath);
 
   await sequeltial(userFlows.map(({ exports: provider, path }) =>
-    (_: any) => collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
-      .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, { outPath, format }) : Promise.resolve(['']))
-      .then((fileNames) => {
-        // open report if requested and not in executed in CI
-        if (!dryRun() && openOpt() && interactive()) {
-          const file = fileNames.find(i => i.includes('.html'));
-          file && openFileInBrowser(file, { wait: false });
-        }
-        return Promise.resolve();
-      })
+    (_: any) => {
+
+      if(budgetPath || budgets) {
+        logVerbose('CLI options `--budgetPath` over wrote config from user flow');
+        provider.flowOptions?.config || (provider.flowOptions.config = {} as any);
+        provider.flowOptions.config?.settings || (provider.flowOptions.config.settings = {} as any);
+      }
+      if (budgetPath) {
+        // @ts-ignore
+        provider.flowOptions.config.settings.budgets = budgetPath;
+      } else if(budgets) {
+        provider.flowOptions.config.settings.budgets = budgets;
+      }
+
+      return collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
+        .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, {
+          outPath,
+          format
+        }) : Promise.resolve(['']))
+        .then((fileNames) => {
+          // open report if requested and not in executed in CI
+          if (!dryRun() && openOpt() && interactive()) {
+
+            const htmlReport = fileNames.find(i => i.includes('.html'));
+            if (htmlReport) {
+              logVerbose('open HTML report in browser');
+              openFileInBrowser(htmlReport, { wait: false });
+              return Promise.resolve();
+            }
+
+            const jsonReport = fileNames.find(i => i.includes('.json'));
+            if (jsonReport) {
+              logVerbose('open JSON report in browser');
+              // @TODO if JSON is given open the file in https://googlechrome.github.io/lighthouse/viewer/
+              openFileInBrowser(jsonReport, { wait: false });
+            }
+          }
+          return Promise.resolve();
+        });
+    }
   ));
 
 }
