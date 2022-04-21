@@ -10,7 +10,7 @@ The [`Budget` types](https://github.com/GoogleChrome/lighthouse/blob/89a61379e6b
 However, if you use JSON, there is also provide a [`lighthouse-budgets.schema.json`](../src/lighthouse-budgets.schema.json) provided.
 
 _Schema JSON validation in IDE_
-![]()
+![budgets-json-validation](https://user-images.githubusercontent.com/10064416/164541563-57379716-ec88-423b-9e5d-bd10d0c4a78d.PNG)
 
 ## Setup budgets in RC file
 
