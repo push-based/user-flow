@@ -1,16 +1,16 @@
-import { YargsCommandObject } from '../internal/utils/yargs/types';
-import { log, logVerbose } from '../core/loggin/index';
-import { updateRepoConfig } from '../internal/config/config';
-import { UserFlowRcConfig } from '../types/model';
-import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../internal/config/setup';
-import { param } from './collect/options/open';
-import { get as getRcPath } from '../core/options/rc';
-import { CollectOptions, PersistOptions } from '../internal/config/model';
+import { YargsCommandObject } from '../../internal/utils/yargs/types';
+import { log, logVerbose } from '../../core/loggin';
+import { updateRcConfig } from '../../internal/config/config';
+import { UserFlowRcConfig } from '../../types/model';
+import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../../internal/config/setup';
+import { get as getRcPath } from '../../core/options/rc';
+import { CollectOptions, PersistOptions } from '../../internal/config/model';
+import { INIT_OPTIONS } from './options';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
   description: 'Setup .user-flowrc.json',
-  builder: (y) => y.option(param),
+  builder: (y) => y.options(INIT_OPTIONS),
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
@@ -61,7 +61,7 @@ export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcCo
   };
 
   const rcPath = getRcPath();
-  updateRepoConfig(config, rcPath);
+  updateRcConfig(config, rcPath);
 
   return config;
 }

@@ -22,3 +22,6 @@ export type UserFlowRcConfig = {
   persist: PersistOptions,
   assert?: AssertOptions,
 } & Object;
+
+export type CliArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport: boolean };
+

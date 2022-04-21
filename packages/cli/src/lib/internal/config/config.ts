@@ -11,7 +11,21 @@ export function readRcConfig(cfgPath: string = ''): UserFlowRcConfig {
   return JSON.parse(repoConfigFile);
 }
 
-export function updateRepoConfig(config: UserFlowRcConfig, cfgPath: string = ''): void {
+export function updateRcConfig(config: UserFlowRcConfig, cfgPath: string = ''): void {
+  const configPath = cfgPath || getRcPath();
+  logVerbose(`Update config under ${configPath}`);
+  // NOTICE: this is needed for better git flow.
+  // Touch a file only if needed
+
+  if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
+    writeFile(configPath, JSON.stringify(config));
+    logVerbose(`New config ${JSON.stringify(config)}`);
+  } else {
+    logVerbose(`No updates for ${configPath} to save.`);
+  }
+}
+
+export function getCliOptionsFromRcConfig(config: UserFlowRcConfig): void {
   const configPath = cfgPath || getRcPath();
   logVerbose(`Update config under ${configPath}`);
   // NOTICE: this is needed for better git flow.

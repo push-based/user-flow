@@ -1,16 +1,10 @@
 [
   {
     "path": "/*",
-    "options": {
-      "firstPartyHostnames": [
-        "*.my-site.com",
-        "my-site.cdn.com"
-      ]
-    },
     "resourceSizes": [
       {
         "resourceType": "total",
-        "budget": 500
+        "budget": 555
       },
       {
         "resourceType": "script",

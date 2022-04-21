@@ -26,7 +26,7 @@ const uf1OutPath = path.join(SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, 'sandbox-se
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
-  // afterEach(async () => resetSetupSandbox());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {

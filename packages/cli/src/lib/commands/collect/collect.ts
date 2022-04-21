@@ -6,15 +6,14 @@ import { get as dryRun } from '../../core/options/dryRun';
 import { get as openOpt } from './options/open';
 import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
-import { CollectCommandOptions } from './model';
 import { startServerIfNeeded } from './serve-command';
-import { run as ensureConfig } from '../init';
-import yargs from 'yargs';
+import { run as ensureConfig } from '../init/init';
+import { CliArgvOptions } from '../../internal/config/model';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
   description: 'Run a set of user flows and save the result',
-  builder: (y) => y.options(COLLECT_OPTIONS).help(),
+  builder: (y) => y.options(COLLECT_OPTIONS),
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
@@ -23,7 +22,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       // get validation and errors for RC & options configurations
       await ensureConfig(argv);
 
-      const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as CollectCommandOptions;
+      const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as CliArgvOptions;
 
       const r = await startServerIfNeeded(() => {
         return run({ url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout });
@@ -33,7 +32,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   }
 };
 
-export async function run(cfg: CollectCommandOptions): Promise<void> {
+export async function run(cfg: CliArgvOptions): Promise<void> {
 
   let { url, ufPath, outPath, format, budgetPath, budgets } = cfg;
 
