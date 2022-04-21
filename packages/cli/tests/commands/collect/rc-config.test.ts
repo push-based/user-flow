@@ -22,12 +22,8 @@ import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 const initCommand = [CLI_PATH, 'init', '-v'];
 
 describe('.rc.json in empty sandbox', () => {
-  beforeEach(() => {
-    resetEmptySandbox();
-  });
-  afterEach(() => {
-    resetEmptySandbox();
-  });
+  beforeEach(async () => resetEmptySandbox());
+  afterEach(async () => resetEmptySandbox());
 
   it('should validate params from cli', async () => {
 
@@ -49,12 +45,9 @@ describe('.rc.json in empty sandbox', () => {
 
 });
 describe('.rc.json in setup sandbox', () => {
-  beforeEach(() => {
-    resetSetupSandboxAndKillPorts();
-  });
-  afterEach(() => {
-    resetSetupSandboxAndKillPorts();
-  });
+  beforeEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(() => resetSetupSandboxAndKillPorts());
+
   it('should take params from cli', async () => {
     const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
     const { url, ufPath, serveCommand, awaitServeStdout } = collect;
