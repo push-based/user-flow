@@ -236,8 +236,8 @@ You can also use use the CLI option `--format` to choose a format.
 - multiple formats: `@push-based/user-flow collect --format html --format json`  
 
 > **🤓 DX Tip:**  
-> For a faster development process you can use the `--open` option to automatically open the report in the browser.
-> The CLI will serve either the HTML report or opens the lighthouse report viewer
+> For a faster development process you can use the `--open` or `-e` option to automatically open the report in the browser.
+> The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
 > e.g. `@push-based/user-flow collect --open`   
 
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
