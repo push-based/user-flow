@@ -20,5 +20,5 @@ export type AssertOptions = {
 export type UserFlowRcConfig = {
   collect: CollectOptions,
   persist: PersistOptions,
-  assert: AssertOptions,
+  assert?: AssertOptions,
 } & Object;
