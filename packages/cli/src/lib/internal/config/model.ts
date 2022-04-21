@@ -1,4 +1,3 @@
-import Budget from 'lighthouse/types/lhr/budget';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 
 export type CollectOptions = {
@@ -15,7 +14,7 @@ export type PersistOptions = {
 }
 export type AssertOptions = {
   budgetPath?: string,
-  budgets?: SharedFlagsSettings['budgets']  | string
+  budgets?: SharedFlagsSettings['budgets'] | string
 }
 
 export type RcJson = {
