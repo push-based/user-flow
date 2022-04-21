@@ -3,15 +3,33 @@ import { logVerbose } from '../../../core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 
-const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions) => ({
-  name: cfg.name,
-  steps: [
-    {
-      name: 'Navigation report (127.0.0.1/)',
-      lhr: {} as any
-    }
-  ]
-});
+const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
+  const budgets = cfg?.config?.settings?.budgets;
+  const report = {
+    name: cfg.name,
+    steps: [
+      {
+        name: 'Navigation report (127.0.0.1/)',
+        lhr: {
+          configSettings: {
+            // "budgets": [] // budgets from configurations
+          },
+          audits: {
+           // "performance-budget": {},
+           // "timing-budget": {}
+          }
+        } as any
+      }
+    ]
+  };
+  if(budgets) {
+    report.steps[0].lhr.configSettings.budgets = budgets;
+    report.steps[0].lhr.audits['performance-budget'] = { };
+    report.steps[0].lhr.audits['timing-budget'] = { };
+  }
+
+  return report;
+}
 
 const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions) => `
 <!DOCTYPE html>
@@ -78,6 +96,11 @@ export class UserFlowMock {
    * @return {LH.FlowResult}
    */
   getFlowResult(): FlowResult {
+    logVerbose(`flow#getFlowResult`);
+    return dummyFlowResult(this.cfg);
+  }
+
+  createFlowResult(): FlowResult {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }

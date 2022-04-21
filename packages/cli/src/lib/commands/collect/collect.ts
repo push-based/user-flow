@@ -43,12 +43,14 @@ export async function run(cfg: RcArgvOptions): Promise<void> {
     (_: any) => {
 
       provider = provider || {};
-      if (budgetPath || budgets) {
-        provider.flowOptions?.config || (provider.flowOptions.config = {} as any);
-        if(provider.flowOptions.config?.settings) {
-          provider.flowOptions.config.settings = {} as any
+      if (provider.flowOptions?.config === undefined) {
+        provider.flowOptions.config = {} as any;
+        if (provider.flowOptions.config?.settings  === undefined) {
+          // @ts-ignore
+          provider.flowOptions.config.settings = {} as any;
         }
       }
+
       if (budgetPath) {
         logVerbose(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
         // @ts-ignore
@@ -60,10 +62,10 @@ export async function run(cfg: RcArgvOptions): Promise<void> {
       }
 
       return collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
-        .then((flow) => !dryRun() ? persistFlow(flow, provider.flowOptions.name, {
+        .then((flow) => persistFlow(flow, provider.flowOptions.name, {
           outPath,
           format
-        }) : Promise.resolve(['']))
+        }))
         .then((fileNames) => {
           // open report if requested and not in executed in CI
           if (!dryRun() && openOpt() && interactive()) {

@@ -7,6 +7,7 @@ import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
 import { writeFile } from '../../src/lib/internal/utils/file';
 import { kill } from '../utils/kill';
 import { RcJson } from '@push-based/user-flow/cli';
+import Budget from 'lighthouse/types/lhr/budget';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -49,39 +50,53 @@ export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
   }
 };
 
+
+export const BUDGETS_NAME = 'budgets.json';
+export const BUDGETS: Budget[] = [
+    {
+      "resourceSizes": [
+        {
+          "resourceType": "total",
+          "budget": 26
+        },
+        {
+          "resourceType": "script",
+          "budget": 150
+        }
+      ],
+      "resourceCounts": [
+        {
+          "resourceType": "third-party",
+          "budget": 100
+        }
+      ],
+      "timings": [
+        {
+          "metric": "interactive",
+          "budget": 5000
+        },
+        {
+          "metric": "first-meaningful-paint",
+          "budget": 2000
+        }
+      ]
+    }
+  ];
+
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dist.budget-path.json';
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
-  ...SETUP_SANDBOX_REMOTE_RC_JSON,
+  ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
-    budgets: "budgets.json"
+    budgets: BUDGETS_NAME
   }
 };
 
+
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME = '.user-flowrc.static-dist.budgets.json';
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: RcJson = {
-  ...SETUP_SANDBOX_REMOTE_RC_JSON,
+  ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
-    "budgets": [
-      {
-        "path": "/*",
-        "resourceSizes": [
-          { "resourceType": "total", "budget": 1 },
-          { "resourceType": "script", "budget": 150 }
-        ],
-        "resourceCounts": [{ "resourceType": "third-party", "budget": 100 }],
-        "timings": [
-          { "metric": "interactive", "budget": 5000 },
-          { "metric": "first-meaningful-paint", "budget": 2000 }
-        ]
-      },
-      {
-        "options": {
-          "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
-        },
-        "path": "/checkout",
-        "resourceSizes": [{ "resourceType": "script", "budget": 200 }]
-      }
-    ]
+    "budgets": BUDGETS
   }
 };
 
@@ -90,6 +105,13 @@ export const SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PA
 
 export const SETUP_SANDBOX_STATIC_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_NAME);
 export const SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
+
+export const SETUP_SANDBOX_BUDGETS_PATH = path.join(SETUP_SANDBOX_PATH, BUDGETS_NAME);
+export const SETUP_SANDBOX_BUDGETS_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME);
+export const SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.persist.outPath);
+
+export const SETUP_SANDBOX_BUDGET_PATH_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME);
+export const SETUP_SANDBOX_BUDGET_PATH_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.persist.outPath);
 
 export const SETUP_SANDBOX_REMOTE_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_NAME);
 export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_JSON.persist.outPath);
@@ -114,8 +136,22 @@ export async function resetSetupSandboxAndKillPorts(): Promise<void> {
   });
   /**/
   writeFile(SETUP_SANDBOX_STATIC_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_JSON));
-
   rimraf(SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH, (err) => {
+    if (err) {
+      Promise.resolve(err);
+    }
+  });
+
+  writeFile(SETUP_SANDBOX_BUDGETS_PATH, JSON.stringify(BUDGETS));
+  writeFile(SETUP_SANDBOX_BUDGETS_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON));
+  rimraf(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, (err) => {
+    if (err) {
+      Promise.resolve(err);
+    }
+  });
+
+  writeFile(SETUP_SANDBOX_BUDGET_PATH_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON));
+  rimraf(SETUP_SANDBOX_BUDGET_PATH_PERSIST_OUT_PATH, (err) => {
     if (err) {
       Promise.resolve(err);
     }

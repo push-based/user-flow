@@ -9,6 +9,8 @@ import {
 import * as fs from 'fs';
 import { report } from '@nrwl/workspace/src/command-line/report';
 import { logVerbose } from '../../src/lib/core/loggin';
+import FlowResult from 'lighthouse/types/lhr/flow';
+import { Budgets } from 'lighthouse/types/lhr/budget';
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
@@ -38,6 +40,22 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
   expect(stdout).not.toContain(`CLI options --budgetPath or .user-flowrc.json configuration`);
   expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
   expect(stdout).not.toContain('format given budgets');
+}
+
+export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budgets[] | string) {
+  let resolvedBudgets: Budgets[];
+  if(Array.isArray(budgets)) {
+    resolvedBudgets = budgets;
+  } else {
+    expect(() => fs.readFileSync(budgets+'')).not.toThrow();
+    resolvedBudgets = JSON.parse(fs.readFileSync(budgets) as any) as Budgets[];
+  }
+
+  expect(() => fs.readFileSync(resultPath)).not.toThrow();
+  const result = JSON.parse(fs.readFileSync(resultPath) as any) as FlowResult;
+  expect(result.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
+  expect(result.steps[0].lhr.audits['performance-budget']).toBeDefined();
+  expect(result.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
 
 export function expectPromptsInStdout(stdout: string) {
