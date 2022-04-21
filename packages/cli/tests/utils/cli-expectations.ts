@@ -7,8 +7,6 @@ import {
   INIT_COMMAND__SETUP_CONFIRM
 } from '../fixtures/cli-prompts';
 import * as fs from 'fs';
-import { report } from '@nrwl/workspace/src/command-line/report';
-import { logVerbose } from '../../src/lib/core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
 
