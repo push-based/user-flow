@@ -10,7 +10,8 @@ import * as fs from 'fs';
 import { report } from '@nrwl/workspace/src/command-line/report';
 import { logVerbose } from '../../src/lib/core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { Budgets } from 'lighthouse/types/lhr/budget';
+import Budget from 'lighthouse/types/lhr/budget';
+
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
@@ -42,7 +43,7 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
   expect(stdout).not.toContain('format given budgets');
 }
 
-export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budgets[] | string) {
+export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
   let resolvedBudgets: Budgets[];
   if(Array.isArray(budgets)) {
     resolvedBudgets = budgets;
