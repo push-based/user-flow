@@ -1,4 +1,4 @@
-import { UserFlowRcConfig } from '@push-based/user-flow/cli';
+import { RcJson } from '@push-based/user-flow/cli';
 import {
   INIT_COMMAND__ASK_FROMAT,
   INIT_COMMAND__ASK_OUT_PATH,
@@ -9,7 +9,7 @@ import {
 import * as fs from 'fs';
 import { report } from '@nrwl/workspace/src/command-line/report';
 
-export function expectOutputRcInStdout(stdout: string, cfg: UserFlowRcConfig) {
+export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
@@ -31,19 +31,19 @@ export function expectPromptsInStdout(stdout: string) {
   expect(stdout).toContain(INIT_COMMAND__ASK_FROMAT);
 }
 
-export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: UserFlowRcConfig) {
+export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).toContain(`Duration: ${ufName}`);
 }
 
-export function expectCollectNoLogsFromMockInStdout(stdout: string, ufName: string, cfg: UserFlowRcConfig) {
+export function expectCollectNoLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).not.toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).not.toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).not.toContain(`Duration: ${ufName}`);
 }
 
-export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: string, cfg: UserFlowRcConfig) {
+export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).toContain(`Duration: ${ufName}`);
@@ -73,7 +73,7 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
   }
 }
 
-export function expectEnsureConfigToCreateRc(rcPath: string, cfg: UserFlowRcConfig) {
+export function expectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
   expect(config).toEqual(cfg);

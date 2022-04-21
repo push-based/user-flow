@@ -2,35 +2,21 @@ import {
   Browser,
   BrowserConnectOptions,
   BrowserLaunchArgumentOptions,
-  LaunchOptions as PPTLaunchOptions, Page,
+  LaunchOptions as PPTLaunchOptions,
+  Page,
   Product
 } from 'puppeteer';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
-import * as Config from 'lighthouse/types/config';
-import { UserFlowRcConfig } from '../internal/config/model';
-
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { logVerbose } from '../core/loggin';
-import { Modify } from '../internal/utils/types';
+import { RcJson } from '../internal/config/model';
 import Budget from 'lighthouse/types/lhr/budget';
+import { UserFlowOptions } from '../internal/utils/user-flow/types';
 
-export { UserFlowRcConfig } from '../internal/config/model';
+export { RcJson } from '../internal/config/model';
 
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
   extraPrefsFirefox?: Record<string, unknown>;
-}
-
-export type UserFlowOptions = {
-  name: string;
-} & { page: import('puppeteer').Page, config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
-
-/**
- * used inside of `UserFlowInteractionsFn`
- */
-export interface StepOptions {
-  stepName: string;
 }
 
 export type UserFlowContext = {
@@ -68,63 +54,4 @@ export class Ufo {
   }
 };
 
-
-/**
- * @TODO this is very flakey ATM and needs investigation
- */
-export class UserFlowMock {
-
-  protected page: Page;
-
-  /**
-   * @param {LH.NavigationRequestor} requestor
-   * @param {StepOptions=} stepOptions
-   */
-  async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
-    logVerbose(`flow#navigate: ${stepName || requestor}`);
-    return this.page.goto(requestor);
-  }
-
-  constructor(page: Page, { name }: UserFlowOptions) {
-    this.page = page;
-  }
-
-  /**
-   * @param {StepOptions=} stepOptions
-   */
-  async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#startTimespan: ${stepName}`);
-    return Promise.resolve();
-  }
-
-  async endTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#endTimespan: ${stepName}`);
-    return Promise.resolve();
-  }
-
-  /**
-   * @param {StepOptions=} stepOptions
-   */
-  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#snapshot: ${stepName}`);
-    return Promise.resolve();
-  }
-
-  /**
-   * @return {LH.FlowResult}
-   */
-  getFlowResult(): FlowResult {
-    logVerbose(`flow#getFlowResult`);
-    return {} as FlowResult;
-  }
-
-  /**
-   * @return {Promise<string>}
-   */
-  generateReport(): Promise<string> {
-    logVerbose(`flow#generateReport`);
-    return Promise.resolve('');
-  }
-
-}
 

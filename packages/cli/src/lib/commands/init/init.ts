@@ -1,7 +1,7 @@
 import { YargsCommandObject } from '../../internal/utils/yargs/types';
 import { log, logVerbose } from '../../core/loggin';
 import { updateRcConfig } from '../../internal/config/config';
-import { UserFlowRcConfig } from '../../types/model';
+import { RcJson } from '../../types/model';
 import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../../internal/config/setup';
 import { get as getRcPath } from '../../core/options/rc';
 import { CollectOptions, PersistOptions } from '../../internal/config/model';
@@ -21,10 +21,10 @@ export const initCommand: YargsCommandObject = {
   }
 };
 
-function getCLIConfigFromArgv(argv: Partial<UserFlowRcConfig>): UserFlowRcConfig {
+function getCLIConfigFromArgv(argv: Partial<RcJson>): RcJson {
   const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
-  const cfg: UserFlowRcConfig = {
+  const cfg: RcJson = {
     collect: {
       url,
       ufPath,
@@ -47,7 +47,7 @@ function getCLIConfigFromArgv(argv: Partial<UserFlowRcConfig>): UserFlowRcConfig
   return cfg;
 }
 
-export async function run(argv: Partial<UserFlowRcConfig>): Promise<UserFlowRcConfig> {
+export async function run(argv: Partial<RcJson>): Promise<RcJson> {
   const cliCfg = getCLIConfigFromArgv(argv);
   //console.log('run init', cliCfg)
   const config = {

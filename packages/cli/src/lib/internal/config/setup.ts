@@ -1,4 +1,4 @@
-import { UserFlowRcConfig } from './model';
+import { RcJson } from './model';
 import { get as interactive } from '../../core/options/interactive';
 import { DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
 import { prompt } from 'enquirer';
@@ -6,8 +6,8 @@ import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../commands/coll
 import { mkdirSync, readdirSync } from 'fs';
 
 export async function ensureOutPath(
-  config: UserFlowRcConfig
-): Promise<UserFlowRcConfig> {
+  config: RcJson
+): Promise<RcJson> {
 
     let suggestion = config?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
   if (interactive()) {
@@ -35,8 +35,8 @@ export async function ensureOutPath(
 }
 
 export async function ensureUfPath(
-  config: UserFlowRcConfig
-): Promise<UserFlowRcConfig> {
+  config: RcJson
+): Promise<RcJson> {
   let suggestion = config?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
   if (interactive()) {
     const { ufPath } = await prompt<{ ufPath: string }>([
@@ -69,8 +69,8 @@ export async function ensureUfPath(
 }
 
 export async function ensureUrl(
-  config: UserFlowRcConfig
-): Promise<UserFlowRcConfig> {
+  config: RcJson
+): Promise<RcJson> {
 
   let suggestion = config?.collect?.url ? config?.collect?.url.trim() : '';
 
@@ -109,8 +109,8 @@ export async function ensureUrl(
  * @param config
  */
 export async function ensureFormat(
-  config: UserFlowRcConfig
-): Promise<UserFlowRcConfig> {
+  config: RcJson
+): Promise<RcJson> {
   let suggestion: string[] = [];
 
   let cfgFormat: string[] = [];

@@ -17,11 +17,11 @@ export type AssertOptions = {
   budgets?: Budget[],
 }
 
-export type UserFlowRcConfig = {
+export type RcJson = {
   collect: CollectOptions,
   persist: PersistOptions,
   assert?: AssertOptions,
 } & Object;
 
-export type CliArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport: boolean };
+export type RcArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport?: boolean };
 

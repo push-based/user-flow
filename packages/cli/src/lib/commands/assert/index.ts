@@ -1,6 +1,6 @@
 import  { YargsCommandObject } from '../../internal/utils/yargs/types';
 import { logVerbose } from '../../core/loggin/index';
-import { UserFlowRcConfig } from '../../types/model';
+import { RcJson } from '../../types/model';
 import { readBudgets } from '../../internal/utils/budgets';
 
 export const assertCommand: YargsCommandObject = {
@@ -14,7 +14,7 @@ export const assertCommand: YargsCommandObject = {
   }
 };
 
-export async function run(argv: Partial<UserFlowRcConfig>): Promise<void> {
+export async function run(argv: Partial<RcJson>): Promise<void> {
   logVerbose(readBudgets())
   return Promise.resolve();
 }

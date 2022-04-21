@@ -5,8 +5,7 @@ import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import {
-  UserFlowProvider,
-  UserFlowMock
+  UserFlowProvider
 } from '../../../types/model';
 import { resolveAnyFile, toFileName, writeFile } from '../file';
 import { join, normalize } from 'path';
@@ -17,6 +16,7 @@ import { detectCliMode } from '../../../cli-modes';
 import { readBudgets } from '../budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 import * as Config from 'lighthouse/types/config';
+import { UserFlowMock } from './user-flow.mock';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 

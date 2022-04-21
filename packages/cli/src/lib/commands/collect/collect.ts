@@ -8,7 +8,7 @@ import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeeded } from './serve-command';
 import { run as ensureConfig } from '../init/init';
-import { CliArgvOptions } from '../../internal/config/model';
+import { RcArgvOptions } from '../../internal/config/model';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
@@ -22,7 +22,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       // get validation and errors for RC & options configurations
       await ensureConfig(argv);
 
-      const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as CliArgvOptions;
+      const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as RcArgvOptions;
 
       const r = await startServerIfNeeded(() => {
         return run({ url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout });
@@ -32,7 +32,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   }
 };
 
-export async function run(cfg: CliArgvOptions): Promise<void> {
+export async function run(cfg: RcArgvOptions): Promise<void> {
 
   let { url, ufPath, outPath, format, budgetPath, budgets } = cfg;
 
