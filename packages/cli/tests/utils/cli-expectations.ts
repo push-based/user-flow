@@ -28,7 +28,7 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(INIT_COMMAND__ASK_FROMAT);
 }
 
-export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budgets [] | string = '') {
+export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budget[] | string = '') {
   if (!Array.isArray(budgetPath)) {
     expect(stdout).toContain(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
   } else {
@@ -44,12 +44,12 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
 }
 
 export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
-  let resolvedBudgets: Budgets[];
+  let resolvedBudgets: Budget[];
   if(Array.isArray(budgets)) {
     resolvedBudgets = budgets;
   } else {
     expect(() => fs.readFileSync(budgets+'')).not.toThrow();
-    resolvedBudgets = JSON.parse(fs.readFileSync(budgets) as any) as Budgets[];
+    resolvedBudgets = JSON.parse(fs.readFileSync(budgets) as any) as Budget[];
   }
 
   expect(() => fs.readFileSync(resultPath)).not.toThrow();
