@@ -19,12 +19,8 @@ const collectCommandStaticRc = [...collectCommand, `-p=./${SETUP_SANDBOX_STATIC_
 const ufStaticName = 'Sandbox Setup StaticDist';
 
 describe('collect command in dryRun in setup sandbox', () => {
-  beforeEach(() => {
-    resetSetupSandboxAndKillPorts();
-  });
-  afterEach(() => {
-    resetSetupSandboxAndKillPorts();
-  });
+  beforeEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
