@@ -13,6 +13,7 @@
 
 **Benefits**
 
+- ☑ Measure Runtime performance in your CI
 - ☑ Zero setup cost
 - ☑ No boiler plate
 - ☑ Write tests directly in TypeScript (we compile them live)
@@ -272,5 +273,6 @@ logVerbose('test');
 ## Resources
 
 -  [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/)
+-  [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
 
 made with ❤ by [push-based.io](https://www.push-based.io)
