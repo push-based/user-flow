@@ -87,6 +87,7 @@ describe('budgets and collect command in setup sandbox', () => {
   });
 
  it('should load budgets from file if budgetPath RC option is passed', async () => {
+   const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath+'';
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommandBudgetPathRc, `--dryRun`],
       [],
@@ -94,8 +95,8 @@ describe('budgets and collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout);
-    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG.testPath, SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgets + ''));
+    expectBudgetsFileExistLog(stdout, budgetPath);
+    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG.testPath, budgetPath));
     expect(exitCode).toBe(0);
 
   });

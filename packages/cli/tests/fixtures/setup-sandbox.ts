@@ -87,7 +87,7 @@ export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dis
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
-    budgets: BUDGETS_NAME
+    budgetPath: BUDGETS_NAME
   }
 };
 

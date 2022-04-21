@@ -27,8 +27,8 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(INIT_COMMAND__ASK_FROMAT);
 }
 
-export function expectBudgetsFileExistLog(stdout: string, budgetPath: string = '') {
-  if (budgetPath) {
+export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budgets [] | string = '') {
+  if (!Array.isArray(budgetPath)) {
     expect(stdout).toContain(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
   } else {
     expect(stdout).toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');

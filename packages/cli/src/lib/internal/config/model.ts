@@ -25,4 +25,3 @@ export type RcJson = {
 } & Object;
 
 export type RcArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport?: boolean };
-
