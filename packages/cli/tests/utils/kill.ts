@@ -13,12 +13,10 @@ export function kill(args: {port: string | string[], method?: string, verbose?: 
   return Promise.all(port.map(current => {
     return killPort(current, method)
       .then((result) => {
-        console.log(`Process on port ${current} killed`)
-        verbose && console.log(result)
+        verbose && console.log(`Process on port ${current} killed`, result)
       })
       .catch((error) => {
-        console.log(`Could not kill process on port ${port}`)
-        verbose && console.log(error)
+        verbose && console.log(`Could not kill process on port ${port}`, error)
       })
   }))
 
