@@ -80,7 +80,7 @@ describe('budgets and collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout);
+    expectBudgetsFileExistLog(stdout, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
     expectResultsToIncludeBudgets(ufStaticResultPath, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
     expect(exitCode).toBe(0);
 
