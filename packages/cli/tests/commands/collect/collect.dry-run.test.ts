@@ -1,21 +1,17 @@
 import * as cliPromptTest from 'cli-prompts-test';
-import * as path from 'path';
 import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 import {
-  expectCollectLogsFromMockInStdout, expectCollectNoLogsFromMockInStdout,
-  expectCollectNotToCreateAReport
+  expectCollectLogsFromMockInStdout
 } from '../../utils/cli-expectations';
-import { ERROR_UF_PATH_REQUIRED } from '../../fixtures/cli-errors';
-import { readdirSync } from "fs";
+
 
 const collectCommand = [CLI_PATH, 'collect', '-v', '--dryRun'];
 const collectCommandStaticRc = [...collectCommand, `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`];

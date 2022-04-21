@@ -6,6 +6,7 @@ import * as rimraf from 'rimraf';
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
 import { writeFile } from '../../src/lib/internal/utils/file';
 import { kill } from '../utils/kill';
+import { UserFlowRcConfig } from '@push-based/user-flow/cli';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -15,13 +16,13 @@ export const STATIC_USER_FLOW_SERVE_PORT = '5032';
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
-export const SETUP_SANDBOX_DEFAULT_RC_JSON = {
+export const SETUP_SANDBOX_DEFAULT_RC_JSON: UserFlowRcConfig = {
   'collect': { 'url': 'https://google.com', 'ufPath': './src/lib/user-flows' },
   'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': ['html', 'json'] }
 };
 
 export const SETUP_SANDBOX_STATIC_RC_NAME = '.user-flowrc.static-dist.json';
-export const SETUP_SANDBOX_STATIC_RC_JSON = {
+export const SETUP_SANDBOX_STATIC_RC_JSON: UserFlowRcConfig = {
   'collect': {
     'url': 'http://127.0.0.1:' + STATIC_USER_FLOW_SERVE_PORT,
     'ufPath': './src/lib/user-flows-static-dist',
@@ -35,7 +36,7 @@ export const SETUP_SANDBOX_STATIC_RC_JSON = {
 };
 
 export const SETUP_SANDBOX_REMOTE_RC_NAME = '.user-flowrc.remote.json';
-export const SETUP_SANDBOX_REMOTE_RC_JSON = {
+export const SETUP_SANDBOX_REMOTE_RC_JSON: UserFlowRcConfig = {
   'collect': {
     'url': 'https://google.com',
     'ufPath': './src/lib/user-flows',
