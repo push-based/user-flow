@@ -2,8 +2,6 @@ import { Page } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
 
-
-
 export interface StepOptions {
   stepName: string;
 }

@@ -49,6 +49,42 @@ export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
   }
 };
 
+export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dist.budget-path.json';
+export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
+  ...SETUP_SANDBOX_REMOTE_RC_JSON,
+  "assert": {
+    budgets: "budgets.json"
+  }
+};
+
+export const SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME = '.user-flowrc.static-dist.budgets.json';
+export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: RcJson = {
+  ...SETUP_SANDBOX_REMOTE_RC_JSON,
+  "assert": {
+    "budgets": [
+      {
+        "path": "/*",
+        "resourceSizes": [
+          { "resourceType": "total", "budget": 1 },
+          { "resourceType": "script", "budget": 150 }
+        ],
+        "resourceCounts": [{ "resourceType": "third-party", "budget": 100 }],
+        "timings": [
+          { "metric": "interactive", "budget": 5000 },
+          { "metric": "first-meaningful-paint", "budget": 2000 }
+        ]
+      },
+      {
+        "options": {
+          "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
+        },
+        "path": "/checkout",
+        "resourceSizes": [{ "resourceType": "script", "budget": 200 }]
+      }
+    ]
+  }
+};
+
 export const SETUP_SANDBOX_DEFAULT_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_NAME);
 export const SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
 

@@ -18,7 +18,7 @@ const collectCommandStaticRc = [...collectCommand, `-p=./${SETUP_SANDBOX_STATIC_
 
 const ufStaticName = 'Sandbox Setup StaticDist';
 
-describe('collect command in dryRun in setup sandbox', () => {
+describe('dryRun and collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
   afterEach(async () => resetSetupSandboxAndKillPorts());
 

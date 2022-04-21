@@ -1,4 +1,5 @@
 {
+  "name": "Sandbox Setup StaticDist",
   "steps": [
     {
       "lhr": {
@@ -5302,6 +5303,5 @@
       },
       "name": "Navigation report (127.0.0.1/)"
     }
-  ],
-  "name": "Sandbox Setup StaticDist"
+  ]
 }

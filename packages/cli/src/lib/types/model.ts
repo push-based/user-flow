@@ -11,6 +11,7 @@ import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { RcJson } from '../internal/config/model';
 import Budget from 'lighthouse/types/lhr/budget';
 import { UserFlowOptions } from '../internal/utils/user-flow/types';
+import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 
 export { RcJson } from '../internal/config/model';
 
@@ -30,15 +31,15 @@ export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>
 /**
  * budgets: path to budgets file
  */
-interface UserFlowCLIOptions {
+type UserFlowCLIOptions = {
   config: {
     settings: {
-      budgets: string | Budget[] | undefined
+      budgets: string | SharedFlagsSettings['budgets']
     }
   }
-};
+} &  UserFlowOptions;
 export type UserFlowProvider = {
-  flowOptions: UserFlowOptions & UserFlowCLIOptions,
+  flowOptions: UserFlowOptions | UserFlowCLIOptions,
   interactions: UserFlowInteractionsFn
   launchOptions?: LaunchOptions,
 };

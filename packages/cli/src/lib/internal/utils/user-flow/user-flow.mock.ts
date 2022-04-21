@@ -3,11 +3,40 @@ import { logVerbose } from '../../../core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 
+const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions) => ({
+  name: cfg.name,
+  steps: [
+    {
+      name: 'Navigation report (127.0.0.1/)',
+      lhr: {} as any
+    }
+  ]
+});
+
+const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions) => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, minimum-scale=1"
+/>
+<title>Lighthouse Flow Report</title>
+<style></style>
+<script>
+${dummyFlowResult(cfg)}
+</script>
+</head>
+<body></body>
+`;
+
 /**
  * @TODO this is very flakey ATM and needs investigation
  */
 export class UserFlowMock {
 
+  protected cfg: UserFlowOptions = {} as any;
   protected page: Page;
 
   /**
@@ -19,8 +48,9 @@ export class UserFlowMock {
     return this.page.goto(requestor);
   }
 
-  constructor(page: Page, { name }: UserFlowOptions) {
+  constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
+    this.cfg = cfg;
   }
 
   /**
@@ -49,7 +79,7 @@ export class UserFlowMock {
    */
   getFlowResult(): FlowResult {
     logVerbose(`flow#getFlowResult`);
-    return {} as FlowResult;
+    return dummyFlowResult(this.cfg);
   }
 
   /**
@@ -57,7 +87,7 @@ export class UserFlowMock {
    */
   generateReport(): Promise<string> {
     logVerbose(`flow#generateReport`);
-    return Promise.resolve('');
+    return Promise.resolve(dummyFlowReport(this.cfg));
   }
 
 }

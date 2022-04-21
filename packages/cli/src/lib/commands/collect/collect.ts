@@ -42,15 +42,20 @@ export async function run(cfg: RcArgvOptions): Promise<void> {
   await sequeltial(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
 
-      if(budgetPath || budgets) {
-        logVerbose('CLI options `--budgetPath` over wrote config from user flow');
+      provider = provider || {};
+      if (budgetPath || budgets) {
         provider.flowOptions?.config || (provider.flowOptions.config = {} as any);
-        provider.flowOptions.config?.settings || (provider.flowOptions.config.settings = {} as any);
+        if(provider.flowOptions.config?.settings) {
+          provider.flowOptions.config.settings = {} as any
+        }
       }
       if (budgetPath) {
+        logVerbose(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
         // @ts-ignore
         provider.flowOptions.config.settings.budgets = budgetPath;
-      } else if(budgets) {
+      } else if (budgets) {
+        logVerbose('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+        // @ts-ignore
         provider.flowOptions.config.settings.budgets = budgets;
       }
 

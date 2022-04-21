@@ -8,6 +8,7 @@ import {
 } from '../fixtures/cli-prompts';
 import * as fs from 'fs';
 import { report } from '@nrwl/workspace/src/command-line/report';
+import { logVerbose } from '../../src/lib/core/loggin';
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
@@ -22,6 +23,21 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(INIT_COMMAND__ASK_UF_PATH);
   expect(stdout).not.toContain(INIT_COMMAND__ASK_OUT_PATH);
   expect(stdout).not.toContain(INIT_COMMAND__ASK_FROMAT);
+}
+
+export function expectBudgetsFileExistLog(stdout: string, budgetPath: string = '') {
+  if (budgetPath) {
+    expect(stdout).toContain(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
+  } else {
+    expect(stdout).toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+  }
+  expect(stdout).toContain('format given budgets');
+}
+
+export function expectNoBudgetsFileExistLog(stdout: string) {
+  expect(stdout).not.toContain(`CLI options --budgetPath or .user-flowrc.json configuration`);
+  expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+  expect(stdout).not.toContain('format given budgets');
 }
 
 export function expectPromptsInStdout(stdout: string) {
@@ -56,6 +72,7 @@ export function expectCollectCreatesHtmlReport(reportPath: string, ufName: strin
   expect(reportHTML).toContain(`${ufName}`);
   expect(reportHTML).toBeTruthy();
 }
+
 export function expectCollectCreatesJsonReport(reportPath: string, ufName: string) {
   let reportJson;
   expect(() => fs.readFileSync(reportPath)).not.toThrow();
