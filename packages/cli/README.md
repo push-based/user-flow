@@ -17,7 +17,7 @@
 - 🏃‍♀️ Measure Runtime performance
 - 🔒 Performance budgets
 - 🦮 Zero setup cost
-- 🤓 Excellent DX through `--dryRun` options 
+- 🤓 Excellent DX through `--dryRunand friends 
 - 🛸 Advanced architecture with UFO's
 - 🔥 Write tests directly in TypeScript (we compile them live)
 - 🧠 Use best practices out of the box
