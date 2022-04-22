@@ -2,6 +2,29 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.6.0](https://github.com/push-based/user-flow/compare/cli-0.5.2...cli-0.6.0) (2022-04-22)
+
+
+### Bug Fixes
+
+* enable JSON and path over CLI for budgets ([0742037](https://github.com/push-based/user-flow/commit/07420378dc380b06773ae41c278a9f73b89fc754))
+* formats alias overlap ([c9d9b66](https://github.com/push-based/user-flow/commit/c9d9b66b5ab89ea82f7bc85cde1c05a781e63d32))
+* implement kill logic for sandbox port's ([6c3ed9d](https://github.com/push-based/user-flow/commit/6c3ed9de194025a8f39b61d718d9948906f5f020))
+* remove import ([9ecddbf](https://github.com/push-based/user-flow/commit/9ecddbfa13436018049c20d2fb51aa447e49d39e))
+* remove wrong type ([32c18ba](https://github.com/push-based/user-flow/commit/32c18ba4be657b6e2676121669e3fa0678866c9f))
+* remove wrong type ([f401900](https://github.com/push-based/user-flow/commit/f4019001caafb0ccde83523939806995e9ee8a67))
+* remove wrong type ([9ed1eda](https://github.com/push-based/user-flow/commit/9ed1eda9db121580719b5b9d29842a123865acfd))
+* use prettier in reset scripts ([9266f0b](https://github.com/push-based/user-flow/commit/9266f0b2bdacddeeff41769fa14dd06d06ffa66f))
+* use prettier to format data before save to avoid merge conflicts ([d0939ed](https://github.com/push-based/user-flow/commit/d0939ed73bef404c603ee6cb55929f5fa28256f8))
+
+
+### Features
+
+* add assert command basis ([20ef107](https://github.com/push-based/user-flow/commit/20ef107080fa0d605701318f2b619c8d1eda5793))
+* add report samples ([baa9647](https://github.com/push-based/user-flow/commit/baa9647fca80a3b4407fe8e512e6a1ed8b323088))
+
+
+
 ## [0.5.3](https://github.com/push-based/user-flow/compare/cli-0.5.2...cli-0.5.3) (2022-04-10)
 
 
