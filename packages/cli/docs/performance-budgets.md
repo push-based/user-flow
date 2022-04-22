@@ -127,4 +127,6 @@ module.exports = userFlowProvider;
 
 The different metrics available in the budget schema are derived from CDP and also present in the DevTools.
 Sometimes it helps to relate to some visual representation when dealing with numbers, so here is a listing on how you can gather the numbers manually:
+![performance-budget--devtools-network-tab](https://user-images.githubusercontent.com/10064416/164570333-f11c2ec2-64b3-4f95-b845-0ba19fb23c30.png)
+![performance-budget--devtools-performance-tab](https://user-images.githubusercontent.com/10064416/164570353-6f9ff215-ad25-4928-9ca1-49151a4e57ed.png)
 
