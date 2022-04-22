@@ -252,7 +252,14 @@ Organizing testing logic in an art. If you don't own that knowledge, the amount 
 **This is the reason we introduced UFO's!**
 **Organize clutter code 👽 in developer friendly shells 🛸**
 
-**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
+See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
+
+## [Performance Budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md)
+
+Implementing performance improvements without breaking something is hard.  
+**Even harder is it, to keep it that way. 🔒**
+
+See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 
 
 
