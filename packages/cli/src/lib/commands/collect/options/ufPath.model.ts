@@ -1,5 +1,5 @@
 import { Options } from 'yargs';
-import { Modify } from '../../../internal/utils/types';
+import { Modify } from '../../../core/utils/types';
 
 export type Param = {
   ufPath: Modify<Options, {

@@ -1,6 +1,6 @@
 import { extname, join, dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
-import { logVerbose } from '../../core/loggin';
+import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
 
 /**

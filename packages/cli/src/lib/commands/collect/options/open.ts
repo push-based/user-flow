@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './open.model';
-import { ArgvT } from '../../../internal/utils/yargs/types';
+import { ArgvOption } from '../../../core/utils/yargs/types';
 
 export const param: Param = {
   open: {
@@ -13,6 +13,6 @@ export const param: Param = {
 };
 
 export function get(): boolean {
-  const { open } = argv as any as ArgvT<Param>;
+  const { open } = argv as any as ArgvOption<Param>;
   return open;
 }

@@ -16,9 +16,11 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "@push-based/user-flow:sandboxempty": "npm run build && cd packages/sandbox-empty && npm run @push-based/user-flow -- init -v",
-    "@push-based/user-flow:sandboxsetup": "npm run build && cd packages/sandbox-setup && npm run @push-based/user-flow --  -p .user-flowrc.static-dist.json  -v",
-    "@push-based/user-flow:sandboxsetup-budgets": "npm run build && cd packages/sandbox-setup && npm run @push-based/user-flow -- -p .user-flowrc.static-dist.budgets.json -e=true -v",
+    "@push-based/user-flow:sandboxempty": "npm run testIn:empty-sandbox && npm run @push-based/user-flow -- init -v",
+    "@push-based/user-flow:sandboxsetup": "npm run testIn:setup-sandbox && npm run @push-based/user-flow --  -p=./.user-flowrc.static-dist.json  -v",
+    "@push-based/user-flow:sandboxsetup:budgets": "npm run testIn:setup-sandbox && npm run @push-based/user-flow -- collect -p=./packages/sandbox-setup/.user-flowrc.static-dist.budgets.json -e=true -v",
+    "testIn:empty-sandbox": "npm run build && cd packages/sandbox-empty",
+    "testIn:setup-sandbox": "npm run build && cd packages/sandbox-setup",
     "prepare": "husky install"
   },
   "dependencies": {

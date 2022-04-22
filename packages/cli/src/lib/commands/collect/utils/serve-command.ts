@@ -1,6 +1,6 @@
 import { concurrently } from 'concurrently';
-import { CollectOptions } from '../../internal/config/model';
-import { logVerbose } from '../../core/loggin';
+import { CollectOptions } from '../../../core/rc-json/types';
+import { logVerbose } from '../../../core/utils/loggin';
 import { Subscription } from 'rxjs';
 
 

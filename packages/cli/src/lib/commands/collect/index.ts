@@ -1,14 +1,14 @@
-import { YargsCommandObject } from '../../internal/utils/yargs/types';
-import { collectFlow, persistFlow, loadFlow } from '../../internal/utils/user-flow';
-import { logVerbose } from '../../core/loggin/index';
+import { YargsCommandObject } from '../../core/utils/yargs/types';
+import { collectFlow, persistFlow, loadFlow } from './utils/user-flow';
+import { logVerbose } from '../../core/utils/loggin/index';
 import { get as interactive } from '../../core/options/interactive';
 import { get as dryRun } from '../../core/options/dryRun';
 import { get as openOpt } from './options/open';
 import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
-import { startServerIfNeeded } from './serve-command';
-import { run as ensureConfig } from '../init/init';
-import { RcArgvOptions } from '../../internal/config/model';
+import { startServerIfNeeded } from './utils/serve-command';
+import { run as ensureConfig } from '../init';
+import { RcArgvOptions } from '@push-based/user-flow/cli';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',

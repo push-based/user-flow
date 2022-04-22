@@ -1,13 +1,13 @@
-import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/internal/config/constants';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
-import { writeFile } from '../../src/lib/internal/utils/file';
+import { writeFile } from '../../src/lib/core/utils/file';
 import { kill } from '../utils/kill';
 import { RcJson } from '@push-based/user-flow/cli';
 import Budget from 'lighthouse/types/lhr/budget';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);

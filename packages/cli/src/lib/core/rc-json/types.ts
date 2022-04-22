@@ -16,11 +16,3 @@ export type AssertOptions = {
   budgetPath?: string,
   budgets?: SharedFlagsSettings['budgets'] | string
 }
-
-export type RcJson = {
-  collect: CollectOptions,
-  persist: PersistOptions,
-  assert?: AssertOptions,
-} & Object;
-
-export type RcArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport?: boolean };

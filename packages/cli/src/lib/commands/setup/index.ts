@@ -1,9 +1,10 @@
-import { RcJson } from './model';
 import { get as interactive } from '../../core/options/interactive';
-import { DEFAULT_PERSIST_OUT_PATH, DEFAULT_COLLECT_UF_PATH } from './constants';
 import { prompt } from 'enquirer';
-import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../commands/collect/constats';
+import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../collect/constats';
 import { mkdirSync, readdirSync } from 'fs';
+import { RcJson } from '@push-based/user-flow/cli';
+import { DEFAULT_COLLECT_UF_PATH } from '../collect/options/ufPath.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../collect/options/outPath.constant';
 
 export async function ensureOutPath(
   config: RcJson

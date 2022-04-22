@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './verbose.model';
-import { ArgvT } from '../../internal/utils/yargs/types';
+import { ArgvOption } from '../utils/yargs/types';
 
 export const param: Param = {
   verbose: {
@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): boolean {
-  const {verbose} = argv as any as ArgvT<Param>;
+  const {verbose} = argv as any as ArgvOption<Param>;
   return verbose;
 }

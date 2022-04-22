@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './budgetPath.model';
-import { ArgvT } from '../../../internal/utils/yargs/types';
+import { ArgvOption } from '../../../core/utils/yargs/types';
 
 export const param: Param = {
   budgetPath: {
@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { budgetPath } = argv as any as ArgvT<Param>;
+  const { budgetPath } = argv as any as ArgvOption<Param>;
   return budgetPath;
 }

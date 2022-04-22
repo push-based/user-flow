@@ -1,11 +1,9 @@
 import * as path from 'path';
 import * as fs from "fs";
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
-import {
-  DEFAULT_PERSIST_FORMAT,
-  DEFAULT_PERSIST_OUT_PATH,
-  DEFAULT_COLLECT_UF_PATH
-} from '../../src/lib/internal/config/constants';
+import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
+import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 
 /**
  * This file maintains the static data used in tests as well as htlpers to reset the status of a sandbox to it's initial state.

@@ -1,6 +1,6 @@
-import { YargsArgvOptionFromParamsOptions } from '../../../internal/utils/types';
 import { AssertOptions } from '../../assert/options/types';
 import { CollectYargsOptions } from '../../collect/options/types';
+import { YargsArgvOptionFromParamsOptions } from '../../../core/utils/yargs/types';
 
 
 export type InitOptions = CollectYargsOptions & AssertOptions;

@@ -134,31 +134,6 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
-# Writing tests
-
-## Selector suggestions
-
-When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
-A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
-
-The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
-- data-testid
-- data-test
-- data-qa
-- data-cy
-- data-test-id
-- data-qa-id
-- data-testing
-
-## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
-
-Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
-
-**This is the reason we introduced UFO's!**
-**Organize clutter code 👽 in developer friendly shells 🛸**
-
-**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
-
 # CLI
 
 ## Global Options
@@ -245,6 +220,41 @@ The json file can be drag & dropped into the [lighthouse viewer](https://googlec
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
 
 ![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
+
+# Writing user flows
+
+## Flow Building Blocks
+
+| Method     | Metrics        |
+| ---------- | -------------- |
+| Navigation | Full LH Report | 
+| Timespan   |  | 
+| Snapshot   |     | 
+
+## Selector suggestions
+
+When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
+A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
+
+The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
+- data-testid
+- data-test
+- data-qa
+- data-cy
+- data-test-id
+- data-qa-id
+- data-testing
+
+## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
+
+Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
+
+**This is the reason we introduced UFO's!**
+**Organize clutter code 👽 in developer friendly shells 🛸**
+
+**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
+
+
 
 ## Debugging
 

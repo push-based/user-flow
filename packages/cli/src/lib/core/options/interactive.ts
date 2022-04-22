@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './interactive.model';
-import { ArgvT } from '../../internal/utils/yargs/types';
+import { ArgvOption } from '../utils/yargs/types';
 
 export const param: Param = {
   interactive: {
@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): boolean {
-  const { interactive } = argv as any as ArgvT<Param>;
+  const { interactive } = argv as any as ArgvOption<Param>;
   return interactive;
 }

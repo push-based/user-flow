@@ -1,4 +1,4 @@
-import { get as verbose } from '../options/verbose';
+import { get as verbose } from '../../options/verbose';
 
 export function logVerbose(...message: Array<string | number | Symbol | Object | Array<any>>): void {
   if (verbose()) {

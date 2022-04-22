@@ -6,19 +6,11 @@ import {
   Page,
   Product
 } from 'puppeteer';
+
+import * as Config from 'lighthouse/types/config';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
-import { RcJson } from '../internal/config/model';
-import Budget from 'lighthouse/types/lhr/budget';
-import { UserFlowOptions } from '../internal/utils/user-flow/types';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-
-export { RcJson } from '../internal/config/model';
-
-export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
-  product?: Product;
-  extraPrefsFirefox?: Record<string, unknown>;
-}
 
 export type UserFlowContext = {
   browser: Browser;
@@ -26,33 +18,36 @@ export type UserFlowContext = {
   flow: UserFlow;
   collectOptions: { url: string }
 }
+
+export interface StepOptions {
+  stepName: string;
+}
+
 export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>;
+
+
+export type UserFlowOptions = {
+  name: string;
+} & { page: Page, config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
+
+export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
+  product?: Product;
+  extraPrefsFirefox?: Record<string, unknown>;
+}
 
 /**
  * budgets: path to budgets file
  */
-type UserFlowCLIOptions = {
+type UserFlowRcOptions = {
   config: {
     settings: {
       budgets: string | SharedFlagsSettings['budgets']
     }
   }
-} &  UserFlowOptions;
+} & UserFlowOptions;
+
 export type UserFlowProvider = {
-  flowOptions: UserFlowOptions | UserFlowCLIOptions,
+  flowOptions: UserFlowOptions | UserFlowRcOptions,
   interactions: UserFlowInteractionsFn
   launchOptions?: LaunchOptions,
 };
-
-/**
- * This class is used in the user-flow interactions to ensure the context of the flow is available in UFO's
- */
-export class Ufo {
-  protected page: Page;
-
-  constructor({ page }: UserFlowContext) {
-    this.page = page;
-  }
-};
-
-

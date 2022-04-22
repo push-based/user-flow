@@ -1,4 +1,4 @@
-import { startServerIfNeeded } from '../src/lib/commands/collect/serve-command';
+import { startServerIfNeeded } from '../src/lib/commands/collect/utils/serve-command';
 
 import spyOn = jest.spyOn;
 

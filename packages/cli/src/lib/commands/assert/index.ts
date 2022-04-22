@@ -1,7 +1,7 @@
-import  { YargsCommandObject } from '../../internal/utils/yargs/types';
-import { logVerbose } from '../../core/loggin/index';
-import { RcJson } from '../../types/model';
-import { readBudgets } from '../../internal/utils/budgets';
+import  { YargsCommandObject } from '../../core/utils/yargs/types';
+import { logVerbose } from '../../core/utils/loggin/index';
+import { RcJson } from '../../types';
+import { readBudgets } from './utils/budgets';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

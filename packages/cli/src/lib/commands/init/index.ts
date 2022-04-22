@@ -1,10 +1,10 @@
-import { YargsCommandObject } from '../../internal/utils/yargs/types';
-import { log, logVerbose } from '../../core/loggin';
-import { updateRcConfig } from '../../internal/config/config';
-import { RcJson } from '../../types/model';
-import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../../internal/config/setup';
+import { YargsCommandObject } from '../../core/utils/yargs/types';
+import { log, logVerbose } from '../../core/utils/loggin';
+import { updateRcConfig } from '../../core/rc-json';
+import { RcJson } from '../../types';
+import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../setup/index';
 import { get as getRcPath } from '../../core/options/rc';
-import { CollectOptions, PersistOptions } from '../../internal/config/model';
+import { CollectOptions, PersistOptions } from '../../core/rc-json/types';
 import { INIT_OPTIONS } from './options';
 
 export const initCommand: YargsCommandObject = {
