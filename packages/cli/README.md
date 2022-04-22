@@ -134,31 +134,6 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
-# Writing tests
-
-## Selector suggestions
-
-When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
-A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
-
-The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
-- data-testid
-- data-test
-- data-qa
-- data-cy
-- data-test-id
-- data-qa-id
-- data-testing
-
-## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
-
-Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
-
-**This is the reason we introduced UFO's!**
-**Organize clutter code 👽 in developer friendly shells 🛸**
-
-**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
-
 # CLI
 
 ## Global Options
@@ -219,29 +194,67 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--url`**, **`-t`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
 | **`--ufPath`**, **`-u`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
 | **`--outPath`**, **`-o`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
-| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
 | **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
 | **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 | **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
+| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`--budget-path`**, **`-b`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
 
 ## Report Formats and Viewer
 
-@push-based/user-flow supports 2 different formats and aligns with the official viewer.
-- `html`
-- `json`
+You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
 
 Use the `.user-flowrc.json` propertiy `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
 
 You can also use use the CLI option `--format` to choose a format.  
 
-For a single format run: `@push-based/user-flow collect --format html` and  
-for multiple formats `@push-based/user-flow collect --format html --format json`.
+- single format: `@push-based/user-flow collect --format html`  
+- multiple formats: `@push-based/user-flow collect --format html --format json`  
 
-You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
+> **🤓 DX Tip:**  
+> For a faster development process you can use the `--open` or `-e` option to automatically open the report in the browser.
+> The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
+> e.g. `@push-based/user-flow collect --open`   
+
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
 
-![Lighhouse Viewer - FiledDrop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
+![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
+
+# Writing user flows
+
+## Flow Building Blocks
+
+| Method     | Metrics        |
+| ---------- | -------------- |
+| Navigation | Full LH Report | 
+| Timespan   |  | 
+| Snapshot   |     | 
+
+## Selector suggestions
+
+When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
+A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
+
+The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
+- data-testid
+- data-test
+- data-qa
+- data-cy
+- data-test-id
+- data-qa-id
+- data-testing
+
+## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
+
+Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
+
+**This is the reason we introduced UFO's!**
+**Organize clutter code 👽 in developer friendly shells 🛸**
+
+**See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.**
+
+
 
 ## Debugging
 
@@ -269,6 +282,7 @@ logVerbose('test');
 
 ## Resources
 
-- [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
+-  [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/)
+-  [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
 
 made with ❤ by [push-based.io](https://www.push-based.io)

@@ -9,14 +9,6 @@
       "options": {
         "lintFilePatterns": ["packages/sandbox-empty/**/*.ts"]
       }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/sandbox-empty"],
-      "options": {
-        "jestConfig": "packages/sandbox-empty/jest.config.js",
-        "passWithNoTests": true
-      }
     }
   },
   "tags": []

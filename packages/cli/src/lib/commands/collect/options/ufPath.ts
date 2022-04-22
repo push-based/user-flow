@@ -1,6 +1,6 @@
 import { argv, Options } from 'yargs';
 import { Param } from './ufPath.model';
-import { ArgvT } from '../../../internal/utils/yargs/types';
+import { ArgvOption } from '../../../core/utils/yargs/types';
 
 export const param: Param = {
   ufPath: {
@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { ufPath } = argv as any as ArgvT<Param>;
+  const { ufPath } = argv as any as ArgvOption<Param>;
   return ufPath;
 }

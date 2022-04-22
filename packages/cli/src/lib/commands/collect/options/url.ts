@@ -1,6 +1,6 @@
 import { argv, Options } from 'yargs';
 import { Param } from './url.model';
-import { ArgvT } from '../../../internal/utils/yargs/types';
+import { ArgvOption } from '../../../core/utils/yargs/types';
 
 export const param: Param = {
   url: {
@@ -12,6 +12,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { url } = argv as any as ArgvT<Param>;
+  const { url } = argv as any as ArgvOption<Param>;
   return url;
 }

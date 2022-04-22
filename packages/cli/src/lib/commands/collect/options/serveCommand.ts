@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './serveCommand.model';
-import { ArgvT } from '../../../internal/utils/yargs/types';
+import { ArgvOption } from '../../../core/utils/yargs/types';
 
 // inspired by: https://github.com/GoogleChrome/lighthouse-ci/blob/main/packages/cli/src/collect/collect.js#L28-L98
 export const param: Param = {
@@ -13,6 +13,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { serveCommand } = argv as any as ArgvT<Param>;
+  const { serveCommand } = argv as any as ArgvOption<Param>;
   return serveCommand;
 }

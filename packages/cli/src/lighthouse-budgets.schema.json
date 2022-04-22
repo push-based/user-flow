@@ -1,0 +1,113 @@
+{
+  "title": "JSON schema Chrome Lighthouse budget.json file",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Budget.ResourceType": {
+      "description": "Supported values for the resourceType property of a ResourceBudget.",
+      "enum": [
+        "document",
+        "font",
+        "image",
+        "media",
+        "other",
+        "script",
+        "stylesheet",
+        "third-party",
+        "total"
+      ],
+      "type": "string"
+    },
+    "Budget.TimingMetric": {
+      "description": "Supported timing metrics.",
+      "enum": [
+        "cumulative-layout-shift",
+        "first-contentful-paint",
+        "first-meaningful-paint",
+        "interactive",
+        "largest-contentful-paint",
+        "max-potential-fid",
+        "speed-index",
+        "total-blocking-time"
+      ],
+      "type": "string"
+    },
+    "default": {
+      "description": "The performance budget interface.\nMore info: https://github.com/GoogleChrome/budget.json",
+      "properties": {
+        "options": {
+          "$ref": "#/definitions/default.Options",
+          "description": "Budget options"
+        },
+        "path": {
+          "description": "Indicates which pages a budget applies to. Uses the robots.txt format.\nIf it is not supplied, the budget applies to all pages.\nMore info on robots.txt: https://developers.google.com/search/reference/robots_txt#url-matching-based-on-path-values",
+          "type": "string"
+        },
+        "resourceCounts": {
+          "description": "Budgets based on resource count.",
+          "items": {
+            "$ref": "#/definitions/default.ResourceBudget"
+          },
+          "type": "array"
+        },
+        "resourceSizes": {
+          "description": "Budgets based on resource size.",
+          "items": {
+            "$ref": "#/definitions/default.ResourceBudget"
+          },
+          "type": "array"
+        },
+        "timings": {
+          "description": "Budgets based on timing metrics.",
+          "items": {
+            "$ref": "#/definitions/default.TimingBudget"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "default.Options": {
+      "properties": {
+        "firstPartyHostnames": {
+          "description": "List of hostnames used to classify resources as 1st or 3rd party.\nWildcards can optionally be used to match a hostname and all of its subdomains.\nFor example e.g.: \"*.news.gov.uk\" matches both \"news.gov.uk\" and \"en.news.gov.uk\"\nIf this property is not set, the root domain and all its subdomains are considered first party.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "default.ResourceBudget": {
+      "properties": {
+        "budget": {
+          "description": "Budget for resource. Depending on context, this is either the count or size (KiB) of a resource.",
+          "type": "number"
+        },
+        "resourceType": {
+          "$ref": "#/definitions/Budget.ResourceType",
+          "description": "The resource type that a budget applies to."
+        }
+      },
+      "type": "object"
+    },
+    "default.TimingBudget": {
+      "properties": {
+        "budget": {
+          "description": "Budget for timing measurement, in milliseconds.",
+          "type": "number"
+        },
+        "metric": {
+          "$ref": "#/definitions/Budget.TimingMetric",
+          "description": "The type of timing metric."
+        }
+      },
+      "type": "object"
+    }
+  },
+  "items": {
+    "$ref": "#/definitions/default"
+  },
+  "type": "array"
+}
+
