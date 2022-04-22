@@ -172,7 +172,7 @@ Run the default command over:
 `@npx @push-based/user-flow [options]`  
 
 Description:  
-The default command forwards all options to the [`capture`]().
+The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow/edit/main/packages/cli/README.md#collect-command).
 
 ### `init` command
 
