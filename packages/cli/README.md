@@ -13,14 +13,15 @@
 
 **Benefits**
 
-- ☑ Measure Runtime performance in your CI
-- ☑ Zero setup cost
-- ☑ No boiler plate
-- ☑ Write tests directly in TypeScript (we compile them live)
-- ☑ Use best practices out of the box
-- ☑ Excellent DX through `--dryRun` options 
-- ☑ Advanced architecture with UFO's 🛸
-- ☑ Run it in your CI  
+- ⚙ Run it in your CI  
+- 🏃‍♀️ Measure Runtime performance
+- 🔒 Performance budgets
+- 🦮 Zero setup cost
+- 🤓 Excellent DX through `--dryRun` options 
+- 🛸 Advanced architecture with UFO's
+- 🔥 Write tests directly in TypeScript (we compile them live)
+- 🧠 Use best practices out of the box
+- 🅾 No boiler plate
 
 ![user-flow--example](https://user-images.githubusercontent.com/10064416/156825271-a6257002-714c-4016-a300-738cbcdb366f.png)
 
