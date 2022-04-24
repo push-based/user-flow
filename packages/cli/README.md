@@ -265,7 +265,6 @@ Implementing performance improvements without breaking something is hard.
 See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 
 
-
 ## Debugging
 
 `@push-based/user-flow` ships with small helpers for logging and debugging.
