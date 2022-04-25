@@ -279,7 +279,7 @@ A function that logs the passed string only if the CIL options `--verbose` or `-
 import { logVerbose } from "@push-based/user-flow";
 // ...
 
-logVerbose('test');
+logVerbose('test'); 
 ```
 
 `npx @push-based/user-flow` logs nothing  
