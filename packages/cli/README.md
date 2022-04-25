@@ -102,7 +102,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Category to Detail Navigation - Cold'}
+  flowOptions: {name: 'Category to Detail Navigation - Cold'},
   interactions
 };
 
@@ -217,17 +217,16 @@ This format is very good for programmatic processing and foundation for most of 
 
 ![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
 
+## Configuration
+
+The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
+
+
 # Writing user flows
 
 You can think of user flows as front ent e2e tests which measures performance related information during the test.
 
 ## Flow Measurement Modes
-
-| Method     | Metrics        | Limitations    | Description                                                                          |
-| ---------- | -------------- |--------------- | ------------------------------------------------------------------------------------ |
-| Navigation | Full LH Report |                | all Lighthouse reports prior to v9 are navigation reports                            |
-| Timespan   |                |                |                                                                                      |  
-| Snapshot   |                |                |                                                                                      | 
 
 > Info:
 > Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 
