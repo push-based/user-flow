@@ -6,9 +6,9 @@
 
 | Icon  | Mode       | Measure            | Performance  | Accessibility | Best Practices | SEO       |
 | ----- | ---------- | ------------------ | ------------ | ------------- | -------------- | --------- |
-| ![]() | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 |
-| ![]() | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |
-| ![]() | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |
+| ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 |
+| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |
+| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |
 
 ---
 
