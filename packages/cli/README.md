@@ -137,18 +137,7 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 
 # CLI
 
-## Global Options
-
-|  Option                     |  Type     | Default                     |  Description                                                                                               |  
-| --------------------------- | --------- | --------------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--help`**                | `boolean` | `undefined`                 | Show help                                                                                                  |  
-| **`--version`**             | `boolean` | `undefined`                 | Show version number of cli                                                                                 |  
-| **`--cfgPath`**, **`-p`**   | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
-| **`--verbose`**, **`-v`**   | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
-| **`--interactive`**         | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
-| **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
-
-## CLI interaction
+## Prompts and interaction
 
 We provide general interaction through the keyboard or `stdin` directly for testing and other crazy hacks.
 
@@ -164,6 +153,19 @@ We provide general interaction through the keyboard or `stdin` directly for test
  | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
  | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
  
+
+
+## Global Options
+
+|  Option                     |  Type     | Default                     |  Description                                                                                               |  
+| --------------------------- | --------- | --------------------------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--help`**                | `boolean` | `undefined`                 | Show help                                                                                                  |  
+| **`--version`**             | `boolean` | `undefined`                 | Show version number of cli                                                                                 |  
+| **`--cfgPath`**, **`-p`**   | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
+| **`--verbose`**, **`-v`**   | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
+| **`--interactive`**         | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
+| **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
+
 ## Commands 
 
 ### `*` command
