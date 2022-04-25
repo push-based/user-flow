@@ -19,9 +19,9 @@ export type UserFlowContext = {
   collectOptions: { url: string }
 }
 
-export interface StepOptions {
+export type StepOptions = {
   stepName: string;
-}
+} & { /*page: Page,*/ config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
 
 export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>;
 

@@ -1,5 +1,5 @@
 # @push-based/user-flow
-## Lighthouse user flows done right!
+## Runtime performance measurements done right, with lighthouse user flows!
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
