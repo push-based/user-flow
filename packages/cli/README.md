@@ -80,20 +80,10 @@ import {
   UserFlowProvider
 } from '@push-based/user-flow';
 
-// Optional overwrite launch settings of puppeteer
-const launchOptions: LaunchOptions = {
-  headless: true
-};
-
-// Setup UserFlow options
-const flowOptions: UserFlowOptions = {
-  name: 'Category to Detail Navigation - Cold',
-};
-
 // Your custom interactions with the page 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { page, flow, baseUrl } = ctx;
-  const url = `${baseUrl}/list`;
+  const { page, flow, browser, collectOptions } = ctx;
+  const { url } = collectOptions;
 
   const sideMenuBtnSelector = '#main-side-bar div.header-wrapper .hamburger-btn';
   const firstMovieListImg = '.ui-movie-list img.movie-img-1';
@@ -112,9 +102,8 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions,
-  interactions,
-  launchOptions
+  flowOptions: {name: 'Category to Detail Navigation - Cold'}
+  interactions
 };
 
 module.exports = userFlowProvider;
