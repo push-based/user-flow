@@ -283,7 +283,7 @@ logVerbose('test');
 ```
 
 `npx @push-based/user-flow` logs nothing  
-`npx @push-based/user-flow --verbose` logs "test"
+`npx @push-based/user-flow --verbose` logs "test"  
 
 ## Examples
 
