@@ -184,6 +184,10 @@ Run command over:
 Description:  
 This command helps you to setup a `.user-flowrc.json` and fill it over CLI prompts.
 
+> **🤓 DX Tip:** 
+> Setup user flows in a sub directory:  
+> `npx @push-based/user-flow init --rcPath ./path/to/project/.user-flowrc.json`
+
 ### `collect` command
 
 Run command over:  
@@ -226,13 +230,19 @@ This format is very good for programmatic processing and foundation for most of 
 
 # Writing user flows
 
-## Flow Building Blocks
+You can think of user flows as front ent e2e tests which measures performance related information during the test.
 
-| Method     | Metrics        |
-| ---------- | -------------- |
-| Navigation | Full LH Report | 
-| Timespan   |  | 
-| Snapshot   |     | 
+## Flow Measurement Modes
+
+| Method     | Metrics        | Limitations    | Description                                                                          |
+| ---------- | -------------- |--------------- | ------------------------------------------------------------------------------------ |
+| Navigation | Full LH Report |                | all Lighthouse reports prior to v9 are navigation reports                            |
+| Timespan   |                |                |                                                                                      |  
+| Snapshot   |                |                |                                                                                      | 
+
+> Info:
+> Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 
+> This can help to get a list of audits possible per mode
 
 ## Selector suggestions
 
