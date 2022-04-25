@@ -28,7 +28,7 @@ export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>
 
 export type UserFlowOptions = {
   name: string;
-} & { page: Page, config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
+} & { /*page: Page,*/ config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
 
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
