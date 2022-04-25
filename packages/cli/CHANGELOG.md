@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.6.6](https://github.com/push-based/user-flow/compare/cli-0.6.5...cli-0.6.6) (2022-04-25)
+
+
+### Bug Fixes
+
+* add configPath to collect options ([b8b3a81](https://github.com/push-based/user-flow/commit/b8b3a81c7910f3abf012462c29912e293e1a15c4))
+* adopt setp options ([dd7c000](https://github.com/push-based/user-flow/commit/dd7c000ec5260ec79e94e4b158894cfc9af5f0cb))
+* docs formatting ([39002d1](https://github.com/push-based/user-flow/commit/39002d132ffb7a826952c5514f010ad6ea89917a))
+* remove page from UserFlowOptions ([e16af41](https://github.com/push-based/user-flow/commit/e16af415fb7ec75f8ffba3125c1a6b592e672d27))
+
+
+
 ## [0.6.5](https://github.com/push-based/user-flow/compare/cli-0.6.4...cli-0.6.5) (2022-04-22)
 
 
