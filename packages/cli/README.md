@@ -250,7 +250,7 @@ The following selectors are suggested to align with the official [user flow reco
 
 ## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
-Organizing testing logic in an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
+Organizing testing logic is an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
 
 **This is the reason we introduced UFO's!**
 **Organize clutter code 👽 in developer friendly shells 🛸**
