@@ -80,7 +80,7 @@ import {
   UserFlowProvider
 } from '@push-based/user-flow';
 
-// Optional overright lounch settings of puppeteer
+// Optional overwrite launch settings of puppeteer
 const launchOptions: LaunchOptions = {
   headless: true
 };
