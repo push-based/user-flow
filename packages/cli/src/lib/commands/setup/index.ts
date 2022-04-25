@@ -5,6 +5,7 @@ import { mkdirSync, readdirSync } from 'fs';
 import { RcJson } from '@push-based/user-flow/cli';
 import { DEFAULT_COLLECT_UF_PATH } from '../collect/options/ufPath.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../collect/options/outPath.constant';
+import { DEFAULT_COLLECT_URL } from '../collect/options/url.constant';
 
 export async function ensureOutPath(
   config: RcJson
@@ -73,7 +74,7 @@ export async function ensureUrl(
   config: RcJson
 ): Promise<RcJson> {
 
-  let suggestion = config?.collect?.url ? config?.collect?.url.trim() : '';
+  let suggestion = config?.collect?.url ? config?.collect?.url.trim() : DEFAULT_COLLECT_URL;
 
   if (interactive()) {
     const { url } = await prompt<{ url: string }>([

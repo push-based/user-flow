@@ -3,6 +3,13 @@
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
+
+| Icon  | Mode       | Measure            | Performance  | Accessibility | Best Practices | SEO       |
+| ----- | ---------- | ------------------ | ------------ | ------------- | -------------- | --------- |
+| ![]() | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 |
+| ![]() | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |
+| ![]() | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |
+
 ---
 
 [![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
@@ -48,7 +55,8 @@ You can also use `npx` to run it in e.g. the CI setup:
 
 1. Setup the `.user-flowrc.json` config file
 
-`npx @push-based/user-flow init`
+Run `npx @push-based/user-flow init` in the console and accept the default value for every question.
+
 
 This results in the following file:
 
@@ -57,7 +65,7 @@ This results in the following file:
 {
     "collect": {
         // URL to analyze
-        "url": "https://localhost",
+        "url": " https://coffee-cart.netlify.app/",
         // Path to user flows from root directory
         "ufPath": "./"
     },
@@ -73,8 +81,6 @@ This results in the following file:
 **./my-user-flow.uf.ts**
 ```typescript
 import {
-  LaunchOptions,
-  UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider
@@ -85,20 +91,45 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
 
-  const sideMenuBtnSelector = '#main-side-bar div.header-wrapper .hamburger-btn';
-  const firstMovieListImg = '.ui-movie-list img.movie-img-1';
-  
-  await flow.startTimespan({
-    stepName: 'Navigate to list page',
+  await flow.navigate(url, {
+    stepName: 'Navigate to coffee cart',
   });
 
-  await page.waitForSelector(sideMenuBtnSelector);
-  await page.click(sideMenuBtnSelector);
-  await page.waitForSelector(firstMovieListImg);
-
+  await flow.startTimespan({ stepName: 'Select coffee' });
+  const cappuccinoItem = '[data-test=Cappucino]';
+  await page.waitForSelector(cappuccinoItem);
+  await page.click(cappuccinoItem);
   await flow.endTimespan();
 
-  return Promise.resolve();
+  await flow.snapshot({ stepName: 'Select coffee done' });
+
+
+  await flow.startTimespan({ stepName: 'Checkout' });
+  const checkoutBtn = '[data-test=checkout]';
+  await page.waitForSelector(checkoutBtn);
+  await page.click(checkoutBtn);
+
+  const nameInputSelector = '#name';
+  await page.waitForSelector(nameInputSelector);
+  await page.type(nameInputSelector, 'nina');
+
+  const emailInputSelector = '#email';
+  await page.waitForSelector(emailInputSelector);
+  await page.type(emailInputSelector, 'nina@gmail.com');
+  await flow.endTimespan();
+
+  await flow.snapshot({ stepName: 'Checkout done' });
+
+
+  await flow.startTimespan({ stepName: 'Submit order' });
+  const submitBtn = '#submit-payment';
+  await page.click(submitBtn);
+  await page.waitForSelector(submitBtn);
+  const successMsg = '.snackbar.success';
+  await page.waitForSelector(successMsg);
+  await flow.endTimespan();
+
+  await flow.snapshot({ stepName: 'Submit order done' });
 };
 
 const userFlowProvider: UserFlowProvider = {
@@ -227,6 +258,13 @@ The CLI supports the official [user-flow/lighthouse configuration](https://githu
 You can think of user flows as front ent e2e tests which measures performance related information during the test.
 
 ## Flow Measurement Modes
+
+
+
+
+
+| Timespan   |
+| Snapshot   |
 
 > Info:
 > Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 

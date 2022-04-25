@@ -6,11 +6,14 @@ import { getParserFromExtname, formatCode } from './prettier';
 /**
  * Ensures the file exists before reading it
  */
-export function readFile(path: string) {
-  if (existsSync(path)) {
-    return readFileSync(path, 'utf-8');
+export function readFile(path: string)  {
+  try {
+    if (existsSync(path)) {
+      return readFileSync(path, 'utf-8');
+    }
+  } catch (e) {
+    logVerbose(path + ' does not exist.');
   }
-  logVerbose(path + ' does not exist.');
   return '';
 }
 
