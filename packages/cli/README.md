@@ -3,13 +3,6 @@
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
-
-| Icon  | Mode       | Measure            | Performance  | Accessibility | Best Practices | SEO       |
-| ----- | ---------- | ------------------ | ------------ | ------------- | -------------- | --------- |
-| ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 |
-| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |
-| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |
-
 ---
 
 [![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
@@ -46,17 +39,40 @@ After that you can run:
 You can also use `npx` to run it in e.g. the CI setup:
 `npx @push-based/user-flow --help`
 
+# Flow Measurement Modes
+
+| Icon  | Mode       | Measure            | Performance  | Accessibility | Best Practices | SEO       | PWA       |
+| ----- | ---------- | ------------------ | ------------ | ------------- | -------------- | --------- | --------- |
+| ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
+| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |     ❌    |
+| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |     ❌    |
+
+> Info:
+> Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 
+> This can help to get a list of audits possible per mode
+
+
 # Quick Start
+
+## Pre-requisites
 
 0. For basic information have a look at the following links:
 - [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
 - [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
 
+## Setup and navigation
+
+**Example measure - Order Coffee**  
+
+In the following steps we will implement the a user flow measurement for the following interactions:
+- Navigate to page
+- Select coffee
+- Checkout order
+- Submit order
 
 1. Setup the `.user-flowrc.json` config file
 
 Run `npx @push-based/user-flow init` in the console and accept the default value for every question.
-
 
 This results in the following file:
 
@@ -95,51 +111,21 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
     stepName: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({ stepName: 'Select coffee' });
-  const cappuccinoItem = '[data-test=Cappucino]';
-  await page.waitForSelector(cappuccinoItem);
-  await page.click(cappuccinoItem);
-  await flow.endTimespan();
+  // Select coffee
 
-  await flow.snapshot({ stepName: 'Select coffee done' });
+  // Checkout order
 
+  // Submit order
 
-  await flow.startTimespan({ stepName: 'Checkout' });
-  const checkoutBtn = '[data-test=checkout]';
-  await page.waitForSelector(checkoutBtn);
-  await page.click(checkoutBtn);
-
-  const nameInputSelector = '#name';
-  await page.waitForSelector(nameInputSelector);
-  await page.type(nameInputSelector, 'nina');
-
-  const emailInputSelector = '#email';
-  await page.waitForSelector(emailInputSelector);
-  await page.type(emailInputSelector, 'nina@gmail.com');
-  await flow.endTimespan();
-
-  await flow.snapshot({ stepName: 'Checkout done' });
-
-
-  await flow.startTimespan({ stepName: 'Submit order' });
-  const submitBtn = '#submit-payment';
-  await page.click(submitBtn);
-  await page.waitForSelector(submitBtn);
-  const successMsg = '.snackbar.success';
-  await page.waitForSelector(successMsg);
-  await flow.endTimespan();
-
-  await flow.snapshot({ stepName: 'Submit order done' });
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Category to Detail Navigation - Cold'},
+  flowOptions: {name: 'Order Coffee'},
   interactions
 };
 
 module.exports = userFlowProvider;
 ```
-
 
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
@@ -154,6 +140,130 @@ Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
 > **🤓 DX Tip:**  
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
+
+## Using the `timespan` measurement mode
+
+Timespan measures are limited in the number of audits, but give us the opportunity to measure runtime changes in the page. 
+
+Let's start by filling in our interaction logic:
+
+1. Copy and paste the new lines into your flow.
+
+**./my-user-flow.uf.ts**
+```typescript
+const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
+  // ... 
+  
+  // Select coffee
+  const cappuccinoItem = '[data-test=Cappucino]';
+  await page.waitForSelector(cappuccinoItem);
+  await page.click(cappuccinoItem);
+  
+  // Checkout order
+  const checkoutBtn = '[data-test=checkout]';
+  await page.waitForSelector(checkoutBtn);
+  await page.click(checkoutBtn);
+
+  const nameInputSelector = '#name';
+  await page.waitForSelector(nameInputSelector);
+  await page.type(nameInputSelector, 'nina');
+
+  const emailInputSelector = '#email';
+  await page.waitForSelector(emailInputSelector);
+  await page.type(emailInputSelector, 'nina@gmail.com');
+  
+  // Submit order
+  const submitBtn = '#submit-payment';
+  await page.click(submitBtn);
+  await page.waitForSelector(submitBtn);
+  const successMsg = '.snackbar.success';
+  await page.waitForSelector(successMsg);
+  
+};
+
+// ...
+```
+
+2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
+
+**./my-user-flow.uf.ts**
+```typescript
+import {
+  UserFlowInteractionsFn,
+  UserFlowContext,
+  UserFlowProvider
+} from '@push-based/user-flow';
+
+// Your custom interactions with the page 
+const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
+  const { page, flow, browser, collectOptions } = ctx;
+  const { url } = collectOptions;
+
+  await flow.navigate(url, {
+    stepName: 'Navigate to coffee cart',
+  });
+
+  await flow.startTimespan({ stepName: 'Select coffee' });
+  // Select coffee
+  // ...
+  await flow.endTimespan();
+
+  await flow.startTimespan({ stepName: 'Checkout order' });
+  // Checkout order
+  // ...
+  await flow.endTimespan();
+
+  await flow.startTimespan({ stepName: 'Submit order' });
+  // Submit order
+  // ...
+  await flow.endTimespan();
+};
+
+// ...
+```
+
+## Use snapshot measures
+
+
+2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
+
+**./my-user-flow.uf.ts**
+```typescript
+import {
+  UserFlowInteractionsFn,
+  UserFlowContext,
+  UserFlowProvider
+} from '@push-based/user-flow';
+
+// Your custom interactions with the page 
+const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
+  const { page, flow, browser, collectOptions } = ctx;
+  const { url } = collectOptions;
+
+  await flow.navigate(url, {
+    stepName: 'Navigate to coffee cart',
+  });
+
+  await flow.startTimespan({ stepName: 'Select coffee' });
+  // Select coffee
+  // ...
+  await flow.endTimespan();
+
+  await flow.startTimespan({ stepName: 'Checkout order' });
+  // Checkout order
+  // ...
+  await flow.endTimespan();
+
+  await flow.startTimespan({ stepName: 'Submit order' });
+  // Submit order
+  // ...
+  await flow.endTimespan();
+};
+
+// ...
+```
+
+
 
 # CLI
 
@@ -172,8 +282,6 @@ We provide general interaction through the keyboard or `stdin` directly for test
  | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |
  | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
  | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
- 
-
 
 ## Global Options
 
@@ -252,23 +360,9 @@ This format is very good for programmatic processing and foundation for most of 
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
 
-
 # Writing user flows
 
 You can think of user flows as front ent e2e tests which measures performance related information during the test.
-
-## Flow Measurement Modes
-
-
-
-
-
-| Timespan   |
-| Snapshot   |
-
-> Info:
-> Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 
-> This can help to get a list of audits possible per mode
 
 ## Selector suggestions
 
