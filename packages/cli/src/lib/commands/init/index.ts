@@ -2,10 +2,13 @@ import { YargsCommandObject } from '../../core/utils/yargs/types';
 import { log, logVerbose } from '../../core/utils/loggin';
 import { updateRcConfig } from '../../core/rc-json';
 import { RcJson } from '../../types';
-import { ensureOutPath, ensureUrl, ensureUfPath, ensureFormat } from '../setup/index';
 import { get as getRcPath } from '../../core/options/rc';
 import { CollectOptions, PersistOptions } from '../../core/rc-json/types';
 import { INIT_OPTIONS } from './options';
+import { setupUrl } from '../collect/options/url.setup';
+import { setupUfPath } from '../collect/options/ufPath.setup';
+import { setupOutPath } from '../collect/options/outPath.setup';
+import { setupFormat } from '../collect/options/format.setup';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -49,14 +52,14 @@ function getCLIConfigFromArgv(argv: Partial<RcJson>): RcJson {
 
 export async function run(argv: Partial<RcJson>): Promise<RcJson> {
   const cliCfg = getCLIConfigFromArgv(argv);
-  //console.log('run init', cliCfg)
+
   const config = {
     ...cliCfg,
-    ...(await ensureUrl(cliCfg)
-        .then(ensureUfPath)
-        .then(ensureFormat)
-        .then(ensureOutPath)
-      // defaults should be last as it takes user settings
+    ...(await setupUrl(cliCfg)
+        .then(setupUfPath)
+        .then(setupFormat)
+        .then(setupOutPath)
+      // static defaults should be last as it takes user settings
     )
   };
 

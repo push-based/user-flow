@@ -1,18 +1,15 @@
-import { RcJson } from '@push-based/user-flow/cli';
-import {
-  INIT_COMMAND__ASK_FORMAT,
-  INIT_COMMAND__ASK_OUT_PATH,
-  INIT_COMMAND__ASK_UF_PATH,
-  INIT_COMMAND__ASK_URL,
-  INIT_COMMAND__SETUP_CONFIRM
-} from '../fixtures/cli-prompts';
 import * as fs from 'fs';
+import { RcJson } from '@push-based/user-flow/cli';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
-
+import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
+import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
-  expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
+  expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
   expect(stdout).toContain(`outPath: '${cfg.persist.outPath}'`);
@@ -20,10 +17,10 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
 }
 
 export function expectNoPromptsInStdout(stdout: string) {
-  expect(stdout).not.toContain(INIT_COMMAND__ASK_URL);
-  expect(stdout).not.toContain(INIT_COMMAND__ASK_UF_PATH);
-  expect(stdout).not.toContain(INIT_COMMAND__ASK_OUT_PATH);
-  expect(stdout).not.toContain(INIT_COMMAND__ASK_FORMAT);
+  expect(stdout).not.toContain(PROMPT_COLLECT_URL);
+  expect(stdout).not.toContain(PROMPT_COLLECT_UF_PATH);
+  expect(stdout).not.toContain(PROMPT_PERSIST_OUT_PATH);
+  expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
 }
 
 export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budget[] | string = '') {
@@ -58,10 +55,10 @@ export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budge
 }
 
 export function expectPromptsInStdout(stdout: string) {
-  expect(stdout).toContain(INIT_COMMAND__ASK_URL);
-  expect(stdout).toContain(INIT_COMMAND__ASK_UF_PATH);
-  expect(stdout).toContain(INIT_COMMAND__ASK_OUT_PATH);
-  expect(stdout).toContain(INIT_COMMAND__ASK_FORMAT);
+  expect(stdout).toContain(PROMPT_COLLECT_URL);
+  expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
+  expect(stdout).toContain(PROMPT_PERSIST_OUT_PATH);
+  expect(stdout).toContain(PROMPT_PERSIST_FORMAT);
 }
 
 export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {

@@ -15,8 +15,9 @@ import {
   SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
-import { INIT_COMMAND__ASK_URL, INIT_COMMAND__SETUP_CONFIRM } from '../../fixtures/cli-prompts';
+import { INIT_COMMAND__ASK_URL} from '../../fixtures/cli-prompts';
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
+import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
 
 
 const initCommand = [CLI_PATH, 'init', '-v'];
@@ -110,7 +111,7 @@ describe('.rc.json in setup sandbox', () => {
 
     // Assertions
     expect(stderr).toBe('');
-    expect(stdout).toContain(INIT_COMMAND__SETUP_CONFIRM);
+    expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
     expect(stdout).toContain(`Update config under ${SETUP_SANDBOX_STATIC_RC_NAME}`);
     expect(stdout).toContain(`url: '${config.collect.url}'`);
     expect(stdout).toContain(`ufPath: '${config.collect.ufPath}'`);
