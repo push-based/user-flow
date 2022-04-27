@@ -74,9 +74,10 @@ export async function ensureUrl(
   config: RcJson
 ): Promise<RcJson> {
 
-  let suggestion = config?.collect?.url ? config?.collect?.url.trim() : DEFAULT_COLLECT_URL;
+  let suggestion = config?.collect?.url ? config?.collect?.url?.trim() : undefined;
 
   if (interactive()) {
+    suggestion = suggestion || DEFAULT_COLLECT_URL;
     const { url } = await prompt<{ url: string }>([
       {
         type: 'input',
