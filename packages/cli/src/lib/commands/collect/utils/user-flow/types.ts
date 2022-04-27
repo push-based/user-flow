@@ -28,8 +28,12 @@ export type UserFlowInteractionsFn = (context: UserFlowContext) => Promise<void>
 
 export type UserFlowOptions = {
   name: string;
-} & { /*page: Page,*/ config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
+}
+// throtteling
+& { /*page: Page,*/ config?: Config.default.Json, /*configContext?: LH.Config.FRContext*/ }
 
+// LH setting -> check what can be configured,
+// nerrow donw to smallest possible -> LH will overwrite ppteer
 export type LaunchOptions = PPTLaunchOptions & BrowserLaunchArgumentOptions & BrowserConnectOptions & {
   product?: Product;
   extraPrefsFirefox?: Record<string, unknown>;
