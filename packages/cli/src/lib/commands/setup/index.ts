@@ -45,7 +45,7 @@ export async function ensureUfPath(
       {
         type: 'input',
         name: 'ufPath',
-        message: 'What is the directory provides the user-flows?',
+        message: 'Folder of the user flows?',
         initial: suggestion,
         skip: !!config?.collect?.ufPath
       }
