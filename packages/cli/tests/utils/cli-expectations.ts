@@ -1,6 +1,6 @@
 import { RcJson } from '@push-based/user-flow/cli';
 import {
-  INIT_COMMAND__ASK_FROMAT,
+  INIT_COMMAND__ASK_FORMAT,
   INIT_COMMAND__ASK_OUT_PATH,
   INIT_COMMAND__ASK_UF_PATH,
   INIT_COMMAND__ASK_URL,
@@ -23,7 +23,7 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(INIT_COMMAND__ASK_URL);
   expect(stdout).not.toContain(INIT_COMMAND__ASK_UF_PATH);
   expect(stdout).not.toContain(INIT_COMMAND__ASK_OUT_PATH);
-  expect(stdout).not.toContain(INIT_COMMAND__ASK_FROMAT);
+  expect(stdout).not.toContain(INIT_COMMAND__ASK_FORMAT);
 }
 
 export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budget[] | string = '') {
@@ -61,7 +61,7 @@ export function expectPromptsInStdout(stdout: string) {
   expect(stdout).toContain(INIT_COMMAND__ASK_URL);
   expect(stdout).toContain(INIT_COMMAND__ASK_UF_PATH);
   expect(stdout).toContain(INIT_COMMAND__ASK_OUT_PATH);
-  expect(stdout).toContain(INIT_COMMAND__ASK_FROMAT);
+  expect(stdout).toContain(INIT_COMMAND__ASK_FORMAT);
 }
 
 export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {

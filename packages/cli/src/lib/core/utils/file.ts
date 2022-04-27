@@ -10,9 +10,11 @@ export function readFile(path: string)  {
   try {
     if (existsSync(path)) {
       return readFileSync(path, 'utf-8');
+    } else {
+      logVerbose(path + ' does not exist.');
     }
   } catch (e) {
-    logVerbose(path + ' does not exist.');
+    logVerbose(path + ' caused error');
   }
   return '';
 }
