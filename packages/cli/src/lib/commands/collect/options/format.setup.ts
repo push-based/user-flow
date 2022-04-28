@@ -54,10 +54,12 @@ export async function setupFormat(
     VALIDATORS.required,
     allOf
   ]);
+
   if (hasError(errors)) {
     if(errors.required) {
       throw new Error(ERROR_PERSIST_FORMAT_REQUIRED);
     }
+
     if(errors.allOf) {
       throw new Error(ERROR_PERSIST_FORMAT_WRONG);
     }

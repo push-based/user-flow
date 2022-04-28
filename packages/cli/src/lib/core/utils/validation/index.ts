@@ -11,23 +11,30 @@ export function hasError(errors: Error): boolean {
   return Object.entries(errors).length > 0;
 }
 
-const oneOf = (set: string[]) => (value: string) => (!set.find(i => i === value)) ? {
-    oneOf: true
-  }
-  : null;
+const oneOf = (set: string[]) => (value: string) => {
+  return (set.find(i => {
+    console.log('i', i, value);
+    return i === value
+  }) === undefined) ? {
+      oneOf: true
+    }
+    : null;
+}
 export const VALIDATORS = {
   required: (value: string) => value !== undefined && value !== '' ? null : { required: true },
   oneOf,
   allOf: (set: string[]) => (values: string[]) => {
     const _oneOf = oneOf(set);
+    let errors = null
     // @ts-ignore
     values.forEach((value: string) => {
-      if (_oneOf(value)) {
-        return {
+      const e = _oneOf(value);
+      if (e) {
+        errors = {
           allOf: true
         };
       }
     });
-    return null;
+    return errors;
   }
 };
