@@ -1,4 +1,4 @@
-import { argv, Options } from 'yargs';
+import { argv } from 'yargs';
 import { Param } from './url.model';
 import { ArgvOption } from '../../../core/utils/yargs/types';
 

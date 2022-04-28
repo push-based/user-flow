@@ -38,43 +38,60 @@ After that you can run:
 ## Run without install
 You can also use `npx` to run it in e.g. the CI setup:
 `npx @push-based/user-flow --help`
-
+ 
 # Quick Start
 
-0. For basic information have a look at the following links:
-- [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
-- [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
+## Pre-requisites
 
+0. have node [vX.X.X](https://nodejs.org/en/download/) installed  
+run `node -v` and `npm -v` to check it.  
+
+1. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
+run 
+```
+npm version
+```
+to check it.   
+You should see `'user-flow-demo': '1.0.0',` as first line.
+
+Make sure you have the CLI installed:
+```bash
+npm i @push-based/user-flow --save-dev
+```
+now you can run it directly with `user-flow`. Test it:
+
+```bash
+npx user-flow --version
+```
+
+## Setup and run user flows
 
 1. Setup the `.user-flowrc.json` config file
 
-`npx @push-based/user-flow init`
+Run 
+```
+npx user-flow init
+``` 
+in the console and accept the default value for every question.
 
 This results in the following file:
 
-**./.user-flowrc.json**
+_./.user-flowrc.json_
 ```json
 {
-    "collect": {
-        // URL to analyze
-        "url": "https://localhost",
-        // Path to user flows from root directory
-        "ufPath": "./"
-    },
-    "persist": {
-        // Output path for the reports from root directory
-        "outPath": "./"
-    }
+  "collect": {
+    "url": "https://coffee-cart.netlify.app/",
+    "ufPath": "./user-flows"
+  },
+  "persist": { "outPath": "./measures", "format": ["html"] }
 }
 ```
 
-2. Create a `my-user-flow.uf.ts` file.
+2. Create a `order-coffee.uf.ts` file.
 
-**./my-user-flow.uf.ts**
+_./order-coffee.uf.ts_
 ```typescript
 import {
-  LaunchOptions,
-  UserFlowOptions,
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider
@@ -85,40 +102,36 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
 
-  const sideMenuBtnSelector = '#main-side-bar div.header-wrapper .hamburger-btn';
-  const firstMovieListImg = '.ui-movie-list img.movie-img-1';
-  
-  await flow.startTimespan({
-    stepName: 'Navigate to list page',
+  await flow.navigate(url, {
+    stepName: 'Navigate to coffee cart',
   });
 
-  await page.waitForSelector(sideMenuBtnSelector);
-  await page.click(sideMenuBtnSelector);
-  await page.waitForSelector(firstMovieListImg);
+  // Select coffee
 
-  await flow.endTimespan();
+  // Checkout order
 
-  return Promise.resolve();
+  // Submit order
+
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Category to Detail Navigation - Cold'},
+  flowOptions: {name: 'Order Coffee'},
   interactions
 };
 
 module.exports = userFlowProvider;
 ```
 
-
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
-`npx @push-based/user-flow --url=https://localhost:4200`
+`npx user-flow collect`
 
-Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
+Optionally you can pass params to overwrite the values form `.user-flowrc.ts` in the file directly or over the CLI:
 
-`npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`  
-  
+```bash
+npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=https://localhost:4200
+```
   
 > **🤓 DX Tip:**  
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
@@ -141,8 +154,6 @@ We provide general interaction through the keyboard or `stdin` directly for test
  | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |
  | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
  | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
- 
-
 
 ## Global Options
 
@@ -200,9 +211,9 @@ This command executes a set of user-flow definitions against the target URL and 
 
 You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
 
-Use the `.user-flowrc.json` propertiy `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
+Use the `.user-flowrc.json` property `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
 
-You can also use use the CLI option `--format` to choose a format.  
+You can also use the CLI option `--format` to choose a format.  
 
 - single format: `@push-based/user-flow collect --format html`  
 - multiple formats: `@push-based/user-flow collect --format html --format json`  
@@ -221,32 +232,23 @@ This format is very good for programmatic processing and foundation for most of 
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
 
+# Writing user flows for the CLI
 
-# Writing user flows
+You can think of user flows as front end e2e tests which measures performance related information during the test.
 
-You can think of user flows as front ent e2e tests which measures performance related information during the test.
 
-## Flow Measurement Modes
+## [Basic user flows](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md)
 
-> Info:
-> Lighthouse audits rely on gatherers. Every gatherer has a `gatherMode` which is one of `navigation`, `timespan`, `snapshot`. 
-> This can help to get a list of audits possible per mode
+**User flow measurement modes**
 
-## Selector suggestions
+| Icon  | Mode       | Measure            | Performance  | Accessibility | Best Practices | SEO       | PWA       |
+| ----- | ---------- | ------------------ | ------------ | ------------- | -------------- | --------- | --------- |
+| ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
+| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |     ❌    |
+| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |     ❌    |
 
-When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
-A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
 
-The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
-- data-testid
-- data-test
-- data-qa
-- data-cy
-- data-test-id
-- data-qa-id
-- data-testing
-
-## [Advanced Architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
+## [Advanced architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
 Organizing testing logic is an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
 
@@ -264,7 +266,6 @@ Implementing performance improvements without breaking something is hard.
 
 See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 
-
 ## Debugging
 
 `@push-based/user-flow` ships with small helpers for logging and debugging.
@@ -275,6 +276,7 @@ A function that logs the passed string only if the CIL options `--verbose` or `-
 
 **Usage**
 
+_./order-coffee.uf.ts_
 ```typescript
 import { logVerbose } from "@push-based/user-flow";
 // ...
@@ -282,8 +284,8 @@ import { logVerbose } from "@push-based/user-flow";
 logVerbose('test'); 
 ```
 
-`npx @push-based/user-flow` logs nothing  
-`npx @push-based/user-flow --verbose` logs "test"  
+`npx user-flow collect` logs nothing  
+`npx user-flow collect --verbose` logs "test"  
 
 ## Examples
 
@@ -291,7 +293,9 @@ logVerbose('test');
 
 ## Resources
 
--  [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/)
--  [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
+- [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/)
+- [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
+- [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
+- [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
 
 made with ❤ by [push-based.io](https://www.push-based.io)
