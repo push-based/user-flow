@@ -13,7 +13,6 @@ export function hasError(errors: Error): boolean {
 
 const oneOf = (set: string[]) => (value: string) => {
   return (set.find(i => {
-    console.log('i', i, value);
     return i === value
   }) === undefined) ? {
       oneOf: true

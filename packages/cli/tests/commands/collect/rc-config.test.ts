@@ -19,7 +19,7 @@ import {
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../../src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -149,7 +149,7 @@ describe('.rc.json in setup sandbox', () => {
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
+    expect(stdout).toContain(PROMPT_COLLECT_URL);
   });
 
 });
