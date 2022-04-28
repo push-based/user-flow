@@ -14,7 +14,7 @@ export async function setupUrl(
     url = await promptParam({
       message: PROMPT_COLLECT_URL,
       initial: url || DEFAULT_COLLECT_URL,
-      skip: url !== ''
+      skip: VALIDATORS.required(url) === null
     });
   }
 
