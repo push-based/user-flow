@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.6.7](https://github.com/push-based/user-flow/compare/cli-0.6.6...cli-0.6.7) (2022-04-28)
+
+
+### Bug Fixes
+
+* test url tests ([b2c1d01](https://github.com/push-based/user-flow/commit/b2c1d0168df762f6fa2c1c671f18c8a3f6572788))
+
+
+
 ## [0.6.6](https://github.com/push-based/user-flow/compare/cli-0.6.5...cli-0.6.6) (2022-04-25)
 
 
