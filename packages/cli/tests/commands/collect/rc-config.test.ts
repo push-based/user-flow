@@ -15,9 +15,10 @@ import {
   SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
-import { INIT_COMMAND__ASK_URL} from '../../fixtures/cli-prompts';
+
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
+import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 
 
 const initCommand = [CLI_PATH, 'init', '-v'];
@@ -146,7 +147,7 @@ describe('.rc.json in setup sandbox', () => {
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain(INIT_COMMAND__ASK_URL);
+    expect(stdout).toContain(PROMPT_COLLECT_URL);
   });
 
 });
