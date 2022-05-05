@@ -23,7 +23,7 @@
 - 🧠 Use best practices out of the box
 - 🅾 No boiler plate
 
-![user-flow--example](https://user-images.githubusercontent.com/10064416/156825271-a6257002-714c-4016-a300-738cbcdb366f.png)
+![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)
 
 
 # Install
