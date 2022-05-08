@@ -1,15 +1,15 @@
-import {UserFlowProvider} from './../../../../cli/src/index';
+import { UserFlowProvider, UserFlowContext } from './../../../../cli/src/index';
 
-module.exports = {
+const provider: UserFlowProvider = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
     config: {
       settings: {
-        budgets: ''
+        budgets: []
       }
     }
   },
-  interactions: async (ctx: any): Promise<any> => {
+  interactions: async (ctx: UserFlowContext): Promise<void> => {
     const { flow, collectOptions, page } = ctx as any;
     const { url } = collectOptions;
     const testUrl = `${url}`;
@@ -40,4 +40,6 @@ module.exports = {
     // to be able to run tests in the CLI without chrome popping up (for debugging switch it off)
     headless: false
   }
-} as UserFlowProvider;
+};
+
+module.exports = provider;
