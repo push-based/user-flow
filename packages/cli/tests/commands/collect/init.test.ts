@@ -30,7 +30,7 @@ const initCommand = [CLI_PATH, 'init', '-v'];
 describe('init command in setup sandbox', () => {
 
   beforeEach(async () => resetSetupSandboxAndKillPorts());
-  // afterEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should inform about the already existing cli-setup', async () => {
 
@@ -138,7 +138,7 @@ describe('init command in empty sandbox', () => {
         // ufPath
         ENTER,
         // html format
-        SPACE, DOWN, SPACE, ENTER,
+        SPACE, ENTER,
         ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
