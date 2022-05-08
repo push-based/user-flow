@@ -1,4 +1,4 @@
-import { UserFlowProvider, UserFlowContext } from './../../../../cli/src/index';
+import { UserFlowContext } from './../../../../cli/src/index';
 
 module.exports = {
   flowOptions: {
