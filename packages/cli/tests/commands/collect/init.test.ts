@@ -114,7 +114,7 @@ describe('init command in empty sandbox', () => {
         // ufPath
         ufPath, ENTER,
         // html format
-        SPACE, DOWN, SPACE, ENTER,
+        DOWN, SPACE, ENTER,
         outPath, ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
