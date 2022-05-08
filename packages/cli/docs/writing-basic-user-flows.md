@@ -44,7 +44,7 @@ This results in the following file:
 {
     "collect": {
         // URL to analyze
-        "url": " https://coffee-cart.netlify.app/",
+        "url": "https://coffee-cart.netlify.app/",
         // Path to user flows from root directory
         "ufPath": "./"
     },
@@ -55,9 +55,9 @@ This results in the following file:
 }
 ```
 
-2. Create a `my-user-flow.uf.ts` file.
+2. Create a `order-coffee.uf.ts` file.
 
-**./my-user-flow.uf.ts**
+**./order-coffee.uf.ts**
 ```typescript
 import {
   UserFlowInteractionsFn,
@@ -112,7 +112,7 @@ Let's start by filling in our interaction logic:
 
 1. Copy and paste the new lines into your flow.
 
-**./my-user-flow.uf.ts**
+**./order-coffee.uf.ts**
 ```typescript
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   // ... 
@@ -149,19 +149,11 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
 
-**./my-user-flow.uf.ts**
+**./order-coffee.uf.ts**
 ```typescript
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider
-} from '@push-based/user-flow';
-
-// Your custom interactions with the page 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { page, flow, browser, collectOptions } = ctx;
-  const { url } = collectOptions;
-
+  // ...
+  
   await flow.navigate(url, {
     stepName: 'Navigate to coffee cart',
   });
@@ -187,40 +179,27 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 ## Use snapshot measures
 
+2. Wrap the sections interesting for a snapshot measure with `await flow.snapshot({ stepName: 'step name' });`.
 
-2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
-
-**./my-user-flow.uf.ts**
+**./order-coffee.uf.ts**
 ```typescript
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider
-} from '@push-based/user-flow';
-
 // Your custom interactions with the page 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { page, flow, browser, collectOptions } = ctx;
-  const { url } = collectOptions;
 
-  await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
-  });
-
-  await flow.startTimespan({ stepName: 'Select coffee' });
   // Select coffee
-  // ...
-  await flow.endTimespan();
+  //  endTimespan here ...
+  
+  await flow.snapshot({ stepName: 'Coffee selected' });
 
-  await flow.startTimespan({ stepName: 'Checkout order' });
   // Checkout order
-  // ...
-  await flow.endTimespan();
+  //  endTimespan here ...
+  
+  await flow.snapshot({ stepName: 'Order checked out' });
 
-  await flow.startTimespan({ stepName: 'Submit order' });
   // Submit order
-  // ...
-  await flow.endTimespan();
+  //  endTimespan here ...
+  
+  await flow.snapshot({ stepName: 'Order submitted' });
 };
 
 // ...
