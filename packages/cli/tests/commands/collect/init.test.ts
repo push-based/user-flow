@@ -81,7 +81,7 @@ describe('init command in empty sandbox', () => {
         // ufPath
         ENTER,
         // format
-        SPACE, DOWN, SPACE, ENTER,
+        SPACE, ENTER,
         // outPath
         ENTER,
       ],
