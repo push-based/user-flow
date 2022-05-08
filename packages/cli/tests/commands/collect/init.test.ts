@@ -20,7 +20,7 @@ import {
   expectEnsureConfigToCreateRc,
   expectNoPromptsInStdout,
   expectOutputRcInStdout,
-  expectPromptsInStdout
+  expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
 
 import * as path  from 'path';
@@ -30,7 +30,7 @@ const initCommand = [CLI_PATH, 'init', '-v'];
 describe('init command in setup sandbox', () => {
 
   beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(async () => resetSetupSandboxAndKillPorts());
+  // afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should inform about the already existing cli-setup', async () => {
 
@@ -48,8 +48,8 @@ describe('init command in setup sandbox', () => {
     // setup log
     expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
 
-    expect(exitCode).toBe(0);
     expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
 
     // file output
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
@@ -93,7 +93,7 @@ describe('init command in empty sandbox', () => {
     // STDOUT
     expect(stdout).toContain('.user-flowrc.json does not exist.');
     // prompts
-    expectPromptsInStdout(stdout);
+    expectPromptsOfInitInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
     expect(exitCode).toBe(0);
@@ -104,7 +104,7 @@ describe('init command in empty sandbox', () => {
 
   it('should generate a valid rc.json if we answer with custom values', async () => {
     const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
-    const { url, ufPath, awaitServeStdout, serveCommand } = collect;
+    const { url, ufPath } = collect;
     const { outPath } = persist;
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
@@ -113,20 +113,46 @@ describe('init command in empty sandbox', () => {
         url, ENTER,
         // ufPath
         ufPath, ENTER,
-        // json format
-        DOWN, SPACE, ENTER,
+        // html format
+        SPACE, DOWN, SPACE, ENTER,
         outPath, ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expectPromptsInStdout(stdout);
+    expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
 
     //
     expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {collect:{url, ufPath}, persist: {outPath, format: ['json']}});
 
   }, 40_000);
+
+  it('should generate a user-flow for basic navigation after the CLI is setup', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      initCommand,
+      [
+        // url
+        ENTER,
+        // ufPath
+        ENTER,
+        // html format
+        SPACE, DOWN, SPACE, ENTER,
+        ENTER
+      ],
+      EMPTY_SANDBOX_CLI_TEST_CFG
+    );
+
+    expect(stderr).toBe('');
+    expectPromptsOfInitInStdout(stdout);
+
+    expect(exitCode).toBe(0);
+
+    //
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+
+  }, 40_000);
+
 
 });

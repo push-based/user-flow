@@ -2,20 +2,22 @@ import { extname, join, dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
+import { throwError } from 'rxjs';
 
 /**
  * Ensures the file exists before reading it
  */
-export function readFile(path: string)  {
-  try {
-    if (existsSync(path)) {
-      return readFileSync(path, 'utf-8');
-    } else {
-      logVerbose(path + ' does not exist.');
+export function readFile(path: string, fail: boolean = false): string {
+  const errorStr = `${path} does not exist.`;
+  if (existsSync(path)) {
+    return readFileSync(path, 'utf-8');
+  } else {
+    if (fail) {
+      throw new Error(errorStr);
     }
-  } catch (e) {
-    logVerbose(path + ' caused error');
+    logVerbose(errorStr);
   }
+
   return '';
 }
 
@@ -29,9 +31,9 @@ export function writeFile(filePath: string, data: string) {
     mkdirSync(dir);
   }
 
-  // @TODO implement a check that saves the file only if the content is different => git noise
-  const ext = extname(filePath);
+  const ext = filePath.split('.').pop() || '';
   const formattedData = formatCode(data, getParserFromExtname(ext));
+  // @TODO implement a check that saves the file only if the content is different => git noise
   return writeFileSync(filePath, formattedData);
 }
 

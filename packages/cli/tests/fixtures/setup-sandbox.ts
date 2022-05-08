@@ -5,7 +5,7 @@ import * as rimraf from 'rimraf';
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
 import { writeFile } from '../../src/lib/core/utils/file';
 import { kill } from '../utils/kill';
-import { RcJson } from '@push-based/user-flow/cli';
+import { RcJson } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 

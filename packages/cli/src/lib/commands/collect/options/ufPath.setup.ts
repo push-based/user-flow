@@ -1,4 +1,4 @@
-import { RcJson } from '@push-based/user-flow/cli';
+import { RcJson } from '../../../types';
 import { get as interactive } from '../../../core/options/interactive';
 import { promptParam } from '../../../core/utils/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';

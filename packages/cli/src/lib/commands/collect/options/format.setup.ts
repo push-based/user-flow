@@ -1,4 +1,4 @@
-import { RcJson } from '@push-based/user-flow/cli';
+import { RcJson } from '../../../types';
 import { prompt } from 'enquirer';
 import { get as interactive } from '../../../core/options/interactive';
 import {
@@ -9,7 +9,7 @@ import {
 } from './format.constant';
 import { promptParam } from '../../../core/utils/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';
-import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constats';
+import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
 
 export async function setupFormat(
   config: RcJson
@@ -29,7 +29,7 @@ export async function setupFormat(
 
   if (interactive()) {
 
-    format = cfgFormat.length === 0 ? await prompt<{ f: string[] }>([
+    const { f }: { f: string[] | undefined } = cfgFormat.length === 0 ? await prompt<{ f: string[] }>([
       {
         type: 'multiselect',
         name: 'f',
@@ -41,7 +41,22 @@ export async function setupFormat(
           return values.map(name => REPORT_FORMAT_OPTIONS.find(i => i.name === name)?.value + '') as any as string;
         }
       }
-    ]).then(({f}) => f) : cfgFormat ;
+    ]) : { f: cfgFormat };
+
+    format = f;
+   /* format = cfgFormat.length === 0 ? await prompt<{ f: string[] }>([
+      {
+        type: 'multiselect',
+        name: 'f',
+        message: PROMPT_PERSIST_FORMAT,
+        choices: REPORT_FORMAT_OPTIONS,
+        // @NOTICE typing is broken here
+        result(value: string): string {
+          const values = value as any as string[];
+          return values.map(name => REPORT_FORMAT_OPTIONS.find(i => i.name === name)?.value + '') as any as string;
+        }
+      }
+    ]).then(({f}) => f) : cfgFormat ;*/
 
     if (format?.length === 0) {
       return setupFormat(config);

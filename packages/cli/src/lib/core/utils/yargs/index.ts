@@ -1,6 +1,8 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
+import { RcJson } from '../../../types';
+import { CollectOptions, PersistOptions } from '../../rc-json/types';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -34,4 +36,30 @@ export function runCli(cliCfg: {
 }) {
   // `.argv` to get ars as plain obj available
   setupYargs(cliCfg.commands, cliCfg.options, cliCfg.config).argv;
+}
+
+export function getCLIConfigFromArgv(argv: Partial<RcJson>): RcJson {
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
+
+  const cfg: RcJson = {
+    collect: {
+      url,
+      ufPath,
+      serveCommand,
+      awaitServeStdout
+    },
+    persist: {
+      outPath,
+      format
+    }
+  };
+
+  if (budgetPath || budgets) {
+    cfg.assert = {
+      budgetPath,
+      budgets
+    };
+  }
+
+  return cfg;
 }
