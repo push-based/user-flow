@@ -1,9 +1,11 @@
+import { UserFlowProvider, UserFlowContext } from './../../../../cli/src/index';
+
 module.exports = {
   flowOptions: {
     name: 'Sandbox Setup UF1'
   },
-  interactions: async (ctx: any): Promise<any> => {
-    const { flow, collectOptions } = ctx as any;
+  interactions: async (ctx: UserFlowContext): Promise<void> => {
+    const { flow, collectOptions } = ctx;
     const { url } = collectOptions;
     const testUrl = `${url}`;
     await flow.navigate(testUrl);
