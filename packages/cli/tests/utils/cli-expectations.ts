@@ -13,7 +13,7 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
   expect(stdout).toContain(`outPath: '${cfg.persist.outPath}'`);
-  expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}', '${cfg.persist.format[1]}' ]`);
+  expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}' ]`);
 }
 
 export function expectNoPromptsInStdout(stdout: string) {
