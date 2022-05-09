@@ -1,4 +1,4 @@
-const provider = {
+module.exports = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
     config: {
@@ -7,7 +7,7 @@ const provider = {
       }
     }
   },
-  interactions: async (ctx: Record<string, any>): Promise<void> => {
+  interactions: async (ctx: any): Promise<void> => {
     const { flow, collectOptions, page } = ctx;
     const { url } = collectOptions;
     const testUrl = `${url}`;
@@ -39,5 +39,3 @@ const provider = {
     headless: false
   }
 };
-
-module.exports = provider;
