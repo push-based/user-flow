@@ -1,5 +1,3 @@
-import { UserFlowContext } from '@push-based/user-flow';
-
 const provider = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
@@ -9,7 +7,7 @@ const provider = {
       }
     }
   },
-  interactions: async (ctx: UserFlowContext): Promise<void> => {
+  interactions: async (ctx: Record<string, any>): Promise<void> => {
     const { flow, collectOptions, page } = ctx;
     const { url } = collectOptions;
     const testUrl = `${url}`;

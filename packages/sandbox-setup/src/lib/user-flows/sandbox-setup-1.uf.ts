@@ -1,10 +1,8 @@
-import { UserFlowContext } from '@push-based/user-flow';
-
 module.exports = {
   flowOptions: {
     name: 'Sandbox Setup UF1'
   },
-  interactions: async (ctx: UserFlowContext): Promise<void> => {
+  interactions: async (ctx: Record<string, any>): Promise<void> => {
     const { flow, collectOptions } = ctx;
     const { url } = collectOptions;
     const testUrl = `${url}`;
