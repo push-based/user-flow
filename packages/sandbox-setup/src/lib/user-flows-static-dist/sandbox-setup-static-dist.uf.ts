@@ -1,3 +1,5 @@
+import { UserFlowContext } from '@push-based/user-flow';
+
 module.exports = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
@@ -7,7 +9,7 @@ module.exports = {
       }
     }
   },
-  interactions: async (ctx: any): Promise<void> => {
+  interactions: async (ctx: UserFlowContext): Promise<void> => {
     const { flow, collectOptions, page } = ctx;
     const { url } = collectOptions;
     const testUrl = `${url}`;
