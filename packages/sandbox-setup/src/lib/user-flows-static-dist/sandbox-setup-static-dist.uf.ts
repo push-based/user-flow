@@ -1,6 +1,6 @@
-import { UserFlowProvider, UserFlowContext } from '@push-based/user-flow';
+import { UserFlowContext } from '@push-based/user-flow';
 
-const provider: UserFlowProvider = {
+const provider = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
     config: {
