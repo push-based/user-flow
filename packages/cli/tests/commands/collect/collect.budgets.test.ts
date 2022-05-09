@@ -78,9 +78,10 @@ describe('budgets and collect command in setup sandbox', () => {
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
+    const budgets =  SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as [];
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
+    expectBudgetsFileExistLog(stdout, budgets);
     expectResultsToIncludeBudgets(ufStaticResultPath, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
     expect(exitCode).toBe(0);
 
