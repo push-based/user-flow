@@ -5,7 +5,7 @@ const provider: UserFlowProvider = {
     name: 'Sandbox Setup StaticDist',
     config: {
       settings: {
-        budgets: []
+        budgets: undefined
       }
     }
   },
