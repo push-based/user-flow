@@ -1,4 +1,4 @@
-import { UserFlowProvider, UserFlowContext } from './../../../../cli/src/index';
+import { UserFlowProvider, UserFlowContext } from '@push-based/user-flow';
 
 const provider: UserFlowProvider = {
   flowOptions: {
