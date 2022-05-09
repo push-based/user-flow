@@ -1,4 +1,4 @@
-import { UserFlowContext } from '@push-based/user-flow';
+import { UserFlowContext } from '../../../../cli/src/index';
 
 module.exports = {
   flowOptions: {
