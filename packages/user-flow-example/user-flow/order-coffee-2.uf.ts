@@ -39,7 +39,6 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const successMsg = '.snackbar.success';
   await page.waitForSelector(successMsg);
 
-
 };
 
 const userFlowProvider: UserFlowProvider = {
