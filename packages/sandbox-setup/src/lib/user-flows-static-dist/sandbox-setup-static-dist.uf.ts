@@ -10,7 +10,7 @@ module.exports = {
     }
   },
   interactions: async (ctx: UserFlowContext): Promise<void> => {
-    const { flow, collectOptions, page } = ctx;
+    const { flow, collectOptions, page } = ctx as any;
     const { url } = collectOptions;
     const testUrl = `${url}`;
 
