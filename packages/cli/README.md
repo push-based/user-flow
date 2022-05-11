@@ -46,7 +46,12 @@ You can also use `npx` to run it in e.g. the CI setup:
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
+### Setup an empty project (optionally)
+If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
+You can skip this steps and go directly to the setup below. 
+
 1. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
+
 run 
 ```
 npm version
@@ -64,14 +69,26 @@ now you can run it directly with `user-flow`. Test it:
 npx user-flow --version
 ```
 
-## Setup and run user flows
+## Setup and run user flows in an existing project
+0. Install:
+
+```bash
+npm i @push-based/user-flow --save-dev
+```
 
 1. Setup the `.user-flowrc.json` config file
 
 Run 
 ```
+npx @push-based/user-flow init
+```  
+
+or if you already installed it,
+
+```
 npx user-flow init
-``` 
+```  
+
 in the console and accept the default value for every question.
 
 This results in the following file:
@@ -125,7 +142,7 @@ const userFlowProvider: UserFlowProvider = {
 module.exports = userFlowProvider;
 ```
 
-3. Run cli
+3. Run CLI
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
 `npx user-flow collect` or just `npx user-flow` as collect is the default.
