@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.7.0](https://github.com/push-based/user-flow/compare/cli-0.6.8...cli-0.7.0) (2022-05-11)
+
+
+### Bug Fixes
+
+* imports and typing of formats ([4943d33](https://github.com/push-based/user-flow/commit/4943d33d333b02921c515a7cf81b35fb3683dba8))
+
+
+### Features
+
+* add initial user flow anfter setup ([46dd276](https://github.com/push-based/user-flow/commit/46dd276bc7cb377c574a5dd0173e5a2a8e4980a9))
+
+
+
 ## [0.6.8](https://github.com/push-based/user-flow/compare/cli-0.6.7...cli-0.6.8) (2022-05-05)
 
 
