@@ -1,8 +1,8 @@
-import { RcJson } from '@push-based/user-flow/cli';
 import { get as interactive } from '../../../core/options/interactive';
 import { DEFAULT_COLLECT_URL, ERROR_COLLECT_URL_REQUIRED, PROMPT_COLLECT_URL } from './url.constant';
 import { promptParam } from '../../../core/utils/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';
+import { RcJson } from '../../../types';
 
 export async function setupUrl(
   config: RcJson

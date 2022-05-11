@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { RcJson } from '@push-based/user-flow/cli';
+import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
 import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
@@ -13,7 +13,7 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
   expect(stdout).toContain(`outPath: '${cfg.persist.outPath}'`);
-  expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}', '${cfg.persist.format[1]}' ]`);
+  expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}' ]`);
 }
 
 export function expectNoPromptsInStdout(stdout: string) {
@@ -54,7 +54,7 @@ export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budge
   expect(result.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
 
-export function expectPromptsInStdout(stdout: string) {
+export function expectPromptsOfInitInStdout(stdout: string) {
   expect(stdout).toContain(PROMPT_COLLECT_URL);
   expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
   expect(stdout).toContain(PROMPT_PERSIST_OUT_PATH);

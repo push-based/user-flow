@@ -102,6 +102,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
 
+  // Navigate to coffee order site
   await flow.navigate(url, {
     stepName: 'Navigate to coffee cart',
   });
@@ -125,7 +126,7 @@ module.exports = userFlowProvider;
 3. Run cli
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
-`npx user-flow collect`
+`npx user-flow collect` or just `npx user-flow` as collect is the default.
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts` in the file directly or over the CLI:
 

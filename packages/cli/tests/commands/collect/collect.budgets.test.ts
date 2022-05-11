@@ -31,7 +31,7 @@ describe('budgets and collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
   afterEach(async () => resetSetupSandboxAndKillPorts());
 
-  it('should not log budgets info if no --budgetsPath CLI option is passed', async () => {
+  it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommand, `--dryRun`],
       [],
@@ -78,10 +78,11 @@ describe('budgets and collect command in setup sandbox', () => {
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
+    const budgets =  SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as [];
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
-    expectResultsToIncludeBudgets(ufStaticResultPath, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as any);
+    expectBudgetsFileExistLog(stdout, budgets);
+    expectResultsToIncludeBudgets(ufStaticResultPath, budgets);
     expect(exitCode).toBe(0);
 
   });

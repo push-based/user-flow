@@ -5,9 +5,10 @@ import * as rimraf from 'rimraf';
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
 import { writeFile } from '../../src/lib/core/utils/file';
 import { kill } from '../utils/kill';
-import { RcJson } from '@push-based/user-flow/cli';
+import { RcJson } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -19,7 +20,7 @@ export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
 export const SETUP_SANDBOX_DEFAULT_RC_JSON: RcJson = {
   'collect': { 'url': 'https://google.com', 'ufPath': './src/lib/user-flows' },
-  'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': ['html', 'json'] }
+  'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
 };
 
 export const SETUP_SANDBOX_STATIC_RC_NAME = '.user-flowrc.static-dist.json';

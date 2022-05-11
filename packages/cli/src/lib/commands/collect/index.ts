@@ -8,7 +8,7 @@ import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeeded } from './utils/serve-command';
 import { run as ensureConfig } from '../init';
-import { RcArgvOptions } from '@push-based/user-flow/cli';
+import { RcArgvOptions } from '../../types';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',

@@ -3,12 +3,13 @@ import { log, logVerbose } from '../../core/utils/loggin';
 import { updateRcConfig } from '../../core/rc-json';
 import { RcJson } from '../../types';
 import { get as getRcPath } from '../../core/options/rc';
-import { CollectOptions, PersistOptions } from '../../core/rc-json/types';
 import { INIT_OPTIONS } from './options';
 import { setupUrl } from '../collect/options/url.setup';
 import { setupUfPath } from '../collect/options/ufPath.setup';
 import { setupOutPath } from '../collect/options/outPath.setup';
 import { setupFormat } from '../collect/options/format.setup';
+import { getCLIConfigFromArgv } from '../../core/utils/yargs';
+import { addUserFlow } from './utils';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -18,37 +19,11 @@ export const initCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
       const cfg = await run(argv);
-      log('user-flow CLI is set up now! 🎉');
-      logVerbose(cfg);
+
+      addUserFlow('basic-navigation', cfg.collect.ufPath);
     }
   }
 };
-
-function getCLIConfigFromArgv(argv: Partial<RcJson>): RcJson {
-  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
-
-  const cfg: RcJson = {
-    collect: {
-      url,
-      ufPath,
-      serveCommand,
-      awaitServeStdout
-    },
-    persist: {
-      outPath,
-      format
-    }
-  };
-
-  if (budgetPath || budgets) {
-    cfg.assert = {
-      budgetPath,
-      budgets
-    };
-  }
-
-  return cfg;
-}
 
 export async function run(argv: Partial<RcJson>): Promise<RcJson> {
   const cliCfg = getCLIConfigFromArgv(argv);
@@ -65,6 +40,9 @@ export async function run(argv: Partial<RcJson>): Promise<RcJson> {
 
   const rcPath = getRcPath();
   updateRcConfig(config, rcPath);
+
+  log('user-flow CLI is set up now! 🎉');
+  logVerbose(config);
 
   return config;
 }

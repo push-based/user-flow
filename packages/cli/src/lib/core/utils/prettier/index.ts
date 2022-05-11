@@ -1,8 +1,14 @@
 import { format as prettier, Options as PrettierOptions, resolveConfig } from 'prettier';
 import { SupportedExtname, SupportedParser } from './types';
+import { supportedExtname } from './constants';
 
 export function getParserFromExtname(extname: SupportedExtname | string): SupportedParser {
   extname = extname[0] === '.' ? extname.slice(1, extname.length) : extname;
+
+  if (!supportedExtname.includes(extname)) {
+    throw new Error(`Extension name ${extname} is not supported.`);
+  }
+
   return (['md', 'ts', 'js'].includes(extname) ? ({
     md: 'markdown',
     ts: 'typescript',

@@ -1,4 +1,4 @@
-import { extname, join, dirname } from 'path';
+import { join, dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
@@ -6,16 +6,17 @@ import { getParserFromExtname, formatCode } from './prettier';
 /**
  * Ensures the file exists before reading it
  */
-export function readFile(path: string)  {
-  try {
-    if (existsSync(path)) {
-      return readFileSync(path, 'utf-8');
-    } else {
-      logVerbose(path + ' does not exist.');
+export function readFile(path: string, fail = false): string {
+  const errorStr = `${path} does not exist.`;
+  if (existsSync(path)) {
+    return readFileSync(path, 'utf-8');
+  } else {
+    if (fail) {
+      throw new Error(errorStr);
     }
-  } catch (e) {
-    logVerbose(path + ' caused error');
+    logVerbose(errorStr);
   }
+
   return '';
 }
 
@@ -29,30 +30,32 @@ export function writeFile(filePath: string, data: string) {
     mkdirSync(dir);
   }
 
-  // @TODO implement a check that saves the file only if the content is different => git noise
-  const ext = extname(filePath);
+  const ext = filePath.split('.').pop() || '';
   const formattedData = formatCode(data, getParserFromExtname(ext));
+  // @TODO implement a check that saves the file only if the content is different => git noise
   return writeFileSync(filePath, formattedData);
 }
 
-
-export function resolveAnyFile<T>(path: string): { exports: T, path: string } {
+export function resolveAnyFile<T>(path: string): { exports: T; path: string } {
   // start path from cwd
   path = join(process.cwd(), path);
-  let file;
 
   // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
     // so that imports in the `*.uf.ts` files work.
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('ts-node').register({
-      'compilerOptions': {
-        'module': 'commonjs'
-      }
+      transpileOnly: true,
+      compilerOptions: {
+        module: 'commonjs',
+        strict: false,
+      },
     });
   }
-  file = require(path);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const file = require(path);
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporing an object. The first one is:
@@ -62,7 +65,6 @@ export function resolveAnyFile<T>(path: string): { exports: T, path: string } {
   const exports = file.default || file;
   return { exports, path };
 }
-
 
 /**
  * Upper or camelCase to lowercase hyphenated
@@ -74,5 +76,3 @@ export function toFileName(s: string): string {
     .replace(/[ _]/g, '-')
     .replace(/[/\\]/g, '-');
 }
-
-
