@@ -1,7 +1,7 @@
 import * as cliPromptTest from 'cli-prompts-test';
 
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { ENTER, DOWN, SPACE } from '../../fixtures/keyboard';
+import { ENTER, SPACE } from '../../fixtures/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
