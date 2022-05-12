@@ -5,3 +5,4 @@ export const DOWN = cliPromptTest.DOWN;
 export const SPACE = cliPromptTest.SPACE;
 export const ENTER = cliPromptTest.ENTER;
 export const DECLINE_BOOLEAN = 'n';
+export const ACCEPT_BOOLEAN = 'Y';
