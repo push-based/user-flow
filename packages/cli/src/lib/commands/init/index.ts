@@ -1,15 +1,14 @@
 import { YargsCommandObject } from '../../core/utils/yargs/types';
 import { log, logVerbose } from '../../core/utils/loggin';
-import { updateRcConfig } from '../../core/rc-json';
-import { RcJson } from '../../types';
-import { get as getRcPath } from '../../core/options/rc';
+import { RcArgvOptions, RcJson } from '../../types';
 import { INIT_OPTIONS } from './options';
-import { setupUrl } from '../collect/options/url.setup';
-import { setupUfPath } from '../collect/options/ufPath.setup';
-import { setupOutPath } from '../collect/options/outPath.setup';
-import { setupFormat } from '../collect/options/format.setup';
 import { getCLIConfigFromArgv } from '../../core/utils/yargs';
-import { addUserFlow } from './utils';
+import { addUserFlow, getExamplePathDest } from './utils';
+import { setupRcJson } from './processes/setup-rc-json';
+import { askToSkip } from '../../core/utils/prompt';
+import { run } from '../../core/utils/processing/behaviors';
+import { readFile } from '../../core/utils/file';
+import { SETUP_CONFIRM_MESSAGE } from './constants';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -18,31 +17,28 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      const cfg = await run(argv);
 
-      addUserFlow('basic-navigation', cfg.collect.ufPath);
+      const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
+
+      const exampleName = 'basic-navigation';
+      const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+
+      await run([
+        setupRcJson,
+        askToSkip(
+          'Setup user flow',
+          async (cfg: RcJson): Promise<RcJson> => {
+            addUserFlow(exampleName, cfg.collect.ufPath);
+            return Promise.resolve(cfg);
+          },
+          {
+            precondition: userflowIsNotCreated
+          })
+      ])(potentialExistingCfg);
+      log(SETUP_CONFIRM_MESSAGE);
+      // @TODO move to constants
+      log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');
     }
   }
 };
 
-export async function run(argv: Partial<RcJson>): Promise<RcJson> {
-  const cliCfg = getCLIConfigFromArgv(argv);
-
-  const config = {
-    ...cliCfg,
-    ...(await setupUrl(cliCfg)
-        .then(setupUfPath)
-        .then(setupFormat)
-        .then(setupOutPath)
-      // static defaults should be last as it takes user settings
-    )
-  };
-
-  const rcPath = getRcPath();
-  updateRcConfig(config, rcPath);
-
-  log('user-flow CLI is set up now! 🎉');
-  logVerbose(config);
-
-  return config;
-}

@@ -33,12 +33,13 @@ export type UserFlowInteractionsFn = (
 export type UserFlowOptions = {
   name: string;
 } & {
-  // throtteling
+  // throttling
   /*page: Page,*/ config?: Config.default.Json /*configContext?: LH.Config.FRContext*/;
 };
 
+// @TODO
 // LH setting -> check what can be configured,
-// nerrow donw to smallest possible -> LH will overwrite ppteer
+// narrow down to smallest possible -> LH will overwrite ppt
 export type LaunchOptions = PPTLaunchOptions &
   BrowserLaunchArgumentOptions &
   BrowserConnectOptions & {

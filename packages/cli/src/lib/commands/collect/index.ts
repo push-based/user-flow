@@ -7,9 +7,12 @@ import { get as openOpt } from './options/open';
 import * as openFileInBrowser from 'open';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeeded } from './utils/serve-command';
-import { run as ensureConfig } from '../init';
+import { setupRcJson } from './../init/processes/setup-rc-json';
 import { RcArgvOptions } from '../../types';
+import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 
+
+// @TODO refactor to use run, concat, askToSkip etc helpers
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
   description: 'Run a set of user flows and save the result',
@@ -17,10 +20,10 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
-      logVerbose(argv);
+      const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
 
       // get validation and errors for RC & options configurations
-      await ensureConfig(argv);
+      await setupRcJson(potentialExistingCfg);
 
       const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as RcArgvOptions;
 
@@ -61,6 +64,8 @@ export async function run(cfg: RcArgvOptions): Promise<void> {
         provider.flowOptions.config.settings.budgets = budgets;
       }
 
+      // @TODO
+      // refactor to run and processes
       return collectFlow({ url, dryRun: dryRun() }, { ...provider, path })
         .then((flow) => persistFlow(flow, provider.flowOptions.name, {
           outPath,
