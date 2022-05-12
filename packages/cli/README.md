@@ -5,8 +5,6 @@
 
 ---
 
-[![@user-flow-logo](https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
-
 ### This is a library & CLI to organize and run lighthouse user flows in an organized and scalable way 🛸 with CI automation in place
 
 ---
@@ -23,7 +21,9 @@
 - 🧠 Use best practices out of the box
 - 🅾 No boiler plate
 
-![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)
+
+<img src="https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png" aspecrratio="885∶254" width="400px" height="auto"/>
+
 
 
 # Install
@@ -55,7 +55,8 @@ You can skip this steps and go directly to the setup below.
 run 
 ```
 npm version
-```
+```  
+
 to check it.   
 You should see `'user-flow-demo': '1.0.0',` as first line.
 
@@ -149,7 +150,8 @@ You can directly run the cli command. The typescript files will get resolved and
 
 This will execute the user flow and opens the HTML report in the browser:
 
-![Navigation report]()
+<img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
+
 
 For more information on how to write user-flows read in the [Writing user flows for the CLI]() section.
 
@@ -251,8 +253,7 @@ You can also use the CLI option `--format` to choose a format.
 
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
-
-![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/162604365-31b4a9c9-c7cb-4654-a605-cecaeb2fb54f.PNG)
+![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/168185615-3ed66255-5287-4de3-a32a-cb9b053589de.PNG)
 
 ## Configuration
 
