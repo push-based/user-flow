@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.7.1](https://github.com/push-based/user-flow/compare/cli-0.7.0...cli-0.7.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* argv parsing in collect ([823a3ae](https://github.com/push-based/user-flow/commit/823a3aefb3d35969755d50547aa11574ba42ec63))
+
+
+
 # [0.7.0](https://github.com/push-based/user-flow/compare/cli-0.6.8...cli-0.7.0) (2022-05-11)
 
 
