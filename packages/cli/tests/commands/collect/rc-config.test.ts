@@ -68,18 +68,13 @@ describe('.rc.json in setup sandbox', () => {
         `--outPath=${outPath}`,
         `--format=${htmlFormat}`
       ],
-      [],
+      ['n'],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
     // Assertions
     expect(stderr).toBe('');
-    expect(stdout).toContain(`url: '${url}'`);
-    expect(stdout).toContain(`serveCommand: '${serveCommand}'`);
-    expect(stdout).toContain(`awaitServeStdout: '${awaitServeStdout}'`);
-    expect(stdout).toContain(`ufPath: '${ufPath}'`);
-    expect(stdout).toContain(`outPath: '${outPath}'`);
-    expect(stdout).toContain(`format: [ '${htmlFormat}' ]`);
+    expectOutputRcInStdout(stdout, SETUP_SANDBOX_STATIC_RC_JSON);
     expect(exitCode).toBe(0);
   });
 
@@ -104,7 +99,7 @@ describe('.rc.json in setup sandbox', () => {
   it('should load configuration if specified rc file param -p is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, `-p=${SETUP_SANDBOX_STATIC_RC_NAME}`],
-      [],
+      ['n'],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
@@ -112,12 +107,7 @@ describe('.rc.json in setup sandbox', () => {
 
     // Assertions
     expect(stderr).toBe('');
-    expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
-    expect(stdout).toContain(`Update config under ${SETUP_SANDBOX_STATIC_RC_NAME}`);
-    expect(stdout).toContain(`url: '${config.collect.url}'`);
-    expect(stdout).toContain(`ufPath: '${config.collect.ufPath}'`);
-    expect(stdout).toContain(`outPath: '${config.persist.outPath}'`);
-    expect(stdout).toContain(`format: [ '${config.persist.format[0]}' ]`);
+    expectOutputRcInStdout(stdout, config);
     expect(exitCode).toBe(0);
   });
 
@@ -134,7 +124,7 @@ describe('.rc.json in setup sandbox', () => {
 
     // Assertions
 
-   expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG);
+    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG);
     // expect(stdout).toBe('');
     expect(exitCode).toBe(1);
   });

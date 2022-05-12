@@ -8,6 +8,7 @@ import { setupRcJson } from './processes/setup-rc-json';
 import { askToSkip } from '../../core/utils/prompt';
 import { run } from '../../core/utils/processing/behaviors';
 import { readFile } from '../../core/utils/file';
+import { SETUP_CONFIRM_MESSAGE } from './constants';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -34,8 +35,8 @@ export const initCommand: YargsCommandObject = {
             precondition: userflowIsNotCreated
           })
       ])(potentialExistingCfg);
-      log('user-flow CLI is set up now! 🎉');
-
+      log(SETUP_CONFIRM_MESSAGE);
+      // @TODO move to constants
       log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');
     }
   }
