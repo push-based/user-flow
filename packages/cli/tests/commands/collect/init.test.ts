@@ -84,6 +84,8 @@ describe('init command in empty sandbox', () => {
         SPACE, ENTER,
         // outPath
         ENTER,
+        // create flow
+        'n'
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
