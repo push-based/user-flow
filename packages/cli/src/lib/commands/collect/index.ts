@@ -9,6 +9,7 @@ import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeeded } from './utils/serve-command';
 import { setupRcJson } from './../init/processes/setup-rc-json';
 import { RcArgvOptions } from '../../types';
+import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 
 
 // @TODO refactor to use run, concat, askToSkip etc helpers
@@ -19,10 +20,10 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
-      logVerbose(argv);
+      const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
 
       // get validation and errors for RC & options configurations
-      await setupRcJson(argv);
+      await setupRcJson(potentialExistingCfg);
 
       const { url, ufPath, outPath, format, budgetPath, budgets, openReport, serveCommand, awaitServeStdout } = argv as RcArgvOptions;
 
