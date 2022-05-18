@@ -21,6 +21,7 @@ export type RcJson = {
   collect: CollectOptions;
   persist: PersistOptions;
   assert?: AssertOptions;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } & Record<string, any>;
 
 export type RcArgvOptions = CollectOptions &
