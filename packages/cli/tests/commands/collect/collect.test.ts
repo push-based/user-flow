@@ -65,7 +65,7 @@ describe('collect command in setup sandbox', () => {
   }, 120_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the file', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
+    const { exitCode, stderr } = await cliPromptTest(
       [...collectCommandRemoteRc],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
