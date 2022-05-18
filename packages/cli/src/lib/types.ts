@@ -1,8 +1,10 @@
 import { Page } from 'puppeteer';
-// @ts-ignore
 import { UserFlowContext } from './commands/collect/utils/user-flow/types';
-import { AssertOptions, CollectOptions, PersistOptions } from './core/rc-json/types';
-
+import {
+  AssertOptions,
+  CollectOptions,
+  PersistOptions,
+} from './core/rc-json/types';
 
 /**
  * This class is used in the user-flow interactions to ensure the context of the flow is available in UFO's
@@ -13,12 +15,14 @@ export class Ufo {
   constructor({ page }: UserFlowContext) {
     this.page = page;
   }
-};
+}
 
 export type RcJson = {
-  collect: CollectOptions,
-  persist: PersistOptions,
-  assert?: AssertOptions,
-} & Object;
+  collect: CollectOptions;
+  persist: PersistOptions;
+  assert?: AssertOptions;
+} & Record<string, any>;
 
-export type RcArgvOptions = CollectOptions & PersistOptions & AssertOptions & { openReport?: boolean };
+export type RcArgvOptions = CollectOptions &
+  PersistOptions &
+  AssertOptions & { openReport?: boolean };
