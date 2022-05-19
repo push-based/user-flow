@@ -39,18 +39,24 @@ You can also use `npx` to run it in e.g. the CI setup:
  
 # Quick Start
 
-## Set up and run user flows in an existing project
+In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
+
+for both be shure to have node installed:
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-1. Install:
+## Set up and run user flows in an existing project
+
+In this chapter we will learn how to install and configure user flows, as well as create a first example test and see the resulting performance report.  
+
+0. Install:
 
 ```bash
 npm i @push-based/user-flow --save-dev
 ```
 
-2. Setup the `.user-flowrc.json` config file
+1. Setup the `.user-flowrc.json` config file
 
 Run 
 ```
@@ -78,7 +84,7 @@ _./.user-flowrc.json_
 }
 ```
 
-3. The CLI automatically creates a example user-flow. (`./user-flows/order-coffee.uf.ts`) 
+2. The CLI automatically creates a example user-flow. (`./user-flows/order-coffee.uf.ts`) 
 
 It is a simple navigation measurement to start from.
 
@@ -116,7 +122,7 @@ const userFlowProvider: UserFlowProvider = {
 module.exports = userFlowProvider;
 ```
 
-4. Run CLI
+3. Run CLI
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
 `npx user-flow collect` or just `npx user-flow` as collect is the default.
@@ -139,6 +145,7 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
 ## Set up an empty project (optionally)
+
 If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
 You can skip this steps and go directly to the setup below. 
 
