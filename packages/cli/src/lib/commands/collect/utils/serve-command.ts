@@ -53,9 +53,7 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
         if (out.includes(awaitServeStdout) && !isCollecting) {
           isCollecting = true;
           workTargetingServer()
-            .then((v) => {
-              resolve(v);
-            })
+            .then(resolve)
             .catch(e => {
               reject('Error while running user flows. ' + e);
             }).finally(stopServer);

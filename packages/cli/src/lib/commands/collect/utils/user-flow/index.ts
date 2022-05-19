@@ -95,6 +95,10 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
     throw new Error(`ufPath: ${ufPath} is no directory`);
   }
   const flows = readdirSync(ufPath).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
+
+  if(flows.length  === 0) {
+    throw new Error(`No user flows found in ${ufPath}`);
+  }
   return flows;
 }
 

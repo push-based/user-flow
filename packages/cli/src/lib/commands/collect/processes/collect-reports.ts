@@ -23,7 +23,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
         .then(openFlowReport)
         .then(_ => cfg);
     })
-  );
+  )(cfg);
   return Promise.resolve(cfg);
 }
 
