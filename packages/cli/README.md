@@ -153,7 +153,7 @@ This will execute the user flow and opens the HTML report in the browser:
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
 
-For more information on how to write user-flows read in the [Writing user flows for the CLI]() section.
+For more information on how to write user-flows read in the [Writing user flows for the CLI](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md) section.
 
 Optionally you can pass params to overwrite the values form `.user-flowrc.ts` in the file directly or over the CLI:
 
@@ -202,7 +202,7 @@ Run the default command over:
 `@npx @push-based/user-flow [options]`  
 
 Description:  
-The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow/edit/main/packages/cli/README.md#collect-command).
+The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow/tree/main/packages/cli#collect-command).
 
 ### `init` command
 
