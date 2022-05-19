@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.7.5](https://github.com/push-based/user-flow/compare/cli-0.7.4...cli-0.7.5) (2022-05-19)
+
+
+### Bug Fixes
+
+* use previous type for RcJson ([6b298e2](https://github.com/push-based/user-flow/commit/6b298e292c0b696189901ec9b1b4b6daf9557f74))
+
+
+
 ## [0.7.4](https://github.com/push-based/user-flow/compare/cli-0.7.3...cli-0.7.4) (2022-05-18)
 
 
