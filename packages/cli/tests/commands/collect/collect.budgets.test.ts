@@ -56,7 +56,7 @@ describe('budgets and collect command in setup sandbox', () => {
     expectBudgetsFileExistLog(stdout, budgetJson);
     expect(exitCode).toBe(0);
 
-  });
+  }, 60_000);
 
   it('should load budgets from file if budgetsPath RC option is passed', async () => {
     const budgetJson = 'budget.json';
