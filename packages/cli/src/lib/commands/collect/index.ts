@@ -20,9 +20,11 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       const potentialExistingCfg: RcJson = getCLIConfigFromArgv(argv as RcArgvOptions);
 
       await run([
-        setupRcJson
+        setupRcJson,
+        (cfg: RcJson) =>
+          startServerIfNeededAndExecute(() => collectReports(cfg), cfg.collect)
       ])(potentialExistingCfg);
-      await startServerIfNeededAndExecute(() => collectReports(potentialExistingCfg), potentialExistingCfg.collect)
+
     }
   }
 };
