@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.7.6](https://github.com/push-based/user-flow/compare/cli-0.7.5...cli-0.7.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* fixed broken links ([a920d78](https://github.com/push-based/user-flow/commit/a920d787a2d454694557c29cfce3408324f9dd0e))
+
+
+
 ## [0.7.5](https://github.com/push-based/user-flow/compare/cli-0.7.4...cli-0.7.5) (2022-05-19)
 
 
