@@ -3,7 +3,7 @@
 ## Selector suggestions
 
 When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
-A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="clp-img"`.
+A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="lcp-img"`.
 
 The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
 - data-testid
