@@ -1,4 +1,4 @@
-import { startServerIfNeeded } from '../../src/lib/commands/collect/utils/serve-command';
+import { startServerIfNeededAndExecute } from '../../src/lib/commands/collect/utils/serve-command';
 
 import spyOn = jest.spyOn;
 
@@ -12,7 +12,7 @@ describe('startServerIfNeeded', () => {
     const spy = spyOn({ userFlowWork }, 'userFlowWork');
 
     let err: string | undefined = undefined;
-    const res = await startServerIfNeeded(userFlowWork, o).catch((e: Error) => {
+    const res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
       err = e.message;
       return undefined;
     });
@@ -31,7 +31,7 @@ describe('startServerIfNeeded', () => {
     };
 
 
-    let res = await startServerIfNeeded(userFlowWork).catch((e: Error) => {
+    let res = await startServerIfNeededAndExecute(userFlowWork).catch((e: Error) => {
       return undefined;
     });
 
@@ -50,7 +50,7 @@ describe('startServerIfNeeded', () => {
       return Promise.resolve(flowRes);
     };
 
-    let res = await startServerIfNeeded(userFlowWork, o).catch((e: Error) => {
+    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
       err = e.message;
       return undefined;
     });
@@ -73,7 +73,7 @@ describe('startServerIfNeeded', () => {
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.resolve(void 0);
 
-    let res = await startServerIfNeeded(userFlowWork, o).catch((e: Error) => {
+    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
       err = e as any;
       return undefined;
     });
@@ -91,7 +91,7 @@ describe('startServerIfNeeded', () => {
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.resolve('user flow result');
 
-    let res = await startServerIfNeeded(userFlowWork, o).catch((e: Error) => {
+    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
       err = e as any;
       return undefined;
     });
@@ -109,7 +109,7 @@ describe('startServerIfNeeded', () => {
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.reject('user flow error');
 
-    let res = await startServerIfNeeded(userFlowWork, o).catch((e: Error) => {
+    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
       err = e as any;
       return undefined;
     });
