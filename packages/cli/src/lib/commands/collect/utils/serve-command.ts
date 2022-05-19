@@ -2,6 +2,7 @@ import { concurrently } from 'concurrently';
 import { CollectOptions } from '../../../core/rc-json/types';
 import { logVerbose } from '../../../core/utils/loggin';
 import { Subscription } from 'rxjs';
+import { RcJson } from '@push-based/user-flow';
 
 
 const log = logVerbose;
@@ -11,9 +12,9 @@ const log = logVerbose;
 // This fn takes the serve options as well ans the run block and makes shure execution is done correctly and errors are forwarded too.
 // In there we compose easier to test fn's
 
-export async function startServerIfNeeded(workTargetingServer: () => Promise<any>, cfg: Pick<CollectOptions, 'serveCommand' | 'awaitServeStdout'> = {}): Promise<any> {
+export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectOptions = {} as CollectOptions): Promise<RcJson> {
 
-  const { serveCommand, awaitServeStdout } = cfg;
+  const { serveCommand, awaitServeStdout } = collectOption;
 
   if (serveCommand && !awaitServeStdout) {
     return Promise.reject(new Error('If a serve command is provided awaitServeStdout is also required'));
@@ -52,9 +53,7 @@ export async function startServerIfNeeded(workTargetingServer: () => Promise<any
         if (out.includes(awaitServeStdout) && !isCollecting) {
           isCollecting = true;
           workTargetingServer()
-            .then((v) => {
-              resolve(v);
-            })
+            .then(resolve)
             .catch(e => {
               reject('Error while running user flows. ' + e);
             }).finally(stopServer);

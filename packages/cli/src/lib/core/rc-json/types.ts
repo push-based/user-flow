@@ -12,6 +12,7 @@ export type PersistOptions = {
   outPath: string,
   format: string[]
 }
+// @TODO this type has overlap with the one in rc-json.ts we should fix that and only have one
 export type AssertOptions = {
   budgetPath?: string,
   budgets?: SharedFlagsSettings['budgets'] | string

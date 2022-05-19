@@ -20,6 +20,21 @@ describe('dryRun and collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
   afterEach(async () => resetSetupSandboxAndKillPorts());
 
+  it('should load ufPath and execute throw if no user-flow is given', async () => {
+    const existingEmptyFolder = './measures';
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...collectCommandStaticRc,
+        `--ufPath=${existingEmptyFolder}`,
+      ],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+
+    expect(stderr).toContain(`No user flows found in ${existingEmptyFolder}`);
+    expect(exitCode).toBe(1);
+  }, 90_000);
+
   it('should load ufPath and execute the user-flow', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
