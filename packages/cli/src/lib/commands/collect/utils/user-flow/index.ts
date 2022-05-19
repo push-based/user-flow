@@ -97,6 +97,7 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
   const flows = readdirSync(ufPath).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
 
   if(flows.length  === 0) {
+    // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);
   }
   return flows;

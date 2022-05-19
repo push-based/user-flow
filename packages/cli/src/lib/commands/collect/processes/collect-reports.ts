@@ -9,8 +9,9 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
   const { collect, persist, assert } = cfg;
 
+  let userFlows = [] as ({ exports: UserFlowProvider, path: string })[];
   // Load and run user-flows in sequential
-  const userFlows = loadFlow(collect);
+  userFlows = loadFlow(collect);
 
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
