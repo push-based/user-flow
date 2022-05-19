@@ -8,13 +8,16 @@ import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/fi
 import { join, normalize } from 'path';
 import { logVerbose } from '../../../../core/utils/loggin';
 import { get as dryRun } from '../../../../core/options/dryRun';
-import { PersistOptions } from '../../../../core/rc-json/types';
+import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';
 import { detectCliMode } from '../../../../cli-modes';
 import { readBudgets } from '../../../assert/utils/budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 import * as Config from 'lighthouse/types/config';
 import { UserFlowMock } from './user-flow.mock';
 import { UserFlowProvider } from './types';
+import { get as openOpt } from '../../options/open';
+import { get as interactive } from '../../../../core/options/interactive';
+import * as openFileInBrowser from 'open';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
@@ -41,7 +44,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 }
 
 export async function collectFlow(
-  cliOption: { url: string, dryRun: boolean },
+  cliOption: CollectOptions & { dryRun: boolean },
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -83,15 +86,38 @@ export async function collectFlow(
   return flow;
 }
 
-export function loadFlow(path: string): ({ exports: UserFlowProvider, path: string })[] {
+export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
+  const {ufPath} = collect;
   let ufDirectory = [];
   try {
-    ufDirectory = readdirSync(path);
+    ufDirectory = readdirSync(ufPath);
   } catch (e) {
-    throw new Error(`ufPath: ${path} is no directory`);
+    throw new Error(`ufPath: ${ufPath} is no directory`);
   }
-  const flows = readdirSync(path).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(path, p)));
+  const flows = readdirSync(ufPath).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
   return flows;
+}
+
+
+export async function openFlowReport(fileNames: string[]): Promise<void> {
+  // open report if requested and not in executed in CI
+  if (!dryRun() && openOpt() && interactive()) {
+
+    const htmlReport = fileNames.find(i => i.includes('.html'));
+    if (htmlReport) {
+      logVerbose('open HTML report in browser');
+      await openFileInBrowser(htmlReport, { wait: false });
+      return Promise.resolve(void 0);
+    }
+
+    const jsonReport = fileNames.find(i => i.includes('.json'));
+    if (jsonReport) {
+      logVerbose('open JSON report in browser');
+      // @TODO if JSON is given open the file in https://googlechrome.github.io/lighthouse/viewer/
+      await openFileInBrowser(jsonReport, { wait: false });
+    }
+  }
+  return Promise.resolve(void 0);
 }
 
 function parseUserFlowOptionsConfig(flowOptionsConfig?: UserFlowProvider['flowOptions']['config']): Config.default.Json {
