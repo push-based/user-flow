@@ -1,11 +1,11 @@
 # @push-based/user-flow
-## Runtime performance measurements done right, with lighthouse user flows!
+## Runtime performance measurements done right, with Lighthouse user flows!
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
 ---
 
-### This is a library & CLI to organize and run lighthouse user flows in an organized and scalable way 🛸 with CI automation in place
+### This is a library & CLI to organize and run Lighthouse user flows in an organized and scalable way 🛸 with CI automation in place
 
 ---
 
@@ -19,17 +19,15 @@
 - 🛸 Advanced architecture with UFO's
 - 🔥 Write tests directly in TypeScript (we compile them live)
 - 🧠 Use best practices out of the box
-- 🅾 No boiler plate
+- 🅾 No boilerplate
 
 
 <img src="https://user-images.githubusercontent.com/10064416/156827417-1e9979a2-83ea-4117-baec-9b7ce81ab811.png" aspecrratio="885∶254" width="400px" height="auto"/>
 
-
-
 # Install
 
 Run 
-`npm i @push-based/user-flow --save-dev`  or `yarn i @push-based/user-flow --dev` 
+`npm i @push-based/user-flow --save-dev` or `yarn add @push-based/user-flow --dev` 
 to install the library.  
   
 After that you can run:  
@@ -41,36 +39,12 @@ You can also use `npx` to run it in e.g. the CI setup:
  
 # Quick Start
 
-## Pre-requisites
+## Prerequisites
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-### Setup an empty project (optionally)
-If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
-You can skip this steps and go directly to the setup below. 
-
-1. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
-
-run 
-```
-npm version
-```  
-
-to check it.   
-You should see `'user-flow-demo': '1.0.0',` as first line.
-
-Make sure you have the CLI installed:
-```bash
-npm i @push-based/user-flow --save-dev
-```
-now you can run it directly with `user-flow`. Test it:
-
-```bash
-npx user-flow --version
-```
-
-## Setup and run user flows in an existing project
+## Set up and run user flows in an existing project
 0. Install:
 
 ```bash
@@ -164,6 +138,30 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 > **🤓 DX Tip:**  
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
+
+## Set up an empty project (optionally)
+If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
+You can skip this steps and go directly to the setup below. 
+
+0. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
+
+run 
+```
+npm version
+```  
+
+to check it.   
+You should see `'user-flow-demo': '1.0.0',` as first line.
+
+Make sure you have the CLI installed:
+```bash
+npm i @push-based/user-flow --save-dev
+```
+now you can run it directly with `user-flow`. Test it:
+
+```bash
+npx user-flow --version
+```
 
 # CLI
 
