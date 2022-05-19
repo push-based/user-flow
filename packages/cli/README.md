@@ -39,19 +39,18 @@ You can also use `npx` to run it in e.g. the CI setup:
  
 # Quick Start
 
-## Prerequisites
+## Set up and run user flows in an existing project
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-## Set up and run user flows in an existing project
-0. Install:
+1. Install:
 
 ```bash
 npm i @push-based/user-flow --save-dev
 ```
 
-1. Setup the `.user-flowrc.json` config file
+2. Setup the `.user-flowrc.json` config file
 
 Run 
 ```
@@ -79,7 +78,7 @@ _./.user-flowrc.json_
 }
 ```
 
-2. The CLI automatically creates a example user-flow. (`./user-flows/order-coffee.uf.ts`) 
+3. The CLI automatically creates a example user-flow. (`./user-flows/order-coffee.uf.ts`) 
 
 It is a simple navigation measurement to start from.
 
@@ -117,7 +116,7 @@ const userFlowProvider: UserFlowProvider = {
 module.exports = userFlowProvider;
 ```
 
-3. Run CLI
+4. Run CLI
 You can directly run the cli command. The typescript files will get resolved and compiled live. 
 
 `npx user-flow collect` or just `npx user-flow` as collect is the default.
