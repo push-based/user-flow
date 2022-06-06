@@ -1,45 +1,36 @@
-import * as LHR from 'lighthouse/types/lhr/lhr';
+import {default as LHR} from 'lighthouse/types/lhr/lhr';
 
 const SCREENSHOT_PREFIX = 'data:image/jpeg;base64,';
 const DISPLAYED_CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo'];
 const THUMBNAIL_WIDTH = 40;
 
 
-// @ts-ignore
-export function userFlowReportToMdTable(result: LHR) {
-  console.log(prepareReportResult(result));
+/**
+ *
+ * | Steps           | Performance | Accessibility | BestPractices | Seo |
+ * | --------------- | ----------- | ------------- | ------------- | --- |
+ * |  Nav1           |  99         | 50            | 100           | 98  |
+ * |  Snap   1       |  3/2        | 100           | 100           | 100 |
+ * |  TimeSpan 1     |  100        | 100           | 100           | 100 |
+ */
+export function userFlowReportToMdTable(
+  result: {steps: {lhr: LHR, name: string}[]}
+): string {
+
+  return summaryFlowStep({
+    lhr: result.steps[0].lhr,
+    label:  result.steps[0].name,
+    hashIndex: 0
+  }) as any as string;
 }
 
-// @ts-ignore
-function prepareReportResult(result: LHR) {
+function prepareReportResult(result: LHR): LHR {
   // If any mutations happen to the report within the renderers, we want the original object untouched
+  // @TODO use structured clone
   const clone = /** @type {LH.ReportResult} */ (JSON.parse(JSON.stringify(result)));
 
-  // If LHR is older (≤3.0.3), it has no locale setting. Set default.
-  if (!clone.configSettings.locale) {
-    clone.configSettings.locale = 'en';
-  }
   if (!clone.configSettings.formFactor) {
     clone.configSettings.formFactor = clone.configSettings.emulatedFormFactor;
-  }
-
-  for (const audit of Object.values(clone.audits)) {
-    // Turn 'not-applicable' (LHR <4.0) and 'not_applicable' (older proto versions)
-    // into 'notApplicable' (LHR ≥4.0).
-    if ((audit as any).scoreDisplayMode === 'not_applicable' || (audit as any).scoreDisplayMode === 'not-applicable') {
-      (audit as any).scoreDisplayMode = 'notApplicable';
-    }
-
-    if ((audit as any).details) {
-      // Add the jpg data URL prefix to filmstrip screenshots without them (LHR <5.0).
-      if ((audit as any).details.type === 'filmstrip') {
-        for (const screenshot of (audit as any).details.items) {
-          if (!screenshot.data.startsWith(SCREENSHOT_PREFIX)) {
-            screenshot.data = SCREENSHOT_PREFIX + screenshot.data;
-          }
-        }
-      }
-    }
   }
 
   // For convenience, smoosh all AuditResults into their auditRef (which has just weight & group)
@@ -87,7 +78,7 @@ function prepareReportResult(result: LHR) {
 }
 
 
-function getModeDescription(mode: LH.Result.GatherMode, strings: UIStringsType) {
+function getModeDescription(mode: LHR.GatherMode/*LH.Result.GatherMode*/, strings: any) {
   switch (mode) {
     case 'navigation': return strings.navigationDescription;
     case 'timespan': return strings.timespanDescription;
@@ -110,7 +101,7 @@ const summaryFlowStep = (cfg: {
   const { lhr, label, hashIndex } = cfg;
 
   const reportResult = prepareReportResult(lhr);
-  const modeDescription = Utils.getModeDescription(lhr.gatherMode, ['strings']);
+  const modeDescription = getModeDescription(lhr.gatherMode, ['strings']);
 
   const t = lhr.gatherMode === 'navigation' && summaryNavigationHeader(lhr);
   const flowStepThumbnail = THUMBNAIL_WIDTH;
@@ -126,6 +117,7 @@ const summaryFlowStep = (cfg: {
 
 
 };
+
 /*
 const SummaryFlow: FunctionComponent = () => {
   const flowResult = useFlowResult();
