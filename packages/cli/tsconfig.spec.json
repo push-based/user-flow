@@ -5,7 +5,8 @@
     "module": "commonjs",
     "types": ["jest", "node"],
     "allowJs": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "resolveJsonModule": true
   },
   "include": ["**/*.test.ts", "**/*.spec.ts", "**/*.d.ts"]
 }
