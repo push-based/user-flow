@@ -2,7 +2,7 @@
 
 ## Selector suggestions
 
-When writing tests it is a god practice to decouple your selector needed for the test from the actual code used to style your application. 
+When writing tests it is good practice to decouple your selector needed for the test from the actual code used to style your application. 
 A good way to do this is using the data attribute and attribute selectors e.g. `[data-test]="lcp-img"`.
 
 The following selectors are suggested to align with the official [user flow recorder feature](https://developer.chrome.com/blog/new-in-devtools-100/#selector):
@@ -90,8 +90,8 @@ const userFlowProvider: UserFlowProvider = {
 module.exports = userFlowProvider;
 ```
 
-3. Run cli
-You can directly run the cli command. The typescript files will get resolved and compiled live. 
+3. Run CLI
+You can directly run the CLI command. The typescript files will get resolved and compiled live. 
 
 `npx @push-based/user-flow --url=https://localhost:4200`
 
