@@ -31,12 +31,11 @@ _persistMethod.set('html', async ({ outPath, flow, name }) => {
 });
 
 _persistMethod.set('json', async ({ outPath, flow, name }) => {
-    const report = await flow.createFlowResult();
-    const fileName = join(outPath, `${toFileName(name)}.uf.json`);
-    writeFile(fileName, JSON.stringify(report));
-    return fileName;
-  }
-);
+  const report = await flow.createFlowResult();
+  const fileName = join(outPath, `${toFileName(name)}.uf.json`);
+  writeFile(fileName, JSON.stringify(report));
+  return fileName;
+});
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
   // @Notice: there might be a bug in user flow and Promise's
