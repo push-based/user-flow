@@ -7,12 +7,12 @@ import {
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_REMOTE_RC_NAME,
   SETUP_SANDBOX_STATIC_RC_JSON,
-  SETUP_SANDBOX_STATIC_RC_NAME,
+  SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 import {
   expectCollectCreatesJsonReport,
   expectCollectNoLogsFromMockInStdout,
-  expectCollectNotToCreateAReport,
+  expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
 
 const defaultCommand = [CLI_PATH];
@@ -40,7 +40,7 @@ const uf1OutPath = path.join(
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
-  //afterEach(async () => resetSetupSandboxAndKillPorts());
+ // afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
@@ -72,7 +72,8 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_DEFAULT_RC_JSON);
+    // expect(stdout).toBe('');
+    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
