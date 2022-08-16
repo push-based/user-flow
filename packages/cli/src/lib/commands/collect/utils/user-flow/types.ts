@@ -64,12 +64,12 @@ export type UserFlowProvider = {
   launchOptions?: LaunchOptions;
 };
 
-export type CliReport = {
+export type ReducedReport = {
   name: string;
-  steps: FlowStep[];
+  steps: ReducedFlowStep[];
 }
 
-export type FlowStep = {
+export type ReducedFlowStep = {
   name: string;
   type: 'navigation' | 'timespan' | 'snapshot';
   results: {

@@ -1,9 +1,9 @@
 // @ts-ignore
 import {Util} from 'lighthouse/lighthouse-core/util-commonjs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { CliReport } from '../utils/user-flow/types';
+import { ReducedReport } from '../utils/user-flow/types';
 
-export function createReducedReport(flowResult: FlowResult): CliReport {
+export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const cliReport: any = {name: flowResult.name};
   cliReport['steps'] =  flowResult.steps.map((step) => {
     const stepReport = Util.prepareReportResult(step.lhr);
