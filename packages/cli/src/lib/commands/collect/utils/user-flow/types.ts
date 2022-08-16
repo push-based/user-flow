@@ -63,3 +63,27 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
+
+export type CliReport = {
+  name: string;
+  steps: FlowStep[];
+}
+
+export type FlowStep = {
+  name: string;
+  type: 'navigation' | 'timespan' | 'snapshot';
+  results: {
+    Performance?: number | FractionResults;
+    Accessibility?: number | FractionResults;
+    'Best Practices'?: number | FractionResults;
+    SEO?: number | FractionResults;
+    PWA?: number | FractionResults;
+  };
+}
+
+export type FractionResults = {
+  numPassed: number;
+  numPassableAudits: number;
+  numInformative: number;
+  totalWeight: number;
+}
