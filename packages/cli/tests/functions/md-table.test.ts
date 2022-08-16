@@ -24,7 +24,7 @@ describe('md-table', () => {
     expect(reducedLhr9).toEqual(lhr9reduced);
   });
 
-  it('userFlowReportToMdTable should print MD table if userFlowReportToMdTable is called', () => {
+  it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
     const reducedLhr9 = createReducedReport(lhr9);
     const mdTable = userFlowReportToMdTable(reducedLhr9)
     expect(mdTable).toEqual([]);
