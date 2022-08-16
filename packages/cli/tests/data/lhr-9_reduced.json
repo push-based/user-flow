@@ -1,0 +1,64 @@
+{
+  "name": "Sandbox Setup StaticDist",
+  "steps": [
+    {
+      "name": "Navigation report (127.0.0.1/)",
+      "type": "navigation",
+      "results": {
+        "Performance": null,
+        "Accessibility": 1,
+        "Best Practices": 0.92,
+        "SEO": 1,
+        "PWA": 0.3
+      }
+    },
+    {
+      "name": "Timespan report (127.0.0.1/)",
+      "type": "timespan",
+      "results": {
+        "Performance": {
+          "numPassed": 10,
+          "numPassableAudits": 11,
+          "numInformative": 1,
+          "totalWeight": 45
+        },
+        "Best Practices": {
+          "numPassed": 5,
+          "numPassableAudits": 7,
+          "numInformative": 0,
+          "totalWeight": 6
+        }
+      }
+    },
+    {
+      "name": "Snapshot report (127.0.0.1/)",
+      "type": "snapshot",
+      "results": {
+        "Performance": {
+          "numPassed": 3,
+          "numPassableAudits": 4,
+          "numInformative": 0,
+          "totalWeight": 0
+        },
+        "Accessibility": {
+          "numPassed": 10,
+          "numPassableAudits": 10,
+          "numInformative": 0,
+          "totalWeight": 57
+        },
+        "Best Practices": {
+          "numPassed": 4,
+          "numPassableAudits": 5,
+          "numInformative": 0,
+          "totalWeight": 5
+        },
+        "SEO": {
+          "numPassed": 9,
+          "numPassableAudits": 9,
+          "numInformative": 0,
+          "totalWeight": 9
+        }
+      }
+    }
+  ]
+}
