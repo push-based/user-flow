@@ -12,6 +12,8 @@ import * as Config from 'lighthouse/types/config';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import { default as LhReport}  from 'lighthouse/types/lhr/lhr';
+
 
 export type UserFlowContext = {
   browser: Browser;
@@ -71,7 +73,7 @@ export type ReducedReport = {
 
 export type ReducedFlowStep = {
   name: string;
-  type: 'navigation' | 'timespan' | 'snapshot';
+  gatherMode: LhReport.GatherMode;
   results: {
     Performance?: number | FractionResults;
     Accessibility?: number | FractionResults;
