@@ -4,6 +4,7 @@ import {
   ReducedReport
 } from '../../collect/utils/user-flow/types';
 import { markdownTable } from 'markdown-table';
+import { formatCode } from '../../../core/utils/prettier';
 
 /**
  *
@@ -27,7 +28,7 @@ export function userFlowReportToMdTable(
       )
     );
   const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))) as any);
-  return markdownTable(tableArr, TABLE_OPTIONS);
+  return formatCode(markdownTable(tableArr, TABLE_OPTIONS), 'markdown') + `\n`;
 }
 
 function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
