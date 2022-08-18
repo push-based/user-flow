@@ -1,5 +1,6 @@
-import { ReducedReport } from '../../collect/utils/user-flow/types';
+import { ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
 import {markdownTable} from 'markdown-table';
+import {}
 /**
  *
  * | Steps           | Performance | Accessibility | BestPractices | Seo  | PWA |
@@ -11,6 +12,19 @@ import {markdownTable} from 'markdown-table';
 export function userFlowReportToMdTable(
   reducedResult: ReducedReport
 ): string {
-  const arr = Object.keys(reducedResult);
-  return markdownTable([arr]);
+  const TABLE_OPTIONS = {align: 'c'}
+  const TABLE_HEAD = ['Steps', 'Performance', 'Accessibility', 'BestPractices', 'SEO', 'PWA'];
+  reducedResult.steps.map((step) => extractTableRow(step));
+  const tableRow1 = ['Navigation report (127.0.0.1/)', '?', '100', '92', '100', '-'];
+  const tableRow2 = ['Timespan report (127.0.0.1/)', '10/11', '-', '5/7', '-', '-'];
+  const tableRow3 = ['Snapshot report (127.0.0.1/)', 'Ø 3/4', '10/10', '4/5', '9/9', '-'];
+  const tableArr = [TABLE_HEAD, tableRow1, tableRow2, tableRow3];
+
+  return markdownTable(tableArr, TABLE_OPTIONS);
+}
+
+function extractTableRow(step: ReducedFlowStep) {
+  if (step.type === "navigation") {
+
+  } 
 }

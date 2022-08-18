@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as LHR9 from '../data/lhr-9.json';
 import * as LHR9REDUCED from '../data/lhr-9_reduced.json';
 import * as LHR8 from '../data/lhr-8.json';
@@ -26,8 +27,10 @@ describe('md-table', () => {
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = userFlowReportToMdTable(reducedLhr9)
-    expect(mdTable).toEqual([]);
+    const mdTable = userFlowReportToMdTable(reducedLhr9);
+    expect(() => fs.readFileSync('./packages/cli/tests/data/lhr-9_reduced.md')).not.toThrow();
+    const LHRREDUCEDMD = fs.readFileSync('./packages/cli/tests/data/lhr-9_reduced.md', 'utf-8');
+    expect(mdTable).toEqual(LHRREDUCEDMD);
   });
 
 });

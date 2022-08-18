@@ -1,20 +1,21 @@
 // @ts-ignore
 import {Util} from 'lighthouse/lighthouse-core/util-commonjs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedReport } from '../utils/user-flow/types';
+import { default as LHR } from 'lighthouse/types/lhr/lhr';
+
+import { ReducedReport,ReducedFlowStepResult } from '../utils/user-flow/types';
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
-  const cliReport: any = {name: flowResult.name};
-  cliReport['steps'] =  flowResult.steps.map((step) => {
+  const steps = flowResult.steps.map((step) => {
     const stepReport = Util.prepareReportResult(step.lhr);
-    const stepDetails: any = {name: step.name, type: stepReport.gatherMode};
-    stepDetails['results'] = Util.shouldDisplayAsFraction(stepReport.gatherMode) ?
-      Object.assign({}, ...Object.values(stepReport.categories).map(
-        (category: any) => ({[category.title]: Util.calculateCategoryFraction(category)})
-      )) : Object.assign({}, ...Object.values(stepReport.categories).map(
-        (category: any) => ({[category.title]: category.score})
-      ));
-    return stepDetails;
+    const { name, gatherMode } = stepReport;
+    const categoriesEntries: [string, LHR.Category][] = Object.entries(stepReport.categories) as unknown as [string, LHR.Category][];
+    const results: ReducedFlowStepResult = categoriesEntries.reduce((res, [categoryName, category]) => {
+      res[categoryName] = Util.shouldDisplayAsFraction(stepReport.gatherMode) ? 
+        Util.calculateCategoryFraction(category): (category).score;
+      return res
+    }, {} as ReducedFlowStepResult);
+    return { name, gatherMode, results };
   });
-  return cliReport;
+  return {name: flowResult.name, steps};
 }
