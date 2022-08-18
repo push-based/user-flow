@@ -6,17 +6,12 @@ import {
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_REMOTE_RC_NAME,
-  SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
-import {
-  expectCollectCreatesJsonReport, expectCollectLogsReportByDefault,
-  expectCollectNoLogsFromMockInStdout,
-  expectCollectNotToCreateAReport
-} from '../../utils/cli-expectations';
+import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
 
 const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect', '-v'];
+const collectCommand = [...defaultCommand, 'collect', '--format', 'stdout'];
 const collectCommandRemoteRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`,
@@ -36,7 +31,7 @@ describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
   afterEach(async () => resetSetupSandboxAndKillPorts());
 
-  it('should load ufPath, execute the user-flow on a remote URL and save the file', async () => {
+  it('should load ufPath, execute the user-flow on a remote URL and log if no format is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommandRemoteRc],
       [],
@@ -44,11 +39,11 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    // expect(stdout).toBe('');
+    //expect(stdout).toBe('');
     // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
     expectCollectLogsReportByDefault(stdout, uf1Name);
-  }, 90_000);
+  }, 180_000);
 });
