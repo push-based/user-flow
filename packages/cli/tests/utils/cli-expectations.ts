@@ -95,6 +95,10 @@ export function expectCollectCreatesJsonReport(reportPath: string, ufName: strin
   expect(reportJson).toBeTruthy();
 }
 
+export function expectCollectLogsReportByDefault(stdout: string, ufName: string) {
+  expect(stdout).toContain(`MD Table`);
+}
+
 export function expectCollectNotToCreateAReport(reportPath: string) {
   // Check report file is not created
   try {
