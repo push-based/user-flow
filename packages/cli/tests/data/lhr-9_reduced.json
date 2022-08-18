@@ -6,8 +6,8 @@
       "gatherMode": "navigation",
       "results": {
         "performance": null,
-        "accsssibility": 1,
-        "best practices": 0.92,
+        "accessibility": 1,
+        "best-practices": 0.92,
         "seo": 1,
         "pwa": 0.3
       }
@@ -22,7 +22,7 @@
           "numInformative": 1,
           "totalWeight": 45
         },
-        "best practices": {
+        "best-practices": {
           "numPassed": 5,
           "numPassableAudits": 7,
           "numInformative": 0,
@@ -40,13 +40,13 @@
           "numInformative": 0,
           "totalWeight": 0
         },
-        "accsssibility": {
+        "accessibility": {
           "numPassed": 10,
           "numPassableAudits": 10,
           "numInformative": 0,
           "totalWeight": 57
         },
-        "best practices": {
+        "best-practices": {
           "numPassed": 4,
           "numPassableAudits": 5,
           "numInformative": 0,
