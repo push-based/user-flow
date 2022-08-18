@@ -5,6 +5,8 @@ import {
 } from '../../collect/utils/user-flow/types';
 import { markdownTable } from 'markdown-table';
 import { formatCode } from '../../../core/utils/prettier';
+import { createReducedReport } from '../../collect/processes/generate-reports';
+import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
  *
@@ -15,8 +17,9 @@ import { formatCode } from '../../../core/utils/prettier';
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
 export function userFlowReportToMdTable(
-  reducedResult: ReducedReport
+  flowResult: FlowResult
 ): string {
+  const reducedResult: ReducedReport = createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedResult.steps[0].results);
   const reportFormats = reportCategories.map(_ => 'c');
   // name is center, gather mode is center, all other columns are centered
