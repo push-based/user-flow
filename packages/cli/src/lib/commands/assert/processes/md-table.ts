@@ -3,7 +3,6 @@ import {
   ReducedFlowStep,
   ReducedReport
 } from '../../collect/utils/user-flow/types';
-import { markdownTable } from 'markdown-table';
 import { formatCode } from '../../../core/utils/prettier';
 import { createReducedReport } from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
@@ -31,7 +30,20 @@ export function userFlowReportToMdTable(
       )
     );
   const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))) as any);
-  return formatCode(markdownTable(tableArr, TABLE_OPTIONS), 'markdown') + `\n`;
+  return markdownTable(tableArr, TABLE_OPTIONS as any).replace(' ', '') + `\n`;
+}
+
+type Alignment = 'l' | 'c' | 'r';
+
+function markdownTable(data: string[][], {align} : {align:  Alignment | Alignment[]}): string {
+  const _data = data.map((arr) => arr.join('|'));
+  let secondRow = typeof align === 'string' ?  getAlignString(align) : align.map((s) => getAlignString(s)).join('|');
+  return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
+}
+
+function getAlignString(option?:  Alignment ): string {
+  const _ = '--'
+  return option === 'l' ? ':'+_ : option === 'c' ? ':'+_+':' : option === 'r' ? _+':' : _ ;
 }
 
 function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
