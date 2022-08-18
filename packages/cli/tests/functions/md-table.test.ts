@@ -30,7 +30,7 @@ describe('md-table', () => {
     const reducedLhr9 = createReducedReport(lhr9);
     const mdTable = userFlowReportToMdTable(reducedLhr9);
     const LHRREDUCEDMD = fs.readFileSync(join(__dirname, '../data/lhr-9_reduced.md'), 'utf-8');
-    expect(mdTable).toEqual(LHRREDUCEDMD);
+    expect(mdTable).toBe(LHRREDUCEDMD);
   });
 
 });
