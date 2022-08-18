@@ -27,10 +27,8 @@ describe('md-table', () => {
   });
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
-    const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = userFlowReportToMdTable(reducedLhr9);
+    const mdTable = userFlowReportToMdTable(lhr9);
     const LHRREDUCEDMD = fs.readFileSync(join(__dirname, '../data/lhr-9_reduced.md'), 'utf-8');
     expect(mdTable).toEqual(LHRREDUCEDMD);
   });
-
 });
