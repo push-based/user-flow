@@ -18,10 +18,18 @@ import { UserFlowProvider } from './types';
 import { get as openOpt } from '../../options/open';
 import { get as interactive } from '../../../../core/options/interactive';
 import * as openFileInBrowser from 'open';
+import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
 const _persistMethod = new Map<string, PersistFn>();
+
+_persistMethod.set('stdout', async ({ outPath, flow, name }) => {
+  const report = await flow.generateReport();
+  const mdReport = userFlowReportToMdTable(report);
+  console.log(mdReport);
+  return 'stdout';
+});
 
 _persistMethod.set('html', async ({ outPath, flow, name }) => {
   const report = await flow.generateReport();
@@ -38,6 +46,9 @@ _persistMethod.set('json', async ({ outPath, flow, name }) => {
 });
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+  if (!format.length) {
+    format = ['stdout']
+  }
   // @Notice: there might be a bug in user flow and Promise's
   return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
 }
