@@ -1,4 +1,4 @@
-import { RcJson } from '@push-based/user-flow';
+import { RcJson } from '../../../types';
 import { CLIProcess } from './types';
 
 export function run(
