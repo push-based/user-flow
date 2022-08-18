@@ -98,10 +98,10 @@ export type FractionResults = {
   totalWeight: number;
 }
 
+export type ReducedFlowStepResult = Record<string, number | FractionResults>;
+
 export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
   {
-    results: {
-      string?: number | FractionResults;
-    };
+    results: ReducedFlowStepResult;
   };
 
