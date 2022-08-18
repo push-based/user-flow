@@ -1,6 +1,9 @@
-
-import { ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
-import {markdownTable} from 'markdown-table';
+import {
+  FractionResults,
+  ReducedFlowStep,
+  ReducedReport
+} from '../../collect/utils/user-flow/types';
+import { markdownTable } from 'markdown-table';
 
 /**
  *
@@ -13,22 +16,39 @@ import {markdownTable} from 'markdown-table';
 export function userFlowReportToMdTable(
   reducedResult: ReducedReport
 ): string {
-  const TABLE_OPTIONS = {align: 'c'}
-  const TABLE_HEAD = ['Step Name', 'Gather Mode','Performance', 'Accessibility', 'BestPractices', 'SEO', 'PWA'];
-  //reducedResult.steps.map((step) => (extractTableRow(step)))
-  const tableRow1 = ['Navigation report (127.0.0.1/)', '?', '100', '92', '100', '-'];
-  const tableRow2 = ['Timespan report (127.0.0.1/)', '10/11', '-', '5/7', '-', '-'];
-  const tableRow3 = ['Snapshot report (127.0.0.1/)', 'Ø 3/4', '10/10', '4/5', '9/9', '-'];
-  const tableArr = [TABLE_HEAD, tableRow1, tableRow2, tableRow3];
-
+  const reportCategories = Object.keys(reducedResult.steps[0].results);
+  const reportFormats = reportCategories.map(_ => 'c');
+  // name is center, gather mode is center, all other columns are centered
+  const TABLE_OPTIONS = { align: ['l', 'c'].concat(reportFormats) };
+  const TABLE_HEAD = ['Step Name', 'Gather Mode']
+    .concat(reportCategories
+      .map(
+        c => c.split('-').map(cN => cN[0].toUpperCase() + cN.slice(1)).join(' ')
+      )
+    );
+  const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))) as any);
   return markdownTable(tableArr, TABLE_OPTIONS);
 }
 
-function extractTableRow(step: ReducedFlowStep) {
-  if (step.gatherMode === "navigation") {
-    
+function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
+  const nameAndMode = [step.name, step.gatherMode];
+  let results: string[];
+  if (step.gatherMode === 'navigation') {
+    results = Object.values(step.results).map((v) => {
+      return v ? ((v as unknown as number) * 100) + '' : '-';
+    });
   } else {
 
+    const existingCats = Object.keys(step.results);
+    results = reportCategories.map(category => {
+      if (!existingCats.includes(category)) {
+        return '-';
+      }
+      const { totalWeight, numPassed, numPassableAudits } = step.results[category] as FractionResults;
+      const res = numPassed + '/' + numPassableAudits;
+      return totalWeight === 0 ? 'Ø ' + res : res;
+    });
+
   }
-  return '';
+  return nameAndMode.concat(results);
 }
