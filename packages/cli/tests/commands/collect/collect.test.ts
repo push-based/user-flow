@@ -28,7 +28,7 @@ const collectCommandStaticRc = [
 ];
 
 const uf1Name = 'Sandbox Setup UF1';
-const uf1OutPathJons = path.join(
+const uf1OutPathJson = path.join(
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   'sandbox-setup-uf1.uf.json'
 );
@@ -82,7 +82,7 @@ describe('collect command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    expectCollectCreatesJsonReport(uf1OutPathJons, uf1Name);
+    expectCollectCreatesJsonReport(uf1OutPathJson, uf1Name);
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
