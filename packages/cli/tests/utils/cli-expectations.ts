@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import {join} from 'path';
 import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
@@ -93,6 +94,14 @@ export function expectCollectCreatesJsonReport(reportPath: string, ufName: strin
   reportJson = JSON.parse(fs.readFileSync(reportPath).toString('utf8'));
   expect(reportJson.name).toBe(`${ufName}`);
   expect(reportJson).toBeTruthy();
+}
+
+export function expectCollectCreatesMdReport(reportPath: string, ufName: string) {
+  let reportMd;
+  expect(() => fs.readFileSync(reportPath)).not.toThrow();
+  reportMd = fs.readFileSync(reportPath, 'utf-8');
+  expect(reportMd).toBeTruthy();
+  expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
 }
 
 export function expectCollectLogsReportByDefault(stdout: string, ufName: string) {
