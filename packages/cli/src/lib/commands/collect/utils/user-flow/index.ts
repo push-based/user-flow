@@ -25,6 +25,14 @@ type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name:
 
 const _persistMethod = new Map<string, PersistFn>();
 
+_persistMethod.set('md', async ({ outPath, flow, name }) => {
+  const report = await flow.createFlowResult();
+  const mdReport = userFlowReportToMdTable(report);
+  const fileName = join(outPath, `${toFileName(name)}.uf.md`);
+  writeFile(fileName, mdReport);
+  return fileName;
+});
+
 _persistMethod.set('stdout', async ({ flow }) => {
   const report = await flow.createFlowResult();
   const mdReport = userFlowReportToMdTable(report);
