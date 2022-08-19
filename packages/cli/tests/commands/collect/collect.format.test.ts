@@ -11,7 +11,7 @@ import {
 import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
 
 const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect', '--format', 'stdout'];
+const collectCommand = [...defaultCommand, 'collect'];
 const collectCommandRemoteRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`,
@@ -33,7 +33,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and log if no format is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc],
+      [...collectCommandRemoteRc, '--format=stdout'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
