@@ -134,6 +134,13 @@ export async function openFlowReport(fileNames: string[]): Promise<void> {
       return Promise.resolve(void 0);
     }
 
+    const mdReport = fileNames.find(i => i.includes('.md'));
+    if (mdReport) {
+      logVerbose('open Markdown report in browser');
+      await openFileInBrowser(mdReport, { wait: false });
+      return Promise.resolve(void 0);
+    }
+
     const jsonReport = fileNames.find(i => i.includes('.json'));
     if (jsonReport) {
       logVerbose('open JSON report in browser');
