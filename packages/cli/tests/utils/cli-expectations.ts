@@ -96,7 +96,8 @@ export function expectCollectCreatesJsonReport(reportPath: string, ufName: strin
 }
 
 export function expectCollectLogsReportByDefault(stdout: string, ufName: string) {
-  expect(stdout).toContain(`MD Table`);
+  expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
+  expect(stdout).toContain(`| Navigate to coffee cart | navigation  |`);
 }
 
 export function expectCollectNotToCreateAReport(reportPath: string) {
