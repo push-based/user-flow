@@ -25,7 +25,7 @@ type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name:
 const _persistMethod = new Map<string, PersistFn>();
 
 _persistMethod.set('stdout', async ({ outPath, flow, name }) => {
-  const report = await flow.generateReport();
+  const report = await flow.createFlowResult();
   const mdReport = userFlowReportToMdTable(report);
   console.log(mdReport);
   return 'stdout';
