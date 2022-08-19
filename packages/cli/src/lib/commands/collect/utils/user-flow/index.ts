@@ -1,4 +1,5 @@
 import { readdirSync } from 'fs';
+import { log } from '../../../../core/utils/loggin';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 
@@ -24,10 +25,10 @@ type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name:
 
 const _persistMethod = new Map<string, PersistFn>();
 
-_persistMethod.set('stdout', async ({ outPath, flow, name }) => {
+_persistMethod.set('stdout', async ({ flow }) => {
   const report = await flow.createFlowResult();
   const mdReport = userFlowReportToMdTable(report);
-  console.log(mdReport);
+  log(mdReport);
   return 'stdout';
 });
 
