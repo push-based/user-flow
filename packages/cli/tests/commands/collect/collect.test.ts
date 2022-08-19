@@ -10,6 +10,7 @@ import {
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 import {
+  expectCollectCreatesHtmlReport,
   expectCollectCreatesJsonReport,
   expectCollectCreatesMdReport,
   expectCollectNoLogsFromMockInStdout,
@@ -38,7 +39,7 @@ const uf1OutPathMd = path.join(
 );
 
 const ufStaticName = 'Sandbox Setup StaticDist';
-const uf1OutPath = path.join(
+const uf1OutPathHtml = path.join(
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   'sandbox-setup-uf1.uf.html'
 );
@@ -66,8 +67,22 @@ describe('collect command in setup sandbox', () => {
     );
     expect(exitCode).toBe(0);
 
-    expectCollectNotToCreateAReport(uf1OutPath);
+    expectCollectNotToCreateAReport(uf1OutPathHtml);
   }, 120_000);
+
+  it('should load ufPath, execute the user-flow on a remote URL and save the results as a HTML file', async () => {
+    const { exitCode, stderr } = await cliPromptTest(
+      [...collectCommandRemoteRc, '--format=html'],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+
+    // Check report file and content of report
+    expectCollectCreatesHtmlReport(uf1OutPathHtml, uf1Name);
+  }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
