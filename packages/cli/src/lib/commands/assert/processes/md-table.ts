@@ -51,7 +51,7 @@ function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
   let results: string[];
   if (step.gatherMode === 'navigation') {
     results = Object.values(step.results).map((v) => {
-      return v ? ((v as unknown as number) * 100) + '' : '-';
+      return v ? ((v as unknown as number) * 100).toFixed(0) + '' : '-';
     });
   } else {
 
