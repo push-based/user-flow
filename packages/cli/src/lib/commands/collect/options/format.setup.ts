@@ -44,19 +44,6 @@ export async function setupFormat(
     ]) : { f: cfgFormat };
 
     format = f;
-   /* format = cfgFormat.length === 0 ? await prompt<{ f: string[] }>([
-      {
-        type: 'multiselect',
-        name: 'f',
-        message: PROMPT_PERSIST_FORMAT,
-        choices: REPORT_FORMAT_OPTIONS,
-        // @NOTICE typing is broken here
-        result(value: string): string {
-          const values = value as any as string[];
-          return values.map(name => REPORT_FORMAT_OPTIONS.find(i => i.name === name)?.value + '') as any as string;
-        }
-      }
-    ]).then(({f}) => f) : cfgFormat ;*/
 
     if (format?.length === 0) {
       return setupFormat(config);
