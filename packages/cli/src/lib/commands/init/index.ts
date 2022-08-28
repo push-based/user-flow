@@ -16,6 +16,18 @@ export const initCommand: YargsCommandObject = {
   builder: (y) => y.options(INIT_OPTIONS),
   module: {
     handler: async (argv: any) => {
+      const env: any = process.env;
+      const t = !!(
+        env.CI || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+        env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
+        env.BUILD_NUMBER || // Jenkins, TeamCity
+        env.RUN_ID || // TaskCluster, dsari
+        exports.name ||
+        false
+      )
+
+      logVerbose(`env: `, env);
+      logVerbose(`CI mode: ` + t);
       logVerbose(`run "init" as a yargs command`);
 
       const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
