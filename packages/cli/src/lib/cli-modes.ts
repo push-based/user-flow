@@ -18,6 +18,27 @@ export function detectCliMode(): CLI_MODES {
 
 export function detectCi(): string {
 
+  /*
+  The following platforms have a CI key:
+
+    CI=true - github
+
+    CI=true - circleci
+
+    CI=true - gitlab
+
+    CI=true - travis
+
+    CI=true - netlify
+
+    CI=1 - vercel
+
+    Unknown:
+
+    ??? - Jenkins
+    ??? - Azure Pipelines
+   */
+
   const CI_TYPE: string = (
     env[CI_PROPERTY] || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
     env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
