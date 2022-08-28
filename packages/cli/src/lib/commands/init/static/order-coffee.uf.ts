@@ -1,10 +1,7 @@
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider
-} from '@push-based/user-flow';
 
 // Your custom interactions with the page
+import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '../../..';
+
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   const { flow, collectOptions } = ctx;
   const { url } = collectOptions;

@@ -2,8 +2,7 @@ import { concurrently } from 'concurrently';
 import { CollectOptions } from '../../../core/rc-json/types';
 import { logVerbose } from '../../../core/utils/loggin';
 import { Subscription } from 'rxjs';
-import { RcJson } from '@push-based/user-flow';
-
+import { RcJson } from '../../../types';
 
 const log = logVerbose;
 

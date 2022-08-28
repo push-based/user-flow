@@ -5,7 +5,7 @@ import { setupOutPath } from '../../collect/options/outPath.setup';
 import { get as getRcPath } from '../../../core/options/rc';
 import { updateRcConfig } from '../../../core/rc-json';
 import { logVerbose } from '../../../core/utils/loggin';
-import { RcJson } from '@push-based/user-flow';
+import { RcJson } from '../../../types';
 
 export async function setupRcJson(cliCfg: RcJson): Promise<RcJson> {
 

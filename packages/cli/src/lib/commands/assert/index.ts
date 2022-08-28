@@ -2,6 +2,9 @@ import  { YargsCommandObject } from '../../core/utils/yargs/types';
 import { logVerbose } from '../../core/utils/loggin/index';
 import { RcJson } from '../../types';
 import { readBudgets } from './utils/budgets';
+import { getCLIConfigFromArgv } from '../../core/utils/yargs';
+import { userFlowReportToMdTable } from './processes/md-table';
+import { readFile } from '../../core/utils/file';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',
@@ -9,7 +12,11 @@ export const assertCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "assert" as a yargs command`);
-      const cfg = await run(argv);
+      const cfg = getCLIConfigFromArgv(argv);
+      const json = JSON.parse(readFile('./packages/cli/docs/raw/order-coffee.uf.json').toString());
+      const table = userFlowReportToMdTable(json);
+      console.log('table', table);
+     //  await run(cfg);
     }
   }
 };

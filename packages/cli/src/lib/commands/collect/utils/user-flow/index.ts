@@ -1,4 +1,5 @@
 import { readdirSync } from 'fs';
+import { log } from '../../../../core/utils/loggin';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 
@@ -18,10 +19,26 @@ import { UserFlowProvider } from './types';
 import { get as openOpt } from '../../options/open';
 import { get as interactive } from '../../../../core/options/interactive';
 import * as openFileInBrowser from 'open';
+import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 
 type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
 
 const _persistMethod = new Map<string, PersistFn>();
+
+_persistMethod.set('md', async ({ outPath, flow, name }) => {
+  const report = await flow.createFlowResult();
+  const mdReport = userFlowReportToMdTable(report);
+  const fileName = join(outPath, `${toFileName(name)}.uf.md`);
+  writeFile(fileName, mdReport);
+  return fileName;
+});
+
+_persistMethod.set('stdout', async ({ flow }) => {
+  const report = await flow.createFlowResult();
+  const mdReport = userFlowReportToMdTable(report);
+  log(mdReport);
+  return 'stdout';
+});
 
 _persistMethod.set('html', async ({ outPath, flow, name }) => {
   const report = await flow.generateReport();
@@ -31,14 +48,16 @@ _persistMethod.set('html', async ({ outPath, flow, name }) => {
 });
 
 _persistMethod.set('json', async ({ outPath, flow, name }) => {
-    const report = await flow.createFlowResult();
-    const fileName = join(outPath, `${toFileName(name)}.uf.json`);
-    writeFile(fileName, JSON.stringify(report));
-    return fileName;
-  }
-);
+  const report = await flow.createFlowResult();
+  const fileName = join(outPath, `${toFileName(name)}.uf.json`);
+  writeFile(fileName, JSON.stringify(report));
+  return fileName;
+});
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+  if (!format.length) {
+    format = ['stdout']
+  }
   // @Notice: there might be a bug in user flow and Promise's
   return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
 }
@@ -112,6 +131,13 @@ export async function openFlowReport(fileNames: string[]): Promise<void> {
     if (htmlReport) {
       logVerbose('open HTML report in browser');
       await openFileInBrowser(htmlReport, { wait: false });
+      return Promise.resolve(void 0);
+    }
+
+    const mdReport = fileNames.find(i => i.includes('.md'));
+    if (mdReport) {
+      logVerbose('open Markdown report in browser');
+      await openFileInBrowser(mdReport, { wait: false });
       return Promise.resolve(void 0);
     }
 

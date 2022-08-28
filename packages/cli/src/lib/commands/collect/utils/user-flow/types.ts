@@ -4,7 +4,7 @@ import {
   BrowserLaunchArgumentOptions,
   LaunchOptions as PPTLaunchOptions,
   Page,
-  Product,
+  Product
 } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
@@ -12,6 +12,9 @@ import * as Config from 'lighthouse/types/config';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import { PickOne } from '../../../../core/utils/types';
+import FlowResult from 'lighthouse/types/lhr/flow';
+
 
 export type UserFlowContext = {
   browser: Browser;
@@ -43,9 +46,9 @@ export type UserFlowOptions = {
 export type LaunchOptions = PPTLaunchOptions &
   BrowserLaunchArgumentOptions &
   BrowserConnectOptions & {
-    product?: Product;
-    extraPrefsFirefox?: Record<string, unknown>;
-  };
+  product?: Product;
+  extraPrefsFirefox?: Record<string, unknown>;
+};
 
 /**
  * budgets: path to budgets file
@@ -63,3 +66,42 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
+
+export type ReducedReport = {
+  name: string;
+  steps: ReducedFlowStep[];
+}
+
+
+type UfrSlice = PickOne<FlowResult>;
+type LhrSlice = PickOne<FlowResult.Step['lhr']>;
+/**
+ * Plucks key value from oroginal LH report
+ * @example
+ *
+ * const t: GatherModeSlice = {gatherMode: 'navigation'};
+ * const f1: GatherModeSlice = {gatherddMode: 'navigation'};
+ * const f2: GatherModeSlice = {gatherMode: 'navigationddddd'};
+ */
+type LhrGatherModeSlice = LhrSlice & { gatherMode: FlowResult.Step['lhr']['gatherMode'] };
+type UfrNameSlice = UfrSlice & { name: string };
+
+
+/**
+ * This type is the result of `calculateCategoryFraction` https://github.com/GoogleChrome/lighthouse/blob/master/core/util.cjs#L540.
+ * As there is no typing present ATM we maintain our own.
+ */
+export type FractionResults = {
+  numPassed: number;
+  numPassableAudits: number;
+  numInformative: number;
+  totalWeight: number;
+}
+
+export type ReducedFlowStepResult = Record<string, number | FractionResults>;
+
+export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
+  {
+    results: ReducedFlowStepResult;
+  };
+
