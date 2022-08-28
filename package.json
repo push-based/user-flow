@@ -6,7 +6,7 @@
     "nx": "nx",
     "build": "nx build cli",
     "kill": "npx kill-port 5032",
-    "updateSandboxes": "npm run test -- --testNamePattern=cli-setup",
+    "updateSandboxes": "npm run test -- --testNamePattern=\"should return SANDBOX in sandbox mode\"",
     "reset": "npm run build && npm run updateSandboxes",
     "test": "nx build cli && nx test cli",
     "publish": "nx run cli",
