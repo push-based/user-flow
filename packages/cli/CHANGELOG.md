@@ -2,6 +2,53 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.8.0](https://github.com/push-based/user-flow/compare/cli-0.7.8...cli-0.8.0) (2022-08-28)
+
+
+### Bug Fixes
+
+* add expected output contains to test ([665883b](https://github.com/push-based/user-flow/commit/665883b0f7a1d921a6925eb8adb5732048373b96))
+* add helper types for composing types ([261719b](https://github.com/push-based/user-flow/commit/261719b1e51d422135555440b9b3ae0818248515))
+* add initial markdown results ([0ad3cc8](https://github.com/push-based/user-flow/commit/0ad3cc8572eca6e78c7db083caf71bc9a17147c1))
+* add md row extracting ([ff96721](https://github.com/push-based/user-flow/commit/ff96721057487a5961038589c2a76ebe2d41d6da))
+* add persit method for markdownformat ([f49afff](https://github.com/push-based/user-flow/commit/f49afffe015be27b37b5dab36be4d573bb1930e4))
+* add report format option of stdout ([04ab8cb](https://github.com/push-based/user-flow/commit/04ab8cb2793218644cc1365155d5f8f9c10e404b))
+* add stdout persist method ([ff33b61](https://github.com/push-based/user-flow/commit/ff33b61b0969f202cc398f8658ad984d0f2bd10f))
+* add test for collect html file format ([549e70b](https://github.com/push-based/user-flow/commit/549e70b92fa6a4b5f03b922d00545cd4f881fb26))
+* add test for markdown format ([41f29ba](https://github.com/push-based/user-flow/commit/41f29ba7ef09e9f95e57571c415cabb6a50cef8f))
+* adjust results ([8a2d0d9](https://github.com/push-based/user-flow/commit/8a2d0d908205aaebd7590edacaeaf3fa0ba25183))
+* adjust typing ([447a53c](https://github.com/push-based/user-flow/commit/447a53c854b272a6dcf6477d596e75fa86f16ddf))
+* adjust typing and take real result ([3f79a0e](https://github.com/push-based/user-flow/commit/3f79a0eb1bdee37ed0b9a2ba760eee47bae86e9b))
+* change mdTable test to take report not reduced report ([ad41cec](https://github.com/push-based/user-flow/commit/ad41cec7d3c978550ee07b9b685a5fe7f1899569))
+* change test from to be to toEqual ([ed03ce7](https://github.com/push-based/user-flow/commit/ed03ce704df346cb547b3479e5202516acd3a17c))
+* correct error message for acceptable formats ([80ee6d7](https://github.com/push-based/user-flow/commit/80ee6d784229b264f581a5477feb89fdf55ed161))
+* correct expected reduced report ([3e45b62](https://github.com/push-based/user-flow/commit/3e45b621496cd5921bbf576c042548d9ec792f6c))
+* correct typos jons -> json ([667f9ac](https://github.com/push-based/user-flow/commit/667f9ace8994c135bc29584fcbb36fad30570690))
+* fix import path ([270edaa](https://github.com/push-based/user-flow/commit/270edaac53864e70b093e8e02652a255ea513f8e))
+* format with prettier ([ca87513](https://github.com/push-based/user-flow/commit/ca875131c0e574edce46a82195b404ffd65d101a))
+* improve markdown table function ([f178d44](https://github.com/push-based/user-flow/commit/f178d443eb868dc98b873bfee1d3d38451fe28ae))
+* improve Reduced report typing ([bf23fb5](https://github.com/push-based/user-flow/commit/bf23fb5418218cc6414ece098f2018c41c046d90))
+* open recently created markdown file ([f44fe2f](https://github.com/push-based/user-flow/commit/f44fe2fa0acb48d80f9fab7b04b6ad2f166eb69b))
+* pass json report to md generator ([c41ac27](https://github.com/push-based/user-flow/commit/c41ac275da75128ed0904290c30e470d0902a1f0))
+* re-use LH types ([2e48f17](https://github.com/push-based/user-flow/commit/2e48f178b30604aedd3a523465deb4c02088d087))
+* remove import method with own method ([89320e4](https://github.com/push-based/user-flow/commit/89320e4ea411e084c282c7c40d45442dc3e0fee1))
+* remove unused params and change console log to log ([cf963e5](https://github.com/push-based/user-flow/commit/cf963e5841582a2298647f175b4e293de7b81097))
+* removed unused code and change test name ([e9490aa](https://github.com/push-based/user-flow/commit/e9490aa8c670788859d992334f752bd503cf7335))
+* test overwrites format ([fc748a4](https://github.com/push-based/user-flow/commit/fc748a4a07e5d709c98c71805059ddebadaf2ce0))
+* use correct step name ([29b3963](https://github.com/push-based/user-flow/commit/29b3963c647ca0c83739f7fdd5ace1b0e63edc85))
+* use toFixed(0) to add floating point persition ([046ad27](https://github.com/push-based/user-flow/commit/046ad2747ee302713c72db529009ef1036398b45))
+* wrong imports ([0ae655c](https://github.com/push-based/user-flow/commit/0ae655c8285bb78eda4131d897e693e51ffb20a2))
+
+
+### Features
+
+* add assert command ([c3bcb5f](https://github.com/push-based/user-flow/commit/c3bcb5fa1e4c149e8434231d2bfefbb35b1bf85c))
+* add cli report type ([8076303](https://github.com/push-based/user-flow/commit/8076303707da0ba55e779e39e619f34b93f1e396))
+* add markdown format for flow output ([829a6d2](https://github.com/push-based/user-flow/commit/829a6d28ef50924a614e8789625cd1f2dba0b305))
+* add reduced json generator ([8771a36](https://github.com/push-based/user-flow/commit/8771a365d00182a8cc36123bb1024309478dde93))
+
+
+
 ## [0.7.8](https://github.com/push-based/user-flow/compare/cli-0.7.7...cli-0.7.8) (2022-08-28)
 
 
