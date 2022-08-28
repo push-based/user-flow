@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.7.8](https://github.com/push-based/user-flow/compare/cli-0.7.7...cli-0.7.8) (2022-08-28)
+
+
+### Bug Fixes
+
+* add code comments remove logs ([47fea62](https://github.com/push-based/user-flow/commit/47fea62716e977fbc7d31f8978e12c33fd318278))
+* new collect code using concat ([4ac1960](https://github.com/push-based/user-flow/commit/4ac19606589d374ae027881ec7080b367b893ded))
+* remove unused code and comments ([eb707d0](https://github.com/push-based/user-flow/commit/eb707d0c2389b8a0c59767e48f10a75a1d55a4cf))
+* throw if no user flows are present ([7fc8732](https://github.com/push-based/user-flow/commit/7fc8732ceba90a3547b7532929736101344c13b2))
+
+
+
 ## [0.7.7](https://github.com/push-based/user-flow/compare/cli-0.7.6...cli-0.7.7) (2022-05-19)
 
 
