@@ -3,21 +3,27 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
 
+type ExtToOutPut<EXT extends string | undefined = undefined> = EXT extends undefined ? string
+  : EXT extends 'json' ? {}
+  : never;
+export type ReadFileConfig = { fail?: boolean, ext?: 'json'};
+
 /**
  * Ensures the file exists before reading it
  */
-export function readFile(path: string, cfg: { fail?: boolean, etx?: 'json'} = {fail: false}): string {
+export function readFile<T extends ReadFileConfig>(path: string, cfg?: T): ExtToOutPut<T['ext']> {
+  cfg = {fail: false, ...(cfg as T || {})}
   const errorStr = `${path} does not exist.`;
   let textContent = undefined;
   if (existsSync(path)) {
     textContent = readFileSync(path, 'utf-8');
 
     // @TODO test it
-    if(cfg?.etx === 'json') {
-      return JSON.parse(textContent);
+    if(cfg?.ext === 'json') {
+      return JSON.parse(textContent) as ExtToOutPut<T['ext']>;
     }
 
-    return textContent;
+    return textContent as ExtToOutPut<T['ext']>;
   } else {
     if (cfg.fail) {
       throw new Error(errorStr);
@@ -25,8 +31,9 @@ export function readFile(path: string, cfg: { fail?: boolean, etx?: 'json'} = {f
     logVerbose(errorStr);
   }
 
-  return '';
+  return '' as ExtToOutPut<T['ext']>;
 }
+
 
 /**
  * Ensures the folder exists before writing it

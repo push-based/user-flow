@@ -1,28 +1,20 @@
 import {createRunner, parse, PuppeteerRunnerExtension, Runner, Step, UserFlow} from "@puppeteer/replay";
 import {Browser, Page} from "puppeteer";
-import {readFileSync} from "fs";
-
-/**
- *  'navigation' is already covered by `@puppeteer/replay`
- */
-export type measureModes = 'snapshot' | 'startTimespan' | 'stopTimespan';
-
-// try to extend `LighthouseRunnerExtension` it has already some edge case handling for time spans
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { UserFlow as LhUserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import { measureModes } from './types';
+import { readFile } from '../../../../core/utils/file';
 
 export class UserFlowExtension extends PuppeteerRunnerExtension {
 
-  constructor(browser: Browser, page: Page, private lhFlow: {
-    startTimespan: () => void,
-    stopTimespan: () => void,
-    snapshot: () => void
-    navigation: () => void
-  }, opts?: {
+  constructor(browser: Browser, page: Page, private lhFlow: LhUserFlow, opts?: {
     timeout?: number;
   }) {
     super(browser, page, opts);
   }
 
-  async runStep(step: Step | { type: measureModes }, flow: UserFlow): Promise<void> {
+  override async runStep(step: Step | { type: measureModes }, flow: UserFlow): Promise<void> {
 
     if (isMeasureType(step.type)) {
       return this.lhFlow[step.type]();
@@ -46,7 +38,7 @@ export function isMeasureType(str: string) {
 }
 
 export function parseUserFlowRecording(recordingJson: { title: string, steps: {}[] }): UserFlow {
-  const ufArr = [];
+  const ufArr: Step[] = [];
   // filter out user-flow specific actions
   const steps = recordingJson.steps.filter(
     (value: any, index) => {
@@ -66,9 +58,9 @@ export function parseUserFlowRecording(recordingJson: { title: string, steps: {}
   return parsed;
 }
 
-export async function createUserFlowRunner(path: string, {browser, page, lhFlow}): Promise<Runner> {
+export async function createUserFlowRunner(path: string, ctx: {browser: Browser, page: Page, lhFlow: LhUserFlow}): Promise<Runner> {
+  const {browser, page, lhFlow} = ctx;
   const userflowRunnerExtension = new UserFlowExtension(browser, page, lhFlow);
-  const recordingText = readFileSync(path, 'utf8');
-  const recording = parseUserFlowRecording(JSON.parse(recordingText));
+  const recording = parseUserFlowRecording(readFile(path, { ext: 'json' }) as {title: string, steps: Step[]});
   return await createRunner(recording, userflowRunnerExtension);
 }
