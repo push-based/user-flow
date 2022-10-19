@@ -6,12 +6,20 @@ import { getParserFromExtname, formatCode } from './prettier';
 /**
  * Ensures the file exists before reading it
  */
-export function readFile(path: string, fail = false): string {
+export function readFile(path: string, cfg: { fail?: boolean, etx?: 'json'} = {fail: false}): string {
   const errorStr = `${path} does not exist.`;
+  let textContent = undefined;
   if (existsSync(path)) {
-    return readFileSync(path, 'utf-8');
+    textContent = readFileSync(path, 'utf-8');
+
+    // @TODO test it
+    if(cfg?.etx === 'json') {
+      return JSON.parse(textContent);
+    }
+
+    return textContent;
   } else {
-    if (fail) {
+    if (cfg.fail) {
       throw new Error(errorStr);
     }
     logVerbose(errorStr);
