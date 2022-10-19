@@ -6,3 +6,5 @@ export { LaunchOptions } from './commands/collect/utils/user-flow/types';
 export { UserFlowContext } from './commands/collect/utils/user-flow/types';
 export { UserFlowProvider } from './commands/collect/utils/user-flow/types';
 export { UserFlowInteractionsFn } from './commands/collect/utils/user-flow/types';
+export { UserFlowExtension } from './commands/collect/utils/replay';
+export { MeasureModes } from './commands/collect/utils/replay/types';

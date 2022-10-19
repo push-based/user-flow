@@ -3,7 +3,7 @@ import {Browser, Page} from "puppeteer";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { UserFlow as LhUserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
-import { measureModes } from './types';
+import { MeasureModes } from './types';
 import { readFile } from '../../../../core/utils/file';
 
 export class UserFlowExtension extends PuppeteerRunnerExtension {
@@ -14,7 +14,7 @@ export class UserFlowExtension extends PuppeteerRunnerExtension {
     super(browser, page, opts);
   }
 
-  override async runStep(step: Step | { type: measureModes }, flow: UserFlow): Promise<void> {
+  override async runStep(step: Step | { type: MeasureModes }, flow: UserFlow): Promise<void> {
 
     if (isMeasureType(step.type)) {
       return this.lhFlow[step.type]();
