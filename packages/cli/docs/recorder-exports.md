@@ -108,57 +108,14 @@ The available types, in addition to the navigate action type, are:
 - startTimespan
 - stopTimespan
 
-To extract the navigation add the domain url from the recording an add it to the `.user-flowrc.json` file in the base of the directory: 
+## Combine it with custom code
 
-```json
-{
-  "collect": {
-    "url": "https://coffee-cart.netlify.app/", // Add the domain url
-    "ufPath": "./user-flows"
-  },
-  "persist": { "outPath": "./measures", "format": ["html"] }
-} 
-```
+TODO => show how to wrap with timespan
 
-And remove the step from the recording navigation:
-```json
-{
-  "title": "recording",
-  "steps": [
-    // Remove the navigation step
-    {
-      "type": "navigate",
-      "url": "https://coffee-cart.netlify.app/",
-      "assertedEvents": [
-        {
-          "type": "navigation",
-          "url": "https://coffee-cart.netlify.app/",
-          "title": "Coffee cart"
-        }
-      ]
-    }
-  ]
-}
-```
+# Advanced architecture
 
-Then create a flow navigation in your userflow:
+# Resources
 
-```ts
-await flow.navigate(url, {
-    stepName: "Navigate to coffee cart",
-});
-```
-
-- Remove un unwanted configs eg. Desktop only
-- Extract the action you want 
-  - Cold Initial Navigation
-  - Warm Initial Navigation
-
-- Separate actions into timespans
-- Add snapshots
-- Add additional logic
-
-
-// TODO compair output of of recording vs user-flow recording
+// Compare programmatic vs recorded
 
 // TODO add resource link
