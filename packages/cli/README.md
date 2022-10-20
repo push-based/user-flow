@@ -9,6 +9,20 @@
 
 ---
 
+# What is it?
+
+A CLI tool to measure performance continuously and also integrate it into your CLI.
+It's provides lots of DX features, nice commands with ritch arguments and integration with latest dev tooling. 
+
+# Why to use it?
+
+It will enable you to measure bootstrap as well as runtime performance with mimimum effort, 
+speed up your performance test development and reduced the needed code and configuration to a minimum. 
+
+In addition it is alway up to date with the lates Chrome DevTools features.
+
+ 
+
 **Benefits**
 
 - ⚙ Run it in your CI  
