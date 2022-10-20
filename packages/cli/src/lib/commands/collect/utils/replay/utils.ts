@@ -1,22 +1,22 @@
 import {parse as puppeteerReplayParse, Step, UserFlow} from "@puppeteer/replay";
+import {MeasureModes} from "./types";
 
 export function isMeasureType(str: string) {
-    switch (str) {
-        case 'navigation':
+    switch (str as MeasureModes) {
+        // case 'navigation': We skip this as it is implemented by lh-extension already
         case 'snapshot':
         case 'startTimespan':
-        case 'stopTimespan':
+        case 'endTimespan':
             return true;
         default:
             return false;
     }
 }
-
 export function parse(recordingJson: { title: string, steps: {}[] }): UserFlow {
     const ufArr: Step[] = [];
     // filter out user-flow specific actions
     const steps = recordingJson.steps.filter(
-        (value: any, index) => {
+        (value: any, index: number) => {
             if (isMeasureType(value?.type)) {
                 ufArr[index] = value;
                 return false;
@@ -28,7 +28,7 @@ export function parse(recordingJson: { title: string, steps: {}[] }): UserFlow {
     const parsed = puppeteerReplayParse({...recordingJson, steps});
     // add in user-flow specific actions
     ufArr.forEach((value, index) => {
-        value && (parsed.steps[index] = value);
+        value && (parsed.steps.splice(index, 0, value));
     });
     return parsed;
 }
