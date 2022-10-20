@@ -216,6 +216,12 @@ We provide general interaction through the keyboard or `stdin` directly for test
 
 ## Commands 
 
+> **💡 Pro Tip:**
+> CLI arguments that accept multiple values can be set by using the param multiple times in a row:
+>
+> As an example we could apply two different formats as output for the `collect` command:
+> `npx user-flow collect --format=json --format=md`
+
 ### `*` command
 
 Run the default command over:  
