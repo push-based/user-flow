@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { log } from '../../../../core/utils/loggin';
+import { log, logVerbose } from '../../../../core/utils/loggin';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 
@@ -7,7 +7,6 @@ import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file';
 import { join, normalize } from 'path';
-import { logVerbose } from '../../../../core/utils/loggin';
 import { get as dryRun } from '../../../../core/options/dryRun';
 import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';
 import { detectCliMode } from '../../../../cli-modes';
@@ -105,7 +104,12 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
   } catch (e) {
     throw new Error(`ufPath: ${ufPath} is no directory`);
   }
-  const flows = readdirSync(ufPath).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
+  const flows = ufDirectory
+    .filter(filename => {
+      const ext = filename.split('.').pop();
+      return ext === 'ts' || ext === 'js';
+    })
+    .map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
 
   if(flows.length  === 0) {
     // @TODO use const for error msg
