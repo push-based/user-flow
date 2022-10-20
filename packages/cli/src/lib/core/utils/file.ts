@@ -3,27 +3,61 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
 
-type ExtToOutPut<EXT extends string | undefined = undefined> = EXT extends undefined ? string
-  : EXT extends 'json' ? {}
-  : never;
-export type ReadFileConfig = { fail?: boolean, ext?: 'json'};
+
+type IsDefined<T extends {} | undefined = undefined,
+  K extends keyof T | undefined = undefined,
+  > = T extends undefined ? false :
+  K extends undefined ? true : K extends keyof T ? true : false;
+
+/*
+type ExtToOutPut<CFG extends ReadFileConfig | undefined = undefined> = IsDefined<CFG> extends CFG ?
+  IsDefined<CFG>['ext'] extends string ? IsDefined<CFG>['ext'] extends 'json' ? {} : never;
+
+ */
+type ExtToOutPut<CFG extends ReadFileConfig, R = undefined> =
+// if cfg not given
+  IsDefined<CFG, 'ext'> extends false ? string :
+    // if ext prop present but undefined
+    CFG['ext'] extends undefined ? string :
+      // if ext prop present
+      CFG['ext'] extends 'json' ? R extends undefined ? {} :
+        // if type given
+        R extends undefined ? {} : R :
+        // else
+        string;
+/*
+type undef = IsDefined;
+type r = IsDefined;
+type t = IsDefined<undef>;
+type u = IsDefined<{ext: undefined}>;
+type l = IsDefined<{ext: string}>;
+type v = IsDefined<{po: string}, 'po'>;
+// type p = IsDefined<{po: string}, 'o'>; // errors
+// type i = ExtToOutPut; // error
+type a = ExtToOutPut<{}>; // string
+type b = ExtToOutPut<{ext: 'json'}>;  // {}
+type d = ExtToOutPut<{ext: 'json'}, number>;  // number
+// type f = ExtToOutPut<{ext: 234}>;  // errors
+// type h = ExtToOutPut<{ext: 'sda'}>; // errors
+*/
+
+export type ReadFileConfig = { fail?: boolean, ext?: 'json' };
 
 /**
  * Ensures the file exists before reading it
  */
-export function readFile<T extends ReadFileConfig>(path: string, cfg?: T): ExtToOutPut<T['ext']> {
-  cfg = {fail: false, ...(cfg as T || {})}
+export function readFile<T extends ReadFileConfig, R = undefined>(path: string, cfg?: T): ExtToOutPut<T, R> {
+  cfg = { fail: false, ...(cfg as T || {}) };
   const errorStr = `${path} does not exist.`;
   let textContent = undefined;
   if (existsSync(path)) {
     textContent = readFileSync(path, 'utf-8');
 
-    // @TODO test it
-    if(cfg?.ext === 'json') {
-      return JSON.parse(textContent) as ExtToOutPut<T['ext']>;
+    if (cfg?.ext === 'json') {
+      return JSON.parse(textContent) as ExtToOutPut<T, R>;
     }
 
-    return textContent as ExtToOutPut<T['ext']>;
+    return textContent as ExtToOutPut<T, R>;
   } else {
     if (cfg.fail) {
       throw new Error(errorStr);
@@ -31,7 +65,7 @@ export function readFile<T extends ReadFileConfig>(path: string, cfg?: T): ExtTo
     logVerbose(errorStr);
   }
 
-  return '' as ExtToOutPut<T['ext']>;
+  return '' as ExtToOutPut<T, R>;
 }
 
 
@@ -65,8 +99,8 @@ export function resolveAnyFile<T>(path: string): { exports: T; path: string } {
       transpileOnly: true,
       compilerOptions: {
         module: 'commonjs',
-        strict: false,
-      },
+        strict: false
+      }
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
