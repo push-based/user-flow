@@ -1,8 +1,19 @@
-// Explain how to create a recording
+# Use DevTools Recorder exports to run user flows
 
-# Basic Setup
+If you are not familiar with the recorder tool please make sure you are aware of the following content:
 
-We start with a basic setup of a user-flow
+TODO links to most important articles and videos
+
+In this document we will learn:
+- How to recode a user flow with chrome devtools recorder
+- How to export it
+- How to use it in `@push-based/user-flow`
+
+# Initial Setup
+
+You can find information on how to do a [basic setup](TODO link to docs for basic setup) in the docs.
+
+We start with a basic setup of a user-flow.
 
 ```ts
 import {
@@ -30,7 +41,6 @@ const userFlowProvider: UserFlowProvider = {
 
 module.exports = userFlowProvider;
 ```
-
 
 # Using Recorder Replay files in Userflow
 
@@ -79,7 +89,7 @@ You should see the browser opening a report.
 
 ## Separating the recording into multiple timespan's
 
-Now that we have a basic userflow running we can add actions to get more detailed information about the different interactions. 
+Now that we have a basic user flow running we can add actions to get more detailed information about the different interactions. 
 
 We can add the a set of `@push-based/user-flow` actions as simple object to the steps array:
 
@@ -93,12 +103,10 @@ We can add the a set of `@push-based/user-flow` actions as simple object to the 
 ]
 ```
 
-The available types next to the navigate action type are:
+The available types, in addition to the navigate action type, are:
 - snapshot
 - startTimespan
 - stopTimespan
-
-// TODO add link
 
 To extract the navigation add the domain url from the recording an add it to the `.user-flowrc.json` file in the base of the directory: 
 
@@ -111,6 +119,7 @@ To extract the navigation add the domain url from the recording an add it to the
   "persist": { "outPath": "./measures", "format": ["html"] }
 } 
 ```
+
 And remove the step from the recording navigation:
 ```json
 {
@@ -151,3 +160,5 @@ await flow.navigate(url, {
 
 
 // TODO compair output of of recording vs user-flow recording
+
+// TODO add resource link
