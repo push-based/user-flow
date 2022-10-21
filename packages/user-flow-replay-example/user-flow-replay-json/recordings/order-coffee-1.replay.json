@@ -72,16 +72,6 @@
     },
     {
       "type": "change",
-      "value": "nina@gmail.c",
-      "selectors": [
-        [
-          "#email"
-        ]
-      ],
-      "target": "main"
-    },
-    {
-      "type": "change",
       "value": "nina@gmail.com",
       "selectors": [
         [
