@@ -73,7 +73,7 @@ const interactions: UserFlowInteractionsFn = async (
   await flow.startTimespan({ stepName: 'Checkout order' });
   
   // Use the create function to instanciate a the user-flow runner.
-  const runner = await createUserFlowRunner('./recordings/order-coffee.replay.json')
+  const runner = await createUserFlowRunner('./recordings/order-coffee.replay.json', ctx)
   await runner.run();
 
   await flow.endTimespan();
