@@ -52,7 +52,8 @@ module.exports = userFlowProvider;
 coffee-app-userflows
 |- measures/...
 |- recordings/recording.json
-|- 
+|- user-flows/...
+./user-flowrc.json
 ... 
 ```
 
@@ -93,20 +94,34 @@ Now that we have a basic user flow running we can add actions to get more detail
 
 We can add the a set of `@push-based/user-flow` actions as simple object to the steps array:
 
+The available types, in addition to the navigate action type, are:
+- startTimespan
+- endTimespan
+- snapshot
+
 ```json
 [
+  { "type": "startTimespan" },
   { 
     "type": "click",
     ...
   },
+  { "type": "endTimespan" },
   { "type": "snapshot" }
 ]
 ```
 
-The available types, in addition to the navigate action type, are:
-- snapshot
-- startTimespan
-- stopTimespan
+Now that we have added the timespans in the json we need to remove the surrounding:
+
+```typescript
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext
+): Promise<any> => {
+
+  const runner = await createUserFlowRunner('./recordings/order-coffee-2.replay.json', ctx);
+  await runner.run();
+};
+```
 
 ## Combine it with custom code
 
