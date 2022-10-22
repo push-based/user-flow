@@ -21,45 +21,37 @@ import { get as interactive } from '../../../../core/options/interactive';
 import * as openFileInBrowser from 'open';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 
-type PersistFn = (cfg: Pick<PersistOptions, 'outPath'> & { flow: UserFlow, name: string }) => Promise<string>;
-
-const _persistMethod = new Map<string, PersistFn>();
-
-_persistMethod.set('md', async ({ outPath, flow, name }) => {
-  const report = await flow.createFlowResult();
-  const mdReport = userFlowReportToMdTable(report);
-  const fileName = join(outPath, `${toFileName(name)}.uf.md`);
-  writeFile(fileName, mdReport);
-  return fileName;
-});
-
-_persistMethod.set('stdout', async ({ flow }) => {
-  const report = await flow.createFlowResult();
-  const mdReport = userFlowReportToMdTable(report);
-  log(mdReport);
-  return 'stdout';
-});
-
-_persistMethod.set('html', async ({ outPath, flow, name }) => {
-  const report = await flow.generateReport();
-  const fileName = join(outPath, `${toFileName(name)}.uf.html`);
-  writeFile(fileName, report);
-  return fileName;
-});
-
-_persistMethod.set('json', async ({ outPath, flow, name }) => {
-  const report = await flow.createFlowResult();
-  const fileName = join(outPath, `${toFileName(name)}.uf.json`);
-  writeFile(fileName, JSON.stringify(report));
-  return fileName;
-});
-
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
   if (!format.length) {
     format = ['stdout']
   }
-  // @Notice: there might be a bug in user flow and Promise's
-  return Promise.all(format.map((f: string) => (_persistMethod.get(f) as any)({ flow, name, outPath })));
+
+  const jsonReport = await flow.createFlowResult();
+
+  const results: {format: string, out: any}[] = []
+  if (format.includes('json')) {
+    results.push({format: 'json', out: JSON.stringify(jsonReport)})
+  }
+  let mdReport = undefined;
+  if (format.includes('md')) {
+    mdReport = userFlowReportToMdTable(jsonReport);
+    results.push({format: 'md', out: mdReport})
+  }
+  if (format.includes('stdout')) {
+    mdReport = mdReport || userFlowReportToMdTable(jsonReport);
+    log(mdReport);
+  }
+  if (format.includes('html')) {
+    const htmlReport = await flow.generateReport();
+    results.push({format: 'html', out: htmlReport})
+  }
+
+  const fileNames = results.map((result) => {
+    const fileName = join(outPath, `${toFileName(name)}.uf.${result.format}`);
+    writeFile(fileName, result.out);
+    return fileName
+  });
+  return fileNames;
 }
 
 export async function collectFlow(
