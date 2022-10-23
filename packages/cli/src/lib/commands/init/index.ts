@@ -1,14 +1,14 @@
-import { YargsCommandObject } from '../../core/utils/yargs/types';
-import { log, logVerbose } from '../../core/utils/loggin';
+import { YargsCommandObject } from '../../core/yargs/types';
+import { log, logVerbose } from '../../core/loggin';
 import { RcArgvOptions, RcJson } from '../../types';
 import { INIT_OPTIONS } from './options';
-import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 import { addUserFlow, getExamplePathDest } from './utils';
 import { setupRcJson } from './processes/setup-rc-json';
-import { askToSkip } from '../../core/utils/prompt';
-import { run } from '../../core/utils/processing/behaviors';
-import { readFile } from '../../core/utils/file';
+import { askToSkip } from '../../core/prompt';
+import { run } from '../../core/processing';
+import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
+import { getCLIConfigFromArgv } from '../../core/rc-json';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',

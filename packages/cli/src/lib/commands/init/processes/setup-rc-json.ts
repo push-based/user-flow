@@ -2,9 +2,9 @@ import { setupUrl } from '../../collect/options/url.setup';
 import { setupUfPath } from '../../collect/options/ufPath.setup';
 import { setupFormat } from '../../collect/options/format.setup';
 import { setupOutPath } from '../../collect/options/outPath.setup';
-import { get as getRcPath } from '../../../core/options/rc';
+import { get as getRcPath } from '../../../global/options/rc';
 import { updateRcConfig } from '../../../core/rc-json';
-import { logVerbose } from '../../../core/utils/loggin';
+import { logVerbose } from '../../../core/loggin';
 import { RcJson } from '../../../types';
 
 export async function setupRcJson(cliCfg: RcJson): Promise<RcJson> {

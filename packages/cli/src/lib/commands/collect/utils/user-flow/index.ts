@@ -1,14 +1,14 @@
 import { readdirSync } from 'fs';
-import { log } from '../../../../core/utils/loggin';
+import { log } from '../../../../core/loggin';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
-import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file';
+import { resolveAnyFile, toFileName, writeFile } from '../../../../core/file';
 import { join, normalize } from 'path';
-import { logVerbose } from '../../../../core/utils/loggin';
-import { get as dryRun } from '../../../../core/options/dryRun';
+import { logVerbose } from '../../../../core/loggin';
+import { get as dryRun } from '../../../../global/options/dryRun';
 import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';
 import { detectCliMode } from '../../../../cli-modes';
 import { readBudgets } from '../../../assert/utils/budgets';
@@ -17,7 +17,7 @@ import * as Config from 'lighthouse/types/config';
 import { UserFlowMock } from './user-flow.mock';
 import { UserFlowProvider } from './types';
 import { get as openOpt } from '../../options/open';
-import { get as interactive } from '../../../../core/options/interactive';
+import { get as interactive } from '../../../../global/options/interactive';
 import * as openFileInBrowser from 'open';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 

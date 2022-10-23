@@ -1,4 +1,4 @@
-import { RcJson } from '../../../types';
+import { RcJson } from '../../types';
 
 export interface CLIProcess {
   (cfg: RcJson): Promise<RcJson>;

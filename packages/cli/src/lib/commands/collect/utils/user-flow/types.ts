@@ -12,7 +12,7 @@ import * as Config from 'lighthouse/types/config';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-import { PickOne } from '../../../../core/utils/types';
+import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 

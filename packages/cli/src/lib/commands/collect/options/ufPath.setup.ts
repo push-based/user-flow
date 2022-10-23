@@ -1,7 +1,7 @@
 import { RcJson } from '../../../types';
-import { get as interactive } from '../../../core/options/interactive';
-import { promptParam } from '../../../core/utils/prompt';
-import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';
+import { get as interactive } from '../../../global/options/interactive';
+import { promptParam } from '../../../core/prompt';
+import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { PROMPT_COLLECT_UF_PATH, DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED } from './ufPath.constant';
 import { mkdirSync, readdirSync } from 'fs';
 

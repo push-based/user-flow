@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './dryRun.model';
-import { ArgvOption } from '../utils/yargs/types';
+import { ArgvOption } from '../../core/yargs/types';
 
 export const param: Param = {
   dryRun: {
