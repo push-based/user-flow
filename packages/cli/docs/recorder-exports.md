@@ -56,14 +56,16 @@ module.exports = userFlowProvider;
 
 3. Store the json files in the related project e.g. under `recordings`
 
-```bash
-📦coffee-app-userflows
- ┣ 📂measures
- ┃ ┗ 📜order-coffee.uf.html
- ┣ 📂recordings
- ┃ ┗ 📜order-coffee.replay.json
- ┣ 📂user-flows
- ┃ ┗ 📜order-coffee.uf.ts
+```
+coffee-app-userflows
+📦my-app
+ ┣ ...
+ ┣ 📂src 
+ ┃  ┗ 📂my-app-user-flows
+ ┃    ┣ ... 
+ ┃    ┣ 📂user-flows 
+ ┃    ┗ 📂recordings
+ ┃      ┗ 📄recording.json
  ┗ 📜.user-flowrc.json
 ```
 

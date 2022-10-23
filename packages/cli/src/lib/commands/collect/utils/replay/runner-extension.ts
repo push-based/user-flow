@@ -23,14 +23,11 @@ export class UserFlowExtension extends PuppeteerRunnerExtension {
             const userFlowStep = step as UserFlowRunnerStep;
             const stepOptions = userFlowStep?.stepOptions;
             if (userFlowStep.type === 'navigate') {
-                console.log("Step = ", userFlowStep.type, userFlowStep?.url, {...stepOptions});
                 return this.lhFlow[userFlowStep.type](userFlowStep?.url, {...stepOptions});
             }
-            console.log("Step|= ", userFlowStep.type, {...stepOptions});
             return this.lhFlow[userFlowStep.type]({...stepOptions});
         } else {
             return super.runStep(step as Step, flow);
         }
-
     }
 }
