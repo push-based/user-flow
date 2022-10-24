@@ -11,7 +11,7 @@ In this document we will learn:
 - How to export it
 - How to use it in `@push-based/user-flow`
 
-# Initial Setup
+## Initial Setup
 
 You can find information on how to do a [basic setup](writing-basic-user-flows.md) in the docs.
 
@@ -44,10 +44,16 @@ const userFlowProvider: UserFlowProvider = {
 module.exports = userFlowProvider;
 ```
 
-# Using Recorder Replay files in Userflow
+## Using Recorder Replay files in Userflow
 
 1. Use the [Chrome Devtools Recorder](https://developer.chrome.com/docs/devtools/recorder/#open) to create a user-flow recording for a specific website.
+
+![chrome recorder start new](./images/chrome-recorder-start-new.png)
+
 2. [Export the recording as a JSON file](https://developer.chrome.com/docs/devtools/recorder/reference/#:~:text=Export%20as%20a%20JSON%20file).
+
+![chrome-recorder-export-json](./images/chrome-recorder-export-json.png)
+
 3. Store the json files in the related project e.g. under `recordings`
 
 ```bash
@@ -153,11 +159,9 @@ We can also pass additional options to each step, such as a `stepName` the repor
 
 ![Replay userflow example with custom code and stepnames](./images/lhr-replay-example-results-3.png)
 
-TODO => show how to wrap with timespan
-
 # Advanced architecture
 
-# Resources
+### Resources
 
 - [User-flow Replay Example](../../user-flow-replay-example/user-flow-replay-json/)
 
