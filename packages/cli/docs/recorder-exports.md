@@ -98,7 +98,8 @@ Now that we have a basic user flow running we can add actions to get more detail
 
 We can add the a set of `@push-based/user-flow` actions as simple object to the steps array:
 
-The available types, in addition to the navigate action type, are:
+The available types are:
+- navigation
 - startTimespan
 - endTimespan
 - snapshot
