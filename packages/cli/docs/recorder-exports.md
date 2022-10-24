@@ -4,6 +4,7 @@ If you are not familiar with the recorder tool please make sure you are aware of
 
 - [Record, replay, and measure user flows](https://developer.chrome.com/docs/devtools/recorder/)
 - [Recorder features reference](https://developer.chrome.com/docs/devtools/recorder/reference/)
+- [How to edit and extend user flows with Recorder and Puppeteer Replay](https://youtu.be/LBgzmqzp7ew)
 
 In this document we will learn:
 - How to recode a user flow with chrome devtools recorder
@@ -52,7 +53,7 @@ module.exports = userFlowProvider;
 ```
 coffee-app-userflows
 |- measures/...
-|- recordings/recording.json
+|- recordings/recording.replay.json
 |- user-flows/...
 ./user-flowrc.json
 ... 
@@ -127,6 +128,27 @@ const interactions: UserFlowInteractionsFn = async (
 ![Replay userflow example with custom code](./images/lhr-replay-example-results-2.png)
 
 ## Combine it with custom code
+
+We can also pass additional options to each step, such as a `stepName` the report: 
+
+```json
+[
+  { 
+    "type": "startTimespan",
+    "stepOptions": {
+      "stepName": "Select coffee"
+    }
+  },
+  { 
+    "type": "click",
+    ...
+  },
+  { "type": "endTimespan" },
+]
+
+```
+
+![Replay userflow example with custom code and stepnames](./images/lhr-replay-example-results-3.png)
 
 TODO => show how to wrap with timespan
 
