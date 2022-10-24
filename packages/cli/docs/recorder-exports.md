@@ -112,7 +112,7 @@ The available types, in addition to the navigate action type, are:
 ]
 ```
 
-Now that we have added the timespans in the json we need to remove the surrounding:
+Now that we have added the timespans in the json we need to remove the surrounding timespans:
 
 ```typescript
 const interactions: UserFlowInteractionsFn = async (
@@ -123,6 +123,8 @@ const interactions: UserFlowInteractionsFn = async (
   await runner.run();
 };
 ```
+
+![Replay userflow example with custom code](./images/lhr-replay-example-results-2.png)
 
 ## Combine it with custom code
 
