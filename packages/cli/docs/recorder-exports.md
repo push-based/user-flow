@@ -2,7 +2,8 @@
 
 If you are not familiar with the recorder tool please make sure you are aware of the following content:
 
-TODO links to most important articles and videos
+- [Record, replay, and measure user flows](https://developer.chrome.com/docs/devtools/recorder/)
+- [Recorder features reference](https://developer.chrome.com/docs/devtools/recorder/reference/)
 
 In this document we will learn:
 - How to recode a user flow with chrome devtools recorder
