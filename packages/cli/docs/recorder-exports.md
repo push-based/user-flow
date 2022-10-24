@@ -1,6 +1,6 @@
 # Use DevTools Recorder exports to run user flows
 
-If you are not familiar with the recorder tool please make sure you are aware of the following content:
+If you are not familiar with the Chrome Devtools Recorder, please make sure you are aware of the following content:
 
 - [Record, replay, and measure user flows](https://developer.chrome.com/docs/devtools/recorder/)
 - [Recorder features reference](https://developer.chrome.com/docs/devtools/recorder/reference/)
@@ -46,17 +46,19 @@ module.exports = userFlowProvider;
 
 # Using Recorder Replay files in Userflow
 
-1. User the [Chrome Devtools Recorder](https://developer.chrome.com/docs/devtools/recorder/#open) to create a user-flow recording for a specific website.
+1. Use the [Chrome Devtools Recorder](https://developer.chrome.com/docs/devtools/recorder/#open) to create a user-flow recording for a specific website.
 2. [Export the recording as a JSON file](https://developer.chrome.com/docs/devtools/recorder/reference/#:~:text=Export%20as%20a%20JSON%20file).
 3. Store the json files in the related project e.g. under `recordings`
 
-```
-coffee-app-userflows
-|- measures/...
-|- recordings/recording.replay.json
-|- user-flows/...
-./user-flowrc.json
-... 
+```bash
+📦coffee-app-userflows
+ ┣ 📂measures
+ ┃ ┗ 📜order-coffee.uf.html
+ ┣ 📂recordings
+ ┃ ┗ 📜order-coffee.replay.json
+ ┣ 📂user-flows
+ ┃ ┗ 📜order-coffee.uf.ts
+ ┗ 📜.user-flowrc.json
 ```
 
 ## Using the file in your user-flow
@@ -155,6 +157,8 @@ TODO => show how to wrap with timespan
 # Advanced architecture
 
 # Resources
+
+- [User-flow Replay Example](../../user-flow-replay-example/user-flow-replay-json/)
 
 // Compare programmatic vs recorded
 
