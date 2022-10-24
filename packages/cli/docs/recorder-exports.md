@@ -86,7 +86,7 @@ const interactions: UserFlowInteractionsFn = async (
 Now you can execute it with `npx @push-based/user-flow`. 
 You should see the browser opening a report.
 
-// TODO add image of ufo 
+![Replay userflow example without custom code](./images/lhr-replay-example-results-1.png)
 
 ## Separating the recording into multiple timespan's
 
