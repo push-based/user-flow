@@ -11,7 +11,7 @@ In this document we will learn:
 
 # Initial Setup
 
-You can find information on how to do a [basic setup](TODO link to docs for basic setup) in the docs.
+You can find information on how to do a [basic setup](writing-basic-user-flows.md) in the docs.
 
 We start with a basic setup of a user-flow.
 
