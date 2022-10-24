@@ -3,7 +3,7 @@ import {MeasureModes} from "./types";
 
 export function isMeasureType(str: string) {
     switch (str as MeasureModes) {
-        // case 'navigation': We skip this as it is implemented by lh-extension already
+        case 'navigate':
         case 'snapshot':
         case 'startTimespan':
         case 'endTimespan':

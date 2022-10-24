@@ -1,6 +1,6 @@
 import {PuppeteerRunnerExtension, Step, UserFlow} from "@puppeteer/replay";
 import {Browser, Page} from "puppeteer";
-import {MeasureModes} from "./types";
+import {UserFlowRunnerStep} from "./types";
 import {isMeasureType} from "./utils";
 // @ts-ignore
 import {UserFlow as LhUserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
@@ -15,13 +15,19 @@ export class UserFlowExtension extends PuppeteerRunnerExtension {
 
     // eslint-disable-next-line
     // @ts-ignore
-    async runStep(step: Step | { type: MeasureModes }, flow: UserFlow): Promise<void> {
+    async runStep(step: Step | UserFlowRunnerStep, flow: UserFlow): Promise<void> {
 
-
-        if (isMeasureType(step.type)) {
-            console.log('runStep:', step);
-
-            return this.lhFlow[step.type]();
+        if (isMeasureType(step.type) &&
+            (step.type !== 'navigate' || !this.lhFlow?.currentTimespan)
+        ) {
+            const userFlowStep = step as UserFlowRunnerStep;
+            const stepOptions = userFlowStep?.stepOptions;
+            if (userFlowStep.type === 'navigate') {
+                console.log("Step = ", userFlowStep.type, userFlowStep?.url, {...stepOptions});
+                return this.lhFlow[userFlowStep.type](userFlowStep?.url, {...stepOptions});
+            }
+            console.log("Step|= ", userFlowStep.type, {...stepOptions});
+            return this.lhFlow[userFlowStep.type]({...stepOptions});
         } else {
             return super.runStep(step as Step, flow);
         }
