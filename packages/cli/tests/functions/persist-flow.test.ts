@@ -1,81 +1,102 @@
-import * as path from 'path';
+import {join} from 'path';
 import {persistFlow} from "../../src/lib/commands/collect/utils/user-flow";
 
-import * as LHR9 from '../data/lhr-9.json';
+import * as LHR9JSON from '../data/lhr-9.json';
 import FlowResult from "lighthouse/types/lhr/flow";
 import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
+import * as fs from "fs";
 
 export class UserFlowReportMock {
   constructor() {}
 
-  getFlowResult(): FlowResult | any {
-    return '';
+  createFlowResult(): Promise<FlowResult> {
+    const jsonReport = LHR9JSON as unknown as FlowResult;
+    return Promise.resolve(jsonReport);
   }
 
-  createFlowResult(): FlowResult | any {
-    return LHR9;
-  }
-
-  generateReport(): Promise<string> | any{
-    return '';
+  generateReport(): Promise<string>{
+    const path = join(process.cwd(), '/tests/data/lhr-9.html');
+    const htmlReport = fs.readFileSync(path, 'utf-8');
+    return Promise.resolve( htmlReport);
   }
 }
 
 const flow = new UserFlowReportMock();
 
-const PERSIST_PATH = path.join(EMPTY_SANDBOX_PATH, DEFAULT_PERSIST_OUT_PATH);
+const PERSIST_PATH = join(EMPTY_SANDBOX_PATH, DEFAULT_PERSIST_OUT_PATH);
+const flowName = 'flow-example-name';
+
+function expectPersistedReports(reports: string[], path: string, name: string, format: string[]) {
+  const expectedFileNames = format.filter((f) => f !== 'stdout')
+    .map(f => `${name}.uf.${f}`) || [];
+  const expectedPaths = expectedFileNames.map((f) => PERSIST_PATH + '/' + f);
+
+  expect(reports.sort()).toEqual(expectedPaths.sort());
+
+  const persistedReports = fs.readdirSync(PERSIST_PATH);
+  expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
+}
+
 
 describe('persist flow reports in specified format', () => {
 
   beforeEach(async () => await resetEmptySandbox())
   afterEach(async () => await resetEmptySandbox())
 
-  it(' does not save any reports if no format is given', async () => {
+  it('does not save any reports if no format is given', async () => {
+    const format = [];
+    const persistOptions = {outPath: PERSIST_PATH, format};
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: []}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
-
-    expect(filenames).toStrictEqual([]);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 
   it('does not save any reports if only stdout', async () => {
+    const format = ['stdout'];
+    const persistOptions = {outPath: PERSIST_PATH, format};
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: ['stdout']}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
-
-    expect(filenames).toStrictEqual([]);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 
   it('saves the report in json format only if its the only format given', async () => {
+    const format = ['json'];
+    const persistOptions = {outPath: PERSIST_PATH, format}
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: ['json']}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
-    console.log(PERSIST_PATH)
-    expect(filenames).toStrictEqual([PERSIST_PATH + '/flow-name.uf.json']);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 
   it('saves the report in html format only if its the only format given', async () => {
+    const format = ['html']
+    const persistOptions = {outPath: PERSIST_PATH, format}
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: ['html']}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
-    console.log(PERSIST_PATH)
-    expect(filenames).toStrictEqual([PERSIST_PATH + '/flow-name.uf.html']);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 
   it('saves the report in markdown format only if its the only format given', async () => {
+    const format = ['md'];
+    const persistOptions = {outPath: PERSIST_PATH, format};
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: ['md']}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
-
-    expect(filenames).toStrictEqual([PERSIST_PATH + '/flow-name.uf.md']);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 
   it('saves the report in the format given excluding stdout', async () => {
+    const format = ['md', 'stdout'];
+    const persistOptions = {outPath: PERSIST_PATH, format};
+    const report = await persistFlow(flow, flowName, persistOptions);
 
-    const persistOptions = {outPath: PERSIST_PATH, format: ['md', 'stdout']}
-    const filenames = await persistFlow(flow, 'flow-name', persistOptions);
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
+  });
 
-    expect(filenames).toStrictEqual([PERSIST_PATH + '/flow-name.uf.md']);
+  it('saves the report in json, md and html', async () => {
+    const format = ['json', 'md', 'html'];
+    const persistOptions = {outPath: PERSIST_PATH, format};
+    const report = await persistFlow(flow, flowName, persistOptions);
+
+    expectPersistedReports(report, PERSIST_PATH, flowName, format);
   });
 });
