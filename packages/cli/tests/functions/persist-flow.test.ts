@@ -1,11 +1,11 @@
 import {join} from 'path';
-import {persistFlow} from "../../src/lib/commands/collect/utils/user-flow";
-
-import * as LHR9JSON from '../data/lhr-9.json';
+import {readFileSync, readdirSync} from "fs";
 import FlowResult from "lighthouse/types/lhr/flow";
+import {persistFlow} from "../../src/lib/commands/collect/utils/user-flow";
 import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
-import * as fs from "fs";
+
+import * as LHR9JSON from '../data/lhr-9.json';
 
 export class UserFlowReportMock {
   constructor() {}
@@ -17,7 +17,7 @@ export class UserFlowReportMock {
 
   generateReport(): Promise<string>{
     const path = join(process.cwd(), '/tests/data/lhr-9.html');
-    const htmlReport = fs.readFileSync(path, 'utf-8');
+    const htmlReport = readFileSync(path, 'utf-8');
     return Promise.resolve( htmlReport);
   }
 }
@@ -34,10 +34,9 @@ function expectPersistedReports(reports: string[], path: string, name: string, f
 
   expect(reports.sort()).toEqual(expectedPaths.sort());
 
-  const persistedReports = fs.readdirSync(PERSIST_PATH);
+  const persistedReports = readdirSync(PERSIST_PATH);
   expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
 }
-
 
 describe('persist flow reports in specified format', () => {
 
