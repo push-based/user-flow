@@ -37,6 +37,15 @@ export const EMPTY_SANDBOX_CLI_TEST_CFG = {
 
 export async function resetEmptySandbox(): Promise<void> {
   const f = path.join(EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS);
+  const d = path.join(EMPTY_SANDBOX_PATH, DEFAULT_PERSIST_OUT_PATH);
+
+  if (fs.existsSync(d)) {
+    const files = fs.readdirSync(d);
+    files.forEach((file) => {
+      const filePath = path.join(d, file)
+      fs.rmSync(filePath);
+    })
+  }
 
   if (fs.existsSync(f)) {
     fs.rmSync(f);
