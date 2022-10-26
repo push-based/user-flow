@@ -6,25 +6,21 @@ import { Modify } from '../../../../core/utils/types';
  */
 export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimespan';
 
+/*
+// Consider modify the Step type
+  | Modify<Step, {
+  type: MeasureModes,
+}>;*/
 export type MeasurementStep = {
   type: MeasureModes;
   stepOptions?: { stepName?: string; }
   url?: string;
 }
 
-// @TODO Improve typing
 export type UserFlowRunnerStep = MeasurementStep | Step;
-/*
-// Consider modify the Step type
-  | Modify<Step, {
-  type: MeasureModes,
-}>;*/
-
-
 
 export type UserFlowReportJson = Modify<UserFlow, {
   steps: UserFlowRunnerStep[];
 }>;
 
 export type ReadFileConfig = { fail?: boolean, ext?: 'json' };
-
