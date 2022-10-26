@@ -17,10 +17,10 @@ export type MeasurementStep = {
   url?: string;
 }
 
-export type UserFlowRunnerStep = MeasurementStep | Step;
+export type UserFlowRecordingStep = MeasurementStep | Step;
 
 export type UserFlowReportJson = Modify<UserFlow, {
-  steps: UserFlowRunnerStep[];
+  steps: UserFlowRecordingStep[];
 }>;
 
 export type ReadFileConfig = { fail?: boolean, ext?: 'json' };

@@ -4,7 +4,7 @@ import {
   Step,
   UserFlow as ReplayReportJson
 } from '@puppeteer/replay';
-import { MeasureModes, UserFlowReportJson, UserFlowRunnerStep } from './types';
+import { MeasureModes, UserFlowReportJson, UserFlowRecordingStep } from './types';
 
 export function isMeasureType(str: string) {
     switch (str as MeasureModes) {
@@ -20,7 +20,7 @@ export function isMeasureType(str: string) {
 
 export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): UserFlowReportJson {
   // custom events to exclude from the defeult parser
-  const ufArr: UserFlowRunnerStep[] = [];
+  const ufArr: UserFlowRecordingStep[] = [];
 
   // filter out user-flow specific actions
   const steps = recordingJson.steps.filter(
@@ -44,7 +44,7 @@ export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): Use
   parsed.steps = parsed.steps.map((step) => {
     if (step.type === 'customStep' && isMeasureType(step.name)) {
       const { name: type, parameters } = step as any;
-      return { type, parameters } as UserFlowRunnerStep;
+      return { type, parameters } as UserFlowRecordingStep;
     }
     return step;
   });
@@ -52,14 +52,14 @@ export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): Use
   return parsed;
 }
 
-export function stringify(enrichedRecordingJson: { title: string, steps: UserFlowRunnerStep[] }): string {
+export function stringify(enrichedRecordingJson: { title: string, steps: UserFlowRecordingStep[] }): string {
   const { title, steps } = enrichedRecordingJson;
   const standardizedJson = {
     title,
     steps: (steps).map(
       (step) => {
         if (isMeasureType(step.type)) {
-          return userFlowStepToCustomStep(step as unknown as UserFlowRunnerStep);
+          return userFlowStepToCustomStep(step as unknown as UserFlowRecordingStep);
         }
         return step;
       }
@@ -68,7 +68,7 @@ export function stringify(enrichedRecordingJson: { title: string, steps: UserFlo
   return JSON.stringify(standardizedJson);
 }
 
-function userFlowStepToCustomStep(step: UserFlowRunnerStep): Step {
+function userFlowStepToCustomStep(step: UserFlowRecordingStep): Step {
   const { type: name, parameters } = step as any;
   const stdStp: CustomStep = {
     type: 'customStep',

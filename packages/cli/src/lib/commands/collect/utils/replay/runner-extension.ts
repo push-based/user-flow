@@ -1,11 +1,11 @@
 import {PuppeteerRunnerExtension, Step, UserFlow as UserFlowRecording} from "@puppeteer/replay";
 import {Browser, Page} from "puppeteer";
-import { MeasurementStep, UserFlowRunnerStep } from './types';
+import { MeasurementStep, UserFlowRecordingStep } from './types';
 import {isMeasureType} from "./utils";
 // @ts-ignore
 import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
-export class UserFlowExtension extends PuppeteerRunnerExtension {
+export class UserFlowRunnerExtension extends PuppeteerRunnerExtension {
 
     constructor(browser: Browser, page: Page, private flow: UserFlow, opts?: {
         timeout?: number;
@@ -15,7 +15,7 @@ export class UserFlowExtension extends PuppeteerRunnerExtension {
 
     // eslint-disable-next-line
     // @ts-ignore
-    async runStep(step: UserFlowRunnerStep, flowRecording: UserFlowRecording): Promise<void> {
+    async runStep(step: UserFlowRecordingStep, flowRecording: UserFlowRecording): Promise<void> {
         if (isMeasureType(step.type) && !this.flow?.currentTimespan) {
             const userFlowStep = step as MeasurementStep;
             const stepOptions = userFlowStep?.stepOptions;
