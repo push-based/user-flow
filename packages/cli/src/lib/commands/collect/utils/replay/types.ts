@@ -3,7 +3,7 @@ import { Step } from '@puppeteer/replay';
 /**
  *  'navigation' is already covered by `@puppeteer/replay`
  */
-export type MeasureModes = 'snapshot' | 'startTimespan' | 'endTimespan';
+export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimespan';
 
 // @TODO Improve typing
 export type UserFlowRunnerStep = {

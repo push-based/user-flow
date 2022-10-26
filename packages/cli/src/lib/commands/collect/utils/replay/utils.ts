@@ -5,7 +5,7 @@ import {
   UserFlow,
   UserStep
 } from '@puppeteer/replay';
-import { MeasureModes, UserFlowStep } from './types';
+import { MeasureModes, UserFlowRunnerStep } from './types';
 
 export function isMeasureType(str: string) {
     switch (str as MeasureModes) {
@@ -19,7 +19,7 @@ export function isMeasureType(str: string) {
     }
 }
 
-export function parse(recordingJson: { title: string, steps: UserFlowStep[] }): UserFlow {
+export function parse(recordingJson: { title: string, steps: UserFlowRunnerStep[] }): UserFlow {
   const ufArr: Step[] = [];
   // filter out user-flow specific actions
   const steps = recordingJson.steps.filter(
@@ -39,18 +39,18 @@ export function parse(recordingJson: { title: string, steps: UserFlowStep[] }): 
   });
 
   // parse customEvents from our stringify function
-  parsed.steps = parsed.steps.map((step: UserStep | UserFlowStep): UserFlowStep => {
+  parsed.steps = parsed.steps.map((step: Step): UserFlowRunnerStep => {
     if (step.type === 'customStep' && isMeasureType(step.name)) {
       const { name: type, parameters } = step as any;
-      return { type, parameters };
+      return { type, parameters } as UserFlowRunnerStep;
     }
-    return step;
-  }) as Step[];
+    return step as unknown as UserFlowRunnerStep;
+  }) as unknown as Step[];
 
   return parsed;
 }
 
-function userFlowStepToCustomStep(step: UserFlowStep): Step {
+function userFlowStepToCustomStep(step: UserFlowRunnerStep): Step {
   const { type: name, parameters } = step as any;
   const stdStp: CustomStep = {
     type: 'customStep',
@@ -60,14 +60,14 @@ function userFlowStepToCustomStep(step: UserFlowStep): Step {
   return stdStp;
 }
 
-export function stringify(enrichedRecordingJson: { title: string, steps: UserFlowStep[] }): string {
+export function stringify(enrichedRecordingJson: { title: string, steps: UserFlowRunnerStep[] }): string {
   const { title, steps } = enrichedRecordingJson;
   const standardizedJson = {
     title,
     steps: (steps).map(
       (step) => {
         if (isMeasureType(step.type)) {
-          return userFlowStepToCustomStep(step as unknown as UserFlowStep);
+          return userFlowStepToCustomStep(step as unknown as UserFlowRunnerStep);
         }
         return step;
       }
