@@ -7,7 +7,7 @@ import { addUserFlow, getExamplePathDest } from './utils';
 import { setupRcJson } from './processes/setup-rc-json';
 import { askToSkip } from '../../core/utils/prompt';
 import { run } from '../../core/utils/processing/behaviors';
-import { readFile } from '../../core/utils/file';
+import { readFile } from '../../core/utils/file/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 
 export const initCommand: YargsCommandObject = {

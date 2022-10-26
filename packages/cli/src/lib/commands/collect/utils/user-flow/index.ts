@@ -6,7 +6,7 @@ import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api
 
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
-import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file';
+import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file/file';
 import { join, normalize } from 'path';
 import { get as dryRun } from '../../../../core/options/dryRun';
 import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';

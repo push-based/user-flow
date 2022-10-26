@@ -1,8 +1,8 @@
 import { YargsCommandObject } from '../../core/utils/yargs/types';
-import { logVerbose } from '../../core/utils/loggin/index';
+import { logVerbose } from '../../core/utils/loggin';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeededAndExecute } from './utils/serve-command';
-import { setupRcJson } from './../init/processes/setup-rc-json';
+import { setupRcJson } from '../init/processes/setup-rc-json';
 import { RcArgvOptions, RcJson } from '../../types';
 import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 import { run } from '../../core/utils/processing/behaviors';
