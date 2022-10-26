@@ -9,6 +9,6 @@ import {UserFlowExtension} from "./runner-extension";
 export async function createUserFlowRunner(path: string, ctx: { browser: Browser, page: Page, lhFlow: LhUserFlow }): Promise<Runner> {
     const {browser, page, lhFlow} = ctx;
     const runnerExtension = new UserFlowExtension(browser, page, lhFlow);
-    const recording = parse(readFile(path, {ext: 'json'}) as UserFlow);
+    const recording = parse(readFile(path, {ext: 'json'}) as any);
     return await createRunner(recording, runnerExtension);
 }

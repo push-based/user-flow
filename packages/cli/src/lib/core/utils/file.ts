@@ -46,18 +46,18 @@ export type ReadFileConfig = { fail?: boolean, ext?: 'json' };
 /**
  * Ensures the file exists before reading it
  */
-export function readFile<T extends ReadFileConfig, R = undefined>(path: string, cfg?: T): ExtToOutPut<T, R> {
-  cfg = { fail: false, ...(cfg as T || {}) };
+export function readFile<R = undefined>(path: string, cfg?: ReadFileConfig): ExtToOutPut<ReadFileConfig, R> {
+  cfg = { fail: false, ...(cfg as ReadFileConfig || {}) };
   const errorStr = `${path} does not exist.`;
   let textContent = undefined;
   if (existsSync(path)) {
     textContent = readFileSync(path, 'utf-8');
 
     if (cfg?.ext === 'json') {
-      return JSON.parse(textContent) as ExtToOutPut<T, R>;
+      return JSON.parse(textContent) as ExtToOutPut<ReadFileConfig, R>;
     }
 
-    return textContent as ExtToOutPut<T, R>;
+    return textContent as ExtToOutPut<ReadFileConfig, R>;
   } else {
     if (cfg.fail) {
       throw new Error(errorStr);
@@ -65,7 +65,7 @@ export function readFile<T extends ReadFileConfig, R = undefined>(path: string, 
     logVerbose(errorStr);
   }
 
-  return '' as ExtToOutPut<T, R>;
+  return '' as ExtToOutPut<ReadFileConfig, R>;
 }
 
 
