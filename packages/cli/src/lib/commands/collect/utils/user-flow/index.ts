@@ -22,6 +22,7 @@ import * as openFileInBrowser from 'open';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
+
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
   if (!format.length) {
     format = ['stdout']
@@ -29,13 +30,16 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 
   const jsonReport: FlowResult = await flow.createFlowResult();
 
+
   const results: {format: string, out: any}[] = []
   if (format.includes('json')) {
     results.push({format: 'json', out: JSON.stringify(jsonReport)})
   }
+
   let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
     // mdReport = userFlowReportToMdTable(jsonReport);
+
     results.push({format: 'md', out: mdReport})
   }
   if (format.includes('stdout')) {
