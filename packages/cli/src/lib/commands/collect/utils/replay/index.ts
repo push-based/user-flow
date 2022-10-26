@@ -1,5 +1,4 @@
-import { createRunner, Runner, UserFlow as UserFlowReport } from '@puppeteer/replay';
-import {Browser, Page} from 'puppeteer';
+import { createRunner, Runner } from '@puppeteer/replay';
 // @ts-ignore
 import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import {readFile} from '../../../../core/utils/file/file';
