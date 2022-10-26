@@ -1,15 +1,16 @@
-import { createRunner, Runner, UserFlow, UserFlow as UserFlowReport } from '@puppeteer/replay';
+import { createRunner, Runner, UserFlow as UserFlowReport } from '@puppeteer/replay';
 import {Browser, Page} from 'puppeteer';
 // @ts-ignore
-import {UserFlow as LhUserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import {readFile} from '../../../../core/utils/file/file';
-import {parse} from "./utils";
 import {UserFlowExtension} from "./runner-extension";
+import { UserFlowContext } from '../../../..';
+import {parse} from "./utils";
 import { UserFlowReportJson } from './types';
 
-export async function createUserFlowRunner(path: string, ctx: { browser: Browser, page: Page, lhFlow: LhUserFlow }): Promise<Runner> {
-    const {browser, page, lhFlow} = ctx;
-    const runnerExtension = new UserFlowExtension(browser, page, lhFlow);
+export async function createUserFlowRunner(path: string, ctx: UserFlowContext): Promise<Runner> {
+    const {browser, page, flow} = ctx;
+    const runnerExtension = new UserFlowExtension(browser, page, flow);
     const jsonRecording = readFile(path, {ext: 'json'}) as UserFlowReportJson;
     const recording: UserFlow = parse(jsonRecording) as UserFlow;
     return await createRunner(recording, runnerExtension);

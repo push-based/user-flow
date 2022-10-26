@@ -5,6 +5,14 @@ import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../../commands/collect/utils/replay/types';
 import { ExtToOutPut } from './types';
 
+/*
+const w = readFile('path') // string
+const x = readFile('path', {}) // string
+const y = readFile('path', {ext: 'json'}) // {}
+// @TODO make it type correctly
+const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
+ */
+
 /**
  * Ensures the file exists before reading it
  */
@@ -32,7 +40,7 @@ export function readFile<R = undefined, T extends ReadFileConfig = {}>(path: str
     logVerbose(errorStr);
   }
 
-  return '' as ExtToOutPut<T, R>;
+  return textContent as ExtToOutPut<T, R>;
 }
 
 

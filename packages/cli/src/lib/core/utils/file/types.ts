@@ -38,11 +38,3 @@ type d = ExtToOutPut<{ext: 'json'}, number>;  // number
 // type h = ExtToOutPut<{ext: 'sda'}>; // errors
 */
 
-
-
-/*
-const w = readFile('path') // string
-const x = readFile('path', {}) // string
-const y = readFile('path', {ext: 'json'}) // {}
-const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
-*/
