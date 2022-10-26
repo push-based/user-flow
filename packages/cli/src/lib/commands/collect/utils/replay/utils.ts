@@ -19,7 +19,7 @@ export function isMeasureType(str: string) {
 }
 
 export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): UserFlowReportJson {
-  // custom events to exclude from the defeult parser
+  // custom events to exclude from the default parser
   const ufArr: UserFlowRecordingStep[] = [];
 
   // filter out user-flow specific actions
