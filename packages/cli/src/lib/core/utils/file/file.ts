@@ -17,24 +17,17 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
  * Ensures the file exists before reading it
  */
 export function readFile<R = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T): ExtToOutPut<T, R> {
-  cfg = { fail: false, ...cfg } as T;
+  const {fail, ext} = { fail: false, ...cfg } as ReadFileConfig;
   const errorStr = `${path} does not exist.`;
   let textContent: string = '';
   if (existsSync(path)) {
     textContent = readFileSync(path, 'utf-8');
-    const jsonRecording = JSON.parse(textContent) as ExtToOutPut<T, R>;
-
-    if (cfg === undefined) {
-      return jsonRecording as ExtToOutPut<T, R>;
+    if (ext === 'json') {
+      return JSON.parse(textContent) as ExtToOutPut<T, R>;
     }
-
-    if (cfg?.ext === 'json') {
-      return jsonRecording as ExtToOutPut<T, R>;
-    }
-
     return textContent as ExtToOutPut<T, R>;
   } else {
-    if (cfg.fail) {
+    if (fail) {
       throw new Error(errorStr);
     }
     logVerbose(errorStr);
