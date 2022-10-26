@@ -2,10 +2,9 @@ import {
   CustomStep,
   parse as puppeteerReplayParse,
   Step,
-  UserFlow,
-  UserStep
+  UserFlow as ReplayReportJson
 } from '@puppeteer/replay';
-import { MeasureModes, UserFlowRunnerStep } from './types';
+import { MeasureModes, UserFlowReportJson, UserFlowRunnerStep } from './types';
 
 export function isMeasureType(str: string) {
     switch (str as MeasureModes) {
@@ -19,8 +18,10 @@ export function isMeasureType(str: string) {
     }
 }
 
-export function parse(recordingJson: { title: string, steps: UserFlowRunnerStep[] }): UserFlow {
-  const ufArr: Step[] = [];
+export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): UserFlowReportJson {
+  // custom events to exclude from the defeult parser
+  const ufArr: UserFlowRunnerStep[] = [];
+
   // filter out user-flow specific actions
   const steps = recordingJson.steps.filter(
     (value: any, index: number) => {
@@ -31,33 +32,24 @@ export function parse(recordingJson: { title: string, steps: UserFlowRunnerStep[
       return true;
     }
   );
+
   // parse the clean steps
-  const parsed = puppeteerReplayParse({ ...recordingJson, steps });
+  const parsed: UserFlowReportJson = puppeteerReplayParse({ ...recordingJson, steps });
   // add in user-flow specific actions
   ufArr.forEach((value, index) => {
     value && (parsed.steps.splice(index, 0, value));
   });
 
   // parse customEvents from our stringify function
-  parsed.steps = parsed.steps.map((step: Step): UserFlowRunnerStep => {
+  parsed.steps = parsed.steps.map((step) => {
     if (step.type === 'customStep' && isMeasureType(step.name)) {
       const { name: type, parameters } = step as any;
       return { type, parameters } as UserFlowRunnerStep;
     }
-    return step as unknown as UserFlowRunnerStep;
-  }) as unknown as Step[];
+    return step;
+  });
 
   return parsed;
-}
-
-function userFlowStepToCustomStep(step: UserFlowRunnerStep): Step {
-  const { type: name, parameters } = step as any;
-  const stdStp: CustomStep = {
-    type: 'customStep',
-    name,
-    parameters
-  };
-  return stdStp;
 }
 
 export function stringify(enrichedRecordingJson: { title: string, steps: UserFlowRunnerStep[] }): string {
@@ -74,4 +66,14 @@ export function stringify(enrichedRecordingJson: { title: string, steps: UserFlo
     )
   };
   return JSON.stringify(standardizedJson);
+}
+
+function userFlowStepToCustomStep(step: UserFlowRunnerStep): Step {
+  const { type: name, parameters } = step as any;
+  const stdStp: CustomStep = {
+    type: 'customStep',
+    name,
+    parameters
+  };
+  return stdStp;
 }

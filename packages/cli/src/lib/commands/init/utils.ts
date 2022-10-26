@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { readFile, writeFile } from '../../core/utils/file';
+import { readFile, writeFile } from '../../core/utils/file/file';
 import { FlowExamples } from './types';
 import { log, logVerbose } from '../../core/utils/loggin';
 

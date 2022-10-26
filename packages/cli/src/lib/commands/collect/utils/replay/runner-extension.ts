@@ -1,13 +1,13 @@
-import {PuppeteerRunnerExtension, Step, UserFlow} from "@puppeteer/replay";
+import {PuppeteerRunnerExtension, Step, UserFlow as UserFlowRecording} from "@puppeteer/replay";
 import {Browser, Page} from "puppeteer";
-import {UserFlowRunnerStep} from "./types";
+import { MeasurementStep, UserFlowRunnerStep } from './types';
 import {isMeasureType} from "./utils";
 // @ts-ignore
-import {UserFlow as LhUserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
 export class UserFlowExtension extends PuppeteerRunnerExtension {
 
-    constructor(browser: Browser, page: Page, private lhFlow: LhUserFlow, opts?: {
+    constructor(browser: Browser, page: Page, private flow: UserFlow, opts?: {
         timeout?: number;
     }) {
         super(browser, page, opts);
@@ -15,19 +15,16 @@ export class UserFlowExtension extends PuppeteerRunnerExtension {
 
     // eslint-disable-next-line
     // @ts-ignore
-    async runStep(step: Step | UserFlowRunnerStep, flow: UserFlow): Promise<void> {
-
-        if (isMeasureType(step.type) &&
-            (step.type !== 'navigate' || !this.lhFlow?.currentTimespan)
-        ) {
-            const userFlowStep = step as UserFlowRunnerStep;
+    async runStep(step: UserFlowRunnerStep, flowRecording: UserFlowRecording): Promise<void> {
+        if (isMeasureType(step.type) && !this.flow?.currentTimespan) {
+            const userFlowStep = step as MeasurementStep;
             const stepOptions = userFlowStep?.stepOptions;
             if (userFlowStep.type === 'navigate') {
-                return this.lhFlow[userFlowStep.type](userFlowStep?.url, {...stepOptions});
+                return this.flow[userFlowStep.type](userFlowStep?.url, {...stepOptions});
             }
-            return this.lhFlow[userFlowStep.type]({...stepOptions});
+            return this.flow[userFlowStep.type]({...stepOptions});
         } else {
-            return super.runStep(step as Step, flow);
+            return super.runStep(step as Step, flowRecording);
         }
     }
 }
