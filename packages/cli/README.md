@@ -9,6 +9,22 @@
 
 ---
 
+# What is it?
+
+A CLI tool to measure performance continuously and also integrate it into your CI.
+It's provides lots of DX features, nice commands with rich arguments and integration with latest dev tooling. 
+
+# Why to use it?
+
+It will enable you to measure bootstrap as well as runtime performance with minimum effort, 
+speed up your performance test development and reduced the needed code and configuration to a minimum. 
+
+![user-flow-code-reduction](https://user-images.githubusercontent.com/10064416/197062344-4c49c73b-beed-4a7e-92f9-c4855e9f436d.PNG)
+
+In addition it is always up to date with the lates Chrome DevTools features.
+
+ 
+
 **Benefits**
 
 - ⚙ Run it in your CI  
@@ -199,6 +215,12 @@ We provide general interaction through the keyboard or `stdin` directly for test
 | **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Commands 
+
+> **💡 Pro Tip:**
+> CLI arguments that accept multiple values can be set by using the param multiple times in a row:
+>
+> As an example we could apply two different formats as output for the `collect` command:
+> `npx user-flow collect --format=json --format=md`
 
 ### `*` command
 
