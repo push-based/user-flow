@@ -53,12 +53,5 @@ describe('loading user-flow scripts for execution', () => {
     const userFlows = () => loadFlow(collectOptions);
     expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
   });
-
-  it('should throw if files in ufPath dont contain UserFlowProvider', () =>{
-    const ufPath = normalizePathForCi(emptyUfPath)
-    const collectOptions = {url: 'example.com', ufPath};
-    const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
-  });
 });
 
