@@ -16,7 +16,7 @@ export class UserFlowReportMock {
   }
 
   generateReport(): Promise<string>{
-    const path = join(process.cwd(), '/tests/data/lhr-9.html');
+    const path = join(__dirname, '../data/lhr-9.html');
     const htmlReport = readFileSync(path, 'utf-8');
     return Promise.resolve( htmlReport);
   }
