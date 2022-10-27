@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.8.3](https://github.com/push-based/user-flow/compare/cli-0.8.2...cli-0.8.3) (2022-10-27)
+
+
+### Bug Fixes
+
+* add unit test to persistFlow ([19dc528](https://github.com/push-based/user-flow/commit/19dc528fa811ed550a20768c7dbbe41c7decc9ff))
+* correct path to test data in ci ([6444f07](https://github.com/push-based/user-flow/commit/6444f075258a6d03a6781b92e0bf641adf0539f0))
+* improve typing for initialized vars ([df14b2f](https://github.com/push-based/user-flow/commit/df14b2f5dbd973da82d27d01a243bde243872888))
+
+
+
 ## [0.8.2](https://github.com/push-based/user-flow/compare/cli-0.8.1...cli-0.8.2) (2022-10-27)
 
 
