@@ -1,4 +1,4 @@
-import { readdirSync } from 'fs';
+import { readdirSync, existsSync, lstatSync } from 'fs';
 import { log, logVerbose } from '../../../../core/utils/loggin';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
@@ -68,7 +68,7 @@ export async function collectFlow(
   const { config, ...rest } = providerFlowOptions;
   const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(providerFlowOptions.config) };
 
-  // object containing the options for pupeteer/chromium
+  // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
@@ -98,20 +98,23 @@ export async function collectFlow(
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const {ufPath} = collect;
-  let ufDirectory: string[] = [];
-  try {
-    ufDirectory = readdirSync(ufPath);
-  } catch (e) {
-    throw new Error(`ufPath: ${ufPath} is no directory`);
-  }
-  const flows = ufDirectory
-    .filter(filename => {
-      const ext = filename.split('.').pop();
-      return ext === 'ts' || ext === 'js';
-    })
-    .map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
+  const path = join(process.cwd(), ufPath);
 
-  if(flows.length  === 0) {
+  if (!existsSync(path)) {
+    throw new Error(`ufPath: ${path} is no directory`);
+  }
+
+  let files: string[];
+  if (lstatSync(path).isDirectory()) {
+    files = readdirSync(path).map(file => join(path, file));
+  } else {
+    files = [ path ]
+  }
+
+  const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
+    .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
+
+  if(flows.length === 0) {
     // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);
   }
