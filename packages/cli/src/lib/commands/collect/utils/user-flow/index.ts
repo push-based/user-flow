@@ -32,7 +32,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
   if (format.includes('json')) {
     results.push({format: 'json', out: JSON.stringify(jsonReport)})
   }
-  let mdReport = undefined;
+  let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
     mdReport = userFlowReportToMdTable(jsonReport);
     results.push({format: 'md', out: mdReport})
@@ -99,7 +99,7 @@ export async function collectFlow(
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const {ufPath} = collect;
-  let ufDirectory = [];
+  let ufDirectory: string[] = [];
   try {
     ufDirectory = readdirSync(ufPath);
   } catch (e) {
