@@ -44,21 +44,21 @@ describe('loading user-flow scripts for execution', () => {
     const ufPath = normalizePathForCi(invalidUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), invalidUfPath)} is no directory`);
+    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });
 
   it('should throw if no user flows are in the directory', () => {
     const ufPath = normalizePathForCi(emptyUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`No user flows found in ${emptyUfPath}`);
+    expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
   });
 
   it('should throw if files in ufPath dont contain UserFlowProvider', () =>{
     const ufPath = normalizePathForCi(emptyUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`No user flows found in ${emptyUfPath}`);
+    expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
   });
 });
 
