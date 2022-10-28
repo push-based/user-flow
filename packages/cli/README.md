@@ -87,6 +87,8 @@ npx user-flow init
 
 in the console and accept the default value for every question.
 
+![Setup user-flow in existing project gif](./docs/images/setup-in-existing-project.gif)
+
 This results in the following file:
 
 _./.user-flowrc.json_
