@@ -1,4 +1,4 @@
-import { join, dirname } from 'path';
+import { dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { logVerbose } from './loggin';
 import { getParserFromExtname, formatCode } from './prettier';
@@ -37,9 +37,6 @@ export function writeFile(filePath: string, data: string) {
 }
 
 export function resolveAnyFile<T>(path: string): { exports: T; path: string } {
-  // start path from cwd
-  path = join(process.cwd(), path);
-
   // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily
@@ -58,7 +55,7 @@ export function resolveAnyFile<T>(path: string): { exports: T; path: string } {
   const file = require(path);
 
   // If the user provides a configuration in TS file
-  // then there are 2 cases for exporing an object. The first one is:
+  // then there are 2 cases for exporting an object. The first one is:
   // `module.exports = { ... }`. And the second one is:
   // `export default { ... }`. The ESM format is compiled into:
   // `{ default: { ... } }`
