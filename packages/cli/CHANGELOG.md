@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.8.5](https://github.com/push-based/user-flow/compare/cli-0.8.4...cli-0.8.5) (2022-10-29)
+
+
+### Bug Fixes
+
+* add unit test to loadFlow method ([054e76e](https://github.com/push-based/user-flow/commit/054e76e7800a7396d916c8a0e4e658cf32394a25))
+* filter wrong extensions ([7bf8819](https://github.com/push-based/user-flow/commit/7bf8819ab4706661889b468c7f55e7448ac0eb65))
+* filter wrong extensions ([19e1cbe](https://github.com/push-based/user-flow/commit/19e1cbed27c72e4fa84586822616bd696bd26919))
+* fix cwd import path for ci test ([04fcaf3](https://github.com/push-based/user-flow/commit/04fcaf323c2cb0ced30f740c4ebd08851157c128))
+* move join cwd with path to before filtering ([bf9f0ed](https://github.com/push-based/user-flow/commit/bf9f0ed7ee303239a16af5455a07a8c840443b3a))
+* normalize path for ci test ([89ef344](https://github.com/push-based/user-flow/commit/89ef3442dd9ff32b2f6b71df07873eb47d27dd91))
+* normalize path for ci test ([35d80a8](https://github.com/push-based/user-flow/commit/35d80a8d1de9c271f68a68049dcd900e870342c6))
+* remove unnecessary test ([1fe0d54](https://github.com/push-based/user-flow/commit/1fe0d54bb098897afd23fa199af41f40ba73eb97))
+
+
+
 ## [0.8.4](https://github.com/push-based/user-flow/compare/cli-0.8.3...cli-0.8.4) (2022-10-29)
 
 
