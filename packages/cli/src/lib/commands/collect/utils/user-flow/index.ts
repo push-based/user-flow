@@ -1,7 +1,6 @@
 import { readdirSync } from 'fs';
 import { log } from '../../../../core/utils/loggin';
-// @ts-ignore
-import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
+import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
 
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
