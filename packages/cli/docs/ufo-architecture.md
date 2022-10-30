@@ -3,7 +3,7 @@
 ## Write lighthouse user flows with UFO's 🛸
 
 When writing tests for multiple interactions or pages, or even for different platforms you are forced to organize your code propperly.
-Otherwise, the amount of low-level code get's a night mare to maintain...
+Otherwise, the amount of low-level code becomes a night mare to maintain...
 
 
 **This is the reason we introduced UFO's!**  
@@ -38,7 +38,7 @@ Let's first think about the folder structure and how we organize the different p
    ┣ ┣ 📜sidebar.ufo.ts
    ┣ ┣ 📜list.ufo.ts
    ┣ ┗ 📜list-page.ufo.ts
-   ┗ 📂user-flow
+   ┗ 📂user-flows
      ┗ 📜my-user-flow.uf.ts
 ```
 
@@ -48,9 +48,14 @@ Move `.user-flowrc.json` into `my-app-user-flows` and change the configuration t
 **./my-app-user-flows/.user-flowrc.json**
 ```json
 {
-  "ufPath": "./my-app-user-flows/user-flow",
-  "outPath": "./dist/my-app-user-flows",
-  "targetUrl": "https://localhost"
+  "collect": { 
+    "url": "http:localhost:4200/", 
+    "ufPath": "./my-app-user-flows/user-flows" 
+  },
+  "persist": { 
+    "outPath": "./dist/my-app-user-flows", 
+    "format": ["html"] 
+  }
 }
 ```
 
@@ -129,7 +134,7 @@ export class ListPage extends Ufo {
 
 ### User Flows
 
-**./user-flow/my-user-flow.uf.ts**
+**./user-flows/my-user-flow.uf.ts**
 ```typescript
 import {
   UserFlowOptions,
