@@ -2,7 +2,7 @@ import { get as interactive } from '../../../global/options/interactive';
 import { DEFAULT_COLLECT_URL, ERROR_COLLECT_URL_REQUIRED, PROMPT_COLLECT_URL } from './url.constant';
 import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { RcJson } from '../../../types';
+import { RcJson } from '../../../core/rc-json/types';
 
 export async function setupUrl(
   config: RcJson

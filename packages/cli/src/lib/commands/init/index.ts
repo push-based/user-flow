@@ -1,6 +1,5 @@
 import { YargsCommandObject } from '../../core/yargs/types';
 import { log, logVerbose } from '../../core/loggin';
-import { RcArgvOptions, RcJson } from '../../types';
 import { INIT_OPTIONS } from './options';
 import { addUserFlow, getExamplePathDest } from './utils';
 import { setupRcJson } from './processes/setup-rc-json';
@@ -9,6 +8,7 @@ import { run } from '../../core/processing';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { getCLIConfigFromArgv } from '../../core/rc-json';
+import { RcArgvOptions, RcJson } from '../../core/rc-json/types';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
