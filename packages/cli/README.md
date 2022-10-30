@@ -9,6 +9,22 @@
 
 ---
 
+# What is it?
+
+A CLI tool to measure performance continuously and also integrate it into your CI.
+It's provides lots of DX features, nice commands with rich arguments and integration with latest dev tooling. 
+
+# Why to use it?
+
+It will enable you to measure bootstrap as well as runtime performance with minimum effort, 
+speed up your performance test development and reduced the needed code and configuration to a minimum. 
+
+![user-flow-code-reduction](https://user-images.githubusercontent.com/10064416/197062344-4c49c73b-beed-4a7e-92f9-c4855e9f436d.PNG)
+
+In addition, it is always up-to-date with the latest Chrome DevTools features.
+
+ 
+
 **Benefits**
 
 - ⚙ Run it in your CI  
@@ -41,7 +57,7 @@ You can also use `npx` to run it in e.g. the CI setup:
 
 In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
 
-for both be shure to have node installed:
+for both be sure to have node installed:
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
@@ -56,7 +72,7 @@ In this chapter we will learn how to install and configure user flows, as well a
 npm i @push-based/user-flow --save-dev
 ```
 
-1. Setup the `.user-flowrc.json` config file
+1. Set up the `.user-flowrc.json` config file
 
 Run 
 ```
@@ -71,6 +87,8 @@ npx user-flow init
 
 in the console and accept the default value for every question.
 
+![Set up user-flow in existing project gif](./docs/images/setup-in-existing-project.gif)
+
 This results in the following file:
 
 _./.user-flowrc.json_
@@ -84,7 +102,7 @@ _./.user-flowrc.json_
 }
 ```
 
-2. The CLI automatically creates a example user-flow. (`./user-flows/order-coffee.uf.ts`) 
+2. The CLI automatically creates an example user-flow. (`./user-flows/order-coffee.uf.ts`) 
 
 It is a simple navigation measurement to start from.
 
@@ -210,6 +228,12 @@ e.g. to select multiple formats for the collect output write:
 | **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Commands 
+
+> **💡 Pro Tip:**
+> CLI arguments that accept multiple values can be set by using the param multiple times in a row:
+>
+> As an example we could apply two different formats as output for the `collect` command:
+> `npx user-flow collect --format=json --format=md`
 
 ### `*` command
 

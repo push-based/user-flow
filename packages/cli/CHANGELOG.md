@@ -2,6 +2,41 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.8.5](https://github.com/push-based/user-flow/compare/cli-0.8.4...cli-0.8.5) (2022-10-29)
+
+
+### Bug Fixes
+
+* add unit test to loadFlow method ([054e76e](https://github.com/push-based/user-flow/commit/054e76e7800a7396d916c8a0e4e658cf32394a25))
+* filter wrong extensions ([7bf8819](https://github.com/push-based/user-flow/commit/7bf8819ab4706661889b468c7f55e7448ac0eb65))
+* filter wrong extensions ([19e1cbe](https://github.com/push-based/user-flow/commit/19e1cbed27c72e4fa84586822616bd696bd26919))
+* fix cwd import path for ci test ([04fcaf3](https://github.com/push-based/user-flow/commit/04fcaf323c2cb0ced30f740c4ebd08851157c128))
+* move join cwd with path to before filtering ([bf9f0ed](https://github.com/push-based/user-flow/commit/bf9f0ed7ee303239a16af5455a07a8c840443b3a))
+* normalize path for ci test ([89ef344](https://github.com/push-based/user-flow/commit/89ef3442dd9ff32b2f6b71df07873eb47d27dd91))
+* normalize path for ci test ([35d80a8](https://github.com/push-based/user-flow/commit/35d80a8d1de9c271f68a68049dcd900e870342c6))
+* remove unnecessary test ([1fe0d54](https://github.com/push-based/user-flow/commit/1fe0d54bb098897afd23fa199af41f40ba73eb97))
+
+
+
+## [0.8.4](https://github.com/push-based/user-flow/compare/cli-0.8.3...cli-0.8.4) (2022-10-29)
+
+
+
+## [0.8.3](https://github.com/push-based/user-flow/compare/cli-0.8.2...cli-0.8.3) (2022-10-27)
+
+
+### Bug Fixes
+
+* add unit test to persistFlow ([19dc528](https://github.com/push-based/user-flow/commit/19dc528fa811ed550a20768c7dbbe41c7decc9ff))
+* correct path to test data in ci ([6444f07](https://github.com/push-based/user-flow/commit/6444f075258a6d03a6781b92e0bf641adf0539f0))
+* improve typing for initialized vars ([df14b2f](https://github.com/push-based/user-flow/commit/df14b2f5dbd973da82d27d01a243bde243872888))
+
+
+
+## [0.8.2](https://github.com/push-based/user-flow/compare/cli-0.8.1...cli-0.8.2) (2022-10-27)
+
+
+
 ## [0.8.1](https://github.com/push-based/user-flow/compare/cli-0.8.0...cli-0.8.1) (2022-10-22)
 
 

@@ -1,5 +1,6 @@
-import { readdirSync } from 'fs';
-import { log } from '../../../../core/utils/loggin';
+import { readdirSync, existsSync, lstatSync } from 'fs';
+import { log, logVerbose } from '../../../../core/utils/loggin';
+import { cwd } from 'node:process';
 // @ts-ignore
 import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 
@@ -7,7 +8,6 @@ import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file';
 import { join, normalize } from 'path';
-import { logVerbose } from '../../../../core/utils/loggin';
 import { get as dryRun } from '../../../../core/options/dryRun';
 import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';
 import { detectCliMode } from '../../../../cli-modes';
@@ -74,7 +74,7 @@ export async function collectFlow(
   const { config, ...rest } = providerFlowOptions;
   const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(providerFlowOptions.config) };
 
-  // object containing the options for pupeteer/chromium
+  // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
@@ -104,15 +104,22 @@ export async function collectFlow(
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const {ufPath} = collect;
-  let ufDirectory = [];
-  try {
-    ufDirectory = readdirSync(ufPath);
-  } catch (e) {
-    throw new Error(`ufPath: ${ufPath} is no directory`);
+  const path = join(cwd(), ufPath);
+  if (!existsSync(path)) {
+    throw new Error(`ufPath: ${path} is no directory`);
   }
-  const flows = readdirSync(ufPath).map((p) => resolveAnyFile<UserFlowProvider & { path: string }>(join(ufPath, p)));
 
-  if(flows.length  === 0) {
+  let files: string[];
+  if (lstatSync(path).isDirectory()) {
+    files = readdirSync(path).map(file => join(path, file));
+  } else {
+    files = [ path ]
+  }
+
+  const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
+    .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
+
+  if(flows.length === 0) {
     // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);
   }
