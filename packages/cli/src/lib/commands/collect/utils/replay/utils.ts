@@ -18,7 +18,7 @@ export function isMeasureType(str: string) {
     }
 }
 
-export function parse(recordingJson: ReplayReportJson | UserFlowReportJson): UserFlowReportJson {
+export function parse(recordingJson: any): UserFlowReportJson {
   // custom events to exclude from the default parser
   const ufArr: UserFlowRecordingStep[] = [];
 
