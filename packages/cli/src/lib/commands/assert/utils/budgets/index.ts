@@ -1,4 +1,4 @@
-import { readFile, writeFile } from '../../../../core/utils/file';
+import { readFile, writeFile } from '../../../../core/utils/file/file';
 import { logVerbose } from '../../../../core/utils/loggin';
 import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant';

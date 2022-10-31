@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { readFile, writeFile } from '../../core/utils/file';
+import { readFile, writeFile } from '../../core/utils/file/file';
 import { FlowExamples } from './types';
 import { log, logVerbose } from '../../core/utils/loggin';
 
@@ -30,7 +30,7 @@ export function addUserFlow(flowExample: FlowExamples, folder: string) {
     throw new Error(`No flow example given for name ${flowExample}.`);
   }
 
-  const fileContent = readFile(exampleSourceLocation, true).toString();
+  const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
   logVerbose('fileContent', fileContent);
   writeFile(exampleDestination, fileContent);
 
