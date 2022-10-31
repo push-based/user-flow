@@ -22,6 +22,7 @@
     "@push-based/user-flow:sandboxsetup:budgets": "npm run testIn:setup-sandbox && npm run @push-based/user-flow -- collect -p=./packages/sandbox-setup/.user-flowrc.static-dist.budgets.json -e=true -v",
     "testIn:empty-sandbox": "npm run build && cd packages/sandbox-empty",
     "testIn:setup-sandbox": "npm run build && cd packages/sandbox-setup",
+    "ci-test": "cd ./packages/user-flow-ci-integration && npx ../../dist/packages/cli/src/cli.js collect --format md",
     "prepare": "husky install"
   },
   "dependencies": {

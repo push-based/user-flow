@@ -1,0 +1,15 @@
+{
+  "root": "packages/user-flow-ci-integration",
+  "sourceRoot": "packages/user-flow-ci-integration/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/user-flow-ci-integration/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -3,8 +3,5 @@
     "url": "https://coffee-cart.netlify.app/",
     "ufPath": "./user-flows"
   },
-  "persist": {
-    "outPath": "./measures",
-    "format": ["html"]
-  }
+  "persist": { "outPath": "./measures", "format": ["md"] }
 }

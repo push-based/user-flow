@@ -5,6 +5,5 @@
     "serveCommand": "cd ./packages/sandbox-setup && npm run start",
     "awaitServeStdout": "Available on:"
   },
-  "persist": { "outPath": "./measures", "format": ["json"] },
-  "generate": {}
+  "persist": { "outPath": "./measures", "format": ["json"] }
 }
