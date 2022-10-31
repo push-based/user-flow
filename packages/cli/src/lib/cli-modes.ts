@@ -19,6 +19,8 @@ export function detectCliMode(): CLI_MODES {
 export function detectCi(): string {
 
   /*
+  Detailed links: https://github.com/push-based/user-flow/issues/15
+
   The following platforms have a CI key:
     CI=true - github
 
