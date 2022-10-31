@@ -1,7 +1,7 @@
 import { readdirSync, existsSync, lstatSync } from 'fs';
 import { log, logVerbose } from '../../../../core/utils/loggin';
-import { cwd } from 'node:process';
 import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
+
 
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
