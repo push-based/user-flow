@@ -205,6 +205,17 @@ We provide general interaction through the keyboard or `stdin` directly for test
  | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
  | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
 
+### Multiple choices in the CLI  
+
+To assign multiple choices to a multiselect CLI param you have to use the param multiple times.
+
+e.g. to select multiple formats for the collect output write:  
+
+```text
+@npx @push-based/user-flow collect -f=md -f=json
+```
+
+
 ## Global Options
 
 |  Option                     |  Type     | Default                     |  Description                                                                                               |  
@@ -238,10 +249,10 @@ Run command over:
 `@npx @push-based/user-flow init [options]`  
 
 Description:  
-This command helps you to setup a `.user-flowrc.json` and fill it over CLI prompts.
+This command helps you to set up a `.user-flowrc.json` and asks for input over CLI prompts.
 
 > **🤓 DX Tip:** 
-> Setup user flows in a sub directory:  
+> Set up user flows in a sub directory:  
 > `npx @push-based/user-flow init --rcPath ./path/to/project/.user-flowrc.json`
 
 ### `collect` command
@@ -291,7 +302,6 @@ The CLI supports the official [user-flow/lighthouse configuration](https://githu
 
 You can think of user flows as front end e2e tests which measures performance related information during the test.
 
-
 ## [Basic user flows](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md)
 
 **User flow measurement modes**
@@ -302,7 +312,6 @@ You can think of user flows as front end e2e tests which measures performance re
 | ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |     ❌    |
 | ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |     ❌    |
 
-
 ## [Advanced architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
 Organizing testing logic is an art. If you don't own that knowledge, the amount of low-level code get's a night mare to maintain in bigger projects...
@@ -311,6 +320,15 @@ Organizing testing logic is an art. If you don't own that knowledge, the amount 
 **Organize clutter code 👽 in developer friendly shells 🛸**
 
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
+
+## [Working with DevTools Recorder exports]()
+
+Chrome DevTools provides a feature to help with record and exoprt user interations. 
+This can replace any handwritten code and organizes interactions in a JSON structure.
+![User Flow-record-replay](https://user-images.githubusercontent.com/10064416/197055275-f2b59528-105d-494d-8285-5d29fe89d0bd.jpg)
+This library provides a way to replay and enrich those interactions over the CLI.
+
+See [recorder-exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md) for more details.
 
 ## [Performance Budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md)
 

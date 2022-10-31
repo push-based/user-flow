@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 
 import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
-import { writeFile } from '../../src/lib/core/utils/file';
+import { writeFile } from '../../src/lib/core/utils/file/file';
 import { kill } from '../utils/kill';
 import { RcJson } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';

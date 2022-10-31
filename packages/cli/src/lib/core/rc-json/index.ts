@@ -1,5 +1,5 @@
 import { RcArgvOptions, RcJson } from '../../types';
-import { readFile, writeFile } from '../utils/file';
+import { readFile, writeFile } from '../utils/file/file';
 
 import { logVerbose } from '../utils/loggin';
 import { get as getRcPath } from '../options/rc';

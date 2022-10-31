@@ -5,6 +5,6 @@
   },
   "persist": {
     "outPath": "./measures",
-    "format": ['html']
+    "format": ["html"]
   }
 }
