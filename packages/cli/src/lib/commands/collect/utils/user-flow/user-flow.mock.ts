@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import { logVerbose } from '../../../../core/utils/loggin';
+import { logVerbose } from '../../../../core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 

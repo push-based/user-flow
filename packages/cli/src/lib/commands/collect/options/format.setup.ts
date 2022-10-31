@@ -1,15 +1,9 @@
-import { RcJson } from '../../../types';
 import { prompt } from 'enquirer';
-import { get as interactive } from '../../../core/options/interactive';
-import {
-  DEFAULT_PERSIST_FORMAT,
-  ERROR_PERSIST_FORMAT_REQUIRED,
-  ERROR_PERSIST_FORMAT_WRONG,
-  PROMPT_PERSIST_FORMAT
-} from './format.constant';
-import { promptParam } from '../../../core/utils/prompt';
-import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';
+import { get as interactive } from '../../../global/options/interactive';
+import { ERROR_PERSIST_FORMAT_REQUIRED, ERROR_PERSIST_FORMAT_WRONG, PROMPT_PERSIST_FORMAT } from './format.constant';
+import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
+import { RcJson } from '../../../core/rc-json/types';
 
 export async function setupFormat(
   config: RcJson

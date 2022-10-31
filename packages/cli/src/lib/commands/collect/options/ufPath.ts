@@ -1,6 +1,6 @@
 import { argv, Options } from 'yargs';
 import { Param } from './ufPath.model';
-import { ArgvOption } from '../../../core/utils/yargs/types';
+import { ArgvOption } from '../../../core/yargs/types';
 
 export const param: Param = {
   ufPath: {

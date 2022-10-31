@@ -1,22 +1,23 @@
-import { readdirSync } from 'fs';
+import { readdirSync, existsSync, lstatSync } from 'fs';
 import { log } from '../../../../core/utils/loggin';
 import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
 
 
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
-import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file';
+import { resolveAnyFile, toFileName, writeFile } from '../../../../core/file';
 import { join, normalize } from 'path';
-import { get as dryRun } from '../../../../core/options/dryRun';
+import { logVerbose } from '../../../../core/loggin';
+import { get as dryRun } from '../../options/dryRun';
 import { CollectOptions, PersistOptions } from '../../../../core/rc-json/types';
-import { detectCliMode } from '../../../../cli-modes';
+import { detectCliMode } from '../../../../core/cli-modes';
 import { readBudgets } from '../../../assert/utils/budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 import * as Config from 'lighthouse/types/config';
 import { UserFlowMock } from './user-flow.mock';
 import { UserFlowProvider } from './types';
 import { get as openOpt } from '../../options/open';
-import { get as interactive } from '../../../../core/options/interactive';
+import { get as interactive } from '../../../../global/options/interactive';
 import * as openFileInBrowser from 'open';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 
@@ -98,7 +99,7 @@ export async function collectFlow(
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const {ufPath} = collect;
-  const path = join(cwd(), ufPath);
+  const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is no directory`);
   }

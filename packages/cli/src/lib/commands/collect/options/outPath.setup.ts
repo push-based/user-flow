@@ -1,9 +1,9 @@
-import { RcJson } from '../../../types';
-import { get as interactive } from '../../../core/options/interactive';
-import { promptParam } from '../../../core/utils/prompt';
-import { applyValidations, hasError, VALIDATORS } from '../../../core/utils/validation';
+import { get as interactive } from '../../../global/options/interactive';
+import { promptParam } from '../../../core/prompt';
+import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { PROMPT_PERSIST_OUT_PATH, DEFAULT_PERSIST_OUT_PATH, ERROR_PERSIST_OUT_PATH_REQUIRED } from './outPath.constant';
 import { mkdirSync, readdirSync } from 'fs';
+import { RcJson } from '../../../core/rc-json/types';
 
 export async function setupOutPath(
   config: RcJson

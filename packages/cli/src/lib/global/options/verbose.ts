@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './verbose.model';
-import { ArgvOption } from '../utils/yargs/types';
+import { ArgvOption } from '../../core/yargs/types';
 
 export const param: Param = {
   verbose: {

@@ -1,10 +1,10 @@
-import  { YargsCommandObject } from '../../core/utils/yargs/types';
-import { logVerbose } from '../../core/utils/loggin/index';
-import { RcJson } from '../../types';
+import  { YargsCommandObject } from '../../core/yargs/types';
+import { logVerbose } from '../../core/loggin/index';
 import { readBudgets } from './utils/budgets';
-import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 import { userFlowReportToMdTable } from './processes/md-table';
-import { readFile } from '../../core/utils/file';
+import { readFile } from '../../core/file';
+import { getCLIConfigFromArgv } from '../../core/rc-json';
+import { RcJson } from '../../core/rc-json/types';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

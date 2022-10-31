@@ -1,5 +1,5 @@
-import { RcJson } from '../../../types';
 import { CLIProcess } from './types';
+import { RcJson } from '../rc-json/types';
 
 export function run(
   tasks: CLIProcess[]

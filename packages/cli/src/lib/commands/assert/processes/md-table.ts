@@ -3,7 +3,7 @@ import {
   ReducedFlowStep,
   ReducedReport
 } from '../../collect/utils/user-flow/types';
-import { formatCode } from '../../../core/utils/prettier';
+import { formatCode } from '../../../core/prettier';
 import { createReducedReport } from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
