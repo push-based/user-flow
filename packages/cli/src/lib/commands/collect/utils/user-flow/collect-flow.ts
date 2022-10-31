@@ -1,7 +1,7 @@
 import { CollectOptions } from '../../../../core/rc-json/types';
 import { UserFlowProvider } from './types';
 import { detectCliMode } from '../../../../cli-modes';
-import { logVerbose } from '../../../../core/utils/loggin';
+import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { normalize } from 'path';

@@ -2,9 +2,9 @@ import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { PersistOptions } from '../../../../core/rc-json/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
-import { log } from '../../../../core/utils/loggin';
+import { log } from '../../../../core/loggin';
 import { join } from 'path';
-import { toFileName, writeFile } from '../../../../core/utils/file/file';
+import { toFileName, writeFile } from '../../../../core/file';
 
 export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
   if (!format.length) {

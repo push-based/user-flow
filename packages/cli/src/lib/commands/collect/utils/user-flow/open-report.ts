@@ -1,7 +1,7 @@
 import { get as dryRun } from '../../../../core/options/dryRun';
 import { get as openOpt } from '../../options/open';
 import { get as interactive } from '../../../../core/options/interactive';
-import { logVerbose } from '../../../../core/utils/loggin';
+import { logVerbose } from '../../../../core/loggin';
 import * as openFileInBrowser from 'open';
 
 export async function openFlowReport(fileNames: string[]): Promise<void> {

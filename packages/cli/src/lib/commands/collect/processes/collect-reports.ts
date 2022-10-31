@@ -1,6 +1,6 @@
 import { UserFlowProvider } from '../utils/user-flow/types';
-import { concat } from '../../../core/utils/processing/behaviors';
-import { logVerbose } from '../../../core/utils/loggin';
+import { concat } from '../../../core/processing/behaviors';
+import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../core/options/dryRun';
 import { AssertOptions } from '../../../core/rc-json/types';
 import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';

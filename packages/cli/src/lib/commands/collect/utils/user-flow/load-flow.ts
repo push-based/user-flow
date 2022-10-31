@@ -2,7 +2,7 @@ import { CollectOptions } from '../../../../core/rc-json/types';
 import { UserFlowProvider } from './types';
 import { join } from 'path';
 import { existsSync, lstatSync, readdirSync } from 'fs';
-import { resolveAnyFile } from '../../../../core/utils/file/file';
+import { resolveAnyFile } from '../../../../core/file';
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const { ufPath } = collect;
