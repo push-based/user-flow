@@ -1,7 +1,7 @@
 {
   "collect": {
     "url": "http://127.0.0.1:5056",
-    "ufPath": "./packages/sandbox-setup/src/lib/user-flows-static-dist",
+    "ufPath": "./packages/sandbox-setup/src/lib/dirty-user-flows",
     "serveCommand": "cd ./packages/sandbox-setup && npm run start",
     "awaitServeStdout": "Available on:"
   },
