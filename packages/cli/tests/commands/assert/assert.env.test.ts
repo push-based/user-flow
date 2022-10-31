@@ -36,7 +36,7 @@ describe('env check in setup sandbox', () => {
     expect(exitCode).toBe(0);
   }, 90_000);
 
-  it('should return DEFAULT in CI mode fo CI prop', async () => {
+  it('should return DEFAULT in CI mode for CI prop', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...collectCommandStaticRc
@@ -48,10 +48,14 @@ describe('env check in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(stdout).toContain(CLI_MODE_SANDBOX);
     // fake the environment
+    let envDependentValue: string = 'DEFAULT';
+    // if we run in the GH action
+    if(detectCi() === 'true') {
+      envDependentValue = 'true';
+    }
+    expect(detectCi()).toBe(envDependentValue);
     process.env[CLI_MODE_PROPERTY] = 'CI';
     expect(detectCliMode()).toBe('CI');
-    expect(detectCi()).toBe('DEFAULT');
-
 
     expect(exitCode).toBe(0);
   }, 90_000);
@@ -67,6 +71,7 @@ describe('env check in setup sandbox', () => {
 
     expect(stderr).toBe('');
     expect(stdout).toContain(CLI_MODE_SANDBOX);
+    process.env[CLI_MODE_PROPERTY] = 'SANDBOX';
     expect(detectCliMode()).toBe('SANDBOX');
     expect(detectCi()).toBe('SANDBOX');
 
