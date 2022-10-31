@@ -2,6 +2,53 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.9.0](https://github.com/push-based/user-flow/compare/cli-0.8.7...cli-0.9.0) (2022-10-31)
+
+
+### Bug Fixes
+
+* add navigation and options to replay ([a4e296e](https://github.com/push-based/user-flow/commit/a4e296e620ea5132c140a2bb82294b33ae32a63a))
+* add tests and fix custom parser ([27ec484](https://github.com/push-based/user-flow/commit/27ec484c221eebf67a6d9e4cf3962162c5e52eb4))
+* adopt concat ([809cdb9](https://github.com/push-based/user-flow/commit/809cdb9e7ed450d73b7f07e9bbf011f397d45da4))
+* adopt file typing ([72dfdef](https://github.com/push-based/user-flow/commit/72dfdefe7bae3cf4a8fb080d29b4c7ae2fc308d3))
+* adopt typing ([fdfede7](https://github.com/push-based/user-flow/commit/fdfede77db7375b7c2455174c7dbda4176aa6ac0))
+* adopt typing ([af26617](https://github.com/push-based/user-flow/commit/af26617b1de6f1d0212c539d3a0488f7236ee3c7))
+* adopt typing ([5c3c98a](https://github.com/push-based/user-flow/commit/5c3c98a1e12803e411fc0226671c2bfb909f8015))
+* adopt typing of replay section ([d8aaa28](https://github.com/push-based/user-flow/commit/d8aaa28cc5f4a4521935984c6342a0664d62ec59))
+* adopt typing of runner extension ([992caab](https://github.com/push-based/user-flow/commit/992caabacdc87fe829d15e615f4e2f4091786ccb))
+* link replay readme in main README.md ([a13a99c](https://github.com/push-based/user-flow/commit/a13a99c08efd3dcd0b04710f226bc47052d6d068))
+* persist reports in multiple formats ([69247a3](https://github.com/push-based/user-flow/commit/69247a34c85d7a3db14260bf93e336a7e5d86131))
+* rename runner extension and types ([9f6087b](https://github.com/push-based/user-flow/commit/9f6087bf74ff7ecd56fb5114e2e5dc16f18fb530))
+* rename type and export runner ([e30c61f](https://github.com/push-based/user-flow/commit/e30c61f5a27517db50561bb6aa08114897f50ee5))
+* restrict runner exports ([e1efc1b](https://github.com/push-based/user-flow/commit/e1efc1bd3f8fca63e51cd2fd58f58b114db1f909))
+* separate files to hackfiy pptr imports ([f146aad](https://github.com/push-based/user-flow/commit/f146aad829ca9a2488efbcef79200ca25b351a94))
+* split files ([2929ab4](https://github.com/push-based/user-flow/commit/2929ab42b7dcf2569154345c469fe9460970df3c))
+* typings ([9e8bb0c](https://github.com/push-based/user-flow/commit/9e8bb0cb621c39d0683803eb733d5feab72e9301))
+* typings ([e2315f7](https://github.com/push-based/user-flow/commit/e2315f7cd35ed8b787a5b299573fa33cf10a4d7e))
+* typings and folder struct ([5b3cffe](https://github.com/push-based/user-flow/commit/5b3cffe5dea787f24f83c681a08f63583b6773a6))
+* typings and folder struct ([ee107b0](https://github.com/push-based/user-flow/commit/ee107b00cb0a5fc8f02c0e2ed936f3af783df36e))
+* typo ([50fe134](https://github.com/push-based/user-flow/commit/50fe134ceb466db36873a3b93a89b677e6d236e0))
+* wip readFile types ([cea9443](https://github.com/push-based/user-flow/commit/cea94433cf3fedf38f119f2b045bdf3815f04337))
+
+
+### Features
+
+* add file extensions to readFile ([a916d8a](https://github.com/push-based/user-flow/commit/a916d8a169c27acc5b5831d4c4ec132c0c0535e3))
+* add POC of runner ([d434051](https://github.com/push-based/user-flow/commit/d434051a7611957234cec01c93c0e5a1639062cd))
+* add stringify and handle customStep types ([a9642f2](https://github.com/push-based/user-flow/commit/a9642f27d1e4abb992570096dd6e5cd2aee2672a))
+* add use replay record integration and docs ([e1e0a46](https://github.com/push-based/user-flow/commit/e1e0a46d713dcc1ebdef7e3e9587e129e50647b0))
+
+
+
+## [0.8.7](https://github.com/push-based/user-flow/compare/cli-0.8.6...cli-0.8.7) (2022-10-31)
+
+
+### Bug Fixes
+
+* merge ([2b102ad](https://github.com/push-based/user-flow/commit/2b102ade7f8830e5371870bf961bd8a204af1f2b))
+
+
+
 ## [0.8.6](https://github.com/push-based/user-flow/compare/cli-0.8.5...cli-0.8.6) (2022-10-30)
 
 

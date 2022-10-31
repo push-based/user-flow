@@ -31,7 +31,7 @@ Let's first think about the folder structure and how we organize the different p
  ┣ ┗ 📂my-app-user-flows
  ┣ ...
  ┗ 📂my-app-user-flows
-   ┣ 📜.user-flowrc.json
+   ┣ 📄.user-flowrc.json
    ┣ 📂fixtures
    ┣ ┗ 📜list-page.ufo.ts
    ┣ 📂ufo
