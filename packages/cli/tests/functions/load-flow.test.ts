@@ -1,8 +1,7 @@
 import {join} from "path";
-import {loadFlow} from "../../src/lib/commands/collect/utils/user-flow";
 import {DEFAULT_COLLECT_UF_PATH} from "../../src/lib/commands/collect/options/ufPath.constant";
 import {SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_NAME} from "../fixtures/setup-sandbox";
-import {cwd} from "node:process";
+import { loadFlow } from '../../src/lib/commands/collect/utils/user-flow/load-flow';
 
 const emptyUfPath = join('..', 'sandbox-empty', DEFAULT_COLLECT_UF_PATH);
 const invalidUfPath = 'path/does/not/exist';
@@ -11,7 +10,7 @@ const dirtyUfPath = join( '..', SETUP_SANDBOX_NAME, './src/lib/dirty-user-flows'
 const singleUfPath = join(validUfPath, 'order-coffee.uf.ts');
 
 function normalizePathForCi(path: string): string {
-  if (cwd().includes('packages')) {
+  if (process.cwd().includes('packages')) {
     return path;
   }
   return join('packages/cli', path);

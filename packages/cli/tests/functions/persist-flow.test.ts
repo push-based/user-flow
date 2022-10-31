@@ -1,11 +1,11 @@
 import {join} from 'path';
 import {readFileSync, readdirSync} from "fs";
 import FlowResult from "lighthouse/types/lhr/flow";
-import {persistFlow} from "../../src/lib/commands/collect/utils/user-flow";
 import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
 
 import * as LHR9JSON from '../data/lhr-9.json';
+import { persistFlow } from '../../src/lib/commands/collect/utils/user-flow/persist-flow';
 
 export class UserFlowReportMock {
   constructor() {}
