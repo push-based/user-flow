@@ -3,22 +3,24 @@ import {readFileSync, readdirSync} from "fs";
 import FlowResult from "lighthouse/types/lhr/flow";
 import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
-
 import * as LHR9JSON from '../data/lhr-9.json';
 import { persistFlow } from '../../src/lib/commands/collect/utils/user-flow/persist-flow';
+
+const jsonReport = LHR9JSON as unknown as FlowResult;
+
+const path = join(__dirname, '../data/lhr-9.html');
+const htmlReport = readFileSync(path, 'utf-8');
+
 
 export class UserFlowReportMock {
   constructor() {}
 
   createFlowResult(): Promise<FlowResult> {
-    const jsonReport = LHR9JSON as unknown as FlowResult;
     return Promise.resolve(jsonReport);
   }
 
   generateReport(): Promise<string>{
-    const path = join(__dirname, '../data/lhr-9.html');
-    const htmlReport = readFileSync(path, 'utf-8');
-    return Promise.resolve( htmlReport);
+    return Promise.resolve(htmlReport);
   }
 }
 
@@ -30,7 +32,7 @@ const flowName = 'flow-example-name';
 function expectPersistedReports(reports: string[], path: string, name: string, format: string[]) {
   const expectedFileNames = format.filter((f) => f !== 'stdout')
     .map(f => `${name}.uf.${f}`) || [];
-  const expectedPaths = expectedFileNames.map((f) => PERSIST_PATH + '/' + f);
+  const expectedPaths = expectedFileNames.map((f) => join(PERSIST_PATH , f));
 
   expect(reports.sort()).toEqual(expectedPaths.sort());
 

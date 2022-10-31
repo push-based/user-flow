@@ -21,8 +21,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 
   let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
-    // mdReport = userFlowReportToMdTable(jsonReport);
-
+    mdReport = userFlowReportToMdTable(jsonReport);
     results.push({ format: 'md', out: mdReport });
   }
   if (format.includes('stdout')) {
