@@ -1,5 +1,4 @@
-// @ts-ignore
-import {Util} from 'lighthouse/lighthouse-core/util-commonjs';
+import {Util} from '../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
 

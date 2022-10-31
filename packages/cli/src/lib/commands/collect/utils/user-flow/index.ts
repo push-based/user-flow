@@ -1,9 +1,6 @@
 import { readdirSync, existsSync, lstatSync } from 'fs';
 import { log, logVerbose } from '../../../../core/utils/loggin';
-import { cwd } from 'node:process';
-// @ts-ignore
-import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
-
+import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { resolveAnyFile, toFileName, writeFile } from '../../../../core/utils/file/file';
@@ -104,7 +101,7 @@ export async function collectFlow(
 
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const {ufPath} = collect;
-  const path = join(cwd(), ufPath);
+  const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is no directory`);
   }
