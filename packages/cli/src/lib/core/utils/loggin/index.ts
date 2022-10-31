@@ -15,6 +15,15 @@ export function logVerbose(...message: Array<string | number | Symbol | Object |
   }
 }
 
+/**
+ * logs messages to the CLI independent if the parameter -v or --verbose is passed as true or not
+ *
+ * @example
+ * user-flow collect -v // log is present
+ * user-flow collect -v=false // log is present
+ *
+ * @param message
+ */
 export function log(...message: Array<string | number | Symbol | Object | Array<any>>): void {
   return console.log(...message);
 }

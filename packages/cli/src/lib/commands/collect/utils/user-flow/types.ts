@@ -8,9 +8,7 @@ import {
 } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 import { PickOne } from '../../../../core/utils/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
