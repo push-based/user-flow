@@ -55,7 +55,7 @@
       "target": "main"
     },
     {
-      "type": "stopTimespan"
+      "type": "endTimespan"
     },
     {
       "type": "snapshot"
