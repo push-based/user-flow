@@ -20,22 +20,43 @@ export function detectCi(): string {
 
   /*
   The following platforms have a CI key:
-
     CI=true - github
 
     CI=true - circleci
 
     CI=true - gitlab
 
-    CI=true - travis
+    - travis
+    CI=true
+    CONTINUOUS_INTEGRATION=true
 
     CI=true - netlify
 
+    - cirrus
+    CI=true
+    CONTINUOUS_INTEGRATION=true
+
+    CI=true - appveyor
+
+    CI=true - codeShip
+
+    - dsari
+    env.RUN_ID=??
+    CI=true
+
+    - taskCluster
+    env.RUN_ID=??
+
     CI=1 - vercel
+
+    - jenkins
+    BUILD_NUMBER=??
+
+    - teamCity
+    BUILD_NUMBER=??
 
     Unknown:
 
-    ??? - Jenkins
     ??? - Azure Pipelines
    */
 

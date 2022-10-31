@@ -4,9 +4,9 @@ import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeededAndExecute } from './utils/serve-command';
 import { setupRcJson } from '../init/processes/setup-rc-json';
 import { RcArgvOptions, RcJson } from '../../types';
-import { getCLIConfigFromArgv } from '../../core/utils/yargs';
 import { run } from '../../core/utils/processing/behaviors';
 import { collectReports } from './processes/collect-reports';
+import { getCLIConfigFromArgv } from '../../core/rc-json';
 
 // @TODO refactor to use run, concat, askToSkip etc helpers
 export const collectUserFlowsCommand: YargsCommandObject = {
