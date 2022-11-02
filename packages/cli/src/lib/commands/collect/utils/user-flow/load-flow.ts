@@ -1,4 +1,4 @@
-import { CollectOptions } from '../../../../core/rc-json/types';
+import { CollectOptions } from '../../../../global/rc-json/types';
 import { UserFlowProvider } from './types';
 import { join } from 'path';
 import { existsSync, lstatSync, readdirSync } from 'fs';

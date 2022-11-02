@@ -1,5 +1,5 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
-import { PersistOptions } from '../../../../core/rc-json/types';
+import { PersistOptions } from '../../../../global/rc-json/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
 import { log } from '../../../../core/loggin';

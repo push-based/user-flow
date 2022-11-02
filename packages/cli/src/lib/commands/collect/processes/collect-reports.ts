@@ -2,7 +2,7 @@ import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../commands/collect/options/dryRun';
-import { AssertOptions, RcJson } from '../../../core/rc-json/types';
+import { AssertOptions, RcJson } from '../../../global/rc-json/types';
 import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {

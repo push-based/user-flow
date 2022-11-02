@@ -3,8 +3,8 @@ import { logVerbose } from '../../core/loggin/index';
 import { readBudgets } from './utils/budgets';
 import { userFlowReportToMdTable } from './processes/md-table';
 import { readFile } from '../../core/file';
-import { getCLIConfigFromArgv } from '../../core/rc-json';
-import { RcJson } from '../../core/rc-json/types';
+import { getCLIConfigFromArgv } from '../../global/rc-json';
+import { RcJson } from '../../global/rc-json/types';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

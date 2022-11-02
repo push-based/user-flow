@@ -1,5 +1,5 @@
 import { concurrently } from 'concurrently';
-import { CollectOptions, RcJson } from '../../../core/rc-json/types';
+import { CollectOptions, RcJson } from '../../../global/rc-json/types';
 import { logVerbose } from '../../../core/loggin';
 import { Subscription } from 'rxjs';
 

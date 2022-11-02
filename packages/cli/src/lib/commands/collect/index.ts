@@ -5,8 +5,8 @@ import { startServerIfNeededAndExecute } from './utils/serve-command';
 import { setupRcJson } from './../init/processes/setup-rc-json';
 import { run } from '../../core/processing';
 import { collectReports } from './processes/collect-reports';
-import { getCLIConfigFromArgv } from '../../core/rc-json';
-import { RcArgvOptions, RcJson } from '../../core/rc-json/types';
+import { getCLIConfigFromArgv } from '../../global/rc-json';
+import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
 
 // @TODO refactor to use run, concat, askToSkip etc helpers
 export const collectUserFlowsCommand: YargsCommandObject = {

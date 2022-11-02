@@ -1,5 +1,5 @@
 export { UserFlowMock } from './commands/collect/utils/user-flow/user-flow.mock';
-export { RcJson,RcArgvOptions } from './core/rc-json/types';
+export { RcJson,RcArgvOptions } from './global/rc-json/types';
 export { Ufo } from './ufo/ufo';
 export {
   StepOptions, UserFlowOptions, LaunchOptions, UserFlowContext, UserFlowProvider, UserFlowInteractionsFn

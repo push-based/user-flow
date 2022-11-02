@@ -3,7 +3,7 @@ import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { PROMPT_COLLECT_UF_PATH, DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED } from './ufPath.constant';
 import { mkdirSync, readdirSync } from 'fs';
-import { RcJson } from '../../../core/rc-json/types';
+import { RcJson } from '../../../global/rc-json/types';
 
 export async function setupUfPath(
   config: RcJson,

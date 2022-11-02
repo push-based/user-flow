@@ -7,8 +7,8 @@ import { askToSkip } from '../../core/prompt';
 import { run } from '../../core/processing';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
-import { getCLIConfigFromArgv } from '../../core/rc-json';
-import { RcArgvOptions, RcJson } from '../../core/rc-json/types';
+import { getCLIConfigFromArgv } from '../../global/rc-json';
+import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
