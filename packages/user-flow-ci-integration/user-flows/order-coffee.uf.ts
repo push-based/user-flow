@@ -61,7 +61,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Order Coffee'},
+  flowOptions: {name: 'Order Coffee in CI'},
   interactions
 };
 
