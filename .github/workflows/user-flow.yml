@@ -6,7 +6,7 @@ on:
       - '*.md'
 
 jobs:
-  build_and_test:
+  user-flow-integrated-in-ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
