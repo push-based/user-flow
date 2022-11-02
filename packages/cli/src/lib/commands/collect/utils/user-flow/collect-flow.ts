@@ -1,16 +1,16 @@
 import { CollectOptions } from '../../../../core/rc-json/types';
 import { UserFlowProvider } from './types';
-import { detectCliMode } from '../../../../cli-modes';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { normalize } from 'path';
 import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
-import { get as dryRun } from '../../../../core/options/dryRun';
+import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
 import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
+import { detectCliMode } from '../../../../core/cli-modes';
 
 export async function collectFlow(
   cliOption: CollectOptions & { dryRun: boolean },

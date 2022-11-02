@@ -1,6 +1,6 @@
-import { get as dryRun } from '../../../../core/options/dryRun';
+import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { get as openOpt } from '../../options/open';
-import { get as interactive } from '../../../../core/options/interactive';
+import { get as interactive } from '../../../../global/options/interactive';
 import { logVerbose } from '../../../../core/loggin';
 import * as openFileInBrowser from 'open';
 
