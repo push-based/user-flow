@@ -6,7 +6,8 @@ export const param: Param = {
   interactive: {
     type: 'boolean',
     description: 'When false questions are skipped with the values from the suggestions. This is useful for CI integrations.',
-    default: true
+    default: true,
+    alias: 'i'
   }
 };
 

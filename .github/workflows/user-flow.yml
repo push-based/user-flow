@@ -22,9 +22,9 @@ jobs:
         run: npm i
       - name: build
         run: npm run nx -- build cli
-      - name: test
+      - name: user-flow ci test
         run: npm run ci-test
-      - name: Create comment
+      - name: Create report comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: 1
