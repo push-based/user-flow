@@ -22,6 +22,8 @@ jobs:
         run: npm i
       - name: build
         run: npm run nx -- build cli
+      - name: link
+        run: npm run nx -- link cli
       - name: user-flow ci test
         run: npm run ci-test
       - name: Create report comment
