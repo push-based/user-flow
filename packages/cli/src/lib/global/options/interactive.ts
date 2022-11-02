@@ -4,6 +4,7 @@ import { ArgvOption } from '../../core/yargs/types';
 
 export const param: Param = {
   interactive: {
+    alias: 'i',
     type: 'boolean',
     description: 'When false questions are skipped with the values from the suggestions. This is useful for CI integrations.',
     default: true
