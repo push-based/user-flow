@@ -17,3 +17,13 @@ export type AssertOptions = {
   budgetPath?: string,
   budgets?: SharedFlagsSettings['budgets'] | string
 }
+export type RcJson = {
+  collect: CollectOptions;
+  persist: PersistOptions;
+  assert?: AssertOptions;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+} & Object;
+
+export type RcArgvOptions = CollectOptions &
+  PersistOptions &
+  AssertOptions & { openReport?: boolean };

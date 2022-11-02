@@ -2,8 +2,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 
-import { CLI_MODE_PROPERTY } from '../../src/lib/cli-modes';
-import { writeFile } from '../../src/lib/core/utils/file/file';
+import { CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
+import { writeFile } from '../../src/lib/core/file';
 import { kill } from '../utils/kill';
 import { RcJson } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';

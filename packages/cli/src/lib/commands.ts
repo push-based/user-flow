@@ -1,4 +1,4 @@
-import { YargsCommandObject } from './core/utils/yargs/types';
+import { YargsCommandObject } from './core/yargs/types';
 import { collectUserFlowsCommand } from './commands/collect';
 import { initCommand } from './commands/init';
 import { assertCommand } from './commands/assert';
