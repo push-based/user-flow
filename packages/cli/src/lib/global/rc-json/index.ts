@@ -1,8 +1,9 @@
-import { RcArgvOptions, RcJson } from '../../types';
-import { readFile, writeFile } from '../utils/file/file';
 
-import { logVerbose } from '../utils/loggin';
+import { readFile, writeFile } from '../../core/file';
+
+import { logVerbose } from '../../core/loggin';
 import { get as getRcPath } from '../options/rc';
+import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
 
 export function readRcConfig(cfgPath: string = ''): RcJson {
   const configPath = cfgPath || getRcPath();
@@ -30,3 +31,28 @@ export function getCliOptionsFromRcConfig(config: RcJson): RcArgvOptions {
   return {...collect, ...persist, ...assert};
 }
 
+export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
+
+  const cfg: RcJson = {
+    collect: {
+      url,
+      ufPath,
+      serveCommand,
+      awaitServeStdout
+    },
+    persist: {
+      outPath,
+      format
+    }
+  };
+
+  if (budgetPath || budgets) {
+    cfg.assert = {
+      budgetPath,
+      budgets
+    };
+  }
+
+  return cfg;
+}

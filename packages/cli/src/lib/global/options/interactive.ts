@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './interactive.model';
-import { ArgvOption } from '../utils/yargs/types';
+import { ArgvOption } from '../../core/yargs/types';
 
 export const param: Param = {
   interactive: {

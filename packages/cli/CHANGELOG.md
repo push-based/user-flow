@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.10.0](https://github.com/push-based/user-flow/compare/cli-0.9.0...cli-0.10.0) (2022-11-02)
+
+
+### Bug Fixes
+
+* merge ([dc5b9bd](https://github.com/push-based/user-flow/commit/dc5b9bd7f22ccb37e4857d87b663da7b003247ff))
+
+
+### Features
+
+* flatten core utils, move rc related fn ([59cc692](https://github.com/push-based/user-flow/commit/59cc69295ebf1f543b074275a7cea451f5ad7026))
+
+
+
 # [0.9.0](https://github.com/push-based/user-flow/compare/cli-0.8.7...cli-0.9.0) (2022-10-31)
 
 
