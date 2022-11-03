@@ -83,22 +83,6 @@
           }
         ]
       }
-    },
-    "link-dist": {
-      "executor": "@nrwl/workspace:run-commands",
-      "dependsOn": [
-        {
-          "target": "link",
-          "projects": "self"
-        }
-      ],
-      "options": {
-        "commands": [
-          {
-            "command": "npm link @push-based/user-flow"
-          }
-        ]
-      }
     }
   },
   "tags": []
