@@ -218,14 +218,14 @@ e.g. to select multiple formats for the collect output write:
 
 ## Global Options
 
-|  Option                     |  Type     | Default                     |  Description                                                                                               |  
-| --------------------------- | --------- | --------------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--help`**                | `boolean` | `undefined`                 | Show help                                                                                                  |  
-| **`--version`**             | `boolean` | `undefined`                 | Show version number of cli                                                                                 |  
-| **`--cfgPath`**, **`-p`**   | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
-| **`--verbose`**, **`-v`**   | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
-| **`--interactive`**         | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
-| **`--dryRun`**              | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
+| Option                       |  Type     | Default                     |  Description                                                                                               |  
+|------------------------------| --------- | --------------------------- |----------------------------------------------------------------------------------------------------------- |  
+| **`--help`**                 | `boolean` | `undefined`                 | Show help                                                                                                  |  
+| **`--version`**              | `boolean` | `undefined`                 | Show version number of cli                                                                                 |  
+| **`--cfgPath`**, **`-p`**    | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
+| **`--verbose`**, **`-v`**    | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
+| **`--interactive`** **`-i`** | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
+| **`--dryRun`**               | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Commands 
 
