@@ -24,13 +24,3 @@ jobs:
         run: npm run build
       - name: user-flow ci test
         run: npm run ci-test
-      - name: Get Pull Request Number
-        id: pr
-        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create report comment
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.issue.pull_request.id }}
-          body-file: './packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.md'
