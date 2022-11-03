@@ -24,7 +24,7 @@ jobs:
         run: npm run build
       - name: user-flow ci test
         run: npm run ci-test
-      - name: Create report comment
+      - name: Add reduced report as comment to the PR
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.pull_request.number }}
