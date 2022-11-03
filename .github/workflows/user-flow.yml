@@ -32,5 +32,5 @@ jobs:
       - name: Create report comment
         uses: peter-evans/create-or-update-comment@v2
         with:
-          issue-number: ${{ steps.pr.outputs.pull_request_number }}
+          issue-number: ${{ github.event.issue.pull_request.id }}
           body-file: './packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.md'
