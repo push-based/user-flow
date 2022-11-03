@@ -20,8 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm i
-      - name: link
-        run: npm run nx -- link cli
+      - name: build
+        run: npm run build
       - name: user-flow ci test
         run: npm run ci-test
       - name: Create report comment
