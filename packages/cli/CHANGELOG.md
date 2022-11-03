@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.1](https://github.com/push-based/user-flow/compare/cli-0.10.0...cli-0.10.1) (2022-11-03)
+
+
+### Bug Fixes
+
+* add alias -i for --interactive parameter ([99d2447](https://github.com/push-based/user-flow/commit/99d2447623bcc94147303f3b5adeb62f9ebe3ac9))
+
+
+
 # [0.10.0](https://github.com/push-based/user-flow/compare/cli-0.9.0...cli-0.10.0) (2022-11-02)
 
 
