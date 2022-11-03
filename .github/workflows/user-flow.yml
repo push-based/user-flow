@@ -27,5 +27,5 @@ jobs:
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          message: User Flow Reports
+          header: step name
           path: ./packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.md
