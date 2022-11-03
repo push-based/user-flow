@@ -28,4 +28,5 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
+          header: step
           path: ./packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.md
