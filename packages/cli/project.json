@@ -64,6 +64,12 @@
     },
     "link": {
       "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
       "options": {
         "commands": [
           {
@@ -71,6 +77,25 @@
           },
           {
             "command": "npm link -f"
+          },
+          {
+            "command": "cd ../../../"
+          }
+        ]
+      }
+    },
+    "link-dist": {
+      "executor": "@nrwl/workspace:run-commands",
+      "dependsOn": [
+        {
+          "target": "link",
+          "projects": "self"
+        }
+      ],
+      "options": {
+        "commands": [
+          {
+            "command": "npm link @push-based/user-flow"
           }
         ]
       }
