@@ -13,8 +13,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 
   const jsonReport: FlowResult = await flow.createFlowResult();
 
-
-  const results: { format: string, out: any }[] = [];
+  const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
