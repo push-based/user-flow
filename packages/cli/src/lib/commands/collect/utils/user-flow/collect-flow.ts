@@ -10,10 +10,9 @@ import { UserFlowMock } from './user-flow.mock';
 import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
-import { detectCliMode } from '../../../../global/cli-mode/cli-modes';
 
 export async function collectFlow(
-  cliOption: CollectOptions & { dryRun: boolean },
+  cliOption: CollectOptions,
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -33,11 +32,7 @@ export async function collectFlow(
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
-  // @TODO consider CI vs dev mode => headless, open, persist etc
-  if (detectCliMode() !== 'DEFAULT') {
-    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
-    launchOptions.headless = true;
-  }
+
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 

@@ -5,7 +5,8 @@ export type CollectOptions = {
   ufPath: string,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
-  awaitServeStdout?: string
+  awaitServeStdout?: string;
+  dryRun?: boolean
 }
 
 export type PersistOptions = {

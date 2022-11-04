@@ -16,11 +16,6 @@ export const initCommand: YargsCommandObject = {
   builder: (y) => y.options(INIT_OPTIONS),
   module: {
     handler: async (argv: any) => {
-
-      const cliMode = detectCliMode();
-      // @ts-ignore
-      cliMode !== 'SANDBOX' & detectCi();
-
       logVerbose(`run "init" as a yargs command`);
 
       const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);

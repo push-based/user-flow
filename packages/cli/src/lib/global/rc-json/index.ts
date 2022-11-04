@@ -1,4 +1,3 @@
-
 import { readFile, writeFile } from '../../core/file';
 
 import { logVerbose } from '../../core/loggin';
