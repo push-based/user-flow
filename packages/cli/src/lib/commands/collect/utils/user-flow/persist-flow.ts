@@ -1,7 +1,7 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { PersistOptions } from '../../../../global/rc-json/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
+import {generateMdReport} from "../../processes/generate-reports";
 import { log } from '../../../../core/loggin';
 import { join } from 'path';
 import { toFileName, writeFile } from '../../../../core/file';
@@ -21,11 +21,11 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 
   let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
-    mdReport = userFlowReportToMdTable(jsonReport);
+    mdReport = generateMdReport(jsonReport);
     results.push({ format: 'md', out: mdReport });
   }
   if (format.includes('stdout')) {
-    mdReport = mdReport || userFlowReportToMdTable(jsonReport);
+    mdReport = mdReport || generateMdReport(jsonReport);
     log(mdReport + '');
   }
   if (format.includes('html')) {
