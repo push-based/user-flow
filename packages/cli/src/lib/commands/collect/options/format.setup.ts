@@ -29,6 +29,7 @@ export async function setupFormat(
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
+        initial: 0,
         // @NOTICE typing is broken here
         result(value: string): string {
           const values = value as any as string[];
