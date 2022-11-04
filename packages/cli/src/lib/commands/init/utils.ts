@@ -1,7 +1,7 @@
 import { join } from 'path';
-import { readFile, writeFile } from '../../core/utils/file/file';
+import { readFile, writeFile } from '../../core/file';
 import { FlowExamples } from './types';
-import { log, logVerbose } from '../../core/utils/loggin';
+import { log, logVerbose } from '../../core/loggin';
 
 const FlowExampleMap: Record<FlowExamples, string> = {
   'basic-navigation': 'order-coffee.uf.ts'

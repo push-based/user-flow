@@ -1,7 +1,7 @@
 import { startServerIfNeededAndExecute } from '../../src/lib/commands/collect/utils/serve-command';
 
 import spyOn = jest.spyOn;
-import { CollectOptions } from '../../src/lib/core/rc-json/types';
+import { CollectOptions } from '../../src/lib/global/rc-json/types';
 
 describe('startServerIfNeeded', () => {
 

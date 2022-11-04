@@ -1,5 +1,5 @@
 import { Options } from 'yargs';
-import { Modify } from '../utils/types';
+import { Modify } from '../../core/types';
 
 export type Param = {
   rcPath: Modify<Options, {

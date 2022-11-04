@@ -10,7 +10,7 @@ import {
 import * as Config from 'lighthouse/types/config';
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-import { PickOne } from '../../../../core/utils/types';
+import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 

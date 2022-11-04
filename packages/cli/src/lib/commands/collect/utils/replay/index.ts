@@ -2,7 +2,7 @@ import { createRunner, Runner } from '@puppeteer/replay';
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { UserFlowContext } from '../../../..';
-import { readFile } from '../../../../core/utils/file/file';
+import { readFile } from '../../../../core/file';
 import { UserFlowReportJson } from './types';
 import { parse } from './utils';
 import { UserFlowRunnerExtension } from './runner-extension';

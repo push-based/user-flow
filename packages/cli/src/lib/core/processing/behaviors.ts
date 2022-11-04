@@ -1,5 +1,5 @@
-import { RcJson } from '../../../types';
-import { CLIProcess, Process } from './types';
+import { RcJson } from '../../global/rc-json/types';
+import { CLIProcess } from './types';
 
 export function run(
   tasks: CLIProcess[]
@@ -7,9 +7,8 @@ export function run(
   return (config) => concat(tasks)(config);
 }
 
-
-export function concat(processes: Process[]): Process {
-  return async function(r: any): Promise<any> {
+export function concat(processes: CLIProcess[]): CLIProcess {
+  return async function(r: RcJson): Promise<RcJson> {
     return await processes.reduce(
       async (cfg, processor) => await processor(await cfg),
       Promise.resolve(r)

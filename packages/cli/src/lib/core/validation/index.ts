@@ -1,5 +1,4 @@
-import { Error, ValidatorFn, ValidatorFnFactory } from './types';
-import { ERROR_PERSIST_FORMAT_WRONG } from '../../../commands/collect/options/format.constant';
+import { Error, ValidatorFn } from './types';
 
 export function applyValidations<T>(value: T, validators: ValidatorFn[]): Error {
   return validators.reduce((errors, validator) => {

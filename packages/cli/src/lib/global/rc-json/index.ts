@@ -1,9 +1,9 @@
-import { RcArgvOptions, RcJson } from '../../types';
-import { readFile, writeFile } from '../utils/file/file';
 
-import { logVerbose } from '../utils/loggin';
+import { readFile, writeFile } from '../../core/file';
+
+import { logVerbose } from '../../core/loggin';
 import { get as getRcPath } from '../options/rc';
-import { CollectOptions, PersistOptions } from './types';
+import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
 
 export function readRcConfig(cfgPath: string = ''): RcJson {
   const configPath = cfgPath || getRcPath();
