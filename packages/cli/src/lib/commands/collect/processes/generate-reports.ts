@@ -3,6 +3,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
 
 import { ReducedReport,ReducedFlowStepResult } from '../utils/user-flow/types';
+import { userFlowReportToMdTable } from "../../assert/processes/md-table";
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = flowResult.steps.map((step) => {
@@ -17,4 +18,10 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
     return { name: step.name, gatherMode, results };
   });
   return {name: flowResult.name, steps};
+}
+
+export function generateMdReport(flowResult: FlowResult): string {
+  const dateTime = new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3);
+  const mdTable = userFlowReportToMdTable(flowResult);
+  return `# ${flowResult.name}\n\nDate/Time: ${dateTime}\n\n${mdTable}`;
 }
