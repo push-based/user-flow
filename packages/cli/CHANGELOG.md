@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.2](https://github.com/push-based/user-flow/compare/cli-0.10.1...cli-0.10.2) (2022-11-04)
+
+
+### Bug Fixes
+
+* add hint for default format and comment for devs ([eae9624](https://github.com/push-based/user-flow/commit/eae962413205ab14b0176c6043604bb9ae038d34))
+* add initial value as default format for init command ([ef2efa8](https://github.com/push-based/user-flow/commit/ef2efa80b3aa0838370b1f441bad54b809cddca0))
+* init test select default format ([f6338ae](https://github.com/push-based/user-flow/commit/f6338aef2f43972283824980d48ad783e9b9517b))
+* set HTML as default format of init command ([5bb0640](https://github.com/push-based/user-flow/commit/5bb0640a1e89b080ff220f151f1e83228fc2e83d))
+
+
+
 ## [0.10.1](https://github.com/push-based/user-flow/compare/cli-0.10.0...cli-0.10.1) (2022-11-03)
 
 
