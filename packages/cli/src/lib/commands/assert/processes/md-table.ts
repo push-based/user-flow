@@ -8,34 +8,27 @@ import { createReducedReport } from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
- *
  * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
  * | --------------- | ----------- | ------------- | ------------- | ---- | --- |
  * |  Nav1           |  99         | 50            | 100           | 98   |  -  |
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function userFlowReportToMdTable(
-  flowResult: FlowResult
-): string {
+export function userFlowReportToMdTable(flowResult: FlowResult): string {
   const reducedResult: ReducedReport = createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedResult.steps[0].results);
   const reportFormats = reportCategories.map(_ => 'c');
   // name is center, gather mode is center, all other columns are centered
-  const TABLE_OPTIONS = { align: ['l', 'c'].concat(reportFormats) };
+  const TABLE_OPTIONS = { align: ['l', 'c'].concat(reportFormats) as Alignment[]};
   const TABLE_HEAD = ['Step Name', 'Gather Mode']
-    .concat(reportCategories
-      .map(
-        c => c.split('-').map(cN => cN[0].toUpperCase() + cN.slice(1)).join(' ')
-      )
-    );
-  const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))) as any);
-  return markdownTable(tableArr, TABLE_OPTIONS as any).replace(' ', '') + `\n`;
+    .concat(reportCategories.map(c => c.split('-').map(cN => cN[0].toUpperCase() + cN.slice(1)).join(' ')));
+  const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))));
+  return markdownTable(tableArr, TABLE_OPTIONS).replace(' ', '') + `\n`;
 }
 
 type Alignment = 'l' | 'c' | 'r';
 
-function markdownTable(data: string[][], {align} : {align:  Alignment | Alignment[]}): string {
+function markdownTable(data: string[][], {align}: {align:  Alignment | Alignment[]}): string {
   const _data = data.map((arr) => arr.join('|'));
   let secondRow = typeof align === 'string' ?  getAlignString(align) : align.map((s) => getAlignString(s)).join('|');
   return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
