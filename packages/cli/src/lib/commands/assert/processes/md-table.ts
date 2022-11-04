@@ -28,15 +28,12 @@ export function userFlowReportToMdTable(flowResult: FlowResult): string {
 
 type Alignment = 'l' | 'c' | 'r';
 
+const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r', '--:']]);
+
 function markdownTable(data: string[][], {align}: {align:  Alignment | Alignment[]}): string {
   const _data = data.map((arr) => arr.join('|'));
-  let secondRow = typeof align === 'string' ?  getAlignString(align) : align.map((s) => getAlignString(s)).join('|');
+  const secondRow = typeof align === 'string' ?  alignString.get(align) : align.map((s) => alignString.get(s)).join('|');
   return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
-}
-
-function getAlignString(option?:  Alignment ): string {
-  const _ = '--'
-  return option === 'l' ? ':'+_ : option === 'c' ? ':'+_+':' : option === 'r' ? _+':' : _ ;
 }
 
 function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
