@@ -1,10 +1,10 @@
 import { argv } from 'yargs';
 import { Param } from './rc.model';
-import { ArgvOption } from '../../core/yargs/types';
+import { ArgvOption } from '../../../core/yargs/types';
 import { join } from 'path';
-import { logVerbose } from '../../core/loggin';
+import { logVerbose } from '../../../core/loggin';
 import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from './rc.constant';
-import { DEFAULT_COLLECT_UF_PATH } from '../../commands/collect/options/ufPath.constant';
+import { DEFAULT_COLLECT_UF_PATH } from '../../../commands/collect/options/ufPath.constant';
 
 export const param: Param = {
   rcPath: {

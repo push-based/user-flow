@@ -47,17 +47,13 @@ const env: any = process.env;
 const CI_PROPERTY = 'CI';
 const CLI_MODE_PROPERTY = Symbol('__CLI_MODE__');
 
-function setupCliMode(): void {
-  env[CLI_MODE_PROPERTY] = detectCliMode();
-}
-
 /**
  *
  */
-export function getCliMode() {
+export function getCliMode(): CLI_MODES {
   // lazy setup
   if(!env[CLI_MODE_PROPERTY]) {
-    setupCliMode();
+    env[CLI_MODE_PROPERTY] = detectCliMode();
   }
   return env[CLI_MODE_PROPERTY];
 }
@@ -123,11 +119,11 @@ export function isEnvCi(): boolean {
     ??? - Azure Pipelines
    */
 
-  const ciValue: string =
+  const ciValue: string | undefined =
     env[CI_PROPERTY] || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
     env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
     env.BUILD_NUMBER || // Jenkins, TeamCity
     env.RUN_ID; // TaskCluster, dsari
 
-  return ciValue != null && ciValue !== 'SANDBOX';
+  return ciValue != null && ciValue+'' !== 'SANDBOX';
 }

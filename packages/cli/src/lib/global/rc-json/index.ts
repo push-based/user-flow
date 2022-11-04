@@ -1,7 +1,7 @@
 import { readFile, writeFile } from '../../core/file';
 
 import { logVerbose } from '../../core/loggin';
-import { get as getRcPath } from '../options/rc';
+import { get as getRcPath } from './options/rc';
 import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
 
 export function readRcConfig(cfgPath: string = ''): RcJson {

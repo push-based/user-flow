@@ -2,7 +2,7 @@ import { setupUrl } from '../../collect/options/url.setup';
 import { setupUfPath } from '../../collect/options/ufPath.setup';
 import { setupFormat } from '../../collect/options/format.setup';
 import { setupOutPath } from '../../collect/options/outPath.setup';
-import { get as getRcPath } from '../../../global/options/rc';
+import { get as getRcPath } from '../../../global/rc-json/options/rc';
 import { updateRcConfig } from '../../../global/rc-json';
 import { logVerbose } from '../../../core/loggin';
 import { RcJson } from '../../../global/rc-json/types';
