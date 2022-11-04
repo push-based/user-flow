@@ -14,7 +14,8 @@ export function setupYargs(
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
-    .help();
+    .help()
+    .alias('h', 'help');
 
   commands.forEach((command) => yargs.command(
     command.command,
