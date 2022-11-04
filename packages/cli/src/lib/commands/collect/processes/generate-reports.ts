@@ -23,5 +23,5 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
 export function generateMdReport(flowResult: FlowResult): string {
   const dateTime = new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3);
   const mdTable = userFlowReportToMdTable(flowResult);
-  return `# ${flowResult.name}\n\nDate/Time: ${dateTime}\n\n${mdTable}}`;
+  return `# ${flowResult.name}\n\nDate/Time: ${dateTime}\n\n${mdTable}`;
 }
