@@ -36,7 +36,7 @@ function markdownTable(data: string[][], {align}: {align:  Alignment | Alignment
   return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
 }
 
-function extractTableRow(step: ReducedFlowStep, reportCategories: string[]) {
+function extractTableRow(step: ReducedFlowStep, reportCategories: string[]): string[] {
   const nameAndMode = [step.name, step.gatherMode];
   let results: string[];
   if (step.gatherMode === 'navigation') {
