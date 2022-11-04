@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.3](https://github.com/push-based/user-flow/compare/cli-0.10.2...cli-0.10.3) (2022-11-04)
+
+
+### Bug Fixes
+
+* add method to generate md report with name data and table ([3de8215](https://github.com/push-based/user-flow/commit/3de821538caca0e10049867272e0792c1f10814d))
+* fix string typo ([7d6b709](https://github.com/push-based/user-flow/commit/7d6b709c796eea12decd401516115e60bdb7cac4))
+* replace Markdown table with Markdown report ([2bfc967](https://github.com/push-based/user-flow/commit/2bfc967396c9b9a6c1ca1c092e28d02255927eca))
+
+
+
 ## [0.10.2](https://github.com/push-based/user-flow/compare/cli-0.10.1...cli-0.10.2) (2022-11-04)
 
 
