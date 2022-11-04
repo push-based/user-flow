@@ -12,7 +12,7 @@ describe('getEnvPreset', () => {
     expect(getEnvPreset()).toEqual(CI_PRESET);
   });
 
-  it('should return false if sandbox mode is configured', () => {
+  it('should return sandbox preset if mode is configured', () => {
     process.env['CI'] = 'SANDBOX';
     expect(getEnvPreset()).toEqual(SANDBOX_PRESET);
   });

@@ -38,7 +38,7 @@ describe('getCliMode', () => {
     expect(getCliMode()).toBe('CI');
   });
 
-  it('should return CI in the CI', () => {
+  it('should return DEFAULT if it is no CI or sandbox environment', () => {
     process.env['CI'] = undefined;
     expect(getCliMode()).toBe('DEFAULT');
   });

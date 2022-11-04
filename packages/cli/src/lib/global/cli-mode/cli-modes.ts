@@ -44,7 +44,7 @@ import { CLI_MODES } from './types';
 const env: any = process.env;
 
 const CI_PROPERTY = 'CI';
-export const CLI_MODE_PROPERTY = Symbol('__CLI_MODE__');
+export const CLI_MODE_PROPERTY = '__CLI_MODE__';
 
 /**
  *
