@@ -39,8 +39,6 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    //expect(stdout).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report

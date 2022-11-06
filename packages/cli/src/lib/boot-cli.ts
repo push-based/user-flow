@@ -10,9 +10,9 @@ const { format, ...preSet } = getEnvPreset();
 
 if(format) {
   // maintain original formats
-  // persist.format = Array.from(new Set(persist.format.concat(format)));
+  persist.format = Array.from(new Set(persist.format.concat(format)));
 }
 
 (async () => runCli({ commands: commands, options: {
     ...GLOBAL_OPTIONS
-  }, config: { ...collect, ...persist, ...assert} }))();
+  }, config: { ...preSet, ...collect, ...persist, ...assert} }))();
