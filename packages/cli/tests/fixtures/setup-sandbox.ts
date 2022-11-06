@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 
-import { CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
+import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
 import { writeFile } from '../../src/lib/core/file';
 import { kill } from '../utils/kill';
 import { RcJson } from '@push-based/user-flow';
@@ -120,7 +120,7 @@ export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PAT
 
 export const SETUP_SANDBOX_CLI_TEST_CFG = {
   testPath: SETUP_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX'
+  [CI_PROPERTY]: 'SANDBOX'
 };
 
 export async function resetSetupSandboxAndKillPorts(): Promise<void> {

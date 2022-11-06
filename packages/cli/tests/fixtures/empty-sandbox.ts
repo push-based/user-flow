@@ -1,10 +1,10 @@
 import * as path from 'path';
 import * as fs from "fs";
-import { CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
 import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
+import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
 
 /**
  * This file maintains the static data used in tests as well as htlpers to reset the status of a sandbox to it's initial state.
@@ -32,7 +32,7 @@ export const EMPTY_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', 'sandbo
 
 export const EMPTY_SANDBOX_CLI_TEST_CFG = {
   testPath: EMPTY_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX'
+  [CI_PROPERTY]: 'SANDBOX'
 };
 
 export async function resetEmptySandbox(): Promise<void> {

@@ -1,14 +1,28 @@
-import { getCliMode, isEnvCi, isEnvSandbox } from '../../src/lib/global/cli-mode/cli-modes';
+import {
+  CLI_MODE_PROPERTY,
+  detectCliMode,
+  getCliMode,
+  isEnvCi,
+  isEnvSandbox
+} from '../../src/lib/global/cli-mode/cli-modes';
+import { setupEnvVars, teardownEnvVars } from '../utils/cli-mode-helpers';
 
 describe('isEnvCi', () => {
 
+  afterEach(teardownEnvVars);
   // This will only pass run in CI
   it('should return true in the CI', () => {
+    setupEnvVars('true');
     expect(isEnvCi()).toBe(true);
   });
 
   it('should return false if sandbox mode is configured', () => {
-    process.env['CI'] = 'SANDBOX';
+    setupEnvVars('SANDBOX');
+    expect(isEnvCi()).toBe(false);
+  });
+
+  it('should return false on a local machine', () => {
+    teardownEnvVars();
     expect(isEnvCi()).toBe(false);
   });
 
@@ -16,30 +30,58 @@ describe('isEnvCi', () => {
 
 describe('isEnvSandbox', () => {
 
-  it('should return true in the CI', () => {
-    process.env['CI'] = 'SANDBOX';
+  afterEach(teardownEnvVars);
+
+  it('should return true if sandbox is configured', () => {
+    setupEnvVars('SANDBOX');
     expect(isEnvSandbox()).toBe(true);
   });
 
-  it('should return false if sandbox mode is configured', () => {
+  it('should return false if sandbox mode is NOT configured', () => {
+    setupEnvVars('true');
     expect(isEnvSandbox()).toBe(false);
   });
 
 });
+
+describe('detectCliMode', () => {
+  afterEach(teardownEnvVars);
+
+  it('should return SANDBOX if sandbox is configured', () => {
+    setupEnvVars('SANDBOX');
+    expect(isEnvSandbox()).toBe(true);
+  });
+
+  it('should return CI if CI', () => {
+    setupEnvVars('true');
+    expect(isEnvSandbox()).toBe(false);
+  });
+
+  it('should return DEFAULT by default', () => {
+    setupEnvVars('true');
+    expect(isEnvSandbox()).toBe(false);
+  });
+
+});
+
 describe('getCliMode', () => {
+  afterEach(teardownEnvVars);
 
   it('should return SANDBOX if it is configured', () => {
-    process.env['CI'] = 'SANDBOX';
+    setupEnvVars('SANDBOX');
     expect(getCliMode()).toBe('SANDBOX');
   });
 
   // This will only pass run in CI
   it('should return CI in the CI', () => {
+    expect(process.env[CLI_MODE_PROPERTY]).toBe(undefined);
+    setupEnvVars('true');
     expect(getCliMode()).toBe('CI');
+
   });
 
   it('should return DEFAULT if it is no CI or sandbox environment', () => {
-    process.env['CI'] = undefined;
+    teardownEnvVars();
     expect(getCliMode()).toBe('DEFAULT');
   });
 

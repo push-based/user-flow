@@ -39,11 +39,14 @@ import { CLI_MODES } from './types';
  *
  * `npx user-flow`
  *
+ * To detect if it runs in a CI we check the `process.env` property for either `true` or `1`.
+ * To "enable" sandbox mode we programmatically have to set `process.env.CI` to `SANDBOX`.
+ *
  */
 
 const env: any = process.env;
 
-const CI_PROPERTY = 'CI';
+export const CI_PROPERTY = 'CI';
 export const CLI_MODE_PROPERTY = '__CLI_MODE__';
 
 /**
@@ -57,7 +60,10 @@ export function getCliMode(): CLI_MODES {
   return env[CLI_MODE_PROPERTY];
 }
 
-function detectCliMode(): CLI_MODES {
+/**
+ * detects the current CLI mode
+ */
+export function detectCliMode(): CLI_MODES {
   return isEnvCi() ?  'CI' : isEnvSandbox() ? 'SANDBOX' : 'DEFAULT';
 }
 
@@ -123,6 +129,5 @@ export function isEnvCi(): boolean {
     env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
     env.BUILD_NUMBER || // Jenkins, TeamCity
     env.RUN_ID; // TaskCluster, dsari
-
-  return ciValue != null && ciValue+'' !== 'SANDBOX';
+  return ciValue != null && ciValue !== 'SANDBOX';
 }
