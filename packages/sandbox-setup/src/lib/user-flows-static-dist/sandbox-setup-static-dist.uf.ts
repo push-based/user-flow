@@ -33,9 +33,5 @@ module.exports = {
     // # Snapshot
     await flow.snapshot();
 
-  },
-  launchOptions: {
-    // to be able to run tests in the CLI without chrome popping up (for debugging switch it off)
-    headless: false
   }
 };

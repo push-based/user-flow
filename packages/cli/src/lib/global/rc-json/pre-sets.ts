@@ -8,18 +8,18 @@ export const DEFAULT_PRESET = {
 };
 
 export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
-  // global
+  // GLOBAL
   interactive: false,
   openReport: false,
-  // collect
+  // PERSIST COMMAND
   format: ['md', 'json']
 };
 
 export const SANDBOX_PRESET: ArgvPreset = {
-  // global
+  // GLOBAL
   interactive: false,
   verbose: true,
-  // collect
+  // COLLECT COMMAND
   openReport: false,
   dryRun: true,
 };
