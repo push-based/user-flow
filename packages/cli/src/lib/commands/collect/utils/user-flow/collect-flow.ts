@@ -30,8 +30,12 @@ export async function collectFlow(
   launchOptions = launchOptions || {
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
-    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
+    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 },
   };
+
+  if(launchOptions.headless) {
+    launchOptions.env = { DISPLAY: ":10.0"};
+  }
 
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
