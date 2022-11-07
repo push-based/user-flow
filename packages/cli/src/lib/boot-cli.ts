@@ -6,13 +6,10 @@ import { get as getRcParam } from './global/rc-json/options/rc';
 import { getEnvPreset } from './global/rc-json/pre-sets';
 
 const {collect, persist, assert} = readRcConfig(getRcParam());
-const { format, ...preSet } = getEnvPreset();
-
-if(format) {
-  // maintain original formats
-  persist.format = Array.from(new Set(persist.format.concat(format)));
-}
+// handle global env specific presets
+const { interactive, verbose } = getEnvPreset();
+const config = { interactive, verbose, ...collect, ...persist, ...assert};
 
 (async () => runCli({ commands: commands, options: {
     ...GLOBAL_OPTIONS
-  }, config: { ...preSet, ...collect, ...persist, ...assert} }))();
+  }, config }))();

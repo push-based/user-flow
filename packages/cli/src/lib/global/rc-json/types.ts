@@ -1,4 +1,5 @@
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import { GlobalOptionsArgv } from '../options/types';
 
 export type CollectOptions = {
   url: string,
@@ -6,7 +7,8 @@ export type CollectOptions = {
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;
-  dryRun?: boolean
+  dryRun?: boolean;
+  openReport?: boolean;
 }
 
 export type PersistOptions = {
@@ -28,4 +30,4 @@ export type RcJson = {
 
 export type RcArgvOptions = CollectOptions &
   PersistOptions &
-  AssertOptions & { openReport?: boolean };
+  AssertOptions;

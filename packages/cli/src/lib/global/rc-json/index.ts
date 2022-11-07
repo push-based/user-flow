@@ -3,11 +3,12 @@ import { readFile, writeFile } from '../../core/file';
 import { logVerbose } from '../../core/loggin';
 import { get as getRcPath } from './options/rc';
 import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
+import { GlobalOptionsArgv } from '../options/types';
 
 export function readRcConfig(cfgPath: string = ''): RcJson {
   const configPath = cfgPath || getRcPath();
   const repoConfigFile = readFile(configPath) || '{}';
-  logVerbose('readRcConfig:', configPath, JSON.parse(repoConfigFile))
+  logVerbose('readRcConfig:', configPath, JSON.parse(repoConfigFile));
   return JSON.parse(repoConfigFile);
 }
 
@@ -26,8 +27,13 @@ export function updateRcConfig(config: RcJson, cfgPath: string = ''): void {
 }
 
 export function getCliOptionsFromRcConfig(config: RcJson): RcArgvOptions {
-  const {collect, persist, assert} = config;
-  return {...collect, ...persist, ...assert};
+  const { collect, persist, assert } = config;
+  return { ...collect, ...persist, ...assert };
+}
+
+export function getCLIGlobalConfigFromArgv(argv: RcArgvOptions & GlobalOptionsArgv): GlobalOptionsArgv {
+  const { verbose, interactive, rcPath } = argv;
+  return { verbose, interactive, rcPath };
 }
 
 export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {

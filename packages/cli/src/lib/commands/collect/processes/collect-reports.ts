@@ -1,13 +1,22 @@
 import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
-import { get as dryRun } from '../../../commands/collect/options/dryRun';
 import { AssertOptions, RcJson } from '../../../global/rc-json/types';
-import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';
+import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
+import { getEnvPreset } from '../../../global/rc-json/pre-sets';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
-  const { collect, persist, assert } = cfg;
+  let { collect, persist, assert } = cfg;
+
+  // handle env specific presets for collect
+  const { dryRun, openReport, format } = getEnvPreset();
+  collect = { dryRun, openReport, ...collect };
+  // handle env specific presets for persist
+  if(format) {
+    // maintain original formats
+    persist.format = Array.from(new Set(persist.format.concat(format)));
+  }
 
   let userFlows = [] as ({ exports: UserFlowProvider, path: string })[];
   // Load and run user-flows in sequential
@@ -19,7 +28,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
       provider = normalizeProviderObject(provider);
       provider = addBudgetsIfGiven(provider, assert);
 
-      return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
+      return collectFlow(collect, { ...provider, path })
         .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
         .then(openFlowReport)
         .then(_ => cfg);

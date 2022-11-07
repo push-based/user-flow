@@ -1,21 +1,27 @@
-import { CollectOptions, RcArgvOptions } from './types';
-import { CoreOptionsArgv } from '../options/types';
+import { RcArgvOptions } from './types';
+import { GlobalOptionsArgv } from '../options/types';
 import { ArgvPreset } from '../../types';
 import { getCliMode } from '../cli-mode/cli-modes';
 
 export const DEFAULT_PRESET = {
 
 };
-export const CI_PRESET: Partial<CoreOptionsArgv & RcArgvOptions> = {
-  format: ['md', 'json'],
+
+export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
+  // global
   interactive: false,
-  openReport: false
+  openReport: false,
+  // collect
+  format: ['md', 'json']
 };
 
 export const SANDBOX_PRESET: ArgvPreset = {
-  dryRun: true,
+  // global
   interactive: false,
-  openReport: false
+  verbose: true,
+  // collect
+  openReport: false,
+  dryRun: true,
 };
 
 export function getEnvPreset(): ArgvPreset  {

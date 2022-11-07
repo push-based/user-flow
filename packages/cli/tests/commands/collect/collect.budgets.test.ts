@@ -3,6 +3,7 @@ import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
 import {
+  BUDGETS_NAME,
   resetSetupSandboxAndKillPorts, SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, SETUP_SANDBOX_BUDGETS_RC_PATH,
   SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME,
@@ -33,7 +34,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `--dryRun`],
+      [...collectCommand],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -45,36 +46,35 @@ describe('budgets and collect command in setup sandbox', () => {
   });
 
   it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
-    const budgetJson = 'budget.json';
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `--dryRun`, `--budgetPath=${budgetJson}`],
+      [...collectCommand, `--budgetPath=${BUDGETS_NAME}`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, budgetJson);
+    expectBudgetsFileExistLog(stdout, BUDGETS_NAME);
     expect(exitCode).toBe(0);
 
   }, 60_000);
 
   it('should load budgets from file if budgetsPath RC option is passed', async () => {
-    const budgetJson = 'budget.json';
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandBudgetPathRc, `--dryRun`, `--budgetPath=${budgetJson}`],
+      [...collectCommand, `--budgetPath=${BUDGETS_NAME}`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, budgetJson);
+    expect(stdout).toBe('dryRun==');
+    expectBudgetsFileExistLog(stdout, BUDGETS_NAME);
     expect(exitCode).toBe(0);
 
-  });
+  }, 90_000);
 
   it('should load budgets from file if budgets RC option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandBudgetsRc, `--dryRun`],
+      [...collectCommandBudgetsRc],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -90,7 +90,7 @@ describe('budgets and collect command in setup sandbox', () => {
  it('should load budgets from file if budgetPath RC option is passed', async () => {
    const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath+'';
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandBudgetPathRc, `--dryRun`],
+      [...collectCommandBudgetPathRc],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );

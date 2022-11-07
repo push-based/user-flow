@@ -1,4 +1,4 @@
-import { CoreOptionsArgv } from './global/options/types';
+import { GlobalOptionsArgv } from './global/options/types';
 import { CollectOptions, RcArgvOptions } from './global/rc-json/types';
 
-export type ArgvPreset = Partial<CoreOptionsArgv & RcArgvOptions & CollectOptions>
+export type ArgvPreset = Partial<GlobalOptionsArgv & RcArgvOptions>
