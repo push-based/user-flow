@@ -1,5 +1,4 @@
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-import { GlobalOptionsArgv } from '../options/types';
 
 export type CollectOptions = {
   url: string,

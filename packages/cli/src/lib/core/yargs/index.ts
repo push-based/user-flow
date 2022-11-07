@@ -2,6 +2,8 @@ import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
 import { log, logVerbose } from '../loggin';
+import { RcArgvOptions } from '../..';
+import { GlobalOptionsArgv } from '../../global/options/types';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -31,9 +33,9 @@ export function setupYargs(
 export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
-  config: Record<string, any>
+  config: RcArgvOptions & GlobalOptionsArgv
 }) {
-  // `.argv` to get args as plain obj available
+  // apply `.argv` to get args as plain obj available
   setupYargs(cliCfg.commands, cliCfg.options, cliCfg.config).argv;
 }
 
