@@ -126,6 +126,7 @@ export const SETUP_SANDBOX_CLI_TEST_CFG = {
 export async function resetSetupSandboxAndKillPorts(): Promise<void> {
 
   await kill({port: STATIC_USER_FLOW_SERVE_PORT});
+  process.env[CI_PROPERTY] = 'SANDBOX';
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());
 

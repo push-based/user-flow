@@ -27,6 +27,8 @@ export async function collectFlow(
 
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
+    // has to be false to run in the CI because of a bug :(
+    // https://github.com/puppeteer/puppeteer/issues/8148
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 },
