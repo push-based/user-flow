@@ -5,12 +5,12 @@ import { YargsCommandObject } from './types';
 export function setupYargs(
   commands: YargsCommandObject[],
   options: { [key: string]: Options },
-  config: Record<string, any> = {}
+  config: { key: string, parseFn: (configPath: string) => object }
 ) {
   yargs.options(options)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
-    .config(config)
+    .config(config.key, config.parseFn)
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
@@ -31,7 +31,7 @@ export function setupYargs(
 export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
-  config: Record<string, any>
+  config: { key:string, parseFn: (configPath: string) => object }
 }) {
   // `.argv` to get ars as plain obj available
   setupYargs(cliCfg.commands, cliCfg.options, cliCfg.config).argv;
