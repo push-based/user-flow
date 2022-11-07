@@ -6,7 +6,7 @@ import * as openFileInBrowser from 'open';
 
 export async function openFlowReport(fileNames: string[]): Promise<void> {
   // open report if requested and not in executed in CI
-  if (!dryRun() && openOpt() && interactive()) {
+  if (openOpt()) {
 
     const htmlReport = fileNames.find(i => i.includes('.html'));
     if (htmlReport) {

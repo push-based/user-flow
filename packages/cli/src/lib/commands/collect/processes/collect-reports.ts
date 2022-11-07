@@ -4,6 +4,7 @@ import { logVerbose } from '../../../core/loggin';
 import { AssertOptions, RcJson } from '../../../global/rc-json/types';
 import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
 import { getEnvPreset } from '../../../global/rc-json/pre-sets';
+import { get as interactive } from '../../../global/options/interactive';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -13,7 +14,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
   const { dryRun, openReport, format } = getEnvPreset();
   collect = { dryRun, openReport, ...collect };
   // handle env specific presets for persist
-  if(format) {
+  if (format) {
     // maintain original formats
     persist.format = Array.from(new Set(persist.format.concat(format)));
   }
@@ -30,7 +31,10 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
       return collectFlow(collect, { ...provider, path })
         .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
-        .then(openFlowReport)
+        // open files only if it is:
+        // - no dryRun - as the result is just a mock
+        // - interactive - without interaction we assume no user present
+        .then((fileNames) => (interactive() && !collect.dryRun) ? openFlowReport(fileNames) : Promise.resolve())
         .then(_ => cfg);
     })
   )(cfg);

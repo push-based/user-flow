@@ -5,7 +5,6 @@ import * as puppeteer from 'puppeteer';
 import { Browser, Page } from 'puppeteer';
 import { normalize } from 'path';
 import { startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
-import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
 import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
@@ -33,10 +32,6 @@ export async function collectFlow(
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 },
   };
 
-  if(launchOptions.headless) {
-    launchOptions.env = { DISPLAY: ":10.0"};
-  }
-
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 
@@ -44,7 +39,7 @@ export async function collectFlow(
   logVerbose(`File path: ${normalize(path)}`);
   let start = Date.now();
 
-  const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
+  const flow: UserFlow = !cliOption.dryRun ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
 
   // run custom interactions
   await interactions({ flow, page, browser, collectOptions: cliOption });
