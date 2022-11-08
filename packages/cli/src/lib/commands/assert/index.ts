@@ -15,7 +15,6 @@ export const assertCommand: YargsCommandObject = {
       const cfg = getCLIConfigFromArgv(argv);
       const json = JSON.parse(readFile('./packages/cli/docs/raw/order-coffee.uf.json').toString());
       const table = userFlowReportToMdTable(json);
-      console.log('table', table);
      //  await run(cfg);
     }
   }

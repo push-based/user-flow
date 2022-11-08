@@ -30,13 +30,10 @@ export const SANDBOX_PRESET: ArgvPreset = {
 export function getEnvPreset(): ArgvPreset  {
   const m = getCliMode();
   if(m === 'SANDBOX') {
-    console.log('SANDBOX_PRESET', SANDBOX_PRESET);
     return SANDBOX_PRESET;
   }
   if(m === 'CI') {
-    console.log('CI_PRESET', CI_PRESET);
     return CI_PRESET;
   }
-  console.log('DEFAULT_PRESET', DEFAULT_PRESET);
   return DEFAULT_PRESET;
 }

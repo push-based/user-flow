@@ -1,4 +1,5 @@
 import * as killPort from 'kill-port';
+import { logVerbose } from '../../src/lib/core/loggin';
 
 export function kill(args: {port: string | string[], method?: string, verbose?: boolean}): Promise<void[]> {
   let { verbose, port, method } = args
@@ -13,10 +14,10 @@ export function kill(args: {port: string | string[], method?: string, verbose?: 
   return Promise.all(port.map(current => {
     return killPort(current, method)
       .then((result) => {
-        verbose && console.log(`Process on port ${current} killed`, result)
+        logVerbose(`Process on port ${current} killed`, result)
       })
       .catch((error) => {
-        verbose && console.log(`Could not kill process on port ${port}`, error)
+        logVerbose(`Could not kill process on port ${port}`, error)
       })
   }))
 

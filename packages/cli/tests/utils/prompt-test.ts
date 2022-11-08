@@ -10,7 +10,7 @@ import { CI_PROPERTY, getCliMode } from '../../src/lib/global/cli-mode/cli-modes
  * returns {Promise<Object>}
  */
 export function cliPromptTest(args, answers, options) {
+  // emulate sandbox env by setting CI to SANDBOX
   process.env[CI_PROPERTY] = 'SANDBOX';
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', getCliMode());
   return _cliPromptTest(args, answers, options);
 }
