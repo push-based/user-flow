@@ -1,6 +1,6 @@
 import { cliPromptTest } from '../../utils/prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { ENTER, SPACE } from '../../fixtures/keyboard';
+import { ENTER } from '../../fixtures/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
@@ -80,7 +80,7 @@ describe('init command in empty sandbox', () => {
         // ufPath
         ENTER,
         // format
-        SPACE, ENTER,
+        ENTER,
         // outPath
         ENTER,
         // create flow
@@ -114,8 +114,8 @@ describe('init command in empty sandbox', () => {
         url, ENTER,
         // ufPath
         ufPath, ENTER,
-        // html format
-        SPACE, ENTER,
+        // html default format
+        ENTER,
         outPath, ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
@@ -138,8 +138,8 @@ describe('init command in empty sandbox', () => {
         ENTER,
         // ufPath
         ENTER,
-        // html format
-        SPACE, ENTER,
+        // html default format
+        ENTER,
         ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
