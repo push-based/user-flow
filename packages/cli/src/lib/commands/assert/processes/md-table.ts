@@ -17,44 +17,50 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 export function userFlowReportToMdTable(flowResult: FlowResult): string {
   const reducedResult: ReducedReport = createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedResult.steps[0].results);
-  const reportFormats = reportCategories.map(_ => 'c');
-  // name is center, gather mode is center, all other columns are centered
-  const TABLE_OPTIONS = { align: ['l', 'c'].concat(reportFormats) as Alignment[]};
-  const TABLE_HEAD = ['Step Name', 'Gather Mode']
-    .concat(reportCategories.map(c => c.split('-').map(cN => cN[0].toUpperCase() + cN.slice(1)).join(' ')));
-  const tableArr = [TABLE_HEAD].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))));
-  return markdownTable(tableArr, TABLE_OPTIONS).replace(' ', '') + `\n`;
+  const alignOptions = generateTableAlignOptions(reportCategories);
+  const tableArr = extractTableArr(reportCategories, reducedResult);
+  return markdownTable(tableArr, alignOptions);
 }
 
 type Alignment = 'l' | 'c' | 'r';
 
 const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r', '--:']]);
 
-function markdownTable(data: string[][], {align}: {align:  Alignment | Alignment[]}): string {
+function markdownTable(data: string[][], align: Alignment[]): string {
   const _data = data.map((arr) => arr.join('|'));
-  const secondRow = typeof align === 'string' ?  alignString.get(align) : align.map((s) => alignString.get(s)).join('|');
+  const secondRow = align.map((s) => alignString.get(s)).join('|');
   return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
 }
 
-function extractTableRow(step: ReducedFlowStep, reportCategories: string[]): string[] {
-  const nameAndMode = [step.name, step.gatherMode];
-  let results: string[];
-  if (step.gatherMode === 'navigation') {
-    results = Object.values(step.results).map((v) => {
-      return v ? ((v as unknown as number) * 100).toFixed(0) + '' : '-';
-    });
-  } else {
+function extractTableArr(reportCategories: string[], reducedResult: ReducedReport): string[][] {
+  const tableHead = extractTableHead(reportCategories);
+  return [tableHead].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))));
+}
 
-    const existingCats = Object.keys(step.results);
-    results = reportCategories.map(category => {
-      if (!existingCats.includes(category)) {
-        return '-';
-      }
-      const { totalWeight, numPassed, numPassableAudits } = step.results[category] as FractionResults;
-      const res = numPassed + '/' + numPassableAudits;
-      return totalWeight === 0 ? 'Ø ' + res : res;
-    });
+function extractTableHead(reportCategories: string[]): string[] {
+  return ['Step Name', 'Gather Mode']
+    .concat(reportCategories.map(c => c.split('-').map(cN => cN[0].toUpperCase() + cN.slice(1)).join(' ')));
+}
 
+function extractFractionalResultValue(fractionResults: FractionResults): string {
+  const { totalWeight, numPassed, numPassableAudits } = fractionResults;
+  const value = numPassed + '/' + numPassableAudits;
+  return totalWeight === 0 ? 'Ø ' + value : value;
+}
+
+function extractResultsValue(stepResult?: number | FractionResults): string {
+  if (typeof stepResult === 'number') {
+    return (stepResult * 100).toFixed(0);
   }
-  return nameAndMode.concat(results);
+  return stepResult ? extractFractionalResultValue(stepResult) : '-';
+}
+
+function extractTableRow(step: ReducedFlowStep, reportCategories: string[]): string[] {
+  const results = reportCategories.map(category => extractResultsValue(step.results[category]));
+  return [step.name, step.gatherMode].concat(results);
+}
+
+function generateTableAlignOptions(reportCategories: string[]):  Alignment[] {
+  const reportFormats = reportCategories.map(_ => 'c');
+  return ['l', 'c'].concat(reportFormats) as Alignment[];
 }
