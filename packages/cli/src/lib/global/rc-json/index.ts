@@ -1,9 +1,12 @@
 import { readFile, writeFile } from '../../core/file';
 
 import { logVerbose } from '../../core/loggin';
-import { get as getRcPath } from './options/rc';
 import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
 import { GlobalOptionsArgv } from '../options/types';
+import { get as getRcParam, get as getRcPath } from './options/rc';
+import { get as getVerbose } from '../options/verbose';
+import { get as getInteractive } from '../options/interactive';
+
 
 export function readRcConfig(rcPath: string = ''): RcJson {
   const configPath = rcPath || getRcPath();
@@ -25,19 +28,17 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
   }
 }
 
-export function getCliOptionsFromRcConfig(config: RcJson): RcArgvOptions {
-  const { collect, persist, assert } = config;
+export function getCliOptionsFromRcConfig(): RcArgvOptions {
+  const { collect, persist, assert } = readRcConfig(getRcParam());
   return { ...collect, ...persist, ...assert };
 }
 
-export function getCLIGlobalConfigFromArgv(argv: RcArgvOptions & GlobalOptionsArgv): GlobalOptionsArgv {
-  const { verbose, interactive, rcPath } = argv;
-  const globalConfig: GlobalOptionsArgv = {};
-  verbose !== undefined && (globalConfig.verbose = !!verbose);
-  interactive !== undefined && (globalConfig.interactive = !!interactive);
-  rcPath !== undefined && (globalConfig.rcPath = rcPath);
-
-  return globalConfig;
+export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
+  return {
+    verbose: getVerbose(),
+    rcPath: getRcPath(),
+    interactive: getInteractive()
+  };
 }
 
 export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
