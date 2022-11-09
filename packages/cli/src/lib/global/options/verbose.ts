@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): boolean {
-  const {verbose} = argv as any as ArgvOption<Param>;
-  return verbose;
+  const {verbose, v} = argv as any;
+  return verbose !== undefined ? !!verbose : v !== undefined ? !!v : false;
 }

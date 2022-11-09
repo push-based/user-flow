@@ -8,7 +8,6 @@ import { GlobalOptionsArgv } from './global/options/types';
 
 let rcConfig: any = getCliOptionsFromRcConfig(readRcConfig(getRcParam()));
 let globalConfig: any = getCLIGlobalConfigFromArgv(process.argv as any);
-
 // handle global env specific presets
 const { interactive, verbose } = getEnvPreset() as GlobalOptionsArgv;
 const config = { interactive, verbose, ...globalConfig, ...rcConfig};

@@ -7,9 +7,8 @@ import { GlobalOptionsArgv } from '../options/types';
 
 export function readRcConfig(rcPath: string = ''): RcJson {
   const configPath = rcPath || getRcPath();
-  const repoConfigFile = readFile(configPath) || '{}';
-  logVerbose('readRcConfig:', configPath, JSON.parse(repoConfigFile));
-  return JSON.parse(repoConfigFile);
+  const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
+  return repoConfigJson;
 }
 
 export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
