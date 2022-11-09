@@ -20,6 +20,12 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
   return {name: flowResult.name, steps};
 }
 
+export function addBaselineToReducedReport(newReport: ReducedReport, baselineReport: ReducedReport): any {
+  const baselineResults = Object.fromEntries(baselineReport.steps.map((step) => [step.name, step.results]));
+  const steps = newReport.steps.map((step) => ({...step, 'baseline': baselineResults[step.name]}));
+  return {name: newReport.name, steps};
+}
+
 export function generateMdReport(flowResult: FlowResult): string {
   const dateTime = new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3);
   const mdTable = userFlowReportToMdTable(flowResult);
