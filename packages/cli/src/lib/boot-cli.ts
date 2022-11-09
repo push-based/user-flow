@@ -1,16 +1,18 @@
 import { commands } from './commands';
 import { runCli } from './core/yargs';
-import { getCliOptionsFromRcConfig, readRcConfig } from './global/rc-json';
-import { GLOBAL_OPTIONS } from './global/options';
+import { getCLIGlobalConfigFromArgv, getCliOptionsFromRcConfig, readRcConfig } from './global/rc-json';
+import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
 import { get as getRcParam } from './global/rc-json/options/rc';
 import { getEnvPreset } from './global/rc-json/pre-sets';
 import { GlobalOptionsArgv } from './global/options/types';
 
-let config: any = getCliOptionsFromRcConfig(readRcConfig(getRcParam()));
+let rcConfig: any = getCliOptionsFromRcConfig(readRcConfig(getRcParam()));
+let globalConfig: any = getCLIGlobalConfigFromArgv(process.argv as any);
+
 // handle global env specific presets
 const { interactive, verbose } = getEnvPreset() as GlobalOptionsArgv;
-config = { interactive, verbose, ...config};
+const config = { interactive, verbose, ...globalConfig, ...rcConfig};
 
 (async () => runCli({ commands: commands, options: {
-    ...GLOBAL_OPTIONS
+    ...GLOBAL_OPTIONS_YARGS_CFG
   }, config }))();
