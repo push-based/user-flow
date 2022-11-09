@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.4](https://github.com/push-based/user-flow/compare/cli-0.10.3...cli-0.10.4) (2022-11-09)
+
+
+### Bug Fixes
+
+*  add custom argv custom argv handling to global CLI params ([89cf1f9](https://github.com/push-based/user-flow/commit/89cf1f980fdc6fbdee89525ab1a909767a8f90ad))
+
+
+
 ## [0.10.3](https://github.com/push-based/user-flow/compare/cli-0.10.2...cli-0.10.3) (2022-11-04)
 
 
