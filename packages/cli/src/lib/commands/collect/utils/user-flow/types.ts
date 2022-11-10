@@ -101,5 +101,6 @@ export type ReducedFlowStepResult = Record<string, number | FractionResults>;
 export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
   {
     results: ReducedFlowStepResult;
+    baseline?: ReducedFlowStepResult;
   };
 
