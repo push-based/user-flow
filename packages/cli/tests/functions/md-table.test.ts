@@ -3,15 +3,21 @@ import {join} from 'path';
 import * as LHR9 from '../data/lhr-9.json';
 import * as LHR9_EX_2 from '../data/lhr-9-ex-2.json';
 import * as LHR9REDUCED from '../data/lhr-9_reduced.json';
+import * as LHR9REDUCEDCOMPARE from '../data/lhr-9_reduced-baseline.json';
 import * as LHR8 from '../data/lhr-8.json';
-import { createReducedReport } from '../../src/lib/commands/collect/processes/generate-reports';
+import {
+  createReducedReport,
+  createReducedReportWithBaseline
+} from '../../src/lib/commands/collect/processes/generate-reports';
 import { userFlowReportToMdTable } from '../../src/lib/commands/assert/processes/md-table';
 import FlowResult from "lighthouse/types/lhr/flow";
+import {ReducedReport} from "../../src/lib/commands/collect/utils/user-flow/types";
 
 const lhr8 = LHR8 as any;
 const lhr9 = LHR9 as unknown as FlowResult;
 const lhr9Ex2 = LHR9_EX_2 as unknown as FlowResult;
-const lhr9reduced = LHR9REDUCED as any;
+const lhr9reduced = LHR9REDUCED as unknown as ReducedReport;
+const lhr9ReducedBaseline = LHR9REDUCEDCOMPARE as unknown as ReducedReport;
 
 function extractMdTableFromFile(path: string) {
   const mdString = fs.readFileSync(join(__dirname, path), 'utf-8');
@@ -34,6 +40,11 @@ describe('md-table', () => {
   it('should generate reduced JSON format for v9 raw JSON result if createReducedReport is called', () => {
     const reducedLhr9 = createReducedReport(lhr9);
     expect(reducedLhr9).toEqual(lhr9reduced);
+  });
+
+  it('should generate reduced JSON with baseline results if createReducedReportWithBaseline is called', () => {
+    const reducedLhr9 = createReducedReportWithBaseline(lhr9, lhr9Ex2);
+    expect(reducedLhr9).toEqual(lhr9ReducedBaseline);
   });
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {

@@ -1,0 +1,111 @@
+{
+  "name": "Sandbox Setup StaticDist",
+  "steps": [
+    {
+      "name": "Navigation report (127.0.0.1/)",
+      "gatherMode": "navigation",
+      "results": {
+        "performance": null,
+        "accessibility": 1,
+        "best-practices": 0.92,
+        "seo": 1,
+        "pwa": 0.3
+      },
+      "baseline": {
+        "accessibility": 1,
+        "best-practices": 0.85,
+        "performance": null,
+        "pwa": 0.62,
+        "seo": 1
+      }
+    },
+    {
+      "name": "Timespan report (127.0.0.1/)",
+      "gatherMode": "timespan",
+      "results": {
+        "performance": {
+          "numPassed": 10,
+          "numPassableAudits": 11,
+          "numInformative": 1,
+          "totalWeight": 45
+        },
+        "best-practices": {
+          "numPassed": 5,
+          "numPassableAudits": 7,
+          "numInformative": 0,
+          "totalWeight": 6
+        }
+      },
+      "baseline": {
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 7,
+          "numPassed": 5,
+          "totalWeight": 6
+        },
+        "performance": {
+          "numInformative": 1,
+          "numPassableAudits": 11,
+          "numPassed": 10,
+          "totalWeight": 45
+        }
+      }
+    },
+    {
+      "name": "Snapshot report (127.0.0.1/)",
+      "gatherMode": "snapshot",
+      "results": {
+        "performance": {
+          "numPassed": 3,
+          "numPassableAudits": 4,
+          "numInformative": 0,
+          "totalWeight": 0
+        },
+        "accessibility": {
+          "numPassed": 10,
+          "numPassableAudits": 10,
+          "numInformative": 0,
+          "totalWeight": 57
+        },
+        "best-practices": {
+          "numPassed": 4,
+          "numPassableAudits": 5,
+          "numInformative": 0,
+          "totalWeight": 5
+        },
+        "seo": {
+          "numPassed": 9,
+          "numPassableAudits": 9,
+          "numInformative": 0,
+          "totalWeight": 9
+        }
+      },
+      "baseline": {
+        "accessibility": {
+          "numInformative": 0,
+          "numPassableAudits": 10,
+          "numPassed": 9,
+          "totalWeight": 57
+        },
+        "best-practices":  {
+          "numInformative": 0,
+          "numPassableAudits": 5,
+          "numPassed": 4,
+          "totalWeight": 5
+        },
+        "performance": {
+          "numInformative": 0,
+          "numPassableAudits": 4,
+          "numPassed": 3,
+          "totalWeight": 0
+        },
+        "seo": {
+          "numInformative": 0,
+          "numPassableAudits": 9,
+          "numPassed": 8,
+          "totalWeight": 9
+        }
+      }
+    }
+  ]
+}
