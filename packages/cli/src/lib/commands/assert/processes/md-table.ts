@@ -4,7 +4,7 @@ import {
   ReducedReport
 } from '../../collect/utils/user-flow/types';
 import { formatCode } from '../../../core/prettier';
-import { createReducedReport } from '../../collect/processes/generate-reports';
+import {createReducedReport, createReducedReportWithBaseline} from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
@@ -14,8 +14,9 @@ import FlowResult from 'lighthouse/types/lhr/flow';
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function userFlowReportToMdTable(flowResult: FlowResult): string {
-  const reducedResult: ReducedReport = createReducedReport(flowResult);
+export function userFlowReportToMdTable(flowResult: FlowResult, baselineResults?: FlowResult): string {
+  const reducedResult = baselineResults ? createReducedReportWithBaseline(flowResult, baselineResults)
+    : createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedResult.steps[0].results);
   const alignOptions = generateTableAlignOptions(reportCategories);
   const tableArr = extractTableArr(reportCategories, reducedResult);
@@ -55,8 +56,24 @@ function extractResultsValue(stepResult?: number | FractionResults): string {
   return stepResult ? extractFractionalResultValue(stepResult) : '-';
 }
 
+function extractCellValue(step: ReducedFlowStep, category: string): string {
+  const result = extractResultsValue(step.results[category]);
+  if (!step.baseline) {
+    return result;
+  }
+  const baseline = extractResultsValue(step.baseline[category]);
+  return result !== baseline ? resultWithBaselineComparison(result, baseline) : result;
+}
+
+function resultWithBaselineComparison(result: string, baseline: string): string {
+  const resultNum = Number(result.replace('Ø ', '').split('/')[0]);
+  const baselineNum = Number(baseline.replace('Ø ', '').split('/')[0]);
+  const difference = baselineNum - resultNum;
+  return `${result} (${difference > 0 ? '+' : ''}${difference})`;
+}
+
 function extractTableRow(step: ReducedFlowStep, reportCategories: string[]): string[] {
-  const results = reportCategories.map(category => extractResultsValue(step.results[category]));
+  const results = reportCategories.map(category => extractCellValue(step, category));
   return [step.name, step.gatherMode].concat(results);
 }
 
