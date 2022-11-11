@@ -9,11 +9,12 @@ function configParser(rcPath?: string): {} {
   let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
   let globalConfig: any = getCLIGlobalConfigFromArgv();
   // handle the global options of env specific presets
-  const { interactive, verbose } = getEnvPreset() as GlobalOptionsArgv;
+  const { interactive, verbose }: GlobalOptionsArgv = getEnvPreset();
   return { ...globalConfig, ...rcConfig };
 }
 
 (async () => runCli({
   commands: commands,
-  options: {...GLOBAL_OPTIONS_YARGS_CFG},
-  config: configParser }))();
+  options: { ...GLOBAL_OPTIONS_YARGS_CFG },
+  config: configParser
+}))();
