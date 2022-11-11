@@ -1,4 +1,4 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test';
+import { cliPromptTest } from '../utils/cli-prompt-test';
 
 export const UP = cliPromptTest.UP;
 export const DOWN = cliPromptTest.DOWN;
