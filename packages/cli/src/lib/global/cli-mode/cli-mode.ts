@@ -82,26 +82,20 @@ export function isEnvCi(): boolean {
 
   /*
   Detailed links: https://github.com/push-based/user-flow/issues/15
-
   The following platforms have a CI key:
     CI=true - github
-
     CI=true - circleci
-
     CI=true - gitlab
 
     - travis
     CI=true
     CONTINUOUS_INTEGRATION=true
-
     CI=true - netlify
 
     - cirrus
     CI=true
     CONTINUOUS_INTEGRATION=true
-
     CI=true - appveyor
-
     CI=true - codeShip
 
     - dsari
