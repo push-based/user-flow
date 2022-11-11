@@ -28,8 +28,8 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
   }
 }
 
-export function getCliOptionsFromRcConfig(): RcArgvOptions {
-  const { collect, persist, assert } = readRcConfig(getRcParam());
+export function getCliOptionsFromRcConfig(rcPath?: string): RcArgvOptions {
+  const { collect, persist, assert } = readRcConfig(rcPath || getRcParam());
   return { ...collect, ...persist, ...assert };
 }
 
