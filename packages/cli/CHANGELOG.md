@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.6](https://github.com/push-based/user-flow/compare/cli-0.10.5...cli-0.10.6) (2022-11-11)
+
+
+### Bug Fixes
+
+* add alias --h for --help command ([c4df81e](https://github.com/push-based/user-flow/commit/c4df81e6b8460f717767047ae35384339f8618a0))
+* fix help command  ([b3391f1](https://github.com/push-based/user-flow/commit/b3391f1c5af150b46482a42a008a47ac25230f91))
+* get config path in parseFn in yargs config options ([1cc846d](https://github.com/push-based/user-flow/commit/1cc846d5e5630dcdd31169e6c3fbad01868b0007))
+* spread config return objects ([41a71de](https://github.com/push-based/user-flow/commit/41a71de42f387e3ff5788834341b07f68544ba6c))
+
+
+
 ## [0.10.5](https://github.com/push-based/user-flow/compare/cli-0.10.4...cli-0.10.5) (2022-11-09)
 
 
