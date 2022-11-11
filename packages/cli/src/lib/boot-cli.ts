@@ -10,7 +10,7 @@ function configParser(rcPath?: string): {} {
   let globalConfig: any = getCLIGlobalConfigFromArgv();
   // handle the global options of env specific presets
   const { interactive, verbose }: GlobalOptionsArgv = getEnvPreset();
-  return { ...globalConfig, ...rcConfig };
+  return { interactive, verbose, ...globalConfig, ...rcConfig };
 }
 
 (async () => runCli({
