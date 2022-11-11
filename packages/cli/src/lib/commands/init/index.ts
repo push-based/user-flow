@@ -4,7 +4,7 @@ import { INIT_OPTIONS } from './options';
 import { addUserFlow, getExamplePathDest } from './utils';
 import { setupRcJson } from './processes/setup-rc-json';
 import { askToSkip } from '../../core/prompt';
-import { run } from '../../core/processing';
+import { run } from '../../core/processing/behaviors';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { getCLIConfigFromArgv } from '../../global/rc-json';

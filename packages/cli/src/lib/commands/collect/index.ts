@@ -3,7 +3,7 @@ import { logVerbose } from '../../core/loggin/index';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeededAndExecute } from './utils/serve-command';
 import { setupRcJson } from './../init/processes/setup-rc-json';
-import { run } from '../../core/processing';
+import { run } from '../../core/processing/behaviors';
 import { collectReports } from './processes/collect-reports';
 import { getCLIConfigFromArgv } from '../../global/rc-json';
 import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
