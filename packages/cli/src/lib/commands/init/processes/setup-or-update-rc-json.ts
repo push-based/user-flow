@@ -7,7 +7,7 @@ import { logVerbose } from '../../../core/loggin';
 import { RcJson } from '../../../global/rc-json/types';
 import { get as getRcPath } from '../../../global/rc-json/options/rc';
 
-export async function setupRcJson(cliCfg: RcJson): Promise<RcJson> {
+export async function setupOrUpdateRcJson(cliCfg: RcJson): Promise<RcJson> {
 
    const config = {
     ...cliCfg,
