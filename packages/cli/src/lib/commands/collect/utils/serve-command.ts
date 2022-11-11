@@ -53,7 +53,6 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
           workTargetingServer()
             .then(resolve)
             .catch(e => {
-              console.log(e)
               reject('Error while running user flows. ' + e);
             }).finally(stopServer);
         }
