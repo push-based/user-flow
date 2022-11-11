@@ -1,5 +1,4 @@
 import { readFile, writeFile } from '../../core/file';
-
 import { logVerbose } from '../../core/loggin';
 import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
 import { GlobalOptionsArgv } from '../options/types';

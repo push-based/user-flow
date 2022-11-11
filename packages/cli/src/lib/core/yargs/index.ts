@@ -1,20 +1,16 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
-import {get as getRcParam} from "../../global/options/rc";
-import { log, logVerbose } from '../loggin';
-import { RcArgvOptions } from '../..';
-import { GlobalOptionsArgv } from '../../global/options/types';
 
 export function setupYargs(
   commands: YargsCommandObject[],
   options: { [key: string]: Options },
-  config: Options['configParser'],
+  config: Options['configParser']
 ) {
   yargs.options(options)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
-    .config(config!(getRcParam()))
+    .config(config as any)
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
