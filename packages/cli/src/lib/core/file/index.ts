@@ -40,14 +40,11 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
   const {fail, ext} = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
   let textContent = '';
-
-  const _existsSync: any = existsSync(path);
   if (existsSync(path)) {
     textContent = readFileSync(path, 'utf-8');
     if (ext === 'json') {
       return jsonParse<RETURN>(textContent);
     }
-
     return textContent as RETURN;
   } else {
     const errorStr = `${path} does not exist.`;
