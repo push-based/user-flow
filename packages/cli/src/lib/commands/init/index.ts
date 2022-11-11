@@ -7,7 +7,7 @@ import { askToSkip } from '../../core/prompt';
 import { run } from '../../core/processing/behaviors';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
-import { getCLIConfigFromArgv, getCLIGlobalConfigFromArgv } from '../../global/rc-json';
+import { getCLIConfigFromArgv } from '../../global/rc-json';
 import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
 
 export const initCommand: YargsCommandObject = {
@@ -21,7 +21,7 @@ export const initCommand: YargsCommandObject = {
       const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
       const exampleName = 'basic-navigation';
       const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
-      console.log('userflowIsNotCreated', await userflowIsNotCreated());
+
       await run([
         setupOrUpdateRcJson,
         askToSkip(
