@@ -5,7 +5,8 @@ import { setupOutPath } from '../../collect/options/outPath.setup';
 import { updateRcConfig } from '../../../global/rc-json';
 import { logVerbose } from '../../../core/loggin';
 import { RcJson } from '../../../global/rc-json/types';
-import { get as getRcPath } from '../../../global/rc-json/options/rc';
+import { globalOptions } from '../../../global/options';
+
 
 export async function setupOrUpdateRcJson(cliCfg: RcJson): Promise<RcJson> {
 
@@ -19,7 +20,7 @@ export async function setupOrUpdateRcJson(cliCfg: RcJson): Promise<RcJson> {
     )
   };
 
-  const rcPath = getRcPath();
+  const rcPath = globalOptions.getRcPath();
   updateRcConfig(config, rcPath);
 
   logVerbose(config);
