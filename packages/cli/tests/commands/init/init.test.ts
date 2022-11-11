@@ -1,7 +1,6 @@
-import * as cliPromptTest from 'cli-prompts-test';
-
+import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { ENTER } from '../../fixtures/keyboard';
+import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
@@ -80,11 +79,11 @@ describe('init command in empty sandbox', () => {
         EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
         // ufPath
         ENTER,
-        // format
+        // HTML format
         ENTER,
         // outPath
         ENTER,
-        // create flow
+        // create NO flow example
         'n'
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG
@@ -117,6 +116,7 @@ describe('init command in empty sandbox', () => {
         ufPath, ENTER,
         // html default format
         ENTER,
+        // measures default folder
         outPath, ENTER
       ],
       EMPTY_SANDBOX_CLI_TEST_CFG

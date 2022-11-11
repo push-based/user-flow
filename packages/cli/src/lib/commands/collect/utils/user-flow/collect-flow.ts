@@ -10,7 +10,7 @@ import { UserFlowMock } from './user-flow.mock';
 import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
-import { detectCliMode } from '../../../../global/cli-mode/cli-modes';
+import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 
 export async function collectFlow(
   cliOption: CollectOptions & { dryRun: boolean },

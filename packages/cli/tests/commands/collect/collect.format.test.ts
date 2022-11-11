@@ -1,4 +1,4 @@
-import * as cliPromptTest from 'cli-prompts-test';
+import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import * as path from 'path';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
@@ -22,10 +22,6 @@ const collectCommandStaticRc = [
 ];
 
 const uf1Name = 'Sandbox Setup UF1';
-const uf1OutPathJons = path.join(
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
-  'sandbox-setup-uf1.uf.json'
-);
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
@@ -39,8 +35,6 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    //expect(stdout).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report

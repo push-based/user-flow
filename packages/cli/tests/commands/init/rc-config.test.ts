@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as cliPromptTest from 'cli-prompts-test';
+import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
