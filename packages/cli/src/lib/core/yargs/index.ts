@@ -1,7 +1,6 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
-import {get as getRcParam} from "../../global/rc-json/options/rc";
 
 export function setupYargs(
   commands: YargsCommandObject[],
