@@ -3,7 +3,7 @@ import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
 import { AssertOptions, RcJson } from '../../../global/rc-json/types';
 import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
-import { getEnvPreset } from '../../../global/rc-json/pre-sets';
+import { getEnvPreset } from '../../../global/rc-json/pre-set';
 import { get as interactive } from '../../../global/options/interactive';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
