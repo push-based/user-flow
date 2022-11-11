@@ -69,8 +69,6 @@ export class UserFlowMock {
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;
-
-    logVerbose('UserFlowMock is in use')
   }
 
   /**
