@@ -1,5 +1,8 @@
 import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import {
+  CLI_PATH
+} from '../../fixtures/cli-bin-path';
+import {
   BUDGETS_NAME,
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
@@ -57,7 +60,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   it('should load budgets from file if budgetsPath RC option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `--budgetPath=${BUDGETS_NAME}`],
+      [...collectCommandBudgetPathRc, `--dryRun`, `--budgetPath=${BUDGETS_NAME}`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -84,9 +87,9 @@ describe('budgets and collect command in setup sandbox', () => {
   }, 90_000);
 
  it('should load budgets from file if budgetPath RC option is passed', async () => {
-    const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandBudgetPathRc],
+   const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
+   const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommandBudgetPathRc, `--dryRun`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
