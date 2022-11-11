@@ -1,4 +1,4 @@
-import { CI_PROPERTY, CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-modes';
+import { CI_PROPERTY, CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
 
 export function setupEnvVars(ciPropVal: string) {
   process.env[CI_PROPERTY] = ciPropVal;

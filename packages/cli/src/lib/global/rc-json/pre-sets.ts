@@ -1,7 +1,7 @@
 import { RcArgvOptions } from './types';
 import { GlobalOptionsArgv } from '../options/types';
 import { ArgvPreset } from '../../types';
-import { getCliMode } from '../cli-mode/cli-modes';
+import { getCliMode } from '../cli-mode/cli-mode';
 
 export const DEFAULT_PRESET = {
   // GLOBAL
