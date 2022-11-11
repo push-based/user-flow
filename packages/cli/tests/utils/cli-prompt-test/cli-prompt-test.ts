@@ -1,5 +1,5 @@
 import * as _cliPromptTest from 'cli-prompts-test';
-import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-modes';
+import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 
 /**
  * @param {string[]} args CLI args to pass in
