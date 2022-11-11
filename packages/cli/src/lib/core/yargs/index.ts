@@ -10,7 +10,7 @@ export function setupYargs(
   yargs.options(options)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
-    .config(config as any)
+    .config((config as any)())
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
