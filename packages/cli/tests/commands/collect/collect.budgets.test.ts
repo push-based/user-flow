@@ -83,7 +83,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   }, 90_000);
 
-  it('should load budgets from file if budgetPath RC option is passed', async () => {
+ it('should load budgets from file if budgetPath RC option is passed', async () => {
     const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...collectCommandBudgetPathRc],
