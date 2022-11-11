@@ -1,6 +1,6 @@
 import { commands } from './commands';
 import { runCli } from './core/yargs';
-import { getCLIGlobalConfigFromArgv, getCliOptionsFromRcConfig, readRcConfig } from './global/rc-json';
+import { getCLIGlobalConfigFromArgv, getCliOptionsFromRcConfig } from './global/rc-json';
 import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
 
 function configParser(rcPath?: string): {} {
