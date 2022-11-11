@@ -1,11 +1,15 @@
 import { commands } from './commands';
 import { runCli } from './core/yargs';
-import { readRcConfig } from './global/rc-json';
+import { getCLIGlobalConfigFromArgv, getCliOptionsFromRcConfig, readRcConfig } from './global/rc-json';
 import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
 
-function configParser(rcPath: string): {} {
-  const {collect, persist, assert} = readRcConfig(rcPath);
-  return {...collect, ...persist, ...assert};
+function configParser(rcPath?: string): {} {
+  let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
+  let globalConfig: any = getCLIGlobalConfigFromArgv();
+  return { ...globalConfig, ...rcConfig };
 }
 
-(async () => runCli({ commands: commands, options: {...GLOBAL_OPTIONS_YARGS_CFG}, config: configParser }))();
+(async () => runCli({
+  commands: commands,
+  options: {...GLOBAL_OPTIONS_YARGS_CFG},
+  config: configParser }))();
