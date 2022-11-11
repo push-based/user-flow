@@ -46,7 +46,7 @@ const uf1OutPathHtml = path.join(
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
- // afterEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
