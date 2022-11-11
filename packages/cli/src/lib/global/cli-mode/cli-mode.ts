@@ -86,35 +86,26 @@ export function isEnvCi(): boolean {
     CI=true - github
     CI=true - circleci
     CI=true - gitlab
-
     - travis
     CI=true
     CONTINUOUS_INTEGRATION=true
     CI=true - netlify
-
     - cirrus
     CI=true
     CONTINUOUS_INTEGRATION=true
     CI=true - appveyor
     CI=true - codeShip
-
     - dsari
     env.RUN_ID=??
     CI=true
-
     - taskCluster
     env.RUN_ID=??
-
     CI=1 - vercel
-
     - jenkins
     BUILD_NUMBER=??
-
     - teamCity
     BUILD_NUMBER=??
-
     Unknown:
-
     ??? - Azure Pipelines
    */
 
