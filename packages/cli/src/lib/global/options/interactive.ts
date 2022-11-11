@@ -1,8 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './interactive.model';
 import { ArgvOption } from '../../core/yargs/types';
-import { join } from "path";
-import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from './rc.constant';
 
 export const param: Param = {
   interactive: {

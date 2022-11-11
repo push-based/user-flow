@@ -5,13 +5,16 @@ export type CollectOptions = {
   ufPath: string,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
-  awaitServeStdout?: string
+  awaitServeStdout?: string;
+  dryRun?: boolean;
+  openReport?: boolean;
 }
 
 export type PersistOptions = {
   outPath: string,
   format: string[]
 }
+
 // @TODO this type has overlap with the one in rc-json.ts we should fix that and only have one
 export type AssertOptions = {
   budgetPath?: string,
@@ -26,4 +29,4 @@ export type RcJson = {
 
 export type RcArgvOptions = CollectOptions &
   PersistOptions &
-  AssertOptions & { openReport?: boolean };
+  AssertOptions;
