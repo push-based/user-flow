@@ -1,4 +1,4 @@
-import * as cliPromptTest from 'cli-prompts-test';
+import {cliPromptTest} from '../../utils/prompt-test';
 import * as path from 'path';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
@@ -46,7 +46,7 @@ const uf1OutPathHtml = path.join(
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
- // afterEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
@@ -115,5 +115,5 @@ describe('collect command in setup sandbox', () => {
     // Check report file and content of report
     expectCollectCreatesMdReport(uf1OutPathMd, uf1Name);
   }, 90_000);
-  
+
 });
