@@ -1,5 +1,4 @@
-import * as cliPromptTest from 'cli-prompts-test';
-
+import { cliPromptTest } from '../../utils/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../fixtures/keyboard';
 

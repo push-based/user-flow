@@ -1,4 +1,4 @@
-import * as cliPromptTest from 'cli-prompts-test';
+import { cliPromptTest } from '../../utils/cli-prompt-test';
 import * as path from 'path';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
@@ -115,5 +115,5 @@ describe('collect command in setup sandbox', () => {
     // Check report file and content of report
     expectCollectCreatesMdReport(uf1OutPathMd, uf1Name);
   }, 90_000);
-  
+
 });
