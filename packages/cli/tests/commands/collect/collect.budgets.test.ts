@@ -1,4 +1,4 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test';
+import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
