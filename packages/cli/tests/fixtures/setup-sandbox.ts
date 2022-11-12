@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import * as path from 'path';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
@@ -18,13 +20,13 @@ export const STATIC_USER_FLOW_SERVE_PORT = '5032';
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
-export const SETUP_SANDBOX_DEFAULT_RC_JSON: RcJson = {
+export const SETUP_SANDBOX_DEFAULT_RC_JSON: any = {
   'collect': { 'url': 'https://google.com', 'ufPath': './src/lib/user-flows' },
   'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
 };
 
 export const SETUP_SANDBOX_STATIC_RC_NAME = '.user-flowrc.static-dist.json';
-export const SETUP_SANDBOX_STATIC_RC_JSON: RcJson = {
+export const SETUP_SANDBOX_STATIC_RC_JSON: any = {
   'collect': {
     'url': 'http://127.0.0.1:' + STATIC_USER_FLOW_SERVE_PORT,
     'ufPath': './src/lib/user-flows-static-dist',
@@ -35,10 +37,10 @@ export const SETUP_SANDBOX_STATIC_RC_JSON: RcJson = {
     'outPath': './measures',
     'format': ['json']
   }
-};
+}
 
 export const SETUP_SANDBOX_REMOTE_RC_NAME = '.user-flowrc.remote.json';
-export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
+export const SETUP_SANDBOX_REMOTE_RC_JSON: any = {
   'collect': {
     'url': 'https://google.com',
     'ufPath': './src/lib/user-flows',
@@ -49,7 +51,7 @@ export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
     'outPath': './measures',
     'format': ['json']
   }
-};
+}
 
 
 export const BUDGETS_NAME = 'budgets.json';
@@ -85,21 +87,21 @@ export const BUDGETS: Budget[] = [
   ];
 
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dist.budget-path.json';
-export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
+export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: any = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
     budgetPath: BUDGETS_NAME
   }
-};
+}
 
 
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME = '.user-flowrc.static-dist.budgets.json';
-export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: RcJson = {
+export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: any = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
     "budgets": BUDGETS
   }
-};
+}
 
 export const SETUP_SANDBOX_DEFAULT_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_NAME);
 export const SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
