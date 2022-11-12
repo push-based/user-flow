@@ -33,6 +33,7 @@ export function getCliOptionsFromRcConfig(rcPath?: string): RcArgvOptions {
 }
 
 export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
+  const cfg = {};
   return {
     verbose: getVerbose(),
     rcPath: getRcPath(),
@@ -41,18 +42,20 @@ export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
 }
 
 export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
-  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets, openReport, dryRun } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
   const cfg: RcJson = {
     collect: {
       url,
       ufPath,
       serveCommand,
-      awaitServeStdout
+      awaitServeStdout,
+      dryRun
     },
     persist: {
       outPath,
-      format
+      format,
+      openReport
     }
   };
 

@@ -11,7 +11,7 @@ describe('isEnvCi', () => {
   afterEach(teardownEnvVars);
   // This will only pass run in CI
   it('should return true in the CI', () => {
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(isEnvCi()).toBe(true);
   });
 
@@ -37,7 +37,7 @@ describe('isEnvSandbox', () => {
   });
 
   it('should return false if sandbox mode is NOT configured', () => {
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(isEnvSandbox()).toBe(false);
   });
 
@@ -52,12 +52,12 @@ describe('detectCliMode', () => {
   });
 
   it('should return CI if CI', () => {
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(isEnvSandbox()).toBe(false);
   });
 
   it('should return DEFAULT by default', () => {
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(isEnvSandbox()).toBe(false);
   });
 
@@ -74,7 +74,7 @@ describe('getCliMode', () => {
   // This will only pass run in CI
   it('should return CI in the CI', () => {
     expect(process.env[CLI_MODE_PROPERTY]).toBe(undefined);
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(detectCliMode()).toBe('CI');
 
   });

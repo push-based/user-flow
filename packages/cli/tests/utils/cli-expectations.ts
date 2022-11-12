@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import {join} from 'path';
+import { join } from 'path';
 import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
@@ -8,6 +8,10 @@ import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/u
 import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
+import { ArgvOption } from '../../src/lib/core/yargs/types';
+import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+import { RcArgvOptions } from '../../src/lib';
+import { getCliOptionsFromRcConfig } from '../../src/lib/global/rc-json';
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
@@ -41,10 +45,10 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
 
 export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
   let resolvedBudgets: Budget[];
-  if(Array.isArray(budgets)) {
+  if (Array.isArray(budgets)) {
     resolvedBudgets = budgets;
   } else {
-    expect(() => fs.readFileSync(budgets+'')).not.toThrow();
+    expect(() => fs.readFileSync(budgets + '')).not.toThrow();
     resolvedBudgets = JSON.parse(fs.readFileSync(budgets) as any) as Budget[];
   }
 
@@ -86,6 +90,36 @@ export function expectCollectCreatesHtmlReport(reportPath: string, ufName: strin
   reportHTML = fs.readFileSync(reportPath).toString('utf8');
   expect(reportHTML).toContain(`${ufName}`);
   expect(reportHTML).toBeTruthy();
+}
+
+export function expectCfgToContain(stdout: string, cliParams: {}) {
+
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // global
+      case 'verbose':
+      case 'interactive':
+        expect(stdout).toContain(`${k}: ${v},`);
+        break;
+      // global
+      case 'rcPath':
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+        expect(stdout).toContain(`${k}: '${v}',`);
+        break;
+      case 'format':
+        expect(stdout).toContain(`${k}: [ '${v}' ],`);
+        break;
+      case 'open':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v},`);
+        break;
+      default:
+        break;
+    }
+  });
 }
 
 export function expectCollectCreatesJsonReport(reportPath: string, ufName: string) {

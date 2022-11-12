@@ -1,6 +1,7 @@
 import * as yargs from 'yargs';
-import { Options } from 'yargs';
+import { ArgumentsCamelCase, CommandModule, Options } from 'yargs';
 import { YargsCommandObject } from './types';
+import { configParser } from '../../boot-cli';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -10,21 +11,32 @@ export function setupYargs(
   yargs.options(options)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
-    .config((config as any)())
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
     .help()
     .alias('h', 'help');
+  //yargs.config((config as any)());
 
   commands.forEach((command) => yargs.command(
     command.command,
     command.description,
     command?.builder || (() => {
     }),
-    command.module.handler
+    commandHandlerConfigMiddleWare(command.module.handler)
   ));
   return yargs;
+}
+
+
+function commandHandlerConfigMiddleWare(handler: CommandModule['handler']): CommandModule['handler'] {
+  return (args: any): void | Promise<void> => {
+    console.log('commandHandlerConfigMiddleWare');
+    console.log('argv1: ', yargs.argv);
+    yargs.config(configParser());
+    console.log('argv2: ', yargs.argv);
+    return handler(args);
+  };
 }
 
 export function runCli(cliCfg: {

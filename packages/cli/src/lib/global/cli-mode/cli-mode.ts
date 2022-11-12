@@ -17,7 +17,7 @@ import { CLI_MODES } from './types';
  * but in a CI setup it should fail with an error requesting the missing setting.
  *
  * To work around it we have to adopt the configuration of the CLI depending on the environment.
- * e.g. don't open a report automatically if it runs in the CI `--open false` or `-e false`.
+ * e.g. don't open a report automatically if it runs in the CI `--openReport false` or `-e false`.
  *
  * As an example let's look at the CLI configuration if we execute it in the CI with default settings:
  *

@@ -6,13 +6,14 @@ export type CollectOptions = {
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;
-  dryRun?: boolean;
-  openReport?: boolean;
+  dryRun: boolean;
 }
 
 export type PersistOptions = {
   outPath: string,
-  format: string[]
+  // @TODO type report types
+  format: string[],
+  openReport: boolean;
 }
 
 // @TODO this type has overlap with the one in rc-json.ts we should fix that and only have one
