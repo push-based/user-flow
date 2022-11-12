@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from "fs";
-import { CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
+import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
 import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
@@ -32,12 +32,13 @@ export const EMPTY_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', 'sandbo
 
 export const EMPTY_SANDBOX_CLI_TEST_CFG = {
   testPath: EMPTY_SANDBOX_PATH,
-  [CLI_MODE_PROPERTY]: 'SANDBOX'
+  [CI_PROPERTY]: 'SANDBOX'
 };
 
 export async function resetEmptySandbox(): Promise<void> {
   const f = path.join(EMPTY_SANDBOX_PATH, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS);
   const d = path.join(EMPTY_SANDBOX_PATH, DEFAULT_PERSIST_OUT_PATH);
+  process.env[CI_PROPERTY] = 'SANDBOX';
 
   if (fs.existsSync(d)) {
     const files = fs.readdirSync(d);
