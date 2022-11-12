@@ -1,5 +1,4 @@
 import * as killPort from 'kill-port';
-import { logVerbose } from '../../src/lib/core/loggin';
 
 export function kill(args: { port: string | string[], method?: string, verbose?: boolean }): Promise<void[]> {
   let { verbose, port, method } = args;
