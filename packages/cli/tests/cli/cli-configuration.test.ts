@@ -4,15 +4,21 @@ import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_NAME,
-  SETUP_SANDBOX_PATH
+  SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_JSON
 } from '../fixtures/setup-sandbox';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
-import { expectCfgToContain, expectCollectLogsFromMockInStdout } from '../utils/cli-expectations';
+import {
+  expectCfgToContain,
+  expectCollectLogsFromMockInStdout,
+  expectOutputRcInStdout
+} from '../utils/cli-expectations';
 import * as path from 'path';
 import * as fs from 'fs';
 import { RcArgvOptions, RcJson } from '@push-based/user-flow';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { getEnvPreset } from '../../src/lib/global/rc-json/pre-set';
+import { AssertOptions, CollectOptions, PersistOptions } from '../../src/lib/global/rc-json/types';
+import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from '../../src/lib/global/rc-json/options/rc.constant';
 
 const initCommand = [CLI_PATH, 'init'];
 const collectCommand = [CLI_PATH, 'collect'];
@@ -27,7 +33,7 @@ describe('the CLI configurations', () => {
     resetSetupSandboxAndKillPorts();
   });
 
-  it('should have interactive as default in a fresh environment', async () => {
+  it('should have default`s configured in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...initCommand
@@ -35,13 +41,12 @@ describe('the CLI configurations', () => {
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
-
+    //expect(stdout).toBe('');
     const cfg: Partial<GlobalOptionsArgv & RcArgvOptions> = getEnvPreset();
-    expectCfgToContain(stdout, cfg);
+    // expectCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
-
 
   it('should read the existing .rc configuration', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
@@ -58,5 +63,63 @@ describe('the CLI configurations', () => {
     expect(exitCode).toBe(0);
   });
 
+  it('should accept CLI params as configuration', async () => {
+    const globalOptions: GlobalOptionsArgv = {
+      verbose: true,
+      interactive: true,
+      rcPath: path.join(SETUP_SANDBOX_PATH, DEFAULT_RC_NAME)
+    };
+
+    const collect: CollectOptions = {
+      url: 'xxx',
+      ufPath: 'xxx',
+      serveCommand: 'xxx',
+      awaitServeStdout: 'xxx',
+      dryRun: false
+    };
+
+    const persist: PersistOptions = {
+      outPath: 'xxx',
+      format: ['json', 'md'],
+      openReport: true
+    };
+
+    const assert: AssertOptions = {
+
+    };
+
+    const { verbose, interactive, rcPath } = globalOptions;
+    const { url, ufPath, serveCommand, awaitServeStdout, dryRun } = collect;
+    let { outPath, format, openReport } = persist;
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand,
+        // global
+        `--rcPath=${rcPath}`,
+        `--interactive=${interactive}`,
+        `--verbose=${verbose}`,
+        // collect
+        `--url=${url}`,
+        `--ufPath=${ufPath}`,
+        `--dryRun=${dryRun}`,
+        `--serveCommand=${serveCommand}`,
+        `--awaitServeStdout=${awaitServeStdout}`,
+        // persist
+        `--outPath=${outPath}`,
+        `--format=${format[0]}`,
+        `--format=${format[1]}`,
+        `--openReport=${openReport}`
+        // assert
+      ],
+      ['n'],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+
+    const cfg = { ...collect, ...persist, ...assert };
+    expectCfgToContain(stdout, cfg);
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+  });
 
 });

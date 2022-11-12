@@ -49,34 +49,6 @@ describe('.rc.json in setup sandbox', () => {
   beforeEach(async () => resetSetupSandboxAndKillPorts());
   afterEach(() => resetSetupSandboxAndKillPorts());
 
-  it('should take params from cli', async () => {
-    const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
-    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
-    let { outPath, format } = persist;
-    let htmlFormat = format[0];
-
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-        // collect
-        `--url=${url}`,
-        `--ufPath=${ufPath}`,
-        `--serveCommand=${serveCommand}`,
-        `--awaitServeStdout=${awaitServeStdout}`,
-        // persist
-        `--outPath=${outPath}`,
-        `--format=${htmlFormat}`
-      ],
-      ['n'],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
-
-    // Assertions
-    expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_STATIC_RC_JSON);
-    expect(exitCode).toBe(0);
-  });
-
   it('should load default RC config name in a setup project', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(

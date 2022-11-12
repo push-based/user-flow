@@ -1,7 +1,7 @@
 import * as yargs from 'yargs';
-import { ArgumentsCamelCase, CommandModule, Options } from 'yargs';
+import { CommandModule, Options } from 'yargs';
 import { YargsCommandObject } from './types';
-import { configParser } from '../../boot-cli';
+import { getCliConfig } from '../../boot-cli';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -16,7 +16,6 @@ export function setupYargs(
     ])
     .help()
     .alias('h', 'help');
-  //yargs.config((config as any)());
 
   commands.forEach((command) => yargs.command(
     command.command,
@@ -28,13 +27,9 @@ export function setupYargs(
   return yargs;
 }
 
-
 function commandHandlerConfigMiddleWare(handler: CommandModule['handler']): CommandModule['handler'] {
   return (args: any): void | Promise<void> => {
-    console.log('commandHandlerConfigMiddleWare');
-    console.log('argv1: ', yargs.argv);
-    yargs.config(configParser());
-    console.log('argv2: ', yargs.argv);
+    yargs.config(getCliConfig());
     return handler(args);
   };
 }
@@ -42,7 +37,7 @@ function commandHandlerConfigMiddleWare(handler: CommandModule['handler']): Comm
 export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
-  config: Options['configParser']; //RcArgvOptions & GlobalOptionsArgv
+  config: Options['configParser']; // RcArgvOptions & GlobalOptionsArgv
 }) {
   // apply `.argv` to get args as plain obj available
   setupYargs(cliCfg.commands, cliCfg.options, cliCfg.config).argv;

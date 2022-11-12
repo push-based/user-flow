@@ -16,7 +16,6 @@ export const initCommand: YargsCommandObject = {
   builder: (y) => y.options(INIT_OPTIONS),
   module: {
     handler: async (argv: any) => {
-      console.log(`init: `, argv);
       logVerbose(`run "init" as a yargs command`);
 
       const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);

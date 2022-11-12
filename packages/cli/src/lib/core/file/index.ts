@@ -4,6 +4,7 @@ import { logVerbose } from '../loggin';
 import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
+import * as fs from 'fs';
 
 
 /*
@@ -41,6 +42,14 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
   type RETURN = ReadFileOutput<T, R>;
   let textContent = '';
   if (existsSync(path)) {
+    if(fs.lstatSync(path).isDirectory()) {
+        const errorStr = `rcPath ${path} has to be a file.`;
+        if (fail) {
+          throw new Error(errorStr);
+        }
+        logVerbose(errorStr);
+    }
+
     textContent = readFileSync(path, 'utf-8');
     if (ext === 'json') {
       return jsonParse<RETURN>(textContent);

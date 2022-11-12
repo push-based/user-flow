@@ -6,7 +6,6 @@ import { get as getRcParam, get as getRcPath } from './options/rc';
 import { get as getVerbose } from '../options/verbose';
 import { get as getInteractive } from '../options/interactive';
 
-
 export function readRcConfig(rcPath: string = ''): RcJson {
   const configPath = rcPath || getRcPath();
   const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
@@ -21,7 +20,6 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
 
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
     writeFile(configPath, JSON.stringify(config));
-    logVerbose(`New config ${JSON.stringify(config)}`);
   } else {
     logVerbose(`No updates for ${configPath} to save.`);
   }

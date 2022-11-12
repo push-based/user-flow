@@ -99,7 +99,7 @@ export function expectCfgToContain(stdout: string, cliParams: {}) {
       // global
       case 'verbose':
       case 'interactive':
-        expect(stdout).toContain(`${k}: ${v},`);
+        expect(stdout).toContain(`${k}: ${v}`);
         break;
       // global
       case 'rcPath':
@@ -107,16 +107,17 @@ export function expectCfgToContain(stdout: string, cliParams: {}) {
       case 'url':
       case 'ufPath':
       case 'outPath':
-        expect(stdout).toContain(`${k}: '${v}',`);
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
-        expect(stdout).toContain(`${k}: [ '${v}' ],`);
+        expect(stdout).toContain(`${k}: [ ${(v as any[]).map(i => "'"+i+"'").join(', ')} ]`);
         break;
-      case 'open':
-      case 'dryRun':
-        expect(stdout).toContain(`${k}: ${v},`);
+      case 'openReport':
+        expect(stdout).toContain(`${k}: ${v}`);
         break;
       default:
+        throw new Error(`${k} handling not implemented`)
         break;
     }
   });

@@ -4,7 +4,7 @@ import { ArgvOption } from '../../../core/yargs/types';
 import { getEnvPreset } from '../../../global/rc-json/pre-set';
 
 function getDefaultByCliMode(): boolean {
-  return getEnvPreset().dryRun;
+  return getEnvPreset().dryRun as boolean;
 }
 
 export const param: Param = {
@@ -17,5 +17,5 @@ export const param: Param = {
 
 export function get(): boolean {
   const { dryRun } = argv as any as ArgvOption<Param>;
-  return dryRun !== undefined ? dryRun : param.dryRun.default;
+  return dryRun !== undefined ? Boolean(dryRun) : param.dryRun.default;
 }

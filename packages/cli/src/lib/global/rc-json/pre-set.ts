@@ -23,14 +23,13 @@ export const SANDBOX_PRESET: ArgvPreset = mergeArgv(DEFAULT_PRESET, {
   dryRun: true
 });
 
-export const CI_PRESET: ArgvPreset = {
-  ...DEFAULT_PRESET,
+export const CI_PRESET: ArgvPreset = mergeArgv(DEFAULT_PRESET, {
   // GLOBAL
   interactive: false,
   // PERSIST COMMAND
   openReport: false,
   format: ['md', 'json']
-};
+});
 
 function mergeArgv(cfg1: ArgvPreset, cfg2: Partial<ArgvPreset>): ArgvPreset {
   const merged: ArgvPreset = { ...cfg1 };
@@ -51,7 +50,6 @@ function mergeArgv(cfg1: ArgvPreset, cfg2: Partial<ArgvPreset>): ArgvPreset {
 
 export function getEnvPreset(): ArgvPreset {
   const m = detectCliMode();
-  console.log('env: ', m);
   if (m === 'SANDBOX') {
     return SANDBOX_PRESET;
   }
