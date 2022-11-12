@@ -1,7 +1,7 @@
 import { RcArgvOptions } from './types';
 import { GlobalOptionsArgv } from '../options/types';
 import { ArgvPreset } from '../../types';
-import { getCliMode } from '../cli-mode/cli-mode';
+import { detectCliMode } from '../cli-mode/cli-mode';
 
 export const DEFAULT_PRESET = {
   // GLOBAL
@@ -31,7 +31,7 @@ export const SANDBOX_PRESET: ArgvPreset = {
 };
 
 export function getEnvPreset(): ArgvPreset  {
-  const m = getCliMode();
+  const m = detectCliMode();
   if(m === 'SANDBOX') {
     return SANDBOX_PRESET;
   }
