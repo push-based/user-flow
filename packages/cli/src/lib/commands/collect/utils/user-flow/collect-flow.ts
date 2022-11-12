@@ -31,7 +31,7 @@ export async function collectFlow(
     // https://github.com/puppeteer/puppeteer/issues/8148
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
-    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 },
+    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
 
   const browser: Browser = await puppeteer.launch(launchOptions);
