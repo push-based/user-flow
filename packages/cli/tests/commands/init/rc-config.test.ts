@@ -92,7 +92,9 @@ describe('.rc.json in setup sandbox', () => {
     expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
 
     const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_DEFAULT_RC_PATH) as any);
-    expect(config).toEqual(SETUP_SANDBOX_DEFAULT_RC_JSON);
+    const {collect, persist, assert} = config;
+    delete collect.openReport
+    expect({ collect, persist, assert }).toEqual(SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {
