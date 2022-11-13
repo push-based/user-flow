@@ -1,13 +1,18 @@
 import { argv } from 'yargs';
 import { Param } from './verbose.model';
 import { ArgvOption } from '../../core/yargs/types';
+import { getEnvPreset } from '../rc-json/pre-set';
+
+function getDefaultByCliMode(): boolean {
+  return getEnvPreset().verbose;
+}
 
 export const param: Param = {
   verbose: {
     alias: 'v',
     type: 'boolean',
     description: 'Run with verbose logging',
-    default: false
+    default: getDefaultByCliMode()
   }
 };
 
