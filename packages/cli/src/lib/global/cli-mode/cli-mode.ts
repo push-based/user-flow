@@ -17,14 +17,14 @@ import { CLI_MODES } from './types';
  * but in a CI setup it should fail with an error requesting the missing setting.
  *
  * To work around it we have to adopt the configuration of the CLI depending on the environment.
- * e.g. don't open a report automatically if it runs in the CI `--open false` or `-e false`.
+ * e.g. don't open a report automatically if it runs in the CI `--openReport false` or `-e false`.
  *
  * As an example let's look at the CLI configuration if we execute it in the CI with default settings:
  *
  * `npx user-flow -i false -e false -f json -f md -f html`
  *
  * Here the explanation why we use all the parameters:
- * - `--open false` (`-e`) - No one will look at it in the CI
+ * - `--openReport false` (`-e`) - No one will look at it in the CI
  * - `--interactive false` (`-i`) - No one can answer
  * - `--format json --format md` (`-f`) - Because we need it for the GitHub action as md text and json
  * - `--format html` - We need to maintain the original formats too
