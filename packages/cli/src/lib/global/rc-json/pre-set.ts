@@ -2,7 +2,7 @@ import { RcArgvOptions } from './types';
 import { GlobalOptionsArgv } from '../options/types';
 import { ArgvPreset } from '../../types';
 import { detectCliMode } from '../cli-mode/cli-mode';
-import path from 'path/posix';
+import * as path from 'path';
 import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from './options/rc.constant';
 
 export const DEFAULT_PRESET = {
