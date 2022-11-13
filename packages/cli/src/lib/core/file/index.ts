@@ -1,5 +1,5 @@
 import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
 import { logVerbose } from '../loggin';
 import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
@@ -41,11 +41,19 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
   type RETURN = ReadFileOutput<T, R>;
   let textContent = '';
   if (existsSync(path)) {
-    textContent = readFileSync(path, 'utf-8');
-    if (ext === 'json') {
-      return jsonParse<RETURN>(textContent);
+    if (lstatSync(path).isDirectory()) {
+      const errorStr = `${path} is a directory but needs to be a file.`;
+      if (fail) {
+        throw new Error(errorStr);
+      }
+      logVerbose(errorStr);
+    } else {
+      textContent = readFileSync(path, 'utf-8');
+      if (ext === 'json') {
+        return jsonParse<RETURN>(textContent);
+      }
+      return textContent as RETURN;
     }
-    return textContent as RETURN;
   } else {
     const errorStr = `${path} does not exist.`;
     if (fail) {
