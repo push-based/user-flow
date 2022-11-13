@@ -4,7 +4,7 @@ import { ArgvOption } from '../../core/yargs/types';
 import { getEnvPreset } from '../rc-json/pre-set';
 
 function getDefaultByCliMode(): boolean {
-  return getEnvPreset().verbose;
+  return getEnvPreset().verbose as boolean;
 }
 
 export const param: Param = {
