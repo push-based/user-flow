@@ -7,6 +7,7 @@ function getDefaultByCliMode(): boolean {
   return getEnvPreset().openReport;
 }
 
+
 export const param: Param = {
   openReport: {
     alias: 'e',
@@ -19,5 +20,5 @@ export const param: Param = {
 
 export function get(): boolean {
   const {  openReport } = argv as any as ArgvOption<Param>;
-  return openReport !== undefined ? Boolean(openReport) : param.openReport.default;
+  return openReport !== undefined ? Boolean(openReport) : param.openReport.default
 }

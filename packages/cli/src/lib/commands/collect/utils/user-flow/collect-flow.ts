@@ -33,7 +33,7 @@ export async function collectFlow(
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
-  // @TODO consider CI vs dev mode => headless, open, persist etc
+  // @TODO consider CI vs dev mode => headless, openReport, persist etc
   if (detectCliMode() !== 'DEFAULT') {
     logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
     launchOptions.headless = true;

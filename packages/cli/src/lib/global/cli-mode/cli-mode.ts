@@ -24,7 +24,7 @@ import { CLI_MODES } from './types';
  * `npx user-flow -i false -e false -f json -f md -f html`
  *
  * Here the explanation why we use all the parameters:
- * - `--open false` (`-e`) - No one will look at it in the CI
+ * - `--openReport false` (`-e`) - No one will look at it in the CI
  * - `--interactive false` (`-i`) - No one can answer
  * - `--format json --format md` (`-f`) - Because we need it for the GitHub action as md text and json
  * - `--format html` - We need to maintain the original formats too
