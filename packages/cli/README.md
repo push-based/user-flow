@@ -56,8 +56,7 @@ You can also use `npx` to run it in e.g. the CI setup:
 # Quick Start
 
 In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
-
-for both be sure to have node installed:
+Both ways require a node and npm project setup to install user-flow and folders to store the reports and test files.
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
