@@ -5,7 +5,6 @@ import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
-import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
 
 /**
  * This file maintains the static data used in tests as well as htlpers to reset the status of a sandbox to it's initial state.
