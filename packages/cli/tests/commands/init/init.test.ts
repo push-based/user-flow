@@ -82,7 +82,7 @@ describe('init command in empty sandbox', () => {
         // HTML format
         ENTER,
         // outPath
-        ENTER,
+        ENTER, ENTER,
         // create NO flow example
         'n'
       ],

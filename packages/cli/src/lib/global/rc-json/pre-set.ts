@@ -13,6 +13,7 @@ export const DEFAULT_PRESET = {
 };
 
 export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
+  ...DEFAULT_PRESET,
   // GLOBAL
   interactive: false,
   verbose: false,
@@ -22,6 +23,7 @@ export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
 };
 
 export const SANDBOX_PRESET: ArgvPreset = {
+  ...DEFAULT_PRESET,
   // GLOBAL
   verbose: true,
   interactive: true,
