@@ -1,12 +1,17 @@
 import { argv } from 'yargs';
 import { Param } from './dryRun.model';
 import { ArgvOption } from '../../../core/yargs/types';
+import { getEnvPreset } from '../../../global/rc-json/pre-set';
+
+function getDefaultByCliMode(): boolean {
+  return getEnvPreset().dryRun as boolean;
+}
 
 export const param: Param = {
   dryRun: {
     type: 'boolean',
     description: 'Execute commands without effects',
-    default: false
+    default: getDefaultByCliMode()
   }
 };
 
