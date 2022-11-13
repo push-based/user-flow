@@ -1,13 +1,17 @@
 import { argv } from 'yargs';
 import { Param } from './interactive.model';
 import { ArgvOption } from '../../core/yargs/types';
+import { getEnvPreset } from '../rc-json/pre-set';
 
+function getDefaultByCliMode(): boolean {
+  return getEnvPreset().interactive as boolean;
+}
 export const param: Param = {
   interactive: {
     alias: 'i',
     type: 'boolean',
     description: 'When false questions are skipped with the values from the suggestions. This is useful for CI integrations.',
-    default: true
+    default: getDefaultByCliMode()
   }
 };
 
