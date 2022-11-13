@@ -40,27 +40,23 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
   const {fail, ext} = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
   let textContent = '';
-  if (existsSync(path)) {
-    if (lstatSync(path).isDirectory()) {
-      const errorStr = `${path} is a directory but needs to be a file.`;
-      if (fail) {
-        throw new Error(errorStr);
-      }
-      logVerbose(errorStr);
-    } else {
-      textContent = readFileSync(path, 'utf-8');
-      if (ext === 'json') {
-        return jsonParse<RETURN>(textContent);
-      }
-      return textContent as RETURN;
-    }
+  let errorStr: string | undefined;
+  if (!existsSync(path)) {
+    errorStr = `${path} does not exist.`;
+  } else if (lstatSync(path).isDirectory()) {
+    errorStr = `${path} is a directory but needs to be a file.`;
   } else {
-    const errorStr = `${path} does not exist.`;
-    if (fail) {
-      throw new Error(errorStr);
+    textContent = readFileSync(path, 'utf-8');
+    if (ext === 'json') {
+      return jsonParse<RETURN>(textContent);
     }
-    logVerbose(errorStr);
+    return textContent as RETURN;
   }
+
+  if (fail) {
+    throw new Error(errorStr);
+  }
+  logVerbose(errorStr);
 
   return textContent as RETURN;
 }
