@@ -28,6 +28,7 @@ export const SANDBOX_PRESET: ArgvPreset = {
   // COLLECT COMMAND
   openReport: false,
   dryRun: true,
+  format: ['html']
 };
 
 export function getEnvPreset(): ArgvPreset  {
