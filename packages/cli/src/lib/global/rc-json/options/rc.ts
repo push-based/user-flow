@@ -21,5 +21,6 @@ export const param: Param = {
 export function get(): string {
   const { rcPath, p, ['rc-path']: rc_path } = argv as any as ArgvOption<any>;
   const pathToCfgRc = rcPath || rc_path || p;
-  return (pathToCfgRc as any as string) || param.rcPath.default;
+  console.log('!!!!', pathToCfgRc, param.rcPath.default);
+  return pathToCfgRc !== undefined ? pathToCfgRc : param.rcPath.default;
 }

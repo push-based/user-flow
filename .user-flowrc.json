@@ -3,8 +3,8 @@
     "url": "http://127.0.0.1:5056",
     "ufPath": "./packages/sandbox-setup/src/lib/dirty-user-flows",
     "serveCommand": "cd ./packages/sandbox-setup && npm run start",
-    "awaitServeStdout": "Available on:"
+    "awaitServeStdout": "Available on:",
+    "openReport": true
   },
-  "persist": { "outPath": "./measures", "format": ["json"] },
-  "generate": {}
+  "persist": { "outPath": "./measures", "format": ["json"] }
 }
