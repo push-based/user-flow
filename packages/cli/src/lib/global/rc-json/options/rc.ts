@@ -3,13 +3,17 @@ import { Param } from './rc.model';
 import { ArgvOption } from '../../../core/yargs/types';
 import { join } from 'path';
 import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from './rc.constant';
+import { getEnvPreset } from '../pre-set';
 
+function getDefaultByCliMode(): string {
+  return getEnvPreset().rcPath as string;
+}
 export const param: Param = {
   rcPath: {
     alias: 'p',
     type: 'string',
     description: 'Path to user-flow.config.json. e.g. `./user-flowrc.json`',
-    default: join(DEFAULT_RC_PATH, DEFAULT_RC_NAME)
+    default: getDefaultByCliMode()
   }
 };
 
