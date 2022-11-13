@@ -3,15 +3,13 @@ import {
   CLI_PATH
 } from '../../fixtures/cli-bin-path';
 import {
-  BUDGETS_NAME,
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
+  resetSetupSandboxAndKillPorts, SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
+  SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME,
   SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON,
   SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME,
-  SETUP_SANDBOX_STATIC_RC_NAME
+  SETUP_SANDBOX_STATIC_RC_NAME,
+  BUDGETS_NAME
 } from '../../fixtures/setup-sandbox';
 import {
   expectBudgetsFileExistLog,
@@ -47,7 +45,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommand, `--budgetPath=${BUDGETS_NAME}`],
+      [...collectCommand, `--dryRun`, `--budgetPath=${BUDGETS_NAME}`],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );

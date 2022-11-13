@@ -50,17 +50,6 @@ export const CI_PROPERTY = 'CI';
 export const CLI_MODE_PROPERTY = '__CLI_MODE__';
 
 /**
- *
- */
-export function getCliMode(): CLI_MODES {
-  // lazy setup
-  if(!env[CLI_MODE_PROPERTY]) {
-    env[CLI_MODE_PROPERTY] = detectCliMode();
-  }
-  return env[CLI_MODE_PROPERTY];
-}
-
-/**
  * detects the current CLI mode
  */
 export function detectCliMode(): CLI_MODES {

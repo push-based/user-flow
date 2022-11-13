@@ -2,6 +2,8 @@ import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from '../../s
 import { setupEnvVars, teardownEnvVars } from '../utils/cli-mode';
 
 describe('getEnvPreset', () => {
+
+  afterEach(() => setupEnvVars('SANDBOX'));
   afterEach(teardownEnvVars);
 
   it('should return default preset', () => {
