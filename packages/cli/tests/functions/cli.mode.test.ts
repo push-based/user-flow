@@ -1,7 +1,6 @@
 import {
   CLI_MODE_PROPERTY,
   detectCliMode,
-  getCliMode,
   isEnvCi,
   isEnvSandbox
 } from '../../src/lib/global/cli-mode/cli-mode';
@@ -69,20 +68,20 @@ describe('getCliMode', () => {
 
   it('should return SANDBOX if it is configured', () => {
     setupEnvVars('SANDBOX');
-    expect(getCliMode()).toBe('SANDBOX');
+    expect(detectCliMode()).toBe('SANDBOX');
   });
 
   // This will only pass run in CI
   it('should return CI in the CI', () => {
     expect(process.env[CLI_MODE_PROPERTY]).toBe(undefined);
     setupEnvVars('true');
-    expect(getCliMode()).toBe('CI');
+    expect(detectCliMode()).toBe('CI');
 
   });
 
   it('should return DEFAULT if it is no CI or sandbox environment', () => {
     teardownEnvVars();
-    expect(getCliMode()).toBe('DEFAULT');
+    expect(detectCliMode()).toBe('DEFAULT');
   });
 
 });
