@@ -1,4 +1,4 @@
-import { commands } from './commands';
+import { commands } from './commands/commands';
 import { runCli } from './core/yargs';
 import { getCLIGlobalConfigFromArgv, getCliOptionsFromRcConfig } from './global/rc-json';
 import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
