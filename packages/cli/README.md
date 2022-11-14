@@ -320,7 +320,7 @@ Organizing testing logic is an art. If you don't own that knowledge, the amount 
 
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
 
-## [Working with DevTools Recorder exports]()
+## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
 
 Chrome DevTools provides a feature to help with record and exoprt user interations. 
 This can replace any handwritten code and organizes interactions in a JSON structure.
