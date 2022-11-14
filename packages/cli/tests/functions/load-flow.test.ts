@@ -61,14 +61,10 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows.length).toBe(2)
   });
 
-  it.only('should throw ufPath is not a file or directory', async () => {
+  it('should throw ufPath is not a file or directory', async () => {
     const ufPath = normalizePathForCi(invalidUfPath);
-    console.log('------------------------Start of debugging logs-------------------------------')
-    console.log('Logging ufPath | invalidUfPath',ufPath, invalidUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const error = await getError(async () => loadFlow(collectOptions));
-    console.log('Error', error);
-    console.log('-----------------------End of debugging logs-------------------------------')
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
     expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });

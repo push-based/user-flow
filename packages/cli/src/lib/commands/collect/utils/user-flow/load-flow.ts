@@ -7,7 +7,7 @@ import { resolveAnyFile } from '../../../../core/file';
 export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
   const { ufPath } = collect;
   const path = join(process.cwd(), ufPath);
-  console.log('Logging in loadFlow -> ufPath | path', ufPath);
+
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is no directory`);
   }
@@ -19,8 +19,6 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
     files = [path];
   }
 
-  console.log('Logging in loadFlow -> existsSync(path) | lstatSync(path).isDirectory()', existsSync(path), lstatSync(path).isDirectory());
-
   const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
     .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
 
@@ -28,6 +26,6 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
     // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);
   }
-  console.log('Logging the output of loadFlow -> flows', flows);
+
   return flows;
 }
