@@ -4,7 +4,7 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
+  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, SETUP_SANDBOX_REMOTE_RC_JSON,
   SETUP_SANDBOX_REMOTE_RC_NAME,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
@@ -12,7 +12,7 @@ import {
 import {
   expectCollectCreatesHtmlReport,
   expectCollectCreatesJsonReport,
-  expectCollectCreatesMdReport,
+  expectCollectCreatesMdReport, expectCollectLogsFromMockInStdout,
   expectCollectNoLogsFromMockInStdout,
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
@@ -72,7 +72,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a HTML file', async () => {
     const { exitCode, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--format=html'],
+      [...collectCommandRemoteRc, '--dryRun=false', '--format=html'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -92,8 +92,7 @@ describe('collect command in setup sandbox', () => {
     );
 
     expect(stderr).toBe('');
-    // expect(stdout).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
+    expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
@@ -107,9 +106,8 @@ describe('collect command in setup sandbox', () => {
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
-    //expect(stdout).toBe('')
     expect(stderr).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
+    expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
