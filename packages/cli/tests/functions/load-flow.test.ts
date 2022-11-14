@@ -70,7 +70,7 @@ describe('throw error loading user-flow scripts for incorrect path', () => {
     const collectOptions = {url: 'example.com', ufPath: fakeUfPath};
     const error = await getError(async () => loadFlow(collectOptions));
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
-    expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} does not exist.`);
+    expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), fakeUfPath)} does not exist.`);
   });
 
   it('should throw if no user flows are in the directory', async () => {
