@@ -20,7 +20,7 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
 
   const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
     .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
-  console.log('flows', flows)
+
   if (flows.length === 0) {
     // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);

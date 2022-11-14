@@ -53,7 +53,6 @@ describe('loading user-flow scripts for execution', () => {
     const ufPath = normalizePathForCi(invalidUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows()).toBe([]);
     expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });
 
