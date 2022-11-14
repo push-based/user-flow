@@ -61,6 +61,14 @@ describe('loading user-flow scripts for execution', () => {
     const userFlows = loadFlow(collectOptions);
     expect(userFlows.length).toBe(2)
   });
+});
+
+describe('throw error loading user-flow scripts for incorrect path', () => {
+
+  beforeAll(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
+  });
 
   it('should throw ufPath is not a file or directory', async () => {
     const ufPath = normalizePathForCi(invalidUfPath);
@@ -78,4 +86,3 @@ describe('loading user-flow scripts for execution', () => {
     expect((error as Error).message).toBe(`No user flows found in ${ufPath}.`);
   });
 });
-
