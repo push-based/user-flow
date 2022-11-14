@@ -21,7 +21,7 @@ function normalizePathForCi(path: string): string {
   return join('packages/cli', path);
 }
 
-describe.only('loading user-flow scripts for execution', async () => {
+describe('loading user-flow scripts for execution', async () => {
 
   await beforeAll(async () => {
     await resetEmptySandbox();
