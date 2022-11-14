@@ -65,19 +65,23 @@ describe('loading user-flow scripts for execution', () => {
 
 describe('throw error loading user-flow scripts for incorrect path', () => {
 
-  it('should throw ufPath is not a file or directory', async () => {
+  it.only('should throw ufPath is not a file or directory', async () => {
     const fakeUfPath = normalizePathForCi(invalidUfPath);
     const collectOptions = {url: 'example.com', ufPath: fakeUfPath};
     const error = await getError(async () => loadFlow(collectOptions));
+    console.log(error);
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
     expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), fakeUfPath)} does not exist.`);
   });
+});
 
-  it('should throw if no user flows are in the directory', async () => {
-    const ufPath = normalizePathForCi(emptyUfPath);
-    const collectOptions = {url: 'example.com', ufPath};
+describe('throw error loading user-flow scripts for directory with not flows', () => {
+  it.only('should throw if no user flows are in the directory', async () => {
+    const noUfPath = normalizePathForCi(emptyUfPath);
+    const collectOptions = {url: 'example.com', ufPath: noUfPath};
     const error = await getError(async () => loadFlow(collectOptions));
+    console.log(error);
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
-    expect((error as Error).message).toBe(`No user flows found in ${ufPath}.`);
+    expect((error as Error).message).toBe(`No user flows found in ${noUfPath}.`);
   });
 });
