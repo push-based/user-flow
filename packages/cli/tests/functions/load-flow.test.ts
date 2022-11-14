@@ -21,6 +21,18 @@ function normalizePathForCi(path: string): string {
   return join('packages/cli', path);
 }
 
+class NoErrorThrownError extends Error {}
+
+const getError = async <TError>(call: () => unknown): Promise<TError> => {
+  try {
+    await call();
+
+    throw new NoErrorThrownError();
+  } catch (error: unknown) {
+    return error as TError;
+  }
+};
+
 describe('loading user-flow scripts for execution', () => {
 
   beforeAll(async () => {
@@ -49,20 +61,19 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows.length).toBe(2)
   });
 
-  it.only('should throw ufPath is not a file or directory', () => {
+  it.only('should throw ufPath is not a file or directory', async () => {
     const ufPath = normalizePathForCi(invalidUfPath);
     console.log('------------------------Start of debugging logs-------------------------------')
     console.log('Logging ufPath | invalidUfPath',ufPath, invalidUfPath)
     const collectOptions = {url: 'example.com', ufPath};
-    const userFlows = () => loadFlow(collectOptions);
-    //const userFlows = loadFlow(collectOptions);
-    console.log('Logging the return value in test', userFlows);
+    const error = await getError(async () => loadFlow(collectOptions));
+    console.log('Error', error);
     console.log('-----------------------End of debugging logs-------------------------------')
-
-    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
+    expect(error).not.toBeInstanceOf(NoErrorThrownError);
+    expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });
 
-  it.only('should throw if no user flows are in the directory', () => {
+  it('should throw if no user flows are in the directory', () => {
     const ufPath = normalizePathForCi(emptyUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
