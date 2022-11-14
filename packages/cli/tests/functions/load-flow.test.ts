@@ -65,7 +65,7 @@ describe('loading user-flow scripts for execution', () => {
 
 describe('throw error loading user-flow scripts for incorrect path', () => {
 
-  it.only('should throw ufPath is not a file or directory', async () => {
+  it('should throw ufPath is not a file or directory', async () => {
     const fakeUfPath = normalizePathForCi(invalidUfPath);
     const collectOptions = {url: 'example.com', ufPath: fakeUfPath};
     const error = await getError(async () => loadFlow(collectOptions));
