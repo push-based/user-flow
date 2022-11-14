@@ -86,7 +86,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc],
+      [...collectCommandRemoteRc, '--dryRun=false',],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -101,7 +101,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
     const { exitCode, stdout,  stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--format=md'],
+      [...collectCommandRemoteRc,'--dryRun=false', '--format=md'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
