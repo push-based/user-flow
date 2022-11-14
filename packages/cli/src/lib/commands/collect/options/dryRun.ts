@@ -13,5 +13,5 @@ export const param: Param = {
 
 export function get(): boolean {
   const { dryRun } = argv as any as ArgvOption<Param>;
-  return dryRun !== undefined ? Boolean(dryRun) : param.dryRun.default;
+  return dryRun; // !== undefined ? Boolean(dryRun) : param.dryRun.default;
 }
