@@ -65,21 +65,16 @@ describe('loading user-flow scripts for execution', () => {
 
 describe('throw error loading user-flow scripts for incorrect path', () => {
 
-  beforeAll(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
-  });
-
-  it('should throw ufPath is not a file or directory', async () => {
-    const ufPath = normalizePathForCi(invalidUfPath);
-    const collectOptions = {url: 'example.com', ufPath};
+  it.only('should throw ufPath is not a file or directory', async () => {
+    const fakeUfPath = normalizePathForCi(invalidUfPath);
+    const collectOptions = {url: 'example.com', ufPath: fakeUfPath};
     const error = await getError(async () => loadFlow(collectOptions));
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
     expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} does not exist.`);
   });
 
   it('should throw if no user flows are in the directory', async () => {
-    const ufPath = normalizePathForCi(emptyUfPath)
+    const ufPath = normalizePathForCi(emptyUfPath);
     const collectOptions = {url: 'example.com', ufPath};
     const error = await getError(async () => loadFlow(collectOptions));
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
