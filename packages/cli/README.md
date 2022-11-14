@@ -270,7 +270,7 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
 | **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 | **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
-| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`--openReport`**, **`-e`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
 | **`--budget-path`**, **`-b`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
 
 ## Report Formats and Viewer
@@ -285,9 +285,9 @@ You can also use the CLI option `--format` to choose a format.
 - multiple formats: `@push-based/user-flow collect --format html --format json`  
 
 > **🤓 DX Tip:**  
-> For a faster development process you can use the `--open` or `-e` option to automatically open the report in the browser.
+> For a faster development process you can use the `--openReport` or `-e` option to automatically open the report in the browser.
 > The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
-> e.g. `@push-based/user-flow collect --open`   
+> e.g. `@push-based/user-flow collect --openReport`   
 
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
