@@ -23,11 +23,11 @@ function normalizePathForCi(path: string): string {
 
 class NoErrorThrownError extends Error {}
 
-const getError = async <TError>(call: () => unknown): Promise<TError> => {
+const getError = async <TError>(call: () => unknown): Promise<TError|NoErrorThrownError> => {
   try {
     await call();
 
-    throw new NoErrorThrownError();
+    return new NoErrorThrownError();
   } catch (error: unknown) {
     return error as TError;
   }
