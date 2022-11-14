@@ -69,11 +69,11 @@ describe('loading user-flow scripts for execution', () => {
     expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });
 
-  it('should throw if no user flows are in the directory', () => {
+  it('should throw if no user flows are in the directory', async () => {
     const ufPath = normalizePathForCi(emptyUfPath)
     const collectOptions = {url: 'example.com', ufPath};
-    const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
+    const error = await getError(async () => loadFlow(collectOptions));
+    expect((error as Error).message).toBe(`No user flows found in ${ufPath}`);
   });
 });
 
