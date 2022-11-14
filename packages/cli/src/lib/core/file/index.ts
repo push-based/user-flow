@@ -44,6 +44,7 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
     errorStr = `${path} does not exist.`;
   } else if (lstatSync(path).isDirectory()) {
     errorStr = `${path} is a directory but needs to be a file.`;
+    throw new Error(errorStr);
   } else {
     const fileContent = readFileSync(path, 'utf-8');
     if (ext === 'json') {
