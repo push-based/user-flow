@@ -43,7 +43,7 @@ const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions)
 <title>Lighthouse Flow Report</title>
 <style></style>
 <script>
-${dummyFlowResult(cfg)}
+${JSON.stringify(dummyFlowResult(cfg))}
 </script>
 </head>
 <body></body>
