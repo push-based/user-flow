@@ -21,11 +21,11 @@ function normalizePathForCi(path: string): string {
   return join('packages/cli', path);
 }
 
-describe('loading user-flow scripts for execution', () => {
+describe.only('loading user-flow scripts for execution', async () => {
 
-  beforeAll(() => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+  await beforeAll(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
 
   it('should return flows if files with ts or js are in ufPath', () =>{
@@ -49,7 +49,7 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows.length).toBe(2)
   });
 
-  it.only('should throw ufPath is not a file or directory', () => {
+  await it.only('should throw ufPath is not a file or directory', () => {
     const ufPath = normalizePathForCi(invalidUfPath);
     console.log('------------------------Start of debugging logs-------------------------------')
     console.log('Logging ufPath | invalidUfPath',ufPath, invalidUfPath)
