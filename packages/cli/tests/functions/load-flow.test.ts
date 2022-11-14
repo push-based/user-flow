@@ -53,8 +53,7 @@ describe('loading user-flow scripts for execution', () => {
     const ufPath = normalizePathForCi(invalidUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows()).toEqual([1]);
-   // expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
+    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
   });
 
   it('should throw if no user flows are in the directory', () => {

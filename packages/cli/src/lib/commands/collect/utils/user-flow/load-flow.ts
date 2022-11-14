@@ -25,5 +25,6 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
     // @TODO use const for error msg
     throw new Error(`No user flows found in ${ufPath}`);
   }
+
   return flows;
 }
