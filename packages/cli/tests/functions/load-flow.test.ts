@@ -66,7 +66,7 @@ describe('loading user-flow scripts for execution', () => {
     const collectOptions = {url: 'example.com', ufPath};
     const error = await getError(async () => loadFlow(collectOptions));
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
-    expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
+    expect((error as Error).message).toBe(`ufPath: ${join(process.cwd(), ufPath)} does not exist.`);
   });
 
   it('should throw if no user flows are in the directory', async () => {
@@ -74,7 +74,7 @@ describe('loading user-flow scripts for execution', () => {
     const collectOptions = {url: 'example.com', ufPath};
     const error = await getError(async () => loadFlow(collectOptions));
     expect(error).not.toBeInstanceOf(NoErrorThrownError);
-    expect((error as Error).message).toBe(`No user flows found in ${ufPath}`);
+    expect((error as Error).message).toBe(`No user flows found in ${ufPath}.`);
   });
 });
 

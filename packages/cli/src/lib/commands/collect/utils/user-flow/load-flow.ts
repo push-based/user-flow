@@ -9,7 +9,7 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
   const path = join(process.cwd(), ufPath);
 
   if (!existsSync(path)) {
-    throw new Error(`ufPath: ${path} is no directory`);
+    throw new Error(`ufPath: ${path} does not exist.`);
   }
 
   let files: string[];
@@ -24,7 +24,7 @@ export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider,
 
   if (flows.length === 0) {
     // @TODO use const for error msg
-    throw new Error(`No user flows found in ${ufPath}`);
+    throw new Error(`No user flows found in ${ufPath}.`);
   }
 
   return flows;
