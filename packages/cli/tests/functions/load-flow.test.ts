@@ -5,7 +5,8 @@ import {
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_NAME
 } from '../fixtures/setup-sandbox';
-import { loadFlow } from '../../src/lib/commands/collect/utils/user-flow';
+// Import cannot be shortened do to jest import puppeteer-core error
+import { loadFlow } from '../../src/lib/commands/collect/utils/user-flow/load-flow';
 import { resetEmptySandbox } from '../fixtures/empty-sandbox';
 
 const emptyUfPath = join('..', 'sandbox-empty', DEFAULT_COLLECT_UF_PATH);
