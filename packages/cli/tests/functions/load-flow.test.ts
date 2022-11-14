@@ -73,6 +73,7 @@ describe('loading user-flow scripts for execution', () => {
     const ufPath = normalizePathForCi(emptyUfPath)
     const collectOptions = {url: 'example.com', ufPath};
     const error = await getError(async () => loadFlow(collectOptions));
+    expect(error).not.toBeInstanceOf(NoErrorThrownError);
     expect((error as Error).message).toBe(`No user flows found in ${ufPath}`);
   });
 });
