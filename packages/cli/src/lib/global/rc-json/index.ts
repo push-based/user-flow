@@ -20,6 +20,7 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
 
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
     writeFile(configPath, JSON.stringify(config));
+    logVerbose(`New config ${JSON.stringify(config)}`);
   } else {
     logVerbose(`No updates for ${configPath} to save.`);
   }
@@ -31,7 +32,6 @@ export function getCliOptionsFromRcConfig(rcPath?: string): RcArgvOptions {
 }
 
 export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
-  const cfg = {};
   return {
     verbose: getVerbose(),
     rcPath: getRcPath(),

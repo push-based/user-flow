@@ -56,8 +56,7 @@ You can also use `npx` to run it in e.g. the CI setup:
 # Quick Start
 
 In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
-
-for both be sure to have node installed:
+Both ways require a node and npm project setup to install user-flow and folders to store the reports and test files.
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
@@ -321,7 +320,7 @@ Organizing testing logic is an art. If you don't own that knowledge, the amount 
 
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
 
-## [Working with DevTools Recorder exports]()
+## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
 
 Chrome DevTools provides a feature to help with record and exoprt user interations. 
 This can replace any handwritten code and organizes interactions in a JSON structure.

@@ -156,5 +156,9 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
 export function expectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
-  expect(config).toEqual(cfg);
+  // handle inconsistency of rc vs params
+  const {collect, persist, assert} = config;
+  delete collect.openReport;
+
+  expect(config).toEqual({ collect, persist, assert });
 }

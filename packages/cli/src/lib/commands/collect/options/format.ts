@@ -5,7 +5,7 @@ import { getEnvPreset } from '../../../global/rc-json/pre-set';
 import { PersistOptions } from '../../../global/rc-json/types';
 
 function getDefaultByCliMode(): PersistOptions['format'] {
-  return getEnvPreset().format;
+  return getEnvPreset().format as string[];
 }
 
 export const param: Param = {
@@ -14,7 +14,7 @@ export const param: Param = {
     type: 'array',
     string: true,
     description: 'Report output formats e.g. JSON',
-    default: getEnvPreset().format
+    default: getDefaultByCliMode
   }
 };
 
