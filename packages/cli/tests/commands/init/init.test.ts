@@ -40,7 +40,6 @@ describe('init command in setup sandbox', () => {
     );
 
     // Assertions
-    expect(stdout).toBe('');
     // STDOUT
     // prompts
     expectNoPromptsInStdout(stdout);

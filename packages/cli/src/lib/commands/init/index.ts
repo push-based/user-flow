@@ -18,7 +18,7 @@ export const initCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
       const rcCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
-      logVerbose('Init options: ', argv, rcCfg);
+      logVerbose('Init options: ', rcCfg);
       const exampleName = 'basic-navigation';
       const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
