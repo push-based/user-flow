@@ -27,7 +27,7 @@ export function setupYargs(
       yargs.config((configParser as any)());
       const {interactive, verbose, rcPath } = yargs.argv as unknown as GlobalOptionsArgv;
       logVerbose('Global options: ', {interactive, verbose, rcPath });
-      return command.module.handler(args);
+      return command.module.handler(yargs.argv as any);
     }
   ));
   return yargs;
