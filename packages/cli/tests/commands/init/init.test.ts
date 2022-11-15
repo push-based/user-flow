@@ -52,6 +52,7 @@ describe('init command in setup sandbox', () => {
     // file output
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
+
   it('should throw missing url error', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [...initCommand, '--interactive=false', '--url='],
