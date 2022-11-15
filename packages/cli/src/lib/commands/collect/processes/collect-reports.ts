@@ -19,7 +19,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
       provider = normalizeProviderObject(provider);
       provider = addBudgetsIfGiven(provider, assert);
 
-      return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
+      return collectFlow(collect, { ...provider, path })
         .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
         .then(openFlowReport)
         .then(_ => cfg);
