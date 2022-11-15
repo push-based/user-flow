@@ -13,8 +13,7 @@ export const DEFAULT_PRESET = {
   interactive: true,
   verbose: false,
   // PERSIST COMMAND
-  openReport: true,
-  format: ['html']
+  openReport: true
 };
 
 export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
@@ -25,8 +24,7 @@ export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
   // COLLECT COMMAND
   dryRun: true,
   // PERSIST COMMAND
-  openReport: false,
-  format: ['md', 'json']
+  openReport: false
 };
 
 export const SANDBOX_PRESET: ArgvPreset = {
@@ -37,8 +35,7 @@ export const SANDBOX_PRESET: ArgvPreset = {
   // COLLECT COMMAND
   dryRun: true,
   // PERSIST COMMAND
-  openReport: false,
-  format: ['html']
+  openReport: false
 };
 
 export function getEnvPreset(): ArgvPreset  {
