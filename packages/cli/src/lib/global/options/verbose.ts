@@ -1,6 +1,5 @@
 import { argv } from 'yargs';
 import { Param } from './verbose.model';
-import { ArgvOption } from '../../core/yargs/types';
 import { getEnvPreset } from '../rc-json/pre-set';
 import {GlobalOptionsArgv} from "./types";
 
