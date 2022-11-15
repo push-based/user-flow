@@ -6,7 +6,6 @@ import { get as getRcParam, get as getRcPath } from './options/rc';
 import { get as getVerbose } from '../options/verbose';
 import { get as getInteractive } from '../options/interactive';
 
-
 export function readRcConfig(rcPath: string = ''): RcJson {
   const configPath = rcPath || getRcPath();
   const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
@@ -41,18 +40,20 @@ export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
 }
 
 export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
-  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
+  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets, openReport, dryRun } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
   const cfg: RcJson = {
     collect: {
       url,
       ufPath,
       serveCommand,
-      awaitServeStdout
+      awaitServeStdout,
+      dryRun,
+      openReport
     },
     persist: {
       outPath,
-      format
+      format,
     }
   };
 

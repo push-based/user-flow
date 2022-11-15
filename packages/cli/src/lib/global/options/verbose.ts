@@ -4,6 +4,7 @@ import { ArgvOption } from '../../core/yargs/types';
 import { GlobalOptionsArgv } from './types';
 import { getEnvPreset } from '../rc-json/pre-set';
 
+
 export const param: Param = {
   verbose: {
     alias: 'v',
@@ -14,7 +15,7 @@ export const param: Param = {
 };
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
-export function get(): boolean {
-  const { verbose } = argv as unknown as GlobalOptionsArgv;
-  return verbose as boolean;
+export function get(): boolean  {
+  const {verbose} = argv as unknown as GlobalOptionsArgv;
+  return verbose;
 }
