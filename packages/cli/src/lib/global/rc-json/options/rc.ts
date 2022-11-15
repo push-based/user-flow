@@ -8,12 +8,12 @@ export const param: Param = {
     alias: 'p',
     type: 'string',
     description: 'Path to user-flow.config.json. e.g. `./user-flowrc.json`',
-    default: getEnvPreset().rcPath as string
+    default: getEnvPreset().rcPath
   }
 };
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): string {
-  const { rcPath } = argv as any as GlobalOptionsArgv;
+  const { rcPath } = argv as unknown as GlobalOptionsArgv;
   return rcPath as string;
 }
