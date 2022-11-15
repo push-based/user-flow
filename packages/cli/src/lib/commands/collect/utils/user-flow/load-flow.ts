@@ -4,7 +4,7 @@ import { join } from 'path';
 import { existsSync, lstatSync, readdirSync } from 'fs';
 import { resolveAnyFile } from '../../../../core/file';
 
-export function loadFlow(collect: CollectOptions): ({ exports: UserFlowProvider, path: string })[] {
+export function loadFlow(collect: Pick<CollectOptions, 'ufPath'>): ({ exports: UserFlowProvider, path: string })[] {
   const { ufPath } = collect;
   const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {

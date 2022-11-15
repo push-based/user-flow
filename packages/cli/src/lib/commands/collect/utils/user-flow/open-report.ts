@@ -5,6 +5,7 @@ import { logVerbose } from '../../../../core/loggin';
 import * as openFileInBrowser from 'open';
 
 export async function openFlowReport(fileNames: string[]): Promise<void> {
+  // @TODO move decision outside this function
   // open report if requested and not in executed in CI
   if (!dryRun() && openReport() && interactive()) {
 

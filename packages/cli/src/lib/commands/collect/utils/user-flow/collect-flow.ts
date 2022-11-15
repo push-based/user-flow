@@ -13,7 +13,7 @@ import { readBudgets } from '../../../assert/utils/budgets';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 
 export async function collectFlow(
-  cliOption: CollectOptions & { dryRun: boolean },
+  collectOptions: Pick<CollectOptions, 'url'>,
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -41,14 +41,14 @@ export async function collectFlow(
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 
-  logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
+  logVerbose(`Collect: ${flowOptions.name} from URL ${collectOptions.url}`);
   logVerbose(`File path: ${normalize(path)}`);
   let start = Date.now();
 
   const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
 
   // run custom interactions
-  await interactions({ flow, page, browser, collectOptions: cliOption });
+  await interactions({ flow, page, browser, collectOptions: { url: collectOptions.url } });
   logVerbose(`Duration: ${flowOptions.name}: ${(Date.now() - start) / 1000}`);
   await browser.close();
 

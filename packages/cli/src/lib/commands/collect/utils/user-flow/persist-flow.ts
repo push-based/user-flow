@@ -6,7 +6,7 @@ import { log } from '../../../../core/loggin';
 import { join } from 'path';
 import { toFileName, writeFile } from '../../../../core/file';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: Pick<PersistOptions, 'outPath' | 'format' | 'openReport'>): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }
