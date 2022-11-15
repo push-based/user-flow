@@ -13,7 +13,6 @@ export type CollectOptions = {
 export type PersistOptions = {
   outPath: string,
   format: string[],
-  openReport?: true
 }
 
 // @TODO this type has overlap with the one in rc-json.ts we should fix that and only have one
