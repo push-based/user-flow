@@ -2,9 +2,14 @@ import { RcArgvOptions } from './types';
 import { GlobalOptionsArgv } from '../options/types';
 import { ArgvPreset } from '../../types';
 import { detectCliMode } from '../cli-mode/cli-mode';
+import path from 'path';
+
+const DEFAULT_RC_NAME = '.user-flowrc.json';
+const DEFAULT_RC_PATH = `./`;
 
 export const DEFAULT_PRESET = {
   // GLOBAL
+  rcPath: path.join(DEFAULT_RC_PATH, DEFAULT_RC_NAME),
   interactive: true,
   verbose: false,
   // PERSIST COMMAND
