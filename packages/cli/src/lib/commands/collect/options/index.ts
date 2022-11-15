@@ -20,7 +20,6 @@ export const PERSIST_OPTIONS: PersistYargsOptions = {
 export const COLLECT_OPTIONS: CollectYargsOptions & AssertOptions & PersistYargsOptions = {
   ...url,
   ...ufPath,
-  ...openReport,
   ...serveCommand,
   ...awaitServeStdout,
   ...dryRun,
