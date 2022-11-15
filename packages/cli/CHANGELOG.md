@@ -2,6 +2,41 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.20](https://github.com/push-based/user-flow/compare/cli-0.10.19...cli-0.10.20) (2022-11-15)
+
+
+
+## [0.10.19](https://github.com/push-based/user-flow/compare/cli-0.10.18...cli-0.10.19) (2022-11-14)
+
+
+
+## [0.10.18](https://github.com/push-based/user-flow/compare/cli-0.10.17...cli-0.10.18) (2022-11-14)
+
+
+
+## [0.10.17](https://github.com/push-based/user-flow/compare/cli-0.10.16...cli-0.10.17) (2022-11-14)
+
+
+
+## [0.10.16](https://github.com/push-based/user-flow/compare/cli-0.10.15...cli-0.10.16) (2022-11-14)
+
+
+### Bug Fixes
+
+* error handling for path is directory but needs to be a file ([43d8ebb](https://github.com/push-based/user-flow/commit/43d8ebb5cd2f9fcd1c43f102cef3ceb47033864b))
+* handle error for rc path isDirectory ([d29b224](https://github.com/push-based/user-flow/commit/d29b2242f233a84f25e57ef4fcfe63be0e4baa6b))
+* trow error if path is directory ([23b63a4](https://github.com/push-based/user-flow/commit/23b63a43696e765a777db543574e4102ea51a2ba))
+
+
+
+## [0.10.15](https://github.com/push-based/user-flow/compare/cli-0.10.14...cli-0.10.15) (2022-11-14)
+
+
+
+## [0.10.14](https://github.com/push-based/user-flow/compare/cli-0.10.13...cli-0.10.14) (2022-11-13)
+
+
+
 ## [0.10.13](https://github.com/push-based/user-flow/compare/cli-0.10.12...cli-0.10.13) (2022-11-13)
 
 
