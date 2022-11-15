@@ -153,7 +153,7 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
   }
 }
 
-export function expectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
+export function expectEnsureConfigToCreateRc(rcPath: string, cfg: Partial<RcJson>) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
   // handle inconsistency of rc vs params

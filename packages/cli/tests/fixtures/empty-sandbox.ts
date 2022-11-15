@@ -5,6 +5,7 @@ import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
+import { RcJson } from '../../src/lib';
 
 /**
  * This file maintains the static data used in tests as well as htlpers to reset the status of a sandbox to it's initial state.
@@ -19,7 +20,7 @@ import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.
  */
 
 export const EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS = '.user-flowrc.json';
-export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS = {
+export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS: RcJson = {
   'collect': { 'url': DEFAULT_COLLECT_URL, 'ufPath': DEFAULT_COLLECT_UF_PATH },
   'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
 };
