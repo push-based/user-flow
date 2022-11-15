@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.22](https://github.com/push-based/user-flow/compare/cli-0.10.21...cli-0.10.22) (2022-11-15)
+
+
+### Bug Fixes
+
+* fix test ([54cf63c](https://github.com/push-based/user-flow/commit/54cf63c0e2c18bf26b85665c27d0476ecdeb3a1a))
+* rest uf dir path in empty sandbox ([ad6528b](https://github.com/push-based/user-flow/commit/ad6528b7ef587b37c890e17dfde04419b669ff76))
+
+
+
 ## [0.10.21](https://github.com/push-based/user-flow/compare/cli-0.10.20...cli-0.10.21) (2022-11-15)
 
 
