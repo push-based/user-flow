@@ -4,6 +4,6 @@ import { Modify } from '../../../core/types';
 export type Param = {
   dryRun: Modify<Options, {
     type: 'boolean';
-    default: false;
+    default: boolean;
   }>
 };
