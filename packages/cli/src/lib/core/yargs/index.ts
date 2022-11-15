@@ -1,7 +1,7 @@
 import * as yargs from 'yargs';
 import { CommandModule, Options } from 'yargs';
 import { YargsCommandObject } from './types';
-import { getCliConfig } from '../../boot-cli';
+import { getCliConfig } from '../../get-cli-config';
 
 export function setupYargs(
   commands: YargsCommandObject[],
