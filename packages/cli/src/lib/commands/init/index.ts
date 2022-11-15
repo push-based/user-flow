@@ -17,8 +17,8 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-
-      const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
+      const rcCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
+      logVerbose('Init options: ', argv, rcCfg);
       const exampleName = 'basic-navigation';
       const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
@@ -33,7 +33,7 @@ export const initCommand: YargsCommandObject = {
           {
             precondition: userflowIsNotCreated
           })
-      ])(potentialExistingCfg);
+      ])(rcCfg);
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants
       log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');
