@@ -5,7 +5,7 @@ export function setupEnvVars(env: CLI_MODES): void {
   if (env === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
   } else {
-    process.env[CI_PROPERTY] = env === 'CI' ? 'true' : 'SANDBOX';
+    process.env[CI_PROPERTY] = env === 'CI' ? true : 'SANDBOX';
   }
 }
 

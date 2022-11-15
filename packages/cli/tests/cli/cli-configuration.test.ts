@@ -81,8 +81,8 @@ describe('the CLI configurations', () => {
     const assert: AssertOptions = {};
 
     const { verbose, interactive, rcPath } = globalOptions;
-    const { url, ufPath, serveCommand, awaitServeStdout, dryRun } = collect;
-    let { outPath, format, openReport } = persist;
+    const { url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport } = collect;
+    let { outPath, format } = persist;
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
