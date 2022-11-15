@@ -22,6 +22,8 @@ export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
   // GLOBAL
   interactive: false,
   verbose: false,
+  // COLLECT COMMAND
+  dryRun: true,
   // PERSIST COMMAND
   openReport: false,
   format: ['md', 'json']
@@ -33,8 +35,9 @@ export const SANDBOX_PRESET: ArgvPreset = {
   verbose: true,
   interactive: true,
   // COLLECT COMMAND
-  openReport: false,
   dryRun: true,
+  // PERSIST COMMAND
+  openReport: false,
   format: ['html']
 };
 

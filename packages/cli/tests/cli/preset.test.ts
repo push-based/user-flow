@@ -6,6 +6,7 @@ import { expectCfgToContain } from '../utils/cli-expectations';
 import { setupEnvVars } from '../utils/cli-mode';
 
 const initCommand = [CLI_PATH, 'init'];
+const collectCommand = [CLI_PATH, 'collect'];
 
 describe('the CLI should accept configurations comming from preset', () => {
   beforeEach(async () => resetEmptySandbox());
@@ -14,11 +15,12 @@ describe('the CLI should accept configurations comming from preset', () => {
   it('should have sandbox preset in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
-        ...initCommand
+        ...collectCommand
       ],
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
+    const { interactive, verbose, rcPath } =  SANDBOX_PRESET;
 
     expectCfgToContain(stdout, SANDBOX_PRESET);
     expect(stderr).toBe('');
@@ -31,10 +33,12 @@ describe('the CLI should accept configurations comming from preset', () => {
         ...initCommand
       ],
       [],
-      EMPTY_SANDBOX_CLI_TEST_CFG
+      EMPTY_SANDBOX_CLI_TEST_CFG,
+      'DEFAULT'
     );
 
-    setupEnvVars('DEFAULT');
+
+    expect(stdout).toBe('');
     expectCfgToContain(stdout, DEFAULT_PRESET);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
