@@ -20,7 +20,7 @@ import { RcJson } from '../../src/lib';
  */
 
 export const EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS = '.user-flowrc.json';
-export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS: RcJson = {
+export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS = {
   'collect': { 'url': DEFAULT_COLLECT_URL, 'ufPath': DEFAULT_COLLECT_UF_PATH },
   'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
 };

@@ -23,6 +23,7 @@ import {
 } from '../../utils/cli-expectations';
 
 import * as path from 'path';
+import { RcJson } from '@push-based/user-flow';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -96,11 +97,11 @@ describe('init command in empty sandbox', () => {
     // prompts
     expectPromptsOfInitInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS as RcJson);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
 
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS as RcJson);
   });
 
   it('should generate a valid rc.json if we answer with custom values', async () => {
@@ -157,7 +158,7 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS as RcJson);
 
   }, 40_000);
 
