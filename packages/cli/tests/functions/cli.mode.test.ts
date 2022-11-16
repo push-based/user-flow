@@ -28,6 +28,22 @@ describe('isEnvCi', () => {
 });
 
 describe('isEnvSandbox', () => {
+
+  afterEach(teardownEnvVars);
+
+  it('should return true if sandbox is configured', () => {
+    setupEnvVars('SANDBOX');
+    expect(isEnvSandbox()).toBe(true);
+  });
+
+  it('should return false if sandbox mode is NOT configured', () => {
+    setupEnvVars('CI');
+    expect(isEnvSandbox()).toBe(false);
+  });
+
+});
+
+describe('detectCliMode', () => {
   afterEach(teardownEnvVars);
 
   it('should return SANDBOX if sandbox is configured', () => {
