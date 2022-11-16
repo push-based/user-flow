@@ -5,10 +5,11 @@ import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
 
 function configParser(rcPath?: string): {} {
   let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
-  return { ...rcConfig };
+  let globalConfig: any = getCLIGlobalConfigFromArgv();
+  return { ...globalConfig, ...rcConfig };
 }
 
 (async () => runCli({
   commands: commands,
   options: {...GLOBAL_OPTIONS_YARGS_CFG},
-  configParser: configParser }))();
+  configParser }))();
