@@ -1,13 +1,14 @@
 import { argv } from 'yargs';
 import { Param } from './openReport.model';
 import { ArgvOption } from '../../../core/yargs/types';
+import { getEnvPreset } from '../../../global/rc-json/pre-set';
 
 export const param: Param = {
   openReport: {
     alias: 'e',
     type: 'boolean',
     description: 'Opens browser automatically after the user-flow is collected. (true by default)',
-    default: true,
+    default: getEnvPreset().openReport as boolean,
     requiresArg: true
   }
 };
