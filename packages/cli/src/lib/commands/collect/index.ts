@@ -16,13 +16,13 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
-      const rcCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
-      logVerbose('Collect options: ', rcCfg, argv);
+      const cfg = getCLIConfigFromArgv(argv as RcArgvOptions);
+      logVerbose('Collect options: ', cfg, argv);
       await run([
         setupOrUpdateRcJson,
         (cfg: RcJson) =>
           startServerIfNeededAndExecute(() => collectReports(cfg), cfg.collect)
-      ])(rcCfg);
+      ])(cfg);
 
     }
   }

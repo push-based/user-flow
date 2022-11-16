@@ -15,5 +15,5 @@ export const param: Param = {
 
 export function get(): string[] {
   const { format } = argv as unknown as PersistOptions;
-  return format;
+  return format as string[];
 }
