@@ -28,7 +28,9 @@ export function expectCfgToContain(stdout: string, cliParams: {}) {
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
-        expect(stdout).toContain(`${k}: [ ${(v as any[]).map(i => "'"+i+"'").join(', ')} ]`);
+        let values = (v as any[]).map(i => "'"+i+"'").join(', ');
+        values = values !== '' ? ' ' + values + ' ': values;
+        expect(stdout).toContain(`${k}: [${values}]`);
         break;
       case 'openReport':
       case 'dryRun':
