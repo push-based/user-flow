@@ -1,4 +1,5 @@
 import { CI_PROPERTY, CLI_MODE_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
+import { CLI_MODES } from '../../src/lib/global/cli-mode/types';
 
 export function setupEnvVars(env: CLI_MODES): void {
   if (env === 'DEFAULT') {
