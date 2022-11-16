@@ -12,7 +12,7 @@ export async function setupFormat(
 
   let cfgFormat: string[] = [];
   if (config?.persist?.format) {
-    cfgFormat = Array.isArray(config.persist.format) ? config.persist.format : [config.persist.format];
+    cfgFormat = Array.isArray(config.persist.format) ? config.persist.format : typeof config.persist.format === 'string' ? [config.persist.format] : [];
   }
 
   if (cfgFormat.length === 0) {
@@ -58,7 +58,8 @@ export async function setupFormat(
     }
 
     if(errors.allOf) {
-      throw new Error(ERROR_PERSIST_FORMAT_WRONG);
+      console.log('errors.allOf: ', errors);
+      throw new Error(ERROR_PERSIST_FORMAT_WRONG(errors.allOf.value));
     }
   }
 

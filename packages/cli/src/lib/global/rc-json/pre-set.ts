@@ -13,7 +13,8 @@ export const DEFAULT_PRESET = {
   interactive: true,
   verbose: false,
   // PERSIST COMMAND
-  openReport: true
+  openReport: true,
+  format: []
 };
 
 export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
