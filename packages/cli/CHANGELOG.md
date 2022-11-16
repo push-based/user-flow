@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.25](https://github.com/push-based/user-flow/compare/cli-0.10.24...cli-0.10.25) (2022-11-16)
+
+
+### Bug Fixes
+
+* change overlapping alias ([b302c68](https://github.com/push-based/user-flow/commit/b302c689c5ba3a141a2100bb652736e6c0e09e7e))
+
+
+
 ## [0.10.24](https://github.com/push-based/user-flow/compare/cli-0.10.23...cli-0.10.24) (2022-11-16)
 
 
