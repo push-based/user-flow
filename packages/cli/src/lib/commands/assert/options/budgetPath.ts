@@ -4,7 +4,7 @@ import { ArgvOption } from '../../../core/yargs/types';
 
 export const param: Param = {
   budgetPath: {
-    alias: 'j',
+    alias: 'k',
     type: 'string',
     description: 'Path to budgets.json'
   }
