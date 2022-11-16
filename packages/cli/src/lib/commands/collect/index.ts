@@ -23,7 +23,6 @@ export const collectUserFlowsCommand: YargsCommandObject = {
         (cfg: RcJson) =>
           startServerIfNeededAndExecute(() => collectReports(cfg), cfg.collect)
       ])(cfg);
-
     }
   }
 };
