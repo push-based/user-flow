@@ -13,7 +13,7 @@ describe('getEnvPreset', () => {
 
   // This will only pass run in CI
   it('should return CI preset in CI', () => {
-    setupEnvVars('true');
+    setupEnvVars('CI');
     expect(getEnvPreset()).toEqual(CI_PRESET);
   });
 

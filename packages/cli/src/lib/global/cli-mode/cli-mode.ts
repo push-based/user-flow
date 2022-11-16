@@ -98,10 +98,14 @@ export function isEnvCi(): boolean {
     ??? - Azure Pipelines
    */
 
+  if(env[CI_PROPERTY] === 'SANDBOX') {
+    return false;
+  }
+
   const ciValue: string | undefined =
     env[CI_PROPERTY] || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
     env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
     env.BUILD_NUMBER || // Jenkins, TeamCity
     env.RUN_ID; // TaskCluster, dsari
-  return ciValue != null && ciValue !== 'SANDBOX';
+  return ciValue != null;
 }
