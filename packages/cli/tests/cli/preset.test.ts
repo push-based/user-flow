@@ -19,9 +19,10 @@ describe('the CLI should accept configurations comming from preset', () => {
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
-    const { interactive, verbose, rcPath } =  SANDBOX_PRESET;
+    //@TODO add dryRun to test
+    const { dryRun, ...cfg } =  SANDBOX_PRESET;
 
-    expectCfgToContain(stdout, SANDBOX_PRESET);
+    expectCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
