@@ -108,11 +108,12 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should validate params from rc', async () => {
+    const wrongFormat = 'wrong';
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...initCommand,
         `--interactive=false`,
-        `--format=wrong`
+        `--format=${wrongFormat}`
       ],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
@@ -120,7 +121,7 @@ describe('.rc.json in setup sandbox', () => {
 
     // Assertions
 
-    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG);
+    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG(wrongFormat));
     // expect(stdout).toBe('');
     expect(exitCode).toBe(1);
   });
