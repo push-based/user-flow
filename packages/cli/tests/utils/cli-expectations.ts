@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import {join} from 'path';
 import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
@@ -8,6 +7,40 @@ import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/u
 import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
+
+
+
+export function expectCfgToContain(stdout: string, cliParams: {}) {
+
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // global
+      case 'verbose':
+      case 'interactive':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      // global
+      case 'rcPath':
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+        expect(stdout).toContain(`${k}: '${v}'`);
+        break;
+      case 'format':
+        expect(stdout).toContain(`${k}: [ ${(v as any[]).map(i => "'"+i+"'").join(', ')} ]`);
+        break;
+      case 'openReport':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      default:
+        throw new Error(`${k} handling not implemented`)
+        break;
+    }
+  });
+}
+
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
