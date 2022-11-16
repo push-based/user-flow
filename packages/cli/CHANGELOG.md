@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.24](https://github.com/push-based/user-flow/compare/cli-0.10.23...cli-0.10.24) (2022-11-16)
+
+
+### Bug Fixes
+
+* wrong param name ([c89f65c](https://github.com/push-based/user-flow/commit/c89f65cba80781dfcc9a56f44535e22dbada6aba))
+
+
+
 ## [0.10.23](https://github.com/push-based/user-flow/compare/cli-0.10.22...cli-0.10.23) (2022-11-15)
 
 
