@@ -63,7 +63,7 @@ describe('detectCliMode', () => {
 
 });
 
-describe('getCliMode', () => {
+describe('detectCliMode', () => {
   afterEach(teardownEnvVars);
 
   it('should return SANDBOX if it is configured', () => {
