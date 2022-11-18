@@ -40,6 +40,7 @@ export function getCLIGlobalConfigFromArgv(): GlobalOptionsArgv {
 }
 
 export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
+  // @TODO derive from commands josn spec
   const {
     url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport,
     outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
@@ -57,7 +58,7 @@ export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
   format && (persist.format = format);
 
   let assert = {} as AssertOptions;
-  budgetPath && (assert.budgetPath = budgets);
+  budgetPath && (assert.budgetPath = budgetPath);
   budgets && (assert.budgets = budgets);
 
   return { collect, persist, assert };
