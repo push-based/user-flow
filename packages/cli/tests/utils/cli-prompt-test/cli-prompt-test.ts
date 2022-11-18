@@ -10,7 +10,17 @@ import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
  * returns {Promise<Object>}
  */
 export function cliPromptTest(args, answers, options, cliMode?: CLI_MODES) {
-  // emulate sandbox env by setting CI to SANDBOX
-  process.env[CI_PROPERTY] = cliMode || 'SANDBOX';
+  const _cliMode: CLI_MODES = cliMode || 'SANDBOX';
+  if(_cliMode === 'DEFAULT') {
+    delete process.env[CI_PROPERTY];
+  }
+  else if(_cliMode === 'SANDBOX') {
+    // emulate sandbox env by setting CI to SANDBOX
+    process.env[CI_PROPERTY] = 'SANDBOX';
+  }
+  // CI mode
+  else {
+    process.env[CI_PROPERTY] = 'true';
+  }
   return _cliPromptTest(args, answers, options);
 }
