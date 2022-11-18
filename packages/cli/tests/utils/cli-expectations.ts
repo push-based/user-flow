@@ -75,41 +75,6 @@ export function expectGlobalOptionsToContain(stdout: string, globalParams: Parti
   });
 }
 
-
-
-
-export function expectCfgToContain(stdout: string, cliParams: {}) {
-
-  Object.entries(cliParams).forEach(([k, v]) => {
-    switch (k) {
-      // global
-      case 'verbose':
-      case 'interactive':
-        expect(stdout).toContain(`${k}: ${v}`);
-        break;
-      // global
-      case 'rcPath':
-      // collect
-      case 'url':
-      case 'ufPath':
-      case 'outPath':
-        expect(stdout).toContain(`${k}: '${v}'`);
-        break;
-      case 'format':
-        expect(stdout).toContain(`${k}: [ ${(v as any[]).map(i => "'"+i+"'").join(', ')} ]`);
-        break;
-      case 'openReport':
-      case 'dryRun':
-        expect(stdout).toContain(`${k}: ${v}`);
-        break;
-      default:
-        throw new Error(`${k} handling not implemented`)
-        break;
-    }
-  });
-}
-
-
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
