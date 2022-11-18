@@ -75,6 +75,7 @@ export function expectGlobalOptionsToContain(stdout: string, globalParams: Parti
   });
 }
 
+
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
