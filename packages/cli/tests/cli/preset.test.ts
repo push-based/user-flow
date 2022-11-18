@@ -44,7 +44,6 @@ describe('the CLI should accept configurations comming from preset', () => {
       EMPTY_SANDBOX_CLI_TEST_CFG,
       'DEFAULT'
     );
-
     // verbose => no log as it is false by default
     expect(stdout).not.toContain('CLI Mode:  DEFAULT');
     expect(stderr).toBe('');
