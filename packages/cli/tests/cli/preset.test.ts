@@ -4,10 +4,6 @@ import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty
 import { DEFAULT_PRESET, SANDBOX_PRESET } from '../../src/lib/global/rc-json/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { InitOptionsArgv } from '../../src/lib/commands/init/options/types';
-import { CollectOptions } from '../../src/lib/global/rc-json/types';
-import { CollectArgvOptions } from '../../src/lib/commands/collect/options/types';
-import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 
 const initCommand = [CLI_PATH, 'init'];
 const collectCommand = [CLI_PATH, 'collect'];
