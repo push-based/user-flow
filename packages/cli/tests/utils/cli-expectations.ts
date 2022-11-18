@@ -8,10 +8,11 @@ import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.c
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+import { CollectArgvOptions } from '../../src/lib/commands/collect/options/types';
 
 
 
-export function expectInitCfgToContain(stdout: string, cliParams: {}) {
+export function expectInitCfgToContain(stdout: string, cliParams: CollectArgvOptions) {
 
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {

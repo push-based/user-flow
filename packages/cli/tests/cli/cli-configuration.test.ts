@@ -7,12 +7,13 @@ import {
   SETUP_SANDBOX_PATH
 } from '../fixtures/setup-sandbox';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
-import { expectCfgToContain } from '../utils/cli-expectations';
+import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import * as path from 'path';
 import { RcArgvOptions } from '@push-based/user-flow';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { getEnvPreset } from '../../src/lib/global/rc-json/pre-set';
 import { AssertOptions, CollectOptions, PersistOptions } from '../../src/lib/global/rc-json/types';
+import { CollectArgvOptions } from '../../src/lib/commands/collect/options/types';
 
 const initCommand = [CLI_PATH, 'init'];
 const collectCommand = [CLI_PATH, 'collect'];
@@ -37,7 +38,7 @@ describe('the CLI configurations', () => {
     );
     //expect(stdout).toBe('');
     const cfg: Partial<GlobalOptionsArgv & RcArgvOptions> = getEnvPreset();
-    // expectCfgToContain(stdout, cfg);
+    expectGlobalOptionsToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
@@ -51,8 +52,8 @@ describe('the CLI configurations', () => {
       SETUP_SANDBOX_CLI_TEST_CFG
     );
     const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
-    const cfg = { ...collect, ...persist, ...assert };
-    expectCfgToContain(stdout, cfg);
+    const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
+    expectInitCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
@@ -108,8 +109,8 @@ describe('the CLI configurations', () => {
       SETUP_SANDBOX_CLI_TEST_CFG
     );
 
-    const cfg = { ...collect, ...persist, ...assert };
-    expectCfgToContain(stdout, cfg);
+    const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
+    expectInitCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
