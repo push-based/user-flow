@@ -7,7 +7,7 @@ import * as path from 'path';
 const DEFAULT_RC_NAME = '.user-flowrc.json';
 const DEFAULT_RC_PATH = `./`;
 
-export const DEFAULT_PRESET = {
+export const DEFAULT_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
   // GLOBAL
   rcPath: path.join(DEFAULT_RC_PATH, DEFAULT_RC_NAME),
   interactive: true,
@@ -32,7 +32,6 @@ export const SANDBOX_PRESET: ArgvPreset = {
   ...DEFAULT_PRESET,
   // GLOBAL
   verbose: true,
-  interactive: true,
   // COLLECT COMMAND
   dryRun: true,
   // PERSIST COMMAND
