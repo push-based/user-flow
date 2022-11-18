@@ -28,7 +28,7 @@ export function setupYargs(
       yargs.config((configParser as any)());
       const {interactive, verbose, rcPath, ...rcCfg } = yargs.argv as unknown as GlobalOptionsArgv;
       logVerbose('CLI Mode: ', detectCliMode());
-      logVerbose('Global options: ', {interactive, verbose, rcPath }, rcCfg);
+      logVerbose('Global options: ', {interactive, verbose, rcPath });
       return command.module.handler(yargs.argv as any);
     }
   ));

@@ -7,10 +7,11 @@ import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/u
 import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
+import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 
 
 
-export function expectCfgToContain(stdout: string, cliParams: {}) {
+export function expectInitCfgToContain(stdout: string, cliParams: {}) {
 
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
@@ -20,7 +21,8 @@ export function expectCfgToContain(stdout: string, cliParams: {}) {
         expect(stdout).toContain(`${k}: ${v}`);
         break;
       // global
-      case 'rcPath':
+      // NOTICE: we exclude the theck here as it is not part of the logs
+      //case 'rcPath':
       // collect
       case 'url':
       case 'ufPath':
@@ -38,6 +40,36 @@ export function expectCfgToContain(stdout: string, cliParams: {}) {
         break;
       default:
         throw new Error(`${k} handling not implemented`)
+        break;
+    }
+  });
+}
+
+
+function unquoted(k: string, v: string): string {
+  return `${k}: ${v}`;
+}
+function quoted(k: string, v: string): string {
+  return `${k}: '${v}'`;
+}
+function array(k: string, v: string[]): string {
+  let values = (v).map(i => "'"+i+"'").join(', ');
+  values = values !== '' ? ' ' + values + ' ': values;
+  return `${k}: [${values}]`;
+}
+export function expectGlobalOptionsToContain(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
+  Object.entries(globalParams).forEach(([k, v]) => {
+    v = ''+v;
+    switch (k as keyof GlobalOptionsArgv) {
+      case 'rcPath':
+        expect(stdout).toContain(quoted(k, v));
+        break;
+      case 'interactive':
+      case 'verbose':
+        expect(stdout).toContain(unquoted(k, v));
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for global options check`)
         break;
     }
   });
