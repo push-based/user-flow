@@ -1,7 +1,7 @@
 import { argv } from 'yargs';
 import { Param } from './dryRun.model';
 import { ArgvOption } from '../../../core/yargs/types';
-import { getEnvPreset } from '../../../global/rc-json/pre-set';
+import { getEnvPreset } from '../../../pre-set';
 
 export const param: Param = {
   dryRun: {

@@ -1,12 +1,12 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
-import { PersistOptions } from '../../../../global/rc-json/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import {generateMdReport} from "../../processes/generate-reports";
 import { log } from '../../../../core/loggin';
 import { join } from 'path';
 import { toFileName, writeFile } from '../../../../core/file';
+import { PersistRcOptions } from '../../options/types';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistRcOptions): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }

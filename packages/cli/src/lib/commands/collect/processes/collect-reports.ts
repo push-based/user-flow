@@ -2,8 +2,9 @@ import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../commands/collect/options/dryRun';
-import { AssertOptions, RcJson } from '../../../global/rc-json/types';
 import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';
+import { AssertRcOptions } from '../../assert/options/types';
+import { RcJson } from '../../../types';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -40,7 +41,7 @@ function normalizeProviderObject(provider: UserFlowProvider): UserFlowProvider {
   return provider;
 }
 
-function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertOptions = {} as AssertOptions): UserFlowProvider {
+function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertRcOptions = {} as AssertRcOptions): UserFlowProvider {
   const { budgetPath, budgets } = assertOptions;
 
   if (budgetPath) {

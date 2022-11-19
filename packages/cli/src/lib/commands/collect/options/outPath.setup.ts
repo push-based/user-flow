@@ -3,7 +3,7 @@ import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { PROMPT_PERSIST_OUT_PATH, DEFAULT_PERSIST_OUT_PATH, ERROR_PERSIST_OUT_PATH_REQUIRED } from './outPath.constant';
 import { mkdirSync, readdirSync } from 'fs';
-import { RcJson } from '../../../global/rc-json/types';
+import { RcJson } from '../../../types';
 
 export async function setupOutPath(
   config: RcJson

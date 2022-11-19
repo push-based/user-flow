@@ -1,8 +1,8 @@
 import { param as budgetPath } from '../../assert/options/budgetPath';
 import { param as budgets } from '../../assert/options/budgets';
-import { AssertOptions } from './types';
+import { AssertYargsOptions } from './types';
 
-export const ASSERT_OPTIONS: AssertOptions = {
+export const ASSERT_OPTIONS: AssertYargsOptions = {
   ...budgetPath,
   ...budgets
 };

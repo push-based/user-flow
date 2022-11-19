@@ -1,4 +1,3 @@
-import { CollectOptions } from '../../../../global/rc-json/types';
 import { UserFlowProvider } from './types';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
@@ -11,9 +10,10 @@ import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
+import { CollectRcOptions } from '../../options/types';
 
 export async function collectFlow(
-  cliOption: CollectOptions & { dryRun: boolean },
+  cliOption: CollectRcOptions & { dryRun: boolean },
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {

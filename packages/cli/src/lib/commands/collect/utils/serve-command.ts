@@ -1,7 +1,8 @@
 import { concurrently } from 'concurrently';
-import { CollectOptions, RcJson } from '../../../global/rc-json/types';
 import { logVerbose } from '../../../core/loggin';
 import { Subscription } from 'rxjs';
+import { CollectRcOptions } from '../options/types';
+import { RcJson } from '../../../types';
 
 const log = logVerbose;
 
@@ -10,7 +11,7 @@ const log = logVerbose;
 // This fn takes the serve options as well ans the run block and makes shure execution is done correctly and errors are forwarded too.
 // In there we compose easier to test fn's
 
-export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectOptions = {} as CollectOptions): Promise<RcJson> {
+export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
 
   const { serveCommand, awaitServeStdout } = collectOption;
 

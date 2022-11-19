@@ -1,6 +1,5 @@
 import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
@@ -11,8 +10,8 @@ import {
 
 import { expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
-import { SANDBOX_PRESET } from '../../../src/lib/global/rc-json/pre-set';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
+import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 
 const initCommand = [CLI_PATH, 'init'];
 

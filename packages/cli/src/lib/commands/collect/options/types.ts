@@ -5,9 +5,38 @@ import { Param as ServeCommand } from './serveCommand.model';
 import { Param as AwaitServeStdout } from './awaitServeStdout.model';
 import { Param as OutPath } from './outPath.model';
 import { Param as Format } from './format.model';
-import { AssertOptions } from '../../assert/options/types';
-import { YargsArgvOptionFromParamsOptions } from '../../../core/yargs/types';
+import { AssertArgvOptions, AssertRcOptions } from '../../assert/options/types';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
-export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout & AssertOptions;
-export type CollectArgvOptions = YargsArgvOptionFromParamsOptions<CollectYargsOptions & PersistYargsOptions>;
+export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
+
+export type CollectRcOptions = {
+  url: string,
+  ufPath: string,
+  // @TODO get better typing for if serveCommand is given await is required
+  serveCommand?: string,
+  awaitServeStdout?: string;
+}
+export type CollectCliOnlyOptions = {
+  dryRun?: boolean;
+}
+export type CollectArgvOptions = CollectRcOptions & CollectCliOnlyOptions;
+
+export type ReportFormat = 'html' | 'md' | 'json'  | 'stdout';
+export type PersistRcOptions = {
+  outPath: string,
+  format: ReportFormat[]
+}
+export type PersistCliOnlyOptions = {
+  openReport?: boolean;
+}
+
+export type PersistArgvOptions = PersistRcOptions & PersistCliOnlyOptions;
+
+export type CollectCommandCfg = {
+  collect: CollectArgvOptions,
+  persist: PersistArgvOptions,
+  assert?: AssertArgvOptions;
+}
+
+export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions;

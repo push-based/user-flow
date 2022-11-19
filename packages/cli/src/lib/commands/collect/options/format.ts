@@ -1,7 +1,7 @@
 import { argv } from 'yargs';
 import { Param } from './format.model';
-import { getEnvPreset } from '../../../global/rc-json/pre-set';
-import { PersistOptions } from '../../../global/rc-json/types';
+import { getEnvPreset } from '../../../pre-set';
+import { PersistRcOptions } from './types';
 
 export const param: Param = {
   format: {
@@ -14,6 +14,6 @@ export const param: Param = {
 };
 
 export function get(): string[] {
-  const { format } = argv as unknown as PersistOptions;
+  const { format } = argv as unknown as PersistRcOptions;
   return format as string[];
 }

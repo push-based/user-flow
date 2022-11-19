@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './rc.model';
-import { getEnvPreset } from '../pre-set';
+import { getEnvPreset } from '../../../pre-set';
 import { GlobalOptionsArgv } from '../../options/types';
 
 export const param: Param = {
