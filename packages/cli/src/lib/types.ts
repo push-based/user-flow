@@ -19,5 +19,5 @@ export type RcJson = {
   // eslint-disable-next-line @typescript-eslint/ban-types
 } & Object;
 
-export type RcJsonAsArvg = CollectRcOptions & PersistRcOptions & AssertRcOptions;
+export type RcJsonAsArgv = CollectRcOptions & PersistRcOptions & AssertRcOptions;
 
