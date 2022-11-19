@@ -8,9 +8,7 @@ import { GlobalOptionsArgv } from './global/options/types';
 function configParser(rcPath?: string): {} {
   let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
   let globalConfig: any = getCLIGlobalConfigFromArgv();
-  // handle the global options of env specific presets
-  const { interactive, verbose }: GlobalOptionsArgv = getEnvPreset();
-  return { interactive, verbose, ...globalConfig, ...rcConfig };
+  return { ...globalConfig, ...rcConfig };
 }
 
 (async () => runCli({
