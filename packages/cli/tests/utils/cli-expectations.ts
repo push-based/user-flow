@@ -14,32 +14,13 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Init options:`);
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
+      // collect
       case 'url':
       case 'ufPath':
       case 'outPath':
       case 'serveCommand':
       case 'awaitServeStdout':
       case 'budgetPath':
-        expect(stdout).toContain(quoted(k, v as string));
-        break;
-      case 'format':
-        expect(stdout).toContain(array(k, v as string[]));
-        break;
-      default:
-        throw new Error(`${k} handling not implemented for init configuration check`);
-        break;
-    }
-  });
-}
-
-export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
-  expect(stdout).toContain(`Collect options:`);
-  Object.entries(cliParams).forEach(([k, v]) => {
-    switch (k) {
-      // collect
-      case 'url':
-      case 'ufPath':
-      case 'outPath':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':

@@ -9,23 +9,22 @@ import {
   SETUP_SANDBOX_DEFAULT_RC_JSON
 } from '../../fixtures/setup-sandbox';
 
-import { expectCollectCfgToContain, expectInitCfgToContain } from '../../utils/cli-expectations';
+import { expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
-import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { CollectArgvOptions, PersistArgvOptions } from '../../../src/lib/commands/collect/options/types';
-import { AssertArgvOptions } from '../../../src/lib/commands/assert/options/types';
+import { SANDBOX_PRESET } from '../../../src/lib/global/rc-json/pre-set';
+import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 
 const initCommand = [CLI_PATH, 'init'];
 
 describe('init command configuration in empty sandbox', () => {
 
   beforeEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
 
   it('should have default`s from preset', async () => {
@@ -52,7 +51,7 @@ describe('init command configuration in empty sandbox', () => {
     const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
-    delete cfg.dryRun;
+    delete (cfg as any).dryRun;
     expectInitCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -60,19 +59,19 @@ describe('init command configuration in empty sandbox', () => {
   }, 90_000);
 
   it('should take cli parameters', async () => {
-    const collect: CollectArgvOptions = {
+    const collect = {
       url: 'xxx',
       ufPath: 'xxx',
       serveCommand: 'xxx',
       awaitServeStdout: 'xxx'
     };
 
-    const persist: PersistArgvOptions = {
+    const persist: any = {
       outPath: 'xxx',
       format: ['json', 'md']
     };
 
-    const assert: AssertArgvOptions = {
+    const assert: any = {
       budgetPath: 'XXXXXX.json'
     };
 
