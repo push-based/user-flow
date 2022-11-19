@@ -19,12 +19,12 @@ const initCommand = [CLI_PATH, 'init'];
 describe('init command configuration in empty sandbox', () => {
 
   beforeEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
 
   it('should have default`s from preset', async () => {
