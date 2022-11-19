@@ -1,6 +1,6 @@
 import { prompt } from 'enquirer';
 import { CLIProcess } from './processing/types';
-import { RcJson } from '../global/rc-json/types';
+import { RcJson } from '../types';
 
 export async function promptParam<T>(cfg: {initial?: T, skip?: boolean, message: string, type?: any, [key: string]: any}): Promise<T> {
   let {type, initial,  message,skip,choices,result   } = cfg;

@@ -10,19 +10,32 @@ import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 
 
-
 export function expectInitCfgToContain(stdout: string, cliParams: {}) {
-
+  expect(stdout).toContain(`Init options:`);
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
-      // global
-      case 'verbose':
-      case 'interactive':
-        expect(stdout).toContain(`${k}: ${v}`);
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
+      case 'budgetPath':
+        expect(stdout).toContain(quoted(k, v as string));
         break;
-      // global
-      // NOTICE: we exclude the theck here as it is not part of the logs
-      //case 'rcPath':
+      case 'format':
+        expect(stdout).toContain(array(k, v as string[]));
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for init configuration check`);
+        break;
+    }
+  });
+}
+
+export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
+  expect(stdout).toContain(`Collect options:`);
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
       // collect
       case 'url':
       case 'ufPath':
@@ -30,8 +43,8 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
-        let values = (v as any[]).map(i => "'"+i+"'").join(', ');
-        values = values !== '' ? ' ' + values + ' ': values;
+        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
+        values = values !== '' ? ' ' + values + ' ' : values;
         expect(stdout).toContain(`${k}: [${values}]`);
         break;
       case 'openReport':
@@ -39,7 +52,7 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
         expect(stdout).toContain(`${k}: ${v}`);
         break;
       default:
-        throw new Error(`${k} handling not implemented`)
+        throw new Error(`${k} handling not implemented for collect configuration check`);
         break;
     }
   });
@@ -49,17 +62,20 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
 function unquoted(k: string, v: string): string {
   return `${k}: ${v}`;
 }
+
 function quoted(k: string, v: string): string {
   return `${k}: '${v}'`;
 }
+
 function array(k: string, v: string[]): string {
-  let values = (v).map(i => "'"+i+"'").join(', ');
-  values = values !== '' ? ' ' + values + ' ': values;
+  let values = (v).map(i => '\'' + i + '\'').join(', ');
+  values = values !== '' ? ' ' + values + ' ' : values;
   return `${k}: [${values}]`;
 }
+
 export function expectGlobalOptionsToContain(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
   Object.entries(globalParams).forEach(([k, v]) => {
-    v = ''+v;
+    v = '' + v;
     switch (k as keyof GlobalOptionsArgv) {
       case 'rcPath':
         expect(stdout).toContain(quoted(k, v));
@@ -69,7 +85,7 @@ export function expectGlobalOptionsToContain(stdout: string, globalParams: Parti
         expect(stdout).toContain(unquoted(k, v));
         break;
       default:
-        throw new Error(`${k} handling not implemented for global options check`)
+        throw new Error(`${k} handling not implemented for global options check`);
         break;
     }
   });
@@ -108,10 +124,10 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
 
 export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
   let resolvedBudgets: Budget[];
-  if(Array.isArray(budgets)) {
+  if (Array.isArray(budgets)) {
     resolvedBudgets = budgets;
   } else {
-    expect(() => fs.readFileSync(budgets+'')).not.toThrow();
+    expect(() => fs.readFileSync(budgets + '')).not.toThrow();
     resolvedBudgets = JSON.parse(fs.readFileSync(budgets) as any) as Budget[];
   }
 
@@ -189,7 +205,7 @@ export function expectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
   // handle inconsistency of rc vs params
-  const {collect, persist, assert} = config;
+  const { collect, persist, assert } = config;
   delete collect.openReport;
 
   expect(config).toEqual({ collect, persist, assert });

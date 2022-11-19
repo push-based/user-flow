@@ -16,59 +16,47 @@ import {
 } from '../../fixtures/setup-sandbox';
 
 import {
-  expectEnsureConfigToCreateRc,
+  expectEnsureConfigToCreateRc, expectGlobalOptionsToContain, expectInitCfgToContain,
   expectNoPromptsInStdout,
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
 
-import * as path  from 'path';
+import * as path from 'path';
+import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
+import { RcArgvOptions } from '@push-based/user-flow';
+import { getEnvPreset, SANDBOX_PRESET } from '../../../src/lib/pre-set';
+import { getCLIGlobalConfigFromArgv } from '../../../src/lib/global/utils';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
-describe('init command in setup sandbox', () => {
-
-  beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(async () => resetSetupSandboxAndKillPorts());
-
-  it('should inform about the already existing cli-setup', async () => {
-
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
-
-    // Assertions
-
-    // STDOUT
-    // prompts
-    expectNoPromptsInStdout(stdout);
-    // setup log
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
-
-    expect(stderr).toBe('');
-    expect(exitCode).toBe(0);
-
-    // file output
-    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
-  });
-  it('should throw missing url error', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, '--interactive=false', '--url='],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
-    expect(stderr).toContain('URL is required');
-    expect(exitCode).toBe(1);
-
-  }, 40_000);
-});
-
 describe('init command in empty sandbox', () => {
 
-  beforeEach(async () => resetEmptySandbox());
-  afterEach(async () => resetEmptySandbox());
+  beforeEach(async () => {
+    resetEmptySandbox();
+    resetSetupSandboxAndKillPorts();
+  });
+  afterEach(async () => {
+    resetEmptySandbox();
+    resetSetupSandboxAndKillPorts();
+  });
+
+  it('should have default`s configured over preset', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [
+        ...initCommand
+      ],
+      [],
+      EMPTY_SANDBOX_CLI_TEST_CFG
+    );
+
+    const { rcPath, interactive, verbose, ...rest } =  getCLIGlobalConfigFromArgv(SANDBOX_PRESET);
+    //@TODO add dryRun to test
+    const { dryRun, ...initOptions } =  rest as any;
+    expectInitCfgToContain(stdout, initOptions);
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+  });
 
   it('should generate a valid rc.json if we accept suggested values', async () => {
 
@@ -127,7 +115,12 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {collect:{url, ufPath}, persist: {outPath, format: ['html']}});
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+      collect: {
+        url,
+        ufPath
+      }, persist: { outPath, format: ['html'] }
+    });
 
   }, 40_000);
 
@@ -156,5 +149,45 @@ describe('init command in empty sandbox', () => {
 
   }, 40_000);
 
-
 });
+
+
+describe('init command in setup sandbox', () => {
+
+  beforeEach(async () => resetSetupSandboxAndKillPorts());
+  afterEach(async () => resetSetupSandboxAndKillPorts());
+
+  it('should inform about the already existing cli-setup', async () => {
+
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      initCommand,
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+
+    // Assertions
+
+    // STDOUT
+    // prompts
+    expectNoPromptsInStdout(stdout);
+    // setup log
+    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
+
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+
+    // file output
+    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
+  });
+  it('should throw missing url error', async () => {
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...initCommand, '--interactive=false', '--url='],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+    expect(stderr).toContain('URL is required');
+    expect(exitCode).toBe(1);
+
+  }, 40_000);
+});
+

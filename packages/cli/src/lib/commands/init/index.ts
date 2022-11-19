@@ -8,7 +8,8 @@ import { run } from '../../core/processing/behaviors';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { getCLIConfigFromArgv } from '../../global/rc-json';
-import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
+import { RcArgvOptions} from '../../global/rc-json/types';
+import { RcJson } from '../../types';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',

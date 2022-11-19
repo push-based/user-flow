@@ -1,22 +1,18 @@
 import { cliPromptTest } from '../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
-import { DEFAULT_PRESET, SANDBOX_PRESET } from '../../src/lib/global/rc-json/pre-set';
+import { DEFAULT_PRESET, SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { InitOptionsArgv } from '../../src/lib/commands/init/options/types';
-import { CollectOptions } from '../../src/lib/global/rc-json/types';
-import { CollectArgvOptions } from '../../src/lib/commands/collect/options/types';
-import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 
 const initCommand = [CLI_PATH, 'init'];
 const collectCommand = [CLI_PATH, 'collect'];
 
-describe('the CLI should accept configurations comming from preset', () => {
+describe('the CLI should accept configurations coming from preset', () => {
   beforeEach(async () => resetEmptySandbox());
   afterEach(async () => resetEmptySandbox());
 
-  it('should have sandbox preset in a fresh environment', async () => {
+  it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...collectCommand

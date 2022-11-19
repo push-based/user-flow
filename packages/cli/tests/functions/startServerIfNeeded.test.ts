@@ -1,14 +1,14 @@
 import { startServerIfNeededAndExecute } from '../../src/lib/commands/collect/utils/serve-command';
 
 import spyOn = jest.spyOn;
-import { CollectOptions } from '../../src/lib/global/rc-json/types';
+import { CollectRcOptions } from '../../src/lib/commands/collect/options/types';
 
 describe('startServerIfNeeded', () => {
 
   it('should throw if serveCommand is provided but no await string', async () => {
     const o = {
       serveCommand: 'npm run start'
-    } as CollectOptions;
+    } as CollectRcOptions;
     const userFlowWork = () => Promise.resolve(void 0);
     const spy = spyOn({ userFlowWork }, 'userFlowWork');
 
@@ -42,7 +42,7 @@ describe('startServerIfNeeded', () => {
   it('should execute serveCommand first if it is provided correctly', async () => {
     const o = {
       serveCommand: 'node --help'
-    } as CollectOptions;
+    } as CollectRcOptions;
     let err: string | undefined = undefined;
 
     let flowRes: number = 0;
@@ -70,7 +70,7 @@ describe('startServerIfNeeded', () => {
     const o = {
       serveCommand: 'node brokenServeCommand',
       awaitServeStdout: 'v'
-    } as CollectOptions;
+    } as CollectRcOptions;
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.resolve(void 0);
 
@@ -88,7 +88,7 @@ describe('startServerIfNeeded', () => {
     const o = {
       serveCommand: 'node --help',
       awaitServeStdout: 'Usage: node'
-    } as CollectOptions;
+    } as CollectRcOptions;
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.resolve('user flow result');
 
@@ -106,7 +106,7 @@ describe('startServerIfNeeded', () => {
     const o = {
       serveCommand: 'node --help',
       awaitServeStdout: 'Usage: node'
-    } as CollectOptions;
+    } as CollectRcOptions;
     let err: string | undefined = undefined;
     const userFlowWork = () => Promise.reject('user flow error');
 

@@ -4,8 +4,8 @@ import { setupFormat } from '../../collect/options/format.setup';
 import { setupOutPath } from '../../collect/options/outPath.setup';
 import { updateRcConfig } from '../../../global/rc-json';
 import { logVerbose } from '../../../core/loggin';
-import { RcJson } from '../../../global/rc-json/types';
 import { globalOptions } from '../../../global/options';
+import { RcJson } from '../../../types';
 
 
 export async function setupOrUpdateRcJson(cliCfg: RcJson): Promise<RcJson> {
