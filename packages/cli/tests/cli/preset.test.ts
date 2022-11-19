@@ -1,9 +1,11 @@
 import { cliPromptTest } from '../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
-import { DEFAULT_PRESET, SANDBOX_PRESET } from '../../src/lib/pre-set';
+import { DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
+import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 
 const initCommand = [CLI_PATH, 'init'];
 const collectCommand = [CLI_PATH, 'collect'];
@@ -15,18 +17,15 @@ describe('the CLI should accept configurations coming from preset', () => {
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
-        ...collectCommand
+        ...initCommand
       ],
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
-    const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> =  SANDBOX_PRESET;
-    //@TODO add dryRun to test
-    const { dryRun, ...initOptions } =  rest as any;
-    const globalOptions = { rcPath, interactive, verbose };
+    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
-    expectGlobalOptionsToContain(stdout, globalOptions);
-    expectInitCfgToContain(stdout, initOptions);
+    expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
+    expectInitCfgToContain(stdout, {...collect, ...persist, ...assert});
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
@@ -57,12 +56,10 @@ describe('the CLI should accept configurations coming from preset', () => {
       'DEFAULT'
     );
 
-    const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> =  DEFAULT_PRESET;
-    const { dryRun, ...initOptions } =  rest as any;
-    const globalOptions = { rcPath, interactive };
+    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
-    expectGlobalOptionsToContain(stdout, globalOptions);
-    expectInitCfgToContain(stdout, initOptions);
+    expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
+    expectInitCfgToContain(stdout, {...collect, ...persist, ...assert});
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });

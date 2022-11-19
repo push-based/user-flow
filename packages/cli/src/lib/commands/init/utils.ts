@@ -66,3 +66,4 @@ export function getInitCommandOptionsFromArgv(argv: any) {
 
   return { collect, persist, assert };
 }
+
