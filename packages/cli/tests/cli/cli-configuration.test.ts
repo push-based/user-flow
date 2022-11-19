@@ -20,12 +20,12 @@ const collectCommand = [CLI_PATH, 'collect'];
 
 describe('the CLI configurations', () => {
   beforeEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    resetEmptySandbox();
-    resetSetupSandboxAndKillPorts();
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
   });
 
   it('should have default`s configured in a fresh environment', async () => {
