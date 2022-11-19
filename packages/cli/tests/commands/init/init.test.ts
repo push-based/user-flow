@@ -4,7 +4,8 @@ import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
-  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
+  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS,
+  EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
   resetEmptySandbox
 } from '../../fixtures/empty-sandbox';
 
@@ -12,21 +13,21 @@ import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_STATIC_RC_JSON
+  SETUP_SANDBOX_DEFAULT_RC_PATH,
+  SETUP_SANDBOX_STATIC_RC_JSON
 } from '../../fixtures/setup-sandbox';
 
 import {
-  expectEnsureConfigToCreateRc, expectGlobalOptionsToContain, expectInitCfgToContain,
+  expectEnsureConfigToCreateRc,
+  expectInitCfgToContain,
   expectNoPromptsInStdout,
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
 
 import * as path from 'path';
-import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
-import { RcArgvOptions } from '@push-based/user-flow';
-import { getEnvPreset, SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { getCLIGlobalConfigFromArgv } from '../../../src/lib/global/utils';
+import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
+import { getInitCommandOptionsFromArgv } from '../../../src/lib/commands/init/utils';
 
 const initCommand = [CLI_PATH, 'init', '-v'];
 
@@ -50,10 +51,7 @@ describe('init command in empty sandbox', () => {
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
 
-    const { rcPath, interactive, verbose, ...rest } =  getCLIGlobalConfigFromArgv(SANDBOX_PRESET);
-    //@TODO add dryRun to test
-    const { dryRun, ...initOptions } =  rest as any;
-    expectInitCfgToContain(stdout, initOptions);
+    expectInitCfgToContain(stdout, getInitCommandOptionsFromArgv(SANDBOX_PRESET));
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });

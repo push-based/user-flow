@@ -5,6 +5,7 @@ import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
 import * as LHR9JSON from '../data/lhr-9.json';
 import { persistFlow } from '../../src/lib/commands/collect/utils/user-flow/persist-flow';
+import { ReportFormat } from '../../src/lib/commands/collect/options/types';
 
 const jsonReport = LHR9JSON as unknown as FlowResult;
 
@@ -29,7 +30,7 @@ const flow = new UserFlowReportMock();
 const PERSIST_PATH = join(EMPTY_SANDBOX_PATH, DEFAULT_PERSIST_OUT_PATH);
 const flowName = 'flow-example-name';
 
-function expectPersistedReports(reports: string[], path: string, name: string, format: string[]) {
+function expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
   const expectedFileNames = format.filter((f) => f !== 'stdout')
     .map(f => `${name}.uf.${f}`) || [];
   const expectedPaths = expectedFileNames.map((f) => join(PERSIST_PATH , f));
@@ -46,7 +47,7 @@ describe('persist flow reports in specified format', () => {
   afterEach(async () => await resetEmptySandbox())
 
   it('does not save any reports if no format is given', async () => {
-    const format = [];
+    const format: ReportFormat[] = [];
     const persistOptions = {outPath: PERSIST_PATH, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -54,7 +55,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('does not save any reports if only stdout', async () => {
-    const format = ['stdout'];
+    const format: ReportFormat[] = ['stdout'];
     const persistOptions = {outPath: PERSIST_PATH, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -62,7 +63,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('saves the report in json format only if its the only format given', async () => {
-    const format = ['json'];
+    const format: ReportFormat[] = ['json'];
     const persistOptions = {outPath: PERSIST_PATH, format}
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -70,7 +71,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('saves the report in html format only if its the only format given', async () => {
-    const format = ['html']
+    const format: ReportFormat[] = ['html']
     const persistOptions = {outPath: PERSIST_PATH, format}
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -78,7 +79,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('saves the report in markdown format only if its the only format given', async () => {
-    const format = ['md'];
+    const format: ReportFormat[] = ['md'];
     const persistOptions = {outPath: PERSIST_PATH, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -86,7 +87,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('saves the report in the format given excluding stdout', async () => {
-    const format = ['md', 'stdout'];
+    const format: ReportFormat[] = ['md', 'stdout'];
     const persistOptions = {outPath: PERSIST_PATH, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
@@ -94,7 +95,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('saves the report in json, md and html', async () => {
-    const format = ['json', 'md', 'html'];
+    const format: ReportFormat[] = ['json', 'md', 'html'];
     const persistOptions = {outPath: PERSIST_PATH, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
