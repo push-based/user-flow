@@ -30,9 +30,7 @@ describe('init command configuration in empty sandbox', () => {
 
   it('should have default`s from preset', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand
-      ],
+      initCommand,
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
@@ -47,9 +45,7 @@ describe('init command configuration in empty sandbox', () => {
 
   it('should read the rc file', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand
-      ],
+      initCommand,
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
