@@ -17,7 +17,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
       const cfg = getCLIConfigFromArgv(argv as RcArgvOptions);
-      logVerbose('Collect options: ', cfg, argv);
+      logVerbose('Collect options: ', cfg);
       await run([
         setupOrUpdateRcJson,
         (cfg: RcJson) =>
