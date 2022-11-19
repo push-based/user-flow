@@ -2,11 +2,9 @@ import { join } from 'path';
 import { readFile, writeFile } from '../../core/file';
 import { FlowExamples } from './types';
 import { log, logVerbose } from '../../core/loggin';
-import { GlobalOptionsArgv } from '../../global/options/types';
 import { InitArgvOptions } from './options/types';
-import { CollectArgvOptions, CollectRcOptions, PersistArgvOptions, PersistRcOptions } from '../collect/options/types';
-import { getCollectCommandOptionsFromArgv } from '../collect/utils/params';
-import { AssertArgvOptions, AssertRcOptions } from '../assert/options/types';
+import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
+import { AssertRcOptions } from '../assert/options/types';
 
 const FlowExampleMap: Record<FlowExamples, string> = {
   'basic-navigation': 'order-coffee.uf.ts'

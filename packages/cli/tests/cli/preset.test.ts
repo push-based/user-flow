@@ -3,8 +3,8 @@ import { CLI_PATH } from '../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
-import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
+import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 
 const initCommand = [CLI_PATH, 'init'];
 
