@@ -18,7 +18,7 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
   // Touch a file only if needed
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
     writeFile(configPath, JSON.stringify(config));
-    logVerbose(`Update config under ${configPath}`);
+    logVerbose(`Update config under ${configPath} to`, config);
   }
 }
 
