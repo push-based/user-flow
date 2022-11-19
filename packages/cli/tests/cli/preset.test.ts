@@ -7,7 +7,6 @@ import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 
 const initCommand = [CLI_PATH, 'init'];
-const collectCommand = [CLI_PATH, 'collect'];
 
 describe('the CLI should accept configurations coming from preset', () => {
   beforeEach(async () => resetEmptySandbox());
@@ -16,21 +15,21 @@ describe('the CLI should accept configurations coming from preset', () => {
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
-        ...initCommand, '-v'
+        ...initCommand,
       ],
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
-   // const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
+    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
-    expect(stdout).toBe('');
-   // expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
-   // expectInitCfgToContain(stdout, {...collect, ...persist, ...assert});
+
+    expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
+    expectInitCfgToContain(stdout, { ...collect, ...persist, ...assert });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
 
- /* it('should have verbose false as default in a fresh environment', async () => {
+  it('should have verbose false as default in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [],
@@ -57,9 +56,9 @@ describe('the CLI should accept configurations coming from preset', () => {
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
-    expectInitCfgToContain(stdout, {...collect, ...persist, ...assert});
+    expectInitCfgToContain(stdout, { ...collect, ...persist, ...assert });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
-*/
+
 });
