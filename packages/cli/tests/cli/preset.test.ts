@@ -16,13 +16,14 @@ describe('the CLI should accept configurations coming from preset', () => {
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
-        ...initCommand
+        ...initCommand, '-v'
       ],
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
+    expect(stdout).toBe('');
     expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
     expectInitCfgToContain(stdout, {...collect, ...persist, ...assert});
     expect(stderr).toBe('');
