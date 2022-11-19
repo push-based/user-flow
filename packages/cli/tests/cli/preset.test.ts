@@ -1,9 +1,8 @@
 import { cliPromptTest } from '../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
-import { DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from '../../src/lib/pre-set';
+import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
-import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 
@@ -32,9 +31,7 @@ describe('the CLI should accept configurations coming from preset', () => {
 
   it('should have verbose false as default in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand
-      ],
+      initCommand,
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG,
       'DEFAULT'
