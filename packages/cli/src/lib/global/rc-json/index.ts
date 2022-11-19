@@ -14,15 +14,11 @@ export function readRcConfig(rcPath: string = ''): RcJson {
 
 export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
   const configPath = rcPath || getRcPath();
-  logVerbose(`Update config under ${configPath}`);
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
-
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
     writeFile(configPath, JSON.stringify(config));
-    logVerbose(`New config ${JSON.stringify(config)}`);
-  } else {
-    logVerbose(`No updates for ${configPath} to save.`);
+    logVerbose(`Update config under ${configPath}`);
   }
 }
 
