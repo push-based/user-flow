@@ -21,6 +21,7 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
       case 'outPath':
       case 'serveCommand':
       case 'awaitServeStdout':
+      case 'budgetPath':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
