@@ -7,6 +7,7 @@ import { param as url } from './url';
 import { param as format } from './format';
 import { param as serveCommand } from './serveCommand';
 import { param as awaitServeStdout } from './awaitServeStdout';
+import { param as dryRun } from './dryRun';
 import { ASSERT_OPTIONS } from '../../assert/options';
 
 export const PERSIST_OPTIONS: PersistYargsOptions = {
@@ -20,6 +21,7 @@ export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...ufPath,
   ...serveCommand,
   ...awaitServeStdout,
+  ...dryRun,
   ...PERSIST_OPTIONS,
   ...ASSERT_OPTIONS
 };
