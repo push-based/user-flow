@@ -34,6 +34,11 @@ export async function collectFlow(
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
 
+  // @TODO consider CI vs dev mode => headless, openReport, persist etc
+  if (detectCliMode() !== 'DEFAULT') {
+    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
+    launchOptions.headless = true;
+  }
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
 

@@ -4,6 +4,6 @@ import { Param as Interactive} from './interactive.model';
 import { YargsArgvOptionFromParamsOptions } from '../../core/yargs/types';
 
 export type CoreOptions = Verbose & Rc & Interactive;
-export type GlobalOptionsArgv = Partial<YargsArgvOptionFromParamsOptions<CoreOptions>>;
+export type GlobalOptionsArgv = YargsArgvOptionFromParamsOptions<CoreOptions>;
 
 

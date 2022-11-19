@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import {
   CLI_PATH
@@ -16,7 +15,7 @@ import {
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 
-import { expectOutputRcInStdout } from '../../utils/cli-expectations';
+import {expectEnsureConfigToCreateRc, expectOutputRcInStdout} from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 
@@ -90,9 +89,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(stdout).toContain(`Update config under ${SETUP_SANDBOX_DEFAULT_RC_NAME}`);
     expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
-
-    const config = JSON.parse(fs.readFileSync(SETUP_SANDBOX_DEFAULT_RC_PATH) as any);
-    expect(config).toEqual(SETUP_SANDBOX_DEFAULT_RC_JSON);
+    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {
@@ -111,11 +108,12 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should validate params from rc', async () => {
+    const wrongFormat = 'wrong';
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...initCommand,
         `--interactive=false`,
-        `--format=wrong`
+        `--format=${wrongFormat}`
       ],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
@@ -123,7 +121,7 @@ describe('.rc.json in setup sandbox', () => {
 
     // Assertions
 
-    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG);
+    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG(wrongFormat));
     // expect(stdout).toBe('');
     expect(exitCode).toBe(1);
   });

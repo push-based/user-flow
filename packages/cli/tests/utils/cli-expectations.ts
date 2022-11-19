@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import {join} from 'path';
 import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
@@ -8,6 +7,69 @@ import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/u
 import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
+import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+
+
+
+export function expectInitCfgToContain(stdout: string, cliParams: {}) {
+
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
+      case 'budgetPath':
+        expect(stdout).toContain(`${k}: '${v}'`);
+        break;
+      case 'format':
+        let values = (v as any[]).map(i => "'"+i+"'").join(', ');
+        values = values !== '' ? ' ' + values + ' ': values;
+        expect(stdout).toContain(`${k}: [${values}]`);
+        break;
+      case 'openReport':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      default:
+        throw new Error(`${k} handling not implemented`)
+        break;
+    }
+  });
+}
+
+
+function unquoted(k: string, v: string): string {
+  return `${k}: ${v}`;
+}
+function quoted(k: string, v: string): string {
+  return `${k}: '${v}'`;
+}
+function array(k: string, v: string[]): string {
+  let values = (v).map(i => "'"+i+"'").join(', ');
+  values = values !== '' ? ' ' + values + ' ': values;
+  return `${k}: [${values}]`;
+}
+export function expectGlobalOptionsToContain(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
+  Object.entries(globalParams).forEach(([k, v]) => {
+    v = ''+v;
+    switch (k as keyof GlobalOptionsArgv) {
+      case 'rcPath':
+        expect(stdout).toContain(quoted(k, v));
+        break;
+      case 'interactive':
+      case 'verbose':
+        expect(stdout).toContain(unquoted(k, v));
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for global options check`)
+        break;
+    }
+  });
+}
+
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
@@ -121,5 +183,9 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
 export function expectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);
-  expect(config).toEqual(cfg);
+  // handle inconsistency of rc vs params
+  const {collect, persist, assert} = config;
+  delete collect.openReport;
+
+  expect(config).toEqual({ collect, persist, assert });
 }

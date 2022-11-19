@@ -56,8 +56,7 @@ You can also use `npx` to run it in e.g. the CI setup:
 # Quick Start
 
 In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
-
-for both be sure to have node installed:
+Both ways require a node and npm project setup to install user-flow and folders to store the reports and test files.
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
@@ -271,7 +270,7 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
 | **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
 | **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
-| **`--open`**, **`-e`**             | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`--openReport`**, **`-e`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
 | **`--budget-path`**, **`-b`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
 
 ## Report Formats and Viewer
@@ -286,9 +285,9 @@ You can also use the CLI option `--format` to choose a format.
 - multiple formats: `@push-based/user-flow collect --format html --format json`  
 
 > **🤓 DX Tip:**  
-> For a faster development process you can use the `--open` or `-e` option to automatically open the report in the browser.
+> For a faster development process you can use the `--openReport` or `-e` option to automatically open the report in the browser.
 > The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
-> e.g. `@push-based/user-flow collect --open`   
+> e.g. `@push-based/user-flow collect --openReport`   
 
 The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
 This format is very good for programmatic processing and foundation for most of the features of this lib. 
@@ -321,7 +320,7 @@ Organizing testing logic is an art. If you don't own that knowledge, the amount 
 
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
 
-## [Working with DevTools Recorder exports]()
+## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
 
 Chrome DevTools provides a feature to help with record and exoprt user interations. 
 This can replace any handwritten code and organizes interactions in a JSON structure.

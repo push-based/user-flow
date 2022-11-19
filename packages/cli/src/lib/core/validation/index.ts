@@ -14,7 +14,7 @@ const oneOf = (set: string[]) => (value: string) => {
   return (set.find(i => {
     return i === value
   }) === undefined) ? {
-      oneOf: true
+      oneOf: { value }
     }
     : null;
 }
@@ -29,7 +29,7 @@ export const VALIDATORS = {
       const e = _oneOf(value);
       if (e) {
         errors = {
-          allOf: true
+          allOf: { value },
         };
       }
     });
