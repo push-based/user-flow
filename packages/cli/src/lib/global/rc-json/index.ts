@@ -5,6 +5,7 @@ import { get as getRcParam, get as getRcPath } from './options/rc';
 import { RcJson } from '../../types';
 
 export function readRcConfig(rcPath: string = ''): RcJson {
+
   const configPath = rcPath || getRcPath();
   const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
   return repoConfigJson;

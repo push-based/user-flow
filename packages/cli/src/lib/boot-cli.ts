@@ -5,6 +5,7 @@ import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
 import { getGlobalOptionsFromArgv } from './global/utils';
 
 function configParser(rcPath?: string): {} {
+  console.log('configParser: ');
   let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
   let globalConfig: any = getGlobalOptionsFromArgv(rcConfig);
   return { ...globalConfig, ...rcConfig };

@@ -21,7 +21,7 @@ describe('the CLI should accept configurations coming from preset', () => {
       [],
       EMPTY_SANDBOX_CLI_TEST_CFG
     );
-    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
+   // const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expect(stdout).toBe('');
    // expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
@@ -30,7 +30,7 @@ describe('the CLI should accept configurations coming from preset', () => {
     expect(exitCode).toBe(0);
   });
 
-  it('should have verbose false as default in a fresh environment', async () => {
+ /* it('should have verbose false as default in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
       initCommand,
       [],
@@ -61,5 +61,5 @@ describe('the CLI should accept configurations coming from preset', () => {
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
-
+*/
 });
