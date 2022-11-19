@@ -42,20 +42,6 @@ describe('init command in empty sandbox', () => {
     resetSetupSandboxAndKillPorts();
   });
 
-  it('should have default`s configured over preset', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand
-      ],
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
-
-    expectInitCfgToContain(stdout, getInitCommandOptionsFromArgv(SANDBOX_PRESET));
-    expect(stderr).toBe('');
-    expect(exitCode).toBe(0);
-  });
-
   it('should generate a valid rc.json if we accept suggested values', async () => {
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
