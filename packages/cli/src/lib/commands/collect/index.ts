@@ -2,7 +2,6 @@ import { YargsCommandObject } from '../../core/yargs/types';
 import { logVerbose } from '../../core/loggin/index';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeededAndExecute } from './utils/serve-command';
-import { get } from './options/dryRun';
 import { setupOrUpdateRcJson } from '../init/processes/setup-or-update-rc-json';
 import { run } from '../../core/processing/behaviors';
 import { collectReports } from './processes/collect-reports';
