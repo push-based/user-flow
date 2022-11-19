@@ -1,9 +1,7 @@
 import { readFile, writeFile } from '../../core/file';
 import { logVerbose } from '../../core/loggin';
-import { RcArgvOptions} from './types';
+
 import { get as getRcParam, get as getRcPath } from './options/rc';
-import { CollectCommandArgv, CollectRcOptions, PersistRcOptions } from '../../commands/collect/options/types';
-import { AssertRcOptions } from '../../commands/assert/options/types';
 import { RcJson } from '../../types';
 
 export function readRcConfig(rcPath: string = ''): RcJson {
@@ -26,9 +24,9 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
   }
 }
 
-export function getCliOptionsFromRcConfig(rcPath?: string): RcArgvOptions {
+export function getCliOptionsFromRcConfig<T>(rcPath?: string): T {
   const { collect, persist, assert } = readRcConfig(rcPath || getRcParam());
-  return { ...collect, ...persist, ...assert } as RcArgvOptions;
+  return { ...collect, ...persist, ...assert } as unknown as T;
 }
 
 

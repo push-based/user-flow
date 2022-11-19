@@ -4,13 +4,14 @@ import { ERROR_PERSIST_FORMAT_REQUIRED, ERROR_PERSIST_FORMAT_WRONG, PROMPT_PERSI
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
 import { RcJson } from '../../../types';
+import { ReportFormat } from './types';
 
 export async function setupFormat(
   config: RcJson
 ): Promise<RcJson> {
-  let format: string[] = [];
+  let format: ReportFormat[] = [];
 
-  let cfgFormat: string[] = [];
+  let cfgFormat: ReportFormat[] = [];
   if (config?.persist?.format) {
     cfgFormat = Array.isArray(config.persist.format) ? config.persist.format : typeof config.persist.format === 'string' ? [config.persist.format] : [];
   }
@@ -23,7 +24,7 @@ export async function setupFormat(
 
   if (interactive()) {
 
-    const { f }: { f: string[] | undefined } = cfgFormat.length === 0 ? await prompt<{ f: string[] }>([
+    const { f }: { f: ReportFormat[] | undefined } = cfgFormat.length === 0 ? await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',

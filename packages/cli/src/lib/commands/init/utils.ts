@@ -4,8 +4,9 @@ import { FlowExamples } from './types';
 import { log, logVerbose } from '../../core/loggin';
 import { GlobalOptionsArgv } from '../../global/options/types';
 import { InitArgvOptions } from './options/types';
-import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
+import { CollectArgvOptions, CollectRcOptions, PersistArgvOptions, PersistRcOptions } from '../collect/options/types';
 import { getCollectCommandOptionsFromArgv } from '../collect/utils/params';
+import { AssertArgvOptions, AssertRcOptions } from '../assert/options/types';
 
 const FlowExampleMap: Record<FlowExamples, string> = {
   'basic-navigation': 'order-coffee.uf.ts'
@@ -42,21 +43,26 @@ export function addUserFlow(flowExample: FlowExamples, folder: string) {
   log(`setup user-flow for basic navigation in ${folder} successfully`);
 }
 
-export function getInitCommandOptionsFromArgv(argv: any): Partial<InitArgvOptions> {
+export function getInitCommandOptionsFromArgv(argv: any) {
   const {
     url, ufPath, serveCommand, awaitServeStdout,
-    outPath, format,
-    budgetPath, budgets
-  } = getCollectCommandOptionsFromArgv(argv);
+    outPath, format, budgetPath, budgets
+  } = argv as unknown as InitArgvOptions;
 
-  let initOptions = {} as Partial<InitArgvOptions>;
-  url && (initOptions.url = url);
-  ufPath && (initOptions.ufPath = ufPath);
-  budgets && (initOptions.budgets = budgets);
-  budgetPath && (initOptions.budgetPath = budgetPath);
-  outPath && (initOptions.outPath = outPath);
-  format && (initOptions.format = format);
-  awaitServeStdout && (initOptions.awaitServeStdout = awaitServeStdout);
+  let collect = {} as CollectRcOptions;
+  url && (collect.url = url);
+  ufPath && (collect.ufPath = ufPath);
+  // optional
+  serveCommand && (collect.serveCommand = serveCommand);
+  awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
 
-  return initOptions;
+  let persist = {} as PersistRcOptions;
+  outPath && (persist.outPath = outPath);
+  format && (persist.format = format);
+
+  let assert = {} as AssertRcOptions;
+  budgetPath && (assert.budgetPath = budgetPath);
+  budgets && (assert.budgets = budgets);
+
+  return { collect, persist, assert };
 }

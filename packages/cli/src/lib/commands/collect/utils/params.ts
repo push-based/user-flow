@@ -1,4 +1,3 @@
-import { RcArgvOptions } from '../../..';
 import {
   CollectArgvOptions,
   CollectCommandCfg,
@@ -7,13 +6,14 @@ import {
   PersistRcOptions
 } from '../options/types';
 import { AssertArgvOptions } from '../../assert/options/types';
+import { RcJsonAsArvg } from '../../../types';
 
-export function getArgvOptionsFromRc(cfg: CollectCommandCfg): RcArgvOptions {
+export function getArgvOptionsFromRc(cfg: CollectCommandCfg): RcJsonAsArvg {
   const { collect, persist, assert } = cfg;
-  return { ...collect, ...persist, ...assert } as RcArgvOptions;
+  return { ...collect, ...persist, ...assert } as RcJsonAsArvg;
 }
 
-export function getCollectCommandOptionsFromArgv(argv: RcArgvOptions): CollectCommandCfg {
+export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArvg): CollectCommandCfg {
 
   const {
     url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport,

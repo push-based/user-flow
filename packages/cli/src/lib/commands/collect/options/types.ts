@@ -39,4 +39,4 @@ export type CollectCommandCfg = {
   assert?: AssertArgvOptions;
 }
 
-export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions
+export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions;
