@@ -19,7 +19,6 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
   }
 
   if (!serveCommand || !awaitServeStdout) {
-    logVerbose('run user flows without serve command');
     return workTargetingServer();
   }
 
