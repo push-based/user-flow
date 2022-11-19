@@ -3,8 +3,6 @@ import { CollectOptions, RcJson } from '../../../global/rc-json/types';
 import { logVerbose } from '../../../core/loggin';
 import { Subscription } from 'rxjs';
 
-const log = logVerbose;
-
 // @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
 // I suggest a single function returning a promise.
 // This fn takes the serve options as well ans the run block and makes shure execution is done correctly and errors are forwarded too.
@@ -45,7 +43,7 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
     sub.add(cR.stdout.subscribe(
       stdout => {
         const out = stdout.toString();
-        log(out);
+        logVerbose(out);
         // await stdout and start collecting once
         if (out.includes(awaitServeStdout) && !isCollecting) {
           isCollecting = true;
