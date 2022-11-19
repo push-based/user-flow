@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readFile, writeFile } from '../../core/file';
 import { FlowExamples } from './types';
-import { log, logVerbose } from '../../core/loggin';
+import { log } from '../../core/loggin';
 
 const FlowExampleMap: Record<FlowExamples, string> = {
   'basic-navigation': 'order-coffee.uf.ts'
@@ -31,7 +31,6 @@ export function addUserFlow(flowExample: FlowExamples, folder: string) {
   }
 
   const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
-  logVerbose('fileContent', fileContent);
   writeFile(exampleDestination, fileContent);
 
   log(`setup user-flow for basic navigation in ${folder} successfully`);
