@@ -16,18 +16,12 @@ export function expectInitCfgToContain(stdout: string, cliParams: CollectArgvOpt
 
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
-      // global
-      case 'verbose':
-      case 'interactive':
-        expect(stdout).toContain(`${k}: ${v}`);
-        break;
-      // global
-      // NOTICE: we exclude the theck here as it is not part of the logs
-      //case 'rcPath':
       // collect
       case 'url':
       case 'ufPath':
       case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
