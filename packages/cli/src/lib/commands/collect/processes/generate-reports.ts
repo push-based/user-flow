@@ -2,7 +2,7 @@ import {Util} from '../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
 
-import { ReducedReport,ReducedFlowStepResult } from '../utils/user-flow/types';
+import {ReducedReport, ReducedFlowStepResult} from '../utils/user-flow/types';
 import { userFlowReportToMdTable } from "../../assert/processes/md-table";
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
@@ -18,6 +18,13 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
     return { name: step.name, gatherMode, results };
   });
   return {name: flowResult.name, steps};
+}
+
+export function enrichReducedReportWithBaseline(reducedReport: ReducedReport, baselineReport: FlowResult): ReducedReport {
+  const baselineReducedReport = createReducedReport(baselineReport);
+  const baselineResults = Object.fromEntries(baselineReducedReport.steps.map((step) => [step.name, step.results]));
+  const steps = reducedReport.steps.map((step) => ({...step, 'baseline': baselineResults[step.name]}));
+  return {name: reducedReport.name, steps};
 }
 
 export function generateMdReport(flowResult: FlowResult): string {
