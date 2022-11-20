@@ -18,7 +18,7 @@ import {
 } from '../../utils/cli-expectations';
 
 const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect', '-v'];
+const collectCommand = [...defaultCommand, 'collect'];
 const collectCommandRemoteRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`,

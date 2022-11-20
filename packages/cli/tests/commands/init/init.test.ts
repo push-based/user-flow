@@ -29,7 +29,7 @@ import * as path from 'path';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import { getInitCommandOptionsFromArgv } from '../../../src/lib/commands/init/utils';
 
-const initCommand = [CLI_PATH, 'init', '-v'];
+const initCommand = [CLI_PATH, 'init'];
 
 describe('init command in empty sandbox', () => {
 

@@ -19,7 +19,7 @@ import {
 import * as path from 'path';
 
 
-const _collectCommand = [CLI_PATH, 'collect', '-v'];
+const _collectCommand = [CLI_PATH, 'collect'];
 const collectCommand = [..._collectCommand, `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`];
 const collectCommandBudgetsRc = [..._collectCommand, `-p=./${SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME}`];
 const collectCommandBudgetPathRc = [..._collectCommand, `-p=./${SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME}`];
