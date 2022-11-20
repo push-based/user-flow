@@ -1,18 +1,16 @@
 import { readFile, writeFile } from '../../core/file';
 import { logVerbose } from '../../core/loggin';
-
-import { get as getRcParam, get as getRcPath } from './options/rc';
 import { RcJson } from '../../types';
+import { globalOptions } from '../options';
 
 export function readRcConfig(rcPath: string = ''): RcJson {
-
-  const configPath = rcPath || getRcPath();
+  const configPath = rcPath || globalOptions.getRcPath();
   const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
   return repoConfigJson;
 }
 
 export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
-  const configPath = rcPath || getRcPath();
+  const configPath = rcPath || globalOptions.getRcPath();
   logVerbose(`Update config under ${configPath}`);
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
@@ -26,7 +24,7 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
 }
 
 export function getCliOptionsFromRcConfig<T>(rcPath?: string): T {
-  const { collect, persist, assert } = readRcConfig(rcPath || getRcParam());
+  const { collect, persist, assert } = readRcConfig(rcPath || globalOptions.getRcPath());
   return { ...collect, ...persist, ...assert } as unknown as T;
 }
 

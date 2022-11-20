@@ -2,12 +2,13 @@ import { YargsCommandObject } from '../../core/yargs/types';
 import { log, logVerbose } from '../../core/loggin';
 import { INIT_OPTIONS } from './options';
 import { addUserFlow, getExamplePathDest, getInitCommandOptionsFromArgv } from './utils';
-import { setupOrUpdateRcJson } from './processes/setup-or-update-rc-json';
+import { collectRcJson } from './processes/collect-rc-json';
 import { askToSkip } from '../../core/prompt';
 import { run } from '../../core/processing/behaviors';
 import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { RcJson } from '../../types';
+import { updateRcJson } from './processes/update-rc-json';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -23,7 +24,8 @@ export const initCommand: YargsCommandObject = {
       const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
       await run([
-        setupOrUpdateRcJson,
+        collectRcJson,
+        updateRcJson,
         askToSkip(
           'Setup user flow',
           async (cfg: RcJson): Promise<RcJson> => {
