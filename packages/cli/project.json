@@ -1,5 +1,6 @@
 {
-  "root": "packages/cli",
+  "name": "cli",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/cli/src",
   "projectType": "library",
   "targets": {
@@ -20,17 +21,17 @@
     },
     "sandbox": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/cli"],
+      "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.js",
+        "jestConfig": "packages/cli/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/cli"],
+      "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.js",
+        "jestConfig": "packages/cli/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -63,7 +64,7 @@
       }
     },
     "link": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           {

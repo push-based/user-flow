@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'cli',
   preset: '../../jest.preset.js',
   globals: {
@@ -9,10 +10,8 @@ module.exports = {
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    "/node_modules/(?!markdown-table/.*)"
-  ],
+  transformIgnorePatterns: ['/node_modules/(?!markdown-table/.*)'],
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
-  testTimeout: 40_000
+  testTimeout: 40_000,
 };
