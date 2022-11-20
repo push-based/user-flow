@@ -31,7 +31,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.js",
+        "jestConfig": "packages/cli/jest.config.ts",
         "passWithNoTests": true
       }
     },
