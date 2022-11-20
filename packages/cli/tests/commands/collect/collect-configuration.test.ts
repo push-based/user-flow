@@ -76,7 +76,7 @@ describe('collect command configuration in setup sandbox', () => {
       budgetPath: 'XXXXXX.json'
     };
 
-    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
+    const { url, ufPath, awaitServeStdout } = collect;
     // @TODO fix format
     let { outPath/*, format*/ } = persist;
     let { budgetPath } = assert;
@@ -87,7 +87,7 @@ describe('collect command configuration in setup sandbox', () => {
         // collect
         `--url=${url}`,
         `--ufPath=${ufPath}`,
-        `--serveCommand=${serveCommand}`,
+        // `--serveCommand=${serveCommand}`,
         `--awaitServeStdout=${awaitServeStdout}`,
         // persist
         `--outPath=${outPath}`,
