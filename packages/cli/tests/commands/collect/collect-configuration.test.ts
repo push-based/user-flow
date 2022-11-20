@@ -5,7 +5,7 @@ import { resetEmptySandbox } from '../../fixtures/empty-sandbox';
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON
+  SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_REMOTE_RC_JSON
 } from '../../fixtures/setup-sandbox';
 
 import { expectCollectCfgToContain } from '../../utils/cli-expectations';
@@ -59,27 +59,13 @@ describe('collect command configuration in setup sandbox', () => {
   }, 90_000);
 
   it('should take cli parameters', async () => {
-    const collect = {
-      url: 'http://www.xxx.xx',
-      ufPath: 'xxxufPath',
-      // note: complicated to implement
-      // serveCommand: 'xxxstart',
-      awaitServeStdout: 'xxxawaitServeStdout'
-    };
 
-    const persist: any = {
-      outPath: 'xxxoutPath',
-      format: ['json', 'md']
-    };
+    let { collect, persist, assert } = SETUP_SANDBOX_REMOTE_RC_JSON;
 
-    const assert: any = {
-      budgetPath: 'XXXXXX.json'
-    };
-
-    const { url, ufPath, awaitServeStdout } = collect;
+    const { url, ufPath } = collect;
     // @TODO fix format
     let { outPath/*, format*/ } = persist;
-    let { budgetPath } = assert;
+    let budgetPath = assert?.budgetPath;
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
@@ -88,24 +74,21 @@ describe('collect command configuration in setup sandbox', () => {
         `--url=${url}`,
         `--ufPath=${ufPath}`,
         // `--serveCommand=${serveCommand}`,
-        `--awaitServeStdout=${awaitServeStdout}`,
+        // `--awaitServeStdout=${awaitServeStdout}`,
         // persist
         `--outPath=${outPath}`,
         // `--format=${format[0]}`,
         // `--format=${format[1]}`,
         // assert
-        `--budgetPath=${budgetPath}`
+        // `--budgetPath=${budgetPath}`
       ],
       ['n'],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
-    // @TODO format handling
-    delete persist.format;
 
     const cfg = {
-      ...collect,
-      ...persist,
-      ...assert
+      url, ufPath,
+      outPath
     };
     expectCollectCfgToContain(stdout, cfg);
     expect(stderr).toBe('');

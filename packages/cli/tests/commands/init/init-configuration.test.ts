@@ -62,7 +62,7 @@ describe('init command configuration in empty sandbox', () => {
       ufPath: 'xxxufPath',
       // note: complicated to implement
       // serveCommand: 'xxxstart',
-      awaitServeStdout: 'xxxawaitServeStdout'
+      // awaitServeStdout: 'xxxawaitServeStdout'
     };
 
     const persist: any = {
@@ -74,18 +74,19 @@ describe('init command configuration in empty sandbox', () => {
       budgetPath: 'XXXXXX.json'
     };
 
-    const { url, ufPath, awaitServeStdout } = collect;
+    const { url, ufPath } = collect;
     let { outPath, format } = persist;
     let { budgetPath } = assert;
 
     const { exitCode, stdout, stderr } = await cliPromptTest(
       [
         ...initCommand,
+        '-v',
         // collect
         `--url=${url}`,
         `--ufPath=${ufPath}`,
         // `--serveCommand=${serveCommand}`,
-        `--awaitServeStdout=${awaitServeStdout}`,
+        // `--awaitServeStdout=${awaitServeStdout}`,
         // persist
         `--outPath=${outPath}`,
         `--format=${format[0]}`,
@@ -102,6 +103,7 @@ describe('init command configuration in empty sandbox', () => {
       ...persist,
       ...assert
     };
+
     expectInitCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
