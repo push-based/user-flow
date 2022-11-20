@@ -1,13 +1,11 @@
-import { RcArgvOptions } from './types';
-import { GlobalOptionsArgv } from '../options/types';
-import { ArgvPreset } from '../../types';
-import { detectCliMode } from '../cli-mode/cli-mode';
+import { ArgvPreset } from './types';
+import { detectCliMode } from './global/cli-mode/cli-mode';
 import * as path from 'path';
 
 const DEFAULT_RC_NAME = '.user-flowrc.json';
 const DEFAULT_RC_PATH = `./`;
 
-export const DEFAULT_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
+export const DEFAULT_PRESET: ArgvPreset = {
   // GLOBAL
   rcPath: path.join(DEFAULT_RC_PATH, DEFAULT_RC_NAME),
   interactive: true,
@@ -17,7 +15,7 @@ export const DEFAULT_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
   format: []
 };
 
-export const CI_PRESET: Partial<GlobalOptionsArgv & RcArgvOptions> = {
+export const CI_PRESET: ArgvPreset = {
   ...DEFAULT_PRESET,
   // GLOBAL
   interactive: false,
@@ -38,12 +36,12 @@ export const SANDBOX_PRESET: ArgvPreset = {
   openReport: false
 };
 
-export function getEnvPreset(): ArgvPreset  {
+export function getEnvPreset(): ArgvPreset {
   const m = detectCliMode();
-  if(m === 'SANDBOX') {
+  if (m === 'SANDBOX') {
     return SANDBOX_PRESET;
   }
-  if(m === 'CI') {
+  if (m === 'CI') {
     return CI_PRESET;
   }
   return DEFAULT_PRESET;

@@ -55,13 +55,13 @@ You can also use `npx` to run it in e.g. the CI setup:
  
 # Quick Start
 
-In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
+As the CLI needs a npm project to run in we explain 2 common things, using the package in an existing project and using it in a fresh project.
 Both ways require a node and npm project setup to install user-flow and folders to store the reports and test files.
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-## Set up and run user flows in an existing project
+## Set up and run user flows in an existing npm project
 
 In this chapter we will learn how to install and configure user flows, as well as create a first example test and see the resulting performance report.  
 
@@ -187,33 +187,7 @@ npx user-flow --version
 ```
 
 # CLI
-
-## Prompts and interaction
-
-We provide general interaction through the keyboard or `stdin` directly for testing and other crazy hacks.
-
-### Multiselect choices
-
- These key combinations can be used on _multiple_ choice prompts.For more details see [enquirer - multiselect](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md)
-
- | **command**       | **description**                                                                                                      |
- | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
- | <kbd>space</kbd>  | Toggle the currently selected choice when `options.multiple` is true.                                                |
- | <kbd>number</kbd> | Move the pointer to the choice at the given index. Also toggles the selected choice when `options.multiple` is true. |
- | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |
- | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
- | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
-
-### Multiple choices in the CLI  
-
-To assign multiple choices to a multiselect CLI param you have to use the param multiple times.
-
-e.g. to select multiple formats for the collect output write:  
-
-```text
-@npx @push-based/user-flow collect -f=md -f=json
-```
-
+You can read more about tricks and DX the [general CIL features](https://github.com/GoogleChrome/lighthouse/blob/master/docs/general-cli-features.md) in our docs. 
 
 ## Global Options
 
@@ -224,7 +198,6 @@ e.g. to select multiple formats for the collect output write:
 | **`--rcPath`**, **`-p`**     | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |  
 | **`--verbose`**, **`-v`**    | `boolean` | `undefined`                 | Run with verbose logging                                                                                   |  
 | **`--interactive`** **`-i`** | `boolean` | `true` (`false` in CI mode) | When false questions are skipped with the values from the suggestions. This is useful for CI integrations. |  
-| **`--dryRun`**               | `boolean` | `false`                     | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Commands 
 
@@ -264,14 +237,15 @@ This command executes a set of user-flow definitions against the target URL and 
 
 |  Option                            |  Type     | Default                |  Description                                                                                               |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`--url`**, **`-t`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
-| **`--ufPath`**, **`-u`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
-| **`--outPath`**, **`-o`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
-| **`--serveCommand`**, **`-s`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
-| **`--awaitServeStdout`**, **`-a`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
-| **`--format`**, **`-f`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
-| **`--openReport`**, **`-e`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
-| **`--budget-path`**, **`-b`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
+| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
+| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
+| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
+| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
+| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
+| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
+| **`-b`**, **`--budget-path`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
+| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                     |  
 
 ## Report Formats and Viewer
 

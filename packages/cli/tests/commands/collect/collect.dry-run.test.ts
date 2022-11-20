@@ -8,7 +8,7 @@ import {
 } from '../../fixtures/setup-sandbox';
 import { expectCollectLogsFromMockInStdout } from '../../utils/cli-expectations';
 
-const collectCommand = [CLI_PATH, 'collect', '-v', '--dryRun'];
+const collectCommand = [CLI_PATH, 'collect'];
 const collectCommandStaticRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`,

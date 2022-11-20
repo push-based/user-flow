@@ -18,7 +18,7 @@ import {
 } from '../../utils/cli-expectations';
 
 const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect', '-v'];
+const collectCommand = [...defaultCommand, 'collect'];
 const collectCommandRemoteRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`,
@@ -72,7 +72,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a HTML file', async () => {
     const { exitCode, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--format=html'],
+      [...collectCommandRemoteRc, '--no-dryRun', '--format=html'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
@@ -102,7 +102,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
     const { exitCode, stdout,  stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--format=md'],
+      [...collectCommandRemoteRc, '--no-dryRun', '--format=md'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );

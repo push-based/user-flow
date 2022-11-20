@@ -6,5 +6,6 @@
     "awaitServeStdout": "Available on:",
     "openReport": true
   },
-  "persist": { "outPath": "./measures", "format": ["json"] }
+  "persist": { "outPath": "./measures", "format": ["json"] },
+  "assert": {}
 }

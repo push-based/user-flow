@@ -1,9 +1,7 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
-import { logVerbose } from '../loggin';
-import { GlobalOptionsArgv } from '../../global/options/types';
-import { detectCliMode } from '../../global/cli-mode/cli-mode';
+import { applyConfigMiddleware } from '../../config.middleware';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -24,13 +22,7 @@ export function setupYargs(
     command.description,
     command?.builder || (() => {
     }),
-    (...args: any) => {
-      yargs.config((configParser as any)());
-      const {interactive, verbose, rcPath, ...rcCfg } = yargs.argv as unknown as GlobalOptionsArgv;
-      logVerbose('CLI Mode: ', detectCliMode());
-      logVerbose('Global options: ', {interactive, verbose, rcPath });
-      return command.module.handler(yargs.argv as any);
-    }
+    applyConfigMiddleware(command.module.handler, configParser)
   ));
   return yargs;
 }

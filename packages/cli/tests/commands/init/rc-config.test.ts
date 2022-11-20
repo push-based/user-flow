@@ -19,7 +19,7 @@ import {expectEnsureConfigToCreateRc, expectOutputRcInStdout} from '../../utils/
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 
-const initCommand = [CLI_PATH, 'init', '-v'];
+const initCommand = [CLI_PATH, 'init'];
 
 describe('.rc.json in empty sandbox', () => {
   beforeEach(async () => resetEmptySandbox());

@@ -1,14 +1,15 @@
 import { concurrently } from 'concurrently';
-import { CollectOptions, RcJson } from '../../../global/rc-json/types';
 import { logVerbose } from '../../../core/loggin';
 import { Subscription } from 'rxjs';
+import { CollectRcOptions } from '../options/types';
+import { RcJson } from '../../../types';
 
 // @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
 // I suggest a single function returning a promise.
 // This fn takes the serve options as well ans the run block and makes sure execution is done correctly and errors are forwarded too.
 // In there we compose easier to test fn's
 
-export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectOptions = {} as CollectOptions): Promise<RcJson> {
+export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
 
   const { serveCommand, awaitServeStdout } = collectOption;
 

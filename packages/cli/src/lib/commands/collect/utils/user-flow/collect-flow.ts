@@ -1,4 +1,3 @@
-import { CollectOptions } from '../../../../global/rc-json/types';
 import { UserFlowProvider } from './types';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
@@ -11,9 +10,10 @@ import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
+import { CollectRcOptions } from '../../options/types';
 
 export async function collectFlow(
-  cliOption: CollectOptions & { dryRun: boolean },
+  cliOption: CollectRcOptions & { dryRun: boolean },
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -29,6 +29,8 @@ export async function collectFlow(
 
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
+    // has to be false to run in the CI because of a bug :(
+    // https://github.com/puppeteer/puppeteer/issues/8148
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
