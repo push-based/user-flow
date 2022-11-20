@@ -5,6 +5,7 @@ import { getEnvPreset } from '../../../pre-set';
 
 export const param: Param = {
   dryRun: {
+    alias: 'd',
     type: 'boolean',
     description: 'Execute commands without effects',
     default: getEnvPreset().dryRun as boolean
