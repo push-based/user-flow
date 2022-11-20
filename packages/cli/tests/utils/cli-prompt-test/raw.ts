@@ -1,6 +1,7 @@
 import * as concat from 'concat-stream';
 import * as execa from 'execa';
 import { ExecaChildProcess, Options } from 'execa';
+import { ChildProcess } from 'child_process';
 
 
 export type PromptTestOptions = {
@@ -20,7 +21,7 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   // Timeout between each keystroke simulation
   const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
 
-  const runner: ExecaChildProcess = execa('node', args, options);
+  const runner: ChildProcess = execa('node', args, options);
   runner.stdin.setDefaultEncoding('utf-8');
 
   const writeToStdin = (answers) => {
