@@ -185,7 +185,7 @@ npx user-flow --version
 ```
 
 # CLI
-You can read more about tricks and DX the [general CIL features](https://github.com/GoogleChrome/lighthouse/blob/master/docs/general-cli-features.md) in our docs. 
+You can read more about tricks and DX the [general CIL features](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md) in our docs. 
 
 ## Global Options
 
