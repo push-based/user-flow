@@ -61,7 +61,7 @@ describe('init command configuration in empty sandbox', () => {
   it('should take cli parameters ans save it to json file', async () => {
     const collect = {
       url: 'http://www.xxx.xx',
-      ufPath: 'xxxufPath',
+      ufPath: 'xxxufPath'
       // note: complicated to implement
       // serveCommand: 'xxxstart',
       // awaitServeStdout: 'xxxawaitServeStdout'

@@ -31,8 +31,7 @@ export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_CUSTOM_VALUES = {
 export const EMPTY_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', 'sandbox-empty');
 
 export const EMPTY_SANDBOX_CLI_TEST_CFG = {
-  testPath: EMPTY_SANDBOX_PATH,
-  [CI_PROPERTY]: 'SANDBOX'
+  cwd: EMPTY_SANDBOX_PATH
 };
 
 export async function resetEmptySandbox(): Promise<void> {

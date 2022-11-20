@@ -119,8 +119,7 @@ export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PAT
 
 
 export const SETUP_SANDBOX_CLI_TEST_CFG = {
-  testPath: SETUP_SANDBOX_PATH,
-  [CI_PROPERTY]: 'SANDBOX'
+  cwd: SETUP_SANDBOX_PATH
 };
 
 export async function resetSetupSandboxAndKillPorts(): Promise<void> {
