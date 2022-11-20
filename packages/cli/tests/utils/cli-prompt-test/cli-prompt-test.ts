@@ -1,4 +1,4 @@
-import { cliPromptTest as _cliPromptTest } from './raw';
+import { cliPromptTest as _cliPromptTest, PromptTestOptions } from './raw';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
@@ -10,7 +10,7 @@ export type CliProcess = {
  *
  * @param options: passed directly to execa as options
  */
-export function getCliProcess(options: Options, promptOptions?: {timeout: number}): CliProcess {
+export function getCliProcess(options: Options, promptOptions: PromptTestOptions = {}): CliProcess {
   return {
     exec: (processParams: string[], userInput: string[]): Promise<ExecaChildProcess>  => {
       return _cliPromptTest(processParams, userInput, options, promptOptions);

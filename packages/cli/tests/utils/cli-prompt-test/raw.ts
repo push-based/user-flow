@@ -4,7 +4,7 @@ import {ExecaChildProcess, Options} from "execa";
 
 
 export type PromptTestOptions = {
-  timeout: number
+  timeout?: number
 }
 /**
  * @param {string[]} args CLI args to pass in
