@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.32](https://github.com/push-based/user-flow/compare/cli-0.10.31...cli-0.10.32) (2022-11-20)
+
+
+### Bug Fixes
+
+* move folder creation into later step i setup ([f30397a](https://github.com/push-based/user-flow/commit/f30397adf7b892fedaa8614f698284012b9f6efa))
+
+
+
 ## [0.10.31](https://github.com/push-based/user-flow/compare/cli-0.10.30...cli-0.10.31) (2022-11-20)
 
 
