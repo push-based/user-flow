@@ -60,7 +60,7 @@ describe('init command configuration in empty sandbox', () => {
     const collect = {
       url: 'http://www.xxx.xx',
       ufPath: 'xxxufPath',
-      serveCommand: 'npm run xxxstart',
+      serveCommand: 'xxxstart',
       awaitServeStdout: 'xxxawaitServeStdout'
     };
 
