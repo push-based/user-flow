@@ -1,5 +1,6 @@
 import * as concat from "concat-stream";
 import * as execa from "execa";
+import {ExecaChildProcess, Options} from "execa";
 
 /**
  * @param {string[]} args CLI args to pass in
@@ -8,16 +9,13 @@ import * as execa from "execa";
  *
  * returns {Promise<Object>}
  */
-
-export function cliPromptTest(args: string[], answers: string[], options: {testPath: string, timeout: number}) {
+export function cliPromptTest(args: string[], answers: string[], options: Options, promptOptions: {timeout: number}): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
-  const runnerOptions =
-    options && options.testPath ? { cwd: options.testPath } : {};
 
   // Timeout between each keystroke simulation
-  const timeout = options && options.timeout ? options.timeout : 500;
+  const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
 
-  const runner = execa("node", args, runnerOptions);
+  const runner = execa("node", args, options);
   runner.stdin.setDefaultEncoding("utf-8");
 
   const writeToStdin = (answers) => {

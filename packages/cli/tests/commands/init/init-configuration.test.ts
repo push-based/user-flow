@@ -107,7 +107,7 @@ describe('init command configuration in empty sandbox', () => {
     };
 
     expectInitCfgToContain(stdout, cfg);
-    const existingRcJSon = JSON.parse(readFileSync(path.join(SETUP_SANDBOX_CLI_TEST_CFG.testPath, SETUP_SANDBOX_DEFAULT_RC_NAME), 'utf8'));
+    const existingRcJSon = JSON.parse(readFileSync(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', SETUP_SANDBOX_DEFAULT_RC_NAME), 'utf8'));
     expect(existingRcJSon).toEqual(existingRcJSon);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);

@@ -9,6 +9,7 @@ import { RcJson } from '../../src/lib/types';
 import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import { Options } from 'execa';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -118,7 +119,7 @@ export const SETUP_SANDBOX_REMOTE_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_
 export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_JSON.persist.outPath);
 
 
-export const SETUP_SANDBOX_CLI_TEST_CFG = {
+export const SETUP_SANDBOX_CLI_TEST_CFG: Options = {
   cwd: SETUP_SANDBOX_PATH
 };
 

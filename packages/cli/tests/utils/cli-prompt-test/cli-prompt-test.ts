@@ -1,17 +1,19 @@
 import { cliPromptTest as _cliPromptTest } from './raw';
-import { Options, ExecaChildProcess } from 'execa';
+import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
 
-
+export type CliProcess = {
+  exec: (processParams: string[], userInput: string[]) => Promise<ExecaChildProcess>
+}
 /**
  *
  * @param options: passed directly to execa as options
  */
-export function getCliProcess(options: Options) {
+export function getCliProcess(options: Options, promptOptions: {timeout: number}): CliProcess {
   return {
-    exec: (processParams: string[], userInput: string[]): ExecaChildProcess<string>  => {
-      return _cliPromptTest(processParams, userInput, options);
+    exec: (processParams: string[], userInput: string[]): Promise<ExecaChildProcess>  => {
+      return _cliPromptTest(processParams, userInput, options, promptOptions);
     }
   };
 }
@@ -23,11 +25,7 @@ export function getCliProcess(options: Options) {
  *
  * returns {Promise<Object>}
  */
-export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<{
-  stdout: string,
-  stderr: string,
-  exitCode: number
-}> {
+export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<ExecaChildProcess<string>> {
   let ciValue: string = '';
 
   if (cliMode === 'DEFAULT') {
