@@ -21,7 +21,7 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   // Timeout between each keystroke simulation
   const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
 
-  const runner: ChildProcess = execa('node', args, options);
+  const runner: any = execa('node', args, options) as any;
   runner.stdin.setDefaultEncoding('utf-8');
 
   const writeToStdin = (answers) => {
