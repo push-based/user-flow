@@ -19,7 +19,7 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   // Timeout between each keystroke simulation
   const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
 
-  const runner = execa("node", args, options);
+  const runner: ExecaChildProcess = execa("node", args, options);
   runner.stdin.setDefaultEncoding("utf-8");
 
   const writeToStdin = (answers) => {
@@ -37,7 +37,7 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   writeToStdin(answers);
 
   return new Promise((resolve) => {
-    const obj = {};
+    const obj: ExecaChildProcess<string> = {} as unknown as ExecaChildProcess<string>;
 
     runner.stdout.pipe(
       concat((result) => {
