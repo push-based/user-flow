@@ -25,13 +25,7 @@ export async function setupUfPath(
   if (hasError(errors)) {
     throw new Error(ERROR_COLLECT_UF_PATH_REQUIRED);
   }
-
-  // DX create directory if it does ot exist
-  try {
-    readdirSync(ufPath);
-  } catch (e) {
-    mkdirSync(ufPath);
-  }
+  
 
   return {
     ...config,

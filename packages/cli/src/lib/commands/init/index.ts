@@ -9,6 +9,7 @@ import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { RcJson } from '../../types';
 import { updateRcJson } from './processes/update-rc-json';
+import { mkdirSync, readdirSync } from 'fs';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -29,7 +30,14 @@ export const initCommand: YargsCommandObject = {
         askToSkip(
           'Setup user flow',
           async (cfg: RcJson): Promise<RcJson> => {
-            addUserFlow(exampleName, cfg.collect.ufPath);
+            const ufPath = cfg.collect.ufPath;
+            // DX create directory if it does ot exist
+            try {
+              readdirSync(ufPath);
+            } catch (e) {
+              mkdirSync(ufPath);
+            }
+            addUserFlow(exampleName, ufPath);
             return Promise.resolve(cfg);
           },
           {
