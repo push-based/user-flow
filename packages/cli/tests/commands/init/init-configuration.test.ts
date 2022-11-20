@@ -58,7 +58,7 @@ describe('init command configuration in empty sandbox', () => {
 
   it('should take cli parameters', async () => {
     const collect = {
-      url: 'xxx',
+      url: 'http://www.xxx.xx',
       ufPath: 'xxx',
       serveCommand: 'xxx',
       awaitServeStdout: 'xxx'
