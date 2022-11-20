@@ -10,6 +10,21 @@ import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 
 
+function unquoted(k: string, v: string): string {
+  return `${k}: ${v}`;
+}
+
+function quoted(k: string, v: string): string {
+  return `${k}: '${v}'`;
+}
+
+function array(k: string, v: string[]): string {
+  let values = (v).map(i => '\'' + i + '\'').join(', ');
+  values = values !== '' ? ' ' + values + ' ' : values;
+  return `${k}: [${values}]`;
+}
+
+
 export function expectInitCfgToContain(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Init options:`);
   Object.entries(cliParams).forEach(([k, v]) => {
@@ -33,25 +48,40 @@ export function expectInitCfgToContain(stdout: string, cliParams: {}) {
         expect(stdout).toContain(`${k}: ${v}`);
         break;
       default:
-        throw new Error(`${k} handling not implemented for collect configuration check`);
+        throw new Error(`${k} handling not implemented for init configuration check`);
         break;
     }
   });
 }
 
-
-function unquoted(k: string, v: string): string {
-  return `${k}: ${v}`;
-}
-
-function quoted(k: string, v: string): string {
-  return `${k}: '${v}'`;
-}
-
-function array(k: string, v: string[]): string {
-  let values = (v).map(i => '\'' + i + '\'').join(', ');
-  values = values !== '' ? ' ' + values + ' ' : values;
-  return `${k}: [${values}]`;
+export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
+  expect(stdout).toContain(`Collect options:`);
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
+      case 'budgetPath':
+      case 'budget':
+        expect(stdout).toContain(`${k}: '${v}'`);
+        break;
+      case 'format':
+        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
+        values = values !== '' ? ' ' + values + ' ' : values;
+        expect(stdout).toContain(`${k}: [${values}]`);
+        break;
+      case 'openReport':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for collect configuration check`);
+        break;
+    }
+  });
 }
 
 export function expectGlobalOptionsToContain(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
@@ -71,7 +101,6 @@ export function expectGlobalOptionsToContain(stdout: string, globalParams: Parti
     }
   });
 }
-
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);

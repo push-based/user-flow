@@ -34,7 +34,6 @@ describe('init command configuration in empty sandbox', () => {
     );
 
     const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
-    //@TODO add dryRun to test
     const { dryRun, openReport, ...initOptions } = rest as any;
     expectInitCfgToContain(stdout, initOptions);
     expect(stderr).toBe('');

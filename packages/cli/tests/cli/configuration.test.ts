@@ -8,7 +8,7 @@ import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils
 
 const initCommand = [CLI_PATH, 'init'];
 
-describe('the CLI should accept configurations coming from preset', () => {
+describe('the CLI configuration', () => {
   beforeEach(async () => resetEmptySandbox());
   afterEach(async () => resetEmptySandbox());
 

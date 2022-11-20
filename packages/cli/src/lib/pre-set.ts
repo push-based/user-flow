@@ -12,7 +12,7 @@ export const DEFAULT_PRESET: ArgvPreset = {
   verbose: false,
   // PERSIST COMMAND
   openReport: true,
-  format: []
+  format: ['html']
 };
 
 export const CI_PRESET: ArgvPreset = {
