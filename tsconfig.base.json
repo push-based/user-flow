@@ -15,14 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@push-based/user-flow": [
-        "packages/cli/src/index.ts"
-      ],
+      "@push-based/user-flow": ["packages/cli/src/index.ts"],
       "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
       "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
-      "user-flow-example": [
-        "packages/user-flow-example/src/index.ts"
-      ]
+      "user-flow-example": ["packages/user-flow-example/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

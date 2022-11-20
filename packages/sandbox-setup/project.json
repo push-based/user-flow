@@ -1,5 +1,6 @@
 {
-  "root": "packages/sandbox-setup",
+  "name": "sandbox-setup",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/sandbox-setup/src",
   "projectType": "library",
   "targets": {
