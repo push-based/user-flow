@@ -19,6 +19,7 @@ export function getCliProcess(options: Options, promptOptions?: {timeout: number
 }
 
 function handleCliModeEnvVars(cliMode: CLI_MODES): string {
+  let ciValue: string = '';
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
   } else if (cliMode === 'SANDBOX') {
@@ -29,6 +30,7 @@ function handleCliModeEnvVars(cliMode: CLI_MODES): string {
   else {
     ciValue = 'true';
   }
+  return ciValue;
 }
 
 /**
