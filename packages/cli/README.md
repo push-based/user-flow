@@ -23,8 +23,6 @@ speed up your performance test development and reduced the needed code and confi
 
 In addition, it is always up-to-date with the latest Chrome DevTools features.
 
- 
-
 **Benefits**
 
 - ⚙ Run it in your CI  
@@ -201,12 +199,6 @@ You can read more about tricks and DX the [general CIL features](https://github.
 
 ## Commands 
 
-> **💡 Pro Tip:**
-> CLI arguments that accept multiple values can be set by using the param multiple times in a row:
->
-> As an example we could apply two different formats as output for the `collect` command:
-> `npx user-flow collect --format=json --format=md`
-
 ### `*` command
 
 Run the default command over:  
@@ -222,6 +214,10 @@ Run command over:
 
 Description:  
 This command helps you to set up a `.user-flowrc.json` and asks for input over CLI prompts.
+
+<img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
+
+As a result we get a `.user-flowrc.json` and an example flow if answered with yes.
 
 > **🤓 DX Tip:** 
 > Set up user flows in a sub directory:  
@@ -247,25 +243,11 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`-b`**, **`--budget-path`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
 | **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                     |  
 
-## Report Formats and Viewer
-
-You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
-
-Use the `.user-flowrc.json` property `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
-
-You can also use the CLI option `--format` to choose a format.  
-
-- single format: `@push-based/user-flow collect --format html`  
-- multiple formats: `@push-based/user-flow collect --format html --format json`  
-
-> **🤓 DX Tip:**  
-> For a faster development process you can use the `--openReport` or `-e` option to automatically open the report in the browser.
-> The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
-> e.g. `@push-based/user-flow collect --openReport`   
-
-The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
-This format is very good for programmatic processing and foundation for most of the features of this lib. 
-![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/168185615-3ed66255-5287-4de3-a32a-cb9b053589de.PNG)
+> **💡 Pro Tip:**
+> CLI arguments that accept multiple values can be set by using the param multiple times in a row:
+>
+> As an example we could apply two different formats as output for the `collect` command:
+> `npx user-flow collect --format=json --format=md`
 
 ## Configuration
 
@@ -276,6 +258,8 @@ The CLI supports the official [user-flow/lighthouse configuration](https://githu
 You can think of user flows as front end e2e tests which measures performance related information during the test.
 
 ## [Basic user flows](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md)
+
+Write basic user flows leveraging all 3 measurement modes of lighthouse, execute, export and open the reports.
 
 **User flow measurement modes**
 
@@ -311,27 +295,6 @@ Implementing performance improvements without breaking something is hard.
 ![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164581870-3534f8b0-b7c1-4252-9f44-f07febaa7359.PNG)
 
 See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
-
-## Debugging
-
-`@push-based/user-flow` ships with small helpers for logging and debugging.
-
-### `logVerbose`
-
-A function that logs the passed string only if the CIL options `--verbose` or `-v`is true. 
-
-**Usage**
-
-_./order-coffee.uf.ts_
-```typescript
-import { logVerbose } from "@push-based/user-flow";
-// ...
-
-logVerbose('test'); 
-```
-
-`npx user-flow collect` logs nothing  
-`npx user-flow collect --verbose` logs "test"  
 
 ## Examples
 

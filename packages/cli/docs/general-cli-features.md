@@ -30,3 +30,51 @@ e.g. to select multiple formats for the collect output write:
 
 any boolean parameter of the CLI can be negated by adding `--no-` in front of the parameter name.
 A good example is the `dryRun` parameter. You can negate it as follow: `--no-dryRun`.
+
+## Report Formats and Viewer
+
+You can either export the report as `HTML` or `JSON` format. The html file can be opened in any browser.
+
+Use the `.user-flowrc.json` property `persist.format` and give an array as value. e.g. `['html']` or `['html', 'json']`.
+
+You can also use the CLI option `--format` to choose a format.  
+
+- single format: `@push-based/user-flow collect --format html`  
+- multiple formats: `@push-based/user-flow collect --format html --format json`  
+
+> **🤓 DX Tip:**  
+> For a faster development process you can use the `--openReport` or `-e` option to automatically open the report in the browser.
+> The CLI will serve either the HTML report or opens the lighthouse report viewer if only a JSON format is available and displays it there.
+> e.g. `@push-based/user-flow collect --openReport`   
+
+The json file can be drag & dropped into the [lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/). 
+This format is very good for programmatic processing and foundation for most of the features of this lib. 
+![Lighthouse Viewer - File drop area](https://user-images.githubusercontent.com/10064416/168185615-3ed66255-5287-4de3-a32a-cb9b053589de.PNG)
+
+## Debugging
+
+`@push-based/user-flow` ships with small helpers for logging and debugging.
+
+### `logVerbose`
+
+A function that logs the passed string only if the CIL options `--verbose` or `-v`is true. 
+
+**Usage**
+
+_./order-coffee.uf.ts_
+```typescript
+import { logVerbose } from "@push-based/user-flow";
+// ...
+
+logVerbose('test'); 
+```
+
+`npx user-flow collect` logs nothing  
+`npx user-flow collect --verbose` logs "test"  
+
+### `dryRun`
+
+For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
+This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation.
+
+It will produce a dummy report in all formats and spin up chromium as usual.  
