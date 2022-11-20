@@ -102,7 +102,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
     const { exitCode, stdout,  stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--format=md'],
+      [...collectCommandRemoteRc, '--no-dryRun', '--format=md'],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
