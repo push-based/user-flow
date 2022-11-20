@@ -5,12 +5,13 @@ import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
+import { resetSetupSandboxAndKillPorts } from '../fixtures/setup-sandbox';
 
 const initCommand = [CLI_PATH, 'init'];
 
-describe('the CLI should accept configurations coming from preset', () => {
-  beforeEach(async () => resetEmptySandbox());
-  afterEach(async () => resetEmptySandbox());
+describe('the CLI configuration', () => {
+  beforeEach(async () => await resetEmptySandbox());
+  afterEach(async () => await resetEmptySandbox());
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(

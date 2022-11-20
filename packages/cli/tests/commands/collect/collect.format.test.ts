@@ -24,8 +24,8 @@ const collectCommandStaticRc = [
 const uf1Name = 'Sandbox Setup UF1';
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(async () => resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await resetSetupSandboxAndKillPorts());
+  afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should load ufPath, execute the user-flow on a remote URL and log if no format is given', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(

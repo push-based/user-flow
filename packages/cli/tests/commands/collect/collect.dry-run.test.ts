@@ -17,8 +17,8 @@ const collectCommandStaticRc = [
 const ufStaticName = 'Sandbox Setup StaticDist';
 
 describe('dryRun and collect command in setup sandbox', () => {
-  beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(async () => resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await resetSetupSandboxAndKillPorts());
+  afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute throw if no user-flow is given', async () => {
     const existingEmptyFolder = './measures';
