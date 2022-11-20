@@ -59,13 +59,13 @@ describe('init command configuration in empty sandbox', () => {
   it('should take cli parameters', async () => {
     const collect = {
       url: 'http://www.xxx.xx',
-      ufPath: 'xxx',
-      serveCommand: 'xxx',
-      awaitServeStdout: 'xxx'
+      ufPath: 'xxxufPath',
+      serveCommand: 'xxxserveCommand',
+      awaitServeStdout: 'xxxawaitServeStdout'
     };
 
     const persist: any = {
-      outPath: 'xxx',
+      outPath: 'xxxoutPath',
       format: ['json', 'md']
     };
 
