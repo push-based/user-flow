@@ -11,16 +11,26 @@ import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
  */
 export function cliPromptTest(args, answers, options, cliMode?: CLI_MODES) {
   const _cliMode: CLI_MODES = cliMode || 'SANDBOX';
+  let ciValue: string = '';
+
   if(_cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
   }
   else if(_cliMode === 'SANDBOX') {
     // emulate sandbox env by setting CI to SANDBOX
-    process.env[CI_PROPERTY] = 'SANDBOX';
+    ciValue = 'SANDBOX';
   }
   // CI mode
   else {
-    process.env[CI_PROPERTY] = 'true';
+    ciValue = 'true';
   }
+
+  if(ciValue) {
+    options.extendEnv = {
+      ...options.extendEnv,
+      [CI_PROPERTY]: ciValue
+    }
+  }
+
   return _cliPromptTest(args, answers, options);
 }
