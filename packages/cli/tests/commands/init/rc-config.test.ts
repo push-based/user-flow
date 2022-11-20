@@ -24,13 +24,19 @@ import {
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
-import * as path from "path";
+import * as path from 'path';
 
 const initCommand = [CLI_PATH, 'init'];
 
 describe('.rc.json in empty sandbox', () => {
-  beforeEach(async () => await resetEmptySandbox());
-  afterEach(async () => await resetEmptySandbox());
+  beforeEach(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
+  });
+  afterEach(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
+  });
 
   it('should validate params from cli', async () => {
 
@@ -52,8 +58,14 @@ describe('.rc.json in empty sandbox', () => {
 
 });
 describe('.rc.json in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
+  });
+  afterEach(async () => {
+    await resetEmptySandbox();
+    await resetSetupSandboxAndKillPorts();
+  });
 
   it('should take default params from prompt', async () => {
 
