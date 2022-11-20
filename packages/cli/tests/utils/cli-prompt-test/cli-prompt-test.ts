@@ -10,7 +10,7 @@ export type CliProcess = {
  *
  * @param options: passed directly to execa as options
  */
-export function getCliProcess(options: Options, promptOptions: {timeout: number}): CliProcess {
+export function getCliProcess(options: Options, promptOptions?: {timeout: number}): CliProcess {
   return {
     exec: (processParams: string[], userInput: string[]): Promise<ExecaChildProcess>  => {
       return _cliPromptTest(processParams, userInput, options, promptOptions);
@@ -18,17 +18,7 @@ export function getCliProcess(options: Options, promptOptions: {timeout: number}
   };
 }
 
-/**
- * @param {string[]} processParams CLI args to pass in
- * @param {string[]} userInput answers to be passed to stdout
- * @param {Object} [options] specify the testPath and timeout
- *
- * returns {Promise<Object>}
- */
-export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<ExecaChildProcess<string>> {
-  let ciValue: string = '';
-  const promptOptions = undefined;
-
+function handleCliModeEnvVars(cliMode: CLI_MODES): string {
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
   } else if (cliMode === 'SANDBOX') {
@@ -39,13 +29,24 @@ export function cliPromptTest(processParams: string[], userInput: string[], opti
   else {
     ciValue = 'true';
   }
+}
 
+/**
+ * @param {string[]} processParams CLI args to pass in
+ * @param {string[]} userInput answers to be passed to stdout
+ * @param {Object} [options] specify the testPath and timeout
+ *
+ * returns {Promise<Object>}
+ */
+export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<ExecaChildProcess<string>> {
   let opt = {...options};
+
+  let ciValue: string = handleCliModeEnvVars(cliMode);
   if (ciValue) {
-    (opt)['env'] = {
+    opt['env'] = {
       [CI_PROPERTY]: ciValue
     };
   }
-  const cli = getCliProcess(opt, promptOptions);
+  const cli = getCliProcess(opt);
   return cli.exec(processParams, userInput);
 }
