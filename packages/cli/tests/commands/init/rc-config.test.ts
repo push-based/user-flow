@@ -53,7 +53,7 @@ describe('.rc.json in empty sandbox', () => {
 });
 describe('.rc.json in setup sandbox', () => {
   beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(() => await resetSetupSandboxAndKillPorts());
+  afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should take default params from prompt', async () => {
 
