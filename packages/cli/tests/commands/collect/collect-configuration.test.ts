@@ -49,6 +49,7 @@ describe('collect command configuration in setup sandbox', () => {
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;
+    delete (cfg as any).format;
     expectCollectCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -94,6 +95,8 @@ describe('collect command configuration in setup sandbox', () => {
       ['n'],
       SETUP_SANDBOX_CLI_TEST_CFG
     );
+    // @TODO format handling
+    delete persist.format;
 
     const cfg = {
       ...collect,
