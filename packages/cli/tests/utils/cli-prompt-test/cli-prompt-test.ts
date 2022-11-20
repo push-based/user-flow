@@ -27,6 +27,7 @@ export function getCliProcess(options: Options, promptOptions: {timeout: number}
  */
 export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<ExecaChildProcess<string>> {
   let ciValue: string = '';
+  const promptOptions = undefined;
 
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
@@ -39,11 +40,12 @@ export function cliPromptTest(processParams: string[], userInput: string[], opti
     ciValue = 'true';
   }
 
+  let opt = {...options};
   if (ciValue) {
-    options['env'] = {
+    (opt)['env'] = {
       [CI_PROPERTY]: ciValue
     };
   }
-  const cli = getCliProcess(options);
+  const cli = getCliProcess(opt, promptOptions);
   return cli.exec(processParams, userInput);
 }

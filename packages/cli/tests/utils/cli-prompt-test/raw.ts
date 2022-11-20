@@ -2,6 +2,10 @@ import * as concat from "concat-stream";
 import * as execa from "execa";
 import {ExecaChildProcess, Options} from "execa";
 
+
+export type PromptTestOptions = {
+  timeout: number
+}
 /**
  * @param {string[]} args CLI args to pass in
  * @param {string[]} answers answers to be passed to stdout
@@ -9,7 +13,7 @@ import {ExecaChildProcess, Options} from "execa";
  *
  * returns {Promise<Object>}
  */
-export function cliPromptTest(args: string[], answers: string[], options: Options, promptOptions: {timeout: number}): Promise<ExecaChildProcess> {
+export function cliPromptTest(args: string[], answers: string[], options: Options, promptOptions: PromptTestOptions): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
 
   // Timeout between each keystroke simulation
