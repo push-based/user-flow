@@ -55,13 +55,13 @@ You can also use `npx` to run it in e.g. the CI setup:
  
 # Quick Start
 
-In this quick start we can read about 2 common things, using the package in an existing project and using it in a fresh project.
+As the CLI needs a npm project to run in we explain 2 common things, using the package in an existing project and using it in a fresh project.
 Both ways require a node and npm project setup to install user-flow and folders to store the reports and test files.
 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-## Set up and run user flows in an existing project
+## Set up and run user flows in an existing npm project
 
 In this chapter we will learn how to install and configure user flows, as well as create a first example test and see the resulting performance report.  
 
@@ -187,37 +187,7 @@ npx user-flow --version
 ```
 
 # CLI
-
-## Prompts and interaction
-
-We provide general interaction through the keyboard or `stdin` directly for testing and other crazy hacks.
-
-### Multiselect choices
-
- These key combinations can be used on _multiple_ choice prompts.For more details see [enquirer - multiselect](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md)
-
- | **command**       | **description**                                                                                                      |
- | ----------------- | -------------------------------------------------------------------------------------------------------------------- |
- | <kbd>space</kbd>  | Toggle the currently selected choice when `options.multiple` is true.                                                |
- | <kbd>number</kbd> | Move the pointer to the choice at the given index. Also toggles the selected choice when `options.multiple` is true. |
- | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |
- | <kbd>i</kbd>      | Invert the current selection of choices.                                                                             |
- | <kbd>g</kbd>      | Toggle the current choice group.                                                                                     |
-
-### Multiple choices in the CLI  
-
-To assign multiple choices to a multiselect CLI param you have to use the param multiple times.
-
-e.g. to select multiple formats for the collect output write:  
-
-```text
-@npx @push-based/user-flow collect -f=md -f=json
-```
-
-### Negation
-
-any boolean parameter of the CLI can be negated by adding `--no-` in front of the parameter name.
-A good example is the `dryRun` parameter. You can negate it as follow: `--no-dryRun`.
+You can read more about tricks and DX the [general CIL features](https://github.com/GoogleChrome/lighthouse/blob/master/docs/general-cli-features.md) in our docs. 
 
 ## Global Options
 
