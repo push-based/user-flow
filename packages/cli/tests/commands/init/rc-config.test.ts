@@ -29,8 +29,8 @@ import * as path from "path";
 const initCommand = [CLI_PATH, 'init'];
 
 describe('.rc.json in empty sandbox', () => {
-  beforeEach(async () => resetEmptySandbox());
-  afterEach(async () => resetEmptySandbox());
+  beforeEach(async () => await resetEmptySandbox());
+  afterEach(async () => await resetEmptySandbox());
 
   it('should validate params from cli', async () => {
 
@@ -52,8 +52,8 @@ describe('.rc.json in empty sandbox', () => {
 
 });
 describe('.rc.json in setup sandbox', () => {
-  beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(() => resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await resetSetupSandboxAndKillPorts());
+  afterEach(() => await resetSetupSandboxAndKillPorts());
 
   it('should take default params from prompt', async () => {
 

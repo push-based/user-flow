@@ -28,8 +28,8 @@ const ufStaticName = 'Sandbox Setup StaticDist';
 const ufStaticResultPath = path.join(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, 'sandbox-setup-static-dist.uf.json');
 
 describe('budgets and collect command in setup sandbox', () => {
-  beforeEach(async () => resetSetupSandboxAndKillPorts());
-  afterEach(async () => resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await resetSetupSandboxAndKillPorts());
+  afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await cliPromptTest(
