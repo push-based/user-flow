@@ -1,6 +1,6 @@
 import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
 import { formatCode } from '../../../core/prettier';
-import { createReducedReport, enrichReducedReport } from '../../collect/processes/generate-reports';
+import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
@@ -21,7 +21,7 @@ export function userFlowReportToMdTable(flowResult: FlowResult, baselineResults?
 
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: FlowResult): string[][] {
   if (baselineResults) {
-    const enrichedReducedReport = enrichReducedReport(reducedReport, baselineResults);
+    const enrichedReducedReport = enrichReducedReportWithBaseline(reducedReport, baselineResults);
     return enrichedReducedReport.steps.map((step) => {
       const results = reportCategories.map(category => extractEnrichedResults(step, category));
       return [step.name, step.gatherMode].concat(results);
