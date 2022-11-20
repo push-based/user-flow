@@ -2,7 +2,7 @@ import { YargsCommandObject } from '../../core/yargs/types';
 import { logVerbose } from '../../core/loggin/index';
 import { COLLECT_OPTIONS } from './options';
 import { startServerIfNeededAndExecute } from './utils/serve-command';
-import { setupOrUpdateRcJson } from '../init/processes/setup-or-update-rc-json';
+import { collectRcJson } from '../init/processes/collect-rc-json';
 import { run } from '../../core/processing/behaviors';
 import { collectReports } from './processes/collect-reports';
 import { RcJson } from '../../types';
@@ -18,7 +18,7 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       const cfg = getCollectCommandOptionsFromArgv(argv);
       logVerbose('Collect options: ', cfg, argv);
       await run([
-        setupOrUpdateRcJson,
+        collectRcJson,
         (cfg: RcJson) =>
           startServerIfNeededAndExecute(() => collectReports(cfg), cfg.collect)
       ])(cfg);
