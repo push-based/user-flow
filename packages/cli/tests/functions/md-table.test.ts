@@ -7,7 +7,7 @@ import * as LHR9REDUCEDCOMPARE from '../data/lhr-9_reduced-baseline.json';
 import * as LHR8 from '../data/lhr-8.json';
 import {
   createReducedReport,
-  createReducedReportWithBaseline
+  enrichReducedReport
 } from '../../src/lib/commands/collect/processes/generate-reports';
 import { userFlowReportToMdTable } from '../../src/lib/commands/assert/processes/md-table';
 import FlowResult from "lighthouse/types/lhr/flow";
@@ -42,9 +42,10 @@ describe('md-table', () => {
     expect(reducedLhr9).toEqual(lhr9reduced);
   });
 
-  it('should generate reduced JSON with baseline results if createReducedReportWithBaseline is called', () => {
-    const reducedLhr9 = createReducedReportWithBaseline(lhr9, lhr9Ex2);
-    expect(reducedLhr9).toEqual(lhr9ReducedBaseline);
+  it('should generate reduced JSON with baseline results if enrichReducedReport is called', () => {
+    const reducedLhr9 = createReducedReport(lhr9);
+    const enrichedReducedLhr9 = enrichReducedReport(reducedLhr9, lhr9Ex2)
+    expect(enrichedReducedLhr9).toEqual(lhr9ReducedBaseline);
   });
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {

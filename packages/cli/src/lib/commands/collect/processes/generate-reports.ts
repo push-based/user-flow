@@ -20,12 +20,11 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
   return {name: flowResult.name, steps};
 }
 
-export function createReducedReportWithBaseline(newReport: FlowResult, baselineReport: FlowResult): ReducedReport {
-  const newReducedReport = createReducedReport(newReport);
+export function enrichReducedReport(reducedReport: ReducedReport, baselineReport: FlowResult): ReducedReport {
   const baselineReducedReport = createReducedReport(baselineReport);
   const baselineResults = Object.fromEntries(baselineReducedReport.steps.map((step) => [step.name, step.results]));
-  const steps = newReducedReport.steps.map((step) => ({...step, 'baseline': baselineResults[step.name]}));
-  return {name: newReducedReport.name, steps};
+  const steps = reducedReport.steps.map((step) => ({...step, 'baseline': baselineResults[step.name]}));
+  return {name: reducedReport.name, steps};
 }
 
 export function generateMdReport(flowResult: FlowResult): string {

@@ -1,10 +1,6 @@
-import {
-  FractionResults,
-  ReducedFlowStep,
-  ReducedReport
-} from '../../collect/utils/user-flow/types';
+import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
 import { formatCode } from '../../../core/prettier';
-import {createReducedReport, createReducedReportWithBaseline} from '../../collect/processes/generate-reports';
+import { createReducedReport, enrichReducedReport } from '../../collect/processes/generate-reports';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
@@ -15,12 +11,26 @@ import FlowResult from 'lighthouse/types/lhr/flow';
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
 export function userFlowReportToMdTable(flowResult: FlowResult, baselineResults?: FlowResult): string {
-  const reducedResult = baselineResults ? createReducedReportWithBaseline(flowResult, baselineResults)
-    : createReducedReport(flowResult);
-  const reportCategories = Object.keys(reducedResult.steps[0].results);
+  const reducedReport = createReducedReport(flowResult);
+  const reportCategories = Object.keys(reducedReport.steps[0].results);
+  const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = generateTableAlignOptions(reportCategories);
-  const tableArr = extractTableArr(reportCategories, reducedResult);
+  const tableArr = extractTableArr(reportCategories, tableStepsArr);
   return markdownTable(tableArr, alignOptions);
+}
+
+function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: FlowResult): string[][] {
+  if (baselineResults) {
+    const enrichedReducedReport = enrichReducedReport(reducedReport, baselineResults);
+    return enrichedReducedReport.steps.map((step) => {
+      const results = reportCategories.map(category => extractEnrichedResults(step, category));
+      return [step.name, step.gatherMode].concat(results);
+    });
+  }
+  return reducedReport.steps.map((step) => {
+    const results = reportCategories.map(category => extractResultsValue(step.results[category]));
+    return [step.name, step.gatherMode].concat(results);
+  });
 }
 
 type Alignment = 'l' | 'c' | 'r';
@@ -33,9 +43,10 @@ function markdownTable(data: string[][], align: Alignment[]): string {
   return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
 }
 
-function extractTableArr(reportCategories: string[], reducedResult: ReducedReport): string[][] {
+function extractTableArr(reportCategories: string[],  steps: any[]): string[][] {
   const tableHead = extractTableHead(reportCategories);
-  return [tableHead].concat(reducedResult.steps.map((step) => (extractTableRow(step, reportCategories))));
+
+  return [tableHead].concat(steps);
 }
 
 function extractTableHead(reportCategories: string[]): string[] {
@@ -56,25 +67,20 @@ function extractResultsValue(stepResult?: number | FractionResults): string {
   return stepResult ? extractFractionalResultValue(stepResult) : '-';
 }
 
-function extractCellValue(step: ReducedFlowStep, category: string): string {
+function extractEnrichedResults(step: ReducedFlowStep, category: string): string {
   const result = extractResultsValue(step.results[category]);
-  if (!step.baseline) {
-    return result;
-  }
-  const baseline = extractResultsValue(step.baseline[category]);
-  return result !== baseline ? resultWithBaselineComparison(result, baseline) : result;
+  const baseline = extractResultsValue(step.baseline![category]);
+  return resultWithBaselineComparison(result, baseline)
 }
 
 function resultWithBaselineComparison(result: string, baseline: string): string {
+  if (result ===  baseline) {
+    return result;
+  }
   const resultNum = Number(result.replace('Ø ', '').split('/')[0]);
   const baselineNum = Number(baseline.replace('Ø ', '').split('/')[0]);
   const difference = baselineNum - resultNum;
   return `${result} (${difference > 0 ? '+' : ''}${difference})`;
-}
-
-function extractTableRow(step: ReducedFlowStep, reportCategories: string[]): string[] {
-  const results = reportCategories.map(category => extractCellValue(step, category));
-  return [step.name, step.gatherMode].concat(results);
 }
 
 function generateTableAlignOptions(reportCategories: string[]):  Alignment[] {
