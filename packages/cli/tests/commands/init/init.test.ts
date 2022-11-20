@@ -2,19 +2,13 @@ import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
-import {
-  EMPTY_SANDBOX_CLI_TEST_CFG,
-  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS,
-  EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
-  resetEmptySandbox
-} from '../../fixtures/empty-sandbox';
+import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_PATH,
-  SETUP_SANDBOX_STATIC_RC_JSON
+  SETUP_SANDBOX_DEFAULT_RC_PATH
 } from '../../fixtures/setup-sandbox';
 
 import {
@@ -23,8 +17,6 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
-
-import * as path from 'path';
 
 const initCommand = [CLI_PATH, 'init'];
 

@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as fs from "fs";
+import * as fs from 'fs';
 import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
 import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
