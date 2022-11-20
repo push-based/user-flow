@@ -2,6 +2,31 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.31](https://github.com/push-based/user-flow/compare/cli-0.10.30...cli-0.10.31) (2022-11-20)
+
+
+### Bug Fixes
+
+* add config object to logVerbose in updateRcConfig ([9ac9409](https://github.com/push-based/user-flow/commit/9ac940916f2ab8f57b79740383bb4ceff94b16f0))
+* add data to test report comparison ([0b4e3c4](https://github.com/push-based/user-flow/commit/0b4e3c4850ac5f1365c825815bec0c8d7c4d6234))
+* add method to add a baseline to the reduced report ([fd4eb61](https://github.com/push-based/user-flow/commit/fd4eb612332b0e05bc2fed166395d0c44f27bc34))
+* add optional param for report comparison ([6f3e9ad](https://github.com/push-based/user-flow/commit/6f3e9adc2619a9c9a3c7640f20035d2002a5d1e2))
+* add report comparison table test ([508e3b4](https://github.com/push-based/user-flow/commit/508e3b41484f00018e123876f34afc84f75235bc))
+* add test for generate report with baseline ([5d2d3a0](https://github.com/push-based/user-flow/commit/5d2d3a039b7581ec93a328db95167667a300f3f6))
+* adopt new typing ([9aa89de](https://github.com/push-based/user-flow/commit/9aa89de9d86f0361682c1f1aecccb529fc9bc1ad))
+* adopt tests ([066c81b](https://github.com/push-based/user-flow/commit/066c81b16e2ff727f336a4b00c30d8b96cfb9d3d))
+* compare reports and visualize difference ([f482d45](https://github.com/push-based/user-flow/commit/f482d455ce452a459e6df358d9ccd4cb1171d67c))
+* don't update rc in collect command ([073ff81](https://github.com/push-based/user-flow/commit/073ff81b109208c39feec26c6d31c05bfc433ca2))
+* don't update rc in collect command ([f0597b5](https://github.com/push-based/user-flow/commit/f0597b53ab61c20686f75add4544971d5e2c82ae))
+* extend reduced report type to optionally include a baseline ([07af160](https://github.com/push-based/user-flow/commit/07af1604eb87abf0602f4a43d64f2c5c93ea0e79))
+* fix typo in comment ([0065a5e](https://github.com/push-based/user-flow/commit/0065a5e20bd0929ff3bb9f044fdbec6de53abb58))
+* remove log verbose file content ([3f7b997](https://github.com/push-based/user-flow/commit/3f7b997c24f213ab62fce2534f9b80829943c80e))
+* remove no serve command verbose log ([7004673](https://github.com/push-based/user-flow/commit/7004673bd072a277e97e7e3c682c35d71b93e601))
+* remove redundant args verbose log ([96875ca](https://github.com/push-based/user-flow/commit/96875caa2fa78a482768c948d35f0705ac038564))
+* remove redundant updateRcConfig verbose logs ([430202c](https://github.com/push-based/user-flow/commit/430202c32d3c4d6c18f6dce60de14e05ad787ef1))
+
+
+
 ## [0.10.30](https://github.com/push-based/user-flow/compare/cli-0.10.29...cli-0.10.30) (2022-11-18)
 
 
