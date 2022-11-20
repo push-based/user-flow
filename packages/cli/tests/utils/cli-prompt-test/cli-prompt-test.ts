@@ -1,5 +1,5 @@
 import { cliPromptTest as _cliPromptTest } from './raw';
-import { Options } from 'execa';
+import { Options, ExecaChildProcess } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
 
@@ -10,7 +10,7 @@ import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
  */
 export function getCliProcess(options: Options) {
   return {
-    exec: (processParams: string[], userInput: string[]) => {
+    exec: (processParams: string[], userInput: string[]): ExecaChildProcess<string>  => {
       return _cliPromptTest(processParams, userInput, options);
     }
   };
