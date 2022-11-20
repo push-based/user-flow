@@ -1,11 +1,12 @@
-import * as concat from "concat-stream";
-import * as execa from "execa";
-import {ExecaChildProcess, Options} from "execa";
+import * as concat from 'concat-stream';
+import * as execa from 'execa';
+import { ExecaChildProcess, Options } from 'execa';
 
 
 export type PromptTestOptions = {
   timeout?: number
 }
+
 /**
  * @param {string[]} args CLI args to pass in
  * @param {string[]} answers answers to be passed to stdout
@@ -19,8 +20,8 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   // Timeout between each keystroke simulation
   const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
 
-  const runner: ExecaChildProcess = execa("node", args, options);
-  runner.stdin.setDefaultEncoding("utf-8");
+  const runner: ExecaChildProcess = execa('node', args, options);
+  runner.stdin.setDefaultEncoding('utf-8');
 
   const writeToStdin = (answers) => {
     if (answers.length > 0) {
@@ -37,7 +38,7 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
   writeToStdin(answers);
 
   return new Promise((resolve) => {
-    const obj: ExecaChildProcess<string> = {} as unknown as ExecaChildProcess<string>;
+    let obj: ExecaChildProcess = {} as unknown as ExecaChildProcess;
 
     runner.stdout.pipe(
       concat((result) => {
@@ -51,14 +52,14 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
       })
     );
 
-    runner.on("exit", (exitCode) => {
-      obj.exitCode = exitCode;
+    runner.on('exit', (exitCode) => {
+      (obj as unknown as any).exitCode = exitCode;
       resolve(obj);
     });
   });
 };
 
-export const DOWN = "\x1B\x5B\x42";
-export const UP = "\x1B\x5B\x41";
-export const ENTER = "\x0D";
-export const SPACE = "\x20";
+export const DOWN = '\x1B\x5B\x42';
+export const UP = '\x1B\x5B\x41';
+export const ENTER = '\x0D';
+export const SPACE = '\x20';
