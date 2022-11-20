@@ -9,36 +9,6 @@ import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 
-export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
-  expect(stdout).toContain(`Collect options:`);
-  Object.entries(cliParams).forEach(([k, v]) => {
-    switch (k) {
-      // collect
-      case 'url':
-      case 'ufPath':
-      case 'outPath':
-      case 'serveCommand':
-      case 'awaitServeStdout':
-      case 'budgetPath':
-        expect(stdout).toContain(`${k}: '${v}'`);
-        break;
-      case 'format':
-        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
-        values = values !== '' ? ' ' + values + ' ' : values;
-        expect(stdout).toContain(`${k}: [${values}]`);
-        break;
-      case 'openReport':
-      case 'dryRun':
-        expect(stdout).toContain(`${k}: ${v}`);
-        break;
-      default:
-        throw new Error(`${k} handling not implemented for collect configuration check`);
-        break;
-    }
-  });
-}
-
-
 function unquoted(k: string, v: string): string {
   return `${k}: ${v}`;
 }
@@ -94,7 +64,6 @@ export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
       case 'serveCommand':
       case 'awaitServeStdout':
       case 'budgetPath':
-      case 'budget':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
