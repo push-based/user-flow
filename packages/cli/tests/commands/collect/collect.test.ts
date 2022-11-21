@@ -16,6 +16,8 @@ import {
   expectCollectNoLogsFromMockInStdout,
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
 const defaultCommand = [CLI_PATH];
 const collectCommand = [...defaultCommand, 'collect'];
@@ -27,6 +29,15 @@ const collectCommandStaticRc = [
   ...collectCommand,
   `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`,
 ];
+const emptyPrj = setupUserFlowProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+
 
 const uf1Name = 'Sandbox Setup UF1';
 const uf1OutPathJson = path.join(
@@ -49,15 +60,11 @@ describe('collect command in setup sandbox', () => {
   afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...collectCommandStaticRc,
-        `--ufPath=${SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath}`,
-        '-v=false',
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+        rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+        ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath,
+        verbose:false
+      });
 
     expect(stderr).toBe('');
     expectCollectNoLogsFromMockInStdout(
@@ -71,11 +78,11 @@ describe('collect command in setup sandbox', () => {
   }, 120_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a HTML file', async () => {
-    const { exitCode, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--no-dryRun', '--format=html'],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
+      dryRun: false,
+      format: ['html']
+    });
 
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -85,11 +92,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME });
 
     expect(stderr).toBe('');
     // expect(stdout).toBe('');
@@ -101,11 +104,11 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
-    const { exitCode, stdout,  stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc, '--no-dryRun', '--format=md'],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout,  stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      dryRun: false,
+      format: ['md']
+    });
 
     //expect(stdout).toBe('')
     expect(stderr).toBe('');
