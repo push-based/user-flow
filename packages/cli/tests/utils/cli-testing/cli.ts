@@ -33,8 +33,8 @@ export function getCliProcess(options: Options, bin: string): CliProcess {
   };
 }
 
-export function handleCliModeEnvVars(cliMode: CLI_MODES): string {
-  let ciValue: string = '';
+export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string | undefined> {
+  let ciValue: string | undefined = undefined;
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
   } else if (cliMode === 'SANDBOX') {
@@ -45,7 +45,7 @@ export function handleCliModeEnvVars(cliMode: CLI_MODES): string {
   else {
     ciValue = 'true';
   }
-  return ciValue;
+  return { [CI_PROPERTY]: ciValue };
 }
 
 export function setupProject({ root, env, bin }: ProjectConfig): Project {

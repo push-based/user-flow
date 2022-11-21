@@ -1,26 +1,27 @@
-import { cliPromptTest } from '../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../fixtures/empty-sandbox';
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
-import { resetSetupSandboxAndKillPorts } from '../fixtures/setup-sandbox';
+import { handleCliModeEnvVars, setupProject } from '../utils/cli-testing/cli';
 
-const initCommand = [CLI_PATH, 'init'];
+const emptyPrjSandbox = setupProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+const emptyPrjDefault = setupProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH,
+  env: handleCliModeEnvVars('DEFAULT') as Record<string, string>
+});
 
 describe('the CLI configuration', () => {
   beforeEach(async () => await resetEmptySandbox());
   afterEach(async () => await resetEmptySandbox());
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-      ],
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await emptyPrjSandbox.exec({ _: 'init' });
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
 
@@ -31,12 +32,8 @@ describe('the CLI configuration', () => {
   });
 
   it('should have verbose false as default in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG,
-      'DEFAULT'
-    );
+
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.exec({ _: 'init' });
     // verbose => no log as it is false by default
     expect(stdout).not.toContain('CLI Mode:  DEFAULT');
     expect(stderr).toBe('');
@@ -44,16 +41,7 @@ describe('the CLI configuration', () => {
   });
 
   it('should have default preset in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        //              overwrite verbose to get logs
-        ...initCommand, '-v'
-      ],
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG,
-      'DEFAULT'
-    );
-
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.exec({ _: 'init', verbose: true });
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
