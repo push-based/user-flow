@@ -1,8 +1,11 @@
 import { ExecaChildProcess } from 'execa';
 
 export type PromptTestOptions = {
-  bin: string,
   timeout?: number
+}
+
+export type ProcessTestOptions = {
+  bin: string
 }
 
 

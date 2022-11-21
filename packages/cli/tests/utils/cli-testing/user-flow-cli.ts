@@ -30,7 +30,7 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
   const process = getCliProcess({
     cwd: root,
     env
-  }, bin);
+  }, { bin });
 
   return {
     ...setupProject(cfg),

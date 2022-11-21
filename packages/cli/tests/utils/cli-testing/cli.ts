@@ -1,4 +1,4 @@
-import { CliProcess, ProcessParams, Project, ProjectConfig, PromptTestOptions } from './types';
+import { CliProcess, ProcessParams, ProcessTestOptions, Project, ProjectConfig, PromptTestOptions } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
@@ -27,10 +27,10 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
  *
  * @param processOptions: passed directly to execa as options
  */
-export function getCliProcess(processOptions: Options, promptTestOptions?: PromptTestOptions = {}): CliProcess {
+export function getCliProcess(processOptions: Options, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
   return {
     exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<ExecaChildProcess> => {
-      return testProcessE2e([bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
+      return testProcessE2e([promptTestOptions.bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
     }
   };
 }
