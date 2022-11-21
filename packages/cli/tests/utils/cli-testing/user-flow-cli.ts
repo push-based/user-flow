@@ -1,4 +1,4 @@
-import { ProcessParams, Project, ProjectConfig, UserFlowProject } from './types';
+import { ExecFn, ProcessParams, Project, ProjectConfig, UserFlowProject } from './types';
 import { ExecaChildProcess } from 'execa';
 import { getCliProcess, setupProject } from './cli';
 import { InitArgvOptions } from '../../../src/lib/commands/init/options/types';
@@ -8,6 +8,10 @@ import * as path from 'path';
 import { getFolderContent } from './utils';
 
 
+export type UserFlowProject = Project & {
+  $init: ExecFn<any>,
+  readRcJson: (name: string) => string
+}
 
 export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
   cfg.delete = (cfg?.delete || []);
@@ -18,7 +22,7 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
   // .rc.json
   (rcPath && cfg.delete.push(rcPath));
   // all files of user flow related folders
-  cfg.delete = cfg.delete.concat(getFolderContent([ufPath+'', outPath+'']
+  cfg.delete = cfg.delete.concat(getFolderContent([ufPath + '', outPath + '']
     .filter(v => !!v).map((d) => path.join(root, d))));
 
   const process = getCliProcess({

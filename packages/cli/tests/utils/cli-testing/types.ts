@@ -10,7 +10,7 @@ export type ProcessParams = {
   _: string
 } & Record<string, boolean | number | string | string[]>
 
-export type ExecFn = (processParams: ProcessParams, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
+export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
 export type CliProcess = {
   exec: ExecFn
 }
@@ -24,12 +24,8 @@ export type Project = {
   exec: ExecFn,
 } &
   {
-    [value in keyof CliCommand]: (processParams: any, userInput?: string[]) => Promise<ExecaChildProcess>
+    [value in keyof CliCommand]: ExecFn<any>
   }
-
-export type UserFlowProject = Project & {
-  readRcJson: (name: string) => string
-}
 
 export type ProjectConfig = {
   root: string,

@@ -34,7 +34,7 @@ describe('the CLI configuration', () => {
   });
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrjSandbox.exec({ _: 'init' });
+    const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init();
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
 
@@ -46,7 +46,7 @@ describe('the CLI configuration', () => {
 
   it('should have verbose false as default in a fresh environment', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrjDefault.exec({ _: 'init' });
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init();
     // verbose => no log as it is false by default
     expect(stdout).not.toContain('CLI Mode:  DEFAULT');
     expect(stderr).toBe('');
@@ -54,7 +54,7 @@ describe('the CLI configuration', () => {
   });
 
   it('should have default preset in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrjDefault.exec({ _: 'init', verbose: true });
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ verbose: true });
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
