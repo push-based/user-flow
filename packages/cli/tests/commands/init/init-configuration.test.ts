@@ -59,7 +59,7 @@ describe('init command configuration in empty sandbox', () => {
 
   }, 90_000);
 
-  it('should take cli parameters ans save it to json file', async () => {
+  it('should take cli parameters and save it to json file', async () => {
     const collect = {
       url: 'http://www.xxx.xx',
       ufPath: 'xxxufPath'

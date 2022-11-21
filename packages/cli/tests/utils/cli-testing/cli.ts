@@ -7,18 +7,18 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 export function processParamsToParamsArray(params: ProcessParams): string[] {
-  return Object.entries(params).map(([key, value]) => {
+  return Object.entries(params).flatMap(([key, value]) => {
     if (key === '_') {
       return value.toString();
     } else if (Array.isArray(value)) {
       return value.map(v => `--${key}=${v.toString()}`);
     } else {
       if (typeof value === 'string') {
-        return `--${key}=${value + ''}`;
+        return [`--${key}=${value + ''}`];
       } else if (typeof value === 'boolean') {
-        return `--${value ? '' : 'no-'}${key}`;
+        return [`--${value ? '' : 'no-'}${key}`];
       }
-      return `--${key}=${value + ''}`;
+      return [`--${key}=${value + ''}`];
     }
   }) as string[];
 }
