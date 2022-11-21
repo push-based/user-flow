@@ -95,7 +95,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, budgetPath);
-    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG.testPath, budgetPath));
+    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', budgetPath));
     expect(exitCode).toBe(0);
 
   });

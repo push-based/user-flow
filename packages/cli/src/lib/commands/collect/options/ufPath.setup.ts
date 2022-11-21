@@ -1,8 +1,7 @@
 import { get as interactive } from '../../../global/options/interactive';
 import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { PROMPT_COLLECT_UF_PATH, DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED } from './ufPath.constant';
-import { mkdirSync, readdirSync } from 'fs';
+import { DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED, PROMPT_COLLECT_UF_PATH } from './ufPath.constant';
 import { RcJson } from '../../../types';
 
 export async function setupUfPath(
@@ -25,7 +24,7 @@ export async function setupUfPath(
   if (hasError(errors)) {
     throw new Error(ERROR_COLLECT_UF_PATH_REQUIRED);
   }
-  
+
 
   return {
     ...config,

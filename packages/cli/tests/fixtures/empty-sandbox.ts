@@ -5,6 +5,7 @@ import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
+import { Options } from 'execa';
 
 /**
  * This file maintains the static data used in tests as well as htlpers to reset the status of a sandbox to it's initial state.
@@ -30,9 +31,8 @@ export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_CUSTOM_VALUES = {
 
 export const EMPTY_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', 'sandbox-empty');
 
-export const EMPTY_SANDBOX_CLI_TEST_CFG = {
-  testPath: EMPTY_SANDBOX_PATH,
-  [CI_PROPERTY]: 'SANDBOX'
+export const EMPTY_SANDBOX_CLI_TEST_CFG: Options = {
+  cwd: EMPTY_SANDBOX_PATH
 };
 
 export async function resetEmptySandbox(): Promise<void> {

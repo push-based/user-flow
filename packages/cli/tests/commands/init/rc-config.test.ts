@@ -97,7 +97,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
 
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd+'', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should take custom params from prompt', async () => {
@@ -124,7 +124,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd+'', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
       collect: {
         url,
         ufPath
