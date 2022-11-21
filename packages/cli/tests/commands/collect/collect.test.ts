@@ -87,14 +87,14 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
-    // const { exitCode, stdout, stderr } = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_REMOTE_RC_JSON });
+    const r = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_REMOTE_RC_NAME });
     const { exitCode, stdout, stderr } = await cliPromptTest(
-        [...collectCommandRemoteRc],
-          [],
-          SETUP_SANDBOX_CLI_TEST_CFG
-      );
-    // expect(stderr).toBe('');
-    expect(stdout).toBe('');
+      [...collectCommandRemoteRc],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
+    expect(stderr).toBe('');
+    // expect(stdout).toBe('');
     // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
@@ -103,9 +103,9 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
-    const { exitCode, stdout,  stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
       rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
-      dryRun: false, format:'md'
+      dryRun: false, format: ['md']
     });
 
     //expect(stdout).toBe('')
