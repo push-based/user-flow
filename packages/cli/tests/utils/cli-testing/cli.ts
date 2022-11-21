@@ -1,9 +1,8 @@
-import { processE2eTest, PromptTestOptions } from './test-process-e2e';
-import { CliProcess, ProcessParams, Project, ProjectConfig } from './types';
+import { CliProcess, ProcessParams, Project, ProjectConfig, PromptTestOptions } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-import * as path from 'path';
+import { testProcessE2e } from './test-process-e2e';
 
 export function processParamsToParamsArray(params: ProcessParams): string[] {
   return Object.entries(params).map(([key, value]) => {
@@ -29,7 +28,7 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
 export function getCliProcess(options: Options, bin: string): CliProcess {
   return {
     exec: (processParams: ProcessParams, userInput?: string[], promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> => {
-      return processE2eTest([bin, ...processParamsToParamsArray(processParams)], userInput, options, promptOptions);
+      return testProcessE2e([bin, ...processParamsToParamsArray(processParams)], userInput, options, promptOptions);
     }
   };
 }
@@ -60,7 +59,7 @@ export function setupProject({ root, env, bin }: ProjectConfig): Project {
     exec: (processParams: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> => {
       return process.exec(processParams, userInput);
     },
-    readFile: (): string =>  {
+    readFile: (): string => {
       throw new Error('readFile is not implemented');
     }
   };
