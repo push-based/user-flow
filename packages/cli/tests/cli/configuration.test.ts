@@ -5,7 +5,6 @@ import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
-import { resetSetupSandboxAndKillPorts } from '../fixtures/setup-sandbox';
 
 const initCommand = [CLI_PATH, 'init'];
 

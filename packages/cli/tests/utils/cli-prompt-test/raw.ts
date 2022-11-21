@@ -15,7 +15,7 @@ export type PromptTestOptions = {
  *
  * returns {Promise<Object>}
  */
-export function cliPromptTest(args: string[], answers: string[], options: Options, promptOptions: PromptTestOptions): Promise<ExecaChildProcess> {
+export function cliPromptTest(args: string[], answers: string[] = [], options: Options, promptOptions: PromptTestOptions): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
 
   // Timeout between each keystroke simulation

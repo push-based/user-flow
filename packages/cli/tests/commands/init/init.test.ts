@@ -1,4 +1,5 @@
 import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
+import { setupProject } from '../../utils/cli-prompt-test/cli';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
@@ -17,6 +18,11 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
+
+const setupCli = setupProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
 
 const initCommand = [CLI_PATH, 'init'];
 
@@ -87,12 +93,12 @@ describe('init command in setup sandbox', () => {
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
-  it('should throw missing url error', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, '--interactive=false', '--url='],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+  it('should ???????????????', async () => {
+    const { exitCode, stdout, stderr } = await setupCli.exec({
+      _: 'init',
+      interactive: false,
+      url: ''
+    });
     expect(stderr).toContain('URL is required');
     expect(exitCode).toBe(1);
 
