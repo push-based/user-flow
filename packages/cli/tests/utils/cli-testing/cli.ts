@@ -25,12 +25,12 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
 
 /**
  *
- * @param options: passed directly to execa as options
+ * @param processOptions: passed directly to execa as options
  */
-export function getCliProcess(options: Options, bin: string): CliProcess {
+export function getCliProcess(processOptions: Options, promptTestOptions?: PromptTestOptions = {}): CliProcess {
   return {
-    exec: (processParams: ProcessParams = {}, userInput: string[] = [], promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> => {
-      return testProcessE2e([bin, ...processParamsToParamsArray(processParams)], userInput, options, promptOptions);
+    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<ExecaChildProcess> => {
+      return testProcessE2e([bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
     }
   };
 }
@@ -55,7 +55,7 @@ export function setupProject(cfg: ProjectConfig): Project {
   const process = getCliProcess({
     cwd: root,
     env
-  }, bin);
+  }, { bin });
 
   return {
     root,
