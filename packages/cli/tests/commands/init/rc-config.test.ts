@@ -25,8 +25,17 @@ import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/op
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 import * as path from 'path';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
 const initCommand = [CLI_PATH, 'init'];
+const emptyPrj = setupUserFlowProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
 
 describe('.rc.json in empty sandbox', () => {
   beforeEach(async () => {
@@ -36,24 +45,6 @@ describe('.rc.json in empty sandbox', () => {
   afterEach(async () => {
     await resetEmptySandbox();
     await resetSetupSandboxAndKillPorts();
-  });
-
-  it('should validate params from cli', async () => {
-
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-        `--interactive=false`,
-        `--url=`
-      ],
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
-
-    // Assertions
-    expect(stderr).toContain(`URL is required`);
-
-    expect(exitCode).toBe(1);
   });
 
 });
@@ -69,22 +60,18 @@ describe('.rc.json in setup sandbox', () => {
 
   it('should take default params from prompt', async () => {
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [
-        //url
-        EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
-        // ufPath
-        ENTER,
-        // HTML format
-        ENTER,
-        // outPath
-        ENTER, ENTER,
-        // create NO flow example
-        'n'
-      ],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
+      //url
+      EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
+      // ufPath
+      ENTER,
+      // HTML format
+      ENTER,
+      // outPath
+      ENTER, ENTER,
+      // create NO flow example
+      'n'
+    ]);
 
     // Assertions
 
@@ -97,34 +84,30 @@ describe('.rc.json in setup sandbox', () => {
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
 
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd+'', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should take custom params from prompt', async () => {
     const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
     const { url, ufPath } = collect;
     const { outPath } = persist;
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [
-        // url
-        url, ENTER,
-        // ufPath
-        ufPath, ENTER,
-        // html default format
-        ENTER,
-        // measures default folder
-        outPath, ENTER
-      ],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
+      // url
+      url, ENTER,
+      // ufPath
+      ufPath, ENTER,
+      // html default format
+      ENTER,
+      // measures default folder
+      outPath, ENTER
+    ]);
 
     expect(stderr).toBe('');
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd+'', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
       collect: {
         url,
         ufPath
@@ -139,21 +122,17 @@ describe('.rc.json in setup sandbox', () => {
     let { outPath, format } = persist;
     let htmlFormat = format[0];
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
+    const { exitCode, stdout, stderr } = await setupPrj.$init({
         // collect
-        `--url=${url}`,
-        `--ufPath=${ufPath}`,
-        `--serveCommand=${serveCommand}`,
-        `--awaitServeStdout=${awaitServeStdout}`,
+        url,
+        ufPath,
+        serveCommand,
+        awaitServeStdout,
         // persist
-        `--outPath=${outPath}`,
-        `--format=${htmlFormat}`
-      ],
-      ['n'],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+        outPath,
+        htmlFormat
+      },
+      ['n']);
 
     // Assertions
     expect(stderr).toBe('');
@@ -163,11 +142,7 @@ describe('.rc.json in setup sandbox', () => {
 
   it('should load default RC config name in a setup project', async () => {
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init();
 
     // Assertions
     expect(exitCode).toBe(0);
@@ -178,11 +153,9 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, `-p=${SETUP_SANDBOX_STATIC_RC_NAME}`],
-      ['n'],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init(
+      { rcPath: SETUP_SANDBOX_STATIC_RC_NAME },
+      ['n']);
 
     const config = SETUP_SANDBOX_STATIC_RC_JSON;
 
@@ -194,15 +167,10 @@ describe('.rc.json in setup sandbox', () => {
 
   it('should validate params from rc', async () => {
     const wrongFormat = 'wrong';
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-        `--interactive=false`,
-        `--format=${wrongFormat}`
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init({
+      interactive: false,
+      format: [wrongFormat]
+    });
 
     // Assertions
 
@@ -212,11 +180,9 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should log and ask if specified rc file param -p does not exist', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, `-p=wrong/path/to/file.json`],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init(
+      { rcPath: 'wrong/path/to/file.json' },
+      []);
 
     // Assertions
     expect(exitCode).toBe(0);
