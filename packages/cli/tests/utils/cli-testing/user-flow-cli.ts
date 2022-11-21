@@ -1,4 +1,4 @@
-import { ExecFn, ProcessParams, Project, ProjectConfig, UserFlowProject } from './types';
+import { ExecFn, ProcessParams, Project, ProjectConfig } from './types';
 import { ExecaChildProcess } from 'execa';
 import { getCliProcess, setupProject } from './cli';
 import { InitArgvOptions } from '../../../src/lib/commands/init/options/types';
