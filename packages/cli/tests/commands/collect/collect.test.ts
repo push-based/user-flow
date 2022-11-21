@@ -16,7 +16,18 @@ import {
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
 import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 
+const defaultCommand = [CLI_PATH];
+const collectCommand = [...defaultCommand, 'collect'];
+const collectCommandRemoteRc = [
+  ...collectCommand,
+  `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`
+];
+const collectCommandStaticRc = [
+  ...collectCommand,
+  `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`
+];
 const setupPrj = setupUserFlowProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
@@ -45,10 +56,10 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({
-        rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
-        ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath,
-        verbose:false
-      });
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath,
+      verbose: false
+    });
 
     expect(stderr).toBe('');
     expectCollectNoLogsFromMockInStdout(
@@ -76,7 +87,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_REMOTE_RC_JSON });
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_REMOTE_RC_JSON });
 
     expect(stderr).toBe('');
     // expect(stdout).toBe('');
@@ -88,11 +99,16 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
-    const { exitCode, stdout,  stderr } = await setupPrj.$collect({
+    /*const { exitCode, stdout,  stderr } = await setupPrj.$collect({
       rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
       dryRun: false,
       format: ['md']
-    });
+    });*/
+    const { exitCode, stdout, stderr } = await cliPromptTest(
+      [...collectCommandRemoteRc],
+      [],
+      SETUP_SANDBOX_CLI_TEST_CFG
+    );
 
     //expect(stdout).toBe('')
     expect(stderr).toBe('');
