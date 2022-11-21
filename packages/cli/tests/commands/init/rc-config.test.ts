@@ -36,17 +36,6 @@ const setupPrj = setupUserFlowProject({
   bin: CLI_PATH
 });
 
-describe('.rc.json in empty sandbox', () => {
-  beforeEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
-  });
-  afterEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
-  });
-
-});
 describe('.rc.json in setup sandbox', () => {
   beforeEach(async () => {
     await resetEmptySandbox();
