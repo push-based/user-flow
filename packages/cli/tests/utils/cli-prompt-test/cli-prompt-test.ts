@@ -1,4 +1,5 @@
-import { cliPromptTest as _cliPromptTest, PromptTestOptions } from './raw';
+import { testProcessE2e as _cliPromptTest } from '../cli-testing/test-process-e2e';
+import { PromptTestOptions } from '../cli-testing/types';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
