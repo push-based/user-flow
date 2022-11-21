@@ -118,7 +118,7 @@ describe('.rc.json in setup sandbox', () => {
         awaitServeStdout,
         // persist
         outPath,
-        format:htmlFormat
+        format:[htmlFormat]
       },
       ['n']);
 
@@ -157,7 +157,7 @@ describe('.rc.json in setup sandbox', () => {
     const wrongFormat = 'wrong';
     const { exitCode, stdout, stderr } = await setupPrj.$init({
       interactive: false,
-      format: [wrongFormat]
+      format: [wrongFormat as any]
     });
 
     // Assertions
