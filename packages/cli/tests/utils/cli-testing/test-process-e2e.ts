@@ -10,7 +10,7 @@ import { PromptTestOptions } from './types';
  *
  * returns {Promise<Object>}
  */
-export function testProcessE2e(args: string[], answers: string[] = [], options: Options, promptOptions: PromptTestOptions): Promise<ExecaChildProcess> {
+export function testProcessE2e(args?: string[], answers?: string[] = [], options?: Options, promptOptions?: PromptTestOptions): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
 
   // Timeout between each keystroke simulation
