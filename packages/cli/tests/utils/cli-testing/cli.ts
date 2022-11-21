@@ -3,6 +3,8 @@ import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
 import { testProcessE2e } from './test-process-e2e';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export function processParamsToParamsArray(params: ProcessParams): string[] {
   return Object.entries(params).map(([key, value]) => {
@@ -48,7 +50,8 @@ export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string 
   return { [CI_PROPERTY]: ciValue };
 }
 
-export function setupProject({ root, env, bin }: ProjectConfig): Project {
+export function setupProject(cfg: ProjectConfig): Project {
+  const { root, env, bin } = cfg;
   const process = getCliProcess({
     cwd: root,
     env
@@ -59,8 +62,19 @@ export function setupProject({ root, env, bin }: ProjectConfig): Project {
     exec: (processParams: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> => {
       return process.exec(processParams, userInput);
     },
-    readFile: (): string => {
-      throw new Error('readFile is not implemented');
+    deleteGeneratedFiles: (): void => {
+      cfg?.delete && cfg.delete.forEach((file) => {
+        const filePath = path.join(cfg.root, file);
+        if(fs.existsSync(filePath)) {
+          fs.rmSync(filePath);
+        }
+      });
+    },
+    createInitialFiles: (): void => {
+      Object.entries(cfg?.create || {})
+        .forEach(([file, content]) => {
+        fs.writeFileSync(file, content, 'utf8');
+      });
     }
   };
 }

@@ -5,20 +5,33 @@ import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/c
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import { handleCliModeEnvVars, setupProject } from '../utils/cli-testing/cli';
+import { setupUserFlowProject } from '../utils/cli-testing/user-flow-cli';
 
-const emptyPrjSandbox = setupProject({
+const emptyPrjSandbox = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
-const emptyPrjDefault = setupProject({
+const emptyPrjDefault = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   env: handleCliModeEnvVars('DEFAULT') as Record<string, string>
 });
 
 describe('the CLI configuration', () => {
-  beforeEach(async () => await resetEmptySandbox());
-  afterEach(async () => await resetEmptySandbox());
+  beforeEach(async () => {
+    await resetEmptySandbox();
+   /* await emptyPrjSandbox.deleteGeneratedFiles();
+    await emptyPrjSandbox.createInitialFiles();
+    await emptyPrjDefault.deleteGeneratedFiles();
+    await emptyPrjDefault.createInitialFiles();*/
+  });
+  afterEach(async () => {
+    await resetEmptySandbox();
+    /* await emptyPrjSandbox.deleteGeneratedFiles();
+     await emptyPrjSandbox.createInitialFiles();
+     await emptyPrjDefault.deleteGeneratedFiles();
+     await emptyPrjDefault.createInitialFiles();*/
+  });
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await emptyPrjSandbox.exec({ _: 'init' });
