@@ -1,4 +1,3 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import * as path from 'path';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
@@ -17,22 +16,7 @@ import {
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
 import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
-import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
-const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect'];
-const collectCommandRemoteRc = [
-  ...collectCommand,
-  `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`,
-];
-const collectCommandStaticRc = [
-  ...collectCommand,
-  `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`,
-];
-const emptyPrj = setupUserFlowProject({
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
 const setupPrj = setupUserFlowProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
