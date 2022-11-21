@@ -99,16 +99,14 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
-    /*const { exitCode, stdout,  stderr } = await setupPrj.$collect({
+    const { exitCode, stdout,  stderr } = await setupPrj.$collect({
       rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
-      dryRun: false,
-      format: ['md']
-    });*/
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...collectCommandRemoteRc],
+    });
+    /*const { exitCode, stdout, stderr } = await cliPromptTest(
+    [...collectCommandRemoteRc],
       [],
       SETUP_SANDBOX_CLI_TEST_CFG
-    );
+  );*/
 
     //expect(stdout).toBe('')
     expect(stderr).toBe('');
