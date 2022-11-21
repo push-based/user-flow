@@ -76,7 +76,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME });
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_REMOTE_RC_JSON });
 
     expect(stderr).toBe('');
     // expect(stdout).toBe('');
