@@ -41,7 +41,7 @@ describe('init command in empty sandbox', () => {
 
   it('should generate a user-flow for basic navigation after the CLI is setup', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrj.exec({ _: 'init' }, [
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
       // url
       ENTER,
       // ufPath
@@ -71,7 +71,7 @@ describe('init command in setup sandbox', () => {
 
   it('should inform about the already existing cli-setup', async () => {
 
-    const { exitCode, stdout, stderr } = await setupPrj.exec({ _: 'init' });
+    const { exitCode, stdout, stderr } = await setupPrj.$init({});
 
     // Assertions
 
@@ -90,8 +90,7 @@ describe('init command in setup sandbox', () => {
 
   it('should throw missing url error', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrj.exec({
-      _: 'init',
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({
       interactive: false,
       url: ''
     });
