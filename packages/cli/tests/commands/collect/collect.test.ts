@@ -3,7 +3,7 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
+  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, SETUP_SANDBOX_REMOTE_RC_JSON,
   SETUP_SANDBOX_REMOTE_RC_NAME,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
@@ -41,7 +41,7 @@ const uf1OutPathHtml = path.join(
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  // afterEach(async () => await resetSetupSandboxAndKillPorts());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({
@@ -80,7 +80,7 @@ describe('collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     // expect(stdout).toBe('');
-    // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
+    // expectCollectNoLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
