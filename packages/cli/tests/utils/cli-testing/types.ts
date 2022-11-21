@@ -10,7 +10,7 @@ export type ProcessParams = {
   _: string
 } & Record<string, boolean | number | string | string[]>
 
-export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
+export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams?: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
 export type CliProcess = {
   exec: ExecFn
 }
