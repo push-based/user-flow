@@ -89,7 +89,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
     const { exitCode, stdout,  stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
       dryRun: false,
       format: ['md']
     });
