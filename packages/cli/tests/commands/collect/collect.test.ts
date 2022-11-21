@@ -93,8 +93,8 @@ describe('collect command in setup sandbox', () => {
           [],
           SETUP_SANDBOX_CLI_TEST_CFG
       );
-    expect(stderr).toBe('');
-    // expect(stdout).toBe('');
+    // expect(stderr).toBe('');
+    expect(stdout).toBe('');
     // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
 
