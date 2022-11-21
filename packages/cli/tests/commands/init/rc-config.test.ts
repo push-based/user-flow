@@ -27,7 +27,6 @@ import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 import * as path from 'path';
 import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
-const initCommand = [CLI_PATH, 'init'];
 const emptyPrj = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
@@ -130,7 +129,7 @@ describe('.rc.json in setup sandbox', () => {
         awaitServeStdout,
         // persist
         outPath,
-        htmlFormat
+        format:htmlFormat
       },
       ['n']);
 
@@ -180,9 +179,7 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should log and ask if specified rc file param -p does not exist', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init(
-      { rcPath: 'wrong/path/to/file.json' },
-      []);
+    const { exitCode, stdout, stderr } = await setupPrj.$init({ rcPath: 'wrong/path/to/file.json' });
 
     // Assertions
     expect(exitCode).toBe(0);
