@@ -1,12 +1,10 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_CLI_TEST_CFG,
+  resetSetupSandboxAndKillPorts, SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_PATH
 } from '../../fixtures/setup-sandbox';
@@ -19,11 +17,14 @@ import {
 } from '../../utils/cli-expectations';
 import { setupProject } from '../../utils/cli-testing/cli';
 
-const cli = setupProject({
+const emptyPrj = setupProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
-const initCommand = [CLI_PATH, 'init'];
+const setupPrj = setupProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
 
 describe('init command in empty sandbox', () => {
 
@@ -37,19 +38,16 @@ describe('init command in empty sandbox', () => {
   });
 
   it('should generate a user-flow for basic navigation after the CLI is setup', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [
-        // url
-        ENTER,
-        // ufPath
-        ENTER,
-        // html default format
-        ENTER,
-        ENTER
-      ],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+
+    const { exitCode, stdout, stderr } = await emptyPrj.exec({ _: 'init' }, [
+      // url
+      ENTER,
+      // ufPath
+      ENTER,
+      // html default format
+      ENTER,
+      ENTER
+    ]);
 
     expect(stderr).toBe('');
     expectPromptsOfInitInStdout(stdout);
@@ -71,11 +69,7 @@ describe('init command in setup sandbox', () => {
 
   it('should inform about the already existing cli-setup', async () => {
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.exec({ _: 'init' });
 
     // Assertions
 
@@ -92,9 +86,9 @@ describe('init command in setup sandbox', () => {
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
-  it('should throw missing url error -- in new setup', async () => {
+  it('should throw missing url error', async () => {
 
-    const { exitCode, stdout, stderr } = await cli.exec({
+    const { exitCode, stdout, stderr } = await emptyPrj.exec({
       _: 'init',
       interactive: false,
       url: ''
