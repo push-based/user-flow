@@ -1,4 +1,4 @@
-import { testProcessE2e as _cliPromptTest } from '../cli-testing/test-process-e2e';
+import { testProcessE2e } from '../cli-testing/test-process-e2e';
 import { PromptTestOptions } from '../cli-testing/types';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
@@ -14,7 +14,7 @@ export type CliProcess = {
 export function getCliProcess(options: Options, promptOptions: PromptTestOptions = {}): CliProcess {
   return {
     exec: (processParams: string[], userInput: string[]): Promise<ExecaChildProcess>  => {
-      return _cliPromptTest(processParams, userInput, options, promptOptions);
+      return testProcessE2e(processParams, userInput, options, promptOptions);
     }
   };
 }
