@@ -1,17 +1,17 @@
 import { ExecFn, ProcessParams, Project, ProjectConfig } from './types';
 import { ExecaChildProcess } from 'execa';
 import { getCliProcess, setupProject } from './cli';
-import { InitArgvOptions } from '../../../src/lib/commands/init/options/types';
+import { InitCommandArgv } from '../../../src/lib/commands/init/options/types';
 import { getEnvPreset } from '../../../src/lib/pre-set';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import * as path from 'path';
 import { getFolderContent } from './utils';
-import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
+import { CollectCommandArgv } from '../../../src/lib/commands/collect/options/types';
 
 
 export type UserFlowProject = Project & {
-  $init: ExecFn<any>,
-  $collect: ExecFn<any>,
+  $init: ExecFn<Partial<InitCommandArgv & GlobalOptionsArgv>>,
+  $collect: ExecFn<Partial<CollectCommandArgv & GlobalOptionsArgv>>,
   readRcJson: (name: string) => string
 }
 
@@ -34,11 +34,11 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
 
   return {
     ...setupProject(cfg),
-    $init: (processParams: InitArgvOptions & GlobalOptionsArgv, userInput?: string[]): Promise<ExecaChildProcess> => {
+    $init: (processParams: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> => {
       const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
       return process.exec(prcParams, userInput);
     },
-    $collect: (processParams: CollectArgvOptions & GlobalOptionsArgv, userInput?: string[]): Promise<ExecaChildProcess> => {
+    $collect: (processParams: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> => {
       const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
       return process.exec(prcParams, userInput);
     },
