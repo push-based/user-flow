@@ -29,7 +29,7 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
  */
 export function getCliProcess(options: Options, bin: string): CliProcess {
   return {
-    exec: (processParams: ProcessParams, userInput?: string[], promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> => {
+    exec: (processParams: ProcessParams = {}, userInput: string[] = [], promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> => {
       return testProcessE2e([bin, ...processParamsToParamsArray(processParams)], userInput, options, promptOptions);
     }
   };
@@ -59,7 +59,7 @@ export function setupProject(cfg: ProjectConfig): Project {
 
   return {
     root,
-    exec: (processParams: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> => {
+    exec: (processParams?: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> => {
       return process.exec(processParams, userInput);
     },
     deleteGeneratedFiles: (): void => {

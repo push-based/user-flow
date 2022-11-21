@@ -7,7 +7,7 @@ export type PromptTestOptions = {
 
 export type ProcessParams = {
   // command placeholder
-  _: string
+  _?: string
 } & Record<string, boolean | number | string | string[]>
 
 export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams?: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
