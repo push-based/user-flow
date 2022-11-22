@@ -10,3 +10,11 @@ export function getFolderContent(folders: string[]): string[] {
     return []
   })
 }
+
+export function deleteFiles(files: string[]): void {
+  files.forEach((f) => {
+    if (fs.existsSync(f)) {
+      fs.rmSync(filePath);
+    }
+  })
+}

@@ -12,13 +12,7 @@ import { getCliProcess, handleCliModeEnvVars } from '../cli-testing/cli';
  */
 export function cliPromptTest(processParams: string[], userInput: string[], options: Options, cliMode: CLI_MODES = 'SANDBOX'): Promise<ExecaChildProcess<string>> {
   let opt = {...options};
-
-  let ciValue: string = handleCliModeEnvVars(cliMode);
-  if (ciValue) {
-    opt['env'] = {
-      [CI_PROPERTY]: ciValue
-    };
-  }
+  opt['env'] = handleCliModeEnvVars(cliMode)
   const cli = getCliProcess(opt);
   return cli.exec(processParams, userInput);
 }

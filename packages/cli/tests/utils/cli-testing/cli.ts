@@ -36,16 +36,17 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
 }
 
 export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string | undefined> {
-  let ciValue: string | undefined = undefined;
+
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
-  } else if (cliMode === 'SANDBOX') {
+    return {};
+  }
+
+  // CI mode value
+  let ciValue: 'true';
+  if (cliMode === 'SANDBOX') {
     // emulate sandbox env by setting CI to SANDBOX
     ciValue = 'SANDBOX';
-  }
-  // CI mode
-  else {
-    ciValue = 'true';
   }
   return { [CI_PROPERTY]: ciValue };
 }
