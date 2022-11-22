@@ -12,9 +12,9 @@ import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
