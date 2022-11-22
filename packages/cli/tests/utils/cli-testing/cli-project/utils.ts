@@ -17,7 +17,7 @@ export function getFolderContent(folders: string[]): string[] {
 export function deleteFiles(files: string[]): void {
   files.forEach((f) => {
     if (fs.existsSync(f)) {
-      fs.rmSync(filePath);
+      fs.rmSync(f);
     }
   })
 }
@@ -47,7 +47,7 @@ export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string 
   }
 
   // CI mode value
-  let ciValue: 'true';
+  let ciValue = 'true';
   if (cliMode === 'SANDBOX') {
     // emulate sandbox env by setting CI to SANDBOX
     ciValue = 'SANDBOX';
