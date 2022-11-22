@@ -4,27 +4,27 @@ import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
 import { getFolderContent } from '../cli-project/utils';
 import { UserFlowProject } from './types';
+import { BASE_RC_JSON } from './data/user-flowrc.base';
 
 
 export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
+  const { rcPath } = getEnvPreset();
+
+  // handle cfg defaults
   cfg.delete = (cfg?.delete || []);
+  cfg.rcFile = cfg.rcFile || {[rcPath+'']: BASE_RC_JSON};
 
-  const { root, env, bin } = cfg;
-  const { ufPath, outPath, rcPath } = getEnvPreset();
+  let { root, rcFile } = cfg;
+  const [rcName, rcContent] = Object.entries(rcFile)[0];
 
-  // .rc.json
-  (rcPath && cfg.delete.push(rcPath));
-  // all files of user flow related folders
-  cfg.delete = cfg.delete.concat(getFolderContent([ufPath + '', outPath + '']
-    .filter(v => !!v).map((d) => path.join(root, d))));
+  // create files
+  cfg.create = {...cfg.create, [rcName]: rcContent};
+  // delete files
+  cfg.delete = cfg.delete.concat(getFolderContent([path.join(root, rcContent.collect.ufPath), path.join(root, rcContent.persist.outPath)]));
 
-  const process = getCliProcess({
-    cwd: root,
-    env
-  }, { bin });
-
+  const process = setupProject(cfg);
   return {
-    ...setupProject(cfg),
+    ...process,
     $init: (processParams, userInput) => {
       const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
       return process.exec(prcParams, userInput);
@@ -34,7 +34,7 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
       return process.exec(prcParams, userInput);
     },
     readRcJson: (name = '') => {
-      //name = name || getEnvPreset().rcPath;
+      console.log();
       throw new Error('readFile is not implemented');
     }
   };

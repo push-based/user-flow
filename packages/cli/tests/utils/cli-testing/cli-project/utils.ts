@@ -1,17 +1,17 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import { ProcessParams } from './types';
 import { CLI_MODES } from '../../../../src/lib/global/cli-mode/types';
 import { CI_PROPERTY } from '../../../../src/lib/global/cli-mode/cli-mode';
+import * as path from "path";
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
-      files.forEach((file) => path.join(d, file));
+      return files.map((f) => path.join(d, f));
     }
-    return []
-  })
+    return [];
+  });
 }
 
 export function deleteFiles(files: string[]): void {
@@ -19,7 +19,7 @@ export function deleteFiles(files: string[]): void {
     if (fs.existsSync(f)) {
       fs.rmSync(f);
     }
-  })
+  });
 }
 
 export function processParamsToParamsArray(params: ProcessParams): string[] {

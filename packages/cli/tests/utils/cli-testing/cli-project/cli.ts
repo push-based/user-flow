@@ -1,10 +1,11 @@
 import { CliProcess, ProcessParams, ProcessTestOptions, Project, ProjectConfig} from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
-import { processParamsToParamsArray } from './utils';
+import { getFolderContent, processParamsToParamsArray } from './utils';
 import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
+import { getEnvPreset } from '../../../../src/lib/pre-set';
 
 /**
  *
@@ -19,11 +20,22 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
 }
 
 export function setupProject(cfg: ProjectConfig): Project {
-  const { root, env, bin } = cfg;
+  // normalize config
+  cfg.delete = cfg?.delete || [];
+  cfg.create = cfg?.create || {};
+
+  let { root, env, bin, rcFile } = cfg;
+  let [rcName] = Object.entries(rcFile || {})[0];
   const process = getCliProcess({
     cwd: root,
     env
   }, { bin });
+
+  // handle default rcPath
+  rcName = rcName || getEnvPreset().rcPath;
+  if(rcName !== undefined) {
+    cfg.delete.push(path.join(root, rcName));
+  }
 
   return {
     root,
@@ -31,17 +43,24 @@ export function setupProject(cfg: ProjectConfig): Project {
       return process.exec(processParams, userInput);
     },
     deleteGeneratedFiles: (): void => {
-      cfg?.delete && cfg.delete.forEach((file) => {
-        const filePath = path.join(cfg.root, file);
-        if(fs.existsSync(filePath)) {
-          fs.rmSync(filePath);
-        }
+      // normalize delete
+      cfg?.delete && cfg.delete
+        .forEach((file) => {
+          if(fs.existsSync(file)) {
+            fs.rmSync(file);
+          } else {
+            console.log(`File ${file} does not exist`)
+          }
       });
     },
-    createInitialFiles: (): void => {
+    createInitialFiles: async () => {
       Object.entries(cfg?.create || {})
+        .map(entry => {
+          entry[0] = path.join(cfg.root, entry[0]);
+          return entry;
+        })
         .forEach(([file, content]) => {
-        fs.writeFileSync(file, content, 'utf8');
+        fs.writeFileSync(file, JSON.stringify(content), 'utf8');
       });
     }
   };

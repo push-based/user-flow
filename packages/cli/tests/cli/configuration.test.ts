@@ -4,13 +4,13 @@ import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
-import { setupProject } from '../utils/cli-testing/cli-project/cli';
 import { setupUserFlowProject } from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { handleCliModeEnvVars } from '../utils/cli-testing/cli-project/utils';
 
 const emptyPrjSandbox = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
+  bin: CLI_PATH,
+  delete: []
 });
 const emptyPrjDefault = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
@@ -21,15 +21,15 @@ const emptyPrjDefault = setupUserFlowProject({
 describe('the CLI configuration', () => {
   beforeEach(async () => {
     await resetEmptySandbox();
-   /* await emptyPrjSandbox.deleteGeneratedFiles();
-    await emptyPrjSandbox.createInitialFiles();
+    //await emptyPrjSandbox.createInitialFiles();
+    /* await emptyPrjSandbox.createInitialFiles();
     await emptyPrjDefault.deleteGeneratedFiles();
     await emptyPrjDefault.createInitialFiles();*/
   });
   afterEach(async () => {
     await resetEmptySandbox();
-    /* await emptyPrjSandbox.deleteGeneratedFiles();
-     await emptyPrjSandbox.createInitialFiles();
+    //await emptyPrjSandbox.deleteGeneratedFiles();
+    /*  await emptyPrjSandbox.createInitialFiles();
      await emptyPrjDefault.deleteGeneratedFiles();
      await emptyPrjDefault.createInitialFiles();*/
   });

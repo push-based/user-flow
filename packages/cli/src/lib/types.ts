@@ -7,7 +7,9 @@ import {
 } from './commands/collect/options/types';
 import { AssertArgvOptions, AssertRcOptions } from './commands/assert/options/types';
 
-export type ArgvPreset = Partial<GlobalOptionsArgv &
+export type ArgvPreset =
+  {rcPath: GlobalOptionsArgv['rcPath']} &
+  Partial<Omit<GlobalOptionsArgv, 'rcPath'> &
   CollectArgvOptions &
   PersistArgvOptions &
   AssertArgvOptions>

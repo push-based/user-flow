@@ -33,6 +33,8 @@ export type ProjectConfig = {
   bin: string,
   // the process env of the created process
   env?: Record<string, string>,
+  // files
+  rcFile?: Record<string, any>,
   delete?: string[],
   create?: Record<string, string>;
 }
