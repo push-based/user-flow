@@ -1,5 +1,5 @@
-import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from '../../src/lib/pre-set';
-import { setupEnvVars, teardownEnvVars } from '../utils/cli-mode';
+import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
+import { setupEnvVars, teardownEnvVars } from '../../tests/utils/cli-mode';
 
 describe('getEnvPreset', () => {
 

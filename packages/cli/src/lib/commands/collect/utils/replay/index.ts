@@ -4,8 +4,8 @@ import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { UserFlowContext } from '../../../..';
 import { readFile } from '../../../../core/file';
 import { UserFlowReportJson } from './types';
-import { parse } from './utils';
 import { UserFlowRunnerExtension } from './runner-extension';
+import { parse } from './parse';
 
 export async function createUserFlowRunner(path: string, ctx: UserFlowContext): Promise<Runner> {
     const {browser, page, flow} = ctx;

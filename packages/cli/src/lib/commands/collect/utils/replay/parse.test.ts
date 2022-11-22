@@ -1,6 +1,6 @@
-import * as PupeteerReplay from '../data/pupeteer-replay.json';
-import * as UserFlowReplay from '../data/userflow-replay.json';
-import {parse} from '../../../cli/src/lib/commands/collect/utils/replay/utils';
+import * as PupeteerReplay from '../../../../../../test-data/pupeteer-replay.json';
+import * as UserFlowReplay from '../../../../../../test-data/userflow-replay.json';
+import { parse } from './parse';
 
 const pupeteerReplay = PupeteerReplay as any;
 const userFlowReplay = UserFlowReplay as any;

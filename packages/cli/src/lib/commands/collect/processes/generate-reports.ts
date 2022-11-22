@@ -3,7 +3,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
 
 import {ReducedReport, ReducedFlowStepResult} from '../utils/user-flow/types';
-import { userFlowReportToMdTable } from "../../assert/processes/md-table";
+import { userFlowReportToMdTable } from "../../assert/utils/md-table";
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = flowResult.steps.map((step) => {

@@ -3,8 +3,8 @@ import {
   detectCliMode,
   isEnvCi,
   isEnvSandbox
-} from '../../src/lib/global/cli-mode/cli-mode';
-import { setupEnvVars, teardownEnvVars } from '../utils/cli-mode';
+} from './cli-mode';
+import { setupEnvVars, teardownEnvVars } from '../../../../tests/utils/cli-mode';
 
 describe('isEnvCi', () => {
 
