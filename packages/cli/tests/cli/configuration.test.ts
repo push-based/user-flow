@@ -9,11 +9,12 @@ import { UserFlowCliProject } from '../utils/cli-testing/user-flow-cli-project/u
 const emptyPrjSandbox = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
-  delete: []
+  rcFile: {}
 });
 const emptyPrjDefault = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
+  rcFile: {},
   cliMode: 'DEFAULT'
 });
 

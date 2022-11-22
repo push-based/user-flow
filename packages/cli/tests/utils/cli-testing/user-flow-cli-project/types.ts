@@ -10,6 +10,8 @@ export type UserFlowProject = Project & {
   readRcJson: (name: string) => string
 }
 
-export type UserFlowProjectConfig = ProjectConfig & {
-  cliMode?: CLI_MODES
+export type UserFlowProjectConfig = ProjectConfig & UserFlowOnlyProjectConfig;
+export type UserFlowOnlyProjectConfig = {
+  cliMode?: CLI_MODES,
+  serveCommandPort?: number
 }

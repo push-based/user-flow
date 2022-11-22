@@ -10,13 +10,13 @@ import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { Options } from 'execa';
+import { SERVE_COMMAND_PORT } from '../utils/cli-testing/user-flow-cli-project/constants';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
-export const STATIC_USER_FLOW_SERVE_PORT = '5032';
-export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${STATIC_USER_FLOW_SERVE_PORT}`;
+export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${SERVE_COMMAND_PORT}`;
 
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
 export const SETUP_SANDBOX_DEFAULT_RC_JSON: RcJson = {
@@ -27,7 +27,7 @@ export const SETUP_SANDBOX_DEFAULT_RC_JSON: RcJson = {
 export const SETUP_SANDBOX_STATIC_RC_NAME = '.user-flowrc.static-dist.json';
 export const SETUP_SANDBOX_STATIC_RC_JSON: RcJson = {
   'collect': {
-    'url': 'http://127.0.0.1:' + STATIC_USER_FLOW_SERVE_PORT,
+    'url': 'http://127.0.0.1:' + SERVE_COMMAND_PORT,
     'ufPath': './src/lib/user-flows-static-dist',
     'serveCommand': 'npm run start',
     'awaitServeStdout': 'Available on:'
@@ -125,7 +125,7 @@ export const SETUP_SANDBOX_CLI_TEST_CFG: Options = {
 
 export async function resetSetupSandboxAndKillPorts(): Promise<void> {
 
-  await kill({port: STATIC_USER_FLOW_SERVE_PORT});
+  await kill({port: SERVE_COMMAND_PORT});
   process.env[CI_PROPERTY] = 'SANDBOX';
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());

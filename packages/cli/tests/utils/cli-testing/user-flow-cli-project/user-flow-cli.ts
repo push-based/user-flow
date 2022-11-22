@@ -10,21 +10,25 @@ import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
 import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
+import { kill } from '../../kill';
+import { SERVE_COMMAND_PORT } from './constants';
 
 export class UserFlowCliProject extends CliProject {
+
+  serveCommandPort = SERVE_COMMAND_PORT;
 
   constructor(cfg: UserFlowProjectConfig) {
 
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
+
     const { rcPath } = getEnvPreset();
     cfg.rcFile = cfg.rcFile || { [rcPath]: BASE_RC_JSON };
 
-    let { cliMode } = cfg;
-    cliMode = (cliMode || 'SANDBOX');
-    cliMode && (cfg.env = {
+    cfg.cliMode = (cfg.cliMode || 'SANDBOX');
+    cfg.cliMode && (cfg.env = {
       ...cfg.env,
-      ...getEnvVarsByCliModeAndDeleteOld(cliMode)
+      ...getEnvVarsByCliModeAndDeleteOld(cfg.cliMode)
     } as any);
 
     // handle rcFiles and related deletions
@@ -35,8 +39,14 @@ export class UserFlowCliProject extends CliProject {
       cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
     }
 
-    super(cfg);
+    let { cliMode, serveCommandPort, ...projectConfig } = cfg;
+    super(projectConfig);
 
+  }
+
+  override async teardown(): Promise<void> {
+    await kill({port: this.serveCommandPort});
+    await super.teardown();
   }
 
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {

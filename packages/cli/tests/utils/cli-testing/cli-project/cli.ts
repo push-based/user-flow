@@ -116,15 +116,15 @@ export class CliProject {
   /**
    * Set up the project. e.g. create files, start processes
    */
-  setup(): void {
-    this.createInitialFiles();
+  async setup(): Promise<void> {
+   this.createInitialFiles();
   }
 
 
   /**
    * Teardown the project. e.g delete files, stop processes
    */
-  teardown(): void {
+  async teardown(): Promise<void> {
     this.deleteGeneratedFiles();
   }
 

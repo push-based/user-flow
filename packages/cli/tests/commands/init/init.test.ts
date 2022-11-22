@@ -20,7 +20,8 @@ import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-projec
 
 const emptyPrj = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
+  bin: CLI_PATH,
+  rcFile: {}
 });
 const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
