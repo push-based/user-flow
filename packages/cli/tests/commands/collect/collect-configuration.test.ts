@@ -23,8 +23,10 @@ describe('collect command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
     await resetSetupSandboxAndKillPorts();
+    //await setupPrj.setup();
   });
   afterEach(async () => {
+    // await setupPrj.teardown();
     await resetSetupSandboxAndKillPorts();
   });
 
