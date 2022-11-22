@@ -28,17 +28,17 @@ export class CliProject {
   /**
    * The folder in which to execute the process
    */
-  protected root: string;
+  protected root: string = '';
 
   /**
    * The the binary to execute
    */
-  protected bin: string;
+  protected bin: string = '';
 
   /**
    * The process executing the CLI bin
    */
-  protected process: CliProcess;
+  protected process: CliProcess = undefined as unknown as CliProcess
 
   /**
    * Filenames to delete e.g. in project teardown
@@ -54,6 +54,10 @@ export class CliProject {
   protected rcFile: Record<string, RcJson> = {};
 
   constructor(cfg: ProjectConfig) {
+    this._setup(cfg);
+  }
+
+  _setup(cfg: ProjectConfig) {
     // use configurations
     this.root = cfg.root;
     this.bin = cfg.bin;
@@ -72,7 +76,6 @@ export class CliProject {
       cwd: this.root,
       env: cfg.env
     }, { bin: this.bin });
-
   }
 
   /**
@@ -82,6 +85,7 @@ export class CliProject {
    * Method to delete files generated during the CLI run
    */
   deleteGeneratedFiles(): void {
+    console.log('deleteFiles: ', this.deleteFiles);
     (this.deleteFiles || [])
       .forEach((file) => {
         if (fs.existsSync(file)) {
