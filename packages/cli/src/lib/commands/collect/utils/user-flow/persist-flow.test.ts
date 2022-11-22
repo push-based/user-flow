@@ -3,13 +3,13 @@ import {readFileSync, readdirSync} from "fs";
 import FlowResult from "lighthouse/types/lhr/flow";
 import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../../../../../../tests/fixtures/empty-sandbox";
 import {DEFAULT_PERSIST_OUT_PATH} from "../../options/outPath.constant";
-import * as LHR9JSON from '../../../../../../tests/data/lhr-9.json';
+import * as LHR9JSON from '../../../../../../test-data/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 
 const jsonReport = LHR9JSON as unknown as FlowResult;
 
-const path = join(__dirname, '../data/lhr-9.html');
+const path = join(__dirname, '../../../../../../test-data/lhr-9.html');
 const htmlReport = readFileSync(path, 'utf-8');
 
 
