@@ -6,6 +6,10 @@ import { getFolderContent, handleCliModeEnvVars } from '../cli-project/utils';
 import { UserFlowProject, UserFlowProjectConfig } from './types';
 import { BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../../../src/lib';
+import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
+import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
+import { ExecaChildProcess } from 'execa';
+import { CollectArgvOptions } from '../../../../src/lib/commands/collect/options/types';
 
 
 export class UserFlowCliProject extends CliProject {
@@ -28,12 +32,27 @@ export class UserFlowCliProject extends CliProject {
       let [_, rcJson] = Object.entries(cfg.rcFile)[0] as [string, RcJson];
       const ufPath = path.join(cfg.root, rcJson.collect.ufPath);
       const outPath = path.join(cfg.root, rcJson.persist.outPath);
-      cfg.delete = cfg?.delete.concat(getFolderContent([ufPath, outPath])) || [];
+      cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
     }
 
     super(cfg);
 
   }
+
+  $init(processParams: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput: string[]): Promise<ExecaChildProcess> {
+    const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
+    return this.exec(prcParams, userInput);
+  }
+
+  $collect(processParams: Partial<CollectArgvOptions & GlobalOptionsArgv>, userInput: string[]): Promise<ExecaChildProcess> {
+    const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
+    return this.exec(prcParams, userInput);
+  }
+
+  readRcJson(name = ''): RcJson {
+    throw new Error('readFile is not implemented');
+  }
+
 
 }
 
