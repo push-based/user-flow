@@ -1,7 +1,7 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
-import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
+import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandboxAndKillPorts,
@@ -33,11 +33,11 @@ describe('init command in empty sandbox', () => {
 
   beforeEach(async () => {
     await emptyPrj.setup();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.setup();
   });
   afterEach(async () => {
     await emptyPrj.teardown();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.teardown();
   });
 
   it('should generate a user-flow for basic navigation after the CLI is setup', async () => {

@@ -16,6 +16,7 @@ import {
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
 import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import set = Reflect.set;
 
 const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
@@ -40,8 +41,8 @@ const uf1OutPathHtml = path.join(
 );
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await setupPrj.setup());
+  afterEach(async () => await setupPrj.teardown());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({

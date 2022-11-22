@@ -1,6 +1,5 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
@@ -16,8 +15,8 @@ const setupPrj = new UserFlowCliProject({
 const ufStaticName = 'Sandbox Setup StaticDist';
 
 describe('dryRun and collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await setupPrj.setup());
+  afterEach(async () => await setupPrj.teardown());
 
   it('should load ufPath and execute throw if no user-flow is given', async () => {
     const existingEmptyFolder = './measures';

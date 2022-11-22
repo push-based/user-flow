@@ -1,7 +1,6 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   BUDGETS_NAME,
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
@@ -26,8 +25,8 @@ const setupPrj = new UserFlowCliProject({
 const ufStaticResultPath = path.join(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, 'sandbox-setup-static-dist.uf.json');
 
 describe('budgets and collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await setupPrj.setup());
+  afterEach(async () => await setupPrj.teardown());
 
   it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME});

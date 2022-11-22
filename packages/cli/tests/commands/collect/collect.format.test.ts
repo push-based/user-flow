@@ -15,8 +15,8 @@ const setupPrj = new UserFlowCliProject({
 const uf1Name = 'Sandbox Setup UF1';
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => await setupPrj.setup());
+  afterEach(async () => await setupPrj.teardown());
 
   it('should load ufPath, execute the user-flow on a remote URL and log if no format is given', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({

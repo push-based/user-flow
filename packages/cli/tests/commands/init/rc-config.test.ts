@@ -2,12 +2,10 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
   EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS,
-  EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
-  resetEmptySandbox
+  EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS
 } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_NAME,
@@ -41,11 +39,11 @@ const setupPrj = new UserFlowCliProject({
 describe('.rc.json in setup sandbox', () => {
   beforeEach(async () => {
     await emptyPrj.setup();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.setup();
   });
   afterEach(async () => {
     await emptyPrj.teardown();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.teardown();
   });
 
   it('should take default params from prompt', async () => {

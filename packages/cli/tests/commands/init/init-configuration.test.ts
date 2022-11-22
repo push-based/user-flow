@@ -1,8 +1,7 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
+import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_NAME
@@ -31,11 +30,11 @@ describe('init command configuration in empty sandbox', () => {
 
   beforeEach(async () => {
     await emptyPrj.setup();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.setup();
   });
   afterEach(async () => {
     await emptyPrj.teardown();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.teardown();
   });
 
   it('should have default`s from preset', async () => {
