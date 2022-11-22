@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
 import { getEnvPreset } from '../../../../src/lib/pre-set';
-import { type } from 'os';
 import { RcJson } from '../../../../src/lib';
 
 /**
@@ -22,7 +21,130 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
   };
 }
 
+/**
+ * A helper class to manage an project structure for a yargs based CLI
+ */
+export class CliProject {
+
+  /**
+   * The folder in which to execute the process
+   */
+  protected root: string;
+
+  /**
+   * The the binary to execute
+   */
+  protected bin: string;
+
+  /**
+   * The process executing the CLI bin
+   */
+  protected process: CliProcess;
+
+  /**
+   * Filenames to delete e.g. in project teardown
+   */
+  protected deleteFiles: string[] = [];
+  /**
+   * Filenames to create e.g. in project setup
+   */
+  protected createFiles: Record<string, string> = {};
+  /**
+   * Filenames to create e.g. in project setup
+   */
+  protected rcFile: Record<string, RcJson> = {};
+
+  constructor(cfg: ProjectConfig) {
+    // use configurations
+    this.root = cfg.root;
+    this.bin = cfg.bin;
+    cfg.delete && (this.deleteFiles = cfg.delete);
+    cfg.create && (this.createFiles = cfg.create);
+    cfg.rcFile && (this.rcFile = cfg.rcFile);
+
+    // handle default rcPath
+    if (Object.entries(this.rcFile).length > 0) {
+      let [rcName, rcContent] = Object.entries(this.rcFile)[0];
+      this.deleteFiles.push(path.join(this.root, rcName));
+      this.createFiles = { [rcName]: JSON.stringify(rcContent) };
+    }
+
+    this.process = getCliProcess({
+      cwd: this.root,
+      env: cfg.env
+    }, { bin: this.bin });
+
+  }
+
+  /**
+   * @internal
+   * @protected
+   *
+   * Method to delete files generated during the CLI run
+   */
+  deleteGeneratedFiles(): void {
+    (this.deleteFiles || [])
+      .forEach((file) => {
+        if (fs.existsSync(file)) {
+          fs.rmSync(file);
+        } else {
+          // console.log(`File ${file} does not exist`)
+        }
+      });
+  }
+
+  /**
+   * @internal
+   * @protected
+   *
+   * Method to create files needed during the CLI run
+   */
+  createInitialFiles(): void {
+    Object.entries(this.createFiles || {})
+      .map(entry => {
+        entry[0] = path.join(this.root, entry[0]);
+        return entry;
+      })
+      .forEach(([file, content]) => {
+        if (!fs.existsSync(file)) {
+          fs.writeFileSync(file, content, 'utf8');
+        } else {
+          // console.log(`File ${file} already exist`)
+        }
+      });
+  }
+
+  /**
+   * Set up the project. e.g. create files, start processes
+   */
+  setup(): void {
+    this.createInitialFiles();
+  }
+
+
+  /**
+   * Teardown the project. e.g delete files, stop processes
+   */
+  teardown(): void {
+    this.deleteGeneratedFiles();
+  }
+
+  /**
+   * Executes the CLI with given parameters and user input.
+   * See getCliProcess for details
+   *
+   * @param processParams
+   * @param userInput
+   */
+  exec(processParams?: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> {
+    return this.process.exec(processParams, userInput);
+  }
+
+}
+
+/*
 export function getProject(cfg: ProjectConfig): Project {
+
   // normalize config
   cfg.delete = cfg?.delete || [];
   cfg.create = cfg?.create || {};
@@ -78,3 +200,4 @@ export function getProject(cfg: ProjectConfig): Project {
     }
   };
 }
+*/

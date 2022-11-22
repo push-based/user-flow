@@ -1,5 +1,5 @@
-import { ProcessParams, ProjectConfig } from '../cli-project/types';
-import { getProject } from '../cli-project/cli';
+import { ProcessParams, Project, ProjectConfig } from '../cli-project/types';
+import { CliProject, getProject } from '../cli-project/cli';
 import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
 import { getFolderContent, handleCliModeEnvVars } from '../cli-project/utils';
@@ -20,7 +20,7 @@ export function setupUserFlowProject(cfg: UserFlowProjectConfig): UserFlowProjec
 
 
   // detect env vars by CLI mode
-  cliMode = (cliMode || 'DEFAULT');
+  cliMode = (cliMode || 'SANDBOX');
   cliMode && (pCfg.env = {
     ...pCfg.env,
     ...handleCliModeEnvVars(cliMode)
@@ -35,16 +35,20 @@ export function setupUserFlowProject(cfg: UserFlowProjectConfig): UserFlowProjec
     pCfg.delete = pCfg?.delete.concat(getFolderContent([ufPath, outPath]));
   }
 
-  const process = getProject(pCfg);
+  const project = new CliProject(pCfg);
   return {
-    ...process,
+    exec: project.exec,
+    deleteGeneratedFiles: project.deleteGeneratedFiles,
+    createInitialFiles: project.createInitialFiles,
+    setup: project.setup,
+    teardown: project.teardown,
     $init: (processParams, userInput) => {
       const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
-      return process.exec(prcParams, userInput);
+      return project.exec(prcParams, userInput);
     },
     $collect: (processParams, userInput) => {
       const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
-      return process.exec(prcParams, userInput);
+      return project.exec(prcParams, userInput);
     },
     readRcJson: (name = '') => {
       throw new Error('readFile is not implemented');

@@ -1,5 +1,6 @@
 import { ExecaChildProcess } from 'execa';
 import { PromptTestOptions } from '../process/types';
+import { RcJson } from '../../../../src/lib';
 
 export type ProcessTestOptions = {
   bin: string
@@ -35,7 +36,7 @@ export type ProjectConfig = {
   // the process env of the created process
   env?: Record<string, string>,
   // files
-  rcFile?: Record<string, any>,
+  rcFile?: Record<string, RcJson>,
   delete?: string[],
   create?: Record<string, string>;
 }
