@@ -1,7 +1,8 @@
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-import { getCliProcess, handleCliModeEnvVars } from '../cli-testing/cli';
+import { getCliProcess} from '../cli-testing/cli-project/cli';
+import { handleCliModeEnvVars } from '../cli-testing/cli-project/utils';
 
 /**
  * @param {string[]} processParams CLI args to pass in

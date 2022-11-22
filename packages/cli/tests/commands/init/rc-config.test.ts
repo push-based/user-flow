@@ -25,7 +25,7 @@ import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/op
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 import * as path from 'path';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
 const emptyPrj = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,

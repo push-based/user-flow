@@ -1,27 +1,10 @@
-import { CliProcess, ProcessParams, ProcessTestOptions, Project, ProjectConfig, PromptTestOptions } from './types';
+import { CliProcess, ProcessParams, ProcessTestOptions, Project, ProjectConfig} from './types';
 import { ExecaChildProcess, Options } from 'execa';
-import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
-import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-import { testProcessE2e } from './test-process-e2e';
+import { testProcessE2e } from '../process/test-process-e2e';
+import { processParamsToParamsArray } from './utils';
 import * as path from 'path';
 import * as fs from 'fs';
-
-export function processParamsToParamsArray(params: ProcessParams): string[] {
-  return Object.entries(params).flatMap(([key, value]) => {
-    if (key === '_') {
-      return value.toString();
-    } else if (Array.isArray(value)) {
-      return value.map(v => `--${key}=${v.toString()}`);
-    } else {
-      if (typeof value === 'string') {
-        return [`--${key}=${value + ''}`];
-      } else if (typeof value === 'boolean') {
-        return [`--${value ? '' : 'no-'}${key}`];
-      }
-      return [`--${key}=${value + ''}`];
-    }
-  }) as string[];
-}
+import { PromptTestOptions } from '../process/types';
 
 /**
  *
@@ -33,22 +16,6 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
       return testProcessE2e([promptTestOptions.bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
     }
   };
-}
-
-export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string | undefined> {
-
-  if (cliMode === 'DEFAULT') {
-    delete process.env[CI_PROPERTY];
-    return {};
-  }
-
-  // CI mode value
-  let ciValue: 'true';
-  if (cliMode === 'SANDBOX') {
-    // emulate sandbox env by setting CI to SANDBOX
-    ciValue = 'SANDBOX';
-  }
-  return { [CI_PROPERTY]: ciValue };
 }
 
 export function setupProject(cfg: ProjectConfig): Project {

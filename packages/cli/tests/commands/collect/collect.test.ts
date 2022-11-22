@@ -15,7 +15,7 @@ import {
   expectCollectNoLogsFromMockInStdout,
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 
 const defaultCommand = [CLI_PATH];

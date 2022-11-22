@@ -1,13 +1,9 @@
 import { ExecaChildProcess } from 'execa';
-
-export type PromptTestOptions = {
-  timeout?: number
-}
+import { PromptTestOptions } from '../process/types';
 
 export type ProcessTestOptions = {
   bin: string
 }
-
 
 export type ProcessParams = {
   // command placeholder
@@ -15,6 +11,7 @@ export type ProcessParams = {
 } & Record<string, any>
 
 export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams?: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
+
 export type CliProcess = {
   exec: ExecFn
 }

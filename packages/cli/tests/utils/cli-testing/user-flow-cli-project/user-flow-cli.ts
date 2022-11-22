@@ -1,19 +1,10 @@
-import { ExecFn, ProcessParams, Project, ProjectConfig } from './types';
-import { ExecaChildProcess } from 'execa';
-import { getCliProcess, setupProject } from './cli';
-import { InitCommandArgv } from '../../../src/lib/commands/init/options/types';
-import { getEnvPreset } from '../../../src/lib/pre-set';
-import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
+import { ProcessParams, ProjectConfig } from '../cli-project/types';
+import { getCliProcess, setupProject } from '../cli-project/cli';
+import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getFolderContent } from './utils';
-import { CollectCommandArgv } from '../../../src/lib/commands/collect/options/types';
+import { getFolderContent } from '../cli-project/utils';
+import { UserFlowProject } from './types';
 
-
-export type UserFlowProject = Project & {
-  $init: ExecFn<Partial<InitCommandArgv & GlobalOptionsArgv>>,
-  $collect: ExecFn<Partial<CollectCommandArgv & GlobalOptionsArgv>>,
-  readRcJson: (name: string) => string
-}
 
 export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
   cfg.delete = (cfg?.delete || []);

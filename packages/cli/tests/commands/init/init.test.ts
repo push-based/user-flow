@@ -16,7 +16,7 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
 const emptyPrj = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,

@@ -1,1 +1,1 @@
-export * from '../cli-testing/keyboard';
+export * from '../cli-testing/process/keyboard';
