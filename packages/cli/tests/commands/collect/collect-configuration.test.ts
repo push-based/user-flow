@@ -1,8 +1,6 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_REMOTE_RC_JSON
@@ -22,12 +20,10 @@ const setupPrj = new UserFlowCliProject({
 describe('collect command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
-    await resetSetupSandboxAndKillPorts();
-    //await setupPrj.setup();
+    await setupPrj.setup();
   });
   afterEach(async () => {
-    // await setupPrj.teardown();
-    await resetSetupSandboxAndKillPorts();
+    await setupPrj.teardown();
   });
 
   it('should have default`s from preset', async () => {
