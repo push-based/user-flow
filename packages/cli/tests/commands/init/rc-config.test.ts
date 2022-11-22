@@ -23,7 +23,7 @@ import {
 } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
-import { ENTER } from '../../utils/cli-prompt-test/keyboard';
+import { ENTER } from '../../utils/cli-testing/process/keyboard';
 import * as path from 'path';
 import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 

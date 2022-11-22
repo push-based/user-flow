@@ -1,5 +1,5 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { ENTER } from '../../utils/cli-prompt-test/keyboard';
+import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
