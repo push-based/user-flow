@@ -14,8 +14,6 @@ import { kill } from '../../kill';
 import { SERVE_COMMAND_PORT } from './constants';
 
 export class UserFlowCliProject extends CliProject {
-
-  _serveCommandActive = false;
   envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
 
@@ -46,11 +44,7 @@ export class UserFlowCliProject extends CliProject {
 
   override async teardown(): Promise<void> {
     await super.teardown();
-    if(this._serveCommandActive) {
-      console.log('!!!!!!!');
-      await kill({ port: this.serveCommandPort });
-      this._serveCommandActive = false;
-    }
+    await kill({ port: this.serveCommandPort });
   }
 
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
@@ -61,7 +55,6 @@ export class UserFlowCliProject extends CliProject {
   }
 
   $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
-    processParams?.serveCommand && (this._serveCommandActive = true)
     const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
@@ -69,6 +62,5 @@ export class UserFlowCliProject extends CliProject {
   readRcJson(name = ''): RcJson {
     throw new Error('readFile is not implemented');
   }
-
 
 }
