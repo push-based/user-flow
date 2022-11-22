@@ -4,15 +4,15 @@ import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_STATIC_RC_JSON,
-  SETUP_SANDBOX_STATIC_RC_NAME,
+  SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 import { expectCollectLogsFromMockInStdout } from '../../utils/cli-expectations';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
-const collectCommand = [CLI_PATH, 'collect'];
-const collectCommandStaticRc = [
-  ...collectCommand,
-  `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`,
-];
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
 
 const ufStaticName = 'Sandbox Setup StaticDist';
 
@@ -22,28 +22,20 @@ describe('dryRun and collect command in setup sandbox', () => {
 
   it('should load ufPath and execute throw if no user-flow is given', async () => {
     const existingEmptyFolder = './measures';
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...collectCommandStaticRc,
-        `--ufPath=${existingEmptyFolder}`,
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      ufPath: existingEmptyFolder
+    });
 
     expect(stderr).toContain(`No user flows found in ${existingEmptyFolder}`);
     expect(exitCode).toBe(1);
   }, 90_000);
 
   it('should load ufPath and execute the user-flow', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...collectCommandStaticRc,
-        `--ufPath=${SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath}`,
-      ],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath
+    });
 
     expect(stderr).toBe('');
     expectCollectLogsFromMockInStdout(
