@@ -16,9 +16,9 @@ import {
   expectResultsToIncludeBudgets
 } from '../../utils/cli-expectations';
 import * as path from 'path';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });

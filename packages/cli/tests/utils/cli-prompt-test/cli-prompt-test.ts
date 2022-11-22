@@ -1,7 +1,6 @@
 import { ExecaChildProcess, Options } from 'execa';
-import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-import { getCliProcess} from '../cli-testing/cli-project/cli';
+import { getCliProcess } from '../cli-testing/cli-project/cli';
 import { getEnvVarsByCliModeAndDeleteOld } from '../cli-testing/cli-project/utils';
 
 /**

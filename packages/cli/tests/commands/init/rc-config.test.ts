@@ -1,8 +1,8 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   EMPTY_SANDBOX_CLI_TEST_CFG,
-  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
+  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS,
+  EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
   resetEmptySandbox
 } from '../../fixtures/empty-sandbox';
 
@@ -25,13 +25,14 @@ import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/op
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 import * as path from 'path';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const emptyPrj = setupUserFlowProject({
+const emptyPrj = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
-const setupPrj = setupUserFlowProject({
+
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });

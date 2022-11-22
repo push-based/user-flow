@@ -16,13 +16,13 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const emptyPrj = setupUserFlowProject({
+const emptyPrj = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });

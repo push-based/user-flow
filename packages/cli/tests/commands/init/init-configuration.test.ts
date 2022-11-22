@@ -1,11 +1,11 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG, resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_DEFAULT_RC_NAME
+  SETUP_SANDBOX_DEFAULT_RC_JSON,
+  SETUP_SANDBOX_DEFAULT_RC_NAME
 } from '../../fixtures/setup-sandbox';
 
 import { expectInitCfgToContain } from '../../utils/cli-expectations';
@@ -14,13 +14,13 @@ import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/ty
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const emptyPrj = setupUserFlowProject({
+const emptyPrj = new UserFlowCliProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });

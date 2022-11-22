@@ -1,4 +1,3 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   resetSetupSandboxAndKillPorts,
@@ -7,12 +6,13 @@ import {
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
 import { expectCollectLogsFromMockInStdout } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
+
 
 const ufStaticName = 'Sandbox Setup StaticDist';
 
