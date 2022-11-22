@@ -85,7 +85,6 @@ export class CliProject {
    * Method to delete files generated during the CLI run
    */
   deleteGeneratedFiles(): void {
-    console.log('deleteFiles: ', this.deleteFiles);
     (this.deleteFiles || [])
       .forEach((file) => {
         if (fs.existsSync(file)) {
