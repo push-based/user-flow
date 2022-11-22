@@ -39,7 +39,7 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
   }) as string[];
 }
 
-export function handleCliModeEnvVars(cliMode: CLI_MODES): Record<string, string | undefined> {
+export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
 
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];

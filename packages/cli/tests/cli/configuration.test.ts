@@ -5,7 +5,7 @@ import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/c
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import { setupUserFlowProject } from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { handleCliModeEnvVars } from '../utils/cli-testing/cli-project/utils';
+import { getEnvVarsByCliModeAndDeleteOld } from '../utils/cli-testing/cli-project/utils';
 
 const emptyPrjSandbox = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
@@ -15,7 +15,7 @@ const emptyPrjSandbox = setupUserFlowProject({
 const emptyPrjDefault = setupUserFlowProject({
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
-  env: handleCliModeEnvVars('DEFAULT') as Record<string, string>
+  env: getEnvVarsByCliModeAndDeleteOld('DEFAULT') as Record<string, string>
 });
 
 describe('the CLI configuration', () => {

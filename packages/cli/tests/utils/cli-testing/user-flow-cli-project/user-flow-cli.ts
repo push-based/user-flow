@@ -2,7 +2,7 @@ import { ProcessParams, ProjectConfig } from '../cli-project/types';
 import { CliProject } from '../cli-project/cli';
 import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getFolderContent, handleCliModeEnvVars } from '../cli-project/utils';
+import { getFolderContent, getEnvVarsByCliModeAndDeleteOld } from '../cli-project/utils';
 import { UserFlowProject, UserFlowProjectConfig } from './types';
 import { BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../../../src/lib';
@@ -18,13 +18,11 @@ export class UserFlowCliProject extends CliProject {
     const { rcPath } = getEnvPreset();
     cfg.rcFile = cfg.rcFile || { [rcPath]: BASE_RC_JSON };
 
-
     let { cliMode } = cfg;
-    // detect env vars by CLI mode
     cliMode = (cliMode || 'SANDBOX');
     cliMode && (cfg.env = {
       ...cfg.env,
-      ...handleCliModeEnvVars(cliMode)
+      ...getEnvVarsByCliModeAndDeleteOld(cliMode)
     } as any);
 
     // handle rcFiles and related deletions
@@ -71,7 +69,7 @@ export function setupUserFlowProject(cfg: UserFlowProjectConfig): UserFlowProjec
   cliMode = (cliMode || 'SANDBOX');
   cliMode && (pCfg.env = {
     ...pCfg.env,
-    ...handleCliModeEnvVars(cliMode)
+    ...getEnvVarsByCliModeAndDeleteOld(cliMode)
   } as any);
 
 
