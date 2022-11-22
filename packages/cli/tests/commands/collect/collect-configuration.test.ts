@@ -22,11 +22,9 @@ const setupPrj = new UserFlowCliProject({
 describe('collect command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
-    await resetEmptySandbox();
     await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    await resetEmptySandbox();
     await resetSetupSandboxAndKillPorts();
   });
 

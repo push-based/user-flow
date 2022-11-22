@@ -39,11 +39,11 @@ const setupPrj = new UserFlowCliProject({
 
 describe('.rc.json in setup sandbox', () => {
   beforeEach(async () => {
-    await resetEmptySandbox();
+    await emptyPrj.setup();
     await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    await resetEmptySandbox();
+    await emptyPrj.teardown();
     await resetSetupSandboxAndKillPorts();
   });
 

@@ -13,7 +13,6 @@ const setupPrj = new UserFlowCliProject({
   bin: CLI_PATH
 });
 
-
 const ufStaticName = 'Sandbox Setup StaticDist';
 
 describe('dryRun and collect command in setup sandbox', () => {

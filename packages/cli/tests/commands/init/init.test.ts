@@ -31,11 +31,11 @@ const setupPrj = new UserFlowCliProject({
 describe('init command in empty sandbox', () => {
 
   beforeEach(async () => {
-    await resetEmptySandbox();
+    await emptyPrj.setup();
     await resetSetupSandboxAndKillPorts();
   });
   afterEach(async () => {
-    await resetEmptySandbox();
+    await emptyPrj.teardown();
     await resetSetupSandboxAndKillPorts();
   });
 
