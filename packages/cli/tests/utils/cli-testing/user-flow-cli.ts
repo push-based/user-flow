@@ -34,15 +34,15 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
 
   return {
     ...setupProject(cfg),
-    $init: (processParams: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> => {
+    $init: (processParams, userInput) => {
       const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
       return process.exec(prcParams, userInput);
     },
-    $collect: (processParams: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> => {
+    $collect: (processParams, userInput) => {
       const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
       return process.exec(prcParams, userInput);
     },
-    readRcJson: (name: string = ''): string => {
+    readRcJson: (name = '') => {
       //name = name || getEnvPreset().rcPath;
       throw new Error('readFile is not implemented');
     }
