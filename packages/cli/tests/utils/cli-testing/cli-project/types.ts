@@ -22,6 +22,8 @@ export type Project = {
   root: string,
   deleteGeneratedFiles: () => void,
   createInitialFiles: () => void,
+  setup: () => void,
+  teardown: () => void,
   exec: ExecFn,
 } &
   {

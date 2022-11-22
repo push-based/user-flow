@@ -1,28 +1,41 @@
 import { ProcessParams, ProjectConfig } from '../cli-project/types';
-import { getCliProcess, setupProject } from '../cli-project/cli';
+import { getProject } from '../cli-project/cli';
 import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getFolderContent } from '../cli-project/utils';
-import { UserFlowProject } from './types';
+import { getFolderContent, handleCliModeEnvVars } from '../cli-project/utils';
+import { UserFlowProject, UserFlowProjectConfig } from './types';
 import { BASE_RC_JSON } from './data/user-flowrc.base';
+import { RcJson } from '../../../../src/lib';
 
 
-export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
+export function setupUserFlowProject(cfg: UserFlowProjectConfig): UserFlowProject {
   const { rcPath } = getEnvPreset();
+  let { cliMode, ..._ } = cfg;
+  const pCfg: ProjectConfig = _;
 
   // handle cfg defaults
-  cfg.delete = (cfg?.delete || []);
-  cfg.rcFile = cfg.rcFile || {[rcPath+'']: BASE_RC_JSON};
+  pCfg.delete = (pCfg?.delete || []);
+  pCfg.create = (pCfg?.create || {});
+  pCfg.rcFile = pCfg.rcFile || { [rcPath]: BASE_RC_JSON };
 
-  let { root, rcFile } = cfg;
-  const [rcName, rcContent] = Object.entries(rcFile)[0];
 
-  // create files
-  cfg.create = {...cfg.create, [rcName]: rcContent};
-  // delete files
-  cfg.delete = cfg.delete.concat(getFolderContent([path.join(root, rcContent.collect.ufPath), path.join(root, rcContent.persist.outPath)]));
+  // detect env vars by CLI mode
+  cliMode = (cliMode || 'DEFAULT');
+  cliMode && (pCfg.env = {
+    ...pCfg.env,
+    ...handleCliModeEnvVars(cliMode)
+  } as any);
 
-  const process = setupProject(cfg);
+
+  // handle rcFiles and related
+  if (typeof pCfg.rcFile === 'object' && Object.entries(pCfg.rcFile).length > 0) {
+    let [_, rcJson] = Object.entries(pCfg.rcFile)[0] as [string, RcJson];
+    const ufPath = path.join(pCfg.root, rcJson.collect.ufPath);
+    const outPath = path.join(pCfg.root, rcJson.persist.outPath);
+    pCfg.delete = pCfg?.delete.concat(getFolderContent([ufPath, outPath]));
+  }
+
+  const process = getProject(pCfg);
   return {
     ...process,
     $init: (processParams, userInput) => {
@@ -34,7 +47,6 @@ export function setupUserFlowProject(cfg: ProjectConfig): UserFlowProject {
       return process.exec(prcParams, userInput);
     },
     readRcJson: (name = '') => {
-      console.log();
       throw new Error('readFile is not implemented');
     }
   };

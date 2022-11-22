@@ -6,6 +6,8 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
 import { getEnvPreset } from '../../../../src/lib/pre-set';
+import { type } from 'os';
+import { RcJson } from '../../../../src/lib';
 
 /**
  *
@@ -19,23 +21,25 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
   };
 }
 
-export function setupProject(cfg: ProjectConfig): Project {
+export function getProject(cfg: ProjectConfig): Project {
   // normalize config
   cfg.delete = cfg?.delete || [];
   cfg.create = cfg?.create || {};
 
   let { root, env, bin, rcFile } = cfg;
-  let [rcName] = Object.entries(rcFile || {})[0];
-  const process = getCliProcess({
-    cwd: root,
-    env
-  }, { bin });
 
   // handle default rcPath
-  rcName = rcName || getEnvPreset().rcPath;
-  if(rcName !== undefined) {
+  if(typeof rcFile === 'object' && Object.entries(rcFile).length > 0) {
+    let [rcName, rcContent] = Object.entries(rcFile)[0] as [string, RcJson];
     cfg.delete.push(path.join(root, rcName));
+    cfg.create = { ...cfg.create, [rcName]: JSON.stringify(rcContent) };
+
   }
+
+  const process = getCliProcess({
+    cwd: cfg.root,
+    env
+  }, { bin });
 
   return {
     root,
@@ -49,7 +53,7 @@ export function setupProject(cfg: ProjectConfig): Project {
           if(fs.existsSync(file)) {
             fs.rmSync(file);
           } else {
-            console.log(`File ${file} does not exist`)
+            // console.log(`File ${file} does not exist`)
           }
       });
     },
@@ -60,8 +64,18 @@ export function setupProject(cfg: ProjectConfig): Project {
           return entry;
         })
         .forEach(([file, content]) => {
-        fs.writeFileSync(file, JSON.stringify(content), 'utf8');
+          if(!fs.existsSync(file)) {
+            fs.writeFileSync(file, content, 'utf8');
+          } else {
+            // console.log(`File ${file} already exist`)
+          }
       });
+    },
+    setup: () => {
+      throw new Error('not implemented');
+    },
+    teardown: () => {
+      throw new Error('not implemented');
     }
   };
 }
