@@ -15,6 +15,9 @@ import { CollectArgvOptions } from '../../../../src/lib/commands/collect/options
 export class UserFlowCliProject extends CliProject {
 
   constructor(cfg: UserFlowProjectConfig) {
+
+    cfg.delete = (cfg?.delete || []);
+    cfg.create = (cfg?.create || {});
     const { rcPath } = getEnvPreset();
     cfg.rcFile = cfg.rcFile || { [rcPath]: BASE_RC_JSON };
 
@@ -37,12 +40,12 @@ export class UserFlowCliProject extends CliProject {
 
   }
 
-  $init(processParams: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput: string[]): Promise<ExecaChildProcess> {
+  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
 
-  $collect(processParams: Partial<CollectArgvOptions & GlobalOptionsArgv>, userInput: string[]): Promise<ExecaChildProcess> {
+  $collect(processParams?: Partial<CollectArgvOptions & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
     const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
