@@ -1,11 +1,10 @@
-import { CliCommand, CliProcess, ExecFn, ProcessParams, ProcessTestOptions, Project, ProjectConfig } from './types';
+import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
-import { getFolderContent, processParamsToParamsArray } from './utils';
+import { processParamsToParamsArray } from './utils';
 import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
-import { getEnvPreset } from '../../../../src/lib/pre-set';
 import { RcJson } from '../../../../src/lib';
 
 /**
