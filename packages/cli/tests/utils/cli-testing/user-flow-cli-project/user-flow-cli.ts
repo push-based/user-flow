@@ -15,15 +15,17 @@ import { SERVE_COMMAND_PORT } from './constants';
 
 export class UserFlowCliProject extends CliProject {
 
+  envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
 
   constructor(cfg: UserFlowProjectConfig) {
+    super(cfg);
+  }
 
+  override _setup(cfg: UserFlowProjectConfig) {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
-
-    const { rcPath } = getEnvPreset();
-    cfg.rcFile = cfg.rcFile || { [rcPath]: BASE_RC_JSON };
+    cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: BASE_RC_JSON };
 
     cfg.cliMode = (cfg.cliMode || 'SANDBOX');
     cfg.cliMode && (cfg.env = {
@@ -38,19 +40,18 @@ export class UserFlowCliProject extends CliProject {
       const outPath = path.join(cfg.root, rcJson.persist.outPath);
       cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
     }
-
-    let { cliMode, serveCommandPort, ...projectConfig } = cfg;
-    super(projectConfig);
-
+    super._setup(cfg);
   }
 
   override async teardown(): Promise<void> {
-    await kill({port: this.serveCommandPort});
     await super.teardown();
+    await kill({ port: this.serveCommandPort });
   }
 
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
+    // if a rcFile is created delete it on teardown
+    this.deleteFiles.push(path.join(this.root, (processParams?.rcPath || this.envPreset?.rcPath)));
     return this.exec(prcParams, userInput);
   }
 
