@@ -3,7 +3,7 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH, SETUP_SANDBOX_REMOTE_RC_JSON,
+  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
   SETUP_SANDBOX_REMOTE_RC_NAME,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
@@ -15,20 +15,9 @@ import {
   expectCollectNoLogsFromMockInStdout,
   expectCollectNotToCreateAReport
 } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
+import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 
-const defaultCommand = [CLI_PATH];
-const collectCommand = [...defaultCommand, 'collect'];
-const collectCommandRemoteRc = [
-  ...collectCommand,
-  `-p=./${SETUP_SANDBOX_REMOTE_RC_NAME}`
-];
-const collectCommandStaticRc = [
-  ...collectCommand,
-  `-p=./${SETUP_SANDBOX_STATIC_RC_NAME}`
-];
-const setupPrj = setupUserFlowProject({
+const setupPrj = new UserFlowCliProject({
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
 });
