@@ -19,7 +19,6 @@ export type CliProcess = {
 export type CliCommand = Record<`\$${string}`, ExecFn>;
 
 export type Project = {
-  root: string,
   deleteGeneratedFiles: () => void,
   createInitialFiles: () => void,
   setup: () => void,

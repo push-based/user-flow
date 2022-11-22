@@ -4,11 +4,17 @@ import { ExecaChildProcess, Options } from 'execa';
 import { PromptTestOptions } from './types';
 
 /**
- * @param {string[]} args CLI args to pass in
- * @param {string[]} answers answers to be passed to stdout
- * @param {Object} [options] specify the testPath and timeout
+ * A function to control a process and its in and outputs.
+ * Starts a node process with a given configuration Takes parameters
  *
- * returns {Promise<Object>}
+ * @param args
+ * parameters passed to the process
+ * @param answers
+ * values to be passed to process
+ * @param options
+ * specify the process configuration
+ * @param promptOptions
+ * specify the process configuration
  */
 export function testProcessE2e(args?: string[], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()

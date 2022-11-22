@@ -1,4 +1,4 @@
-import { CliProcess, ProcessParams, ProcessTestOptions, Project, ProjectConfig} from './types';
+import { CliCommand, CliProcess, ExecFn, ProcessParams, ProcessTestOptions, Project, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
 import { getFolderContent, processParamsToParamsArray } from './utils';
@@ -10,6 +10,7 @@ import { type } from 'os';
 import { RcJson } from '../../../../src/lib';
 
 /**
+ * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
  *
  * @param processOptions: passed directly to execa as options
  */
@@ -29,11 +30,10 @@ export function getProject(cfg: ProjectConfig): Project {
   let { root, env, bin, rcFile } = cfg;
 
   // handle default rcPath
-  if(typeof rcFile === 'object' && Object.entries(rcFile).length > 0) {
+  if (typeof rcFile === 'object' && Object.entries(rcFile).length > 0) {
     let [rcName, rcContent] = Object.entries(rcFile)[0] as [string, RcJson];
     cfg.delete.push(path.join(root, rcName));
     cfg.create = { ...cfg.create, [rcName]: JSON.stringify(rcContent) };
-
   }
 
   const process = getCliProcess({
@@ -42,7 +42,6 @@ export function getProject(cfg: ProjectConfig): Project {
   }, { bin });
 
   return {
-    root,
     exec: (processParams?: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> => {
       return process.exec(processParams, userInput);
     },
@@ -50,12 +49,12 @@ export function getProject(cfg: ProjectConfig): Project {
       // normalize delete
       cfg?.delete && cfg.delete
         .forEach((file) => {
-          if(fs.existsSync(file)) {
+          if (fs.existsSync(file)) {
             fs.rmSync(file);
           } else {
             // console.log(`File ${file} does not exist`)
           }
-      });
+        });
     },
     createInitialFiles: async () => {
       Object.entries(cfg?.create || {})
@@ -64,12 +63,12 @@ export function getProject(cfg: ProjectConfig): Project {
           return entry;
         })
         .forEach(([file, content]) => {
-          if(!fs.existsSync(file)) {
+          if (!fs.existsSync(file)) {
             fs.writeFileSync(file, content, 'utf8');
           } else {
             // console.log(`File ${file} already exist`)
           }
-      });
+        });
     },
     setup: () => {
       throw new Error('not implemented');
