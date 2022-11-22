@@ -29,7 +29,7 @@ describe('the CLI configuration', () => {
   });
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init();
+    const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init({verbose:true});
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
 
