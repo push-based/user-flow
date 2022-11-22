@@ -1,38 +1,7 @@
-import { testProcessE2e } from '../cli-testing/test-process-e2e';
-import { PromptTestOptions } from '../cli-testing/types';
 import { ExecaChildProcess, Options } from 'execa';
 import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-
-export type CliProcess = {
-  exec: (processParams: string[], userInput: string[]) => Promise<ExecaChildProcess>
-}
-/**
- *
- * @param options: passed directly to execa as options
- */
-export function getCliProcess(options: Options, promptOptions: PromptTestOptions = {}): CliProcess {
-  return {
-    exec: (processParams: string[], userInput: string[]): Promise<ExecaChildProcess>  => {
-      return testProcessE2e(processParams, userInput, options, promptOptions);
-    }
-  };
-}
-
-function handleCliModeEnvVars(cliMode: CLI_MODES): string {
-  let ciValue: string = '';
-  if (cliMode === 'DEFAULT') {
-    delete process.env[CI_PROPERTY];
-  } else if (cliMode === 'SANDBOX') {
-    // emulate sandbox env by setting CI to SANDBOX
-    ciValue = 'SANDBOX';
-  }
-  // CI mode
-  else {
-    ciValue = 'true';
-  }
-  return ciValue;
-}
+import { getCliProcess, handleCliModeEnvVars } from '../cli-testing/cli';
 
 /**
  * @param {string[]} processParams CLI args to pass in
