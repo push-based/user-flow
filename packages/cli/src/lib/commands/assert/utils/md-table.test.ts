@@ -50,13 +50,13 @@ describe('md-table', () => {
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
     const mdTable = userFlowReportToMdTable(lhr9);
-    const LHRREDUCEDMD = extractMdTableFromFile('../data/lhr-9_reduced.md');
+    const LHRREDUCEDMD = extractMdTableFromFile('../../../../../test-data/lhr-9_reduced.md');
     expect(mdTable).toEqual(LHRREDUCEDMD);
   });
 
   it('should return a Md table comparing to reports if userFlowReportToMdTable is passed a baseline report', () => {
     const mdTable = userFlowReportToMdTable(lhr9, lhr9Ex2);
-    const LHRREDUCEDMD = extractMdTableFromFile('../data/lhr-9_compare.md');
+    const LHRREDUCEDMD = extractMdTableFromFile('../../../../../test-data/lhr-9_compare.md');
     expect(mdTable).toEqual(LHRREDUCEDMD);
   });
 });
