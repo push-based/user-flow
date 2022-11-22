@@ -1,8 +1,8 @@
 import {join} from "path";
-import {DEFAULT_COLLECT_UF_PATH} from "../../src/lib/commands/collect/options/ufPath.constant";
-import {SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_NAME} from "../fixtures/setup-sandbox";
-import { loadFlow } from '../../src/lib/commands/collect/utils/user-flow/load-flow';
-import {resetEmptySandbox} from "../fixtures/empty-sandbox";
+import {DEFAULT_COLLECT_UF_PATH} from "../../options/ufPath.constant";
+import {SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_NAME} from "../../../../../../tests/fixtures/setup-sandbox";
+import { loadFlow } from './load-flow';
+import {resetEmptySandbox} from "../../../../../../tests/fixtures/empty-sandbox";
 
 const emptyUfPath = join('..', 'sandbox-empty', DEFAULT_COLLECT_UF_PATH);
 const invalidUfPath = 'path/does/not/exist';

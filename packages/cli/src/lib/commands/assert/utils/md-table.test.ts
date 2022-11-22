@@ -1,17 +1,17 @@
 import * as fs from 'fs';
 import {join} from 'path';
-import * as LHR9 from '../data/lhr-9.json';
-import * as LHR9_EX_2 from '../data/lhr-9-ex-2.json';
-import * as LHR9REDUCED from '../data/lhr-9_reduced.json';
-import * as LHR9REDUCEDCOMPARE from '../data/lhr-9_reduced-baseline.json';
-import * as LHR8 from '../data/lhr-8.json';
+import * as LHR9 from '../../../../../tests/data/lhr-9.json';
+import * as LHR9_EX_2 from '../../../../../tests/data/lhr-9-ex-2.json';
+import * as LHR9REDUCED from '../../../../../tests/data/lhr-9_reduced.json';
+import * as LHR9REDUCEDCOMPARE from '../../../../../tests/data/lhr-9_reduced-baseline.json';
+import * as LHR8 from '../../../../../tests/data/lhr-8.json';
 import {
   createReducedReport,
   enrichReducedReportWithBaseline
-} from '../../src/lib/commands/collect/processes/generate-reports';
-import { userFlowReportToMdTable } from '../../src/lib/commands/assert/processes/md-table';
+} from '../../collect/processes/generate-reports';
+import { userFlowReportToMdTable } from './md-table';
 import FlowResult from "lighthouse/types/lhr/flow";
-import {ReducedReport} from "../../src/lib/commands/collect/utils/user-flow/types";
+import {ReducedReport} from "../../collect/utils/user-flow/types";
 
 const lhr8 = LHR8 as any;
 const lhr9 = LHR9 as unknown as FlowResult;

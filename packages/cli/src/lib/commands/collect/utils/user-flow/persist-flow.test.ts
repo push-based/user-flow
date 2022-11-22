@@ -1,11 +1,11 @@
 import {join} from 'path';
 import {readFileSync, readdirSync} from "fs";
 import FlowResult from "lighthouse/types/lhr/flow";
-import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../fixtures/empty-sandbox";
-import {DEFAULT_PERSIST_OUT_PATH} from "../../src/lib/commands/collect/options/outPath.constant";
-import * as LHR9JSON from '../data/lhr-9.json';
-import { persistFlow } from '../../src/lib/commands/collect/utils/user-flow/persist-flow';
-import { ReportFormat } from '../../src/lib/commands/collect/options/types';
+import {EMPTY_SANDBOX_PATH, resetEmptySandbox} from "../../../../../../tests/fixtures/empty-sandbox";
+import {DEFAULT_PERSIST_OUT_PATH} from "../../options/outPath.constant";
+import * as LHR9JSON from '../../../../../../tests/data/lhr-9.json';
+import { persistFlow } from './persist-flow';
+import { ReportFormat } from '../../options/types';
 
 const jsonReport = LHR9JSON as unknown as FlowResult;
 
