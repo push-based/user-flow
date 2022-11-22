@@ -1,12 +1,7 @@
 import * as concat from 'concat-stream';
 import * as execa from 'execa';
 import { ExecaChildProcess, Options } from 'execa';
-import { ChildProcess } from 'child_process';
-
-
-export type PromptTestOptions = {
-  timeout?: number
-}
+import { PromptTestOptions } from './types';
 
 /**
  * @param {string[]} args CLI args to pass in
@@ -15,7 +10,7 @@ export type PromptTestOptions = {
  *
  * returns {Promise<Object>}
  */
-export function cliPromptTest(args: string[], answers: string[], options: Options, promptOptions: PromptTestOptions): Promise<ExecaChildProcess> {
+export function testProcessE2e(args?: string[], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
 
   // Timeout between each keystroke simulation
@@ -59,8 +54,3 @@ export function cliPromptTest(args: string[], answers: string[], options: Option
     });
   });
 };
-
-export const DOWN = '\x1B\x5B\x42';
-export const UP = '\x1B\x5B\x41';
-export const ENTER = '\x0D';
-export const SPACE = '\x20';

@@ -1,4 +1,3 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-prompt-test/keyboard';
 
@@ -17,8 +16,17 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
-const initCommand = [CLI_PATH, 'init'];
+const emptyPrj = setupUserFlowProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+
 
 describe('init command in empty sandbox', () => {
 
@@ -32,19 +40,16 @@ describe('init command in empty sandbox', () => {
   });
 
   it('should generate a user-flow for basic navigation after the CLI is setup', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [
-        // url
-        ENTER,
-        // ufPath
-        ENTER,
-        // html default format
-        ENTER,
-        ENTER
-      ],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
+      // url
+      ENTER,
+      // ufPath
+      ENTER,
+      // html default format
+      ENTER,
+      ENTER
+    ]);
 
     expect(stderr).toBe('');
     expectPromptsOfInitInStdout(stdout);
@@ -66,11 +71,7 @@ describe('init command in setup sandbox', () => {
 
   it('should inform about the already existing cli-setup', async () => {
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init({});
 
     // Assertions
 
@@ -88,11 +89,12 @@ describe('init command in setup sandbox', () => {
   });
 
   it('should throw missing url error', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [...initCommand, '--interactive=false', '--url='],
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({
+      interactive: false,
+      url: ''
+    });
+
     expect(stderr).toContain('URL is required');
     expect(exitCode).toBe(1);
 

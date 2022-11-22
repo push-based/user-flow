@@ -14,8 +14,17 @@ import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/ty
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import { readFileSync } from 'fs';
 import * as path from 'path';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
-const initCommand = [CLI_PATH, 'init'];
+const emptyPrj = setupUserFlowProject({
+  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
+
 
 describe('init command configuration in empty sandbox', () => {
 
@@ -29,11 +38,7 @@ describe('init command configuration in empty sandbox', () => {
   });
 
   it('should have default`s from preset', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      EMPTY_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await emptyPrj.$init();
 
     const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
     const { dryRun, openReport, ...initOptions } = rest as any;
@@ -43,11 +48,7 @@ describe('init command configuration in empty sandbox', () => {
   });
 
   it('should read the rc file', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      initCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$init();
     const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
@@ -58,7 +59,7 @@ describe('init command configuration in empty sandbox', () => {
 
   }, 90_000);
 
-  it('should take cli parameters ans save it to json file', async () => {
+  it('should take cli parameters and save it to json file', async () => {
     const collect = {
       url: 'http://www.xxx.xx',
       ufPath: 'xxxufPath'
@@ -80,24 +81,19 @@ describe('init command configuration in empty sandbox', () => {
     let { outPath, format } = persist;
     let { budgetPath } = assert;
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...initCommand,
-        '-v',
-        // collect
-        `--url=${url}`,
-        `--ufPath=${ufPath}`,
-        // `--serveCommand=${serveCommand}`,
-        // `--awaitServeStdout=${awaitServeStdout}`,
-        // persist
-        `--outPath=${outPath}`,
-        `--format=${format[0]}`,
-        `--format=${format[1]}`,
-        // assert
-        `--budgetPath=${budgetPath}`
-      ],
-      ['n'],
-      SETUP_SANDBOX_CLI_TEST_CFG
+    const { exitCode, stdout, stderr } = await setupPrj.$init({
+      // -- collect
+      url,
+      ufPath,
+      // serveCommand,
+      // awaitServeStdout,
+      // -- persist
+      outPath,
+      format,
+      // -- assert
+      budgetPath
+    },
+      ['n']
     );
 
     const cfg = {

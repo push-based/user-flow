@@ -1,19 +1,23 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { resetEmptySandbox } from '../../fixtures/empty-sandbox';
 
 import {
   resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_REMOTE_RC_JSON
+  SETUP_SANDBOX_DEFAULT_RC_JSON,
+  SETUP_SANDBOX_REMOTE_RC_JSON
 } from '../../fixtures/setup-sandbox';
 
 import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
+import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
 
-const collectCommand = [CLI_PATH, 'collect'];
+const setupPrj = setupUserFlowProject({
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+});
 
 describe('collect command configuration in setup sandbox', () => {
 
@@ -27,11 +31,7 @@ describe('collect command configuration in setup sandbox', () => {
   });
 
   it('should have default`s from preset', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      collectCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect();
 
     const { rcPath, interactive, verbose, ...collectOptions }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
     // @TODO implement format
@@ -42,11 +42,7 @@ describe('collect command configuration in setup sandbox', () => {
   });
 
   it('should read the rc file', async () => {
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      collectCommand,
-      [],
-      SETUP_SANDBOX_CLI_TEST_CFG
-    );
+    const { exitCode, stdout, stderr } = await setupPrj.$collect();
     const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
@@ -67,23 +63,19 @@ describe('collect command configuration in setup sandbox', () => {
     let { outPath/*, format*/ } = persist;
     let budgetPath = assert?.budgetPath;
 
-    const { exitCode, stdout, stderr } = await cliPromptTest(
-      [
-        ...collectCommand,
-        // collect
-        `--url=${url}`,
-        `--ufPath=${ufPath}`,
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+        url,
+        ufPath,
         // `--serveCommand=${serveCommand}`,
         // `--awaitServeStdout=${awaitServeStdout}`,
         // persist
-        `--outPath=${outPath}`,
+        outPath
         // `--format=${format[0]}`,
         // `--format=${format[1]}`,
         // assert
         // `--budgetPath=${budgetPath}`
-      ],
-      ['n'],
-      SETUP_SANDBOX_CLI_TEST_CFG
+      },
+      ['n']
     );
 
     const cfg = {

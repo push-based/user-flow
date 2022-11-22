@@ -21,3 +21,5 @@ export type InitCommandCfg = {
   persist: PersistRcOptions,
   assert?: AssertRcOptions;
 } & InitCliOnlyOptions
+
+export type InitCommandArgv = InitArgvOptions;
