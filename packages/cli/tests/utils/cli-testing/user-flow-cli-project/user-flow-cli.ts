@@ -28,7 +28,7 @@ export class UserFlowCliProject extends CliProject {
       let [_, rcJson] = Object.entries(cfg.rcFile)[0] as [string, RcJson];
       const ufPath = path.join(cfg.root, rcJson.collect.ufPath);
       const outPath = path.join(cfg.root, rcJson.persist.outPath);
-      cfg.delete = cfg?.delete.concat(getFolderContent([ufPath, outPath]));
+      cfg.delete = cfg?.delete.concat(getFolderContent([ufPath, outPath])) || [];
     }
 
     super(cfg);
