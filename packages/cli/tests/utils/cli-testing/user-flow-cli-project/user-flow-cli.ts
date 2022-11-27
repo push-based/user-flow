@@ -13,15 +13,25 @@ import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options
 import { kill } from '../../kill';
 import { SERVE_COMMAND_PORT } from './constants';
 
+export class UserFlowCliProjectFactory {
+  static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
+    const prj = new UserFlowCliProject();
+    await prj._setup(cfg);
+    await new Promise(r => setTimeout(r,30000));
+    return prj;
+  }
+}
+
 export class UserFlowCliProject extends CliProject {
   envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
 
-  constructor(cfg: UserFlowProjectConfig) {
-    super(cfg);
+  constructor() {
+    super();
   }
 
-  override _setup(cfg: UserFlowProjectConfig) {
+  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+    console.log('cfg1: ', cfg);
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: BASE_RC_JSON };
@@ -32,6 +42,7 @@ export class UserFlowCliProject extends CliProject {
       ...getEnvVarsByCliModeAndDeleteOld(cfg.cliMode)
     } as any);
 
+    console.log('cfg: ', cfg);
     // handle rcFiles and related deletions
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       let [_, rcJson] = Object.entries(cfg.rcFile)[0] as [string, RcJson];
@@ -39,7 +50,7 @@ export class UserFlowCliProject extends CliProject {
       const outPath = path.join(cfg.root, rcJson.persist.outPath);
       cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
     }
-    super._setup(cfg);
+    return super._setup(cfg);
   }
 
   override async teardown(): Promise<void> {
@@ -49,7 +60,7 @@ export class UserFlowCliProject extends CliProject {
 
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
-    // if a rcFile is created delete it on teardown
+    // If a rcFile is created delete it on teardown
     this.deleteFiles.push(path.join(this.root, (processParams?.rcPath || this.envPreset?.rcPath)));
     return this.exec(prcParams, userInput);
   }

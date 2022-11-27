@@ -8,11 +8,11 @@ import {
 import { AssertArgvOptions, AssertRcOptions } from './commands/assert/options/types';
 
 export type ArgvPreset =
-  {rcPath: GlobalOptionsArgv['rcPath']} &
+  { rcPath: GlobalOptionsArgv['rcPath'] } &
   Partial<Omit<GlobalOptionsArgv, 'rcPath'> &
-  CollectArgvOptions &
-  PersistArgvOptions &
-  AssertArgvOptions>
+    CollectArgvOptions &
+    PersistArgvOptions &
+    AssertArgvOptions>
 
 export type RcJson = {
   collect: CollectRcOptions;

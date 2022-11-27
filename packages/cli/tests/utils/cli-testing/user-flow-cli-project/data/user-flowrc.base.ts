@@ -3,6 +3,7 @@ import { DEFAULT_COLLECT_URL } from '../../../../../src/lib/commands/collect/opt
 import { DEFAULT_COLLECT_UF_PATH } from '../../../../../src/lib/commands/collect/options/ufPath.constant';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../../../../src/lib/commands/collect/options/outPath.constant';
 import { getEnvPreset } from '../../../../../src/lib/pre-set';
+import { ReportFormat } from '../../../../../src/lib/commands/collect/options/types';
 
 export const BASE_RC_JSON: RcJson = {
   'collect': {
@@ -11,6 +12,6 @@ export const BASE_RC_JSON: RcJson = {
   },
   'persist': {
     'outPath': DEFAULT_PERSIST_OUT_PATH,
-    'format': getEnvPreset().format || []
+    'format': getEnvPreset().format as ReportFormat[]
   }
 };

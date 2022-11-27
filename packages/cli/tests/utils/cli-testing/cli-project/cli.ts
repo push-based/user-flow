@@ -38,7 +38,7 @@ export class CliProject {
   /**
    * The process executing the CLI bin
    */
-  protected process: CliProcess = undefined as unknown as CliProcess
+  protected process: CliProcess = undefined as unknown as CliProcess;
 
   /**
    * Filenames to delete e.g. in project teardown
@@ -53,11 +53,10 @@ export class CliProject {
    */
   protected rcFile: Record<string, RcJson> = {};
 
-  constructor(cfg: ProjectConfig) {
-    this._setup(cfg);
+  constructor() {
   }
 
-  _setup(cfg: ProjectConfig) {
+  async _setup(cfg: ProjectConfig): Promise<void> {
     // use configurations
     this.root = cfg.root;
     this.bin = cfg.bin;
@@ -76,6 +75,8 @@ export class CliProject {
       cwd: this.root,
       env: cfg.env
     }, { bin: this.bin });
+
+    console.table(this);
   }
 
   /**
@@ -88,9 +89,10 @@ export class CliProject {
     (this.deleteFiles || [])
       .forEach((file) => {
         if (fs.existsSync(file)) {
+          console.info(`Deleted file ${file}`);
           fs.rmSync(file);
         } else {
-          // console.log(`File ${file} does not exist`)
+          console.error(`File ${file} does not exist`);
         }
       });
   }
@@ -108,11 +110,11 @@ export class CliProject {
         return entry;
       })
       .forEach(([file, content]) => {
-        if (!fs.existsSync(file)) {
-          fs.writeFileSync(file, content, 'utf8');
-        } else {
-          // console.log(`File ${file} already exist`)
+        if (fs.existsSync(file)) {
+          fs.rmSync(file);
+          console.log(`File ${file} got deleted as it already exists`);
         }
+        fs.writeFileSync(file, content, 'utf8');
       });
   }
 
@@ -120,7 +122,7 @@ export class CliProject {
    * Set up the project. e.g. create files, start processes
    */
   async setup(): Promise<void> {
-   this.createInitialFiles();
+    this.createInitialFiles();
   }
 
 
