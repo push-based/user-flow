@@ -1,11 +1,7 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
-import {
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_NAME
-} from '../../fixtures/setup-sandbox';
+import { SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_DEFAULT_RC_NAME } from '../../fixtures/setup-sandbox';
 
 import { expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
@@ -13,28 +9,34 @@ import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/ty
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 
-const emptyPrj = new UserFlowCliProject({
+const emptyPrjCfg: UserFlowProjectConfig = {
+  // @TODO implement custom options type and make cwd required
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {}
-});
-const setupPrj = new UserFlowCliProject({
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
+};
+
+let emptyPrj: UserFlowCliProject;
 
 
 describe('init command configuration in empty sandbox', () => {
 
   beforeEach(async () => {
+    if (!emptyPrj) {
+      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+    }
     await emptyPrj.setup();
-    await setupPrj.setup();
   });
+
   afterEach(async () => {
     await emptyPrj.teardown();
-    await setupPrj.teardown();
   });
 
   it('should have default`s from preset', async () => {
@@ -47,12 +49,34 @@ describe('init command configuration in empty sandbox', () => {
     expect(exitCode).toBe(0);
   });
 
+});
+
+const setupPrjCfg: UserFlowProjectConfig = {
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH
+};
+let setupPrj: UserFlowCliProject;
+
+describe('init command configuration in setup sandbox', () => {
+
+  beforeEach(async () => {
+    if (!setupPrj) {
+      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    }
+    await setupPrj.setup();
+  });
+  afterEach(async () => {
+    await setupPrj.teardown();
+  });
+
   it('should read the rc file', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$init();
-    const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
+    const { collect, persist, assert } = BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;
+    // openReport is not part of the init options
+    delete (cfg as any).openReport;
     expectInitCfgToContain(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -82,17 +106,17 @@ describe('init command configuration in empty sandbox', () => {
     let { budgetPath } = assert;
 
     const { exitCode, stdout, stderr } = await setupPrj.$init({
-      // -- collect
-      url,
-      ufPath,
-      // serveCommand,
-      // awaitServeStdout,
-      // -- persist
-      outPath,
-      format,
-      // -- assert
-      budgetPath
-    },
+        // -- collect
+        url,
+        ufPath,
+        // serveCommand,
+        // awaitServeStdout,
+        // -- persist
+        outPath,
+        format,
+        // -- assert
+        budgetPath
+      },
       ['n']
     );
 
@@ -103,11 +127,10 @@ describe('init command configuration in empty sandbox', () => {
     };
 
     expectInitCfgToContain(stdout, cfg);
-    const existingRcJSon = JSON.parse(readFileSync(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', SETUP_SANDBOX_DEFAULT_RC_NAME), 'utf8'));
+    const existingRcJSon = JSON.parse(readFileSync(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd + '', SETUP_SANDBOX_DEFAULT_RC_NAME), 'utf8'));
     expect(existingRcJSon).toEqual(existingRcJSon);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   }, 90_000);
 
 });
-

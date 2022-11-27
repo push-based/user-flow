@@ -4,28 +4,38 @@ import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
-import { UserFlowCliProject } from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../utils/cli-testing/user-flow-cli-project/types';
+import { SETUP_SANDBOX_CLI_TEST_CFG } from '../fixtures/setup-sandbox';
 
-const emptyPrjSandbox = new UserFlowCliProject({
+const emptyPrjSandboxCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {}
-});
-const emptyPrjDefault = new UserFlowCliProject({
+};
+let emptyPrjSandbox: UserFlowCliProject;
+
+const emptyPrjDefaultCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {},
   cliMode: 'DEFAULT'
-});
+};
+let emptyPrjDefault: UserFlowCliProject;
 
-describe('the CLI configuration', () => {
+
+describe('the CLI configuration in default mode', () => {
   beforeEach(async () => {
+    if (!emptyPrjSandbox) {
+      emptyPrjSandbox = await UserFlowCliProjectFactory.create(emptyPrjSandboxCfg);
+    }
     await emptyPrjSandbox.setup();
-    await emptyPrjDefault.setup();
   });
   afterEach(async () => {
     await emptyPrjSandbox.teardown();
-    await emptyPrjDefault.teardown();
   });
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
@@ -39,14 +49,20 @@ describe('the CLI configuration', () => {
     expect(exitCode).toBe(0);
   });
 
-  it('should have verbose false as default in a fresh environment', async () => {
+});
 
-    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init();
-    // verbose => no log as it is false by default
-    expect(stdout).not.toContain('CLI Mode:  DEFAULT');
-    expect(stderr).toBe('');
-    expect(exitCode).toBe(0);
+describe('the CLI configuration in default mode', () => {
+
+  beforeEach(async () => {
+    if (!emptyPrjDefault) {
+      emptyPrjDefault = await UserFlowCliProjectFactory.create(emptyPrjDefaultCfg);
+    }
+    await emptyPrjDefault.setup();
   });
+  afterEach(async () => {
+    await emptyPrjDefault.teardown();
+  });
+
 
   it('should have default preset in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ verbose: true });
@@ -57,5 +73,16 @@ describe('the CLI configuration', () => {
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
+
+
+  it('should have verbose false as default in a fresh environment', async () => {
+
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init();
+    // verbose => no log as it is false by default
+    expect(stdout).not.toContain('CLI Mode:  DEFAULT');
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+  });
+
 
 });

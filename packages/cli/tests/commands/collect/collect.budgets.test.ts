@@ -15,21 +15,31 @@ import {
   expectResultsToIncludeBudgets
 } from '../../utils/cli-expectations';
 import * as path from 'path';
-import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 
-const setupPrj = new UserFlowCliProject({
+const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
-});
+};
+let setupPrj: UserFlowCliProject;
 
 const ufStaticResultPath = path.join(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, 'sandbox-setup-static-dist.uf.json');
 
 describe('budgets and collect command in setup sandbox', () => {
-  beforeEach(async () => await setupPrj.setup());
+  beforeEach(async () => {
+    if (!setupPrj) {
+      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    }
+    await setupPrj.setup();
+  });
   afterEach(async () => await setupPrj.teardown());
 
   it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME});
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_STATIC_RC_NAME });
 
     expect(stderr).toBe('');
     expectNoBudgetsFileExistLog(stdout);
@@ -38,7 +48,10 @@ describe('budgets and collect command in setup sandbox', () => {
   });
 
   it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME, budgetPath:BUDGETS_NAME});
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      budgetPath: BUDGETS_NAME
+    });
 
     expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, BUDGETS_NAME);
@@ -47,7 +60,10 @@ describe('budgets and collect command in setup sandbox', () => {
   }, 60_000);
 
   it('should load budgets from file if budgetsPath RC option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({rcPath: SETUP_SANDBOX_STATIC_RC_NAME, budgetPath:BUDGETS_NAME});
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
+      budgetPath: BUDGETS_NAME
+    });
 
     expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, BUDGETS_NAME);
@@ -57,7 +73,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   it('should load budgets from file if budgets RC option is passed', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$collect({
-      rcPath:SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME
+      rcPath: SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME
     });
     const budgets = SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as [];
 
@@ -68,15 +84,15 @@ describe('budgets and collect command in setup sandbox', () => {
 
   });
 
- it('should load budgets from file if budgetPath RC option is passed', async () => {
-   const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
-   const { exitCode, stdout, stderr } = await setupPrj.$collect({
-     rcPath: SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME,
-   });
+  it('should load budgets from file if budgetPath RC option is passed', async () => {
+    const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
+    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+      rcPath: SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME
+    });
 
     expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, budgetPath);
-    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', budgetPath));
+    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd + '', budgetPath));
     expect(exitCode).toBe(0);
 
   });

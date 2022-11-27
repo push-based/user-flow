@@ -10,16 +10,24 @@ import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 
-const setupPrj = new UserFlowCliProject({
+const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
-});
+};
+let setupPrj: UserFlowCliProject;
 
 describe('collect command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
+    if (!setupPrj) {
+      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    }
     await setupPrj.setup();
   });
   afterEach(async () => {

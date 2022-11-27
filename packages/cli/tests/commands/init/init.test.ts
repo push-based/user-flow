@@ -16,28 +16,36 @@ import {
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
-import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 
-const emptyPrj = new UserFlowCliProject({
+const emptyPrjCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {}
-});
-const setupPrj = new UserFlowCliProject({
+};
+let emptyPrj: UserFlowCliProject;
+
+const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
-});
+};
+let setupPrj: UserFlowCliProject;
 
 
 describe('init command in empty sandbox', () => {
 
   beforeEach(async () => {
+    if (!emptyPrj) {
+      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+    }
     await emptyPrj.setup();
-    await setupPrj.setup();
   });
   afterEach(async () => {
     await emptyPrj.teardown();
-    await setupPrj.teardown();
   });
 
   it('should generate a user-flow for basic navigation after the CLI is setup', async () => {
@@ -62,13 +70,33 @@ describe('init command in empty sandbox', () => {
 
   }, 40_000);
 
+  it('should throw missing url error', async () => {
+
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({
+      interactive: false,
+      url: ''
+    });
+
+    expect(stderr).toContain('URL is required');
+    expect(exitCode).toBe(1);
+
+  }, 40_000);
+
+
 });
 
 
 describe('init command in setup sandbox', () => {
 
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => {
+    if (!setupPrj) {
+      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    }
+    await setupPrj.setup();
+  });
+  afterEach(async () => {
+    await setupPrj.teardown();
+  });
 
   it('should inform about the already existing cli-setup', async () => {
 
@@ -88,18 +116,6 @@ describe('init command in setup sandbox', () => {
     // file output
     expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
-
-  it('should throw missing url error', async () => {
-
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({
-      interactive: false,
-      url: ''
-    });
-
-    expect(stderr).toContain('URL is required');
-    expect(exitCode).toBe(1);
-
-  }, 40_000);
 
 });
 

@@ -23,27 +23,34 @@ import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/op
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 import * as path from 'path';
-import { UserFlowCliProject } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 
-const emptyPrj = new UserFlowCliProject({
+const emptyPrjCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {}
-});
+};
+let emptyPrj: UserFlowCliProject;
 
-const setupPrj = new UserFlowCliProject({
+const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH
-});
+};
+let setupPrj: UserFlowCliProject;
 
-describe('.rc.json in setup sandbox', () => {
+describe('.rc.json in empty sandbox', () => {
   beforeEach(async () => {
+    if (!emptyPrj) {
+      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+    }
     await emptyPrj.setup();
-    await setupPrj.setup();
   });
   afterEach(async () => {
     await emptyPrj.teardown();
-    await setupPrj.teardown();
   });
 
   it('should take default params from prompt', async () => {
@@ -103,6 +110,20 @@ describe('.rc.json in setup sandbox', () => {
     });
 
   }, 40_000);
+});
+
+describe('.rc.json in setup sandbox', () => {
+
+  beforeEach(async () => {
+    if (!setupPrj) {
+      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    }
+    await setupPrj.setup();
+  });
+  afterEach(async () => {
+    await setupPrj.teardown();
+  });
+
 
   it('should take params from cli', async () => {
     const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
@@ -118,7 +139,7 @@ describe('.rc.json in setup sandbox', () => {
         awaitServeStdout,
         // persist
         outPath,
-        format:[htmlFormat]
+        format: [htmlFormat]
       },
       ['n']);
 
