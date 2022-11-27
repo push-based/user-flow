@@ -13,16 +13,16 @@ export async function setupFormat(
 
 
   if (interactive()) {
-    let initialFormat: ReportFormat = Array.isArray(config?.persist?.format) ? config.persist.format[0] :
+    let initialFormat: ReportFormat | undefined = Array.isArray(config?.persist?.format) ? config.persist.format[0] :
       typeof config.persist.format === 'string' ? config.persist.format : undefined;
 
-    const { f }: { f: ReportFormat[] | undefined } = initialFormat ? {f: [initialFormat]} : await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] | undefined } = initialFormat !== undefined ? { f: [initialFormat] } : await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
-        initial: REPORT_FORMAT_VALUES.indexOf(initialFormat),
+        initial: REPORT_FORMAT_VALUES.indexOf(initialFormat as any as ReportFormat),
         // @NOTICE typing is broken here
         result(value: string) {
           const values = value as any as string[];
