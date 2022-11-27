@@ -1,8 +1,13 @@
 import { prompt } from 'enquirer';
 import { get as interactive } from '../../../global/options/interactive';
-import { ERROR_PERSIST_FORMAT_REQUIRED, ERROR_PERSIST_FORMAT_WRONG, PROMPT_PERSIST_FORMAT } from './format.constant';
+import {
+  DEFAULT_PERSIST_FORMAT,
+  ERROR_PERSIST_FORMAT_REQUIRED,
+  ERROR_PERSIST_FORMAT_WRONG,
+  PROMPT_PERSIST_FORMAT
+} from './format.constant';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
+import { REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
 import { RcJson } from '../../../types';
 import { ReportFormat } from './types';
 
@@ -11,35 +16,28 @@ export async function setupFormat(
 ): Promise<RcJson> {
   let format: ReportFormat[] = [];
 
-  let cfgFormat: ReportFormat[] = [];
-  if (config?.persist?.format) {
-    cfgFormat = Array.isArray(config.persist.format) ? config.persist.format : typeof config.persist.format === 'string' ? [config.persist.format] : [];
-  }
-
-  if (cfgFormat.length === 0) {
-    format = REPORT_FORMAT_VALUES;
-  } else {
-    format = cfgFormat;
-  }
 
   if (interactive()) {
+    let initialFormat: ReportFormat = Array.isArray(config?.persist?.format) ? config.persist.format[0] :
+      typeof config.persist.format === 'string' ? config.persist.format : DEFAULT_PERSIST_FORMAT[0];
 
-    const { f }: { f: ReportFormat[] | undefined } = cfgFormat.length === 0 ? await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] | undefined } = await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
-        initial: 0,
+        initial: REPORT_FORMAT_VALUES.indexOf(initialFormat),
         // @NOTICE typing is broken here
-        result(value: string): string {
+        result(value: string) {
           const values = value as any as string[];
-          return values.map(name => REPORT_FORMAT_OPTIONS.find(i => i.name === name)?.value + '') as any as string;
-        }
+          return values.map((name: string) => REPORT_FORMAT_VALUES[REPORT_FORMAT_NAMES.indexOf(name)]) as any as string;
+        },
+        muliple: true
       }
-    ]) : { f: cfgFormat };
+    ]);
 
-    format = f;
+    format = f as ReportFormat[] || [];
 
     if (format?.length === 0) {
       return setupFormat(config);
@@ -54,11 +52,11 @@ export async function setupFormat(
   ]);
 
   if (hasError(errors)) {
-    if(errors.required) {
+    if (errors.required) {
       throw new Error(ERROR_PERSIST_FORMAT_REQUIRED);
     }
 
-    if(errors.allOf) {
+    if (errors.allOf) {
       console.log('errors.allOf: ', errors);
       throw new Error(ERROR_PERSIST_FORMAT_WRONG(errors.allOf.value));
     }

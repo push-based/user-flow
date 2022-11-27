@@ -7,4 +7,5 @@ export const REPORT_FORMAT_OPTIONS = [
   { name: 'Markdown', value: 'md' },
   { name: 'Stdout', value: 'stdout' }
 ];
+export const REPORT_FORMAT_NAMES: string[] = REPORT_FORMAT_OPTIONS.map(v => v.name) as any as string[];
 export const REPORT_FORMAT_VALUES: ReportFormat[] = REPORT_FORMAT_OPTIONS.map(v => v.value) as any as ReportFormat[];
