@@ -101,11 +101,11 @@ export function expectGlobalOptionsToContain(stdout: string, globalParams: Parti
 }
 
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
-  expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
   expect(stdout).toContain(`outPath: '${cfg.persist.outPath}'`);
   expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}' ]`);
+  expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
 }
 
 export function expectNoPromptsInStdout(stdout: string) {

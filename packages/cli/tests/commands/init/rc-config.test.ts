@@ -63,9 +63,10 @@ describe('.rc.json in empty sandbox', () => {
       // HTML format
       ENTER,
       // outPath
-      ENTER, ENTER,
+      ENTER,
       // create NO flow example
-      'n'
+      'n',
+      ENTER
     ]);
 
     // Assertions
@@ -110,6 +111,7 @@ describe('.rc.json in empty sandbox', () => {
     });
 
   }, 40_000);
+
 });
 
 describe('.rc.json in setup sandbox', () => {

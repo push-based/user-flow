@@ -31,7 +31,7 @@ export class UserFlowCliProject extends CliProject {
   }
 
   override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
-    console.log('cfg1: ', cfg);
+    // console.log('cfg1: ', cfg);
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: BASE_RC_JSON };
@@ -42,7 +42,7 @@ export class UserFlowCliProject extends CliProject {
       ...getEnvVarsByCliModeAndDeleteOld(cfg.cliMode)
     } as any);
 
-    console.log('cfg: ', cfg);
+    // console.log('cfg: ', cfg);
     // handle rcFiles and related deletions
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       let [_, rcJson] = Object.entries(cfg.rcFile)[0] as [string, RcJson];

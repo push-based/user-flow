@@ -76,7 +76,7 @@ export class CliProject {
       env: cfg.env
     }, { bin: this.bin });
 
-    console.table(this);
+    // console.table(this);
   }
 
   /**
@@ -89,10 +89,10 @@ export class CliProject {
     (this.deleteFiles || [])
       .forEach((file) => {
         if (fs.existsSync(file)) {
-          console.info(`Deleted file ${file}`);
+          // console.info(`Deleted file ${file}`);
           fs.rmSync(file);
         } else {
-          console.error(`File ${file} does not exist`);
+          // console.error(`File ${file} does not exist`);
         }
       });
   }
@@ -112,7 +112,7 @@ export class CliProject {
       .forEach(([file, content]) => {
         if (fs.existsSync(file)) {
           fs.rmSync(file);
-          console.log(`File ${file} got deleted as it already exists`);
+          // console.log(`File ${file} got deleted as it already exists`);
         }
         fs.writeFileSync(file, content, 'utf8');
       });
