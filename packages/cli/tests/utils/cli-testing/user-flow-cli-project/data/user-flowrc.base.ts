@@ -8,10 +8,11 @@ import { ReportFormat } from '../../../../../src/lib/commands/collect/options/ty
 export const BASE_RC_JSON: RcJson = {
   'collect': {
     'url': DEFAULT_COLLECT_URL,
-    'ufPath': DEFAULT_COLLECT_UF_PATH
+    'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH
   },
   'persist': {
-    'outPath': DEFAULT_PERSIST_OUT_PATH,
+    'outPath': './src/lib/measures', //DEFAULT_PERSIST_OUT_PATH,
     'format': getEnvPreset().format as ReportFormat[]
-  }
+  },
+  'assert': {}
 };

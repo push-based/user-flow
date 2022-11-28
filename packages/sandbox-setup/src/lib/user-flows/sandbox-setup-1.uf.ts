@@ -1,11 +1,12 @@
-module.exports = {
+
+  module.exports = {
   flowOptions: {
     name: 'Sandbox Setup UF1'
   },
   interactions: async (ctx: Record<string, any>): Promise<void> => {
     const { flow, collectOptions } = ctx;
     const { url } = collectOptions;
-    const testUrl = `${url}`;
+    const testUrl = ''+url+'';
     await flow.navigate(testUrl);
   },
   launchOptions: {

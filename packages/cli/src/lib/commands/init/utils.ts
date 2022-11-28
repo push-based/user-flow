@@ -22,10 +22,6 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
 
 export function addUserFlow(flowExample: FlowExamples, folder: string) {
 
-  if (!Object.keys(FlowExampleMap).includes(flowExample)) {
-
-  }
-
   const fileName = FlowExampleMap[flowExample];
   const exampleSourceLocation = join(__dirname, 'static', fileName);
   const exampleDestination = join(folder, fileName);

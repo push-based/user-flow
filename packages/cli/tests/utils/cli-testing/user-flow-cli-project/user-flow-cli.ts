@@ -49,6 +49,9 @@ export class UserFlowCliProject extends CliProject {
     // the rc file creation is done in the CliProject class
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
+        cfg.create = cfg?.create || {};
+        cfg.create[rcJson.collect.ufPath] = undefined;
+        cfg.create[rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
@@ -74,13 +77,8 @@ export class UserFlowCliProject extends CliProject {
   }
 
   readRcJson(rcPath: string): RcJson {
-    throw new Error('readFile is not implemented');
-    try {
-      const rcJson = JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
-      return rcJson;
-    } catch (e) {
-      console.error(e);
-    }
+    const rcJson = JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
+    return rcJson;
   }
 
 }

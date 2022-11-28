@@ -54,7 +54,7 @@ export class CliProject {
    * Filenames to create e.g. in project setup
    * All files are located from root
    */
-  protected createFiles: Record<string, string> = {};
+  protected createFiles: Record<string, string | undefined> = {};
   /**
    * Filenames to create e.g. in project setup
    */
@@ -124,11 +124,19 @@ export class CliProject {
         return entry;
       })
       .forEach(([file, content]) => {
-        if (fs.existsSync(file)) {
-          fs.rmSync(file);
-          this.logVerbose(`File ${file} got deleted as it already exists`);
+
+        const exixts = fs.existsSync(file);
+        if (exixts) {
+          if(content !== undefined) {
+            fs.rmSync(file);
+            this.logVerbose(`File ${file} got deleted as it already exists`);
+          }
         }
-        fs.writeFileSync(file, content, 'utf8');
+        if(content === undefined) {
+          !exixts && fs.mkdirSync(file);
+        } else {
+          fs.writeFileSync(file, content, 'utf8');
+        }
         this.logVerbose(`File ${file} created`);
       });
   }

@@ -39,5 +39,5 @@ export type ProjectConfig = {
   // files
   rcFile?: Record<string, RcJson>,
   delete?: string[],
-  create?: Record<string, string>;
+  create?: Record<string, string | undefined>;
 }
