@@ -1,6 +1,5 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_REMOTE_RC_NAME
 } from '../../fixtures/setup-sandbox';
