@@ -5,19 +5,12 @@ import {
   EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS
 } from '../../fixtures/empty-sandbox';
 
-import {
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_NAME,
-  SETUP_SANDBOX_DEFAULT_RC_PATH,
-  SETUP_SANDBOX_STATIC_RC_JSON,
-  SETUP_SANDBOX_STATIC_RC_NAME
-} from '../../fixtures/setup-sandbox';
+import { SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_STATIC_RC_JSON } from '../../fixtures/setup-sandbox';
 
 import {
-  oldExpectEnsureConfigToCreateRc,
   expectOutputRcInStdout,
-  expectPromptsOfInitInStdout
+  expectPromptsOfInitInStdout,
+  oldExpectEnsureConfigToCreateRc
 } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
@@ -138,7 +131,7 @@ describe('.rc.json in setup sandbox', () => {
     await setupPrj.setup();
   });
   afterEach(async () => {
-    await setupPrj.teardown();
+   // await setupPrj.teardown();
   });
 
 

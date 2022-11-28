@@ -31,10 +31,13 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override;
+
+  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     // console.log('cfg1: ', cfg);
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
+    // if no value is provided we add the default rc file to the map
     cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: BASE_RC_JSON };
 
     cfg.cliMode = (cfg.cliMode || 'SANDBOX');
@@ -44,14 +47,14 @@ export class UserFlowCliProject extends CliProject {
     } as any);
 
     // console.log('cfg: ', cfg);
-    // handle rcFiles and related deletions
+    // handle user-flow related output folders defined in rcFiles and related configurations
+    // the rc file creation is done in the CliProject class
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
-        const ufPath = path.join(cfg.root, rcJson.collect.ufPath);
-        const outPath = path.join(cfg.root, rcJson.persist.outPath);
-        cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
+        cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
+
     return super._setup(cfg);
   }
 
@@ -63,7 +66,7 @@ export class UserFlowCliProject extends CliProject {
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
-    this.deleteFiles.push(path.join(this.root, (processParams?.rcPath || this.envPreset?.rcPath)));
+    this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
     return this.exec(prcParams, userInput);
   }
 

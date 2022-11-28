@@ -1,7 +1,7 @@
 import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
-import { processParamsToParamsArray } from './utils';
+import { getFolderContent, processParamsToParamsArray } from './utils';
 import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
@@ -85,13 +85,16 @@ export class CliProject {
    * @protected
    *
    * Method to delete files generated during the CLI run
+   * Notice all files will get located from the project root
    */
   deleteGeneratedFiles(): void {
     (this.deleteFiles || [])
       .forEach((file) => {
-        if (fs.existsSync(file)) {
+        const p = path.join(this.root, file);
+
+        if (fs.existsSync(p)) {
           // console.info(`Deleted file ${file}`);
-          fs.rmSync(file);
+          fs.rmSync(p);
         } else {
           // console.error(`File ${file} does not exist`);
         }
@@ -103,6 +106,7 @@ export class CliProject {
    * @protected
    *
    * Method to create files needed during the CLI run
+   * Notice all files will get located from the project root
    */
   createInitialFiles(): void {
     Object.entries(this.createFiles || {})
