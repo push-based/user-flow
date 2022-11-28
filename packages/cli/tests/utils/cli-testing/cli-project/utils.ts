@@ -6,6 +6,7 @@ import * as path from 'path';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
+
     // @TODO
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
@@ -15,10 +16,18 @@ export function getFolderContent(folders: string[]): string[] {
   });
 }
 
-export function deleteFiles(files: string[]): void {
-  files.forEach((f) => {
-    if (fs.existsSync(f)) {
-      fs.rmSync(f);
+export function deleteFileOrFolder(files: string | string[]): void {
+  (typeof files === 'string' ? [files] : files).forEach((p) => {
+    if (fs.existsSync(p)) {
+      const stats = fs.lstatSync(p);
+      if(stats.isDirectory()) {
+        fs.rmdirSync(p, { recursive: true });
+      } else {
+        fs.rmSync(p);
+      }
+      // console.info(`Deleted file ${file}`);
+    } else {
+      // console.error(`File ${file} does not exist`);
     }
   });
 }

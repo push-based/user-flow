@@ -128,10 +128,11 @@ describe('.rc.json in setup sandbox', () => {
     if (!setupPrj) {
       setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
     }
+
     await setupPrj.setup();
   });
   afterEach(async () => {
-   // await setupPrj.teardown();
+   await setupPrj.teardown();
   });
 
 

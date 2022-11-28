@@ -1,7 +1,7 @@
 import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
-import { getFolderContent, processParamsToParamsArray } from './utils';
+import { deleteFileOrFolder, getFolderContent, processParamsToParamsArray } from './utils';
 import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
@@ -42,10 +42,12 @@ export class CliProject {
 
   /**
    * Filenames to delete e.g. in project teardown
+   * All files are located from root
    */
   protected deleteFiles: string[] = [];
   /**
    * Filenames to create e.g. in project setup
+   * All files are located from root
    */
   protected createFiles: Record<string, string> = {};
   /**
@@ -72,12 +74,15 @@ export class CliProject {
       });
     }
 
+    // remove duplicated paths
+    this.deleteFiles = Array.from(new Set(this.deleteFiles));
+
     this.process = getCliProcess({
       cwd: this.root,
       env: cfg.env
     }, { bin: this.bin });
 
-    // console.table(this);
+    console.table(this);
   }
 
   /**
@@ -88,17 +93,8 @@ export class CliProject {
    * Notice all files will get located from the project root
    */
   deleteGeneratedFiles(): void {
-    (this.deleteFiles || [])
-      .forEach((file) => {
-        const p = path.join(this.root, file);
-
-        if (fs.existsSync(p)) {
-          // console.info(`Deleted file ${file}`);
-          fs.rmSync(p);
-        } else {
-          // console.error(`File ${file} does not exist`);
-        }
-      });
+    deleteFileOrFolder((this.deleteFiles || [])
+      .map(file => path.join(this.root, file)));
   }
 
   /**

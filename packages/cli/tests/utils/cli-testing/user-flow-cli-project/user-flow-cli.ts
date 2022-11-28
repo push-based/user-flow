@@ -10,7 +10,7 @@ import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
 import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
-import { kill } from '../../kill';
+import { kill } from './utils/kill';
 import { SERVE_COMMAND_PORT } from './constants';
 import * as fs from 'fs';
 
@@ -31,9 +31,7 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override;
-
-  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     // console.log('cfg1: ', cfg);
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
