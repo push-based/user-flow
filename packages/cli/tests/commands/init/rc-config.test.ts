@@ -9,8 +9,7 @@ import { SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_STATIC_RC_JSON } from '../../
 
 import {
   expectOutputRcInStdout,
-  expectPromptsOfInitInStdout,
-  oldExpectEnsureConfigToCreateRc
+  expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
@@ -89,7 +88,8 @@ describe('.rc.json in empty sandbox', () => {
     expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    oldExpectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    const hardRc = setupPrj.readRcJson(DEFAULT_RC_PATH);
+    expect(hardRc).toEqual(EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should take custom params from prompt', async () => {
@@ -111,14 +111,13 @@ describe('.rc.json in empty sandbox', () => {
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
 
-    //
-    oldExpectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+    const hardRc = setupPrj.readRcJson(DEFAULT_RC_PATH);
+    expect(hardRc).toEqual({
       collect: {
         url,
         ufPath
       }, persist: { outPath, format: ['html'] }
     });
-
   }, 40_000);
 
 });
