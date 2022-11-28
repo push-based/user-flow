@@ -17,47 +17,19 @@ import {
   CLI_DEFAULTS_RC_JSON,
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
-import { RcJson } from '@push-based/user-flow';
 import { join } from 'path';
-import {
-  ORDER_COFFEE_USERFLOW_CONTENT,
-  ORDER_COFFEE_USERFLOW_NAME,
-  SETUP_1_USERFLOW_CONTENT,
-  SETUP_1_USERFLOW_NAME
-} from '../../fixtures/user-flows/order-coffee.uf';
-import { SERVE_COMMAND_PORT } from '../../utils/cli-testing/user-flow-cli-project/constants';
+import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../../fixtures/user-flows/order-coffee.uf';
+import { SETUP_1_USERFLOW_CONTENT, SETUP_1_USERFLOW_NAME } from '../../fixtures/user-flows/sandbox-setup-1.uf';
+import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote-url';
+import { STATIC_RC_JSON } from '../../fixtures/rc-files/static-app';
 
 
-const emptyPrjCfg: UserFlowProjectConfig = {
+export const emptyPrjCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {}
 };
 let emptyPrj: UserFlowCliProject;
-
-const REMOTE_RC_NAME = '.user-flow.remote.json';
-const REMOTE_RC_JSON: RcJson = {
-  ...SANDBOX_BASE_RC_JSON,
-  'collect': {
-    ...SANDBOX_BASE_RC_JSON.collect,
-    'url': 'https://google.com'
-  }
-};
-
-const STATIC_RC_NAME = '.user-flow.remote.json';
-const STATIC_RC_JSON: RcJson = {
-  ...SANDBOX_BASE_RC_JSON,
-  'collect': {
-    'url': 'http://127.0.0.1:' + SERVE_COMMAND_PORT,
-    'ufPath': './src/lib/user-flows-static-dist',
-    'serveCommand': 'npm run start',
-    'awaitServeStdout': 'Available on:'
-  },
-  persist: {
-    ...SANDBOX_BASE_RC_JSON.persist,
-    'format': ['json']
-  }
-};
 
 
 const setupPrjCfg: UserFlowProjectConfig = {

@@ -1,10 +1,8 @@
 import * as path from 'path';
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
-  SETUP_SANDBOX_REMOTE_RC_NAME,
   SETUP_SANDBOX_STATIC_RC_JSON,
   SETUP_SANDBOX_STATIC_RC_NAME
 } from '../../fixtures/setup-sandbox';
@@ -19,14 +17,30 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import set = Reflect.set;
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote-url';
+import { STATIC_RC_JSON, STATIC_RC_NAME } from '../../fixtures/rc-files/static-app';
 
-const setupPrjCfg: UserFlowProjectConfig = {
+const setupStaticPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
+  bin: CLI_PATH,
+  rcFile: {
+    [STATIC_RC_NAME]: STATIC_RC_JSON
+  }
+  /*create: {
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, SETUP_1_USERFLOW_NAME)]: SETUP_1_USERFLOW_CONTENT
+  }*/
 };
-let setupPrj: UserFlowCliProject;
+let setupStaticPrj: UserFlowCliProject;
+const setupRemotePrjCfg: UserFlowProjectConfig = {
+  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
+  bin: CLI_PATH,
+  rcFile: {
+    [REMOTE_RC_NAME]: REMOTE_RC_JSON
+  }
+};
+let setupRemotePrj: UserFlowCliProject;
 
 
 const uf1Name = 'Sandbox Setup UF1';
@@ -45,18 +59,18 @@ const uf1OutPathHtml = path.join(
   'sandbox-setup-uf1.uf.html'
 );
 
-describe('collect command in setup sandbox', () => {
+describe('collect command in setup sandbox with a static served app', () => {
 
   beforeEach(async () => {
-    if (!setupPrj) {
-      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    if (!setupStaticPrj) {
+      setupStaticPrj = await UserFlowCliProjectFactory.create(setupStaticPrjCfg);
     }
-    await setupPrj.setup();
+    await setupStaticPrj.setup();
   });
-  afterEach(async () => await setupPrj.teardown());
+  afterEach(async () => await setupStaticPrj.teardown());
 
   it('should load ufPath and execute the user-flow with verbose=false and save the report', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await setupStaticPrj.$collect({
       rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
       ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath,
       verbose: false
@@ -72,10 +86,21 @@ describe('collect command in setup sandbox', () => {
 
     expectCollectNotToCreateAReport(uf1OutPathHtml);
   }, 120_000);
+});
+describe('collect command in setup sandbox with a remote served app', () => {
+
+  beforeEach(async () => {
+    if (!setupRemotePrj) {
+      setupRemotePrj = await UserFlowCliProjectFactory.create(setupRemotePrjCfg);
+    }
+    await setupRemotePrj.setup();
+  });
+  afterEach(async () => await setupRemotePrj.teardown());
+
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a HTML file', async () => {
-    const { exitCode, stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
+    const { exitCode, stderr } = await setupStaticPrj.$collect({
+      rcPath: REMOTE_RC_NAME,
       dryRun: false,
       format: ['html']
     });
@@ -88,7 +113,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a JSON file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_REMOTE_RC_NAME });
+    const { exitCode, stdout, stderr } = await setupStaticPrj.$collect({ rcPath: REMOTE_RC_NAME });
     expect(stderr).toBe('');
     // expect(stdout).toBe('');
     // expectCollectLogsFromMockInStdout(stdout, uf1Name, SETUP_SANDBOX_REMOTE_RC_JSON);
@@ -99,8 +124,8 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should load ufPath, execute the user-flow on a remote URL and save the results as a Markdown file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
+    const { exitCode, stdout, stderr } = await setupStaticPrj.$collect({
+      rcPath: REMOTE_RC_NAME,
       dryRun: false, format: ['md']
     });
 
