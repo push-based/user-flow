@@ -82,7 +82,7 @@ export class CliProject {
       env: cfg.env
     }, { bin: this.bin });
 
-    console.table(this);
+   // console.table(this);
   }
 
   /**

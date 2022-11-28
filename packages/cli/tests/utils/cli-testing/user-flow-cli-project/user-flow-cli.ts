@@ -18,7 +18,7 @@ export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
     const prj = new UserFlowCliProject();
     await prj._setup(cfg);
-    await new Promise(r => setTimeout(r, 30000));
+   // await new Promise(r => setTimeout(r, 30000));
     return prj;
   }
 }
