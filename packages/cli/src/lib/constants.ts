@@ -1,4 +1,4 @@
-import path from "path";
+import * as path from "path";
 
 export const DEFAULT_RC_NAME = '.user-flowrc.json';
 export const DEFAULT_RC_PATH = `./`;
