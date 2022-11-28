@@ -31,6 +31,7 @@ export type Project = {
   }
 
 export type ProjectConfig = {
+  verbose?: boolean,
   root: string,
   bin: string,
   // the process env of the created process

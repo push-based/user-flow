@@ -43,10 +43,11 @@ const REMOTE_RC_JSON: RcJson = {
 
 
 const setupPrjCfg: UserFlowProjectConfig = {
+  verbose: true,
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {
-    [DEFAULT_FULL_RC_PATH]: BASE_RC_JSON,
+    [DEFAULT_RC_NAME]: BASE_RC_JSON,
     [REMOTE_RC_NAME]: REMOTE_RC_JSON
   }
 };
@@ -132,7 +133,7 @@ describe('.rc.json in setup sandbox', () => {
     await setupPrj.setup();
   });
   afterEach(async () => {
-   await setupPrj.teardown();
+  // await setupPrj.teardown();
   });
 
 
