@@ -26,6 +26,11 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
 export class CliProject {
 
   /**
+   * A flag to add more detailed information as logs
+   */
+  protected verbose: boolean = false;
+
+  /**
    * The folder in which to execute the process
    */
   protected root: string = '';
@@ -58,7 +63,17 @@ export class CliProject {
   constructor() {
   }
 
+  logVerbose(...args: any): void {
+    this.verbose && console.log(...args);
+  }
+  tableVerbose(...args: any): void {
+    this.verbose && console.table(...args);
+  }
+
   async _setup(cfg: ProjectConfig): Promise<void> {
+    // global settings
+    this.verbose = Boolean(cfg.verbose);
+
     // use configurations
     this.root = cfg.root;
     this.bin = cfg.bin;
@@ -70,7 +85,7 @@ export class CliProject {
     if (Object.keys(this.rcFile).length > 0) {
       Object.entries(this.rcFile).forEach(([rcName, rcContent]) => {
         this.deleteFiles.push(rcName);
-        this.createFiles = { [rcName]: JSON.stringify(rcContent) };
+        this.createFiles[rcName] = JSON.stringify(rcContent);
       });
     }
 
@@ -81,8 +96,6 @@ export class CliProject {
       cwd: this.root,
       env: cfg.env
     }, { bin: this.bin });
-
-   // console.table(this);
   }
 
   /**
@@ -105,7 +118,7 @@ export class CliProject {
    * Notice all files will get located from the project root
    */
   createInitialFiles(): void {
-    Object.entries(this.createFiles || {})
+    Object.entries(this?.createFiles || {})
       .map(entry => {
         entry[0] = path.join(this.root, entry[0]);
         return entry;
@@ -113,9 +126,10 @@ export class CliProject {
       .forEach(([file, content]) => {
         if (fs.existsSync(file)) {
           fs.rmSync(file);
-          // console.log(`File ${file} got deleted as it already exists`);
+          this.logVerbose(`File ${file} got deleted as it already exists`);
         }
         fs.writeFileSync(file, content, 'utf8');
+        this.logVerbose(`File ${file} created`);
       });
   }
 
