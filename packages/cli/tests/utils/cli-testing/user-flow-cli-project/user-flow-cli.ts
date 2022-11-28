@@ -12,12 +12,13 @@ import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
 import { kill } from '../../kill';
 import { SERVE_COMMAND_PORT } from './constants';
+import * as fs from 'fs';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
     const prj = new UserFlowCliProject();
     await prj._setup(cfg);
-    await new Promise(r => setTimeout(r,30000));
+    await new Promise(r => setTimeout(r, 30000));
     return prj;
   }
 }
@@ -71,8 +72,14 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(name = ''): RcJson {
+  readRcJson(rcPath: string): RcJson {
     throw new Error('readFile is not implemented');
+    try {
+      const rcJson = JSON.parse(fs.readFileSync(rcPath) as any);
+      return rcJson;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
 }

@@ -11,7 +11,7 @@ import {
 } from '../../fixtures/setup-sandbox';
 
 import {
-  expectEnsureConfigToCreateRc,
+  oldExpectEnsureConfigToCreateRc,
   expectNoPromptsInStdout,
   expectOutputRcInStdout,
   expectPromptsOfInitInStdout
@@ -114,7 +114,7 @@ describe('init command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // file output
-    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
+    oldExpectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
   });
 
 });

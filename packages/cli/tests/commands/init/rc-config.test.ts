@@ -15,9 +15,9 @@ import {
 } from '../../fixtures/setup-sandbox';
 
 import {
-  expectEnsureConfigToCreateRc,
+  oldExpectEnsureConfigToCreateRc,
   expectOutputRcInStdout,
-  expectPromptsOfInitInStdout
+  expectPromptsOfInitInStdout, expectEnsureConfigToCreateRc
 } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
@@ -28,7 +28,7 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_PATH } from '../../../src/lib/constants';
+import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_NAME, DEFAULT_RC_PATH } from '../../../src/lib/constants';
 import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { RcJson } from '@push-based/user-flow';
 
@@ -97,7 +97,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
 
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    oldExpectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 
   it('should take custom params from prompt', async () => {
@@ -120,7 +120,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+    oldExpectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
       collect: {
         url,
         ufPath
@@ -169,15 +169,13 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should load default RC config name in a setup project', async () => {
-
     const { exitCode, stdout, stderr } = await setupPrj.$init();
-
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    expect(stdout).toContain(`Update config under ${SETUP_SANDBOX_DEFAULT_RC_NAME}`);
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
-    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
+    expect(stdout).toContain(`Update config under ${DEFAULT_RC_NAME}`);
+    expectOutputRcInStdout(stdout, BASE_RC_JSON);
+    expect(setupPrj.readRcJson(setupPrjCfg?.rcFile?[DEFAULT_FULL_RC_PATH])).toEqual(BASE_RC_JSON);
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {

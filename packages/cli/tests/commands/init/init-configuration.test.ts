@@ -3,7 +3,7 @@ import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
 import { SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_DEFAULT_RC_NAME } from '../../fixtures/setup-sandbox';
 
-import { expectInitCfgToContain } from '../../utils/cli-expectations';
+import { oldExpectEnsureConfigToCreateRc, expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
@@ -15,6 +15,7 @@ import {
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { DEFAULT_FULL_RC_PATH } from '../../../src/lib/constants';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
   // @TODO implement custom options type and make cwd required
@@ -127,8 +128,7 @@ describe('init command configuration in setup sandbox', () => {
     };
 
     expectInitCfgToContain(stdout, cfg);
-    const existingRcJSon = JSON.parse(readFileSync(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd + '', SETUP_SANDBOX_DEFAULT_RC_NAME), 'utf8'));
-    expect(existingRcJSon).toEqual(existingRcJSon);
+    oldExpectEnsureConfigToCreateRc(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', DEFAULT_FULL_RC_PATH), cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   }, 90_000);
