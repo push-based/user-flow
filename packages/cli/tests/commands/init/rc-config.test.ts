@@ -28,6 +28,9 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_PATH } from '../../../src/lib/constants';
+import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { RcJson } from '@push-based/user-flow';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
@@ -36,9 +39,23 @@ const emptyPrjCfg: UserFlowProjectConfig = {
 };
 let emptyPrj: UserFlowCliProject;
 
+const REMOTE_RC_NAME = '.user-flow.remote.json';
+const REMOTE_RC_JSON: RcJson = {
+  ...BASE_RC_JSON.collect,
+  'collect': {
+    ...BASE_RC_JSON.collect,
+    'url': 'https://google.com'
+  }
+};
+
+
 const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
+  bin: CLI_PATH,
+  rcFile: {
+    [DEFAULT_FULL_RC_PATH]: BASE_RC_JSON,
+    [path.join(DEFAULT_RC_PATH, REMOTE_RC_NAME)]: REMOTE_RC_JSON
+  }
 };
 let setupPrj: UserFlowCliProject;
 
@@ -165,14 +182,12 @@ describe('.rc.json in setup sandbox', () => {
 
   it('should load configuration if specified rc file param -p is given', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$init(
-      { rcPath: SETUP_SANDBOX_STATIC_RC_NAME },
+      { rcPath: REMOTE_RC_NAME },
       ['n']);
-
-    const config = SETUP_SANDBOX_STATIC_RC_JSON;
 
     // Assertions
     expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, config);
+    expectOutputRcInStdout(stdout, REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
   });
 
