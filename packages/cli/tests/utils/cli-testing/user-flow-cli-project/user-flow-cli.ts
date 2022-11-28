@@ -75,7 +75,7 @@ export class UserFlowCliProject extends CliProject {
   readRcJson(rcPath: string): RcJson {
     throw new Error('readFile is not implemented');
     try {
-      const rcJson = JSON.parse(fs.readFileSync(rcPath) as any);
+      const rcJson = JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
       return rcJson;
     } catch (e) {
       console.error(e);

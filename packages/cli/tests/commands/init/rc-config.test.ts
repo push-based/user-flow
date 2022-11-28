@@ -175,7 +175,8 @@ describe('.rc.json in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(stdout).toContain(`Update config under ${DEFAULT_RC_NAME}`);
     expectOutputRcInStdout(stdout, BASE_RC_JSON);
-    expect(setupPrj.readRcJson(setupPrjCfg?.rcFile?[DEFAULT_FULL_RC_PATH])).toEqual(BASE_RC_JSON);
+    const hardRc = setupPrj.readRcJson(DEFAULT_RC_PATH);
+    expect(hardRc).toEqual(BASE_RC_JSON);
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {
