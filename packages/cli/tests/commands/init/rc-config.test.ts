@@ -54,7 +54,7 @@ const setupPrjCfg: UserFlowProjectConfig = {
   bin: CLI_PATH,
   rcFile: {
     [DEFAULT_FULL_RC_PATH]: BASE_RC_JSON,
-    [path.join(DEFAULT_RC_PATH, REMOTE_RC_NAME)]: REMOTE_RC_JSON
+    [REMOTE_RC_NAME]: REMOTE_RC_JSON
   }
 };
 let setupPrj: UserFlowCliProject;
