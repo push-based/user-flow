@@ -1,21 +1,23 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
-import { SETUP_SANDBOX_CLI_TEST_CFG, SETUP_SANDBOX_DEFAULT_RC_NAME } from '../../fixtures/setup-sandbox';
+import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
 
-import { oldExpectEnsureConfigToCreateRc, expectInitCfgToContain } from '../../utils/cli-expectations';
+import { expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { readFileSync } from 'fs';
 import * as path from 'path';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
-import { DEFAULT_FULL_RC_PATH } from '../../../src/lib/constants';
+import {
+  CLI_DEFAULTS_RC_JSON,
+  SANDBOX_BASE_RC_JSON
+} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_NAME } from '../../../src/lib/constants';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
   // @TODO implement custom options type and make cwd required
@@ -43,8 +45,9 @@ describe('init command configuration in empty sandbox', () => {
   it('should have default`s from preset', async () => {
     const { exitCode, stdout, stderr } = await emptyPrj.$init();
 
+    // @NOTICE formats are in the preset but not used as default param
     const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
-    const { dryRun, openReport, ...initOptions } = rest as any;
+    const { dryRun, openReport, format, ...initOptions } = rest as any;
     expectInitCfgToContain(stdout, initOptions);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -128,7 +131,8 @@ describe('init command configuration in setup sandbox', () => {
     };
 
     expectInitCfgToContain(stdout, cfg);
-    oldExpectEnsureConfigToCreateRc(path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd+'', DEFAULT_FULL_RC_PATH), cfg);
+    const hardRc = setupPrj.readRcJson(DEFAULT_RC_NAME);
+    expect(hardRc).toEqual(cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   }, 90_000);
