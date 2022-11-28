@@ -41,7 +41,7 @@ let emptyPrj: UserFlowCliProject;
 
 const REMOTE_RC_NAME = '.user-flow.remote.json';
 const REMOTE_RC_JSON: RcJson = {
-  ...BASE_RC_JSON.collect,
+  ...BASE_RC_JSON,
   'collect': {
     ...BASE_RC_JSON.collect,
     'url': 'https://google.com'
