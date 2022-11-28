@@ -1,6 +1,11 @@
 import { prompt } from 'enquirer';
 import { get as interactive } from '../../../global/options/interactive';
-import { ERROR_PERSIST_FORMAT_REQUIRED, ERROR_PERSIST_FORMAT_WRONG, PROMPT_PERSIST_FORMAT } from './format.constant';
+import {
+  ERROR_PERSIST_FORMAT_REQUIRED,
+  ERROR_PERSIST_FORMAT_WRONG,
+  PERSIST_FORMAT_HTML,
+  PROMPT_PERSIST_FORMAT
+} from './format.constant';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../constants';
 import { RcJson } from '../../../types';
@@ -13,16 +18,20 @@ export async function setupFormat(
 
 
   if (interactive()) {
-    let initialFormat: ReportFormat | undefined = Array.isArray(config?.persist?.format) ? config.persist.format[0] :
-      typeof config.persist.format === 'string' ? config.persist.format : undefined;
+    let initialFormat: ReportFormat =
+      // take the provided formats from cli params or the rc file if given and convert it to a string (yes we cant use multiple initial values :( )
+      Array.isArray(config?.persist?.format) ? config.persist.format[0] :
+      typeof config.persist.format === 'string' ? config.persist.format :
+        // if not use html format as a suggestion in the prompt
+        PERSIST_FORMAT_HTML;
 
-    const { f }: { f: ReportFormat[] | undefined } = initialFormat !== undefined ? { f: [initialFormat] } : await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] | undefined } =  await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
-        initial: REPORT_FORMAT_VALUES.indexOf(initialFormat as any as ReportFormat),
+        initial: REPORT_FORMAT_VALUES.indexOf(initialFormat),
         // @NOTICE typing is broken here
         result(value: string) {
           const values = value as any as string[];
