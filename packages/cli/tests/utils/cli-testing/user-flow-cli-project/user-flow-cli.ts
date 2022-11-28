@@ -4,7 +4,7 @@ import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
 import { getEnvVarsByCliModeAndDeleteOld, getFolderContent } from '../cli-project/utils';
 import { UserFlowProjectConfig } from './types';
-import { BASE_RC_JSON } from './data/user-flowrc.base';
+import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../../../src/lib';
 import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
@@ -36,7 +36,7 @@ export class UserFlowCliProject extends CliProject {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
-    cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: BASE_RC_JSON };
+    cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: SANDBOX_BASE_RC_JSON };
 
     cfg.cliMode = (cfg.cliMode || 'SANDBOX');
     cfg.cliMode && (cfg.env = {

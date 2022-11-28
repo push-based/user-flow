@@ -21,8 +21,9 @@ import { Options } from 'execa';
 
 export const EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS = '.user-flowrc.json';
 export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS = {
-  'collect': { 'url': DEFAULT_COLLECT_URL, 'ufPath': DEFAULT_COLLECT_UF_PATH },
-  'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
+  collect: { 'url': DEFAULT_COLLECT_URL, 'ufPath': DEFAULT_COLLECT_UF_PATH },
+  persist: { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT },
+  assert: {}
 };
 export const EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_CUSTOM_VALUES = {
   'collect': { 'url': 'custom-url', 'ufPath': 'DEFAULT_COLLECT_UF_PATH' },

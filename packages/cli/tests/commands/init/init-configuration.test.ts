@@ -14,7 +14,7 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { DEFAULT_FULL_RC_PATH } from '../../../src/lib/constants';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
@@ -72,7 +72,7 @@ describe('init command configuration in setup sandbox', () => {
 
   it('should read the rc file', async () => {
     const { exitCode, stdout, stderr } = await setupPrj.$init();
-    const { collect, persist, assert } = BASE_RC_JSON;
+    const { collect, persist, assert } = SANDBOX_BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;

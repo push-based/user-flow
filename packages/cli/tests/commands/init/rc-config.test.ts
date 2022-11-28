@@ -1,6 +1,5 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { EMPTY_SANDBOX_CLI_TEST_CFG, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS } from '../../fixtures/empty-sandbox';
-
+import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
 
 import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../utils/cli-expectations';
@@ -13,8 +12,11 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import { DEFAULT_RC_NAME, DEFAULT_RC_PATH } from '../../../src/lib/constants';
-import { BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import {
+  CLI_DEFAULTS_RC_JSON,
+  SANDBOX_BASE_RC_JSON
+} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { RcJson } from '@push-based/user-flow';
 import { join } from 'path';
 import {
@@ -35,16 +37,16 @@ let emptyPrj: UserFlowCliProject;
 
 const REMOTE_RC_NAME = '.user-flow.remote.json';
 const REMOTE_RC_JSON: RcJson = {
-  ...BASE_RC_JSON,
+  ...SANDBOX_BASE_RC_JSON,
   'collect': {
-    ...BASE_RC_JSON.collect,
+    ...SANDBOX_BASE_RC_JSON.collect,
     'url': 'https://google.com'
   }
 };
 
 const STATIC_RC_NAME = '.user-flow.remote.json';
 const STATIC_RC_JSON: RcJson = {
-  ...BASE_RC_JSON,
+  ...SANDBOX_BASE_RC_JSON,
   'collect': {
     'url': 'http://127.0.0.1:' + SERVE_COMMAND_PORT,
     'ufPath': './src/lib/user-flows-static-dist',
@@ -52,7 +54,7 @@ const STATIC_RC_JSON: RcJson = {
     'awaitServeStdout': 'Available on:'
   },
   persist: {
-    ...BASE_RC_JSON.persist,
+    ...SANDBOX_BASE_RC_JSON.persist,
     'format': ['json']
   }
 };
@@ -63,12 +65,12 @@ const setupPrjCfg: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
   rcFile: {
-    [DEFAULT_RC_NAME]: BASE_RC_JSON,
+    [DEFAULT_RC_NAME]: SANDBOX_BASE_RC_JSON,
     [REMOTE_RC_NAME]: REMOTE_RC_JSON
   },
   create: {
-    [join(BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
-    [join(BASE_RC_JSON.collect.ufPath, SETUP_1_USERFLOW_NAME)]: SETUP_1_USERFLOW_CONTENT
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, SETUP_1_USERFLOW_NAME)]: SETUP_1_USERFLOW_CONTENT
   }
 };
 
@@ -89,11 +91,11 @@ describe('.rc.json in empty sandbox', () => {
 
     const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
       //url
-      EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
+      ENTER,
       // ufPath
       ENTER,
       // HTML format
-      ENTER, ENTER,
+      ENTER,
       // outPath
       ENTER, ENTER,
       // create NO flow example
@@ -107,11 +109,11 @@ describe('.rc.json in empty sandbox', () => {
     // prompts
     expectPromptsOfInitInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectOutputRcInStdout(stdout, CLI_DEFAULTS_RC_JSON);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    const hardRc = setupPrj.readRcJson(DEFAULT_RC_PATH);
-    expect(hardRc).toEqual(EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
+    expect(hardRc).toEqual(CLI_DEFAULTS_RC_JSON);
   });
 
   it('should take custom params from prompt', async () => {
@@ -133,12 +135,14 @@ describe('.rc.json in empty sandbox', () => {
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
 
-    const hardRc = setupPrj.readRcJson(DEFAULT_RC_PATH);
+    const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
     expect(hardRc).toEqual({
       collect: {
         url,
         ufPath
-      }, persist: { outPath, format: ['html'] }
+      },
+      persist: { outPath, format: ['html'] },
+      assert: {}
     });
   }, 40_000);
 
@@ -189,9 +193,9 @@ describe('.rc.json in setup sandbox', () => {
     // Assertions
 
     expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, BASE_RC_JSON);
+    expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
     const hardRc = setupPrj.readRcJson(DEFAULT_RC_NAME);
-    expect(hardRc).toEqual(BASE_RC_JSON);
+    expect(hardRc).toEqual(SANDBOX_BASE_RC_JSON);
     expect(exitCode).toBe(0);
   });
 

@@ -1,7 +1,7 @@
 import { get as interactive } from '../../../global/options/interactive';
 import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED, PROMPT_COLLECT_UF_PATH } from './ufPath.constant';
+import { DEFAULT_COLLECT_UF_PATH, ERROR_COLLECT_UF_PATH_REQUIRED, PROMPT_COLLECT_UF_PATH } from '../../collect/options/ufPath.constant';
 import { RcJson } from '../../../types';
 
 export async function setupUfPath(
