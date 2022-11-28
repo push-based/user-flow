@@ -78,12 +78,11 @@ describe('.rc.json in empty sandbox', () => {
       // ufPath
       ENTER,
       // HTML format
-      ENTER,
+      ENTER, ENTER,
       // outPath
-      ENTER,
+      ENTER, ENTER,
       // create NO flow example
-      'n',
-      ENTER
+      'n'
     ]);
 
     // Assertions
@@ -96,7 +95,6 @@ describe('.rc.json in empty sandbox', () => {
     expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-
     oldExpectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
   });
 

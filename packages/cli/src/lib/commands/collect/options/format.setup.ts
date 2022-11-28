@@ -16,7 +16,6 @@ export async function setupFormat(
 ): Promise<RcJson> {
   let format: ReportFormat[] = [];
 
-
   if (interactive()) {
     let initialFormat: ReportFormat =
       // take the provided formats from cli params or the rc file if given and convert it to a string (yes we cant use multiple initial values :( )
