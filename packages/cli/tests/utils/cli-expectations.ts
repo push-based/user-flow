@@ -209,7 +209,13 @@ export function expectCollectNotToCreateAReport(reportPath: string) {
   }
 }
 
-// @TODO replace with prj.loadRcJson
+/**
+ * @deprecated
+ * replace with prj.loadRcJson
+ *
+ * @param rcPath
+ * @param cfg
+ */
 export function oldExpectEnsureConfigToCreateRc(rcPath: string, cfg: RcJson) {
   expect(() => fs.readFileSync(rcPath)).not.toThrow();
   const config = JSON.parse(fs.readFileSync(rcPath) as any);

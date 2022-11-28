@@ -17,7 +17,7 @@ import {
 import {
   oldExpectEnsureConfigToCreateRc,
   expectOutputRcInStdout,
-  expectPromptsOfInitInStdout, expectEnsureConfigToCreateRc
+  expectPromptsOfInitInStdout
 } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
