@@ -65,10 +65,11 @@ export class CliProject {
     cfg.rcFile && (this.rcFile = cfg.rcFile);
 
     // handle default rcPath
-    if (Object.entries(this.rcFile).length > 0) {
-      let [rcName, rcContent] = Object.entries(this.rcFile)[0];
-      this.deleteFiles.push(path.join(this.root, rcName));
-      this.createFiles = { [rcName]: JSON.stringify(rcContent) };
+    if (Object.keys(this.rcFile).length > 0) {
+      Object.entries(this.rcFile).forEach(([rcName, rcContent]) => {
+        this.deleteFiles.push(rcName);
+        this.createFiles = { [rcName]: JSON.stringify(rcContent) };
+      });
     }
 
     this.process = getCliProcess({

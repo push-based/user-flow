@@ -45,10 +45,11 @@ export class UserFlowCliProject extends CliProject {
     // console.log('cfg: ', cfg);
     // handle rcFiles and related deletions
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
-      let [_, rcJson] = Object.entries(cfg.rcFile)[0] as [string, RcJson];
-      const ufPath = path.join(cfg.root, rcJson.collect.ufPath);
-      const outPath = path.join(cfg.root, rcJson.persist.outPath);
-      cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
+      Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
+        const ufPath = path.join(cfg.root, rcJson.collect.ufPath);
+        const outPath = path.join(cfg.root, rcJson.persist.outPath);
+        cfg.delete = cfg?.delete?.concat(getFolderContent([ufPath, outPath])) || [];
+      });
     }
     return super._setup(cfg);
   }
