@@ -32,7 +32,7 @@ const flowName = 'flow-example-name';
 
 function expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
   const expectedFileNames = format.filter((f) => f !== 'stdout')
-    .map(f => `${name}.uf.${f}`) || [];
+    .map(f => `${name}.${f}`) || [];
   const expectedPaths = expectedFileNames.map((f) => join(PERSIST_PATH , f));
 
   expect(reports.sort()).toEqual(expectedPaths.sort());
