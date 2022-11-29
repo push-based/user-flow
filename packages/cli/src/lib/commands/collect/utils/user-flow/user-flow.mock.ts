@@ -15,21 +15,21 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
             // "budgets": [] // budgets from configurations
           },
           audits: {
-           // "performance-budget": {},
-           // "timing-budget": {}
+            // "performance-budget": {},
+            // "timing-budget": {}
           }
         } as any
       }
     ]
   };
-  if(budgets) {
+  if (budgets) {
     report.steps[0].lhr.configSettings.budgets = budgets;
-    report.steps[0].lhr.audits['performance-budget'] = { };
-    report.steps[0].lhr.audits['timing-budget'] = { };
+    report.steps[0].lhr.audits['performance-budget'] = {};
+    report.steps[0].lhr.audits['timing-budget'] = {};
   }
 
   return report;
-}
+};
 
 const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions) => `
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions)
 <title>Lighthouse Flow Report</title>
 <style></style>
 <script>
-${dummyFlowResult(cfg)}
+${JSON.stringify(dummyFlowResult(cfg))}
 </script>
 </head>
 <body></body>
@@ -117,6 +117,7 @@ export class UserFlowMock {
 
 export class UserFlowReportMock {
   protected cfg: UserFlowOptions = {} as any;
+
   /**
    * @param {LH.NavigationRequestor} requestor
    * @param {StepOptions=} stepOptions
@@ -126,7 +127,9 @@ export class UserFlowReportMock {
     return Promise.resolve();
   }
 
-  constructor(cfg: UserFlowOptions) {this.cfg = cfg;}
+  constructor(cfg: UserFlowOptions) {
+    this.cfg = cfg;
+  }
 
   /**
    * @param {StepOptions=} stepOptions

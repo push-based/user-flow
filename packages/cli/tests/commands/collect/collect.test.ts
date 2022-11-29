@@ -6,7 +6,7 @@ import {
   REMOTE_HTML_REPORT_NAME,
   REMOTE_JSON_REPORT_NAME,
   REMOTE_MD_REPORT_NAME
-} from '../../fixtures/rc-files/remote-url';
+} from '../../fixtures/rc-files/remote';
 import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
 import {
@@ -16,8 +16,6 @@ import {
 
 let setupRemotePrj: UserFlowCliProject;
 
-const ufStaticName = 'Sandbox Setup StaticDist';
-
 describe('collect command in setup sandbox with a remote served app', () => {
 
   beforeEach(async () => {
@@ -26,7 +24,7 @@ describe('collect command in setup sandbox with a remote served app', () => {
     }
     await setupRemotePrj.setup();
   });
-  afterEach(async () => await setupRemotePrj.teardown());
+  //afterEach(async () => await setupRemotePrj.teardown());
 
   // @TODO move this tests into format's file
   it('should save the results as a HTML file', async () => {
@@ -41,7 +39,7 @@ describe('collect command in setup sandbox with a remote served app', () => {
   }, 90_000);
 
   it('should save the results as a JSON file', async () => {
-    const { exitCode, stdout, stderr } = await setupRemotePrj
+    const { exitCode, stderr } = await setupRemotePrj
       .$collect({ format: ['json'] });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -51,7 +49,7 @@ describe('collect command in setup sandbox with a remote served app', () => {
   }, 90_000);
 
   it('should save the results as a Markdown file', async () => {
-    const { exitCode, stdout, stderr } = await setupRemotePrj
+    const { exitCode, stderr } = await setupRemotePrj
       .$collect({ format: ['md'] });
 
     expect(stderr).toBe('');

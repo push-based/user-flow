@@ -20,8 +20,8 @@ import {
 import { join } from 'path';
 import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../../fixtures/user-flows/order-coffee.uf';
 import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
-import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote-url';
-import { STATIC_RC_JSON } from '../../fixtures/rc-files/static-app';
+import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote';
+import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 

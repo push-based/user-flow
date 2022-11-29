@@ -2,7 +2,7 @@ import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-pro
 import { SETUP_SANDBOX_CLI_TEST_CFG } from '../setup-sandbox';
 import { CLI_PATH } from '../cli-bin-path';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { STATIC_RC_JSON } from '../rc-files/static-app';
+import { STATIC_RC_JSON } from '../rc-files/static';
 import { join } from 'path';
 import { STATIC_USERFLOW_CONTENT, STATIC_USERFLOW_NAME } from '../user-flows/static-sandbox-setup.uf';
 
