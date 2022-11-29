@@ -1,8 +1,9 @@
-export const SETUP_1_USERFLOW_NAME = 'sandbox-setup-1.uf.ts';
-export const SETUP_1_USERFLOW_CONTENT = `
+export const REMOTE_USERFLOW_NAME = 'remote-sandbox-setup.uf.ts';
+export const REMOTE_USERFLOW_TITLE = REMOTE_USERFLOW_NAME.slice(0, -6);
+export const REMOTE_USERFLOW_CONTENT = `
   module.exports = {
   flowOptions: {
-    name: 'Sandbox Setup UF1'
+    name: '${REMOTE_USERFLOW_TITLE}'
   },
   interactions: async (ctx: Record<string, any>): Promise<void> => {
     const { flow, collectOptions } = ctx;

@@ -8,6 +8,10 @@ import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.c
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+import { STATIC_HTML_REPORT_NAME } from '../fixtures/rc-files/static-app';
+import { REMOTE_RC_NAME } from '../fixtures/rc-files/remote-url';
+import { REMOTE_USERFLOW_TITLE } from '../fixtures/user-flows/remote-sandbox-setup.uf';
+import { UserFlowCliProject } from './cli-testing/user-flow-cli-project/user-flow-cli';
 
 function unquoted(k: string, v: string): string {
   return `${k}: ${v}`;
@@ -171,7 +175,24 @@ export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: st
   expect(stdout).toContain(`Duration: ${ufName}`);
 }
 
-export function expectCollectCreatesHtmlReport(reportPath: string, ufName: string) {
+
+export function expectCollectCommandToCreateHtmlReport(
+  prj: UserFlowCliProject,
+  reportName: string,
+  flowTitle: string,
+  rcName?: string
+) {
+  const reportHTML = prj.readOutput(reportName, rcName);
+  expect(reportHTML).toContain(flowTitle);
+}
+
+/**
+ * @deprecated
+ * use expectCollectCreatesHtmlReport instead
+ * @param reportPath
+ * @param ufName
+ */
+export function old_expectCollectCreatesHtmlReport(reportPath: string, ufName: string) {
   let reportHTML;
   expect(() => fs.readFileSync(reportPath)).not.toThrow();
   reportHTML = fs.readFileSync(reportPath).toString('utf8');
@@ -179,7 +200,25 @@ export function expectCollectCreatesHtmlReport(reportPath: string, ufName: strin
   expect(reportHTML).toBeTruthy();
 }
 
-export function expectCollectCreatesJsonReport(reportPath: string, ufName: string) {
+export function expectCollectCommandCreatesJsonReport(
+  prj: UserFlowCliProject,
+  reportName: string,
+  flowTitle: string,
+  rcName?: string
+) {
+  const reportJson = JSON.parse(prj.readOutput(reportName, rcName));
+  expect(reportJson.name).toContain(flowTitle);
+}
+
+
+/**
+ * @deprecated
+ * use expectCollectCreatesJsonReport instead
+ *
+ * @param reportPath
+ * @param ufName
+ */
+export function old_expectCollectCreatesJsonReport(reportPath: string, ufName: string) {
   let reportJson;
   expect(() => fs.readFileSync(reportPath)).not.toThrow();
   reportJson = JSON.parse(fs.readFileSync(reportPath).toString('utf8'));
@@ -187,7 +226,25 @@ export function expectCollectCreatesJsonReport(reportPath: string, ufName: strin
   expect(reportJson).toBeTruthy();
 }
 
-export function expectCollectCreatesMdReport(reportPath: string, ufName: string) {
+export function expectCollectCommandCreatesMdReport(
+  prj: UserFlowCliProject,
+  reportName: string,
+  flowTitle: string,
+  rcName?: string
+) {
+  const reportMd = prj.readOutput(reportName, rcName);
+  expect(reportMd).toContain(flowTitle);
+  expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
+}
+
+
+/**
+ * @deprecated
+ * use
+ * @param reportPath
+ * @param ufName
+ */
+export function old_expectCollectCreatesMdReport(reportPath: string, ufName: string) {
   let reportMd;
   expect(() => fs.readFileSync(reportPath)).not.toThrow();
   reportMd = fs.readFileSync(reportPath, 'utf-8');
@@ -200,14 +257,28 @@ export function expectCollectLogsReportByDefault(stdout: string, ufName: string)
   expect(stdout).toContain(`| Navigate to coffee cart | navigation  |`);
 }
 
-export function expectCollectNotToCreateAReport(reportPath: string) {
+export function old_expectCollectCommandNotToCreateReport(reportPath: string) {
   // Check report file is not created
   try {
-    fs.readFileSync(reportPath).toString('utf8');
+    fs.readFileSync(reportPath);
   } catch (e: any) {
     expect(e.message).toContain('no such file or directory');
   }
 }
+
+export function expectCollectCommandNotToCreateReport(
+  prj: UserFlowCliProject,
+  reportName: string,
+  rcName?: string
+) {
+  // Check report file is not created
+  try {
+    prj.readOutput(reportName, rcName);
+  } catch (e: any) {
+    expect(e.message).toContain('no such file or directory');
+  }
+}
+
 
 /**
  * @deprecated

@@ -6,6 +6,9 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
 import { RcJson } from '../../../../src/lib';
+import { dirname } from "path";
+import { existsSync, mkdirSync } from 'fs';
+import { logVerbose } from '../../../../src/lib/core/loggin';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
@@ -125,16 +128,21 @@ export class CliProject {
       })
       .forEach(([file, content]) => {
 
-        const exixts = fs.existsSync(file);
-        if (exixts) {
+        const exists = fs.existsSync(file);
+        if (exists) {
           if(content !== undefined) {
             fs.rmSync(file);
             this.logVerbose(`File ${file} got deleted as it already exists`);
           }
         }
         if(content === undefined) {
-          !exixts && fs.mkdirSync(file);
+          !exists && fs.mkdirSync(file);
         } else {
+          const dir = dirname(file);
+          if (!existsSync(dir)) {
+            this.logVerbose(`Created dir ${dir} to save ${file}`);
+            mkdirSync(dir);
+          }
           fs.writeFileSync(file, content, 'utf8');
         }
         this.logVerbose(`File ${file} created`);

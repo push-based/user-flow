@@ -13,6 +13,7 @@ import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options
 import { kill } from './utils/kill';
 import { SERVE_COMMAND_PORT } from './constants';
 import * as fs from 'fs';
+import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -77,8 +78,15 @@ export class UserFlowCliProject extends CliProject {
   }
 
   readRcJson(rcPath: string): RcJson {
-    const rcJson = JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
-    return rcJson;
+    return JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
+  }
+
+  readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string {
+    return fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName)).toString('utf8');
+  }
+
+  readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {
+    return fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName)).toString('utf8');
   }
 
 }

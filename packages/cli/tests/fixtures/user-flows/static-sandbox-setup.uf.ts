@@ -1,3 +1,8 @@
+import { REMOTE_USERFLOW_NAME } from './remote-sandbox-setup.uf';
+
+export const STATIC_USERFLOW_NAME = 'static-sandbox-setup.uf.ts';
+export const STATIC_USERFLOW_TITLE = STATIC_USERFLOW_NAME.slice(0, -6);
+export const STATIC_USERFLOW_CONTENT = `
 module.exports = {
   flowOptions: {
     name: 'Sandbox Setup StaticDist',
@@ -10,7 +15,7 @@ module.exports = {
   interactions: async (ctx: any): Promise<void> => {
     const { flow, collectOptions, page } = ctx as any;
     const { url } = collectOptions;
-    const testUrl = `${url}`;
+    const testUrl = url;
 
     // # Navigation
     await flow.navigate(testUrl);
@@ -39,3 +44,4 @@ module.exports = {
     headless: false
   }
 };
+`;

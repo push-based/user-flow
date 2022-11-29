@@ -19,7 +19,7 @@ import {
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
 import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../../fixtures/user-flows/order-coffee.uf';
-import { SETUP_1_USERFLOW_CONTENT, SETUP_1_USERFLOW_NAME } from '../../fixtures/user-flows/sandbox-setup-1.uf';
+import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
 import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote-url';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static-app';
 
@@ -42,7 +42,7 @@ const setupPrjCfg: UserFlowProjectConfig = {
   },
   create: {
     [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
-    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, SETUP_1_USERFLOW_NAME)]: SETUP_1_USERFLOW_CONTENT
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, REMOTE_USERFLOW_NAME)]: REMOTE_USERFLOW_CONTENT
   }
 };
 

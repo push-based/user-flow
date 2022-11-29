@@ -39,4 +39,5 @@ describe('collect command in setup sandbox', () => {
     // Check report file and content of report
     expectCollectLogsReportByDefault(stdout, uf1Name);
   }, 180_000);
+
 });
