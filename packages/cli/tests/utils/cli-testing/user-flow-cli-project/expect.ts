@@ -7,6 +7,7 @@ import Budget from 'lighthouse/types/lhr/budget';
 import * as fs from "fs";
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
+import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -75,6 +76,14 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(PROMPT_COLLECT_UF_PATH);
   expect(stdout).not.toContain(PROMPT_PERSIST_OUT_PATH);
   expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
+}
+
+export function expectCollectLogsFromMockInStdout(stdout: string, prj: UserFlowCliProject, reportName: string, rcName?: string) {
+  const rcJson = prj.readRcJson(rcName);
+  const reportTitle = reportName.slice(0, -3);
+  expect(stdout).toContain(`Collect: ${reportTitle} from URL ${rcJson.collect.url}`);
+  expect(stdout).toContain(`flow#navigate: ${rcJson.collect.url}`);
+  expect(stdout).toContain(`Duration: ${reportTitle}`);
 }
 
 export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgetsName: string = LH_NAVIGATION_BUDGETS_NAME) {

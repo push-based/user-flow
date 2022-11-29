@@ -138,9 +138,9 @@ export function old_expectResultsToIncludeBudgets(resultPath: string, budgets: B
 
 /**
  * @deprecated
- * refactor to take prj
+ * use expectCollectLogsFromMockInStdout instead
  */
-export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
+export function old_expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).toContain(`Duration: ${ufName}`);
