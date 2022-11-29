@@ -5,7 +5,7 @@ import { join } from 'path';
 import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../user-flows/order-coffee.uf';
 import { EMPTY_SANDBOX_BIN } from './empty';
 
-export const INITIATED_PRJ_ROOT = join(__dirname, '..', '..', '..', 'sandbox-setup');
+export const INITIATED_PRJ_ROOT = join(__dirname, '..', '..', '..', '..', 'sandbox-setup');
 export const INITIATED_PRJ_BIN = EMPTY_SANDBOX_BIN;
 
 export const INITIATED_PRJ_CFG: UserFlowProjectConfig = {

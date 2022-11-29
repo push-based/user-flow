@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
 import { RcJson } from '../../../../src/lib';
-import { dirname } from "path";
+import { dirname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { logVerbose } from '../../../../src/lib/core/loggin';
 
@@ -66,9 +66,17 @@ export class CliProject {
   constructor() {
   }
 
+  /**
+   * freezes jest so we can read logs :)
+   * @param ms
+   */
+  async wait(ms: number = 30000) {
+    await new Promise(r => setTimeout(r, ms));
+  }
   logVerbose(...args: any): void {
     this.verbose && console.log(...args);
   }
+
   tableVerbose(...args: any): void {
     this.verbose && console.table(...args);
   }
@@ -110,7 +118,8 @@ export class CliProject {
    */
   deleteGeneratedFiles(): void {
     deleteFileOrFolder((this.deleteFiles || [])
-      .map(file => path.join(this.root, file)));
+      .map(file => path.join(this.root, file))
+    );
   }
 
   /**
@@ -121,22 +130,22 @@ export class CliProject {
    * Notice all files will get located from the project root
    */
   createInitialFiles(): void {
-    Object.entries(this?.createFiles || {})
+    const preparedPaths = Object.entries(this?.createFiles || {})
       .map(entry => {
         entry[0] = path.join(this.root, entry[0]);
         return entry;
-      })
+      });
+    preparedPaths
       .forEach(([file, content]) => {
-
         const exists = fs.existsSync(file);
         if (exists) {
-          if(content !== undefined) {
+          if (content !== undefined) {
             fs.rmSync(file);
             this.logVerbose(`File ${file} got deleted as it already exists`);
           }
         }
-        if(content === undefined) {
-          !exists && fs.mkdirSync(file);
+        if (content === undefined) {
+          !exists && fs.mkdirSync(file, {recursive: true});
         } else {
           const dir = dirname(file);
           if (!existsSync(dir)) {

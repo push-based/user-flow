@@ -1,14 +1,9 @@
-export const STATIC_USERFLOW_NAME = 'static-sandbox-setup.uf.ts';
-export const STATIC_USERFLOW_TITLE = STATIC_USERFLOW_NAME.slice(0, -6);
+export const STATIC_USERFLOW_NAME = 'static.uf.ts';
+export const STATIC_USERFLOW_TITLE = STATIC_USERFLOW_NAME.slice(0, -3);
 export const STATIC_USERFLOW_CONTENT = `
 module.exports = {
   flowOptions: {
-    name: 'Sandbox Setup StaticDist',
-    config: {
-      settings: {
-        budgets: undefined
-      }
-    }
+    name: '${STATIC_USERFLOW_TITLE}'
   },
   interactions: async (ctx: any): Promise<void> => {
     const { flow, collectOptions, page } = ctx as any;

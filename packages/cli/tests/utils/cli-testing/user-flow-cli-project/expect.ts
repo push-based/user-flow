@@ -77,7 +77,7 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
 }
 
-export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: Budget[], budgetsName: string = LH_NAVIGATION_BUDGETS_NAME) {
+export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgetsName: string = LH_NAVIGATION_BUDGETS_NAME) {
 
   const report = prj.readOutput(reportName) as any;
   const resolvedBudgets = prj.readBudget(budgetsName);

@@ -53,8 +53,8 @@ export class UserFlowCliProject extends CliProject {
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
         cfg.create = cfg?.create || {};
-        cfg.create[rcJson.collect.ufPath] = undefined;
-        cfg.create[rcJson.persist.outPath] = undefined;
+        cfg.create['./'+rcJson.collect.ufPath] = undefined;
+        cfg.create['./'+rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }

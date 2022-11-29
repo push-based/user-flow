@@ -25,7 +25,7 @@ const interactions: UserFlowInteractionsFn = async (
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: { name: 'Order Coffee' },
+  flowOptions: { name: 'order-coffee' },
   interactions,
 };
 

@@ -1,14 +1,19 @@
 import { UserFlowProvider } from './types';
 import { join } from 'path';
-import { existsSync, lstatSync, readdirSync } from 'fs';
+import { existsSync, lstatSync, mkdirSync, readdirSync } from 'fs';
 import { resolveAnyFile } from '../../../../core/file';
 import { CollectRcOptions } from '../../options/types';
 
 export function loadFlow(collect: CollectRcOptions): ({ exports: UserFlowProvider, path: string })[] {
   const { ufPath } = collect;
   const path = join(process.cwd(), ufPath);
+  // DX create directory if it does ot exist
   if (!existsSync(path)) {
-    throw new Error(`ufPath: ${path} is no directory`);
+    try {
+      mkdirSync(path, {recursive: true});
+    } catch (e) {
+      throw new Error(`ufPath: ${path} is no directory`);
+    }
   }
 
   let files: string[];

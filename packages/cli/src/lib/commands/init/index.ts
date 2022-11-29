@@ -35,7 +35,7 @@ export const initCommand: YargsCommandObject = {
             try {
               readdirSync(ufPath);
             } catch (e) {
-              mkdirSync(ufPath);
+              mkdirSync(ufPath, {recursive: true});
             }
             addUserFlow(exampleName, ufPath);
             return Promise.resolve(cfg);
