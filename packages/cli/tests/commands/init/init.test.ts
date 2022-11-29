@@ -1,24 +1,19 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
-import {
-  INITIALIZED_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_PATH
-} from '../../fixtures/setup-sandbox';
+import { SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_DEFAULT_RC_PATH } from '../../fixtures/setup-sandbox';
 
 import { expectOutputRcInStdout, oldExpectEnsureConfigToCreateRc } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import {
   expectNoPromptsInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-testing/user-flow-cli-project/expect';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
+import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 
 let emptyPrj: UserFlowCliProject;
 
@@ -95,7 +90,7 @@ describe('init command in setup sandbox', () => {
     // prompts
     expectNoPromptsInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
+    expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
 
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);

@@ -1,6 +1,3 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { INITIALIZED_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
-
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
@@ -17,15 +14,12 @@ import {
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
-import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../../fixtures/user-flows/order-coffee.uf';
 import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
 import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-
-let emptyPrj: UserFlowCliProject;
 
 const remotePrjCfg: UserFlowProjectConfig = {
   verbose: true,
@@ -38,6 +32,7 @@ const remotePrjCfg: UserFlowProjectConfig = {
   }
 };
 
+let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
 let initializedPrj: UserFlowCliProject;
 
@@ -47,6 +42,8 @@ describe('.rc.json in empty sandbox', () => {
       emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
     }
     await emptyPrj.setup();
+    await new Promise(r => setTimeout(r, 30000));
+
   });
   afterEach(async () => {
     await emptyPrj.teardown();

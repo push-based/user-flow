@@ -6,11 +6,11 @@ import { CI_PROPERTY } from '../../src/lib/global/cli-mode/cli-mode';
 import { writeFile } from '../../src/lib/core/file';
 import { kill } from '../utils/cli-testing/user-flow-cli-project/utils/kill';
 import { RcJson } from '../../src/lib/types';
-import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { Options } from 'execa';
 import { SERVE_COMMAND_PORT } from '../utils/cli-testing/user-flow-cli-project/constants';
+import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from './budget/lh-navigation-budget';
 
 export const SETUP_SANDBOX_NAME = 'sandbox-setup';
 export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
@@ -53,43 +53,11 @@ export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
 };
 
 
-export const BUDGETS_NAME = 'budgets.json';
-export const BUDGETS: Budget[] = [
-    {
-      "resourceSizes": [
-        {
-          "resourceType": "total",
-          "budget": 26
-        },
-        {
-          "resourceType": "script",
-          "budget": 150
-        }
-      ],
-      "resourceCounts": [
-        {
-          "resourceType": "third-party",
-          "budget": 100
-        }
-      ],
-      "timings": [
-        {
-          "metric": "interactive",
-          "budget": 5000
-        },
-        {
-          "metric": "first-meaningful-paint",
-          "budget": 2000
-        }
-      ]
-    }
-  ];
-
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dist.budget-path.json';
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
-    budgetPath: BUDGETS_NAME
+    budgetPath: LH_NAVIGATION_BUDGETS_NAME
   }
 };
 
@@ -98,7 +66,7 @@ export const SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME = '.user-flowrc.static-dist.bu
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: RcJson = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
   "assert": {
-    "budgets": BUDGETS
+    "budgets": LH_NAVIGATION_BUDGETS
   }
 };
 
@@ -108,7 +76,7 @@ export const SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PA
 export const SETUP_SANDBOX_STATIC_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_NAME);
 export const SETUP_SANDBOX_STATIC_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.persist.outPath);
 
-export const SETUP_SANDBOX_BUDGETS_PATH = path.join(SETUP_SANDBOX_PATH, BUDGETS_NAME);
+export const SETUP_SANDBOX_BUDGETS_PATH = path.join(SETUP_SANDBOX_PATH, LH_NAVIGATION_BUDGETS_NAME);
 export const SETUP_SANDBOX_BUDGETS_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME);
 export const SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.persist.outPath);
 
@@ -144,7 +112,7 @@ export async function resetSetupSandboxAndKillPorts(): Promise<void> {
     }
   });
 
-  writeFile(SETUP_SANDBOX_BUDGETS_PATH, JSON.stringify(BUDGETS));
+  writeFile(SETUP_SANDBOX_BUDGETS_PATH, JSON.stringify(LH_NAVIGATION_BUDGETS));
   writeFile(SETUP_SANDBOX_BUDGETS_RC_PATH, JSON.stringify(SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON));
   rimraf(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, (err) => {
     if (err) {

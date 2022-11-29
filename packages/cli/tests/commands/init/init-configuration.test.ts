@@ -13,22 +13,15 @@ import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-pro
 import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-
-const emptyPrjCfg: UserFlowProjectConfig = {
-  // @TODO implement custom options type and make cwd required
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
-  rcFile: {}
-};
+import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 
 let emptyPrj: UserFlowCliProject;
-
 
 describe('init command configuration in empty sandbox', () => {
 
   beforeEach(async () => {
     if (!emptyPrj) {
-      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+      emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
     }
     await emptyPrj.setup();
   });
@@ -89,7 +82,7 @@ describe('init command configuration in setup sandbox', () => {
 
     const persist: any = {
       outPath: 'xxxoutPath',
-      format: ['json', 'md']
+      format: ['md']
     };
 
     const assert: any = {
@@ -123,7 +116,7 @@ describe('init command configuration in setup sandbox', () => {
 
     expectInitCfgToContain(stdout, cfg);
     const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
-    expect(hardRc).toEqual(cfg);
+    expect(hardRc).toEqual({ collect, persist, assert });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   }, 90_000);
