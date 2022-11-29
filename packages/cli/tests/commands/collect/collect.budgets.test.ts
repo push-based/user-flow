@@ -97,7 +97,7 @@ describe('budgetPath and collect command in setup sandbox', () => {
     }
     await staticWBudgetPrj.setup();
   });
-  afterEach(async () => await staticWBudgetPrj.teardown());
+  // afterEach(async () => await staticWBudgetPrj.teardown());
 
   it('should load budgets from file if budgets RC option is passed', async () => {
     const { exitCode, stdout, stderr } = await staticWBudgetPrj.$collect({});

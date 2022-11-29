@@ -1,13 +1,13 @@
 import {join} from "path";
 import {DEFAULT_COLLECT_UF_PATH} from "../../options/ufPath.constant";
-import {SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_NAME} from "../../../../../../tests/fixtures/setup-sandbox";
+import {SETUP_SANDBOX_DEFAULT_RC_JSON, INITIALIZED_SANDBOX_PATH} from "../../../../../../tests/fixtures/setup-sandbox";
 import { loadFlow } from './load-flow';
 import {resetEmptySandbox} from "../../../../../../tests/fixtures/empty-sandbox";
 
 const emptyUfPath = join('..', 'sandbox-empty', DEFAULT_COLLECT_UF_PATH);
 const invalidUfPath = 'path/does/not/exist';
-const validUfPath = join( '..', SETUP_SANDBOX_NAME, SETUP_SANDBOX_DEFAULT_RC_JSON.collect.ufPath);
-const dirtyUfPath = join( '..', SETUP_SANDBOX_NAME, './src/lib/dirty-user-flows');
+const validUfPath = join( '..', INITIALIZED_SANDBOX_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON.collect.ufPath);
+const dirtyUfPath = join( '..', INITIALIZED_SANDBOX_PATH, './src/lib/dirty-user-flows');
 const singleUfPath = join(validUfPath, 'order-coffee.uf.ts');
 
 function normalizePathForCi(path: string): string {

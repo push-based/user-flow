@@ -12,8 +12,8 @@ import { Options } from 'execa';
 import { SERVE_COMMAND_PORT } from '../utils/cli-testing/user-flow-cli-project/constants';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from './budget/lh-navigation-budget';
 
-export const SETUP_SANDBOX_NAME = 'sandbox-setup';
-export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', SETUP_SANDBOX_NAME);
+export const INITIALIZED_SANDBOX_PATH = 'sandbox-setup';
+export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', INITIALIZED_SANDBOX_PATH);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${SERVE_COMMAND_PORT}`;
