@@ -7,7 +7,7 @@ import { writeFile } from '../../src/lib/core/file';
 import { kill } from '../utils/cli-testing/user-flow-cli-project/utils/kill';
 import { RcJson } from '../../src/lib/types';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { DEFAULT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import { PERSIST_FORMAT_HTML } from '../../src/lib/commands/collect/options/format.constant';
 import { Options } from 'execa';
 import { SERVE_COMMAND_PORT } from '../utils/cli-testing/user-flow-cli-project/constants';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from './budget/lh-navigation-budget';
@@ -21,7 +21,7 @@ export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port
 export const SETUP_SANDBOX_DEFAULT_RC_NAME = '.user-flowrc.json';
 export const SETUP_SANDBOX_DEFAULT_RC_JSON: RcJson = {
   'collect': { 'url': 'https://google.com', 'ufPath': './src/lib/user-flows' },
-  'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': DEFAULT_PERSIST_FORMAT }
+  'persist': { 'outPath': DEFAULT_PERSIST_OUT_PATH, 'format': [PERSIST_FORMAT_HTML] }
 };
 
 export const SETUP_SANDBOX_STATIC_RC_NAME = '.user-flowrc.static-dist.json';
@@ -56,7 +56,7 @@ export const SETUP_SANDBOX_REMOTE_RC_JSON: RcJson = {
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME = '.user-flowrc.static-dist.budget-path.json';
 export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
-  "assert": {
+  'assert': {
     budgetPath: LH_NAVIGATION_BUDGETS_NAME
   }
 };
@@ -65,8 +65,8 @@ export const SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON: RcJson = {
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME = '.user-flowrc.static-dist.budgets.json';
 export const SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON: RcJson = {
   ...SETUP_SANDBOX_STATIC_RC_JSON,
-  "assert": {
-    "budgets": LH_NAVIGATION_BUDGETS
+  'assert': {
+    'budgets': LH_NAVIGATION_BUDGETS
   }
 };
 
@@ -93,7 +93,7 @@ export const INITIALIZED_CLI_TEST_CFG: Options = {
 
 export async function resetSetupSandboxAndKillPorts(): Promise<void> {
 
-  await kill({port: SERVE_COMMAND_PORT});
+  await kill({ port: SERVE_COMMAND_PORT });
   process.env[CI_PROPERTY] = 'SANDBOX';
 
   const packageJson = JSON.parse(fs.readFileSync(SETUP_SANDBOX_PACKAGE_JSON_PATH).toString());

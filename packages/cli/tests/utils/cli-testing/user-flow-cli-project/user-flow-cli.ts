@@ -14,6 +14,8 @@ import { kill } from './utils/kill';
 import { SERVE_COMMAND_PORT } from './constants';
 import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
+import Budget from 'lighthouse/types/lhr/budget';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -81,8 +83,13 @@ export class UserFlowCliProject extends CliProject {
     return JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
   }
 
-  readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string {
-    return fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName)).toString('utf8');
+  readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+    return JSON.parse(fs.readFileSync(path.join(this.root, budgetName)) as any);
+  }
+
+  readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
+    const content = fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName)).toString('utf8');
+    return reportName.includes('.json') ? JSON.parse(content) : content;
   }
 
   readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {

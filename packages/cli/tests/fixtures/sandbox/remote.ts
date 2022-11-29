@@ -1,15 +1,12 @@
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import { INITIALIZED_CLI_TEST_CFG } from '../setup-sandbox';
-import { CLI_PATH } from '../cli-bin-path';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { REMOTE_RC_JSON, REMOTE_USERFLOW_PATH } from '../rc-files/remote';
 import { REMOTE_USERFLOW_CONTENT } from '../user-flows/remote-sandbox-setup.uf';
+import { INITIATED_PRJ_CFG } from './initiated';
 
 export const REMOTE_PRJ_CFG: UserFlowProjectConfig = {
-  root: INITIALIZED_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
+  ...INITIATED_PRJ_CFG,
   rcFile: {
-    // @TODO as we bootstrap sequential we could use the default rc name and reduce the params in the tests
     [DEFAULT_RC_NAME]: REMOTE_RC_JSON
   },
   create: {

@@ -3,6 +3,10 @@ import { PROMPT_COLLECT_URL } from '../../../../src/lib/commands/collect/options
 import { PROMPT_COLLECT_UF_PATH } from '../../../../src/lib/commands/collect/options/ufPath.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../../../src/lib/commands/collect/options/outPath.constant';
 import { PROMPT_PERSIST_FORMAT } from '../../../../src/lib/commands/collect/options/format.constant';
+import Budget from 'lighthouse/types/lhr/budget';
+import * as fs from "fs";
+import FlowResult from 'lighthouse/types/lhr/flow';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -31,7 +35,7 @@ export function expectCollectCommandCreatesJsonReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportJson = JSON.parse(prj.readOutput(reportName, rcName));
+  const reportJson = prj.readOutput(reportName, rcName) as any;
   expect(reportJson.name).toContain(flowTitle);
 }
 
@@ -72,3 +76,14 @@ export function expectNoPromptsInStdout(stdout: string) {
   expect(stdout).not.toContain(PROMPT_PERSIST_OUT_PATH);
   expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
 }
+
+export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: Budget[], budgetsName: string = LH_NAVIGATION_BUDGETS_NAME) {
+
+  const report = prj.readOutput(reportName) as any;
+  const resolvedBudgets = prj.readBudget(budgetsName);
+
+  expect(report.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
+  expect(report.steps[0].lhr.audits['performance-budget']).toBeDefined();
+  expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
+}
+

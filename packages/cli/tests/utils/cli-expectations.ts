@@ -119,7 +119,7 @@ export function expectNoBudgetsFileExistLog(stdout: string) {
   expect(stdout).not.toContain('format given budgets');
 }
 
-export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
+export function old_expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
   let resolvedBudgets: Budget[];
   if (Array.isArray(budgets)) {
     resolvedBudgets = budgets;

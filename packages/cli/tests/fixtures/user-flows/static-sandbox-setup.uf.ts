@@ -1,5 +1,3 @@
-import { REMOTE_USERFLOW_NAME } from './remote-sandbox-setup.uf';
-
 export const STATIC_USERFLOW_NAME = 'static-sandbox-setup.uf.ts';
 export const STATIC_USERFLOW_TITLE = STATIC_USERFLOW_NAME.slice(0, -6);
 export const STATIC_USERFLOW_CONTENT = `
