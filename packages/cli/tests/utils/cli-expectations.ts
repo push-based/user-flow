@@ -170,11 +170,23 @@ export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string
  * @param ufName
  * @param cfg
  */
-export function expectCollectCommandNotToCreateLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
+export function old_expectCollectCommandNotToCreateLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).not.toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).not.toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).not.toContain(`Duration: ${ufName}`);
 }
+
+export function expectCollectCommandNotToCreateLogsFromMockInStdout(
+  prj: UserFlowCliProject,
+  userFlowName: string,
+  stdout: string,
+  rcName?: string) {
+  const rcJson = prj.readRcJson(rcName);
+  expect(stdout).not.toContain(`Collect: ${userFlowName} from URL ${rcJson.collect.url}`);
+  expect(stdout).not.toContain(`flow#navigate: ${rcJson.collect.url}`);
+  expect(stdout).not.toContain(`Duration: ${userFlowName}`);
+}
+
 
 export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
@@ -183,7 +195,7 @@ export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: st
 }
 
 
-export function expectCollectCommandToCreateHtmlReport(
+export function expectCollectCommandCreatesHtmlReport(
   prj: UserFlowCliProject,
   reportName: string,
   flowTitle: string,
