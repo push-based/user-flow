@@ -6,6 +6,7 @@ import { STATIC_RC_JSON } from '../rc-files/static';
 import { join } from 'path';
 import { STATIC_USERFLOW_CONTENT, STATIC_USERFLOW_NAME } from '../user-flows/static-sandbox-setup.uf';
 
+// @TODO add static-app files to serve
 export const STATIC_PRJ_CFG: UserFlowProjectConfig = {
   root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
   bin: CLI_PATH,
