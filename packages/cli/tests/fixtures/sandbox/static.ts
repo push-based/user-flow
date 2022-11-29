@@ -1,7 +1,7 @@
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from '../rc-files/static';
-import { STATIC_USERFLOW_CONTENT } from '../user-flows/static-sandbox-setup.uf';
+import { STATIC_USERFLOW_CONTENT } from '../user-flows/static.uf';
 import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from './initiated';
 
 // @TODO add static-app files to serve

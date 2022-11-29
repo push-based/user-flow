@@ -2,7 +2,7 @@ import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-pro
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
-import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../user-flows/order-coffee.uf';
+import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../user-flows/initialized.uf';
 import { EMPTY_SANDBOX_BIN } from './empty';
 
 export const INITIATED_PRJ_ROOT = join(__dirname, '..', '..', '..', '..', 'sandbox-setup');

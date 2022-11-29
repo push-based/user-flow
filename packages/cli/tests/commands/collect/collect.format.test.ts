@@ -15,7 +15,7 @@ import {
   REMOTE_JSON_REPORT_NAME,
   REMOTE_MD_REPORT_NAME
 } from '../../fixtures/rc-files/remote';
-import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
+import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote.uf';
 
 let setupRemotePrj: UserFlowCliProject;
 

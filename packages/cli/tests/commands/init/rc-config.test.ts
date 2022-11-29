@@ -14,7 +14,7 @@ import {
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
-import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
+import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote.uf';
 import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';

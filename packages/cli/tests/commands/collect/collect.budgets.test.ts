@@ -19,7 +19,7 @@ import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-pro
 import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static-sandbox-setup.uf';
+import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
 import { expectResultsToIncludeBudgets } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 let staticPrj: UserFlowCliProject;

@@ -3,7 +3,7 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static-sandbox-setup.uf';
+import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
 import { expectCollectLogsFromMockInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 let staticPrj: UserFlowCliProject;

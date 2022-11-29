@@ -79,21 +79,34 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcPath:string = DEFAULT_RC_NAME): RcJson {
-    return JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
+  readRcJson(rcFileName:string = DEFAULT_RC_NAME): RcJson {
+    return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
+  }
+  rcJsonPath(rcFileName:string = DEFAULT_RC_NAME): string {
+    return path.join(this.root, rcFileName);
   }
 
   readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
     return JSON.parse(fs.readFileSync(path.join(this.root, budgetName)) as any);
   }
+  budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
+    return path.join(this.root, budgetName);
+  }
 
   readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
-    const content = fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName)).toString('utf8');
+    const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
+  }
+  outputPath(reportName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+    return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
   readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {
-    return fs.readFileSync(path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName)).toString('utf8');
+    return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
+  }
+
+  userFlowPath(userFlowName: string, rcFileName:string = DEFAULT_RC_NAME): string {
+    return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 
 }
