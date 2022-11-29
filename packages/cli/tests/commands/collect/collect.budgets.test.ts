@@ -1,7 +1,7 @@
 import {
   BUDGETS_NAME,
   SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
-  SETUP_SANDBOX_CLI_TEST_CFG,
+  INITIALIZED_CLI_TEST_CFG,
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME,
   SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON,
@@ -87,7 +87,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, budgetPath);
-    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(SETUP_SANDBOX_CLI_TEST_CFG?.cwd + '', budgetPath));
+    expectResultsToIncludeBudgets(ufStaticResultPath, path.join(INITIALIZED_CLI_TEST_CFG?.cwd + '', budgetPath));
     expect(exitCode).toBe(0);
 
   });

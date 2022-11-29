@@ -2,7 +2,7 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
 import {
-  SETUP_SANDBOX_CLI_TEST_CFG,
+  INITIALIZED_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_PATH
 } from '../../fixtures/setup-sandbox';

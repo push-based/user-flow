@@ -119,7 +119,7 @@ export const SETUP_SANDBOX_REMOTE_RC_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_
 export const SETUP_SANDBOX_REMOTE_PERSIST_OUT_PATH = path.join(SETUP_SANDBOX_PATH, SETUP_SANDBOX_REMOTE_RC_JSON.persist.outPath);
 
 
-export const SETUP_SANDBOX_CLI_TEST_CFG: Options = {
+export const INITIALIZED_CLI_TEST_CFG: Options = {
   cwd: SETUP_SANDBOX_PATH
 };
 

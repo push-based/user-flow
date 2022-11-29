@@ -1,5 +1,5 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
+import { INITIALIZED_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
 
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
@@ -113,7 +113,7 @@ describe('.rc.json in empty sandbox', () => {
 
 });
 
-describe('.rc.json in setup sandbox', () => {
+describe('.rc.json in initialized sandbox', () => {
 
   beforeEach(async () => {
     if (!initializedPrj) {
@@ -186,6 +186,7 @@ describe('.rc.json in setup sandbox', () => {
     expect(exitCode).toBe(0);
   });
 });
+
 describe('.rc.json in remote sandbox', () => {
 
   beforeEach(async () => {
