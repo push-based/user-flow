@@ -12,15 +12,17 @@ import {
 
 import {
   oldExpectEnsureConfigToCreateRc,
-  expectNoPromptsInStdout,
-  expectOutputRcInStdout,
-  expectPromptsOfInitInStdout
+  expectOutputRcInStdout
 } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import {
+  expectNoPromptsInStdout,
+  expectPromptsOfInitInStdout
+} from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
   root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,

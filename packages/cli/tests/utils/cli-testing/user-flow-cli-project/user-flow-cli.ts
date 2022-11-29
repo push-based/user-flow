@@ -77,7 +77,7 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcPath: string): RcJson {
+  readRcJson(rcPath:string = DEFAULT_RC_NAME): RcJson {
     return JSON.parse(fs.readFileSync(path.join(this.root, rcPath)) as any);
   }
 

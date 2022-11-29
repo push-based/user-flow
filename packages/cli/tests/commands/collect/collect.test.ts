@@ -1,9 +1,4 @@
 import {
-  expectCollectCommandCreatesHtmlReport,
-  expectCollectCommandCreatesJsonReport,
-  expectCollectCommandCreatesMdReport
-} from '../../utils/cli-expectations';
-import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
@@ -14,6 +9,10 @@ import {
 } from '../../fixtures/rc-files/remote-url';
 import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
+import {
+  expectCollectCommandCreatesHtmlReport,
+  expectCollectCommandCreatesJsonReport, expectCollectCommandCreatesMdReport
+} from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 let setupRemotePrj: UserFlowCliProject;
 

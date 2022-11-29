@@ -2,13 +2,8 @@ import * as fs from 'fs';
 import { RcJson } from '@push-based/user-flow';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Budget from 'lighthouse/types/lhr/budget';
-import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { UserFlowCliProject } from './cli-testing/user-flow-cli-project/user-flow-cli';
 
 function unquoted(k: string, v: string): string {
   return `${k}: ${v}`;
@@ -109,13 +104,6 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
 }
 
-export function expectNoPromptsInStdout(stdout: string) {
-  expect(stdout).not.toContain(PROMPT_COLLECT_URL);
-  expect(stdout).not.toContain(PROMPT_COLLECT_UF_PATH);
-  expect(stdout).not.toContain(PROMPT_PERSIST_OUT_PATH);
-  expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
-}
-
 export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budget[] | string = '') {
   if (!Array.isArray(budgetPath)) {
     expect(stdout).toContain(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
@@ -147,13 +135,11 @@ export function expectResultsToIncludeBudgets(resultPath: string, budgets: Budge
   expect(result.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
 
-export function expectPromptsOfInitInStdout(stdout: string) {
-  expect(stdout).toContain(PROMPT_COLLECT_URL);
-  expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
-  expect(stdout).toContain(PROMPT_PERSIST_OUT_PATH);
-  expect(stdout).toContain(PROMPT_PERSIST_FORMAT);
-}
 
+/**
+ * @deprecated
+ * refactor to take prj
+ */
 export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).toContain(`flow#navigate: ${cfg.collect.url}`);
@@ -173,34 +159,17 @@ export function old_expectCollectCommandNotToCreateLogsFromMockInStdout(stdout: 
   expect(stdout).not.toContain(`Duration: ${ufName}`);
 }
 
-export function expectCollectCommandNotToCreateLogsFromMockInStdout(
-  prj: UserFlowCliProject,
-  userFlowName: string,
-  stdout: string,
-  rcName?: string) {
-  const rcJson = prj.readRcJson(rcName);
-  expect(stdout).not.toContain(`Collect: ${userFlowName} from URL ${rcJson.collect.url}`);
-  expect(stdout).not.toContain(`flow#navigate: ${rcJson.collect.url}`);
-  expect(stdout).not.toContain(`Duration: ${userFlowName}`);
-}
 
-
+/**
+ * @deprecated
+ * refactor to take prj
+ */
 export function expectCollectLogsFromUserFlowInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).toContain(`Duration: ${ufName}`);
 }
 
-
-export function expectCollectCommandCreatesHtmlReport(
-  prj: UserFlowCliProject,
-  reportName: string,
-  flowTitle: string,
-  rcName?: string
-) {
-  const reportHTML = prj.readOutput(reportName, rcName);
-  expect(reportHTML).toContain(flowTitle);
-}
 
 /**
  * @deprecated
@@ -214,16 +183,6 @@ export function old_expectCollectCreatesHtmlReport(reportPath: string, ufName: s
   reportHTML = fs.readFileSync(reportPath).toString('utf8');
   expect(reportHTML).toContain(`${ufName}`);
   expect(reportHTML).toBeTruthy();
-}
-
-export function expectCollectCommandCreatesJsonReport(
-  prj: UserFlowCliProject,
-  reportName: string,
-  flowTitle: string,
-  rcName?: string
-) {
-  const reportJson = JSON.parse(prj.readOutput(reportName, rcName));
-  expect(reportJson.name).toContain(flowTitle);
 }
 
 
@@ -242,17 +201,6 @@ export function old_expectCollectCreatesJsonReport(reportPath: string, ufName: s
   expect(reportJson).toBeTruthy();
 }
 
-export function expectCollectCommandCreatesMdReport(
-  prj: UserFlowCliProject,
-  reportName: string,
-  flowTitle: string,
-  rcName?: string
-) {
-  const reportMd = prj.readOutput(reportName, rcName);
-  expect(reportMd).toContain(flowTitle);
-  expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
-}
-
 
 /**
  * @deprecated
@@ -268,6 +216,10 @@ export function old_expectCollectCreatesMdReport(reportPath: string, ufName: str
   expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
 }
 
+/**
+ * @deprecated
+ * refactor to take prj
+ */
 export function expectCollectLogsReportByDefault(stdout: string, ufName: string) {
   expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
   expect(stdout).toContain(`| Navigate to coffee cart | navigation  |`);
@@ -281,20 +233,6 @@ export function old_expectCollectCommandNotToCreateReport(reportPath: string) {
     expect(e.message).toContain('no such file or directory');
   }
 }
-
-export function expectCollectCommandNotToCreateReport(
-  prj: UserFlowCliProject,
-  reportName: string,
-  rcName?: string
-) {
-  // Check report file is not created
-  try {
-    prj.readOutput(reportName, rcName);
-  } catch (e: any) {
-    expect(e.message).toContain('no such file or directory');
-  }
-}
-
 
 /**
  * @deprecated

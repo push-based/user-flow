@@ -2,7 +2,7 @@ import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
 
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../utils/cli-expectations';
+import { expectOutputRcInStdout} from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
@@ -22,6 +22,7 @@ import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../..
 import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote-sandbox-setup.uf';
 import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote-url';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static-app';
+import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 
 export const emptyPrjCfg: UserFlowProjectConfig = {
