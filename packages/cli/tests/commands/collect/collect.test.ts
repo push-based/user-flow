@@ -11,7 +11,8 @@ import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote-sandbox-
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
 import {
   expectCollectCommandCreatesHtmlReport,
-  expectCollectCommandCreatesJsonReport, expectCollectCommandCreatesMdReport
+  expectCollectCommandCreatesJsonReport,
+  expectCollectCommandCreatesMdReport
 } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 let setupRemotePrj: UserFlowCliProject;
@@ -50,12 +51,16 @@ describe('collect command in setup sandbox with a remote served app', () => {
 
   it('should save the results as a Markdown file', async () => {
     const { exitCode, stderr } = await setupRemotePrj
-      .$collect({ format: ['md'] });
+      .$collect({
+        // @TODO provide proper mock data for the json report so md also works in dryRun
+        dryRun: false,
+        format: ['md']
+      });
 
     expect(stderr).toBe('');
-    expect(exitCode).toBe(0);
     // Check report file and content of report
     expectCollectCommandCreatesMdReport(setupRemotePrj, REMOTE_MD_REPORT_NAME, REMOTE_USERFLOW_TITLE);
+    expect(exitCode).toBe(0);
   }, 90_000);
 
 });
