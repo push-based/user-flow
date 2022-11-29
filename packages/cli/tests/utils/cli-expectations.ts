@@ -8,9 +8,6 @@ import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.c
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { STATIC_HTML_REPORT_NAME } from '../fixtures/rc-files/static-app';
-import { REMOTE_RC_NAME } from '../fixtures/rc-files/remote-url';
-import { REMOTE_USERFLOW_TITLE } from '../fixtures/user-flows/remote-sandbox-setup.uf';
 import { UserFlowCliProject } from './cli-testing/user-flow-cli-project/user-flow-cli';
 
 function unquoted(k: string, v: string): string {
