@@ -1,4 +1,3 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
   BUDGETS_NAME,
   SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
@@ -19,27 +18,23 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 
-const setupPrjCfg: UserFlowProjectConfig = {
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-};
-let setupPrj: UserFlowCliProject;
+let initializedPrj: UserFlowCliProject;
 
 const ufStaticResultPath = path.join(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, 'sandbox-setup-static-dist.uf.json');
 
 describe('budgets and collect command in setup sandbox', () => {
   beforeEach(async () => {
-    if (!setupPrj) {
-      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
-    await setupPrj.setup();
+    await initializedPrj.setup();
   });
-  afterEach(async () => await setupPrj.teardown());
+  afterEach(async () => await initializedPrj.teardown());
 
   it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({ rcPath: SETUP_SANDBOX_STATIC_RC_NAME });
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({ rcPath: SETUP_SANDBOX_STATIC_RC_NAME });
 
     expect(stderr).toBe('');
     expectNoBudgetsFileExistLog(stdout);
@@ -48,7 +43,7 @@ describe('budgets and collect command in setup sandbox', () => {
   });
 
   it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({
       rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
       budgetPath: BUDGETS_NAME
     });
@@ -60,7 +55,7 @@ describe('budgets and collect command in setup sandbox', () => {
   }, 60_000);
 
   it('should load budgets from file if budgetsPath RC option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({
       rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
       budgetPath: BUDGETS_NAME
     });
@@ -72,7 +67,7 @@ describe('budgets and collect command in setup sandbox', () => {
   });
 
   it('should load budgets from file if budgets RC option is passed', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({
       rcPath: SETUP_SANDBOX_STATIC_RC_BUDGETS_NAME
     });
     const budgets = SETUP_SANDBOX_STATIC_RC_BUDGETS_JSON.assert?.budgets as [];
@@ -86,7 +81,7 @@ describe('budgets and collect command in setup sandbox', () => {
 
   it('should load budgets from file if budgetPath RC option is passed', async () => {
     const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({
       rcPath: SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME
     });
 

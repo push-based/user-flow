@@ -1,23 +1,18 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
-import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
-
 import { expectInitCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import * as path from 'path';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
-import {
-  CLI_DEFAULT_RC_JSON,
-  SANDBOX_BASE_RC_JSON
-} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
-import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 
 const emptyPrjCfg: UserFlowProjectConfig = {
   // @TODO implement custom options type and make cwd required
@@ -55,26 +50,22 @@ describe('init command configuration in empty sandbox', () => {
 
 });
 
-const setupPrjCfg: UserFlowProjectConfig = {
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-};
-let setupPrj: UserFlowCliProject;
+let initializedPrj: UserFlowCliProject;
 
 describe('init command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
-    if (!setupPrj) {
-      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
-    await setupPrj.setup();
+    await initializedPrj.setup();
   });
   afterEach(async () => {
-    await setupPrj.teardown();
+    await initializedPrj.teardown();
   });
 
   it('should read the rc file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init();
+    const { exitCode, stdout, stderr } = await initializedPrj.$init();
     const { collect, persist, assert } = SANDBOX_BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
@@ -109,7 +100,7 @@ describe('init command configuration in setup sandbox', () => {
     let { outPath, format } = persist;
     let { budgetPath } = assert;
 
-    const { exitCode, stdout, stderr } = await setupPrj.$init({
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({
         // -- collect
         url,
         ufPath,
@@ -131,7 +122,7 @@ describe('init command configuration in setup sandbox', () => {
     };
 
     expectInitCfgToContain(stdout, cfg);
-    const hardRc = setupPrj.readRcJson(DEFAULT_RC_NAME);
+    const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
     expect(hardRc).toEqual(cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);

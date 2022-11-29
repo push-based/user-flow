@@ -1,19 +1,13 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
-import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
-
 import {
-  resetSetupSandboxAndKillPorts,
   SETUP_SANDBOX_CLI_TEST_CFG,
   SETUP_SANDBOX_DEFAULT_RC_JSON,
   SETUP_SANDBOX_DEFAULT_RC_PATH
 } from '../../fixtures/setup-sandbox';
 
-import {
-  oldExpectEnsureConfigToCreateRc,
-  expectOutputRcInStdout
-} from '../../utils/cli-expectations';
+import { expectOutputRcInStdout, oldExpectEnsureConfigToCreateRc } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
@@ -23,26 +17,16 @@ import {
   expectNoPromptsInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 
-const emptyPrjCfg: UserFlowProjectConfig = {
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
-  rcFile: {}
-};
 let emptyPrj: UserFlowCliProject;
-
-const setupPrjCfg: UserFlowProjectConfig = {
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-};
-let setupPrj: UserFlowCliProject;
-
 
 describe('init command in empty sandbox', () => {
 
   beforeEach(async () => {
     if (!emptyPrj) {
-      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+      emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
     }
     await emptyPrj.setup();
   });
@@ -87,22 +71,23 @@ describe('init command in empty sandbox', () => {
 
 });
 
+let initializedPrj: UserFlowCliProject;
 
 describe('init command in setup sandbox', () => {
 
   beforeEach(async () => {
-    if (!setupPrj) {
-      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
-    await setupPrj.setup();
+    await initializedPrj.setup();
   });
   afterEach(async () => {
-    await setupPrj.teardown();
+    await initializedPrj.teardown();
   });
 
   it('should inform about the already existing cli-setup', async () => {
 
-    const { exitCode, stdout, stderr } = await setupPrj.$init({});
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({});
 
     // Assertions
 

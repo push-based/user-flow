@@ -1,5 +1,3 @@
-import { CLI_PATH } from '../fixtures/cli-bin-path';
-import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../fixtures/empty-sandbox';
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
@@ -9,19 +7,12 @@ import {
   UserFlowCliProjectFactory
 } from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../utils/cli-testing/user-flow-cli-project/types';
-import { SETUP_SANDBOX_CLI_TEST_CFG } from '../fixtures/setup-sandbox';
+import { EMPTY_PRJ_CFG } from '../fixtures/sandbox/empty';
 
-const emptyPrjSandboxCfg: UserFlowProjectConfig = {
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
-  rcFile: {}
-};
 let emptyPrjSandbox: UserFlowCliProject;
 
 const emptyPrjDefaultCfg: UserFlowProjectConfig = {
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
-  rcFile: {},
+  ...EMPTY_PRJ_CFG,
   cliMode: 'DEFAULT'
 };
 let emptyPrjDefault: UserFlowCliProject;
@@ -30,7 +21,7 @@ let emptyPrjDefault: UserFlowCliProject;
 describe('the CLI configuration in default mode', () => {
   beforeEach(async () => {
     if (!emptyPrjSandbox) {
-      emptyPrjSandbox = await UserFlowCliProjectFactory.create(emptyPrjSandboxCfg);
+      emptyPrjSandbox = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
     }
     await emptyPrjSandbox.setup();
   });

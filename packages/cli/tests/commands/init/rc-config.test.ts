@@ -1,8 +1,7 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 import { SETUP_SANDBOX_CLI_TEST_CFG } from '../../fixtures/setup-sandbox';
 
-import { expectOutputRcInStdout} from '../../utils/cli-expectations';
+import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
@@ -23,37 +22,29 @@ import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/us
 import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 
-
-export const emptyPrjCfg: UserFlowProjectConfig = {
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
-  rcFile: {}
-};
 let emptyPrj: UserFlowCliProject;
 
-
-const setupPrjCfg: UserFlowProjectConfig = {
+const remotePrjCfg: UserFlowProjectConfig = {
   verbose: true,
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH,
+  ...INITIATED_PRJ_CFG,
   rcFile: {
-    [DEFAULT_RC_NAME]: SANDBOX_BASE_RC_JSON,
     [REMOTE_RC_NAME]: REMOTE_RC_JSON
   },
   create: {
-    // @TODO only maintain 1 flow per prj
-    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
     [join(SANDBOX_BASE_RC_JSON.collect.ufPath, REMOTE_USERFLOW_NAME)]: REMOTE_USERFLOW_CONTENT
   }
 };
 
-let setupPrj: UserFlowCliProject;
+let remotePrj: UserFlowCliProject;
+let initializedPrj: UserFlowCliProject;
 
 describe('.rc.json in empty sandbox', () => {
   beforeEach(async () => {
     if (!emptyPrj) {
-      emptyPrj = await UserFlowCliProjectFactory.create(emptyPrjCfg);
+      emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
     }
     await emptyPrj.setup();
   });
@@ -125,16 +116,38 @@ describe('.rc.json in empty sandbox', () => {
 describe('.rc.json in setup sandbox', () => {
 
   beforeEach(async () => {
-    if (!setupPrj) {
-      setupPrj = await UserFlowCliProjectFactory.create(setupPrjCfg);
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
 
-    await setupPrj.setup();
+    await initializedPrj.setup();
   });
   afterEach(async () => {
-    // await setupPrj.teardown();
+    await initializedPrj.teardown();
   });
 
+  it('should validate params from rc', async () => {
+    const wrongFormat = 'wrong';
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({
+      interactive: false,
+      format: [wrongFormat as any]
+    });
+
+    // Assertions
+
+    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG(wrongFormat));
+    // expect(stdout).toBe('');
+    expect(exitCode).toBe(1);
+  });
+
+  it('should log and ask if specified rc file param -p does not exist', async () => {
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({ rcPath: 'wrong/path/to/file.json' });
+
+    // Assertions
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+    expect(stdout).toContain(PROMPT_COLLECT_URL);
+  });
 
   it('should take params from cli', async () => {
     const { collect, persist } = STATIC_RC_JSON;
@@ -142,7 +155,7 @@ describe('.rc.json in setup sandbox', () => {
     let { outPath, format } = persist;
     let htmlFormat = format[0];
 
-    const { exitCode, stdout, stderr } = await setupPrj.$init({
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({
         // collect
         url,
         ufPath,
@@ -157,24 +170,37 @@ describe('.rc.json in setup sandbox', () => {
     // Assertions
     expect(stderr).toBe('');
     expectOutputRcInStdout(stdout, STATIC_RC_JSON);
-    const hardRc = setupPrj.readRcJson(DEFAULT_RC_NAME);
+    const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
     expect(hardRc).toEqual(STATIC_RC_JSON);
     expect(exitCode).toBe(0);
   });
 
   it('should load default RC config name in a setup project', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init();
+    const { exitCode, stdout, stderr } = await initializedPrj.$init();
     // Assertions
 
     expect(stderr).toBe('');
     expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
-    const hardRc = setupPrj.readRcJson(DEFAULT_RC_NAME);
+    const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
     expect(hardRc).toEqual(SANDBOX_BASE_RC_JSON);
     expect(exitCode).toBe(0);
   });
+});
+describe('.rc.json in remote sandbox', () => {
+
+  beforeEach(async () => {
+    if (!remotePrj) {
+      remotePrj = await UserFlowCliProjectFactory.create(remotePrjCfg);
+    }
+
+    await remotePrj.setup();
+  });
+  afterEach(async () => {
+    await remotePrj.teardown();
+  });
 
   it('should load configuration if specified rc file param -p is given', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init(
+    const { exitCode, stdout, stderr } = await remotePrj.$init(
       { rcPath: REMOTE_RC_NAME },
       ['n']);
 
@@ -182,29 +208,6 @@ describe('.rc.json in setup sandbox', () => {
     expect(stderr).toBe('');
     expectOutputRcInStdout(stdout, REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
-  });
-
-  it('should validate params from rc', async () => {
-    const wrongFormat = 'wrong';
-    const { exitCode, stdout, stderr } = await setupPrj.$init({
-      interactive: false,
-      format: [wrongFormat as any]
-    });
-
-    // Assertions
-
-    expect(stderr).toContain(ERROR_PERSIST_FORMAT_WRONG(wrongFormat));
-    // expect(stdout).toBe('');
-    expect(exitCode).toBe(1);
-  });
-
-  it('should log and ask if specified rc file param -p does not exist', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init({ rcPath: 'wrong/path/to/file.json' });
-
-    // Assertions
-    expect(exitCode).toBe(0);
-    expect(stderr).toBe('');
-    expect(stdout).toContain(PROMPT_COLLECT_URL);
   });
 
 });
