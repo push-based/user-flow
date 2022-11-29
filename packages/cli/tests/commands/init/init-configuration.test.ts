@@ -14,7 +14,7 @@ import {
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import {
-  CLI_DEFAULTS_RC_JSON,
+  CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { DEFAULT_FULL_RC_PATH, DEFAULT_RC_NAME } from '../../../src/lib/constants';

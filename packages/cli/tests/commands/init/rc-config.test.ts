@@ -14,7 +14,7 @@ import {
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
-  CLI_DEFAULTS_RC_JSON,
+  CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
@@ -41,6 +41,7 @@ const setupPrjCfg: UserFlowProjectConfig = {
     [REMOTE_RC_NAME]: REMOTE_RC_JSON
   },
   create: {
+    // @TODO only maintain 1 flow per prj
     [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT,
     [join(SANDBOX_BASE_RC_JSON.collect.ufPath, REMOTE_USERFLOW_NAME)]: REMOTE_USERFLOW_CONTENT
   }
@@ -81,11 +82,11 @@ describe('.rc.json in empty sandbox', () => {
     // prompts
     expectPromptsOfInitInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, CLI_DEFAULTS_RC_JSON);
+    expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
-    expect(hardRc).toEqual(CLI_DEFAULTS_RC_JSON);
+    expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
   });
 
   it('should take custom params from prompt', async () => {
