@@ -163,7 +163,14 @@ export function expectCollectLogsFromMockInStdout(stdout: string, ufName: string
   expect(stdout).toContain(`Duration: ${ufName}`);
 }
 
-export function expectCollectNoLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
+/**
+ * @deprecated
+ * use expectCollectCommandNotToCreateLogsFromMockInStdout instead
+ * @param stdout
+ * @param ufName
+ * @param cfg
+ */
+export function expectCollectCommandNotToCreateLogsFromMockInStdout(stdout: string, ufName: string, cfg: RcJson) {
   expect(stdout).not.toContain(`Collect: ${ufName} from URL ${cfg.collect.url}`);
   expect(stdout).not.toContain(`flow#navigate: ${cfg.collect.url}`);
   expect(stdout).not.toContain(`Duration: ${ufName}`);

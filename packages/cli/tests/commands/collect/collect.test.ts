@@ -12,7 +12,7 @@ import {
   expectCollectCommandCreatesMdReport,
   expectCollectCommandNotToCreateReport,
   expectCollectCommandToCreateHtmlReport,
-  expectCollectNoLogsFromMockInStdout
+  expectCollectCommandNotToCreateLogsFromMockInStdout
 } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
@@ -20,6 +20,7 @@ import {
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import {
+  REMOTE_HTML_REPORT_NAME,
   REMOTE_JSON_REPORT_NAME,
   REMOTE_MD_REPORT_NAME,
   REMOTE_RC_JSON,
@@ -60,10 +61,6 @@ const setupRemotePrjCfg: UserFlowProjectConfig = {
 let setupRemotePrj: UserFlowCliProject;
 
 const ufStaticName = 'Sandbox Setup StaticDist';
-const uf1OutPathHtml = path.join(
-  SETUP_SANDBOX_DEFAULT_PERSIST_OUT_PATH,
-  'sandbox-setup-uf1.uf.html'
-);
 
 describe('collect command in setup sandbox with a static served app', () => {
 
@@ -82,7 +79,8 @@ describe('collect command in setup sandbox with a static served app', () => {
     });
 
     expect(stderr).toBe('');
-    expectCollectNoLogsFromMockInStdout(
+    // @TODO refactor to new helper
+    expectCollectCommandNotToCreateLogsFromMockInStdout(
       stdout,
       ufStaticName,
       SETUP_SANDBOX_STATIC_RC_JSON
@@ -99,7 +97,6 @@ describe('collect command in setup sandbox with a remote served app', () => {
       setupRemotePrj = await UserFlowCliProjectFactory.create(setupRemotePrjCfg);
     }
     await setupRemotePrj.setup();
-    // await new Promise(r => setTimeout(r, 30000));
   });
   afterEach(async () => await setupRemotePrj.teardown());
 
@@ -114,7 +111,7 @@ describe('collect command in setup sandbox with a remote served app', () => {
 
     expect(stderr).toBe('');
     // Check report file and content of report
-    expectCollectCommandToCreateHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, REMOTE_USERFLOW_TITLE, REMOTE_RC_NAME);
+    expectCollectCommandToCreateHtmlReport(setupRemotePrj, REMOTE_HTML_REPORT_NAME, REMOTE_USERFLOW_TITLE, REMOTE_RC_NAME);
     expect(exitCode).toBe(0);
   }, 90_000);
 
