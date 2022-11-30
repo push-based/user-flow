@@ -1,3 +1,5 @@
+export const STATIC_APP_INDEX_NAME = 'index.html';
+export const STATIC_APP_INDEX_CONTENT = `
 <!doctype html>
 
 <html lang="en">
@@ -17,6 +19,7 @@
   A simple web project to test lighthouse user-flow CLI
 </p>
 <button id="btn" onclick="document.getElementById('img').style=''">show image</button>
-<img id="img" style="display: none;" src="user-flow-square.png" alt="user-flow">
+<img id="img" style="display: none;" src="user-flow-square.txt" alt="user-flow">
 </body>
 </html>
+`;
