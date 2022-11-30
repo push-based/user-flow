@@ -36,7 +36,7 @@ export class CliProject {
   /**
    * The folder in which to execute the process
    */
-  protected root: string = '';
+  public root: string = '';
 
   /**
    * The the binary to execute

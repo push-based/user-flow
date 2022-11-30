@@ -40,16 +40,13 @@ const flowValidationCfg: UserFlowProjectConfig = {
 };
 let initializedPrj: UserFlowCliProject;
 
-function addCwdRelativePath(path: string): string {
-  return process.cwd().includes('packages') ? path : join('packages', 'sandbox-setup', path);
-}
-
 describe('loading user-flow scripts for execution', () => {
   beforeEach(async () => {
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
     }
     await initializedPrj.setup();
+    process.chdir(initializedPrj.root);
   });
   afterEach(async () => {
     await initializedPrj.teardown();
@@ -57,7 +54,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should return flows if files with ts or js are in ufPath', () => {
     let validUfDirPath = join(prjRelativeUfPath);
-    const ufPath = addCwdRelativePath(validUfDirPath);
+    const ufPath = validUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
 
     expect(initializedPrj.userFlowPath()).toBe(join(process.cwd(), ufPath));
@@ -67,7 +64,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should return flows if ufPath points a user-flow file and not a directory', () => {
     let validUfPath = join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME);
-    const ufPath = addCwdRelativePath(validUfPath);
+    const ufPath = validUfPath;
     const collectOptions = { url: 'example.com', ufPath };
 
     expect(initializedPrj.userFlowPath(VALIDE_EXAMPLE_USERFLOW_NAME)).toBe(join(process.cwd(), ufPath));
@@ -77,7 +74,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should return flows if files with ts or js are in ufPath and ignore files with other extensions', () => {
     let dirtyUfDirPath = join(prjRelativeUfPath);
-    const ufPath = addCwdRelativePath(dirtyUfDirPath);
+    const ufPath = dirtyUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
     expect(initializedPrj.userFlowPath()).toBe(join(process.cwd(), ufPath));
     const userFlows = loadFlow(collectOptions);
@@ -90,7 +87,7 @@ describe('loading user-flow scripts for execution', () => {
   // Should we consider a log message here?
   /*it('should throw ufPath is not a file or directory', () => {
   let notExistingUfDirPath = join('not-existing');
-    const ufPath = addCwdRelativePath(notExistingUfDirPath);
+    const ufPath = notExistingUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
     const userFlows = () => loadFlow(collectOptions);
     expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
@@ -98,7 +95,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should throw if no user flows are in the directory', () => {
     let emptyUfDirPath = join(prjRelativeOutPath);
-    const ufPath = addCwdRelativePath(emptyUfDirPath);
+    const ufPath = emptyUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
     const userFlows = () => loadFlow(collectOptions);
     expect(initializedPrj.outputPath()).toBe(join(process.cwd(), ufPath));
