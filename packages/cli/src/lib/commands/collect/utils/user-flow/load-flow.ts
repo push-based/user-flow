@@ -9,11 +9,11 @@ export function loadFlow(collect: CollectRcOptions): ({ exports: UserFlowProvide
   const path = join(process.cwd(), ufPath);
   // DX create directory if it does ot exist
   if (!existsSync(path)) {
-    /*try {
+    try {
       mkdirSync(path);
-    } catch (e) { */
-    throw new Error(`ufPath: ${path} is no directory`);
-    // }
+    } catch (e) {
+      throw new Error(`ufPath: ${path} is no directory`);
+    }
   }
 
   let files: string[];

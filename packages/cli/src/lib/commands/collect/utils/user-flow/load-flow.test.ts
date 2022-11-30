@@ -83,12 +83,14 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows.length).toBe(2);
   });
 
-  it('should throw ufPath is not a file or directory', () => {
+  // NOTICE: this error was handles by initializing the folder on the fly.
+  // Should we consider a log message here?
+  /*it('should throw ufPath is not a file or directory', () => {
     const ufPath = normalizePathForCi(notExistingUfDirPath);
     const collectOptions = { url: 'example.com', ufPath };
     const userFlows = () => loadFlow(collectOptions);
     expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
-  });
+  });*/
 
   it('should throw if no user flows are in the directory', () => {
     const ufPath = normalizePathForCi(emptyUfDirPath);
