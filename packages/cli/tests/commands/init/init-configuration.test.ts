@@ -1,6 +1,3 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
-
 import { expectInitOptionsToBeContainedInStdout } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
@@ -9,7 +6,6 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
