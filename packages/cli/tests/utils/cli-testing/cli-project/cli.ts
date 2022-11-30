@@ -152,7 +152,16 @@ export class CliProject {
             this.logVerbose(`Created dir ${dir} to save ${file}`);
             mkdirSync(dir);
           }
-          fs.writeFileSync(file, content, 'utf8');
+          function base64_encode(file) {
+            // read binary data
+            var bitmap = fs.readFileSync(file);
+            // convert binary data to base64 encoded string
+            return new Buffer(bitmap).toString('base64');
+          }
+          if(file.endsWith('.ico')) {
+            content = Buffer.from(content, "base64") as any;
+          }
+          fs.writeFileSync(file, content as any, 'utf8');
         }
         this.logVerbose(`File ${file} created`);
       });

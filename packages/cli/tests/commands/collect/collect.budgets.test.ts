@@ -24,7 +24,6 @@ import { expectResultsToIncludeBudgets } from '../../utils/cli-testing/user-flow
 
 let staticPrj: UserFlowCliProject;
 
-
 describe('budgets and collect command in setup sandbox', () => {
   beforeEach(async () => {
     if (!staticPrj) {
@@ -78,13 +77,8 @@ let staticWBudgetPrjCfg: UserFlowProjectConfig = {
       }
     }
   },
-  delete: (STATIC_PRJ_CFG?.delete || []).concat([LH_NAVIGATION_BUDGETS_NAME]),
-  create: {
-    ...STATIC_PRJ_CFG.create,
-    [LH_NAVIGATION_BUDGETS_NAME]: JSON.stringify(LH_NAVIGATION_BUDGETS)
-  }
+  delete: (STATIC_PRJ_CFG?.delete || []).concat([LH_NAVIGATION_BUDGETS_NAME])
 };
-const ufStaticResultPath = path.join(SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH, STATIC_USERFLOW_NAME);
 
 describe('budgetPath and collect command in setup sandbox', () => {
   beforeEach(async () => {
@@ -95,27 +89,53 @@ describe('budgetPath and collect command in setup sandbox', () => {
   });
   afterEach(async () => await staticWBudgetPrj.teardown());
 
+
   it('should load budgets from file if budgets RC option is passed', async () => {
     const { exitCode, stdout, stderr } = await staticWBudgetPrj.$collect({ dryRun: false });
 
-    // expect(stderr).toBe('');
+    expect(stderr).toBe('');
     expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS);
-    // expectResultsToIncludeBudgets(staticWBudgetPrj, STATIC_JSON_REPORT_NAME);
-    // expect(exitCode).toBe(0);
+    expectResultsToIncludeBudgets(staticWBudgetPrj, STATIC_JSON_REPORT_NAME);
+    expect(exitCode).toBe(0);
+  }, 90_000);
+});
+
+let staticWBudgetPathPrj: UserFlowCliProject;
+let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
+  ...STATIC_PRJ_CFG,
+  rcFile: {
+    [DEFAULT_RC_NAME]: {
+      ...STATIC_RC_JSON,
+      assert: {
+        ...STATIC_RC_JSON.assert,
+        budgetPath: LH_NAVIGATION_BUDGETS_NAME
+      }
+    }
+  },
+  create: {
+    ...STATIC_PRJ_CFG.create,
+    [LH_NAVIGATION_BUDGETS_NAME]: JSON.stringify(LH_NAVIGATION_BUDGETS)
+  }
+};
+
+describe('budgetPath and collect command in setup sandbox', () => {
+  beforeEach(async () => {
+    if (!staticWBudgetPathPrj) {
+      staticWBudgetPathPrj = await UserFlowCliProjectFactory.create(staticWBudgetPathPrjCfg);
+    }
+    await staticWBudgetPathPrj.setup();
   });
+  afterEach(async () => await staticWBudgetPathPrj.teardown());
 
   it('should load budgets from file if budgetPath RC option is passed', async () => {
-    const budgetPath = SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON.assert?.budgetPath + '';
-    const { exitCode, stdout, stderr } = await staticWBudgetPrj.$collect({
-      rcPath: SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME
+    const { exitCode, stdout, stderr } = await staticWBudgetPathPrj.$collect({
+      dryRun: false
     });
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, budgetPath);
-
-    old_expectResultsToIncludeBudgets(ufStaticResultPath, path.join(INITIALIZED_CLI_TEST_CFG?.cwd + '', budgetPath));
+    expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS);
+    expectResultsToIncludeBudgets(staticWBudgetPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);
-
-  });
+  }, 90_000);
 
 });
