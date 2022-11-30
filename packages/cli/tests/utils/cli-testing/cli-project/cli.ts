@@ -23,6 +23,8 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
   };
 }
 
+export type FileOrFolderMap = Record<string, string | {} | undefined>;
+
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
@@ -57,7 +59,7 @@ export class CliProject {
    * Filenames to create e.g. in project setup
    * All files are located from root
    */
-  protected createFiles: Record<string, string | undefined> = {};
+  protected createFiles: FileOrFolderMap = {};
   /**
    * Filenames to create e.g. in project setup
    */

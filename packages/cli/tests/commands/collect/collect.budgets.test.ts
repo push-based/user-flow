@@ -84,7 +84,7 @@ let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
   },
   create: {
     ...STATIC_PRJ_CFG.create,
-    [LH_NAVIGATION_BUDGETS_NAME]: JSON.stringify(LH_NAVIGATION_BUDGETS)
+    [LH_NAVIGATION_BUDGETS_NAME]: LH_NAVIGATION_BUDGETS
   }
 };
 

@@ -1,6 +1,7 @@
 import { ExecaChildProcess } from 'execa';
 import { PromptTestOptions } from '../process/types';
 import { RcJson } from '../../../../src/lib';
+import {FileOrFolderMap} from "./cli";
 
 export type ProcessTestOptions = {
   bin: string
@@ -39,5 +40,5 @@ export type ProjectConfig = {
   // files
   rcFile?: Record<string, RcJson>,
   delete?: string[],
-  create?: Record<string, string | undefined>;
+  create?: FileOrFolderMap;
 }
