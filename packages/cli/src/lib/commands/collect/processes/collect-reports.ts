@@ -45,11 +45,11 @@ function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertRcOp
   const { budgetPath, budgets } = assertOptions;
 
   if (budgetPath) {
-    logVerbose(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
+    logVerbose(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
     // @ts-ignore
     provider.flowOptions.config.settings.budgets = budgetPath;
   } else if (budgets) {
-    logVerbose('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+    logVerbose('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
     // @ts-ignore
     provider.flowOptions.config.settings.budgets = budgets;
   }

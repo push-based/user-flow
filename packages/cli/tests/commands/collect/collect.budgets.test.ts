@@ -5,7 +5,7 @@ import {
   SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME
 } from '../../fixtures/setup-sandbox';
 import {
-  expectBudgetsFileExistLog,
+  expectBudgetsFileExistLog, expectBudgetsPathUsageLog,
   expectNoBudgetsFileExistLog,
   old_expectResultsToIncludeBudgets
 } from '../../utils/cli-expectations';
@@ -42,27 +42,6 @@ describe('budgets and collect command in setup sandbox', () => {
 
   });
 
-  it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await staticPrj.$collect({
-      budgetPath: LH_NAVIGATION_BUDGETS_NAME
-    });
-
-    expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
-    expect(exitCode).toBe(0);
-
-  }, 60_000);
-
-  it('should load budgets from file if budgetsPath RC option is passed', async () => {
-    const { exitCode, stdout, stderr } = await staticPrj.$collect({
-      budgetPath: LH_NAVIGATION_BUDGETS_NAME
-    });
-
-    expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
-    expect(exitCode).toBe(0);
-
-  });
 });
 
 let staticWBudgetPrj: UserFlowCliProject;
@@ -80,7 +59,7 @@ let staticWBudgetPrjCfg: UserFlowProjectConfig = {
   delete: (STATIC_PRJ_CFG?.delete || []).concat([LH_NAVIGATION_BUDGETS_NAME])
 };
 
-describe('budgetPath and collect command in setup sandbox', () => {
+describe('budget and collect command in setup sandbox', () => {
   beforeEach(async () => {
     if (!staticWBudgetPrj) {
       staticWBudgetPrj = await UserFlowCliProjectFactory.create(staticWBudgetPrjCfg);
@@ -127,15 +106,15 @@ describe('budgetPath and collect command in setup sandbox', () => {
   });
   afterEach(async () => await staticWBudgetPathPrj.teardown());
 
-  it('should load budgets from file if budgetPath RC option is passed', async () => {
+  it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
     const { exitCode, stdout, stderr } = await staticWBudgetPathPrj.$collect({
-      dryRun: false
+      budgetPath: LH_NAVIGATION_BUDGETS_NAME
     });
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS);
-    expectResultsToIncludeBudgets(staticWBudgetPrj, STATIC_JSON_REPORT_NAME);
+    expectBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
     expect(exitCode).toBe(0);
-  }, 90_000);
+
+  }, 60_000);
 
 });
