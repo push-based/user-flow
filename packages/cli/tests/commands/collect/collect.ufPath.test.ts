@@ -1,10 +1,7 @@
-import { SETUP_SANDBOX_STATIC_RC_JSON, SETUP_SANDBOX_STATIC_RC_NAME } from '../../fixtures/setup-sandbox';
-import { old_expectCollectLogsFromMockInStdout } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 
 let staticPrj: UserFlowCliProject;
@@ -22,7 +19,7 @@ describe('ufPath and collect command in static sandbox', () => {
   });
 
   it('should throw if no user-flow is given', async () => {
-    const existingEmptyFolder = './measures';
+    const existingEmptyFolder = staticPrj.readRcJson().persist.outPath;
     const { exitCode, stderr } = await staticPrj.$collect({
       ufPath: existingEmptyFolder
     });
