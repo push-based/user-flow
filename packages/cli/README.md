@@ -280,7 +280,7 @@ See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/package
 
 ## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
 
-Chrome DevTools provides a feature to help with record and exoprt user interations. 
+Chrome DevTools provides a feature to help with record and export user interactions. 
 This can replace any handwritten code and organizes interactions in a JSON structure.
 ![User Flow-record-replay](https://user-images.githubusercontent.com/10064416/197055275-f2b59528-105d-494d-8285-5d29fe89d0bd.jpg)
 This library provides a way to replay and enrich those interactions over the CLI.
