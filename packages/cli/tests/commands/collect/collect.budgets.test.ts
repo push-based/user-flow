@@ -1,6 +1,5 @@
 import {
-  expectBudgetsFileExistLog,
-  expectBudgetsPathUsageLog,
+  expectBudgetsPathUsageLog, expectBudgetsUsageLog,
   expectNoBudgetsFileExistLog
 } from '../../utils/cli-expectations';
 import {
@@ -36,8 +35,8 @@ describe('$collect() sandbox+NO-assets with RC()', () => {
 
 });
 
-let staticWBudgetPrj: UserFlowCliProject;
-let staticWBudgetPrjCfg: UserFlowProjectConfig = {
+let staticWRcBudgetPrj: UserFlowCliProject;
+let staticWRcBudgetPrjCfg: UserFlowProjectConfig = {
   ...STATIC_PRJ_CFG,
   rcFile: {
     [DEFAULT_RC_NAME]: {
@@ -53,20 +52,20 @@ let staticWBudgetPrjCfg: UserFlowProjectConfig = {
 
 describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
   beforeEach(async () => {
-    if (!staticWBudgetPrj) {
-      staticWBudgetPrj = await UserFlowCliProjectFactory.create(staticWBudgetPrjCfg);
+    if (!staticWRcBudgetPrj) {
+      staticWRcBudgetPrj = await UserFlowCliProjectFactory.create(staticWRcBudgetPrjCfg);
     }
-    await staticWBudgetPrj.setup();
+    await staticWRcBudgetPrj.setup();
   });
-  afterEach(async () => await staticWBudgetPrj.teardown());
+  afterEach(async () => await staticWRcBudgetPrj.teardown());
 
 
   it('should load budgets from RC file', async () => {
-    const { exitCode, stdout, stderr } = await staticWBudgetPrj.$collect({ dryRun: false });
+    const { exitCode, stdout, stderr } = await staticWRcBudgetPrj.$collect({ dryRun: false });
 
     expect(stderr).toBe('');
-    expectBudgetsFileExistLog(stdout, LH_NAVIGATION_BUDGETS);
-    expectResultsToIncludeBudgets(staticWBudgetPrj, STATIC_JSON_REPORT_NAME);
+    expectBudgetsUsageLog(stdout, LH_NAVIGATION_BUDGETS);
+    expectResultsToIncludeBudgets(staticWRcBudgetPrj, STATIC_JSON_REPORT_NAME, LH_NAVIGATION_BUDGETS);
     expect(exitCode).toBe(0);
   }, 90_000);
 });
@@ -105,6 +104,7 @@ describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
 
     expect(stderr).toBe('');
     expectBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
+    expectResultsToIncludeBudgets(staticWBudgetAssetsPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);
 
   }, 60_000);

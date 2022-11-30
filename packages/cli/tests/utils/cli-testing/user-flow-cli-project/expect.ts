@@ -86,13 +86,11 @@ export function expectCollectLogsFromMockInStdout(stdout: string, prj: UserFlowC
   expect(stdout).toContain(`Duration: ${reportTitle}`);
 }
 
-export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgetsName: string = LH_NAVIGATION_BUDGETS_NAME) {
-
+export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: string | Budget[] = LH_NAVIGATION_BUDGETS_NAME) {
   const report = prj.readOutput(reportName) as any;
-  const resolvedBudgets = prj.readBudget(budgetsName);
+  const resolvedBudgets = Array.isArray(budgets) ? budgets : prj.readBudget(budgets);
 
   expect(report.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
   expect(report.steps[0].lhr.audits['performance-budget']).toBeDefined();
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
-

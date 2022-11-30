@@ -104,22 +104,13 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
 }
 
-export function expectBudgetsFileExistLog(stdout: string, budgetPath: Budget[] | string = '') {
-  if (!Array.isArray(budgetPath)) {
-    expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-  } else {
-    expect(stdout).toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
-  }
-  expect(stdout).toContain('format given budgets');
-}
-
-export function expectBudgetsPathUsageLog(stdout: string, budgetPath: Budget[] | string = '') {
+export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
   expect(stdout).toContain('format given budgets');
 }
 
-export function expectBudgetsUsageLog(stdout: string, budgetPath: Budget[] | string = '') {
-  expect(stdout).toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+export function expectBudgetsUsageLog(stdout: string, budgets: Budget[] = []) {
+  expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
   expect(stdout).toContain('format given budgets');
 }
 
