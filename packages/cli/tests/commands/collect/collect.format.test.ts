@@ -56,8 +56,7 @@ describe('collect command in setup sandbox', () => {
     const { exitCode, stderr } = await setupRemotePrj
       .$collect({
         // @TODO provide proper mock data for the json report so md also works in dryRun
-        dryRun: false,
-        format: ['md']
+        dryRun: false, format: ['md']
       });
 
     expect(stderr).toBe('');
@@ -68,7 +67,6 @@ describe('collect command in setup sandbox', () => {
 
   it('should log to stdout if stdout is', async () => {
     const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
-      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
       dryRun: false, format: ['stdout']
     });
 
