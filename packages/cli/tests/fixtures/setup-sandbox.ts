@@ -11,9 +11,9 @@ import { PERSIST_FORMAT_HTML } from '../../src/lib/commands/collect/options/form
 import { Options } from 'execa';
 import { SERVE_COMMAND_PORT } from '../utils/cli-testing/user-flow-cli-project/constants';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from './budget/lh-navigation-budget';
+import { INITIATED_PRJ_NAME } from './sandbox/initiated';
 
-export const INITIALIZED_SANDBOX_PATH = 'sandbox-setup';
-export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', INITIALIZED_SANDBOX_PATH);
+export const SETUP_SANDBOX_PATH = path.join(__dirname, '..', '..', '..', INITIATED_PRJ_NAME);
 export const SETUP_SANDBOX_PACKAGE_JSON_PATH = path.join(SETUP_SANDBOX_PATH, 'package.json');
 
 export const STATIC_USER_FLOW_SERVE_COMMAND = `cd dist && npx http-server --port ${SERVE_COMMAND_PORT}`;
