@@ -1,56 +1,44 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import {
-  EMPTY_SANDBOX_CLI_TEST_CFG,
-  EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS,
-  resetEmptySandbox
-} from '../../fixtures/empty-sandbox';
-
-import {
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_DEFAULT_RC_NAME,
-  SETUP_SANDBOX_DEFAULT_RC_PATH,
-  SETUP_SANDBOX_STATIC_RC_JSON,
-  SETUP_SANDBOX_STATIC_RC_NAME
-} from '../../fixtures/setup-sandbox';
-
-import {
-  expectEnsureConfigToCreateRc,
-  expectOutputRcInStdout,
-  expectPromptsOfInitInStdout
-} from '../../utils/cli-expectations';
+import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
-import { ENTER } from '../../utils/cli-prompt-test/keyboard';
-import * as path from 'path';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
-const emptyPrj = setupUserFlowProject({
-  root: EMPTY_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
-const setupPrj = setupUserFlowProject({
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import {
+  CLI_DEFAULT_RC_JSON,
+  SANDBOX_BASE_RC_JSON
+} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
+import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
+import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
+import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
 
-describe('.rc.json in setup sandbox', () => {
+let emptyPrj: UserFlowCliProject;
+let remotePrj: UserFlowCliProject;
+let initializedPrj: UserFlowCliProject;
+
+describe('.rc.json in empty sandbox', () => {
   beforeEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
+    if (!emptyPrj) {
+      emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
+    }
+    await emptyPrj.setup();
   });
   afterEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
+     await emptyPrj.teardown();
   });
 
   it('should take default params from prompt', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({verbose: true}, [
       //url
-      EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS.collect.url, ENTER,
+      ENTER,
       // ufPath
       ENTER,
       // HTML format
@@ -68,15 +56,15 @@ describe('.rc.json in setup sandbox', () => {
     // prompts
     expectPromptsOfInitInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    // const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
+    // expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
   });
 
   it('should take custom params from prompt', async () => {
-    const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
+    const { collect, persist } = STATIC_RC_JSON;
     const { url, ufPath } = collect;
     const { outPath } = persist;
     const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
@@ -94,68 +82,35 @@ describe('.rc.json in setup sandbox', () => {
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
 
-    //
-    expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG?.cwd + '', EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), {
+    const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
+    expect(hardRc).toEqual({
       collect: {
         url,
         ufPath
-      }, persist: { outPath, format: ['html'] }
+      },
+      persist: { outPath, format: ['html'] },
+      assert: {}
     });
-
   }, 40_000);
 
-  it('should take params from cli', async () => {
-    const { collect, persist } = SETUP_SANDBOX_STATIC_RC_JSON;
-    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
-    let { outPath, format } = persist;
-    let htmlFormat = format[0];
+});
 
-    const { exitCode, stdout, stderr } = await setupPrj.$init({
-        // collect
-        url,
-        ufPath,
-        serveCommand,
-        awaitServeStdout,
-        // persist
-        outPath,
-        format:[htmlFormat]
-      },
-      ['n']);
+describe('.rc.json in initialized sandbox', () => {
 
-    // Assertions
-    expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_STATIC_RC_JSON);
-    expect(exitCode).toBe(0);
+  beforeEach(async () => {
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
+    }
+
+    await initializedPrj.setup();
   });
-
-  it('should load default RC config name in a setup project', async () => {
-
-    const { exitCode, stdout, stderr } = await setupPrj.$init();
-
-    // Assertions
-    expect(exitCode).toBe(0);
-    expect(stderr).toBe('');
-    expect(stdout).toContain(`Update config under ${SETUP_SANDBOX_DEFAULT_RC_NAME}`);
-    expectOutputRcInStdout(stdout, SETUP_SANDBOX_DEFAULT_RC_JSON);
-    expectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
-  });
-
-  it('should load configuration if specified rc file param -p is given', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init(
-      { rcPath: SETUP_SANDBOX_STATIC_RC_NAME },
-      ['n']);
-
-    const config = SETUP_SANDBOX_STATIC_RC_JSON;
-
-    // Assertions
-    expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, config);
-    expect(exitCode).toBe(0);
+  afterEach(async () => {
+    await initializedPrj.teardown();
   });
 
   it('should validate params from rc', async () => {
     const wrongFormat = 'wrong';
-    const { exitCode, stdout, stderr } = await setupPrj.$init({
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({
       interactive: false,
       format: [wrongFormat as any]
     });
@@ -168,12 +123,74 @@ describe('.rc.json in setup sandbox', () => {
   });
 
   it('should log and ask if specified rc file param -p does not exist', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$init({ rcPath: 'wrong/path/to/file.json' });
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({ rcPath: 'wrong/path/to/file.json' });
 
     // Assertions
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
     expect(stdout).toContain(PROMPT_COLLECT_URL);
+  });
+
+  it('should take params from cli', async () => {
+    const { collect, persist } = STATIC_RC_JSON;
+    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
+    let { outPath, format } = persist;
+    let htmlFormat = format[0];
+
+    const { exitCode, stdout, stderr } = await initializedPrj.$init({
+        // collect
+        url,
+        ufPath,
+        serveCommand,
+        awaitServeStdout,
+        // persist
+        outPath,
+        format: [htmlFormat]
+      },
+      ['n']);
+
+    // Assertions
+    expect(stderr).toBe('');
+    expectOutputRcInStdout(stdout, STATIC_RC_JSON);
+    const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
+    expect(hardRc).toEqual(STATIC_RC_JSON);
+    expect(exitCode).toBe(0);
+  });
+
+  it('should load default RC config name in a setup project', async () => {
+    const { exitCode, stdout, stderr } = await initializedPrj.$init();
+    // Assertions
+
+    expect(stderr).toBe('');
+    expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
+    const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
+    expect(hardRc).toEqual(SANDBOX_BASE_RC_JSON);
+    expect(exitCode).toBe(0);
+  });
+});
+
+describe('.rc.json in remote sandbox', () => {
+
+  beforeEach(async () => {
+    if (!remotePrj) {
+      remotePrj = await UserFlowCliProjectFactory.create(REMOTE_PRJ_CFG);
+    }
+
+    await remotePrj.setup();
+  });
+  afterEach(async () => {
+    await remotePrj.teardown();
+  });
+
+  it('should load configuration if specified rc file param -p is given', async () => {
+    const { exitCode, stdout, stderr } = await remotePrj.$init(
+      { rcPath: DEFAULT_RC_NAME },
+      ['n']);
+
+    // Assertions
+    expect(stderr).toBe('');
+    expectOutputRcInStdout(stdout, REMOTE_RC_JSON);
+    expect(exitCode).toBe(0);
   });
 
 });

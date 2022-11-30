@@ -1,18 +1,17 @@
 import { ArgvPreset } from './types';
 import { detectCliMode } from './global/cli-mode/cli-mode';
 import * as path from 'path';
+import { DEFAULT_FULL_RC_PATH } from './constants';
 
-const DEFAULT_RC_NAME = '.user-flowrc.json';
-const DEFAULT_RC_PATH = `./`;
 
 export const DEFAULT_PRESET: ArgvPreset = {
   // GLOBAL
-  rcPath: path.join(DEFAULT_RC_PATH, DEFAULT_RC_NAME),
+  rcPath: DEFAULT_FULL_RC_PATH,
   interactive: true,
   verbose: false,
   // PERSIST COMMAND
   openReport: true,
-  format: []
+  format: ['html']
 };
 
 export const CI_PRESET: ArgvPreset = {

@@ -1,7 +1,7 @@
-import { setupUrl } from '../../collect/options/url.setup';
-import { setupUfPath } from '../../collect/options/ufPath.setup';
-import { setupFormat } from '../../collect/options/format.setup';
-import { setupOutPath } from '../../collect/options/outPath.setup';
+import { setupUrl } from '../options/url.setup';
+import { setupUfPath } from '../options/ufPath.setup';
+import { setupFormat } from '../options/format.setup';
+import { setupOutPath } from '../options/outPath.setup';
 import { RcJson } from '../../../types';
 
 export async function collectRcJson(cliCfg: RcJson): Promise<RcJson> {

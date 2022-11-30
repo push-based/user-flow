@@ -27,13 +27,13 @@ export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArgv): CollectCom
   serveCommand && (collect.serveCommand = serveCommand);
   awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
   // cli only
-  dryRun && (collect.dryRun = dryRun);
+  dryRun !== undefined && (collect.dryRun = Boolean(dryRun));
 
   let persist = {} as PersistArgvOptions;
   outPath && (persist.outPath = outPath);
   format && (persist.format = format);
   // cli only
-  persist && (persist.openReport = openReport);
+  openReport !== undefined && (persist.openReport = Boolean(openReport));
 
   let assert = {} as AssertArgvOptions;
   budgetPath && (assert.budgetPath = budgetPath);

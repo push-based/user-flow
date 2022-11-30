@@ -1,48 +1,29 @@
-import { cliPromptTest } from '../../utils/cli-prompt-test/cli-prompt-test';
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import {
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_STATIC_RC_JSON,
-  SETUP_SANDBOX_STATIC_RC_NAME
-} from '../../fixtures/setup-sandbox';
-import { expectCollectLogsFromMockInStdout } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
+import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
+import { expectCollectLogsFromMockInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
-const setupPrj = setupUserFlowProject({
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
+let staticPrj: UserFlowCliProject;
 
-const ufStaticName = 'Sandbox Setup StaticDist';
-
-describe('dryRun and collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
-
-  it('should load ufPath and execute throw if no user-flow is given', async () => {
-    const existingEmptyFolder = './measures';
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
-      ufPath: existingEmptyFolder
-    });
-
-    expect(stderr).toContain(`No user flows found in ${existingEmptyFolder}`);
-    expect(exitCode).toBe(1);
-  }, 90_000);
-
-  it('should load ufPath and execute the user-flow', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_STATIC_RC_NAME,
-      ufPath: SETUP_SANDBOX_STATIC_RC_JSON.collect.ufPath
-    });
+describe('dryRun and collect command in static sandbox', () => {
+  beforeEach(async () => {
+    if (!staticPrj) {
+      staticPrj = await UserFlowCliProjectFactory.create(STATIC_PRJ_CFG);
+    }
+    await staticPrj.setup();
+  });
+  afterEach(async () => {
+    await staticPrj.teardown();
+  });
+  it('should execute the user-flow', async () => {
+    const { exitCode, stdout, stderr } = await staticPrj.$collect({});
 
     expect(stderr).toBe('');
-    expectCollectLogsFromMockInStdout(
-      stdout,
-      ufStaticName,
-      SETUP_SANDBOX_STATIC_RC_JSON
-    );
+    expectCollectLogsFromMockInStdout(stdout, staticPrj, STATIC_USERFLOW_NAME)
     expect(exitCode).toBe(0);
   }, 90_000);
+
 });

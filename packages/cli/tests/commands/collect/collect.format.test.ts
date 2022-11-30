@@ -1,27 +1,69 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import {
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_REMOTE_RC_NAME
-} from '../../fixtures/setup-sandbox';
 import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
+import {
+  expectCollectCommandCreatesHtmlReport,
+  expectCollectCommandCreatesJsonReport,
+  expectCollectCommandCreatesMdReport
+} from '../../utils/cli-testing/user-flow-cli-project/expect';
+import {
+  STATIC_HTML_REPORT_NAME,
+  STATIC_JSON_REPORT_NAME,
+  STATIC_MD_REPORT_NAME
+} from '../../fixtures/rc-files/static';
+import { STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 
-const setupPrj = setupUserFlowProject({
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
-
-
-const uf1Name = 'Sandbox Setup UF1';
+let setupRemotePrj: UserFlowCliProject;
 
 describe('collect command in setup sandbox', () => {
-  beforeEach(async () => await resetSetupSandboxAndKillPorts());
-  afterEach(async () => await resetSetupSandboxAndKillPorts());
+  beforeEach(async () => {
+    if (!setupRemotePrj) {
+      setupRemotePrj = await UserFlowCliProjectFactory.create(STATIC_PRJ_CFG);
+    }
+    await setupRemotePrj.setup();
+  });
+  afterEach(async () => await setupRemotePrj.teardown());
 
-  it('should load ufPath, execute the user-flow on a remote URL and log if no format is given', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
-      rcPath: SETUP_SANDBOX_REMOTE_RC_NAME,
+
+  it('should save the results as a HTML file', async () => {
+    const { exitCode, stderr } = await setupRemotePrj.$collect({
+      format: ['html']
+    });
+
+    expect(stderr).toBe('');
+    // Check report file and content of report
+    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
+    expect(exitCode).toBe(0);
+  }, 90_000);
+
+  it('should save the results as a JSON file', async () => {
+    const { exitCode, stderr } = await setupRemotePrj
+      .$collect({ format: ['json'] });
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+
+    // Check report file and content of report
+    expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
+  }, 90_000);
+
+  it('should save the results as a Markdown file', async () => {
+    const { exitCode, stderr } = await setupRemotePrj
+      .$collect({
+        // @TODO provide proper mock data for the json report so md also works in dryRun
+        dryRun: false, format: ['md']
+      });
+
+    expect(stderr).toBe('');
+    // Check report file and content of report
+    expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
+    expect(exitCode).toBe(0);
+  }, 90_000);
+
+  it('should log to stdout if stdout is', async () => {
+    const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
       dryRun: false, format: ['stdout']
     });
 
@@ -29,6 +71,7 @@ describe('collect command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    expectCollectLogsReportByDefault(stdout, uf1Name);
+    expectCollectLogsReportByDefault(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
+
 });

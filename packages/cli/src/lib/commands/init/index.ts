@@ -18,9 +18,9 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-
       const cfg = getInitCommandOptionsFromArgv(argv);
       logVerbose('Init options: ', cfg);
+
       const exampleName = 'basic-navigation';
       const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
@@ -35,7 +35,7 @@ export const initCommand: YargsCommandObject = {
             try {
               readdirSync(ufPath);
             } catch (e) {
-              mkdirSync(ufPath);
+              mkdirSync(ufPath, {recursive: true});
             }
             addUserFlow(exampleName, ufPath);
             return Promise.resolve(cfg);

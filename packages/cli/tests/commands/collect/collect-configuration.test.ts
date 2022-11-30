@@ -1,37 +1,31 @@
-import { CLI_PATH } from '../../fixtures/cli-bin-path';
-import { resetEmptySandbox } from '../../fixtures/empty-sandbox';
-
-import {
-  resetSetupSandboxAndKillPorts,
-  SETUP_SANDBOX_CLI_TEST_CFG,
-  SETUP_SANDBOX_DEFAULT_RC_JSON,
-  SETUP_SANDBOX_REMOTE_RC_JSON
-} from '../../fixtures/setup-sandbox';
-
 import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import { setupUserFlowProject } from '../../utils/cli-testing/user-flow-cli';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
+import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 
-const setupPrj = setupUserFlowProject({
-  root: SETUP_SANDBOX_CLI_TEST_CFG.cwd as string,
-  bin: CLI_PATH
-});
+let initializedPrj: UserFlowCliProject;
 
 describe('collect command configuration in setup sandbox', () => {
 
   beforeEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
+    if (!initializedPrj) {
+      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
+    }
+    await initializedPrj.setup();
   });
   afterEach(async () => {
-    await resetEmptySandbox();
-    await resetSetupSandboxAndKillPorts();
+    await initializedPrj.teardown();
   });
 
   it('should have default`s from preset', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect();
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect();
 
     const { rcPath, interactive, verbose, ...collectOptions }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
     // @TODO implement format
@@ -42,8 +36,8 @@ describe('collect command configuration in setup sandbox', () => {
   });
 
   it('should read the rc file', async () => {
-    const { exitCode, stdout, stderr } = await setupPrj.$collect();
-    const { collect, persist, assert } = SETUP_SANDBOX_DEFAULT_RC_JSON;
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect();
+    const { collect, persist, assert } = SANDBOX_BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;
@@ -56,14 +50,14 @@ describe('collect command configuration in setup sandbox', () => {
 
   it('should take cli parameters', async () => {
 
-    let { collect, persist, assert } = SETUP_SANDBOX_REMOTE_RC_JSON;
+    let { collect, persist, assert } = REMOTE_RC_JSON;
 
     const { url, ufPath } = collect;
     // @TODO fix format
     let { outPath/*, format*/ } = persist;
     let budgetPath = assert?.budgetPath;
 
-    const { exitCode, stdout, stderr } = await setupPrj.$collect({
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect({
         url,
         ufPath,
         // `--serveCommand=${serveCommand}`,
