@@ -98,7 +98,7 @@ export class CliProject {
     if (Object.keys(this.rcFile).length > 0) {
       Object.entries(this.rcFile).forEach(([rcName, rcContent]) => {
         this.deleteFiles.push(rcName);
-        this.createFiles[rcName] = JSON.stringify(rcContent);
+        this.createFiles[rcName] = rcContent;
       });
     }
 
@@ -160,9 +160,17 @@ export class CliProject {
             // convert binary data to base64 encoded string
             return new Buffer(bitmap).toString('base64');
           }
-          if(file.endsWith('.ico')) {
-            content = Buffer.from(content, "base64") as any;
+
+          switch (true) {
+            case file.endsWith('.png'):
+            case file.endsWith('.ico'):
+              content = Buffer.from(content+'', "base64") as any;
+              break;
+            case file.endsWith('.json'):
+              content = JSON.stringify(content) as any;
+              break;
           }
+
           fs.writeFileSync(file, content as any, 'utf8');
         }
         this.logVerbose(`File ${file} created`);
