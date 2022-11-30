@@ -17,7 +17,7 @@ export const STATIC_PRJ_CFG: UserFlowProjectConfig = {
     [STATIC_RC_JSON.collect.ufPath]: undefined,
     [STATIC_RC_JSON.persist.outPath]: undefined,
     [STATIC_USERFLOW_PATH]: STATIC_USERFLOW_CONTENT,
-    [STATIC_APP_FAVICON_NAME]: STATIC_APP_FAVICON_CONTENT,
-    [STATIC_APP_IMG_NAME]: STATIC_APP_IMG_CONTENT,
+    [join ('dist', STATIC_APP_FAVICON_NAME)]: STATIC_APP_FAVICON_CONTENT,
+    [join ('dist', STATIC_APP_IMG_NAME)]: STATIC_APP_IMG_CONTENT,
   }
 };
