@@ -105,7 +105,7 @@ export class UserFlowCliProject extends CliProject {
     return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
   }
 
-  userFlowPath(userFlowName: string, rcFileName:string = DEFAULT_RC_NAME): string {
+  userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 

@@ -1,4 +1,5 @@
 import * as concat from 'concat-stream';
+import * as fs from 'fs';
 import * as execa from 'execa';
 import { ExecaChildProcess, Options } from 'execa';
 import { PromptTestOptions } from './types';
@@ -16,8 +17,17 @@ import { PromptTestOptions } from './types';
  * @param promptOptions
  * specify the process configuration
  */
-export function testProcessE2e(args?: string[], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
+export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
   // Defaults to process.cwd()
+
+  // validate input
+  if(!fs.existsSync(options.cwd + '')) {
+    throw new Error(`cwd ${options.cwd} does not exist.`)
+  }
+
+  if(!fs.existsSync(args[0] as unknown as string)) {
+    throw new Error(`bin file ${args[0]} does not exist.`)
+  }
 
   // Timeout between each keystroke simulation
   const timeout = promptOptions && promptOptions.timeout ? promptOptions.timeout : 500;
