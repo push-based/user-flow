@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.37](https://github.com/push-based/user-flow/compare/cli-0.10.36...cli-0.10.37) (2022-11-30)
+
+
+### Bug Fixes
+
+* add base64 fav and png ([4027e38](https://github.com/push-based/user-flow/commit/4027e38f1ee76991251b5b50b9a4b6e9f1d139f9))
+* add favicon and img to static project ([e54d6eb](https://github.com/push-based/user-flow/commit/e54d6ebca06f363620c42bb1e6824c3ff5d00883))
+* fix favicon file name ([2fa996b](https://github.com/push-based/user-flow/commit/2fa996b444f74185dd9d2cf982d53029802c4b0c))
+* fix static file generation ([c9eae50](https://github.com/push-based/user-flow/commit/c9eae50654832d70e55adb0d469f2ce683d2f7ee))
+* fix static file generation ([a5b9c3b](https://github.com/push-based/user-flow/commit/a5b9c3beef567e27d4007f2fae1219bfe96d3b70))
+* handle formats from preset ([7f1bf49](https://github.com/push-based/user-flow/commit/7f1bf49c3079c12b536f720a06e12eed2d7b4eda))
+* join path to file ([ee0f5db](https://github.com/push-based/user-flow/commit/ee0f5db59d68034e01b31917519192646d2f1cda))
+
+
+
 ## [0.10.36](https://github.com/push-based/user-flow/compare/cli-0.10.35...cli-0.10.36) (2022-11-22)
 
 
