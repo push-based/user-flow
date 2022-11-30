@@ -24,6 +24,11 @@ import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 
 const rcFile = INITIATED_PRJ_CFG?.rcFile;
 const prjRelativeOutPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].persist.outPath : DEFAULT_PERSIST_OUT_PATH);
+
+// prj.readUserFlow('name.uf.ts') => process.cwd() + sandbox-setup/src/lib/user-flows/name.uf.ts
+// prj.readUserFlow('name.uf.ts') => ./sandbox-setup/src/lib/user-flows/name.uf.ts
+
+// ./src/lib/user-flows (from rc.json)
 const prjRelativeUfPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].collect.ufPath : DEFAULT_COLLECT_UF_PATH);
 const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
@@ -36,7 +41,7 @@ const flowValidationCfg: UserFlowProjectConfig = {
 let initializedPrj: UserFlowCliProject;
 
 function addCwdRelativePath(path: string): string {
-  return join('..', 'sandbox-setup', path);
+  return process.cwd().includes('packages') ? path : join('packages', 'sandbox-setup', path);
 }
 
 describe('loading user-flow scripts for execution', () => {
