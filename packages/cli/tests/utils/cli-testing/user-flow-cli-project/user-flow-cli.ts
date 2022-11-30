@@ -35,7 +35,6 @@ export class UserFlowCliProject extends CliProject {
   }
 
   override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
-    // console.log('cfg1: ', cfg);
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -58,7 +57,7 @@ export class UserFlowCliProject extends CliProject {
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
-
+    this.logVerbose('Cfg after user-flow operations: ', cfg);
     return super._setup(cfg);
   }
 
@@ -71,6 +70,7 @@ export class UserFlowCliProject extends CliProject {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
     this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
+
     return this.exec(prcParams, userInput);
   }
 

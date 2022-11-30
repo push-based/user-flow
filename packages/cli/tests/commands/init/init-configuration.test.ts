@@ -1,7 +1,7 @@
 import { CLI_PATH } from '../../fixtures/cli-bin-path';
 import { EMPTY_SANDBOX_CLI_TEST_CFG } from '../../fixtures/empty-sandbox';
 
-import { expectInitCfgToContain } from '../../utils/cli-expectations';
+import { expectInitOptionsToBeContainedInStdout } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
@@ -36,7 +36,7 @@ describe('init command configuration in empty sandbox', () => {
     // @NOTICE formats are in the preset but not used as default param
     const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
     const { dryRun, openReport, format, ...initOptions } = rest as any;
-    expectInitCfgToContain(stdout, initOptions);
+    expectInitOptionsToBeContainedInStdout(stdout, initOptions);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
@@ -65,7 +65,7 @@ describe('init command configuration in setup sandbox', () => {
     delete (cfg as any).dryRun;
     // openReport is not part of the init options
     delete (cfg as any).openReport;
-    expectInitCfgToContain(stdout, cfg);
+    expectInitOptionsToBeContainedInStdout(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
 
@@ -114,7 +114,7 @@ describe('init command configuration in setup sandbox', () => {
       ...assert
     };
 
-    expectInitCfgToContain(stdout, cfg);
+    expectInitOptionsToBeContainedInStdout(stdout, cfg);
     const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
     expect(hardRc).toEqual({ collect, persist, assert });
     expect(stderr).toBe('');

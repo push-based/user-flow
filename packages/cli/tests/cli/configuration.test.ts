@@ -1,5 +1,5 @@
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
-import { expectGlobalOptionsToContain, expectInitCfgToContain } from '../utils/cli-expectations';
+import { expectGlobalOptionsToBeContainedInStdout, expectInitOptionsToBeContainedInStdout } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import {
@@ -17,7 +17,6 @@ const emptyPrjDefaultCfg: UserFlowProjectConfig = {
 };
 let emptyPrjDefault: UserFlowCliProject;
 
-
 describe('the CLI configuration in default mode', () => {
   beforeEach(async () => {
     if (!emptyPrjSandbox) {
@@ -33,9 +32,8 @@ describe('the CLI configuration in default mode', () => {
     const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init();
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
-
-    expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
-    expectInitCfgToContain(stdout, { ...collect, ...persist, ...assert });
+    expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
+    expectInitOptionsToBeContainedInStdout(stdout, { ...collect, ...persist, ...assert });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
@@ -56,11 +54,11 @@ describe('the CLI configuration in default mode', () => {
 
 
   it('should have default preset in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ verbose: true });
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ });
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
-    expectGlobalOptionsToContain(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
-    expectInitCfgToContain(stdout, { ...collect, ...persist, ...assert });
+    expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
+    expectInitOptionsToBeContainedInStdout(stdout, { ...collect, ...persist, ...assert });
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });

@@ -20,7 +20,7 @@ function array(k: string, v: string[]): string {
 }
 
 
-export function expectInitCfgToContain(stdout: string, cliParams: {}) {
+export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Init options:`);
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
@@ -78,7 +78,7 @@ export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
   });
 }
 
-export function expectGlobalOptionsToContain(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
+export function expectGlobalOptionsToBeContainedInStdout(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
   Object.entries(globalParams).forEach(([k, v]) => {
     v = '' + v;
     switch (k as keyof GlobalOptionsArgv) {
