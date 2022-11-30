@@ -7,30 +7,17 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
 } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
-import { join } from 'path';
-import { REMOTE_USERFLOW_CONTENT, REMOTE_USERFLOW_NAME } from '../../fixtures/user-flows/remote.uf';
-import { REMOTE_RC_JSON, REMOTE_RC_NAME } from '../../fixtures/rc-files/remote';
+import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-
-const remotePrjCfg: UserFlowProjectConfig = {
-  verbose: true,
-  ...INITIATED_PRJ_CFG,
-  rcFile: {
-    [REMOTE_RC_NAME]: REMOTE_RC_JSON
-  },
-  create: {
-    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, REMOTE_USERFLOW_NAME)]: REMOTE_USERFLOW_CONTENT
-  }
-};
+import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -48,7 +35,7 @@ describe('.rc.json in empty sandbox', () => {
   });
 
   it('should take default params from prompt', async () => {
-    await emptyPrj.wait();
+
     const { exitCode, stdout, stderr } = await emptyPrj.$init({verbose: true}, [
       //url
       ENTER,
@@ -186,7 +173,7 @@ describe('.rc.json in remote sandbox', () => {
 
   beforeEach(async () => {
     if (!remotePrj) {
-      remotePrj = await UserFlowCliProjectFactory.create(remotePrjCfg);
+      remotePrj = await UserFlowCliProjectFactory.create(REMOTE_PRJ_CFG);
     }
 
     await remotePrj.setup();
@@ -197,7 +184,7 @@ describe('.rc.json in remote sandbox', () => {
 
   it('should load configuration if specified rc file param -p is given', async () => {
     const { exitCode, stdout, stderr } = await remotePrj.$init(
-      { rcPath: REMOTE_RC_NAME },
+      { rcPath: DEFAULT_RC_NAME },
       ['n']);
 
     // Assertions
