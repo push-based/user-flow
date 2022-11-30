@@ -1,15 +1,8 @@
 import {
-  INITIALIZED_CLI_TEST_CFG,
-  SETUP_SANDBOX_BUDGETS_PERSIST_OUT_PATH,
-  SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_JSON,
-  SETUP_SANDBOX_STATIC_RC_BUDGET_PATH_NAME
-} from '../../fixtures/setup-sandbox';
-import {
-  expectBudgetsFileExistLog, expectBudgetsPathUsageLog,
-  expectNoBudgetsFileExistLog,
-  old_expectResultsToIncludeBudgets
+  expectBudgetsFileExistLog,
+  expectBudgetsPathUsageLog,
+  expectNoBudgetsFileExistLog
 } from '../../utils/cli-expectations';
-import * as path from 'path';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
@@ -19,12 +12,11 @@ import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-pro
 import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
 import { expectResultsToIncludeBudgets } from '../../utils/cli-testing/user-flow-cli-project/expect';
 
 let staticPrj: UserFlowCliProject;
 
-describe('budgets and collect command in setup sandbox', () => {
+describe('$collect() sandbox+NO-assets with RC()', () => {
   beforeEach(async () => {
     if (!staticPrj) {
       staticPrj = await UserFlowCliProjectFactory.create(STATIC_PRJ_CFG);
@@ -33,7 +25,7 @@ describe('budgets and collect command in setup sandbox', () => {
   });
   afterEach(async () => await staticPrj.teardown());
 
-  it('should NOT log budgets info if no --budgetsPath CLI option is passed', async () => {
+  it('should NOT log budgets info', async () => {
     const { exitCode, stdout, stderr } = await staticPrj.$collect({});
 
     expect(stderr).toBe('');
@@ -59,7 +51,7 @@ let staticWBudgetPrjCfg: UserFlowProjectConfig = {
   delete: (STATIC_PRJ_CFG?.delete || []).concat([LH_NAVIGATION_BUDGETS_NAME])
 };
 
-describe('budget and collect command in setup sandbox', () => {
+describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
   beforeEach(async () => {
     if (!staticWBudgetPrj) {
       staticWBudgetPrj = await UserFlowCliProjectFactory.create(staticWBudgetPrjCfg);
@@ -69,7 +61,7 @@ describe('budget and collect command in setup sandbox', () => {
   afterEach(async () => await staticWBudgetPrj.teardown());
 
 
-  it('should load budgets from file if budgets RC option is passed', async () => {
+  it('should load budgets from RC file', async () => {
     const { exitCode, stdout, stderr } = await staticWBudgetPrj.$collect({ dryRun: false });
 
     expect(stderr).toBe('');
@@ -79,7 +71,7 @@ describe('budget and collect command in setup sandbox', () => {
   }, 90_000);
 });
 
-let staticWBudgetPathPrj: UserFlowCliProject;
+let staticWBudgetAssetsPrj: UserFlowCliProject;
 let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
   ...STATIC_PRJ_CFG,
   rcFile: {
@@ -97,17 +89,17 @@ let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
   }
 };
 
-describe('budgetPath and collect command in setup sandbox', () => {
+describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
   beforeEach(async () => {
-    if (!staticWBudgetPathPrj) {
-      staticWBudgetPathPrj = await UserFlowCliProjectFactory.create(staticWBudgetPathPrjCfg);
+    if (!staticWBudgetAssetsPrj) {
+      staticWBudgetAssetsPrj = await UserFlowCliProjectFactory.create(staticWBudgetPathPrjCfg);
     }
-    await staticWBudgetPathPrj.setup();
+    await staticWBudgetAssetsPrj.setup();
   });
-  afterEach(async () => await staticWBudgetPathPrj.teardown());
+  afterEach(async () => await staticWBudgetAssetsPrj.teardown());
 
-  it('should load budgets from file if --budgetsPath CLI option is passed', async () => {
-    const { exitCode, stdout, stderr } = await staticWBudgetPathPrj.$collect({
+  it('should load budgetPath from RC file', async () => {
+    const { exitCode, stdout, stderr } = await staticWBudgetAssetsPrj.$collect({
       budgetPath: LH_NAVIGATION_BUDGETS_NAME
     });
 
