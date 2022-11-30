@@ -4,10 +4,11 @@ import { PROMPT_COLLECT_UF_PATH } from '../../../../src/lib/commands/collect/opt
 import { PROMPT_PERSIST_OUT_PATH } from '../../../../src/lib/commands/collect/options/outPath.constant';
 import { PROMPT_PERSIST_FORMAT } from '../../../../src/lib/commands/collect/options/format.constant';
 import Budget from 'lighthouse/types/lhr/budget';
-import * as fs from "fs";
+import * as fs from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
+import { RcJson } from '../../../../src/lib';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -94,3 +95,15 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
   expect(report.steps[0].lhr.audits['performance-budget']).toBeDefined();
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
+
+export function expectCliToCreateRc(
+  prj: UserFlowCliProject,
+  json: RcJson,
+  rcName: string = DEFAULT_RC_NAME
+) {
+  const rcFromFile = prj.readRcJson(rcName);
+  // handle inconsistency of rc vs params
+  const { collect, persist, assert } = json;
+  expect(rcFromFile).toEqual({ collect, persist, assert });
+}
+

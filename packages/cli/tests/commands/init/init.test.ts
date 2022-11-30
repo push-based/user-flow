@@ -1,13 +1,12 @@
 import { ENTER } from '../../utils/cli-testing/process/keyboard';
 
-import { SETUP_SANDBOX_DEFAULT_RC_JSON, SETUP_SANDBOX_DEFAULT_RC_PATH } from '../../fixtures/setup-sandbox';
-
-import { expectOutputRcInStdout, oldExpectEnsureConfigToCreateRc } from '../../utils/cli-expectations';
+import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import {
+  expectCliToCreateRc,
   expectNoPromptsInStdout,
   expectPromptsOfInitInStdout
 } from '../../utils/cli-testing/user-flow-cli-project/expect';
@@ -47,7 +46,7 @@ describe('init command in empty sandbox', () => {
     expect(exitCode).toBe(0);
 
     //
-    // expectEnsureConfigToCreateRc(path.join(EMPTY_SANDBOX_CLI_TEST_CFG.testPath, EMPTY_SANDBOX_RC_NAME__AFTER_ENTER_DEFAULTS), EMPTY_SANDBOX_RC_JSON__AFTER_ENTER_DEFAULTS);
+    // expectEnsureConfigToCreateRc(emptyPrj.rcFilePath);
 
   }, 40_000);
 
@@ -96,7 +95,7 @@ describe('init command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // file output
-    oldExpectEnsureConfigToCreateRc(SETUP_SANDBOX_DEFAULT_RC_PATH, SETUP_SANDBOX_DEFAULT_RC_JSON);
+    expectCliToCreateRc(initializedPrj, SANDBOX_BASE_RC_JSON);
   });
 
 });
