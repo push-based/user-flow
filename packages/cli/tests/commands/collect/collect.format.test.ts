@@ -1,30 +1,27 @@
-import { SETUP_SANDBOX_REMOTE_RC_NAME } from '../../fixtures/setup-sandbox';
 import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
+import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import {
   expectCollectCommandCreatesHtmlReport,
-  expectCollectCommandCreatesJsonReport, expectCollectCommandCreatesMdReport
+  expectCollectCommandCreatesJsonReport,
+  expectCollectCommandCreatesMdReport
 } from '../../utils/cli-testing/user-flow-cli-project/expect';
 import {
-  REMOTE_HTML_REPORT_NAME,
-  REMOTE_JSON_REPORT_NAME,
-  REMOTE_MD_REPORT_NAME
-} from '../../fixtures/rc-files/remote';
-import { REMOTE_USERFLOW_TITLE } from '../../fixtures/user-flows/remote.uf';
+  STATIC_HTML_REPORT_NAME,
+  STATIC_JSON_REPORT_NAME,
+  STATIC_MD_REPORT_NAME
+} from '../../fixtures/rc-files/static';
+import { STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 
 let setupRemotePrj: UserFlowCliProject;
-
-const uf1Name = 'Sandbox Setup UF1';
 
 describe('collect command in setup sandbox', () => {
   beforeEach(async () => {
     if (!setupRemotePrj) {
-      setupRemotePrj = await UserFlowCliProjectFactory.create(REMOTE_PRJ_CFG);
+      setupRemotePrj = await UserFlowCliProjectFactory.create(STATIC_PRJ_CFG);
     }
     await setupRemotePrj.setup();
   });
@@ -38,7 +35,7 @@ describe('collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     // Check report file and content of report
-    expectCollectCommandCreatesHtmlReport(setupRemotePrj, REMOTE_HTML_REPORT_NAME, REMOTE_USERFLOW_TITLE);
+    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expect(exitCode).toBe(0);
   }, 90_000);
 
@@ -49,7 +46,7 @@ describe('collect command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    expectCollectCommandCreatesJsonReport(setupRemotePrj, REMOTE_JSON_REPORT_NAME, REMOTE_USERFLOW_TITLE);
+    expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
   }, 90_000);
 
   it('should save the results as a Markdown file', async () => {
@@ -61,7 +58,7 @@ describe('collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     // Check report file and content of report
-    expectCollectCommandCreatesMdReport(setupRemotePrj, REMOTE_MD_REPORT_NAME, REMOTE_USERFLOW_TITLE);
+    expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expect(exitCode).toBe(0);
   }, 90_000);
 
@@ -74,7 +71,7 @@ describe('collect command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    expectCollectLogsReportByDefault(stdout, uf1Name);
+    expectCollectLogsReportByDefault(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
 
 });

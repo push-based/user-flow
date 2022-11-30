@@ -222,7 +222,7 @@ export function old_expectCollectCreatesMdReport(reportPath: string, ufName: str
  */
 export function expectCollectLogsReportByDefault(stdout: string, ufName: string) {
   expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
-  expect(stdout).toContain(`| Navigate to coffee cart | navigation  |`);
+  expect(stdout).toContain(ufName);
 }
 
 export function old_expectCollectCommandNotToCreateReport(reportPath: string) {
