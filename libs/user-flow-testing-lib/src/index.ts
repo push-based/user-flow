@@ -1,4 +1,4 @@
-export * from '../../../packages/cli/lib/data/user-flowrc.base';
+export const t = '';
 //export {SERVE_COMMAND_PORT} from './lib/constants';
 //export * from './lib/expect';
 //export {UserFlowProjectConfig} from './lib/types';
