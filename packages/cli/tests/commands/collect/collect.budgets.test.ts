@@ -5,13 +5,14 @@ import {
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { UserFlowProjectConfig } from '../../../../../libs/user-flow-testing-lib/src/lib/types';
-import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
+} from '../../../lib/user-flow-cli';
+import { STATIC_PRJ_CFG } from '../../../test-data/static-prj/cfg';
+import { UserFlowProjectConfig } from '../../../lib/types';
+import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../../test-data/static-prj/rc.json';
+import { LH_NAVIGATION_BUDGETS} from '../../../test-data/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { expectResultsToIncludeBudgets } from '../../../../../libs/user-flow-testing-lib/src/lib/expect';
+import { expectResultsToIncludeBudgets } from '../../../user-flow-testing/expect';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../lib/constants';
 
 let staticPrj: UserFlowCliProject;
 

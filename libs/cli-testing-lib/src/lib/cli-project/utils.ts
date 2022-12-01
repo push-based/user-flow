@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import { ProcessParams } from './types';
 import * as path from 'path';
+import { ProcessParams } from 'cli-testing-lib';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {

@@ -1,6 +1,5 @@
 import Budget from 'lighthouse/types/lhr/budget';
 
-export const LH_NAVIGATION_BUDGETS_NAME = 'budgets.json';
 export const LH_NAVIGATION_BUDGETS: Budget[] = [
   {
     'resourceSizes': [

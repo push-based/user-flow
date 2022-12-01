@@ -4,15 +4,15 @@ import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
+} from '../../../lib/user-flow-cli';
 import {
   expectCliToCreateRc,
   expectNoPromptsInStdout,
   expectPromptsOfInitInStdout
-} from '../../../../../libs/user-flow-testing-lib/src/lib/expect';
-import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
+} from '../../../user-flow-testing/expect';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
+import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
 
 let emptyPrj: UserFlowCliProject;
 

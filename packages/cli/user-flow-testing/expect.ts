@@ -1,13 +1,13 @@
-import { UserFlowCliProject } from './user-flow-cli';
-import { PROMPT_COLLECT_URL } from '../../../../packages/cli/src/lib/commands/collect/options/url.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../../../packages/cli/src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../../../packages/cli/src/lib/commands/collect/options/outPath.constant';
-import { PROMPT_PERSIST_FORMAT } from '../../../../packages/cli/src/lib/commands/collect/options/format.constant';
+import { UserFlowCliProject } from '../user-flow-testing/user-flow-cli';
+import { PROMPT_COLLECT_URL } from '../src/lib/commands/collect/options/url.constant';
+import { PROMPT_COLLECT_UF_PATH } from '../src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_PERSIST_OUT_PATH } from '../src/lib/commands/collect/options/outPath.constant';
+import { PROMPT_PERSIST_FORMAT } from '../src/lib/commands/collect/options/format.constant';
 import Budget from 'lighthouse/types/lhr/budget';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../../packages/cli/tests/fixtures/budget/lh-navigation-budget';
-import { DEFAULT_RC_NAME } from '../../../../packages/cli/src/lib/constants';
-import { RcJson } from '../../../../packages/cli/src/lib';
-import { GlobalOptionsArgv } from '../../../../packages/cli/src/lib/global/options/types';
+import { DEFAULT_RC_NAME } from '../src/lib/constants';
+import { RcJson } from '../src/lib';
+import { GlobalOptionsArgv } from '../src/lib/global/options/types';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../user-flow-testing/constants';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,

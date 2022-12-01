@@ -16,7 +16,7 @@
       ]
     }
   },
-  "include": ["**/*.ts"],
+  "include": ["**/user-flow.base.ts"],
   "exclude": [
     "**/tests/*",
     "**/*.spec.ts",

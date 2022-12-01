@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import {join} from 'path';
-import * as LHR9 from '../../../../../test-data/lhr-9.json';
-import * as LHR9_EX_2 from '../../../../../test-data/lhr-9-ex-2.json';
-import * as LHR9REDUCED from '../../../../../test-data/lhr-9_reduced.json';
-import * as LHR9REDUCEDCOMPARE from '../../../../../test-data/lhr-9_reduced-baseline.json';
-import * as LHR8 from '../../../../../test-data/lhr-8.json';
+import * as LHR9 from '../../../../../test-data/reports/lhr-9.json';
+import * as LHR9_EX_2 from '../../../../../test-data/reports/lhr-9-ex-2.json';
+import * as LHR9REDUCED from '../../../../../test-data/reports/lhr-9_reduced.json';
+import * as LHR9REDUCEDCOMPARE from '../../../../../test-data/reports/lhr-9_reduced-baseline.json';
+import * as LHR8 from '../../../../../test-data/reports/lhr-8.json';
 import {
   createReducedReport,
   enrichReducedReportWithBaseline

@@ -1,14 +1,12 @@
-import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
+import { CliProcess, FileOrFolderMap, ProcessTestOptions, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
 import { testProcessE2e } from '../process/test-process-e2e';
-import { deleteFileOrFolder, getFolderContent, processParamsToParamsArray } from './utils';
+import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 import * as path from 'path';
-import * as fs from 'fs';
-import { PromptTestOptions } from '../process/types';
-import { RcJson } from '../../../../../packages/cli/src/lib';
 import { dirname } from 'path';
+import * as fs from 'fs';
 import { existsSync, mkdirSync } from 'fs';
-import { logVerbose } from '../../../../../packages/cli/src/lib/core/loggin';
+import { ProcessParams, PromptTestOptions } from '../process/types';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
@@ -22,8 +20,6 @@ export function getCliProcess(processOptions: Options, promptTestOptions: Prompt
     }
   };
 }
-
-export type FileOrFolderMap = Record<string, string | {} | undefined>;
 
 /**
  * A helper class to manage an project structure for a yargs based CLI

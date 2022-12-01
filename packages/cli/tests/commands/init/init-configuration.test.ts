@@ -4,11 +4,11 @@ import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
-import { SANDBOX_BASE_RC_JSON } from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
+} from '../../../lib/user-flow-cli';
+import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
 import { expectInitOptionsToBeContainedInStdout } from '@user-flow/user-flow-testing-lib';
 
 let emptyPrj: UserFlowCliProject;

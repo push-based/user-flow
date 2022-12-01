@@ -1,6 +1,6 @@
-import { RcJson } from '../../../src/lib';
-import { SANDBOX_BASE_RC_JSON } from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
-import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from '../user-flows/remote.uf';
+import { RcJson } from '../../src/lib';
+import { SANDBOX_BASE_RC_JSON } from '../../user-flow-testing/data/user-flowrc.base';
+import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from './user-flow.uf';
 import * as path from 'path';
 
 export const REMOTE_RC_NAME = '.user-flow.remote.json';

@@ -1,6 +1,7 @@
-import { UserFlowProjectConfig } from '../../../../../libs/user-flow-testing-lib/src/lib/types';
+
 import { CLI_PATH } from '../cli-bin-path';
 import { join } from 'path';
+import { UserFlowProjectConfig } from '../../user-flow-testing/types';
 
 export const EMPTY_SANDBOX_BIN = CLI_PATH;
 export const EMPTY_PRJ_NAME = 'sandbox-empty';

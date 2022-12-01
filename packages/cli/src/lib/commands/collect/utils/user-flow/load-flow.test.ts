@@ -4,22 +4,22 @@ import { loadFlow } from './load-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import { UserFlowProjectConfig } from '../../../../../../../../libs/user-flow-testing-lib/src/lib/types';
+} from '../../../../../../lib/user-flow-cli';
+import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj/cfg';
+import { UserFlowProjectConfig } from '../../../../../../lib/types';
 import {
   VALIDE_EXAMPLE_USERFLOW_CONTENT,
   VALIDE_EXAMPLE_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/valide.example.uf';
+} from '../../../../../../test-data/user-flows/valide.example.uf';
 import { DEFAULT_RC_NAME } from '../../../../constants';
 import {
   WRONG_EXT_USERFLOW_CONTENT,
   WRONG_EXT_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/wrong-ext.example.uf';
+} from '../../../../../../test-data/user-flows/wrong-ext.example.uf';
 import {
   WRONG_MOD_EXPORT_USERFLOW_CONTENT,
   WRONG_MOD_EXPORT_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/wrong-mod-export.example.uf';
+} from '../../../../../../test-data/user-flows/wrong-mod-export.example.uf';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 
 const rcFile = INITIATED_PRJ_CFG?.rcFile;

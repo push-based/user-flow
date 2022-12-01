@@ -4,10 +4,10 @@ import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
-import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
+} from '../../../lib/user-flow-cli';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
+import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
+import { REMOTE_RC_JSON } from '../../../test-data/remote-prj/rc.json';
 import { expectCollectCfgToContain } from '@user-flow/user-flow-testing-lib';
 
 let initializedPrj: UserFlowCliProject;

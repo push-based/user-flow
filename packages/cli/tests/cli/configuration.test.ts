@@ -8,7 +8,7 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from 'user-flow-testing-lib';
-import { EMPTY_PRJ_CFG } from '../fixtures/sandbox/empty';
+import { EMPTY_PRJ_CFG } from '../../test-data/empty-prj/cfg';
 
 let emptyPrjSandbox: UserFlowCliProject;
 

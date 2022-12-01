@@ -1,14 +1,14 @@
 import { join } from 'path';
 import { readdirSync, readFileSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import * as LHR9JSON from '../../../../../../test-data/lhr-9.json';
+import * as LHR9JSON from '../../../../../../test-data/reports/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
+} from '../../../../../../lib/user-flow-cli';
+import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj/cfg';
 
 const jsonReport = LHR9JSON as unknown as FlowResult;
 

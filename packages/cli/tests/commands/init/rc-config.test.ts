@@ -6,18 +6,18 @@ import { ENTER } from '../../../../../libs/cli-testing-lib/src/lib/process/const
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
+} from '../../../lib/user-flow-cli';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
-} from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
-import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
-import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { expectPromptsOfInitInStdout } from '../../../../../libs/user-flow-testing-lib/src/lib/expect';
-import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
+} from '../../../lib/data/user-flowrc.base';
+import { REMOTE_RC_JSON } from '../../../test-data/remote-prj/rc.json';
+import { STATIC_RC_JSON } from '../../../test-data/static-prj/rc.json';
+import { expectPromptsOfInitInStdout } from '../../../user-flow-testing/expect';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
+import { REMOTE_PRJ_CFG } from '../../../test-data/remote-prj/cfg';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
