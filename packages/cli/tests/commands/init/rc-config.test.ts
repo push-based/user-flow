@@ -1,20 +1,20 @@
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
-import { ENTER } from '../../utils/cli-testing/process/keyboard';
+import { ENTER } from '../../../../../libs/cli-testing-lib/src/lib/process/constants';
 
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
-} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+} from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { expectPromptsOfInitInStdout } from '../../../../../libs/user-flow-testing-lib/src/lib/expect';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';

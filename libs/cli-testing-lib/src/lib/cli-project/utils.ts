@@ -1,7 +1,5 @@
 import * as fs from 'fs';
 import { ProcessParams } from './types';
-import { CLI_MODES } from '../../../../src/lib/global/cli-mode/types';
-import { CI_PROPERTY } from '../../../../src/lib/global/cli-mode/cli-mode';
 import * as path from 'path';
 
 export function getFolderContent(folders: string[]): string[] {
@@ -49,18 +47,3 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
   }) as string[];
 }
 
-export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
-
-  if (cliMode === 'DEFAULT') {
-    delete process.env[CI_PROPERTY];
-    return {};
-  }
-
-  // CI mode value
-  let ciValue = 'true';
-  if (cliMode === 'SANDBOX') {
-    // emulate sandbox env by setting CI to SANDBOX
-    ciValue = 'SANDBOX';
-  }
-  return { [CI_PROPERTY]: ciValue };
-}

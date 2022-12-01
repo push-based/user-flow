@@ -1,1 +1,1 @@
-export * from './lib/sandbox-empty.uf';
+export const _ = '';

@@ -1,12 +1,13 @@
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
-import { expectGlobalOptionsToBeContainedInStdout, expectInitOptionsToBeContainedInStdout } from '../utils/cli-expectations';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import {
+  expectGlobalOptionsToBeContainedInStdout,
+  expectInitOptionsToBeContainedInStdout,
   UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../utils/cli-testing/user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../utils/cli-testing/user-flow-cli-project/types';
+  UserFlowCliProjectFactory,
+  UserFlowProjectConfig
+} from 'user-flow-testing-lib';
 import { EMPTY_PRJ_CFG } from '../fixtures/sandbox/empty';
 
 let emptyPrjSandbox: UserFlowCliProject;
@@ -55,7 +56,7 @@ describe('the CLI configuration in default mode', () => {
 
 
   it('should have default preset in a fresh environment', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({verbose:true});
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ verbose: true });
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));

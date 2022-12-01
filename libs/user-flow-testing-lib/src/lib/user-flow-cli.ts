@@ -1,21 +1,22 @@
-import { ProcessParams } from '../cli-project/types';
-import { CliProject } from '../cli-project/cli';
-import { getEnvPreset } from '../../../../src/lib/pre-set';
+import { ProcessParams } from 'cli-testing-lib';
+import { CliProject } from 'cli-testing-lib';
+import { getEnvPreset } from '../../../../packages/cli/src/lib/pre-set';
 import * as path from 'path';
-import { getEnvVarsByCliModeAndDeleteOld, getFolderContent } from '../cli-project/utils';
 import { UserFlowProjectConfig } from './types';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
-import { RcJson } from '../../../../src/lib';
-import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
-import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
+import { RcJson } from '../../../../packages/cli/src/lib';
+import { InitCommandArgv } from '../../../../packages/cli/src/lib/commands/init/options/types';
+import { GlobalOptionsArgv } from '../../../../packages/cli/src/lib/global/options/types';
 import { ExecaChildProcess } from 'execa';
-import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
+import { CollectCommandArgv } from '../../../../packages/cli/src/lib/commands/collect/options/types';
 import { kill } from './utils/kill';
 import { SERVE_COMMAND_PORT } from './constants';
 import * as fs from 'fs';
-import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
+import { DEFAULT_RC_NAME } from '../../../../packages/cli/src/lib/constants';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../../packages/cli/tests/fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
+import { CLI_MODES } from '../../../../packages/cli/src/lib/global/cli-mode/types';
+import { CI_PROPERTY } from '../../../../packages/cli/src/lib/global/cli-mode/cli-mode';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -26,7 +27,7 @@ export class UserFlowCliProjectFactory {
   }
 }
 
-export class UserFlowCliProject extends CliProject {
+export class UserFlowCliProject extends CliProject<RcJson> {
   envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
 
@@ -34,7 +35,9 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override;
+
+  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -50,10 +53,10 @@ export class UserFlowCliProject extends CliProject {
     // handle user-flow related output folders defined in rcFiles and related configurations
     // the rc file creation is done in the CliProject class
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
-      Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
+      Object.entries(cfg.rcFile).forEach(([_, rcJson]) => {
         cfg.create = cfg?.create || {};
-        cfg.create['./'+rcJson.collect.ufPath] = undefined;
-        cfg.create['./'+rcJson.persist.outPath] = undefined;
+        cfg.create['./' + rcJson.collect.ufPath] = undefined;
+        cfg.create['./' + rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
@@ -61,7 +64,9 @@ export class UserFlowCliProject extends CliProject {
     return super._setup(cfg);
   }
 
-  override async teardown(): Promise<void> {
+  override;
+
+  async teardown(): Promise<void> {
     await super.teardown();
     await kill({ port: this.serveCommandPort });
   }
@@ -79,17 +84,19 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcFileName:string = DEFAULT_RC_NAME): RcJson {
+  readRcJson(rcFileName: string = DEFAULT_RC_NAME): RcJson {
     return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
   }
-  rcJsonPath(rcFileName:string = DEFAULT_RC_NAME): string {
+
+  rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
     return JSON.parse(fs.readFileSync(path.join(this.root, budgetName)) as any);
   }
-  budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
+
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
     return path.join(this.root, budgetName);
   }
 
@@ -97,7 +104,8 @@ export class UserFlowCliProject extends CliProject {
     const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
   }
-  outputPath(reportName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+
+  outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
@@ -105,8 +113,24 @@ export class UserFlowCliProject extends CliProject {
     return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
   }
 
-  userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+  userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 
+}
+
+function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
+
+  if (cliMode === 'DEFAULT') {
+    delete process.env[CI_PROPERTY];
+    return {};
+  }
+
+  // CI mode value
+  let ciValue = 'true';
+  if (cliMode === 'SANDBOX') {
+    // emulate sandbox env by setting CI to SANDBOX
+    ciValue = 'SANDBOX';
+  }
+  return { [CI_PROPERTY]: ciValue };
 }

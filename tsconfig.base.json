@@ -16,6 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
+      "user-flow-testing-lib": [
+        "libs/user-flow-testing-lib/src/index.ts"
+      ],
+      "cli-testing-lib": ["libs/cli-testing-lib/src/index.ts"],
       "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
       "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
       "user-flow-example": ["packages/user-flow-example/src/index.ts"]

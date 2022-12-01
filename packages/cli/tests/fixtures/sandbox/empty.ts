@@ -1,4 +1,4 @@
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../../../../libs/user-flow-testing-lib/src/lib/types';
 import { CLI_PATH } from '../cli-bin-path';
 import { join } from 'path';
 

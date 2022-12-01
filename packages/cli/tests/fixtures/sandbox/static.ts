@@ -1,4 +1,4 @@
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../../../../libs/user-flow-testing-lib/src/lib/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from '../rc-files/static';
 import { STATIC_USERFLOW_CONTENT } from '../user-flows/static.uf';

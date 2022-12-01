@@ -1,14 +1,13 @@
 import { UserFlowCliProject } from './user-flow-cli';
-import { PROMPT_COLLECT_URL } from '../../../../src/lib/commands/collect/options/url.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../../../src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../../../src/lib/commands/collect/options/outPath.constant';
-import { PROMPT_PERSIST_FORMAT } from '../../../../src/lib/commands/collect/options/format.constant';
+import { PROMPT_COLLECT_URL } from '../../../../packages/cli/src/lib/commands/collect/options/url.constant';
+import { PROMPT_COLLECT_UF_PATH } from '../../../../packages/cli/src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_PERSIST_OUT_PATH } from '../../../../packages/cli/src/lib/commands/collect/options/outPath.constant';
+import { PROMPT_PERSIST_FORMAT } from '../../../../packages/cli/src/lib/commands/collect/options/format.constant';
 import Budget from 'lighthouse/types/lhr/budget';
-import * as fs from 'fs';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
-import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
-import { RcJson } from '../../../../src/lib';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../../packages/cli/tests/fixtures/budget/lh-navigation-budget';
+import { DEFAULT_RC_NAME } from '../../../../packages/cli/src/lib/constants';
+import { RcJson } from '../../../../packages/cli/src/lib';
+import { GlobalOptionsArgv } from '../../../../packages/cli/src/lib/global/options/types';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -107,3 +106,92 @@ export function expectCliToCreateRc(
   expect(rcFromFile).toEqual({ collect, persist, assert });
 }
 
+export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams: {}) {
+  expect(stdout).toContain(`Init options:`);
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
+      case 'budgetPath':
+        expect(stdout).toContain(`${k}: '${v}'`);
+        break;
+      case 'format':
+        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
+        values = values !== '' ? ' ' + values + ' ' : values;
+        expect(stdout).toContain(`${k}: [${values}]`);
+        break;
+      case 'openReport':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for init configuration check`);
+        break;
+    }
+  });
+}
+
+export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
+  expect(stdout).toContain(`Collect options:`);
+  Object.entries(cliParams).forEach(([k, v]) => {
+    switch (k) {
+      // collect
+      case 'url':
+      case 'ufPath':
+      case 'outPath':
+      case 'serveCommand':
+      case 'awaitServeStdout':
+      case 'budgetPath':
+        expect(stdout).toContain(`${k}: '${v}'`);
+        break;
+      case 'format':
+        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
+        values = values !== '' ? ' ' + values + ' ' : values;
+        expect(stdout).toContain(`${k}: [${values}]`);
+        break;
+      case 'openReport':
+      case 'dryRun':
+        expect(stdout).toContain(`${k}: ${v}`);
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for collect configuration check`);
+        break;
+    }
+  });
+}
+
+export function expectGlobalOptionsToBeContainedInStdout(stdout: string, globalParams: Partial<GlobalOptionsArgv>) {
+  Object.entries(globalParams).forEach(([k, v]) => {
+    v = '' + v;
+    switch (k as keyof GlobalOptionsArgv) {
+      case 'rcPath':
+        expect(stdout).toContain(quoted(k, v));
+        break;
+      case 'interactive':
+      case 'verbose':
+        expect(stdout).toContain(unquoted(k, v));
+        break;
+      default:
+        throw new Error(`${k} handling not implemented for global options check`);
+        break;
+    }
+  });
+}
+
+export function unquoted(k: string, v: string): string {
+  return `${k}: ${v}`;
+}
+
+export function quoted(k: string, v: string): string {
+  return `${k}: '${v}'`;
+}
+
+export function array(k: string, v: string[]): string {
+  let values = (v).map(i => '\'' + i + '\'').join(', ');
+  values = values !== '' ? ' ' + values + ' ' : values;
+  return `${k}: [${values}]`;
+}

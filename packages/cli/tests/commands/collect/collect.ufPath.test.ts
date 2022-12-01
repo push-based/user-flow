@@ -1,7 +1,7 @@
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../../../libs/user-flow-testing-lib/src/lib/user-flow-cli';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 
 let staticPrj: UserFlowCliProject;

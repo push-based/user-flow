@@ -1,6 +1,6 @@
 import { RcJson } from '../../../src/lib';
-import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
-import { SERVE_COMMAND_PORT } from '../../utils/cli-testing/user-flow-cli-project/constants';
+import { SANDBOX_BASE_RC_JSON } from '../../../../../libs/user-flow-testing-lib/src/lib/data/user-flowrc.base';
+import { SERVE_COMMAND_PORT } from '../../../../../libs/user-flow-testing-lib/src/lib/constants';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../user-flows/static.uf';
 import * as path from 'path';
 

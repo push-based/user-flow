@@ -5,10 +5,10 @@ import { deleteFileOrFolder, getFolderContent, processParamsToParamsArray } from
 import * as path from 'path';
 import * as fs from 'fs';
 import { PromptTestOptions } from '../process/types';
-import { RcJson } from '../../../../src/lib';
+import { RcJson } from '../../../../../packages/cli/src/lib';
 import { dirname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
-import { logVerbose } from '../../../../src/lib/core/loggin';
+import { logVerbose } from '../../../../../packages/cli/src/lib/core/loggin';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
@@ -28,7 +28,7 @@ export type FileOrFolderMap = Record<string, string | {} | undefined>;
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
-export class CliProject {
+export class CliProject<RcJson extends {}> {
 
   /**
    * A flag to add more detailed information as logs
@@ -83,7 +83,7 @@ export class CliProject {
     this.verbose && console.table(...args);
   }
 
-  async _setup(cfg: ProjectConfig): Promise<void> {
+  async _setup(cfg: ProjectConfig<RcJson>): Promise<void> {
     // global settings
     this.verbose = Boolean(cfg.verbose);
 
@@ -153,12 +153,6 @@ export class CliProject {
           if (!existsSync(dir)) {
             this.logVerbose(`Created dir ${dir} to save ${file}`);
             mkdirSync(dir);
-          }
-          function base64_encode(file) {
-            // read binary data
-            var bitmap = fs.readFileSync(file);
-            // convert binary data to base64 encoded string
-            return new Buffer(bitmap).toString('base64');
           }
 
           switch (true) {
