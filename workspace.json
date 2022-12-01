@@ -5,8 +5,7 @@
     "cli-testing-lib": "libs/cli-testing-lib",
     "sandbox-empty": "packages/sandbox-empty",
     "sandbox-setup": "packages/sandbox-setup",
-    "user-flow-example": "packages/user-flow-example",
-    "user-flow-testing-lib": "libs/user-flow-testing-lib"
+    "user-flow-example": "packages/user-flow-example"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
