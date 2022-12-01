@@ -1,20 +1,17 @@
 import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../../user-flow-testing';
 import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
-import { STATIC_PRJ_CFG } from '../../../test-data/static-prj/cfg';
+  STATIC_HTML_REPORT_NAME,
+  STATIC_JSON_REPORT_NAME,
+  STATIC_MD_REPORT_NAME,
+  STATIC_PRJ_CFG,
+  STATIC_USERFLOW_TITLE
+} from '../../../test-data/static-prj';
 import {
   expectCollectCommandCreatesHtmlReport,
   expectCollectCommandCreatesJsonReport,
   expectCollectCommandCreatesMdReport
 } from '../../../user-flow-testing/expect';
-import {
-  STATIC_HTML_REPORT_NAME,
-  STATIC_JSON_REPORT_NAME,
-  STATIC_MD_REPORT_NAME
-} from '../../../test-data/static-prj/rc.json';
-import { STATIC_USERFLOW_TITLE } from '../../../test-data/static-prj/user-flow.uf';
 
 let setupRemotePrj: UserFlowCliProject;
 

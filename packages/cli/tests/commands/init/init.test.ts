@@ -1,18 +1,12 @@
-import { ENTER } from '../../../../../libs/cli-testing-lib/src/lib/process/constants';
-
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
+import { ENTER, PRJ_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../../user-flow-testing';
 import {
   expectCliToCreateRc,
   expectNoPromptsInStdout,
   expectPromptsOfInitInStdout
 } from '../../../user-flow-testing/expect';
-import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
-import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
-import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj';
 
 let emptyPrj: UserFlowCliProject;
 
@@ -89,13 +83,13 @@ describe('init command in setup sandbox', () => {
     // prompts
     expectNoPromptsInStdout(stdout);
     // setup log
-    expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
+    expectOutputRcInStdout(stdout, PRJ_BASE_RC_JSON);
 
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
 
     // file output
-    expectCliToCreateRc(initializedPrj, SANDBOX_BASE_RC_JSON);
+    expectCliToCreateRc(initializedPrj, PRJ_BASE_RC_JSON);
   });
 
 });

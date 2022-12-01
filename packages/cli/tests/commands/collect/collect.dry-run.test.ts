@@ -1,9 +1,5 @@
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
-import { STATIC_PRJ_CFG } from '../../../test-data/static-prj/cfg';
-import { STATIC_USERFLOW_NAME } from '../../../test-data/static-prj/user-flow.uf';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../../user-flow-testing';
+import { STATIC_PRJ_CFG, STATIC_USERFLOW_NAME } from '../../../test-data/static-prj';
 import { expectCollectLogsFromMockInStdout } from '../../../user-flow-testing/expect';
 
 let staticPrj: UserFlowCliProject;

@@ -1,13 +1,13 @@
 import { RcJson } from '../../src/lib';
-import { SANDBOX_BASE_RC_JSON } from '../../user-flow-testing/data/user-flowrc.base';
+import { PRJ_BASE_RC_JSON } from '../../user-flow-testing/data/user-flowrc.base';
 import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from './user-flow.uf';
 import * as path from 'path';
 
 export const REMOTE_RC_NAME = '.user-flow.remote.json';
 export const REMOTE_RC_JSON: RcJson = {
-  ...SANDBOX_BASE_RC_JSON,
+  ...PRJ_BASE_RC_JSON,
   'collect': {
-    ...SANDBOX_BASE_RC_JSON.collect,
+    ...PRJ_BASE_RC_JSON.collect,
     'url': 'https://google.com'
   }
 };

@@ -15,7 +15,7 @@ export const CLI_DEFAULT_RC_JSON: RcJson = {
   },
   'assert': {}
 };
-export const SANDBOX_BASE_RC_JSON: RcJson = {
+export const PRJ_BASE_RC_JSON: RcJson = {
   'collect': {
     'url': DEFAULT_COLLECT_URL,
     'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH

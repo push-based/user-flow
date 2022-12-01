@@ -1,23 +1,19 @@
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
-import { ENTER } from '../../../../../libs/cli-testing-lib/src/lib/process/constants';
-
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
-  SANDBOX_BASE_RC_JSON
-} from '../../../lib/data/user-flowrc.base';
-import { REMOTE_RC_JSON } from '../../../test-data/remote-prj/rc.json';
-import { STATIC_RC_JSON } from '../../../test-data/static-prj/rc.json';
+  ENTER,
+  PRJ_BASE_RC_JSON,
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../../user-flow-testing';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { REMOTE_PRJ_CFG, REMOTE_RC_JSON } from '../../../test-data/remote-prj';
 import { expectPromptsOfInitInStdout } from '../../../user-flow-testing/expect';
-import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
-import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
-import { REMOTE_PRJ_CFG } from '../../../test-data/remote-prj/cfg';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj';
+import { STATIC_RC_JSON } from '../../../test-data/static-prj';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -31,12 +27,12 @@ describe('.rc.json in empty sandbox', () => {
     await emptyPrj.setup();
   });
   afterEach(async () => {
-     await emptyPrj.teardown();
+    await emptyPrj.teardown();
   });
 
   it('should take default params from prompt', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({verbose: true}, [
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({ verbose: true }, [
       //url
       ENTER,
       // ufPath
@@ -162,9 +158,9 @@ describe('.rc.json in initialized sandbox', () => {
     // Assertions
 
     expect(stderr).toBe('');
-    expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
+    expectOutputRcInStdout(stdout, PRJ_BASE_RC_JSON);
     const hardRc = initializedPrj.readRcJson(DEFAULT_RC_NAME);
-    expect(hardRc).toEqual(SANDBOX_BASE_RC_JSON);
+    expect(hardRc).toEqual(PRJ_BASE_RC_JSON);
     expect(exitCode).toBe(0);
   });
 });

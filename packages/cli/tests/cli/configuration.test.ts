@@ -3,12 +3,10 @@ import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
 import {
   expectGlobalOptionsToBeContainedInStdout,
-  expectInitOptionsToBeContainedInStdout,
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-  UserFlowProjectConfig
-} from 'user-flow-testing-lib';
-import { EMPTY_PRJ_CFG } from '../../test-data/empty-prj/cfg';
+  expectInitOptionsToBeContainedInStdout
+} from '../../user-flow-testing/expect';
+import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig } from '../../user-flow-testing';
+import { EMPTY_PRJ_CFG } from '../../test-data/empty-prj';
 
 let emptyPrjSandbox: UserFlowCliProject;
 

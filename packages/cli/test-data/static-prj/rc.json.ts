@@ -1,12 +1,12 @@
 import { RcJson } from '../../src/lib';
-import { SANDBOX_BASE_RC_JSON } from '../../user-flow-testing/data/user-flowrc.base';
+import { PRJ_BASE_RC_JSON } from '../../user-flow-testing/data/user-flowrc.base';
 import { SERVE_COMMAND_PORT } from '../../user-flow-testing/constants';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from './user-flow.uf';
 import * as path from 'path';
 
 export const STATIC_RC_NAME = '.user-flow.static.json';
 export const STATIC_RC_JSON: RcJson = {
-  ...SANDBOX_BASE_RC_JSON,
+  ...PRJ_BASE_RC_JSON,
   'collect': {
     'url': 'http://127.0.0.1:' + SERVE_COMMAND_PORT,
     'ufPath': './src/lib/user-flows',
@@ -14,7 +14,7 @@ export const STATIC_RC_JSON: RcJson = {
     'awaitServeStdout': 'Available on:'
   },
   persist: {
-    ...SANDBOX_BASE_RC_JSON.persist,
+    ...PRJ_BASE_RC_JSON.persist,
     'format': ['json']
   }
 };

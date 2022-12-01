@@ -6,7 +6,7 @@ import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from '../initialized-prj/cfg';
 import { STATIC_APP_FAVICON_NAME, STATIC_APP_FAVICON_CONTENT } from "./dist/favico";
 import { STATIC_APP_IMG_CONTENT, STATIC_APP_IMG_NAME } from "./dist/user-flow-square";
 import { join } from "path";
-import {STATIC_APP_INDEX_CONTENT, STATIC_APP_INDEX_NAME} from "./dist";
+import {STATIC_APP_INDEX_CONTENT, STATIC_APP_INDEX_NAME} from "./dist/index.html";
 
 const addDistToPath = p => join('dist', p);
 

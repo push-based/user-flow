@@ -2,14 +2,14 @@ import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import {
+  DEFAULT_RC_NAME,
+  PRJ_BASE_RC_JSON,
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
-import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
-import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj/cfg';
-import { expectInitOptionsToBeContainedInStdout } from '@user-flow/user-flow-testing-lib';
+} from '../../../user-flow-testing';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj';
+import { EMPTY_PRJ_CFG } from '../../../test-data/empty-prj';
+import { expectInitOptionsToBeContainedInStdout } from '../../../user-flow-testing/expect';
 
 let emptyPrj: UserFlowCliProject;
 
@@ -55,7 +55,7 @@ describe('init command configuration in setup sandbox', () => {
 
   it('should read the rc file', async () => {
     const { exitCode, stdout, stderr } = await initializedPrj.$init();
-    const { collect, persist, assert } = SANDBOX_BASE_RC_JSON;
+    const { collect, persist, assert } = PRJ_BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;

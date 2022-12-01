@@ -1,14 +1,10 @@
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj/cfg';
-import { SANDBOX_BASE_RC_JSON } from '../../../lib/data/user-flowrc.base';
-import { REMOTE_RC_JSON } from '../../../test-data/remote-prj/rc.json';
-import { expectCollectCfgToContain } from '@user-flow/user-flow-testing-lib';
+import { PRJ_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../../user-flow-testing';
+import { INITIATED_PRJ_CFG } from '../../../test-data/initialized-prj';
+import { REMOTE_RC_JSON } from '../../../test-data/remote-prj';
+import { expectCollectCfgToContain } from '../../../user-flow-testing/expect';
 
 let initializedPrj: UserFlowCliProject;
 
@@ -37,7 +33,7 @@ describe('collect command configuration in setup sandbox', () => {
 
   it('should read the rc file', async () => {
     const { exitCode, stdout, stderr } = await initializedPrj.$collect();
-    const { collect, persist, assert } = SANDBOX_BASE_RC_JSON;
+    const { collect, persist, assert } = PRJ_BASE_RC_JSON;
     const cfg = { ...collect, ...persist, ...assert } as CollectArgvOptions;
     // dryRun is not part of the init options
     delete (cfg as any).dryRun;

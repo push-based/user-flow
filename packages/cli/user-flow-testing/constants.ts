@@ -1,3 +1,4 @@
+export {ENTER, SPACE, ACCEPT_BOOLEAN, DOWN, UP, DECLINE_BOOLEAN} from 'cli-testing-lib';
 export const CI_PROPERTY = 'CI';
 export const SERVE_COMMAND_PORT = '5032';
 export const DEFAULT_COLLECT_URL = 'https://coffee-cart.netlify.app/';

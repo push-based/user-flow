@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { kill } from './utils/kill';
+import { kill } from './kill';
 import Budget from 'lighthouse/types/lhr/budget';
-import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
+import { PRJ_BASE_RC_JSON } from './data/user-flowrc.base';
 import { CliProject, ProcessParams, TestResult } from 'cli-testing-lib';
 import { LH_NAVIGATION_BUDGETS_NAME, SERVE_COMMAND_PORT, DEFAULT_RC_NAME, CI_PROPERTY } from './constants';
 import { UserFlowProjectConfig } from './types';
@@ -34,7 +34,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
-    cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: SANDBOX_BASE_RC_JSON };
+    cfg.rcFile = cfg.rcFile || { [this.envPreset?.rcPath]: PRJ_BASE_RC_JSON };
 
     cfg.cliMode = (cfg.cliMode || 'SANDBOX');
     cfg.cliMode && (cfg.env = {
