@@ -12,7 +12,7 @@
 # What is it?
 
 A CLI tool to measure performance continuously and also integrate it into your CI.
-It's provides lots of DX features, nice commands with rich arguments and integration with the latest dev tooling. 
+It provides lot's of DX features, nice commands with rich arguments and integration with the latest dev tooling. 
 
 # Why to use it?
 
