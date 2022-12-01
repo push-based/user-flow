@@ -2,24 +2,20 @@ import { join } from 'path';
 import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
 import { loadFlow } from './load-flow';
 import {
+  DEFAULT_RC_NAME,
   UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../../../../lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj/cfg';
-import { UserFlowProjectConfig } from '../../../../../../lib/types';
+  UserFlowCliProjectFactory,
+  UserFlowProjectConfig
+} from '../../../../../../user-flow-testing';
+import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj';
 import {
   VALIDE_EXAMPLE_USERFLOW_CONTENT,
-  VALIDE_EXAMPLE_USERFLOW_NAME
-} from '../../../../../../test-data/user-flows/valide.example.uf';
-import { DEFAULT_RC_NAME } from '../../../../constants';
-import {
+  VALIDE_EXAMPLE_USERFLOW_NAME,
   WRONG_EXT_USERFLOW_CONTENT,
-  WRONG_EXT_USERFLOW_NAME
-} from '../../../../../../test-data/user-flows/wrong-ext.example.uf';
-import {
+  WRONG_EXT_USERFLOW_NAME,
   WRONG_MOD_EXPORT_USERFLOW_CONTENT,
   WRONG_MOD_EXPORT_USERFLOW_NAME
-} from '../../../../../../test-data/user-flows/wrong-mod-export.example.uf';
+} from '../../../../../../test-data/user-flows';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 
 const rcFile = INITIATED_PRJ_CFG?.rcFile;

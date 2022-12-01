@@ -4,11 +4,8 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import * as LHR9JSON from '../../../../../../test-data/reports/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../../../../lib/user-flow-cli';
-import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj/cfg';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../../../../../user-flow-testing';
+import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj';
 
 const jsonReport = LHR9JSON as unknown as FlowResult;
 
