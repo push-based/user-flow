@@ -32,9 +32,9 @@ describe('the CLI configuration in default mode', () => {
     const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
     // @NOTICE: format is not part of yargs params default values
     delete (persist as any).format;
+    expect(stderr).toBe('');
     expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
     expectInitOptionsToBeContainedInStdout(stdout, { ...collect, ...persist, ...assert });
-    expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
 
