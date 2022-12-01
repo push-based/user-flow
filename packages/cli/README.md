@@ -253,6 +253,26 @@ This command executes a set of user-flow definitions against the target URL and 
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
 
+# Executing user-flows `ufPath`
+
+To execute a single user-flow pass the user set the ufPath to user-flow file. You and set this ether in the config json file: 
+
+```json
+{
+  "collect": {
+    "url": "https://coffee-cart.netlify.app/",
+    "ufPath": "./user-flows/order-coffee.uf.ts"
+  },
+  "persist": { "outPath": "./measures", "format": ["html"] }
+}
+```
+
+or by overwriting the configuration using the CLI: 
+
+```bash
+npx user-flow collect --ufPath ./user-flows/order-coffee.uf.ts
+```
+
 # Writing user flows for the CLI
 
 You can think of user flows as front end e2e tests which measures performance related information during the test.
