@@ -12,7 +12,7 @@
 # What is it?
 
 A CLI tool to measure performance continuously and also integrate it into your CI.
-It's provides lots of DX features, nice commands with rich arguments and integration with latest dev tooling. 
+It provides lot's of DX features, nice commands with rich arguments and integration with the latest dev tooling. 
 
 # Why to use it?
 
@@ -185,7 +185,7 @@ npx user-flow --version
 ```
 
 # CLI
-You can read more about tricks and DX the [general CIL features](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md) in our docs. 
+You can read more about tricks and DX the [general CLI features](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md) in our docs. 
 
 ## Global Options
 
@@ -231,17 +231,17 @@ Run command over:
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
-|  Option                            |  Type     | Default                |  Description                                                                                               |  
-| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------- |  
-| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                             |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                                          |  
-| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                    |  
-| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`    |  
-| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                     |  
-| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                              |  
-| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                                |  
-| **`-b`**, **`--budget-path`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                  |  
-| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                     |  
+|  Option                            |  Type     | Default                | Description                                                                                              |  
+| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
+| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                           |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containg user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
+| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
+| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`  |  
+| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
+| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                            |  
+| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                              |  
+| **`-b`**, **`--budget-path`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                |  
+| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                   |  
 
 > **💡 Pro Tip:**
 > CLI arguments that accept multiple values can be set by using the param multiple times in a row:
@@ -252,6 +252,26 @@ This command executes a set of user-flow definitions against the target URL and 
 ## Configuration
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
+
+### Executing user-flows (`ufPath`)
+
+To execute a single user-flow pass the user set the ufPath to user-flow file. You and set this ether in the config json file: 
+
+```json
+{
+  "collect": {
+    "url": "https://coffee-cart.netlify.app/",
+    "ufPath": "./user-flows/order-coffee.uf.ts"
+  },
+  "persist": { "outPath": "./measures", "format": ["html"] }
+}
+```
+
+or by overwriting the configuration using the CLI: 
+
+```bash
+npx user-flow collect --ufPath ./user-flows/order-coffee.uf.ts
+```
 
 # Writing user flows for the CLI
 
@@ -280,7 +300,7 @@ See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/package
 
 ## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
 
-Chrome DevTools provides a feature to help with record and exoprt user interations. 
+Chrome DevTools provides a feature to help with record and export user interactions. 
 This can replace any handwritten code and organizes interactions in a JSON structure.
 ![User Flow-record-replay](https://user-images.githubusercontent.com/10064416/197055275-f2b59528-105d-494d-8285-5d29fe89d0bd.jpg)
 This library provides a way to replay and enrich those interactions over the CLI.
