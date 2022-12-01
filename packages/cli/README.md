@@ -253,7 +253,7 @@ This command executes a set of user-flow definitions against the target URL and 
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
 
-# Executing user-flows `ufPath`
+### Executing user-flows (`ufPath`)
 
 To execute a single user-flow pass the user set the ufPath to user-flow file. You and set this ether in the config json file: 
 
