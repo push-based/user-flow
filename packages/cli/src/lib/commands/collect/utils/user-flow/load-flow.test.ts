@@ -5,7 +5,7 @@ import {
   DEFAULT_RC_NAME,
   UserFlowCliProject,
   UserFlowCliProjectFactory,
-  UserFlowProjectConfig
+  UserFlowCliProjectConfig
 } from '../../../../../../user-flow-testing';
 import { INITIATED_PRJ_CFG } from '../../../../../../test-data/initialized-prj';
 import {
@@ -26,7 +26,7 @@ const prjRelativeOutPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].persist.outPath
 
 // ./src/lib/user-flows (from rc.json)
 const prjRelativeUfPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].collect.ufPath : DEFAULT_COLLECT_UF_PATH);
-const flowValidationCfg: UserFlowProjectConfig = {
+const flowValidationCfg: UserFlowCliProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
     [join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME)]: VALIDE_EXAMPLE_USERFLOW_CONTENT,

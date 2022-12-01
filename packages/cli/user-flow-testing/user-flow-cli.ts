@@ -4,8 +4,14 @@ import { kill } from './kill';
 import Budget from 'lighthouse/types/lhr/budget';
 import { PRJ_BASE_RC_JSON } from './data/user-flowrc.base';
 import { CliProject, ProcessParams, TestResult } from 'cli-testing-lib';
-import { LH_NAVIGATION_BUDGETS_NAME, SERVE_COMMAND_PORT, DEFAULT_RC_NAME, CI_PROPERTY } from './constants';
-import { UserFlowProjectConfig } from './types';
+import {
+  LH_NAVIGATION_BUDGETS_NAME,
+  SERVE_COMMAND_PORT,
+  DEFAULT_RC_NAME,
+  CI_PROPERTY,
+  DEFAULT_COLLECT_UF_PATH
+} from './constants';
+import { UserFlowCliProjectConfig } from './types';
 import { RcJson } from '../src/lib/types';
 import { InitCommandArgv } from '../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../src/lib/global/options/types';
@@ -14,7 +20,7 @@ import { CLI_MODES } from '../src/lib/global/cli-mode/types';
 import { getEnvPreset } from '../src/lib/pre-set';
 
 export class UserFlowCliProjectFactory {
-  static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
+  static async create(cfg: UserFlowCliProjectConfig): Promise<UserFlowCliProject> {
     const prj = new UserFlowCliProject();
     await prj._setup(cfg);
     // await new Promise(r => setTimeout(r, 30000));
@@ -30,7 +36,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     super();
   }
 
-  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override async _setup(cfg: UserFlowCliProjectConfig): Promise<void> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -91,17 +97,42 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return path.join(this.root, budgetName);
   }
 
-  readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
-    const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
-    return reportName.includes('.json') ? JSON.parse(content) : content;
+  readOutput(reportNameOrDir: string, rcFileName: string = DEFAULT_RC_NAME): (string | {})[] {
+    let content: string[] = [];
+    reportNameOrDir = this.outputPath(reportNameOrDir, rcFileName);
+    const stats = fs.lstatSync(reportNameOrDir);
+    const isDirectory = stats.isDirectory();
+    if(stats.isDirectory()) {
+      content = fs.readdirSync(reportNameOrDir).map(p => path.join(reportNameOrDir, p))
+    } else {
+      content.push(reportNameOrDir);
+    }
+
+    const formattedContent = content
+      .map(p => fs.readFileSync(p).toString('utf8'))
+      .map(c => reportNameOrDir.includes('.json') ? JSON.parse(c) : c);
+    return formattedContent;
   }
 
   outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
-  readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {
-    return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
+  readUserFlow(userFlowNameOrDir: string = '', rcFileName: string = DEFAULT_RC_NAME): string[][] {
+    let content: string[] = [];
+    userFlowNameOrDir = this.userFlowPath(userFlowNameOrDir, rcFileName);
+    const stats = fs.lstatSync(userFlowNameOrDir);
+    const isDirectory = stats.isDirectory();
+    if(stats.isDirectory()) {
+      content = fs.readdirSync(userFlowNameOrDir).map(p => path.join(userFlowNameOrDir, p))
+    } else {
+      content.push(userFlowNameOrDir);
+    }
+
+    const formattedContent = content
+      .map(p => [p, fs.readFileSync(p).toString('utf8')]);
+    return formattedContent;
+
   }
 
   userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {

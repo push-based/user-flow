@@ -8,7 +8,7 @@ import {
   DEFAULT_RC_NAME,
   UserFlowCliProject,
   UserFlowCliProjectFactory,
-  UserFlowProjectConfig
+  UserFlowCliProjectConfig
 } from '../../../user-flow-testing';
 import { STATIC_JSON_REPORT_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from '../../../test-data/static-prj';
 import { LH_NAVIGATION_BUDGETS } from '../../../test-data/budget/lh-navigation-budget';
@@ -37,7 +37,7 @@ describe('$collect() sandbox+NO-assets with RC()', () => {
 });
 
 let staticWRcBudgetPrj: UserFlowCliProject;
-let staticWRcBudgetPrjCfg: UserFlowProjectConfig = {
+let staticWRcBudgetPrjCfg: UserFlowCliProjectConfig = {
   ...STATIC_PRJ_CFG,
   rcFile: {
     [DEFAULT_RC_NAME]: {
@@ -72,7 +72,7 @@ describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
 });
 
 let staticWBudgetAssetsPrj: UserFlowCliProject;
-let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
+let staticWBudgetPathPrjCfg: UserFlowCliProjectConfig = {
   ...STATIC_PRJ_CFG,
   rcFile: {
     [DEFAULT_RC_NAME]: {

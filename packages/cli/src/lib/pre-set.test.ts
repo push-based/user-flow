@@ -1,5 +1,5 @@
 import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
-import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig } from '../../user-flow-testing';
+import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowCliProjectConfig } from '../../user-flow-testing';
 import { EMPTY_PRJ_CFG } from '../../test-data/empty-prj';
 let emptyPrjSandbox: UserFlowCliProject;
 
@@ -19,7 +19,7 @@ function teardownEnvVars() {
   delete process.env[CLI_MODE_PROPERTY];
 }
 
-const emptyPrjDefaultCfg: UserFlowProjectConfig = {
+const emptyPrjDefaultCfg: UserFlowCliProjectConfig = {
   ...EMPTY_PRJ_CFG,
   cliMode: 'DEFAULT'
 };

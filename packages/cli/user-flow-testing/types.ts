@@ -6,4 +6,4 @@ type UserFlowOnlyProjectConfig = {
   cliMode?: CLI_MODES,
   serveCommandPort?: number
 }
-export type UserFlowProjectConfig = ProjectConfig<RcJson> & UserFlowOnlyProjectConfig;
+export type UserFlowCliProjectConfig = ProjectConfig<RcJson> & UserFlowOnlyProjectConfig;

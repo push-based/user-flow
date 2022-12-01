@@ -5,12 +5,12 @@ import {
   expectGlobalOptionsToBeContainedInStdout,
   expectInitOptionsToBeContainedInStdout
 } from '../../user-flow-testing/expect';
-import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig } from '../../user-flow-testing';
+import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowCliProjectConfig } from '../../user-flow-testing';
 import { EMPTY_PRJ_CFG } from '../../test-data/empty-prj';
 
 let emptyPrjSandbox: UserFlowCliProject;
 
-const emptyPrjDefaultCfg: UserFlowProjectConfig = {
+const emptyPrjDefaultCfg: UserFlowCliProjectConfig = {
   ...EMPTY_PRJ_CFG,
   cliMode: 'DEFAULT'
 };

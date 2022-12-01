@@ -8,6 +8,7 @@ import { DEFAULT_RC_NAME } from '../src/lib/constants';
 import { RcJson } from '../src/lib';
 import { GlobalOptionsArgv } from '../src/lib/global/options/types';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../user-flow-testing/constants';
+import * as path from 'path';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -26,7 +27,7 @@ export function expectCollectCommandCreatesHtmlReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportHTML = prj.readOutput(reportName, rcName);
+  const reportHTML = prj.readOutput(reportName, rcName).pop();
   expect(reportHTML).toContain(flowTitle);
 }
 
@@ -36,7 +37,7 @@ export function expectCollectCommandCreatesJsonReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportJson = prj.readOutput(reportName, rcName) as any;
+  const reportJson = prj.readOutput(reportName, rcName).pop() as any;
   expect(reportJson.name).toContain(flowTitle);
 }
 
@@ -46,7 +47,7 @@ export function expectCollectCommandCreatesMdReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportMd = prj.readOutput(reportName, rcName);
+  const reportMd = prj.readOutput(reportName, rcName).pop();
   expect(reportMd).toContain(flowTitle);
   expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
 }
@@ -58,7 +59,7 @@ export function expectCollectCommandNotToCreateReport(
 ) {
   // Check report file is not created
   try {
-    prj.readOutput(reportName, rcName);
+    prj.readOutput(reportName, rcName).pop();
   } catch (e: any) {
     expect(e.message).toContain('no such file or directory');
   }
@@ -87,7 +88,7 @@ export function expectCollectLogsFromMockInStdout(stdout: string, prj: UserFlowC
 }
 
 export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: string | Budget[] = LH_NAVIGATION_BUDGETS_NAME) {
-  const report = prj.readOutput(reportName) as any;
+  const report = prj.readOutput(reportName).pop() as any;
   const resolvedBudgets = Array.isArray(budgets) ? budgets : prj.readBudget(budgets);
 
   expect(report.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
@@ -194,4 +195,14 @@ export function array(k: string, v: string[]): string {
   let values = (v).map(i => '\'' + i + '\'').join(', ');
   values = values !== '' ? ' ' + values + ' ' : values;
   return `${k}: [${values}]`;
+}
+
+export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
+  const flowNames: string[] = prj.readUserFlow().map(([p]) => path.join(prj.readRcJson().persist.outPath, path.basename(p)));
+  // expect(flowNames).toBe('flowNames')
+  const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
+  const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
+  const expectedFileNames = userFlowNames.flatMap(flowName => formats.map(format => `${flowName}.${format}`)) || [];
+
+  expect(resultingReportNames.sort()).toEqual(expectedFileNames.sort());
 }

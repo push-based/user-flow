@@ -7,7 +7,7 @@ import { toFileName, writeFile } from '../../../../core/file';
 import { PersistRcOptions } from '../../options/types';
 import { existsSync, mkdirSync } from 'fs';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistRcOptions): Promise<string[]> {
+export async function persistFlow(flow: UserFlow, flowName: string, { outPath, format }: PersistRcOptions): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }
@@ -42,7 +42,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
   }
 
   const fileNames = results.map((result) => {
-    const fileName = join(outPath, `${toFileName(name)}.${result.format}`);
+    const fileName = join(outPath, `${toFileName(flowName)}.${result.format}`);
     writeFile(fileName, result.out);
     return fileName;
   });

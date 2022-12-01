@@ -1,4 +1,4 @@
-import { UserFlowProjectConfig } from '../../user-flow-testing/types';
+import { UserFlowCliProjectConfig } from '../../user-flow-testing/types';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from './rc.json';
 import { STATIC_USERFLOW_CONTENT } from './user-flow.uf';
@@ -10,7 +10,7 @@ import {STATIC_APP_INDEX_CONTENT, STATIC_APP_INDEX_NAME} from "./dist/index.html
 
 const addDistToPath = p => join('dist', p);
 
-export const STATIC_PRJ_CFG: UserFlowProjectConfig = {
+export const STATIC_PRJ_CFG: UserFlowCliProjectConfig = {
   root: INITIATED_PRJ_ROOT,
   bin: INITIATED_PRJ_BIN,
   rcFile: {
