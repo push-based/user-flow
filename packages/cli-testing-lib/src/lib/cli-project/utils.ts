@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ProcessParams } from 'cli-testing-lib';
+import { ProcessParams } from 'cli-testing';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
@@ -8,7 +8,7 @@ export function getFolderContent(folders: string[]): string[] {
     // @TODO
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
-      return files.map((f) => path.join(d, f));
+      return files.map(f => path.join(d, f));
     }
     return [d];
   });

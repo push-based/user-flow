@@ -1,5 +1,5 @@
 {
-  "name": "..-packages-cli-testing-lib",
+  "name": "cli-testing-lib",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/cli-testing-lib/src",
   "projectType": "library",
