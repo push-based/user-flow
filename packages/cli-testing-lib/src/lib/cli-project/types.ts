@@ -1,4 +1,4 @@
-import { TestProcessE2eFn } from '../process/types';
+import { TestProcessE2eFn } from '../process';
 
 export type ProcessTestOptions = {
   bin: string

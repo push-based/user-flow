@@ -32,9 +32,7 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override;
-
-  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -61,9 +59,7 @@ export class UserFlowCliProject extends CliProject {
     return super._setup(cfg);
   }
 
-  override;
-
-  async teardown(): Promise<void> {
+  override async teardown(): Promise<void> {
     await super.teardown();
     await kill({ port: this.serveCommandPort });
   }
