@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "..-packages-cli-testing-lib": "packages/cli-testing-lib",
     "cli": "packages/cli",
     "sandbox-empty": "packages/sandbox-empty",
     "sandbox-setup": "packages/sandbox-setup",
