@@ -5,8 +5,8 @@ import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../user-flow-cli-project/user-flow-cli';
-import { SANDBOX_BASE_RC_JSON } from '../../../user-flow-cli-project/data/user-flowrc.base';
+} from '../../user-flow-cli-project/user-flow-cli';
+import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';

@@ -5,8 +5,8 @@ import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../user-flow-cli-project/user-flow-cli';
-import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
+} from '../user-flow-cli-project/user-flow-cli';
+import { UserFlowProjectConfig } from '../user-flow-cli-project/types';
 import { EMPTY_PRJ_CFG } from '../fixtures/sandbox/empty';
 
 let emptyPrjSandbox: UserFlowCliProject;

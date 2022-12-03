@@ -1,5 +1,5 @@
 import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
-import { setupEnvVars, teardownEnvVars } from '../../user-flow-cli-project/utils/cli-mode';
+import { setupEnvVars, teardownEnvVars } from '../../tests/user-flow-cli-project/utils/cli-mode';
 
 describe('getEnvPreset', () => {
 

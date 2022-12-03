@@ -1,6 +1,6 @@
-import { UserFlowProjectConfig } from '../../../user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { SANDBOX_BASE_RC_JSON } from '../../../user-flow-cli-project/data/user-flowrc.base';
+import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
 import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../user-flows/initialized.uf';
 import { EMPTY_SANDBOX_BIN } from './empty';

@@ -1,10 +1,10 @@
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../user-flow-cli-project/user-flow-cli';
+} from '../../user-flow-cli-project/user-flow-cli';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
-import { expectCollectLogsFromMockInStdout } from '../../../user-flow-cli-project/expect';
+import { expectCollectLogsFromMockInStdout } from '../../user-flow-cli-project/expect';
 
 let staticPrj: UserFlowCliProject;
 

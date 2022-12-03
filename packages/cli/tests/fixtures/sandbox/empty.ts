@@ -1,4 +1,4 @@
-import { UserFlowProjectConfig } from '../../../user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
 import { CLI_PATH } from '../cli-bin-path';
 import { join } from 'path';
 

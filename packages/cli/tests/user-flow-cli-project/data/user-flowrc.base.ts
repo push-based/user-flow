@@ -1,9 +1,9 @@
-import { RcJson } from '../../src/lib';
-import { DEFAULT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
-import { DEFAULT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { getEnvPreset } from '../../src/lib/pre-set';
-import { ReportFormat } from '../../src/lib/commands/collect/options/types';
+import { RcJson } from '../../../src/lib';
+import { DEFAULT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
+import { DEFAULT_COLLECT_UF_PATH } from '../../../src/lib/commands/collect/options/ufPath.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../../src/lib/commands/collect/options/outPath.constant';
+import { getEnvPreset } from '../../../src/lib/pre-set';
+import { ReportFormat } from '../../../src/lib/commands/collect/options/types';
 
 export const CLI_DEFAULT_RC_JSON: RcJson = {
   'collect': {
