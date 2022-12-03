@@ -41,9 +41,12 @@ let initializedPrj: UserFlowCliProject;
 let outPath;
 const flowName = 'flow-example-name';
 
+let originalCwd = process.cwd();
+
 describe('persist flow reports in specified format', () => {
 
   beforeEach(async () => {
+    process.chdir(INITIATED_PRJ_CFG.root);
     if(!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
@@ -52,6 +55,7 @@ describe('persist flow reports in specified format', () => {
   })
   afterEach(async () => {
     await initializedPrj.teardown();
+    process.chdir(originalCwd);
   })
 
   it('does not save any reports if no format is given', async () => {
