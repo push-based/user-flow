@@ -11,7 +11,7 @@ import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
 import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
 import { kill } from './utils/kill';
-import { SERVE_COMMAND_PORT } from './constants';
+import { SERVE_COMMAND_PORT } from './data/constants';
 import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';

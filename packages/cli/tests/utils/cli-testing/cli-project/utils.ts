@@ -49,6 +49,7 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
   }) as string[];
 }
 
+// @TODO: move into cli-project as it deals with env vars
 export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
 
   if (cliMode === 'DEFAULT') {

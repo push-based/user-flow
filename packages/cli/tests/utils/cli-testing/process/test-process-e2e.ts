@@ -1,8 +1,8 @@
 import * as concat from 'concat-stream';
 import * as fs from 'fs';
 import * as execa from 'execa';
-import { ExecaChildProcess, Options } from 'execa';
-import { PromptTestOptions } from './types';
+import { Options } from 'execa';
+import { PromptTestOptions, TestResult } from './types';
 
 /**
  * A function to control a process and its in and outputs.
@@ -17,7 +17,7 @@ import { PromptTestOptions } from './types';
  * @param promptOptions
  * specify the process configuration
  */
-export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
+export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<TestResult> {
   // Defaults to process.cwd()
 
   // validate input
@@ -50,7 +50,7 @@ export function testProcessE2e(args: string[] = [], answers: string[] = [], opti
   writeToStdin(answers);
 
   return new Promise((resolve) => {
-    let obj: ExecaChildProcess = {} as unknown as ExecaChildProcess;
+    let obj: TestResult = {} as unknown as TestResult;
 
     runner.stdout.pipe(
       concat((result) => {

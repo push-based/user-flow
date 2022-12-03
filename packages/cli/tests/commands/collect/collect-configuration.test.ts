@@ -7,7 +7,7 @@ import {
   UserFlowCliProjectFactory
 } from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 
 let initializedPrj: UserFlowCliProject;
@@ -51,7 +51,6 @@ describe('collect command configuration in setup sandbox', () => {
   it('should take cli parameters', async () => {
 
     let { collect, persist, assert } = REMOTE_RC_JSON;
-
     const { url, ufPath } = collect;
     // @TODO fix format
     let { outPath/*, format*/ } = persist;
