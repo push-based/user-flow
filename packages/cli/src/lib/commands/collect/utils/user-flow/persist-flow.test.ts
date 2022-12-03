@@ -1,20 +1,14 @@
 import { join } from 'path';
-import { readdirSync, readFileSync } from 'fs';
+import { readdirSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import * as LHR9JSON from '../../../../../../test-data/raw-reports/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../../../../tests/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../../../../../tests/user-flow-cli-project';
 import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
+import { getReportContent } from '../../../../../../test-data/raw-reports';
 
-const jsonReport = LHR9JSON as unknown as FlowResult;
-
-const path = join(__dirname, '../../../../../../test-data/lhr-9.html');
-const htmlReport = readFileSync(path, 'utf-8');
-
+const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
+const htmlReport = getReportContent('lhr-9.html') as string;
 
 // @TODO merge into user-flow.mock in src folder
 export class UserFlowReportMock {
