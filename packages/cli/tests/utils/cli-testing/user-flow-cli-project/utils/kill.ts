@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as killPort from 'kill-port';
 
 export function kill(args: { port: string | string[], method?: string, verbose?: boolean }): Promise<void[]> {

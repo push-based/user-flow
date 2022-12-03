@@ -1,8 +1,6 @@
 import * as fs from 'fs';
-import { ProcessParams } from './types';
-import { CLI_MODES } from '../../../../src/lib/global/cli-mode/types';
-import { CI_PROPERTY } from '../../../../src/lib/global/cli-mode/cli-mode';
 import * as path from 'path';
+import { ProcessParams } from '../process';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
@@ -10,7 +8,7 @@ export function getFolderContent(folders: string[]): string[] {
     // @TODO
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
-      return files.map((f) => path.join(d, f));
+      return files.map(f => path.join(d, f));
     }
     return [d];
   });
@@ -35,7 +33,7 @@ export function deleteFileOrFolder(files: string | string[]): void {
 export function processParamsToParamsArray(params: ProcessParams): string[] {
   return Object.entries(params).flatMap(([key, value]) => {
     if (key === '_') {
-      return value.toString();
+      return (value as any).toString();
     } else if (Array.isArray(value)) {
       return value.map(v => `--${key}=${v.toString()}`);
     } else {
@@ -47,20 +45,4 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
       return [`--${key}=${value + ''}`];
     }
   }) as string[];
-}
-
-export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
-
-  if (cliMode === 'DEFAULT') {
-    delete process.env[CI_PROPERTY];
-    return {};
-  }
-
-  // CI mode value
-  let ciValue = 'true';
-  if (cliMode === 'SANDBOX') {
-    // emulate sandbox env by setting CI to SANDBOX
-    ciValue = 'SANDBOX';
-  }
-  return { [CI_PROPERTY]: ciValue };
 }
