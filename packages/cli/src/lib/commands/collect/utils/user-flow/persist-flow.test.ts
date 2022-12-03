@@ -1,20 +1,14 @@
 import { join } from 'path';
-import { readdirSync, readFileSync } from 'fs';
+import { readdirSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import * as LHR9JSON from '../../../../../../test-data/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../../../../../tests/utils/cli-testing/user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../../../../../tests/user-flow-cli-project';
 import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
+import { getReportContent } from '../../../../../../test-data/raw-reports';
 
-const jsonReport = LHR9JSON as unknown as FlowResult;
-
-const path = join(__dirname, '../../../../../../test-data/lhr-9.html');
-const htmlReport = readFileSync(path, 'utf-8');
-
+const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
+const htmlReport = getReportContent('lhr-9.html') as string;
 
 // @TODO merge into user-flow.mock in src folder
 export class UserFlowReportMock {
@@ -31,7 +25,16 @@ export class UserFlowReportMock {
 
 const flow = new UserFlowReportMock();
 
-function expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
+/**
+ * @deprecated
+ * use expectPersistedReports from expect.ts instead
+ * To do so we have to bootstrap the cli within the it block with different formats
+ * @param reports
+ * @param path
+ * @param name
+ * @param format
+ */
+function old_expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
   const expectedFileNames = format.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
   const expectedPaths = expectedFileNames.map((f) => join(path , f));
@@ -47,9 +50,12 @@ let initializedPrj: UserFlowCliProject;
 let outPath;
 const flowName = 'flow-example-name';
 
+let originalCwd = process.cwd();
+
 describe('persist flow reports in specified format', () => {
 
   beforeEach(async () => {
+    process.chdir(INITIATED_PRJ_CFG.root);
     if(!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
@@ -58,6 +64,7 @@ describe('persist flow reports in specified format', () => {
   })
   afterEach(async () => {
     await initializedPrj.teardown();
+    process.chdir(originalCwd);
   })
 
   it('does not save any reports if no format is given', async () => {
@@ -65,7 +72,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('does not save any reports if only stdout', async () => {
@@ -73,7 +80,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('saves the report in json format only if its the only format given', async () => {
@@ -81,7 +88,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format}
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('saves the report in html format only if its the only format given', async () => {
@@ -89,7 +96,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format}
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('saves the report in markdown format only if its the only format given', async () => {
@@ -97,7 +104,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('saves the report in the format given excluding stdout', async () => {
@@ -105,7 +112,7 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 
   it('saves the report in json, md and html', async () => {
@@ -113,6 +120,6 @@ describe('persist flow reports in specified format', () => {
     const persistOptions = {outPath, format};
     const report = await persistFlow(flow, flowName, persistOptions);
 
-    expectPersistedReports(report, outPath, flowName, format);
+    old_expectPersistedReports(report, outPath, flowName, format);
   });
 });

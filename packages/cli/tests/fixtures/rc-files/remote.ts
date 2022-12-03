@@ -1,5 +1,5 @@
 import { RcJson } from '../../../src/lib';
-import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from '../user-flows/remote.uf';
 import * as path from 'path';
 

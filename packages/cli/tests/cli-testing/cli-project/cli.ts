@@ -1,29 +1,23 @@
-import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { ExecaChildProcess, Options } from 'execa';
-import { testProcessE2e } from '../process/test-process-e2e';
-import { deleteFileOrFolder, getFolderContent, processParamsToParamsArray } from './utils';
-import * as path from 'path';
-import * as fs from 'fs';
-import { PromptTestOptions } from '../process/types';
-import { RcJson } from '../../../../src/lib';
-import { dirname } from 'path';
-import { existsSync, mkdirSync } from 'fs';
-import { logVerbose } from '../../../../src/lib/core/loggin';
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
+import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
+import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../process';
+import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
+import { RcJson } from '../../../src/lib';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
  *
  * @param processOptions: passed directly to execa as options
  */
-export function getCliProcess(processOptions: Options, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
+export function getCliProcess(processOptions: ProcessOptions, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
   return {
-    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<ExecaChildProcess> => {
-      return testProcessE2e([promptTestOptions.bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
+    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<TestResult> => {
+      const processOpts = [promptTestOptions.bin, ...processParamsToParamsArray(processParams)];
+      return testProcessE2e(processOpts, userInput, processOptions, promptTestOptions);
     }
   };
 }
-
-export type FileOrFolderMap = Record<string, string | {} | undefined>;
 
 /**
  * A helper class to manage an project structure for a yargs based CLI
@@ -120,7 +114,7 @@ export class CliProject {
    */
   deleteGeneratedFiles(): void {
     deleteFileOrFolder((this.deleteFiles || [])
-      .map(file => path.join(this.root, file))
+      .map(file => join(this.root, file))
     );
   }
 
@@ -134,20 +128,20 @@ export class CliProject {
   createInitialFiles(): void {
     const preparedPaths = Object.entries(this?.createFiles || {})
       .map(entry => {
-        entry[0] = path.join(this.root, entry[0]);
+        entry[0] = join(this.root, entry[0]);
         return entry;
       });
     preparedPaths
       .forEach(([file, content]) => {
-        const exists = fs.existsSync(file);
+        const exists = existsSync(file);
         if (exists) {
           if (content !== undefined) {
-            fs.rmSync(file);
+            rmSync(file);
             this.logVerbose(`File ${file} got deleted as it already exists`);
           }
         }
         if (content === undefined) {
-          !exists && fs.mkdirSync(file, {recursive: true});
+          !exists && mkdirSync(file, {recursive: true});
         } else {
           const dir = dirname(file);
           if (!existsSync(dir)) {
@@ -156,7 +150,7 @@ export class CliProject {
           }
           function base64_encode(file) {
             // read binary data
-            var bitmap = fs.readFileSync(file);
+            var bitmap = readFileSync(file);
             // convert binary data to base64 encoded string
             return new Buffer(bitmap).toString('base64');
           }
@@ -171,7 +165,7 @@ export class CliProject {
               break;
           }
 
-          fs.writeFileSync(file, content as any, 'utf8');
+          writeFileSync(file, content as any, 'utf8');
         }
         this.logVerbose(`File ${file} created`);
       });
@@ -199,7 +193,7 @@ export class CliProject {
    * @param processParams
    * @param userInput
    */
-  exec(processParams?: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> {
+  exec(processParams?: ProcessParams, userInput?: string[]): Promise<TestResult> {
     return this.process.exec(processParams, userInput);
   }
 

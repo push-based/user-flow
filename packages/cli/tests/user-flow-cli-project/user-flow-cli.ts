@@ -1,27 +1,30 @@
-import { ProcessParams } from '../cli-project/types';
-import { CliProject } from '../cli-project/cli';
-import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getEnvVarsByCliModeAndDeleteOld, getFolderContent } from '../cli-project/utils';
+import {
+  CliProject,
+  getEnvVarsByCliModeAndDeleteOld,
+  getFolderContent,
+  ProcessParams
+} from '../cli-testing/cli-project';
+import { getEnvPreset } from '../../src/lib/pre-set';
 import { UserFlowProjectConfig } from './types';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
-import { RcJson } from '../../../../src/lib';
-import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
-import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
-import { ExecaChildProcess } from 'execa';
-import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
+import { RcJson } from '../../src/lib';
+import { InitCommandArgv } from '../../src/lib/commands/init/options/types';
+import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
+import { CollectCommandArgv } from '../../src/lib/commands/collect/options/types';
 import { kill } from './utils/kill';
-import { SERVE_COMMAND_PORT } from './constants';
+import { SERVE_COMMAND_PORT } from './data/constants';
 import * as fs from 'fs';
-import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
+import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
+import { TestResult } from '../cli-testing/process';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
     const prj = new UserFlowCliProject();
     await prj._setup(cfg);
-    // await new Promise(r => setTimeout(r, 30000));
     return prj;
   }
 }
@@ -66,7 +69,7 @@ export class UserFlowCliProject extends CliProject {
     await kill({ port: this.serveCommandPort });
   }
 
-  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
     this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
@@ -74,7 +77,7 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
@@ -101,8 +104,10 @@ export class UserFlowCliProject extends CliProject {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
-  readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {
-    return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
+  readUserFlow(userFlowName: string = DEFAULT_PERSIST_OUT_PATH, rcFileName: string = DEFAULT_RC_NAME): string[][] {
+    const flowPath = this.userFlowPath(userFlowName, rcFileName);
+    const files = getFolderContent([flowPath]);
+    return files.map(f => ([f, fs.readFileSync(flowPath).toString('utf8')]));
   }
 
   userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {

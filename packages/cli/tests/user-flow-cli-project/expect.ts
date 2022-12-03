@@ -1,14 +1,13 @@
-import { UserFlowCliProject } from './user-flow-cli';
-import { PROMPT_COLLECT_URL } from '../../../../src/lib/commands/collect/options/url.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../../../src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../../../src/lib/commands/collect/options/outPath.constant';
-import { PROMPT_PERSIST_FORMAT } from '../../../../src/lib/commands/collect/options/format.constant';
+import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
-import * as fs from 'fs';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
-import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
-import { RcJson } from '../../../../src/lib';
+import { UserFlowCliProject } from './user-flow-cli';
+import { RcJson } from '../../src/lib';
+import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
+import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
+import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -107,3 +106,12 @@ export function expectCliToCreateRc(
   expect(rcFromFile).toEqual({ collect, persist, assert });
 }
 
+export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
+  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => path.join(prj.readRcJson().persist.outPath, path.basename(p)));
+  // expect(flowNames).toBe('flowNames')
+  const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
+  const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
+  const expectedFileNames = userFlowNames.flatMap(flowName => formats.map(format => `${flowName}.${format}`)) || [];
+
+  expect(resultingReportNames.sort()).toEqual(expectedFileNames.sort());
+}

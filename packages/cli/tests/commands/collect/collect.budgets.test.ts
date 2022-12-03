@@ -5,13 +5,13 @@ import {
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../user-flow-cli-project/user-flow-cli';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { UserFlowProjectConfig } from '../../utils/cli-testing/user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
 import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { expectResultsToIncludeBudgets } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { expectResultsToIncludeBudgets } from '../../user-flow-cli-project/expect';
 
 let staticPrj: UserFlowCliProject;
 

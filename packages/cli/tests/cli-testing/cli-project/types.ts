@@ -1,7 +1,5 @@
-import { ExecaChildProcess } from 'execa';
-import { PromptTestOptions } from '../process/types';
-import { RcJson } from '../../../../src/lib';
-import {FileOrFolderMap} from "./cli";
+import { PromptTestOptions, TestResult } from '../process';
+import { RcJson } from '../../../src/lib';
 
 export type ProcessTestOptions = {
   bin: string
@@ -12,7 +10,7 @@ export type ProcessParams = {
   _?: string
 } & Record<string, any>
 
-export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams?: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<ExecaChildProcess>;
+export type ExecFn<T extends ProcessParams = ProcessParams> = (processParams?: T, userInput?: string[], promptOptions?: PromptTestOptions) => Promise<TestResult>;
 
 export type CliProcess = {
   exec: ExecFn
@@ -31,6 +29,7 @@ export type Project = {
     [value in keyof CliCommand]: ExecFn<any>
   }
 
+export type FileOrFolderMap = Record<string, string | {} | undefined>;
 export type ProjectConfig = {
   verbose?: boolean,
   root: string,
