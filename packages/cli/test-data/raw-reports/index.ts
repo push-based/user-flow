@@ -3,9 +3,9 @@ import { readFileSync } from "fs";
 
 export function getReportContent(fileName: string): string | {} {
   const path = join(__dirname, fileName);
-  const report = readFileSync(path, 'utf-8');
+  const report: string = readFileSync(path, 'utf-8');
   if(fileName.endsWith('.json')) {
-    JSON.parse(report);
+    return JSON.parse(report);
   }
   return report;
 }
