@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readdirSync, readFileSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import * as LHR9JSON from '../../../../../../test-data/lhr-9.json';
+import * as LHR9JSON from '../../../../../../test-data/raw-reports/lhr-9.json';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import {

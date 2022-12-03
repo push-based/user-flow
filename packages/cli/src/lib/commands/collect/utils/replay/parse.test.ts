@@ -1,5 +1,5 @@
-import * as PupeteerReplay from '../../../../../../test-data/pupeteer-replay.json';
-import * as UserFlowReplay from '../../../../../../test-data/userflow-replay.json';
+import * as PupeteerReplay from '../../../../../../test-data/raw-reports/pupeteer-replay.json';
+import * as UserFlowReplay from '../../../../../../test-data/raw-reports/userflow-replay.json';
 import { parse } from './parse';
 
 const pupeteerReplay = PupeteerReplay as any;
