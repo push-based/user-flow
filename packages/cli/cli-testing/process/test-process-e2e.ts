@@ -1,8 +1,9 @@
+// @ts-ignore
 import * as concat from 'concat-stream';
-import * as fs from 'fs';
 import * as execa from 'execa';
-import { ExecaChildProcess, Options } from 'execa';
-import { PromptTestOptions } from './types';
+import { ExecaChildProcess } from 'execa';
+import * as fs from 'fs';
+import { Options, PromptTestOptions, TestResult } from './types';
 
 /**
  * A function to control a process and its in and outputs.
@@ -17,7 +18,7 @@ import { PromptTestOptions } from './types';
  * @param promptOptions
  * specify the process configuration
  */
-export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<ExecaChildProcess> {
+export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<TestResult> {
   // Defaults to process.cwd()
 
   // validate input
@@ -35,7 +36,7 @@ export function testProcessE2e(args: string[] = [], answers: string[] = [], opti
   const runner: any = execa('node', args, options) as any;
   runner.stdin.setDefaultEncoding('utf-8');
 
-  const writeToStdin = (answers) => {
+  const writeToStdin = (answers: string[]) => {
     if (answers.length > 0) {
       setTimeout(() => {
         runner.stdin.write(answers[0]);
@@ -53,18 +54,18 @@ export function testProcessE2e(args: string[] = [], answers: string[] = [], opti
     let obj: ExecaChildProcess = {} as unknown as ExecaChildProcess;
 
     runner.stdout.pipe(
-      concat((result) => {
+      concat((result: any) => {
         obj.stdout = result.toString();
       })
     );
 
     runner.stderr.pipe(
-      concat((result) => {
+      concat((result: any) => {
         obj.stderr = result.toString();
       })
     );
 
-    runner.on('exit', (exitCode) => {
+    runner.on('exit', (exitCode: number) => {
       (obj as unknown as any).exitCode = exitCode;
       resolve(obj);
     });

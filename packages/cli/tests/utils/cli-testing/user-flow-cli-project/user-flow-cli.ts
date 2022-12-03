@@ -1,17 +1,15 @@
-import { ProcessParams } from '../cli-project/types';
-import { CliProject } from '../cli-project/cli';
-import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getEnvVarsByCliModeAndDeleteOld, getFolderContent } from '../cli-project/utils';
-import { UserFlowProjectConfig } from './types';
+import { ProcessParams, TestResult } from '../../../../cli-testing/process';
+import { CliProject } from '../../../../cli-testing/cli-project';
+import { getEnvPreset } from '../../../../src/lib/pre-set';
+import { getEnvVarsByCliModeAndDeleteOld, UserFlowProjectConfig } from './utils/env-vars';
+import { kill } from './utils/kill';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../../../src/lib';
 import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
-import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
-import { kill } from './utils/kill';
-import { SERVE_COMMAND_PORT } from './constants';
+import { SERVE_COMMAND_PORT } from './data/constants';
 import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
@@ -52,8 +50,8 @@ export class UserFlowCliProject extends CliProject {
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
         cfg.create = cfg?.create || {};
-        cfg.create['./'+rcJson.collect.ufPath] = undefined;
-        cfg.create['./'+rcJson.persist.outPath] = undefined;
+        cfg.create['./' + rcJson.collect.ufPath] = undefined;
+        cfg.create['./' + rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
@@ -66,7 +64,7 @@ export class UserFlowCliProject extends CliProject {
     await kill({ port: this.serveCommandPort });
   }
 
-  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
     this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
@@ -74,22 +72,24 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcFileName:string = DEFAULT_RC_NAME): RcJson {
+  readRcJson(rcFileName: string = DEFAULT_RC_NAME): RcJson {
     return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
   }
-  rcJsonPath(rcFileName:string = DEFAULT_RC_NAME): string {
+
+  rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
     return JSON.parse(fs.readFileSync(path.join(this.root, budgetName)) as any);
   }
-  budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
+
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
     return path.join(this.root, budgetName);
   }
 
@@ -97,7 +97,8 @@ export class UserFlowCliProject extends CliProject {
     const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
   }
-  outputPath(reportName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+
+  outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
@@ -105,7 +106,7 @@ export class UserFlowCliProject extends CliProject {
     return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
   }
 
-  userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+  userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 

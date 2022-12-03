@@ -1,12 +1,10 @@
-import { UserFlowCliProject } from './user-flow-cli';
+import { UserFlowCliProject } from '../../../../cli-testing';
 import { PROMPT_COLLECT_URL } from '../../../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_COLLECT_UF_PATH } from '../../../../src/lib/commands/collect/options/ufPath.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../../../src/lib/commands/collect/options/outPath.constant';
 import { PROMPT_PERSIST_FORMAT } from '../../../../src/lib/commands/collect/options/format.constant';
-import Budget from 'lighthouse/types/lhr/budget';
-import * as fs from 'fs';
-import FlowResult from 'lighthouse/types/lhr/flow';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
+import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 import { RcJson } from '../../../../src/lib';
 

@@ -1,4 +1,4 @@
-import { ExecFn, Project, ProjectConfig } from '../cli-project/types';
+import { ExecFn, Project, ProjectConfig } from '../../cli-testing/cli-project';
 import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';

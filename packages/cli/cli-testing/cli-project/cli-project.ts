@@ -1,14 +1,9 @@
-import { CliProcess, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { ExecaChildProcess, Options } from 'execa';
-import { testProcessE2e } from '../process/test-process-e2e';
-import { deleteFileOrFolder, getFolderContent, processParamsToParamsArray } from './utils';
-import * as path from 'path';
-import * as fs from 'fs';
-import { PromptTestOptions } from '../process/types';
-import { RcJson } from '../../../../src/lib';
-import { dirname } from 'path';
-import { existsSync, mkdirSync } from 'fs';
-import { logVerbose } from '../../../../src/lib/core/loggin';
+import { dirname, join } from 'path';
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
+import { Options } from 'execa';
+import { ProcessParams, PromptTestOptions, testProcessE2e, TestResult } from '../process';
+import { CliProcess, FileOrFolderMap, ProcessTestOptions, ProjectConfig } from './types';
+import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
@@ -17,18 +12,17 @@ import { logVerbose } from '../../../../src/lib/core/loggin';
  */
 export function getCliProcess(processOptions: Options, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
   return {
-    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<ExecaChildProcess> => {
-      return testProcessE2e([promptTestOptions.bin, ...processParamsToParamsArray(processParams)], userInput, processOptions, promptTestOptions);
+    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<TestResult> => {
+      const promptTestOpts = [promptTestOptions.bin, ...processParamsToParamsArray(processParams)];
+      return testProcessE2e(promptTestOpts, userInput, processOptions, promptTestOptions);
     }
   };
 }
 
-export type FileOrFolderMap = Record<string, string | {} | undefined>;
-
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
-export class CliProject {
+export class CliProject<RcJson extends {}> {
 
   /**
    * A flag to add more detailed information as logs
@@ -83,7 +77,7 @@ export class CliProject {
     this.verbose && console.table(...args);
   }
 
-  async _setup(cfg: ProjectConfig): Promise<void> {
+  public async _setup(cfg: ProjectConfig<RcJson>): Promise<void> {
     // global settings
     this.verbose = Boolean(cfg.verbose);
 
@@ -118,9 +112,9 @@ export class CliProject {
    * Method to delete files generated during the CLI run
    * Notice all files will get located from the project root
    */
-  deleteGeneratedFiles(): void {
+  protected deleteGeneratedFiles(): void {
     deleteFileOrFolder((this.deleteFiles || [])
-      .map(file => path.join(this.root, file))
+      .map(file => join(this.root, file))
     );
   }
 
@@ -131,34 +125,28 @@ export class CliProject {
    * Method to create files needed during the CLI run
    * Notice all files will get located from the project root
    */
-  createInitialFiles(): void {
+  protected createInitialFiles(): void {
     const preparedPaths = Object.entries(this?.createFiles || {})
       .map(entry => {
-        entry[0] = path.join(this.root, entry[0]);
+        entry[0] = join(this.root, entry[0]);
         return entry;
       });
     preparedPaths
       .forEach(([file, content]) => {
-        const exists = fs.existsSync(file);
+        const exists = existsSync(file);
         if (exists) {
           if (content !== undefined) {
-            fs.rmSync(file);
+            rmSync(file);
             this.logVerbose(`File ${file} got deleted as it already exists`);
           }
         }
         if (content === undefined) {
-          !exists && fs.mkdirSync(file, {recursive: true});
+          !exists && mkdirSync(file, {recursive: true});
         } else {
           const dir = dirname(file);
           if (!existsSync(dir)) {
             this.logVerbose(`Created dir ${dir} to save ${file}`);
             mkdirSync(dir);
-          }
-          function base64_encode(file) {
-            // read binary data
-            var bitmap = fs.readFileSync(file);
-            // convert binary data to base64 encoded string
-            return new Buffer(bitmap).toString('base64');
           }
 
           switch (true) {
@@ -171,7 +159,7 @@ export class CliProject {
               break;
           }
 
-          fs.writeFileSync(file, content as any, 'utf8');
+          writeFileSync(file, content as any, 'utf8');
         }
         this.logVerbose(`File ${file} created`);
       });
@@ -180,15 +168,14 @@ export class CliProject {
   /**
    * Set up the project. e.g. create files, start processes
    */
-  async setup(): Promise<void> {
+  public async setup(): Promise<void> {
     this.createInitialFiles();
   }
-
 
   /**
    * Teardown the project. e.g delete files, stop processes
    */
-  async teardown(): Promise<void> {
+  public async teardown(): Promise<void> {
     this.deleteGeneratedFiles();
   }
 
@@ -199,7 +186,7 @@ export class CliProject {
    * @param processParams
    * @param userInput
    */
-  exec(processParams?: ProcessParams, userInput?: string[]): Promise<ExecaChildProcess> {
+  public exec(processParams?: ProcessParams, userInput?: string[]): Promise<TestResult> {
     return this.process.exec(processParams, userInput);
   }
 
