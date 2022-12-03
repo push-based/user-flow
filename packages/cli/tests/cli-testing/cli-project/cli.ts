@@ -3,7 +3,7 @@ import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
 import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
-import { RcJson } from '../../../../src/lib';
+import { RcJson } from '../../../src/lib';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.

@@ -1,4 +1,4 @@
-import { ENTER } from '../../utils/cli-testing/process/keyboard';
+import { ENTER } from '../../cli-testing/process/keyboard';
 
 import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import {

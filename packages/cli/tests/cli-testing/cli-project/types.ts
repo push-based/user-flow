@@ -1,5 +1,5 @@
 import { PromptTestOptions, TestResult } from '../process';
-import { RcJson } from '../../../../src/lib';
+import { RcJson } from '../../../src/lib';
 
 export type ProcessTestOptions = {
   bin: string

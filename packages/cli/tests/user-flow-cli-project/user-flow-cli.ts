@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { CliProject, getEnvVarsByCliModeAndDeleteOld, ProcessParams } from '../utils/cli-testing/cli-project';
+import { CliProject, getEnvVarsByCliModeAndDeleteOld, ProcessParams } from '../cli-testing/cli-project';
 import { getEnvPreset } from '../../src/lib/pre-set';
 import { UserFlowProjectConfig } from './types';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
@@ -13,7 +13,7 @@ import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
-import { TestResult } from '../utils/cli-testing/process';
+import { TestResult } from '../cli-testing/process';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { ProcessParams } from './types';
-import { CLI_MODES } from '../../../../src/lib/global/cli-mode/types';
-import { CI_PROPERTY } from '../../../../src/lib/global/cli-mode/cli-mode';
+import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
+import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import * as path from 'path';
 
 export function getFolderContent(folders: string[]): string[] {
