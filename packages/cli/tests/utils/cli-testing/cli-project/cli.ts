@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { ExecaChildProcess, Options } from 'execa';
+import { Options } from 'execa';
 import { PromptTestOptions, testProcessE2e, TestResult } from '../process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 import { RcJson } from '../../../../src/lib';
@@ -13,7 +13,7 @@ import { RcJson } from '../../../../src/lib';
  */
 export function getCliProcess(processOptions: Options, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
   return {
-    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<ExecaChildProcess> => {
+    exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<TestResult> => {
       const processOpts = [promptTestOptions.bin, ...processParamsToParamsArray(processParams)];
       return testProcessE2e(processOpts, userInput, processOptions, promptTestOptions);
     }
