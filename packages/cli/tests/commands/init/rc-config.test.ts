@@ -6,15 +6,15 @@ import { ENTER } from '../../utils/cli-testing/process/keyboard';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../user-flow-cli-project/user-flow-cli';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON
-} from '../../utils/cli-testing/user-flow-cli-project/data/user-flowrc.base';
+} from '../../../user-flow-cli-project/data/user-flowrc.base';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { expectPromptsOfInitInStdout } from '../../utils/cli-testing/user-flow-cli-project/expect';
+import { expectPromptsOfInitInStdout } from '../../../user-flow-cli-project/expect';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';

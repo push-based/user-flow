@@ -5,9 +5,9 @@ import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../user-flow-cli-project/user-flow-cli';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../utils/cli-testing/user-flow-cli-project';
+import { SANDBOX_BASE_RC_JSON } from '../../../user-flow-cli-project';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 
 let initializedPrj: UserFlowCliProject;

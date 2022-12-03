@@ -2,13 +2,13 @@ import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../user-flow-cli-project/user-flow-cli';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import {
   expectCollectCommandCreatesHtmlReport,
   expectCollectCommandCreatesJsonReport,
   expectCollectCommandCreatesMdReport
-} from '../../utils/cli-testing/user-flow-cli-project/expect';
+} from '../../../user-flow-cli-project/expect';
 import {
   STATIC_HTML_REPORT_NAME,
   STATIC_JSON_REPORT_NAME,

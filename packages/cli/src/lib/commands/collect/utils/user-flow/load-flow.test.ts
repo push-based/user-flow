@@ -4,9 +4,9 @@ import { loadFlow } from './load-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../../../../../tests/utils/cli-testing/user-flow-cli-project/user-flow-cli';
+} from '../../../../../../user-flow-cli-project/user-flow-cli';
 import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import { UserFlowProjectConfig } from '../../../../../../tests/utils/cli-testing/user-flow-cli-project/types';
+import { UserFlowProjectConfig } from '../../../../../../user-flow-cli-project/types';
 import {
   VALIDE_EXAMPLE_USERFLOW_CONTENT,
   VALIDE_EXAMPLE_USERFLOW_NAME

@@ -1,8 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { Options } from 'execa';
-import { PromptTestOptions, testProcessE2e, TestResult } from '../process';
+import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 import { RcJson } from '../../../../src/lib';
 
@@ -11,7 +10,7 @@ import { RcJson } from '../../../../src/lib';
  *
  * @param processOptions: passed directly to execa as options
  */
-export function getCliProcess(processOptions: Options, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
+export function getCliProcess(processOptions: ProcessOptions, promptTestOptions: PromptTestOptions & ProcessTestOptions): CliProcess {
   return {
     exec: (processParams: ProcessParams = {}, userInput: string[] = []): Promise<TestResult> => {
       const processOpts = [promptTestOptions.bin, ...processParamsToParamsArray(processParams)];

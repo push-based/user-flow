@@ -1,3 +1,7 @@
+import { Options } from 'execa';
+
+export type ProcessOptions = Options;
+
 export type PromptTestOptions = {
   timeout?: number
 }

@@ -1,8 +1,7 @@
 import * as concat from 'concat-stream';
 import * as fs from 'fs';
 import * as execa from 'execa';
-import { Options } from 'execa';
-import { PromptTestOptions, TestResult } from './types';
+import { PromptTestOptions, TestResult, ProcessOptions } from './types';
 
 /**
  * A function to control a process and its in and outputs.
@@ -17,7 +16,7 @@ import { PromptTestOptions, TestResult } from './types';
  * @param promptOptions
  * specify the process configuration
  */
-export function testProcessE2e(args: string[] = [], answers: string[] = [], options: Options = {}, promptOptions: PromptTestOptions = {}): Promise<TestResult> {
+export function testProcessE2e(args: string[] = [], answers: string[] = [], options: ProcessOptions = {}, promptOptions: PromptTestOptions = {}): Promise<TestResult> {
   // Defaults to process.cwd()
 
   // validate input
