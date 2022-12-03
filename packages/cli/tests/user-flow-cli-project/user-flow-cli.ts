@@ -1,5 +1,10 @@
 import * as path from 'path';
-import { CliProject, getEnvVarsByCliModeAndDeleteOld, ProcessParams } from '../cli-testing/cli-project';
+import {
+  CliProject,
+  getEnvVarsByCliModeAndDeleteOld,
+  getFolderContent,
+  ProcessParams
+} from '../cli-testing/cli-project';
 import { getEnvPreset } from '../../src/lib/pre-set';
 import { UserFlowProjectConfig } from './types';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
@@ -14,6 +19,7 @@ import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
 import { TestResult } from '../cli-testing/process';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -98,8 +104,10 @@ export class UserFlowCliProject extends CliProject {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
-  readUserFlow(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string {
-    return fs.readFileSync(this.userFlowPath(userFlowName, rcFileName)).toString('utf8');
+  readUserFlow(userFlowName: string = DEFAULT_PERSIST_OUT_PATH, rcFileName: string = DEFAULT_RC_NAME): string[][] {
+    const flowPath = this.userFlowPath(userFlowName, rcFileName);
+    const files = getFolderContent([flowPath]);
+    return files.map(f => ([f, fs.readFileSync(flowPath).toString('utf8')]));
   }
 
   userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {

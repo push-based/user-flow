@@ -7,6 +7,7 @@ import Budget from 'lighthouse/types/lhr/budget';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { RcJson } from '../../src/lib';
+import { join } from 'path';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -105,3 +106,12 @@ export function expectCliToCreateRc(
   expect(rcFromFile).toEqual({ collect, persist, assert });
 }
 
+export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
+  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => join(prj.readRcJson().persist.outPath, path.basename(p)));
+  // expect(flowNames).toBe('flowNames')
+  const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
+  const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
+  const expectedFileNames = userFlowNames.flatMap(flowName => formats.map(format => `${flowName}.${format}`)) || [];
+
+  expect(resultingReportNames.sort()).toEqual(expectedFileNames.sort());
+}
