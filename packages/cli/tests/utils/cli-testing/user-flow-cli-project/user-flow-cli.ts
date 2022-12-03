@@ -1,14 +1,11 @@
-import { ProcessParams } from '../cli-project/types';
-import { CliProject } from '../cli-project/cli';
-import { getEnvPreset } from '../../../../src/lib/pre-set';
 import * as path from 'path';
-import { getEnvVarsByCliModeAndDeleteOld, getFolderContent } from '../cli-project/utils';
+import { CliProject, getEnvVarsByCliModeAndDeleteOld, ProcessParams } from '../cli-project';
+import { getEnvPreset } from '../../../../src/lib/pre-set';
 import { UserFlowProjectConfig } from './types';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../../../src/lib';
 import { InitCommandArgv } from '../../../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../../../src/lib/global/options/types';
-import { ExecaChildProcess } from 'execa';
 import { CollectCommandArgv } from '../../../../src/lib/commands/collect/options/types';
 import { kill } from './utils/kill';
 import { SERVE_COMMAND_PORT } from './data/constants';
@@ -16,6 +13,7 @@ import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../../../fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
+import { TestResult } from '../process';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -66,7 +64,7 @@ export class UserFlowCliProject extends CliProject {
     await kill({ port: this.serveCommandPort });
   }
 
-  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
     this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
@@ -74,7 +72,7 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<ExecaChildProcess> {
+  $collect(processParams?: Partial<CollectCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'collect', ...processParams } as unknown as ProcessParams;
     return this.exec(prcParams, userInput);
   }
