@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
 import { ExecaChildProcess, Options } from 'execa';
-import { PromptTestOptions, testProcessE2e } from '../process';
+import { PromptTestOptions, testProcessE2e, TestResult } from '../process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 import { RcJson } from '../../../../src/lib';
 
@@ -194,7 +194,7 @@ export class CliProject {
    * @param processParams
    * @param userInput
    */
-  exec(processParams?: ProcessParams, userInput?: string[]): Promise<> {
+  exec(processParams?: ProcessParams, userInput?: string[]): Promise<TestResult> {
     return this.process.exec(processParams, userInput);
   }
 
