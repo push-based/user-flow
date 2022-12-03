@@ -1,13 +1,13 @@
+import * as path from 'path';
+import Budget from 'lighthouse/types/lhr/budget';
 import { UserFlowCliProject } from './user-flow-cli';
+import { RcJson } from '../../src/lib';
 import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
 import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
-import Budget from 'lighthouse/types/lhr/budget';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
-import { RcJson } from '../../src/lib';
-import { join } from 'path';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -107,7 +107,7 @@ export function expectCliToCreateRc(
 }
 
 export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
-  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => join(prj.readRcJson().persist.outPath, path.basename(p)));
+  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => path.join(prj.readRcJson().persist.outPath, path.basename(p)));
   // expect(flowNames).toBe('flowNames')
   const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
   const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
