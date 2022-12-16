@@ -256,7 +256,8 @@ You can think of user flows as front end e2e tests which measures performance re
 
 ## [Basic user flows](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md)
 
-Write basic user flows leveraging all 3 measurement modes of lighthouse, execute, export and open the reports.
+Write basic user flows leveraging all 3 measurement modes of lighthouse.
+
 
 **User flow measurement modes**
 
@@ -265,6 +266,10 @@ Write basic user flows leveraging all 3 measurement modes of lighthouse, execute
 | ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30    | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
 | ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |     ❌    |
 | ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |     ❌    |
+
+When you execute and open the user-flow report you will see the measurement modes also visualized there.
+
+[![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
 
 ## [Advanced architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
