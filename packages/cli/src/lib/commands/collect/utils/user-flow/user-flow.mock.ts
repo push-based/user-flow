@@ -55,6 +55,7 @@ ${JSON.stringify(dummyFlowResult(cfg))}
 export class UserFlowMock {
 
   protected cfg: UserFlowOptions = {} as any;
+  protected name: string = '';
   protected page: Page;
 
   /**
@@ -65,10 +66,10 @@ export class UserFlowMock {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return this.page.goto(requestor);
   }
-
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;
+    this.name = cfg.name;
   }
 
   /**

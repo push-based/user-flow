@@ -14,7 +14,7 @@ const htmlReport = getReportContent('lhr-9.html') as string;
 
 // @TODO merge into user-flow.mock in src folder
 export class UserFlowReportMock {
-  name: string = '';
+  protected name: string = '';
   constructor(options: {name: string}) {
     this.name = options.name;
   }
