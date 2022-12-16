@@ -1,5 +1,32 @@
 # General CLI interaction
 
+
+## Set up an empty project
+
+If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
+You can skip this steps and go directly to the setup below. 
+
+0. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
+
+run 
+```
+npm version
+```  
+
+to check it.   
+You should see `'user-flow-demo': '1.0.0',` as first line.
+
+Make sure you have the CLI installed:
+```bash
+npm i @push-based/user-flow --save-dev
+```
+now you can run it directly with `user-flow`. Test it:
+
+```bash
+npx user-flow --version
+```
+
+
 ## Prompts and interaction
 
 We provide general interaction through the keyboard or `stdin` directly for testing and other crazy hacks.

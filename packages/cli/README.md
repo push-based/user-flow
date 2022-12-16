@@ -59,7 +59,9 @@ Both ways require a node and npm project setup to install user-flow and folders 
 0. have node [v14.X.X](https://nodejs.org/en/download/) installed  
 run `node -v` and `npm -v` to check it.  
 
-## Set up and run user flows in an existing npm project
+To start from scratch read [setup an empty project](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md)
+
+## Set up and run user flows in an existing npm project 
 
 In this chapter we will learn how to install and configure user flows, as well as create a first example test and see the resulting performance report.  
 
@@ -158,31 +160,6 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 > **🤓 DX Tip:**  
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
-
-## Set up an empty project (optionally)
-
-If you don't want to maintain your user flows in the same repository the following steps describe how to setup a new project.
-You can skip this steps and go directly to the setup below. 
-
-0. Create a new folder e.g. `user-flow-demo` for the user flows and initialize npm: `npm init`  
-
-run 
-```
-npm version
-```  
-
-to check it.   
-You should see `'user-flow-demo': '1.0.0',` as first line.
-
-Make sure you have the CLI installed:
-```bash
-npm i @push-based/user-flow --save-dev
-```
-now you can run it directly with `user-flow`. Test it:
-
-```bash
-npx user-flow --version
-```
 
 # CLI
 You can read more about tricks and DX the [general CLI features](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md) in our docs. 
