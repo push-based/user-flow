@@ -10,10 +10,10 @@ import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 import { readBudgets } from '../../../assert/utils/budgets';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
-import { CollectRcOptions } from '../../options/types';
+import { CollectArgvOptions } from '../../options/types';
 
 export async function collectFlow(
-  cliOption: CollectRcOptions & { dryRun: boolean },
+  cliOption: CollectArgvOptions,
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -36,8 +36,9 @@ export async function collectFlow(
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
   };
   // @TODO consider CI vs dev mode => headless, openReport, persist etc
-  if (detectCliMode() !== 'DEFAULT') {
-    logVerbose(`Set headless to true as we are running in ${detectCliMode()} mode`);
+  const cliMode = detectCliMode();
+  if (cliMode !== 'DEFAULT') {
+    logVerbose(`Set headless to true as we are running in ${cliMode} mode`);
     launchOptions.headless = true;
   }
   const browser: Browser = await puppeteer.launch(launchOptions);

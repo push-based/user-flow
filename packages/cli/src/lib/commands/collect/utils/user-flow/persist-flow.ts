@@ -4,10 +4,15 @@ import { generateMdReport } from '../../processes/generate-reports';
 import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
 import { toFileName, writeFile } from '../../../../core/file';
-import { PersistRcOptions } from '../../options/types';
 import { existsSync, mkdirSync } from 'fs';
+import { PersistFlowOptions } from './types';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistRcOptions): Promise<string[]> {
+
+export async function persistFlow(
+  flow: UserFlow,
+  isoLikeDate: string, // <yyyyddmm>T<hhmmss> e.g. 20221216T202427
+  { outPath, format, url }: PersistFlowOptions
+): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }
@@ -35,7 +40,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
 
   if (!existsSync(outPath)) {
     try {
-      mkdirSync(outPath, {recursive: true});
+      mkdirSync(outPath, { recursive: true });
     } catch (e) {
       // @TODO use a constant instead of a string e.g. `OUT_PATH_NO_DIR_ERROR(dir)`
       throw new Error(`outPath: ${outPath} is no directory`);
@@ -43,10 +48,11 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
   }
 
   const fileNames = results.map((result) => {
-    const fileName = join(outPath, `${toFileName(name)}.${result.format}`);
-    writeFile(fileName, result.out);
-    logVerbose(`Report path: ${fileName}.`);
-    return fileName;
+    const fileName = `${url}-${toFileName(flow.name)}-${isoLikeDate}`;
+    const filePath = join(outPath, `${fileName}.${result.format}`);
+    writeFile(filePath, result.out);
+    logVerbose(`Report path: ${filePath}.`);
+    return filePath;
   });
   return fileNames;
 }

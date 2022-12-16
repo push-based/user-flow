@@ -2,9 +2,10 @@ import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../commands/collect/options/dryRun';
-import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';
+import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
 import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
+import { toIsoLikeString } from '../utils/user-flow/utils';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -20,8 +21,9 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
       provider = normalizeProviderObject(provider);
       provider = addBudgetsIfGiven(provider, assert);
 
+      const isoLikeStartTime = toIsoLikeString(new Date());
       return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
-        .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
+        .then((flow) => persistFlow(flow, isoLikeStartTime, { ...persist, ...collect }))
         .then(openFlowReport)
         .then(_ => cfg);
     })
