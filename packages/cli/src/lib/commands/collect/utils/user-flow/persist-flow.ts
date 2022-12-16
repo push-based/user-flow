@@ -1,7 +1,7 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { generateMdReport } from '../../processes/generate-reports';
-import { log } from '../../../../core/loggin';
+import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
 import { toFileName, writeFile } from '../../../../core/file';
 import { PersistRcOptions } from '../../options/types';
@@ -37,6 +37,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
     try {
       mkdirSync(outPath, {recursive: true});
     } catch (e) {
+      // @TODO use a constant instead of a string e.g. `OUT_PATH_NO_DIR_ERROR(dir)`
       throw new Error(`outPath: ${outPath} is no directory`);
     }
   }
@@ -44,6 +45,7 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
   const fileNames = results.map((result) => {
     const fileName = join(outPath, `${toFileName(name)}.${result.format}`);
     writeFile(fileName, result.out);
+    logVerbose(`Report path: ${fileName}.`);
     return fileName;
   });
   return fileNames;

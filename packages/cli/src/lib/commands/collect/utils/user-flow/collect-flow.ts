@@ -44,7 +44,7 @@ export async function collectFlow(
   const page: Page = await browser.newPage();
 
   logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
-  logVerbose(`File path: ${normalize(path)}`);
+  logVerbose(`User-flow path: ${normalize(path)}`);
   let start = Date.now();
 
   const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
