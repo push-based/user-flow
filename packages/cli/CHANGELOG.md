@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.40](https://github.com/push-based/user-flow/compare/cli-0.10.39...cli-0.10.40) (2022-12-16)
+
+
+
 ## [0.10.39](https://github.com/push-based/user-flow/compare/cli-0.10.38...cli-0.10.39) (2022-12-03)
 
 
