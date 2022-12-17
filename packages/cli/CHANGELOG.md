@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.11.0](https://github.com/push-based/user-flow/compare/cli-0.10.45...cli-0.11.0) (2022-12-17)
+
+
+### Features
+
+* add config path to collect ([#168](https://github.com/push-based/user-flow/issues/168)) ([a7e9ea2](https://github.com/push-based/user-flow/commit/a7e9ea23a4c52d3ac65ee24c2e6bd2a93ccd1fdc))
+
+
+
 ## [0.10.45](https://github.com/push-based/user-flow/compare/cli-0.10.44...cli-0.10.45) (2022-12-17)
 
 
