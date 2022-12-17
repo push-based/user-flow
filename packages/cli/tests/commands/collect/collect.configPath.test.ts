@@ -59,13 +59,14 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
     }
     await staticWConfigAssetsPrj.setup();
   });
- // afterEach(async () => await staticWConfigAssetsPrj.teardown());
+ afterEach(async () => await staticWConfigAssetsPrj.teardown());
 
   it('should load configPath from RC file', async () => {
     const { exitCode, stdout, stderr } = await staticWConfigAssetsPrj.$collect({
       configPath: LH_CONFIG_NAME
     });
 
+    expect(stdout).toBe('');
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, {configPath: LH_CONFIG_NAME})
     expectConfigPathUsageLog(stdout, LH_CONFIG_NAME);

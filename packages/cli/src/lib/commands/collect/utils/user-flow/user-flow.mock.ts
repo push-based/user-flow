@@ -5,6 +5,7 @@ import { StepOptions, UserFlowOptions } from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
   const config = cfg?.config || { };
+  logVerbose('dummy config used:', config)
   const report = {
     name: cfg.name,
     steps: [
