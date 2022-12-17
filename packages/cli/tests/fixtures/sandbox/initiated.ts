@@ -2,7 +2,7 @@ import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
-import { ORDER_COFFEE_USERFLOW_CONTENT, ORDER_COFFEE_USERFLOW_NAME } from '../user-flows/initialized.uf';
+import { BASIC_NAVIGATION_USERFLOW_CONTENT, BASIC_NAVIGATION_USERFLOW_NAME } from '../user-flows/initialized.uf';
 import { EMPTY_SANDBOX_BIN } from './empty';
 
 export const INITIATED_PRJ_NAME = 'sandbox-setup';
@@ -18,6 +18,6 @@ export const INITIATED_PRJ_CFG: UserFlowProjectConfig = {
   create: {
     [SANDBOX_BASE_RC_JSON.collect.ufPath]: undefined,
     [SANDBOX_BASE_RC_JSON.persist.outPath]: undefined,
-    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, ORDER_COFFEE_USERFLOW_NAME)]: ORDER_COFFEE_USERFLOW_CONTENT
+    [join(SANDBOX_BASE_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME)]: BASIC_NAVIGATION_USERFLOW_CONTENT
   }
 };
