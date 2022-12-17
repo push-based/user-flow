@@ -101,11 +101,11 @@ _./.user-flowrc.json_
 }
 ```
 
-2. The CLI automatically creates an example user-flow. (`./user-flows/order-coffee.uf.ts`) 
+2. The CLI automatically creates an example user-flow. (`./user-flows/basic-navigation.uf.ts`) 
 
 It is a simple navigation measurement to start from.
 
-_./order-coffee.uf.ts_
+_./basic-navigation.uf.ts_
 ```typescript
 import {
   UserFlowInteractionsFn,
@@ -118,16 +118,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
 
-  // Navigate to coffee order site
+  // Navigate to URL
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    stepName: `Navigate to ${url}`,
   });
-
-  // Select coffee
-
-  // Checkout order
-
-  // Submit order
 
 };
 
@@ -238,7 +232,7 @@ To execute a single user-flow pass the user set the ufPath to user-flow file. Yo
 {
   "collect": {
     "url": "https://coffee-cart.netlify.app/",
-    "ufPath": "./user-flows/order-coffee.uf.ts"
+    "ufPath": "./user-flows/basic-navigation.uf.ts"
   },
   "persist": { "outPath": "./measures", "format": ["html"] }
 }
@@ -247,7 +241,7 @@ To execute a single user-flow pass the user set the ufPath to user-flow file. Yo
 or by overwriting the configuration using the CLI: 
 
 ```bash
-npx user-flow collect --ufPath ./user-flows/order-coffee.uf.ts
+npx user-flow collect --ufPath ./user-flows/basic-navigation.uf.ts
 ```
 
 # Writing user flows for the CLI
