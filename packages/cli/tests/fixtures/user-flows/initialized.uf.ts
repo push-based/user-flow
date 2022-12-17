@@ -1,5 +1,5 @@
-export const ORDER_COFFEE_USERFLOW_NAME = 'order-coffee.uf.ts';
-export const ORDER_COFFEE_USERFLOW_CONTENT = `
+export const BASIC_NAVIGATION_USERFLOW_NAME = 'basic-navigation.uf.ts';
+export const BASIC_NAVIGATION_USERFLOW_CONTENT = `
 import {
   UserFlowInteractionsFn,
   UserFlowContext,

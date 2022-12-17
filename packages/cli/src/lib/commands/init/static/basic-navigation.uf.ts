@@ -7,23 +7,17 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url } = collectOptions;
 
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    stepName: `Navigate to ${url}`,
   });
 
   // ℹ Tip:
   // Read more about the other measurement modes here:
   // https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md
 
-  // Select coffee
-
-  // Checkout order
-
-  // Submit order
-
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Order Coffee'},
+  flowOptions: {name: 'Basic Navigation Example'},
   interactions
 };
 
