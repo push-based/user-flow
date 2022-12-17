@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.10.44](https://github.com/push-based/user-flow/compare/cli-0.10.43...cli-0.10.44) (2022-12-17)
+
+
+### Bug Fixes
+
+* adopt generated flow name to neutral naming ([#163](https://github.com/push-based/user-flow/issues/163)) ([ddb5bd7](https://github.com/push-based/user-flow/commit/ddb5bd78076b78a07df5782043fcb87a44d9616d))
+
+
+
 ## [0.10.43](https://github.com/push-based/user-flow/compare/cli-0.10.42...cli-0.10.43) (2022-12-17)
 
 
