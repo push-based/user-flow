@@ -9,6 +9,7 @@ import {
   expectResultsToIncludeConfig
 } from '../../user-flow-cli-project/expect';
 import { LH_CONFIG, LH_CONFIG_NAME } from '../../fixtures/config/lh-config';
+import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 
 let staticPrj: UserFlowCliProject;
 
@@ -22,7 +23,7 @@ describe('$collect() sandbox+NO-assets with RC()', () => {
   afterEach(async () => await staticPrj.teardown());
 
   it('should NOT log configPath info', async () => {
-    const { exitCode, stdout, stderr } = await staticPrj.$collect({});
+    const { exitCode, stdout, stderr } = await staticPrj.$collect();
 
     expect(stderr).toBe('');
     expectNoConfigFileExistLog(stdout);
@@ -66,6 +67,7 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
     });
 
     expect(stderr).toBe('');
+    expectCollectCfgToContain(stdout, {configPath: LH_CONFIG_NAME})
     expectConfigPathUsageLog(stdout, LH_CONFIG_NAME);
     expectResultsToIncludeConfig(staticWConfigAssetsPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);

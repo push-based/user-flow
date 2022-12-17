@@ -60,6 +60,7 @@ export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
       case 'serveCommand':
       case 'awaitServeStdout':
       case 'budgetPath':
+      case 'configPath':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
