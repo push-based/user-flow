@@ -19,7 +19,7 @@ export const STATIC_APP_INDEX_CONTENT = `
   A simple web project to test lighthouse user-flow CLI
 </p>
 <button id="btn" onclick="document.getElementById('img').style=''">show image</button>
-<img id="img" style="display: none;" src="user-flow-square.ts" alt="user-flow">
+<img id="img" style="display: none;" src="user-flow-square.png" alt="user-flow">
 </body>
 </html>
 `;

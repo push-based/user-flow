@@ -96,7 +96,9 @@ export class UserFlowCliProject extends CliProject {
     return path.join(this.root, budgetName);
   }
 
-  readOutput(reportName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
+  readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
+    const outputFiles = fs.readdirSync(this.outputPath());
+    const reportName = outputFiles.find((name) => name.includes(name)) || userFlowName;
     const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
   }

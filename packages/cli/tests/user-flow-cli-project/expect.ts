@@ -22,11 +22,11 @@ export function expectCollectCommandNotToCreateLogsFromMockInStdout(
 
 export function expectCollectCommandCreatesHtmlReport(
   prj: UserFlowCliProject,
-  reportName: string,
+  userFlowName: string,
   flowTitle: string,
   rcName?: string
 ) {
-  const reportHTML = prj.readOutput(reportName, rcName);
+  const reportHTML = prj.readOutput(userFlowName, rcName);
   expect(reportHTML).toContain(flowTitle);
 }
 

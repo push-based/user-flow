@@ -11,6 +11,7 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
       {
         name: 'Navigation report (127.0.0.1/)',
         lhr: {
+          fetchTime: new Date().toISOString(),
           configSettings: {
             // "budgets": [] // budgets from configurations
           },
@@ -55,6 +56,7 @@ ${JSON.stringify(dummyFlowResult(cfg))}
 export class UserFlowMock {
 
   protected cfg: UserFlowOptions = {} as any;
+  protected name: string = '';
   protected page: Page;
 
   /**
@@ -65,10 +67,10 @@ export class UserFlowMock {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return this.page.goto(requestor);
   }
-
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;
+    this.name = cfg.name;
   }
 
   /**
