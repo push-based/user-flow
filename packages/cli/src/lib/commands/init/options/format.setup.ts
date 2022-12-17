@@ -3,7 +3,6 @@ import { get as interactive } from '../../../global/options/interactive';
 import {
   ERROR_PERSIST_FORMAT_REQUIRED,
   ERROR_PERSIST_FORMAT_WRONG,
-  PERSIST_FORMAT_HTML,
   PROMPT_PERSIST_FORMAT
 } from '../../collect/options/format.constant';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
