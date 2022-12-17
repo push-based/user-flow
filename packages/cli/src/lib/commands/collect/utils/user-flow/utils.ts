@@ -9,6 +9,5 @@ export function isoDateStringToIsoLikeString(isoDate: string): string {
 
 export function toReportName(url: string, flowName: string, date?: string): string {
   date = date || new Date().toISOString();
-  console.error('flowName', flowName)
   return `${toFileName(url)}-${toFileName(flowName)}-${isoDateStringToIsoLikeString(date)}`;
 }
