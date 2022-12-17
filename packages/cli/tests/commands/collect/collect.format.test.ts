@@ -14,7 +14,7 @@ import {
   STATIC_JSON_REPORT_NAME,
   STATIC_MD_REPORT_NAME
 } from '../../fixtures/rc-files/static';
-import { STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
+import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 
 let setupRemotePrj: UserFlowCliProject;
 
@@ -35,7 +35,7 @@ describe('collect command in setup sandbox', () => {
 
     expect(stderr).toBe('');
     // Check report file and content of report
-    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
+    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE);
     expect(exitCode).toBe(0);
   }, 90_000);
 
