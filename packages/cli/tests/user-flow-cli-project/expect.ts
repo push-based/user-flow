@@ -96,24 +96,24 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
   expect(report.steps[0].lhr.audits['performance-budget']).toBeDefined();
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
+
 export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
   const report = prj.readOutput(reportName) as any;
-  // @TODO impl readConfig
-  const resolvedConfig = Array.isArray(config) ? config : prj.readConfig(config);
+  const resolvedConfig = prj.readConfig(config);
 
-  expect(report.steps[0].lhr.configSettings.onlyAudits).toEqual(resolvedConfig);
+  expect(report.steps[0].lhr).toEqual(resolvedConfig);
   expect(report.steps[0].lhr.audits.length).toBe(1);
 
 }
+
 export function expectConfigPathUsageLog(stdout: string, configPath: string = '') {
-  expect(stdout).toContain(`Collect options configPath is used over CLI param or .user-flowrc.json. Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-  expect(stdout).toContain('format given config');
+  expect(stdout).toContain(`Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
 }
 
 export function expectNoConfigFileExistLog(stdout: string) {
   expect(stdout).not.toContain(`CLI options --configPath or .user-flowrc.json configuration`);
   expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
-  expect(stdout).not.toContain('format given config');
+  expect(stdout).not.toContain('Use config from UserFlowProvider objects under the flowOptions property');
 }
 
 export function expectCliToCreateRc(

@@ -5,6 +5,9 @@ import { get as dryRun } from '../../../commands/collect/options/dryRun';
 import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
 import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
+import { CollectArgvOptions } from '../options/types';
+import { readFile } from '../../../core/file';
+import { readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -18,6 +21,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
     (_: any) => {
 
       provider = normalizeProviderObject(provider);
+      provider = addConfigIfGiven(provider, collect);
       provider = addBudgetsIfGiven(provider, assert);
 
       return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
@@ -38,6 +42,19 @@ function normalizeProviderObject(provider: UserFlowProvider): UserFlowProvider {
       provider.flowOptions.config.settings = {} as any;
     }
   }
+  return provider;
+}
+
+function addConfigIfGiven(provider: UserFlowProvider, collectOptions: CollectArgvOptions = {} as CollectArgvOptions): UserFlowProvider {
+  const { configPath } = collectOptions;
+
+  if (configPath) {
+    logVerbose(`Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+
+    // @ts-ignore
+    provider.flowOptions.config = readConfig(configPath);
+  }
+
   return provider;
 }
 

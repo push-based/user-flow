@@ -1,15 +1,15 @@
 import { readFile, writeFile } from '../../../../core/file';
 import { logVerbose } from '../../../../core/loggin';
 import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
-import { ConfigSettings } from 'lighthouse/types/lhr/settings';
+import { LhConfigJson } from '../../../../hacky-things/lighthouse';
 
 
-export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): ConfigSettings {
+export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): LhConfigJson {
   const configJson = JSON.parse(readFile(configPath) || '{}');
   return configJson;
 }
 
-export function writeConfig(config: ConfigSettings, configPath: string = DEFAULT_COLLECT_CONFIG_PATH): void {
+export function writeConfig(config: LhConfigJson, configPath: string = DEFAULT_COLLECT_CONFIG_PATH): void {
   logVerbose(`Update config under ${configPath}`);
 
   if (JSON.stringify(readConfig()) !== JSON.stringify(config)) {

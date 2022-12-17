@@ -107,18 +107,18 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
 
 export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-  expect(stdout).toContain('format given budgets');
+  expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
 
 export function expectBudgetsUsageLog(stdout: string, budgets: Budget[] = []) {
   expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
-  expect(stdout).toContain('format given budgets');
+  expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
 
 export function expectNoBudgetsFileExistLog(stdout: string) {
   expect(stdout).not.toContain(`CLI options --budgetPath or .user-flowrc.json configuration`);
   expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
-  expect(stdout).not.toContain('format given budgets');
+  expect(stdout).not.toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
 
 export function old_expectResultsToIncludeBudgets(resultPath: string, budgets: Budget[] | string) {
