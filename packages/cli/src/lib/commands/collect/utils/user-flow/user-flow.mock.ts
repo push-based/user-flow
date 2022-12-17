@@ -24,12 +24,6 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
   };
   if (config) {
     report.steps[0].lhr.configSettings = config;
-
-    if(config.settings?.onlyAudits) {
-      config.settings.onlyAudits.forEach(audit => {
-        report.steps[0].lhr.audits[audit] = {}
-      })
-    }
   }
 
   const budgets = config?.settings?.budgets;

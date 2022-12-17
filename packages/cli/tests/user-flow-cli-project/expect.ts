@@ -102,7 +102,6 @@ export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName
   const resolvedConfig = prj.readConfig(config);
 
   expect(report.steps[0].lhr.configSettings).toEqual(resolvedConfig);
-  expect(report.steps[0].lhr.audits.length).toBe(1);
 
 }
 

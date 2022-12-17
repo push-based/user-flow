@@ -66,7 +66,7 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
       configPath: LH_CONFIG_NAME
     });
 
-    expect(stdout).toBe('');
+
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, {configPath: LH_CONFIG_NAME})
     expectConfigPathUsageLog(stdout, LH_CONFIG_NAME);
