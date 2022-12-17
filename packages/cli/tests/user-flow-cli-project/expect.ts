@@ -8,6 +8,8 @@ import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/
 import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+import { ConfigSettings } from 'lighthouse/types/lhr/settings';
+import { LH_CONFIG, LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
@@ -93,6 +95,25 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
   expect(report.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
   expect(report.steps[0].lhr.audits['performance-budget']).toBeDefined();
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
+}
+export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
+  const report = prj.readOutput(reportName) as any;
+  // @TODO impl readConfig
+  const resolvedConfig = Array.isArray(config) ? config : prj.readConfig(config);
+
+  expect(report.steps[0].lhr.configSettings.onlyAudits).toEqual(resolvedConfig);
+  expect(report.steps[0].lhr.audits.length).toBe(1);
+
+}
+export function expectConfigPathUsageLog(stdout: string, configPath: string = '') {
+  expect(stdout).toContain(`Collect options configPath is used over CLI param or .user-flowrc.json. Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+  expect(stdout).toContain('format given config');
+}
+
+export function expectNoConfigFileExistLog(stdout: string) {
+  expect(stdout).not.toContain(`CLI options --configPath or .user-flowrc.json configuration`);
+  expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+  expect(stdout).not.toContain('format given config');
 }
 
 export function expectCliToCreateRc(
