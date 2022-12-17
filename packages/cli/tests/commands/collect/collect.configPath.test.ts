@@ -47,7 +47,8 @@ let staticWConfigPathPrjCfg: UserFlowProjectConfig = {
   create: {
     ...STATIC_PRJ_CFG.create,
     [LH_CONFIG_NAME]: LH_CONFIG
-  }
+  },
+  delete: [LH_CONFIG_NAME].concat(STATIC_PRJ_CFG?.delete || [])
 };
 
 describe('$collect() sandbox+assets with RC({configPath}))', () => {
