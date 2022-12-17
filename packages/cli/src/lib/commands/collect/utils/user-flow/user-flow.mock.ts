@@ -11,6 +11,7 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
       {
         name: 'Navigation report (127.0.0.1/)',
         lhr: {
+          fetchTime: new Date().toISOString(),
           configSettings: {
             // "budgets": [] // budgets from configurations
           },
