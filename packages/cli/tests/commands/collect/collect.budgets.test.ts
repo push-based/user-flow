@@ -25,7 +25,7 @@ describe('$collect() sandbox+NO-assets with RC()', () => {
   afterEach(async () => await staticPrj.teardown());
 
   it('should NOT log budgets info', async () => {
-    const { exitCode, stdout, stderr } = await staticPrj.$collect({});
+    const { exitCode, stdout, stderr } = await staticPrj.$collect();
 
     expect(stderr).toBe('');
     expectNoBudgetsFileExistLog(stdout);
@@ -85,7 +85,8 @@ let staticWBudgetPathPrjCfg: UserFlowProjectConfig = {
   create: {
     ...STATIC_PRJ_CFG.create,
     [LH_NAVIGATION_BUDGETS_NAME]: LH_NAVIGATION_BUDGETS
-  }
+  },
+  delete: (STATIC_PRJ_CFG?.delete || []).concat([LH_NAVIGATION_BUDGETS_NAME])
 };
 
 describe('$collect() sandbox+assets with RC({budgetPath}))', () => {

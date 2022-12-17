@@ -211,7 +211,8 @@ This command executes a set of user-flow definitions against the target URL and 
 | **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
 | **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                            |  
 | **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                              |  
-| **`-b`**, **`--budget-path`**      | `string`  | `./budget.json`        | Path to the lighthouse `budget.json` file                                                                |  
+| **`-b`**, **`--budget-path`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
+| **`-b`**, **`--config-path`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
 | **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                   |  
 
 > **💡 Pro Tip:**
@@ -223,6 +224,21 @@ This command executes a set of user-flow definitions against the target URL and 
 ## Configuration
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
+
+This configuration options can be used globally with the `configPath` option of the [`collect` command](#collect-command),  
+or per user flow in the [`UserFlowProvider#UserFlowOptions#config`](https://github.com/push-based/user-flow/blob/main/packages/cli/src/lib/commands/collect/utils/user-flow/types.ts#L39) option.
+
+### Overwrites
+
+As configuration can be placed on multiple levels at the same time we the overwrite order is defined as follows:
+
+There are 2 levels:
+- **global** - can be configured in the `.user-flowrc.json` or as CLI parameter
+- **local** - per file configuration located in `<user-flow-name>.uf.ts`
+
+- **local** `configPath` settings overwrite **global** settings
+    -  **local** `budgets` or `budgetsPath` overwrite **global** settings form `configPath`
+    
 
 ### Executing user-flows (`ufPath`)
 

@@ -4,7 +4,8 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
-  const budgets = cfg?.config?.settings?.budgets;
+  const config = cfg?.config || { };
+  logVerbose('dummy config used:', config)
   const report = {
     name: cfg.name,
     steps: [
@@ -12,9 +13,7 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
         name: 'Navigation report (127.0.0.1/)',
         lhr: {
           fetchTime: new Date().toISOString(),
-          configSettings: {
-            // "budgets": [] // budgets from configurations
-          },
+          configSettings: config,
           audits: {
             // "performance-budget": {},
             // "timing-budget": {}
@@ -23,6 +22,11 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
       }
     ]
   };
+  if (config) {
+    report.steps[0].lhr.configSettings = config;
+  }
+
+  const budgets = config?.settings?.budgets;
   if (budgets) {
     report.steps[0].lhr.configSettings.budgets = budgets;
     report.steps[0].lhr.audits['performance-budget'] = {};
@@ -67,6 +71,7 @@ export class UserFlowMock {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return this.page.goto(requestor);
   }
+
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;

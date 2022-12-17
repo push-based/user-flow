@@ -1,6 +1,9 @@
 {
   "name": "push-based-user-flow-workspace",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.14.3"
+  },
   "license": "MIT",
   "scripts": {
     "nx": "nx",

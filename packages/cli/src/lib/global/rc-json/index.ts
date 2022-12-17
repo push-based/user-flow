@@ -4,18 +4,18 @@ import { RcJson } from '../../types';
 import { globalOptions } from '../options';
 
 export function readRcConfig(rcPath: string = ''): RcJson {
-  const configPath = rcPath || globalOptions.getRcPath();
-  const repoConfigJson = readFile<RcJson>(configPath, { ext: 'json' }) || {};
+  rcPath = rcPath || globalOptions.getRcPath();
+  const repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json' }) || {};
   return repoConfigJson;
 }
 
 export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
-  const configPath = rcPath || globalOptions.getRcPath();
+  rcPath = rcPath || globalOptions.getRcPath();
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
-    writeFile(configPath, JSON.stringify(config));
-    logVerbose(`Update config under ${configPath} to`, config);
+    writeFile(rcPath, JSON.stringify(config));
+    logVerbose(`Update config under ${rcPath} to`, config);
   }
 }
 

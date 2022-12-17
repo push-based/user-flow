@@ -20,6 +20,8 @@ import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-bud
 import Budget from 'lighthouse/types/lhr/budget';
 import { TestResult } from '../cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
+import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -90,11 +92,19 @@ export class UserFlowCliProject extends CliProject {
   }
 
   readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
-    return JSON.parse(fs.readFileSync(path.join(this.root, budgetName)) as any);
+    return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
   }
   budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
     return path.join(this.root, budgetName);
   }
+
+  readConfig(configName:string = LH_CONFIG_NAME): LhConfigJson {
+    return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
+  }
+  configPath(configName:string = LH_CONFIG_NAME): string {
+    return path.join(this.root, configName);
+  }
+
 
   readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
     const outputFiles = fs.readdirSync(this.outputPath());
