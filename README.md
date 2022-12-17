@@ -272,6 +272,8 @@ Organizing testing logic is an art. If you don't own that knowledge, the amount 
 **This is the reason we introduced UFO's!**
 **Organize clutter code 👽 in developer friendly shells 🛸**
 
+![user-flow--advanced-architecture](https://user-images.githubusercontent.com/10064416/208248762-504897a3-3ef5-42dc-8060-70cda0ad682f.PNG)
+
 See [ufo-architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md) for more details.
 
 ## [Working with DevTools Recorder exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md)
