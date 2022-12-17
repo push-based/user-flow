@@ -4,9 +4,14 @@ import { readFile, writeFile } from '../../../core/file';
 import { log } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'fs';
 import { FlowExampleMap } from '../constants';
-import { getExamplePathDest } from '../utils';
+import { FlowExamples } from '../types';
 
 const exampleName = 'basic-navigation';
+
+export function getExamplePathDest(flowExample: FlowExamples, folder: string): string {
+  const fileName = FlowExampleMap[flowExample];
+  return join(folder, fileName);
+}
 
 export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
@@ -20,7 +25,7 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
     mkdirSync(ufPath, { recursive: true });
   }
   const tplFileName = FlowExampleMap[exampleName];
-  const exampleSourceLocation = join(__dirname, 'static', tplFileName);
+  const exampleSourceLocation = join(__dirname,'..', 'static', tplFileName);
   const exampleDestination = join(ufPath, tplFileName);
 
   if (readFile(exampleDestination) !== '') {
@@ -33,3 +38,4 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   log(`setup user-flow for basic navigation in ${ufPath} successfully`);
   return Promise.resolve(cliCfg);
 }
+

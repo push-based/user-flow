@@ -1,13 +1,11 @@
 import { YargsCommandObject } from '../../core/yargs/types';
 import { log, logVerbose } from '../../core/loggin';
 import { INIT_OPTIONS } from './options';
-import { getExamplePathDest, getInitCommandOptionsFromArgv } from './utils';
+import { getInitCommandOptionsFromArgv } from './utils';
 import { collectRcJson } from './processes/collect-rc-json';
 import { askToSkip } from '../../core/prompt';
 import { run } from '../../core/processing/behaviors';
-import { readFile } from '../../core/file';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
-import { RcJson } from '../../types';
 import { updateRcJson } from './processes/update-rc-json';
 import { generateUserFlow, userflowIsNotCreated } from './processes/generate-userflow';
 
