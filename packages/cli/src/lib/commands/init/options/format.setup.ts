@@ -15,24 +15,17 @@ import { getEnvPreset } from '../../../pre-set';
 export async function setupFormat(
   config: RcJson
 ): Promise<RcJson> {
-  let format: ReportFormat[] = [];
+  let format: ReportFormat[] = Array.isArray(config?.persist?.format) ? config.persist.format : [];
 
 
   if (interactive()) {
-    let initialFormat: ReportFormat | undefined =
-      // take the provided formats from cli params or the rc file if given and convert it to a string (yes we cant use multiple initial values :( )
-      Array.isArray(config?.persist?.format) ? config.persist.format[0] :
-        typeof config.persist.format === 'string' ? config.persist.format :
-          // if not use default format from the preset as a suggestion in the prompt choice
-          undefined;
-
-    const { f }: { f: ReportFormat[] } = initialFormat !== undefined ? {f: [initialFormat]}: await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] } = format.length ? {f: format}: await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
-        initial: initialFormat ? REPORT_FORMAT_VALUES.indexOf(initialFormat) : REPORT_FORMAT_VALUES.indexOf((getEnvPreset() as any).format[0]),
+        initial: REPORT_FORMAT_VALUES.indexOf((getEnvPreset() as any).format[0]),
         // @NOTICE typing is broken here
         result(value: string) {
           const values = value as any as string[];
