@@ -12,7 +12,7 @@
     "publish": "nx run cli",
     "link": "nx link cli",
     "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
-    "@push-based/user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
+    "@push-based/user-flow": "npm run build && npx ./dist/packages/cli",
     "@push-based/user-flow:help": "npm run @push-based/user-flow -- --help",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
@@ -40,6 +40,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-angular": "^17.2.0",
     "@jscutlery/semver": "^2.29.0",

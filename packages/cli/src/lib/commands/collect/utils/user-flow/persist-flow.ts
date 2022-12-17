@@ -3,14 +3,13 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { generateMdReport } from '../../processes/generate-reports';
 import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
-import { toFileName, writeFile } from '../../../../core/file';
+import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-
+import { isoDateStringToIsoLikeString, toReportName } from './utils';
 
 export async function persistFlow(
   flow: UserFlow,
-  isoLikeDate: string, // <yyyyddmm>T<hhmmss> e.g. 20221216T202427
   { outPath, format, url }: PersistFlowOptions
 ): Promise<string[]> {
   if (!format.length) {
@@ -46,9 +45,10 @@ export async function persistFlow(
       throw new Error(`outPath: ${outPath} is no directory`);
     }
   }
+  const fetchTime = isoDateStringToIsoLikeString(jsonReport.steps[0].lhr.fetchTime);
+  const fileName = toReportName(url, flow.name, fetchTime);
 
   const fileNames = results.map((result) => {
-    const fileName = `${url}-${toFileName(flow.name)}-${isoLikeDate}`;
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);
     logVerbose(`Report path: ${filePath}.`);
