@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '@push-based/cli-testing/process';
+import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../../../process/src/index';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 
 /**

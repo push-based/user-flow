@@ -1,4 +1,4 @@
-import { PromptTestOptions, TestResult } from '@push-based/cli-testing/process';
+import { PromptTestOptions, TestResult } from '../../../process/src/index';
 
 export type ProcessTestOptions = {
   bin: string
