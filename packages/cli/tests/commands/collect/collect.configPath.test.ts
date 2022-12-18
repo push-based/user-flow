@@ -7,9 +7,9 @@ import {
   expectConfigPathUsageLog,
   expectNoConfigFileExistLog,
   expectResultsToIncludeConfig
-} from '../../user-flow-cli-project/expect';
+} from '../../user-flow-cli-project/jest/expect';
 import { LH_CONFIG, LH_CONFIG_NAME } from '../../fixtures/config/lh-config';
-import { expectCollectCfgToContain } from '../../utils/cli-expectations';
+import { expectCollectCfgToContain } from '../../user-flow-cli-project/jest/expect.collect';
 
 let staticPrj: UserFlowCliProject;
 

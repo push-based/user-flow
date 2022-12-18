@@ -1,14 +1,10 @@
-import { expectCollectCfgToContain } from '../../utils/cli-expectations';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
 import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../user-flow-cli-project/user-flow-cli';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
+import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
+import { expectCollectCfgToContain } from '../../user-flow-cli-project/jest/expect.collect';
 
 let initializedPrj: UserFlowCliProject;
 

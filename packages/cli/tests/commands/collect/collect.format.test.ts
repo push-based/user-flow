@@ -1,19 +1,12 @@
-import { expectCollectLogsReportByDefault } from '../../utils/cli-expectations';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../user-flow-cli-project/user-flow-cli';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import {
   expectCollectCommandCreatesHtmlReport,
   expectCollectCommandCreatesJsonReport,
-  expectCollectCommandCreatesMdReport
-} from '../../user-flow-cli-project/expect';
-import {
-  STATIC_HTML_REPORT_NAME,
-  STATIC_JSON_REPORT_NAME,
-  STATIC_MD_REPORT_NAME
-} from '../../fixtures/rc-files/static';
+  expectCollectCommandCreatesMdReport,
+  expectCollectLogsReport
+} from '../../user-flow-cli-project/jest/expect.collect.format';
+import { STATIC_JSON_REPORT_NAME, STATIC_MD_REPORT_NAME } from '../../fixtures/rc-files/static';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 
 let setupRemotePrj: UserFlowCliProject;
@@ -26,7 +19,6 @@ describe('collect command in setup sandbox', () => {
     await setupRemotePrj.setup();
   });
   afterEach(async () => await setupRemotePrj.teardown());
-
 
   it('should save the results as a HTML file', async () => {
     const { exitCode, stderr } = await setupRemotePrj.$collect({
@@ -71,7 +63,7 @@ describe('collect command in setup sandbox', () => {
     expect(exitCode).toBe(0);
 
     // Check report file and content of report
-    expectCollectLogsReportByDefault(stdout, STATIC_USERFLOW_TITLE);
+    expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
 
 });
