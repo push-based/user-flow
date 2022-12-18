@@ -21,11 +21,11 @@
       "@push-based/cli-testing": [
         "packages/cli-testing/src/index.ts"
       ],
-      "@push-based/cli-testing/cli-project": [
-        "packages/cli-testing/cli-project/src/index.ts"
-      ],
       "@push-based/cli-testing/process": [
         "packages/cli-testing/process/src/index.ts"
+      ],
+      "@push-based/cli-testing/cli-project": [
+        "packages/cli-testing/cli-project/src/index.ts"
       ],
       "@push-based/user-flow": [
         "packages/cli/src/index.ts"
