@@ -22,6 +22,7 @@ import { TestResult } from '../cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
+import * from '@push-based/cli-testing';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
