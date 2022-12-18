@@ -1,9 +1,11 @@
-import { RcJson } from '@push-based/user-flow';
-import { DEFAULT_COLLECT_URL } from '@push-based/user-flow';
-import { DEFAULT_COLLECT_UF_PATH } from '@push-based/user-flow';
-import { DEFAULT_PERSIST_OUT_PATH } from '@push-based/user-flow';
-import { getEnvPreset } from '@push-based/user-flow';
-import { ReportFormat } from '@push-based/user-flow';
+import {
+  DEFAULT_COLLECT_UF_PATH,
+  DEFAULT_COLLECT_URL,
+  DEFAULT_PERSIST_OUT_PATH,
+  getEnvPreset,
+  RcJson,
+  ReportFormat
+} from '@push-based/user-flow';
 
 export const CLI_DEFAULT_RC_JSON: RcJson = {
   'collect': {
