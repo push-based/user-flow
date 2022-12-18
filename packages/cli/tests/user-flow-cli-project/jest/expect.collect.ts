@@ -1,3 +1,5 @@
+import { UserFlowCliProject } from '../user-flow-cli';
+
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,
   userFlowName: string,
