@@ -14,7 +14,8 @@ import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect';
+import { expectOutputRcInStdout} from '../../user-flow-cli-project/jest/expect';
+import { expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect.init';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;

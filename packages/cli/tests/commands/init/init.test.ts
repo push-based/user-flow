@@ -3,10 +3,9 @@ import { ENTER } from '../../cli-testing/process';
 import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
 import {
   expectCliToCreateRc,
-  expectOutputRcInStdout,
-  expectPromptsOfInitInStdout
+  expectOutputRcInStdout
 } from '../../user-flow-cli-project/jest/expect';
-import { expectNoPromptsInStdout } from '../../user-flow-cli-project/jest/expect.init';
+import { expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect.init';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 
@@ -83,7 +82,7 @@ describe('init command in setup sandbox', () => {
 
     // STDOUT
     // prompts
-    expectNoPromptsInStdout(stdout);
+    expectNoPromptsOfInitInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
 
