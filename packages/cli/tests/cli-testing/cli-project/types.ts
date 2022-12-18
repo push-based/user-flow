@@ -1,4 +1,4 @@
-import { PromptTestOptions, TestResult } from '../process';
+import { PromptTestOptions, TestResult } from '@push-based/cli-testing/process';
 import { RcJson } from '../../../src/lib';
 
 export type ProcessTestOptions = {
