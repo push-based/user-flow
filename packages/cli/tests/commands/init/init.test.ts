@@ -1,18 +1,13 @@
-import { ENTER } from '../../cli-testing/process/keyboard';
+import { ENTER } from '../../cli-testing/process';
 
-import { expectOutputRcInStdout } from '../../utils/cli-expectations';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../user-flow-cli-project/user-flow-cli';
+import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
 import {
   expectCliToCreateRc,
-  expectNoPromptsInStdout,
-  expectPromptsOfInitInStdout
-} from '../../user-flow-cli-project/expect';
+  expectOutputRcInStdout
+} from '../../user-flow-cli-project/jest/expect';
+import { expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect.init';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 
 let emptyPrj: UserFlowCliProject;
 
@@ -87,7 +82,7 @@ describe('init command in setup sandbox', () => {
 
     // STDOUT
     // prompts
-    expectNoPromptsInStdout(stdout);
+    expectNoPromptsOfInitInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, SANDBOX_BASE_RC_JSON);
 

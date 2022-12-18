@@ -1,23 +1,21 @@
-import { expectOutputRcInStdout } from '../../utils/cli-expectations';
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
 import { ENTER } from '../../cli-testing/process/keyboard';
-
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '../../user-flow-cli-project/user-flow-cli';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import {
   CLI_DEFAULT_RC_JSON,
-  SANDBOX_BASE_RC_JSON
-} from '../../user-flow-cli-project/data/user-flowrc.base';
+  SANDBOX_BASE_RC_JSON,
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '../../user-flow-cli-project';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { expectPromptsOfInitInStdout } from '../../user-flow-cli-project/expect';
+
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
+import { expectOutputRcInStdout} from '../../user-flow-cli-project/jest/expect';
+import { expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect.init';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -31,12 +29,12 @@ describe('.rc.json in empty sandbox', () => {
     await emptyPrj.setup();
   });
   afterEach(async () => {
-     await emptyPrj.teardown();
+    await emptyPrj.teardown();
   });
 
   it('should take default params from prompt', async () => {
 
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({verbose: true}, [
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({ verbose: true }, [
       //url
       ENTER,
       // ufPath
