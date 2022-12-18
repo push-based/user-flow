@@ -1,27 +1,25 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
-import {
-  CliProject,
-  getFolderContent,
-  ProcessParams
-} from '@push-based/cli-testing/cli-project';
+import { CliProject, getFolderContent, ProcessParams } from '@push-based/cli-testing/cli-project';
 import { TestResult } from '@push-based/cli-testing/process';
-import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
-import { getEnvPreset } from '../../src/lib/pre-set';
-import { RcJson } from '../../src/lib';
-import { InitCommandArgv } from '../../src/lib/commands/init/options/types';
-import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { CollectCommandArgv } from '../../src/lib/commands/collect/options/types';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+import {
+  CollectCommandArgv,
+  DEFAULT_PERSIST_OUT_PATH,
+  DEFAULT_RC_NAME,
+  getEnvPreset,
+  GlobalOptionsArgv,
+  InitCommandArgv,
+  LhConfigJson,
+  RcJson
+} from '@push-based/user-flow';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { SERVE_COMMAND_PORT } from './data/constants';
 import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
-import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../../../cli/tests/fixtures/budget/lh-navigation-budget';
+import { LH_CONFIG_NAME } from '../../../cli/tests/fixtures/config/lh-config';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {

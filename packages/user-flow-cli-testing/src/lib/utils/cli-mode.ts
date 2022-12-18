@@ -1,5 +1,4 @@
-import { CI_PROPERTY, CLI_MODE_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
-import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
+import { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from '@push-based/user-flow';
 
 export function setupEnvVars(env: CLI_MODES): void {
   if (env === 'DEFAULT') {
