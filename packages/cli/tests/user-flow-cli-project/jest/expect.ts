@@ -4,7 +4,7 @@ import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/u
 import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
-import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
+import { LH_CONFIG_NAME } from '../fixtures/co nfig/lh-config';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
 import { quoted, unquoted } from './utils';
