@@ -1,4 +1,4 @@
-import { ENTER } from '../../cli-testing/process';
+import { ENTER } from '@push-based/cli-testing/process';
 
 import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
 import {
