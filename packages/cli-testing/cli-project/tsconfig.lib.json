@@ -6,8 +6,8 @@
     "types": ["node"]
   },
   "paths": {
-    "@push-based/cli-testing/cli-project": [
-      "packages/cli-testing/cli-project/src/index.ts"
+    "@push-based/cli-testing/process": [
+      "packages/cli-testing/process/src/index.ts"
     ]
   },
   "include": ["**/*.ts"],
