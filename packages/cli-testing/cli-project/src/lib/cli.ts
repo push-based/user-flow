@@ -149,13 +149,6 @@ export class CliProject<RcConfig extends {}> {
             mkdirSync(dir);
           }
 
-          function base64_encode(file: string) {
-            // read binary data
-            var bitmap = readFileSync(file);
-            // convert binary data to base64 encoded string
-            return new Buffer(bitmap).toString('base64');
-          }
-
           switch (true) {
             case file.endsWith('.png'):
             case file.endsWith('.ico'):
