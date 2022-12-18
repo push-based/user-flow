@@ -3,7 +3,6 @@ import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import {
   CliProject,
-  getEnvVarsByCliModeAndDeleteOld,
   getFolderContent,
   ProcessParams
 } from '@push-based/cli-testing/cli-project';
@@ -22,6 +21,7 @@ import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
+import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
