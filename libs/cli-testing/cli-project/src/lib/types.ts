@@ -29,7 +29,7 @@ export type Project = {
   }
 
 export type FileOrFolderMap = Record<string, string | {} | undefined>;
-export type ProjectConfig<RcConfig> = {
+export type ProjectConfig<RcConfig extends {}> = {
   verbose?: boolean,
   root: string,
   bin: string,

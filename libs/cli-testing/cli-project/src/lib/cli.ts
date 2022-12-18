@@ -21,7 +21,7 @@ export function getCliProcess(processOptions: ProcessOptions, promptTestOptions:
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
-export class CliProject<RcConfig> {
+export class CliProject<RcConfig extends {}> {
 
   /**
    * A flag to add more detailed information as logs
@@ -77,7 +77,7 @@ export class CliProject<RcConfig> {
     this.verbose && console.table(...args);
   }
 
-  async _setup(cfg: ProjectConfig): Promise<void> {
+  async _setup(cfg: ProjectConfig<RcConfig>): Promise<void> {
     // global settings
     this.verbose = Boolean(cfg.verbose);
 
