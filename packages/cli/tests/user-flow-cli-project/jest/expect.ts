@@ -3,12 +3,16 @@ import { LH_CONFIG_NAME } from '../../fixtures/config/lh-config';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
+import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
+import { PROMPT_COLLECT_UF_PATH } from '../../../src/lib/commands/collect/options/ufPath.constant';
+import { PROMPT_PERSIST_OUT_PATH } from '../../../src/lib/commands/collect/options/outPath.constant';
+import { PROMPT_PERSIST_FORMAT } from '../../../src/lib/commands/collect/options/format.constant';
 
 export function expectPromptsOfInitInStdout(stdout: string) {
   expect(stdout).toContain(PROMPT_COLLECT_URL);
   expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
   expect(stdout).toContain(PROMPT_PERSIST_OUT_PATH);
-  expect(stdout).toContain(PROMPT_PERSIST_FORMAT);
+  expect(stdout).toContain(PROMPT_PERSIST_FORMA);
 }
 
 export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
