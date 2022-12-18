@@ -22,7 +22,9 @@ import { TestResult } from '../cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
-import * from '@push-based/cli-testing';
+import * as t from '@push-based/cli-testing';
+
+const tt = t;
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -40,7 +42,9 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override;
+
+  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -58,8 +62,8 @@ export class UserFlowCliProject extends CliProject {
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
         cfg.create = cfg?.create || {};
-        cfg.create['./'+rcJson.collect.ufPath] = undefined;
-        cfg.create['./'+rcJson.persist.outPath] = undefined;
+        cfg.create['./' + rcJson.collect.ufPath] = undefined;
+        cfg.create['./' + rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
@@ -67,7 +71,9 @@ export class UserFlowCliProject extends CliProject {
     return super._setup(cfg);
   }
 
-  override async teardown(): Promise<void> {
+  override;
+
+  async teardown(): Promise<void> {
     await super.teardown();
     await kill({ port: this.serveCommandPort });
   }
@@ -85,24 +91,27 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcFileName:string = DEFAULT_RC_NAME): RcJson {
+  readRcJson(rcFileName: string = DEFAULT_RC_NAME): RcJson {
     return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
   }
-  rcJsonPath(rcFileName:string = DEFAULT_RC_NAME): string {
+
+  rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
     return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
   }
-  budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
+
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
     return path.join(this.root, budgetName);
   }
 
-  readConfig(configName:string = LH_CONFIG_NAME): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME): LhConfigJson {
     return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
   }
-  configPath(configName:string = LH_CONFIG_NAME): string {
+
+  configPath(configName: string = LH_CONFIG_NAME): string {
     return path.join(this.root, configName);
   }
 
@@ -113,7 +122,8 @@ export class UserFlowCliProject extends CliProject {
     const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
   }
-  outputPath(reportName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+
+  outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
@@ -123,7 +133,7 @@ export class UserFlowCliProject extends CliProject {
     return files.map(f => ([f, fs.readFileSync(flowPath).toString('utf8')]));
   }
 
-  userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+  userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 
