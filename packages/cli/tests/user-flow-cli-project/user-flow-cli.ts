@@ -18,14 +18,10 @@ import * as fs from 'fs';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import Budget from 'lighthouse/types/lhr/budget';
-import { TestResult } from '../cli-testing/process';
+import { TestResult } from '@push-based/cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
-import * as p from '@push-based/cli-testing/process';
-
-const tt = p;
-console.log('tt', tt);
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
