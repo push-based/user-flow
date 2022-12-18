@@ -4,8 +4,6 @@ import * as path from 'path';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
-
-    // @TODO
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
       return files.map((f) => path.join(d, f));

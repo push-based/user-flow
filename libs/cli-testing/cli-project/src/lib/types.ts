@@ -1,5 +1,4 @@
 import { PromptTestOptions, TestResult } from '@push-based/cli-testing/process';
-import { RcJson } from '@push-based/user-flow';
 
 export type ProcessTestOptions = {
   bin: string
@@ -30,14 +29,14 @@ export type Project = {
   }
 
 export type FileOrFolderMap = Record<string, string | {} | undefined>;
-export type ProjectConfig = {
+export type ProjectConfig<RcConfig> = {
   verbose?: boolean,
   root: string,
   bin: string,
   // the process env of the created process
   env?: Record<string, string>,
   // files
-  rcFile?: Record<string, RcJson>,
+  rcFile?: Record<string, RcConfig>,
   delete?: string[],
   create?: FileOrFolderMap;
 }

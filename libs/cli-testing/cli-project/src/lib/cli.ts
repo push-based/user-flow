@@ -1,7 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { RcJson } from '@push-based/user-flow';
 import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '@push-based/cli-testing/process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 
@@ -22,7 +21,7 @@ export function getCliProcess(processOptions: ProcessOptions, promptTestOptions:
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
-export class CliProject {
+export class CliProject<RcConfig> {
 
   /**
    * A flag to add more detailed information as logs
@@ -57,7 +56,7 @@ export class CliProject {
   /**
    * Filenames to create e.g. in project setup
    */
-  protected rcFile: Record<string, RcJson> = {};
+  protected rcFile: Record<string, RcConfig> = {};
 
   constructor() {
   }
