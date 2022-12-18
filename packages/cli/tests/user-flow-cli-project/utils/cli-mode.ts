@@ -13,3 +13,20 @@ export function teardownEnvVars() {
   delete process.env[CI_PROPERTY];
   delete process.env[CLI_MODE_PROPERTY];
 }
+
+// @TODO: move into cli-project as it deals with env vars
+export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
+
+  if (cliMode === 'DEFAULT') {
+    delete process.env[CI_PROPERTY];
+    return {};
+  }
+
+  // CI mode value
+  let ciValue = 'true';
+  if (cliMode === 'SANDBOX') {
+    // emulate sandbox env by setting CI to SANDBOX
+    ciValue = 'SANDBOX';
+  }
+  return { [CI_PROPERTY]: ciValue };
+}

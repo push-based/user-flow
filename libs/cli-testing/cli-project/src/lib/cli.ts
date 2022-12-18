@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { RcJson } from '../../../src/lib';
+import { RcJson } from '@push-based/user-flow';
 import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '@push-based/cli-testing/process';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
 
@@ -69,6 +69,7 @@ export class CliProject {
   async wait(ms: number = 30000) {
     await new Promise(r => setTimeout(r, ms));
   }
+
   logVerbose(...args: any): void {
     this.verbose && console.log(...args);
   }
@@ -141,14 +142,15 @@ export class CliProject {
           }
         }
         if (content === undefined) {
-          !exists && mkdirSync(file, {recursive: true});
+          !exists && mkdirSync(file, { recursive: true });
         } else {
           const dir = dirname(file);
           if (!existsSync(dir)) {
             this.logVerbose(`Created dir ${dir} to save ${file}`);
             mkdirSync(dir);
           }
-          function base64_encode(file) {
+
+          function base64_encode(file: string) {
             // read binary data
             var bitmap = readFileSync(file);
             // convert binary data to base64 encoded string
@@ -158,7 +160,7 @@ export class CliProject {
           switch (true) {
             case file.endsWith('.png'):
             case file.endsWith('.ico'):
-              content = Buffer.from(content+'', "base64") as any;
+              content = Buffer.from(content + '', 'base64') as any;
               break;
             case file.endsWith('.json'):
               content = JSON.stringify(content) as any;

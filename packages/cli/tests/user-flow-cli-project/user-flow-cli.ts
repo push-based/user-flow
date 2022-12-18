@@ -1,27 +1,27 @@
+import * as fs from 'fs';
 import * as path from 'path';
+import Budget from 'lighthouse/types/lhr/budget';
 import {
   CliProject,
   getEnvVarsByCliModeAndDeleteOld,
   getFolderContent,
   ProcessParams
-} from '../cli-testing/cli-project';
+} from '@push-based/cli-testing/cli-project';
+import { TestResult } from '@push-based/cli-testing/process';
+import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
 import { getEnvPreset } from '../../src/lib/pre-set';
-import { UserFlowProjectConfig } from './types';
-import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../src/lib';
 import { InitCommandArgv } from '../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { CollectCommandArgv } from '../../src/lib/commands/collect/options/types';
-import { kill } from './utils/kill';
-import { SERVE_COMMAND_PORT } from './data/constants';
-import * as fs from 'fs';
-import { DEFAULT_RC_NAME } from '../../src/lib/constants';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
-import Budget from 'lighthouse/types/lhr/budget';
-import { TestResult } from '@push-based/cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
+import { SERVE_COMMAND_PORT } from './data/constants';
+import { kill } from './utils/kill';
+import { UserFlowProjectConfig } from './types';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
-import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -39,7 +39,9 @@ export class UserFlowCliProject extends CliProject {
     super();
   }
 
-  override async _setup(cfg: UserFlowProjectConfig): Promise<void> {
+  override;
+
+  async _setup(cfg: UserFlowProjectConfig): Promise<void> {
     cfg.delete = (cfg?.delete || []);
     cfg.create = (cfg?.create || {});
     // if no value is provided we add the default rc file to the map
@@ -66,7 +68,9 @@ export class UserFlowCliProject extends CliProject {
     return super._setup(cfg);
   }
 
-  override async teardown(): Promise<void> {
+  override;
+
+  async teardown(): Promise<void> {
     await super.teardown();
     await kill({ port: this.serveCommandPort });
   }
