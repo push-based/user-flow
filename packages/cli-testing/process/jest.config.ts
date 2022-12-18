@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/cli-testing/process',
+  coverageDirectory: '../../../coverage/packages/cli-testing/process',
 };
