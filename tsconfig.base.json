@@ -17,10 +17,10 @@
     "paths": {
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
       "@push-based/cli-testing/cli-project": [
-        "libs/cli-testing/cli-project/src/index.ts"
+        "packages/cli-testing/cli-project/src/index.ts"
       ],
       "@push-based/cli-testing/process": [
-        "libs/cli-testing/process/src/index.ts"
+        "packages/cli-testing/process/src/index.ts"
       ],
       "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
       "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
