@@ -1,31 +1,31 @@
 {
   "name": "packages-cli-testing",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/packages/cli-testing/src",
+  "sourceRoot": "packages/cli-testing/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/packages/cli-testing",
-        "main": "libs/packages/cli-testing/src/index.ts",
-        "tsConfig": "libs/packages/cli-testing/tsconfig.lib.json",
-        "assets": ["libs/packages/cli-testing/*.md"]
+        "outputPath": "dist/packages/cli-testing",
+        "main": "packages/cli-testing/src/index.ts",
+        "tsConfig": "packages/cli-testing/tsconfig.lib.json",
+        "assets": ["packages/cli-testing/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/packages/cli-testing/**/*.ts"]
+        "lintFilePatterns": ["packages/cli-testing/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/packages/cli-testing/jest.config.ts",
+        "jestConfig": "packages/cli-testing/jest.config.ts",
         "passWithNoTests": true
       }
     }
