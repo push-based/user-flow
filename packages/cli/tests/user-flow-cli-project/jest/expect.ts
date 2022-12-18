@@ -1,14 +1,8 @@
-import { RcJson } from '../../src/lib';
-import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
-import { DEFAULT_RC_NAME } from '../../src/lib/constants';
-import { LH_CONFIG_NAME } from '../fixtures/co nfig/lh-config';
+import { UserFlowCliProject } from '../user-flow-cli';
+import { LH_CONFIG_NAME } from '../../fixtures/config/lh-config';
+import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
 import { SETUP_CONFIRM_MESSAGE } from '../../../src/lib/commands/init/constants';
-import { quoted, unquoted } from './utils';
-import { UserFlowCliProject } from '../user-flow-cli';
 
 export function expectPromptsOfInitInStdout(stdout: string) {
   expect(stdout).toContain(PROMPT_COLLECT_URL);
