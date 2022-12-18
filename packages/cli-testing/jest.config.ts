@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'cli-testing-cli-project',
+  displayName: 'packages-cli-testing',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/packages/cli-testing/cli-project',
+  coverageDirectory: '../../../coverage/libs/packages/cli-testing',
 };
