@@ -1,5 +1,5 @@
 {
-  "name": "@user-flow/cli-testing/process",
+  "name": "@push-based/cli-testing",
   "version": "0.0.1",
   "type": "commonjs"
 }
