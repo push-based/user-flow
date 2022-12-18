@@ -20,14 +20,6 @@
       "options": {
         "lintFilePatterns": ["packages/cli-testing/**/*.ts"]
       }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/cli-testing/jest.config.ts",
-        "passWithNoTests": true
-      }
     }
   },
   "tags": []
