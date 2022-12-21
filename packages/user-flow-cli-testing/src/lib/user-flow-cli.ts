@@ -17,8 +17,7 @@ import { SERVE_COMMAND_PORT } from './data/constants';
 import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
 import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../../../cli/tests/fixtures/budget/lh-navigation-budget';
-import { LH_CONFIG_NAME } from '../../../cli/tests/fixtures/config/lh-config';
+import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT,LH_CONFIG_NAME_DEFAULT } from './constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -52,11 +51,13 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     // handle user-flow related output folders defined in rcFiles and related configurations
     // the rc file creation is done in the CliProject class
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
-      Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
+      Object.entries(cfg.rcFile).forEach(([_, rcJson]) => {
+        const ufPath: string = (rcJson as RcJson).collect.ufPath;
+        const outPath: string = (rcJson as RcJson).persist.outPath;
         cfg.create = cfg?.create || {};
-        cfg.create['./' + rcJson.collect.ufPath] = undefined;
-        cfg.create['./' + rcJson.persist.outPath] = undefined;
-        cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
+        cfg.create['./' + ufPath] = undefined;
+        cfg.create['./' + outPath] = undefined;
+        cfg.delete = cfg?.delete?.concat([ufPath, outPath]) || [];
       });
     }
     this.logVerbose('Cfg after user-flow operations: ', cfg);
@@ -89,22 +90,21 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): Budget[] {
     return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
   }
 
-  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): string {
     return path.join(this.root, budgetName);
   }
 
-  readConfig(configName: string = LH_CONFIG_NAME): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
     return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
   }
 
-  configPath(configName: string = LH_CONFIG_NAME): string {
+  configPath(configName: string = LH_CONFIG_NAME_DEFAULT): string {
     return path.join(this.root, configName);
   }
-
 
   readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
     const outputFiles = fs.readdirSync(this.outputPath());
