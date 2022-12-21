@@ -5,6 +5,11 @@
     "declaration": true,
     "types": ["node"]
   },
+  "paths": {
+    "@push-based/user-flow": [
+      "packages/cli/src/index.ts"
+    ]
+  },
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
 }
