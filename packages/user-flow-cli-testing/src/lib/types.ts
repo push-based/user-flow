@@ -1,4 +1,4 @@
-import { ExecFn, Project, ProjectConfig } from '@push-based/cli-testing/cli-project';
+import { ExecFn, Project, ProjectConfig } from '@push-based/cli-testing';
 import { CLI_MODES, CollectCommandArgv, GlobalOptionsArgv, InitCommandArgv, RcJson } from '@push-based/user-flow';
 
 export type UserFlowProject = Project & {
