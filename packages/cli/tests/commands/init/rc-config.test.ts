@@ -1,6 +1,6 @@
 import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
 import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
-import { ENTER } from '../../cli-testing/process/keyboard';
+import { ENTER } from '@push-based/cli-testing/process';
 import {
   CLI_DEFAULT_RC_JSON,
   SANDBOX_BASE_RC_JSON,

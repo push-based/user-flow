@@ -1,13 +1,9 @@
 import * as fs from 'fs';
 import { ProcessParams } from './types';
-import { CLI_MODES } from '../../../src/lib/global/cli-mode/types';
-import { CI_PROPERTY } from '../../../src/lib/global/cli-mode/cli-mode';
 import * as path from 'path';
 
 export function getFolderContent(folders: string[]): string[] {
   return folders.flatMap((d) => {
-
-    // @TODO
     if (fs.existsSync(d)) {
       const files = fs.readdirSync(d);
       return files.map((f) => path.join(d, f));
@@ -49,19 +45,3 @@ export function processParamsToParamsArray(params: ProcessParams): string[] {
   }) as string[];
 }
 
-// @TODO: move into cli-project as it deals with env vars
-export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
-
-  if (cliMode === 'DEFAULT') {
-    delete process.env[CI_PROPERTY];
-    return {};
-  }
-
-  // CI mode value
-  let ciValue = 'true';
-  if (cliMode === 'SANDBOX') {
-    // emulate sandbox env by setting CI to SANDBOX
-    ciValue = 'SANDBOX';
-  }
-  return { [CI_PROPERTY]: ciValue };
-}

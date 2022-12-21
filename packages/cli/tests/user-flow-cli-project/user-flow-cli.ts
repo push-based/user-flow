@@ -1,27 +1,27 @@
+import * as fs from 'fs';
 import * as path from 'path';
+import Budget from 'lighthouse/types/lhr/budget';
 import {
   CliProject,
-  getEnvVarsByCliModeAndDeleteOld,
   getFolderContent,
   ProcessParams
-} from '../cli-testing/cli-project';
+} from '@push-based/cli-testing/cli-project';
+import { TestResult } from '@push-based/cli-testing/process';
+import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
 import { getEnvPreset } from '../../src/lib/pre-set';
-import { UserFlowProjectConfig } from './types';
-import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { RcJson } from '../../src/lib';
 import { InitCommandArgv } from '../../src/lib/commands/init/options/types';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { CollectCommandArgv } from '../../src/lib/commands/collect/options/types';
-import { kill } from './utils/kill';
-import { SERVE_COMMAND_PORT } from './data/constants';
-import * as fs from 'fs';
-import { DEFAULT_RC_NAME } from '../../src/lib/constants';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
-import Budget from 'lighthouse/types/lhr/budget';
-import { TestResult } from '../cli-testing/process';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
+import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
+import { SERVE_COMMAND_PORT } from './data/constants';
+import { kill } from './utils/kill';
+import { UserFlowProjectConfig } from './types';
+import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
 import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
-import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
+import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -31,7 +31,7 @@ export class UserFlowCliProjectFactory {
   }
 }
 
-export class UserFlowCliProject extends CliProject {
+export class UserFlowCliProject extends CliProject<RcJson> {
   envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
 
@@ -57,8 +57,8 @@ export class UserFlowCliProject extends CliProject {
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
       Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
         cfg.create = cfg?.create || {};
-        cfg.create['./'+rcJson.collect.ufPath] = undefined;
-        cfg.create['./'+rcJson.persist.outPath] = undefined;
+        cfg.create['./' + rcJson.collect.ufPath] = undefined;
+        cfg.create['./' + rcJson.persist.outPath] = undefined;
         cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
       });
     }
@@ -84,24 +84,27 @@ export class UserFlowCliProject extends CliProject {
     return this.exec(prcParams, userInput);
   }
 
-  readRcJson(rcFileName:string = DEFAULT_RC_NAME): RcJson {
+  readRcJson(rcFileName: string = DEFAULT_RC_NAME): RcJson {
     return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
   }
-  rcJsonPath(rcFileName:string = DEFAULT_RC_NAME): string {
+
+  rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
     return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
   }
-  budgetPath(budgetName:string = LH_NAVIGATION_BUDGETS_NAME): string {
+
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
     return path.join(this.root, budgetName);
   }
 
-  readConfig(configName:string = LH_CONFIG_NAME): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME): LhConfigJson {
     return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
   }
-  configPath(configName:string = LH_CONFIG_NAME): string {
+
+  configPath(configName: string = LH_CONFIG_NAME): string {
     return path.join(this.root, configName);
   }
 
@@ -112,7 +115,8 @@ export class UserFlowCliProject extends CliProject {
     const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
     return reportName.includes('.json') ? JSON.parse(content) : content;
   }
-  outputPath(reportName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+
+  outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
@@ -122,7 +126,7 @@ export class UserFlowCliProject extends CliProject {
     return files.map(f => ([f, fs.readFileSync(flowPath).toString('utf8')]));
   }
 
-  userFlowPath(userFlowName: string = '', rcFileName:string = DEFAULT_RC_NAME): string {
+  userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
     return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 

@@ -1,9 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { CliProcess, FileOrFolderMap, ProcessParams, ProcessTestOptions, ProjectConfig } from './types';
-import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../process';
+import { ProcessOptions, PromptTestOptions, testProcessE2e, TestResult } from '../../../process/src/index';
 import { deleteFileOrFolder, processParamsToParamsArray } from './utils';
-import { RcJson } from '../../../src/lib';
 
 /**
  * A closure for the testProcessE2e function to seperate process configuration and testing config from test data.
@@ -22,7 +21,7 @@ export function getCliProcess(processOptions: ProcessOptions, promptTestOptions:
 /**
  * A helper class to manage an project structure for a yargs based CLI
  */
-export class CliProject {
+export class CliProject<RcConfig extends {}> {
 
   /**
    * A flag to add more detailed information as logs
@@ -57,7 +56,7 @@ export class CliProject {
   /**
    * Filenames to create e.g. in project setup
    */
-  protected rcFile: Record<string, RcJson> = {};
+  protected rcFile: Record<string, RcConfig> = {};
 
   constructor() {
   }
@@ -69,6 +68,7 @@ export class CliProject {
   async wait(ms: number = 30000) {
     await new Promise(r => setTimeout(r, ms));
   }
+
   logVerbose(...args: any): void {
     this.verbose && console.log(...args);
   }
@@ -77,7 +77,7 @@ export class CliProject {
     this.verbose && console.table(...args);
   }
 
-  async _setup(cfg: ProjectConfig): Promise<void> {
+  async _setup(cfg: ProjectConfig<RcConfig>): Promise<void> {
     // global settings
     this.verbose = Boolean(cfg.verbose);
 
@@ -141,24 +141,18 @@ export class CliProject {
           }
         }
         if (content === undefined) {
-          !exists && mkdirSync(file, {recursive: true});
+          !exists && mkdirSync(file, { recursive: true });
         } else {
           const dir = dirname(file);
           if (!existsSync(dir)) {
             this.logVerbose(`Created dir ${dir} to save ${file}`);
             mkdirSync(dir);
           }
-          function base64_encode(file) {
-            // read binary data
-            var bitmap = readFileSync(file);
-            // convert binary data to base64 encoded string
-            return new Buffer(bitmap).toString('base64');
-          }
 
           switch (true) {
             case file.endsWith('.png'):
             case file.endsWith('.ico'):
-              content = Buffer.from(content+'', "base64") as any;
+              content = Buffer.from(content + '', 'base64') as any;
               break;
             case file.endsWith('.json'):
               content = JSON.stringify(content) as any;

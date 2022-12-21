@@ -10,16 +10,39 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@push-based/user-flow": ["packages/cli/src/index.ts"],
-      "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
-      "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
-      "user-flow-example": ["packages/user-flow-example/src/index.ts"]
+      "@push-based/cli-testing": [
+        "packages/cli-testing/src/index.ts"
+      ],
+      "@push-based/cli-testing/process": [
+        "packages/cli-testing/process/src/index.ts"
+      ],
+      "@push-based/cli-testing/cli-project": [
+        "packages/cli-testing/cli-project/src/index.ts"
+      ],
+      "@push-based/user-flow": [
+        "packages/cli/src/index.ts"
+      ],
+      "sandbox-empty": [
+        "packages/sandbox-empty/src/index.ts"
+      ],
+      "sandbox-setup": [
+        "packages/sandbox-setup/src/index.ts"
+      ],
+      "user-flow-example": [
+        "packages/user-flow-example/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
