@@ -1,4 +1,4 @@
-import { UserFlowCliProject } from '../user-flow-cli';
+import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
 
 export function expectCollectCommandNotToCreateLogsFromMockInStdout(
   prj: UserFlowCliProject,

@@ -23,7 +23,7 @@
         "packages/cli-testing/process/src/index.ts"
       ],
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
-      "@user-flow/user-flow-cli-testing": [
+      "@push-based/user-flow-cli-testing": [
         "packages/user-flow-cli-testing/src/index.ts"
       ],
       "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
