@@ -1,3 +1,4 @@
+export * from '../test/jest/expect.collect.budget';
 export * from './lib/constants';
 export * from './lib/types';
 export * from './lib/utils/cli-mode';

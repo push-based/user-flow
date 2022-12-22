@@ -12,7 +12,7 @@ import {
   expectBudgetsUsageLog,
   expectNoBudgetsFileExistLog,
   expectResultsToIncludeBudgets
-} from '../../jest';
+} from '@push-based/user-flow-cli-testing';
 
 let staticPrj: UserFlowCliProject;
 
