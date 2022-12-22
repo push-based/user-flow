@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.13.0](https://github.com/push-based/user-flow/compare/cli-0.12.0...cli-0.13.0) (2022-12-22)
+
+
+### Features
+
+* intro user-flow-cli-testing lib ([#170](https://github.com/push-based/user-flow/issues/170)) ([79a7aeb](https://github.com/push-based/user-flow/commit/79a7aeb67a23cbb72ead6ec9167f3781f8d1448f))
+
+
+
 # [0.12.0](https://github.com/push-based/user-flow/compare/cli-0.11.1...cli-0.12.0) (2022-12-21)
 
 
