@@ -1,10 +1,10 @@
 import { SANDBOX_PRESET } from '../../src/lib/pre-set';
 import { getGlobalOptionsFromArgv } from '../../src/lib/global/utils';
 import { getInitCommandOptionsFromArgv } from '../../src/lib/commands/init/utils';
-import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig } from '../user-flow-cli-project';
+import { UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig } from '@push-based/user-flow-cli-testing';
 import { EMPTY_PRJ_CFG } from '../fixtures/sandbox/empty';
-import { expectGlobalOptionsToBeContainedInStdout } from '../user-flow-cli-project/jest/expect';
-import { expectInitOptionsToBeContainedInStdout } from '../user-flow-cli-project/jest/expect.init';
+import { expectGlobalOptionsToBeContainedInStdout } from '../jest';
+import { expectInitOptionsToBeContainedInStdout } from '../jest';
 
 let emptyPrjSandbox: UserFlowCliProject;
 

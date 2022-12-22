@@ -6,7 +6,7 @@ import {
   SANDBOX_BASE_RC_JSON,
   UserFlowCliProject,
   UserFlowCliProjectFactory
-} from '../../user-flow-cli-project';
+} from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
@@ -14,8 +14,7 @@ import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
-import { expectOutputRcInStdout} from '../../user-flow-cli-project/jest/expect';
-import { expectPromptsOfInitInStdout } from '../../user-flow-cli-project/jest/expect.init';
+import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;

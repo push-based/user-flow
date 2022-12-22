@@ -1,27 +1,23 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
+import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/cli-testing';
 import {
-  CliProject,
-  getFolderContent,
-  ProcessParams
-} from '@push-based/cli-testing/cli-project';
-import { TestResult } from '@push-based/cli-testing/process';
-import { LhConfigJson } from '../../src/lib/hacky-things/lighthouse';
-import { getEnvPreset } from '../../src/lib/pre-set';
-import { RcJson } from '../../src/lib';
-import { InitCommandArgv } from '../../src/lib/commands/init/options/types';
-import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
-import { CollectCommandArgv } from '../../src/lib/commands/collect/options/types';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { DEFAULT_RC_NAME } from '../../src/lib/constants';
+  CollectCommandArgv,
+  DEFAULT_PERSIST_OUT_PATH,
+  DEFAULT_RC_NAME,
+  getEnvPreset,
+  GlobalOptionsArgv,
+  InitCommandArgv,
+  LhConfigJson,
+  RcJson
+} from '@push-based/user-flow';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { SERVE_COMMAND_PORT } from './data/constants';
 import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
-import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
 import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
+import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT,LH_CONFIG_NAME_DEFAULT } from './constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -55,11 +51,13 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     // handle user-flow related output folders defined in rcFiles and related configurations
     // the rc file creation is done in the CliProject class
     if (typeof cfg.rcFile === 'object' && Object.entries(cfg.rcFile).length > 0) {
-      Object.entries(cfg.rcFile).forEach(([_, rcJson]: [string, RcJson]) => {
+      Object.entries(cfg.rcFile).forEach(([_, rcJson]) => {
+        const ufPath: string = (rcJson as RcJson).collect.ufPath;
+        const outPath: string = (rcJson as RcJson).persist.outPath;
         cfg.create = cfg?.create || {};
-        cfg.create['./' + rcJson.collect.ufPath] = undefined;
-        cfg.create['./' + rcJson.persist.outPath] = undefined;
-        cfg.delete = cfg?.delete?.concat([rcJson.collect.ufPath, rcJson.persist.outPath]) || [];
+        cfg.create['./' + ufPath] = undefined;
+        cfg.create['./' + outPath] = undefined;
+        cfg.delete = cfg?.delete?.concat([ufPath, outPath]) || [];
       });
     }
     this.logVerbose('Cfg after user-flow operations: ', cfg);
@@ -74,7 +72,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
-    this.deleteFiles.push(processParams?.rcPath || this.envPreset?.rcPath);
+    this.deleteFiles.push(prcParams['rcPath'] || this.envPreset?.rcPath);
 
     return this.exec(prcParams, userInput);
   }
@@ -92,22 +90,21 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return path.join(this.root, rcFileName);
   }
 
-  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): Budget[] {
+  readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): Budget[] {
     return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
   }
 
-  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME): string {
+  budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): string {
     return path.join(this.root, budgetName);
   }
 
-  readConfig(configName: string = LH_CONFIG_NAME): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
     return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
   }
 
-  configPath(configName: string = LH_CONFIG_NAME): string {
+  configPath(configName: string = LH_CONFIG_NAME_DEFAULT): string {
     return path.join(this.root, configName);
   }
-
 
   readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
     const outputFiles = fs.readdirSync(this.outputPath());

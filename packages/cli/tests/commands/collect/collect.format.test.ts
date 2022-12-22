@@ -1,11 +1,11 @@
-import { UserFlowCliProject, UserFlowCliProjectFactory } from '../../user-flow-cli-project';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import {
   expectCollectCommandCreatesHtmlReport,
   expectCollectCommandCreatesJsonReport,
   expectCollectCommandCreatesMdReport,
   expectCollectLogsReport
-} from '../../user-flow-cli-project/jest/expect.collect.format';
+} from '../../jest';
 import { STATIC_JSON_REPORT_NAME, STATIC_MD_REPORT_NAME } from '../../fixtures/rc-files/static';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 

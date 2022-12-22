@@ -1,6 +1,7 @@
 import { LhConfigJson } from '../../../src/lib/hacky-things/lighthouse';
+import { LH_CONFIG_NAME_DEFAULT } from '@push-based/user-flow-cli-testing';
 
-export const LH_CONFIG_NAME = 'config.json';
+export const LH_CONFIG_NAME = LH_CONFIG_NAME_DEFAULT;
 export const LH_CONFIG: LhConfigJson = {
   extends: 'lighthouse:default',
   settings: {

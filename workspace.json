@@ -5,6 +5,7 @@
     "cli-testing": "packages/cli-testing",
     "sandbox-empty": "packages/sandbox-empty",
     "sandbox-setup": "packages/sandbox-setup",
+    "user-flow-cli-testing": "packages/user-flow-cli-testing",
     "user-flow-example": "packages/user-flow-example"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
