@@ -12,7 +12,13 @@
         "main": "packages/user-flow-cli-testing/src/index.ts",
         "tsConfig": "packages/user-flow-cli-testing/tsconfig.lib.json",
         "assets": ["packages/user-flow-cli-testing/*.md"]
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

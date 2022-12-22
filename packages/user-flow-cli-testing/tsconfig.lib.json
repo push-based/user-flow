@@ -8,6 +8,9 @@
       "@push-based/cli-testing": [
         "dist/packages/cli-testing"
       ],
+      "@push-based/user-flow": [
+        "dist/packages/user-flow"
+      ],
     }
   },
   "include": ["**/*.ts"],
