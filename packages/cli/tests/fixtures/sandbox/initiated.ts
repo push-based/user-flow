@@ -1,6 +1,5 @@
-import { UserFlowProjectConfig } from '../../user-flow-cli-project/types';
+import { UserFlowProjectConfig, SANDBOX_BASE_RC_JSON } from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { SANDBOX_BASE_RC_JSON } from '../../user-flow-cli-project/data/user-flowrc.base';
 import { join } from 'path';
 import { BASIC_NAVIGATION_USERFLOW_CONTENT, BASIC_NAVIGATION_USERFLOW_NAME } from '../user-flows/initialized.uf';
 import { EMPTY_SANDBOX_BIN } from './empty';

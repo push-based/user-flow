@@ -5,7 +5,7 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
-} from '../../../../../../tests/user-flow-cli-project';
+} from '@push-based/user-flow-cli-testing';
 import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
 import {
   VALIDE_EXAMPLE_USERFLOW_CONTENT,
