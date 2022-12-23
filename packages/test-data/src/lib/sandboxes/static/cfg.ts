@@ -1,5 +1,4 @@
-import { UserFlowProjectConfig } from '@push-based/user-flow-cli-testing';
-import { DEFAULT_RC_NAME } from '@push-based/user-flow';
+import { UserFlowProjectConfig,DEFAULT_RC_NAME } from '@push-based/user-flow-cli-testing';
 import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from './rc';
 import { STATIC_USERFLOW_CONTENT } from './flow1.uf';
 import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from '../initialized/cfg';

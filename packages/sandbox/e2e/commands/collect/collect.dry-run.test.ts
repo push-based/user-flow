@@ -1,6 +1,5 @@
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { STATIC_USERFLOW_NAME } from '../../fixtures/user-flows/static.uf';
+import { STATIC_PRJ_CFG, STATIC_USERFLOW_NAME } from 'test-data';
 import { expectCollectLogsFromMockInStdout } from '../../jest';
 
 let staticPrj: UserFlowCliProject;

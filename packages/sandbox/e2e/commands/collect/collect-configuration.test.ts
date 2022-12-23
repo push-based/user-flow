@@ -1,6 +1,5 @@
 import { CollectArgvOptions, GlobalOptionsArgv, SANDBOX_PRESET } from '@push-based/user-flow';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
+import { INITIATED_PRJ_CFG, REMOTE_RC_JSON } from 'test-data';
 import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { expectCollectCfgToContain } from '../../jest';
 
@@ -23,6 +22,7 @@ describe('collect command configuration in setup sandbox', () => {
 
     const { rcPath, interactive, verbose, ...collectOptions }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
     // @TODO implement format
+    // @ts-ignore
     delete collectOptions['format'];
     expectCollectCfgToContain(stdout, collectOptions);
     expect(stderr).toBe('');

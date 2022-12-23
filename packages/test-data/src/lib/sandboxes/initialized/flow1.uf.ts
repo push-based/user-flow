@@ -1,11 +1,5 @@
 export const BASIC_NAVIGATION_USERFLOW_NAME = 'basic-navigation.uf.ts';
 export const BASIC_NAVIGATION_USERFLOW_CONTENT = `
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider,
-} from '@push-based/user-flow';
-
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext

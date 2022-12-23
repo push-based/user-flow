@@ -4,9 +4,13 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
+import {
+  LH_NAVIGATION_BUDGETS,
+  LH_NAVIGATION_BUDGETS_NAME,
+  STATIC_JSON_REPORT_NAME,
+  STATIC_PRJ_CFG,
+  STATIC_RC_JSON
+} from 'test-data';
 import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';
 

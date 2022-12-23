@@ -1,13 +1,17 @@
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
+import {
+  STATIC_JSON_REPORT_NAME,
+  STATIC_MD_REPORT_NAME,
+  STATIC_PRJ_CFG,
+  STATIC_USERFLOW_NAME,
+  STATIC_USERFLOW_TITLE
+} from 'test-data';
 import {
   expectCollectCommandCreatesHtmlReport,
   expectCollectCommandCreatesJsonReport,
   expectCollectCommandCreatesMdReport,
   expectCollectLogsReport
 } from '../../jest';
-import { STATIC_JSON_REPORT_NAME, STATIC_MD_REPORT_NAME } from '../../fixtures/rc-files/static';
-import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../../fixtures/user-flows/static.uf';
 
 let setupRemotePrj: UserFlowCliProject;
 

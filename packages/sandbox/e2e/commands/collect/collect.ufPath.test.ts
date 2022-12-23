@@ -1,8 +1,5 @@
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory
-} from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
+import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
+import { STATIC_PRJ_CFG } from 'test-data';
 
 let staticPrj: UserFlowCliProject;
 const ufStaticName = 'Sandbox Setup StaticDist';

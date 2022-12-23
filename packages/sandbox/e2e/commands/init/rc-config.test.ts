@@ -1,16 +1,12 @@
 import { DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL } from '@push-based/user-flow';
-import { ENTER } from '@push-based/cli-testing/process';
 import {
   CLI_DEFAULT_RC_JSON,
+  ENTER,
   SANDBOX_BASE_RC_JSON,
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
-import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
-import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON } from 'test-data';
 import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
 
 let emptyPrj: UserFlowCliProject;

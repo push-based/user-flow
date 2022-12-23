@@ -1,5 +1,5 @@
-import { LhConfigJson } from '@push-based/user-flow';
-import { LH_CONFIG_NAME_DEFAULT } from '@push-based/user-flow-cli-testing';
+import { LhConfigJson } from '@push-based/user-flow-cli-testing';
+import { LH_CONFIG_NAME_DEFAULT } from './constants';
 
 export const LH_CONFIG_NAME = LH_CONFIG_NAME_DEFAULT;
 export const LH_CONFIG: LhConfigJson = {
