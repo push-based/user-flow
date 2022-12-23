@@ -1,8 +1,8 @@
 import { SANDBOX_BASE_RC_JSON, UserFlowProjectConfig } from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import { join } from 'path';
-import { BASIC_NAVIGATION_USERFLOW_CONTENT, BASIC_NAVIGATION_USERFLOW_NAME } from '../user-flows/initialized.uf';
-import { EMPTY_SANDBOX_BIN } from './empty';
+import { BASIC_NAVIGATION_USERFLOW_CONTENT, BASIC_NAVIGATION_USERFLOW_NAME } from 'test-data';
+import { EMPTY_SANDBOX_BIN } from '../empty/cfg';
 
 export const INITIATED_PRJ_NAME = 'sandbox';
 export const INITIATED_PRJ_ROOT = join(__dirname, '..', '..', '..', '..', INITIATED_PRJ_NAME);

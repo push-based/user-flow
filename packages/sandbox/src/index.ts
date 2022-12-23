@@ -1,1 +1,1 @@
-export * from './lib/sandbox';
+export const dummy = 42;

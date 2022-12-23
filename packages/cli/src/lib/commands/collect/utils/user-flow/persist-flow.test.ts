@@ -4,8 +4,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import { getReportContent } from '../../../../../../test-data/raw-reports';
+import { getReportContent } from 'test-data';
 import { PersistFlowOptions } from './types';
 import { dateToIsoLikeString, toReportName } from './utils';
 
@@ -15,7 +14,8 @@ const htmlReport = getReportContent('lhr-9.html') as string;
 // @TODO merge into user-flow.mock in src folder
 export class UserFlowReportMock {
   protected name: string = '';
-  constructor(options: {name: string}) {
+
+  constructor(options: { name: string }) {
     this.name = options.name;
   }
 
@@ -55,7 +55,7 @@ const isoStartDate = dateToIsoLikeString(new Date());
 const flowName = `flow-example-name`;
 const flowFileName = toReportName(url, flowName, jsonReport.steps[0].lhr.fetchTime);
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
-const flow = new UserFlowReportMock({name: flowName});
+const flow = new UserFlowReportMock({ name: flowName });
 
 let originalCwd = process.cwd();
 

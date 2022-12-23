@@ -6,6 +6,7 @@
     "sandbox": "packages/sandbox",
     "sandbox-empty": "packages/sandbox-empty",
     "sandbox-setup": "packages/sandbox-setup",
+    "test-data": "packages/test-data",
     "user-flow-cli-testing": "packages/user-flow-cli-testing",
     "user-flow-example": "packages/user-flow-example"
   },

@@ -1,4 +1,4 @@
-import { LhConfigJson } from '../../../src/lib/hacky-things/lighthouse';
+import { LhConfigJson } from '@push-based/user-flow';
 import { LH_CONFIG_NAME_DEFAULT } from '@push-based/user-flow-cli-testing';
 
 export const LH_CONFIG_NAME = LH_CONFIG_NAME_DEFAULT;
