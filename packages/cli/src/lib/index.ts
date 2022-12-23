@@ -1,3 +1,8 @@
+export { PROMPT_COLLECT_URL } from './commands/collect/options/url.constant';
+export { ERROR_PERSIST_FORMAT_WRONG } from './commands/collect/options/format.constant';
+export { CollectArgvOptions } from './commands/collect/options/types';
+export { getInitCommandOptionsFromArgv } from './commands/init/utils';
+export { getGlobalOptionsFromArgv } from './global/utils';
 export { UserFlowMock } from './commands/collect/utils/user-flow/user-flow.mock';
 export { Ufo } from './ufo/ufo';
 export {
@@ -8,7 +13,7 @@ export { MeasureModes } from './commands/collect/utils/replay/types';
 export { RcJson } from './types';
 export { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode';
 export { LhConfigJson } from './hacky-things/lighthouse';
-export { getEnvPreset } from './pre-set';
+export { getEnvPreset, SANDBOX_PRESET,CI_PRESET, DEFAULT_PRESET } from './pre-set';
 export { InitCommandArgv } from './commands/init/options/types';
 export { GlobalOptionsArgv } from './global/options/types';
 export { CollectCommandArgv } from './commands/collect/options/types';

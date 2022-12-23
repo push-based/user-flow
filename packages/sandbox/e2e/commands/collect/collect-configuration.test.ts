@@ -1,6 +1,4 @@
-import { GlobalOptionsArgv } from '../../../src/lib/global/options/types';
-import { CollectArgvOptions } from '../../../src/lib/commands/collect/options/types';
-import { SANDBOX_PRESET } from '../../../src/lib/pre-set';
+import { CollectArgvOptions, GlobalOptionsArgv, SANDBOX_PRESET } from '@push-based/user-flow';
 import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
 import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
 import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';

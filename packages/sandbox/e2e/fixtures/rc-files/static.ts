@@ -1,5 +1,5 @@
-import { RcJson } from '../../../src/lib';
-import { SERVE_COMMAND_PORT, SANDBOX_BASE_RC_JSON } from '@push-based/user-flow-cli-testing';
+import { RcJson } from '@push-based/user-flow';
+import { SANDBOX_BASE_RC_JSON, SERVE_COMMAND_PORT } from '@push-based/user-flow-cli-testing';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from '../user-flows/static.uf';
 import * as path from 'path';
 

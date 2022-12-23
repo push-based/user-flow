@@ -1,4 +1,4 @@
-import { RcJson } from '../../../src/lib';
+import { RcJson } from '@push-based/user-flow';
 import { SANDBOX_BASE_RC_JSON } from '@push-based/user-flow-cli-testing';
 import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from '../user-flows/remote.uf';
 import * as path from 'path';

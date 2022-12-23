@@ -1,4 +1,5 @@
 import {
+  LH_NAVIGATION_BUDGETS_NAME_DEFAULT,
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
@@ -6,9 +7,8 @@ import {
 import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
 import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
 import { LH_NAVIGATION_BUDGETS, LH_NAVIGATION_BUDGETS_NAME } from '../../fixtures/budget/lh-navigation-budget';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';
-import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT } from '@push-based/user-flow-cli-testing';
 
 export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);

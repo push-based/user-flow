@@ -1,5 +1,5 @@
 import { UserFlowProjectConfig } from '@push-based/user-flow-cli-testing';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import { REMOTE_RC_JSON, REMOTE_USERFLOW_PATH } from '../rc-files/remote';
 import { REMOTE_USERFLOW_CONTENT } from '../user-flows/remote.uf';
 import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from './initiated';
