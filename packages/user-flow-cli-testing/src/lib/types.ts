@@ -6,7 +6,8 @@ export {
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider,
-  LhConfigJson
+  LhConfigJson,
+  ReportFormat
 } from '@push-based/user-flow';
 
 export type UserFlowProject = Project & {

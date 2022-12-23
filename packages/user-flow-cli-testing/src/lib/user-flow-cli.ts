@@ -5,7 +5,6 @@ import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-b
 import {
   CollectCommandArgv,
   DEFAULT_PERSIST_OUT_PATH,
-  DEFAULT_RC_NAME,
   getEnvPreset,
   GlobalOptionsArgv,
   InitCommandArgv,

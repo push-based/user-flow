@@ -10,7 +10,7 @@
       ],
       "@push-based/user-flow": [
         "dist/packages/user-flow"
-      ],
+      ]
     }
   },
   "include": ["**/*.ts"],

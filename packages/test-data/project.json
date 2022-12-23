@@ -4,7 +4,7 @@
   "sourceRoot": "packages/test-data/src",
   "projectType": "library",
   "targets": {
-    "build": {
+    "_build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -19,14 +19,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/test-data/**/*.ts"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/test-data/jest.config.ts",
-        "passWithNoTests": true
       }
     }
   },

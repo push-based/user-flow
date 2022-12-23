@@ -4,7 +4,7 @@
   "sourceRoot": "packages/sandbox/src",
   "projectType": "library",
   "targets": {
-    "build": {
+    "_build": {
       "executor": "@nrwl/js:tsc",
       "outputs": [
         "{options.outputPath}"
@@ -16,13 +16,7 @@
         "assets": [
           "packages/sandbox/*.md"
         ]
-      },
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -43,7 +37,13 @@
       "options": {
         "jestConfig": "packages/sandbox/jest.config.ts",
         "passWithNoTests": true
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     }
   },
   "tags": []
