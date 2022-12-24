@@ -3,6 +3,7 @@ import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
 import { loadFlow } from './load-flow';
 import {
   INITIATED_PRJ_CFG,
+  INITIATED_RC_JSON,
   VALIDE_EXAMPLE_USERFLOW_CONTENT,
   VALIDE_EXAMPLE_USERFLOW_NAME,
   WRONG_EXT_USERFLOW_CONTENT,
@@ -15,19 +16,16 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { DEFAULT_RC_NAME } from '../../../../constants';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
-import { RcJson } from '@push-based/user-flow';
 
-const rcFile = INITIATED_PRJ_CFG?.rcFile;
-const rcJson = rcFile[DEFAULT_RC_NAME] as unknown as RcJson;
-const prjRelativeOutPath = rcJson?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
+
+const prjRelativeOutPath = INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
 
 // prj.readUserFlow('name.uf.ts') => process.cwd() + sandbox-setup/src/lib/user-flows/name.uf.ts
 // prj.readUserFlow('name.uf.ts') => ./sandbox-setup/src/lib/user-flows/name.uf.ts
 
 // ./src/lib/user-flows (from rc.json)
-const prjRelativeUfPath = rcJson?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
+const prjRelativeUfPath = INITIATED_RC_JSON?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
 const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
@@ -50,8 +48,8 @@ describe('loading user-flow scripts for execution', () => {
     await initializedPrj.teardown();
   });
 
-  it('should return flows if files with ts or js are in ufPath', () => {
-    let validUfDirPath = join(prjRelativeUfPath);
+  it('should return flows if files with ts or js are in ufPath', async () => {
+    let validUfDirPath = prjRelativeUfPath;
     const ufPath = validUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
 
