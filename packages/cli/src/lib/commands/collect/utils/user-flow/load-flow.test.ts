@@ -17,15 +17,17 @@ import {
 } from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '../../../../constants';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
+import { RcJson } from '@push-based/user-flow';
 
 const rcFile = INITIATED_PRJ_CFG?.rcFile;
-const prjRelativeOutPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].persist.outPath : DEFAULT_PERSIST_OUT_PATH);
+const rcJson = rcFile[DEFAULT_RC_NAME] as unknown as RcJson;
+const prjRelativeOutPath = rcJson?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
 
 // prj.readUserFlow('name.uf.ts') => process.cwd() + sandbox-setup/src/lib/user-flows/name.uf.ts
 // prj.readUserFlow('name.uf.ts') => ./sandbox-setup/src/lib/user-flows/name.uf.ts
 
 // ./src/lib/user-flows (from rc.json)
-const prjRelativeUfPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].collect.ufPath : DEFAULT_COLLECT_UF_PATH);
+const prjRelativeUfPath = rcJson?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
 const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
