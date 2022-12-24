@@ -51,7 +51,6 @@ function old_expectPersistedReports(reports: string[], path: string, name: strin
 let initializedPrj: UserFlowCliProject;
 let outPath;
 const url = 'test.url';
-const isoStartDate = dateToIsoLikeString(new Date());
 const flowName = `flow-example-name`;
 const flowFileName = toReportName(url, flowName, jsonReport.steps[0].lhr.fetchTime);
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };

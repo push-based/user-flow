@@ -4,7 +4,7 @@ import { join } from 'path';
 import { BASIC_NAVIGATION_USERFLOW_CONTENT, BASIC_NAVIGATION_USERFLOW_NAME } from '../../sandboxes/initialized/flow1.uf';
 import { EMPTY_SANDBOX_BIN } from '../empty/cfg';
 export const INITIATED_PRJ_NAME = 'sandbox';
-export const INITIATED_PRJ_ROOT = join(__dirname, '..', '..', '..', '..', INITIATED_PRJ_NAME);
+export const INITIATED_PRJ_ROOT = join(__dirname, '..','..', '..', '..', '..', INITIATED_PRJ_NAME);
 export const INITIATED_PRJ_BIN = EMPTY_SANDBOX_BIN;
 
 export const INITIATED_PRJ_CFG: UserFlowProjectConfig = {
