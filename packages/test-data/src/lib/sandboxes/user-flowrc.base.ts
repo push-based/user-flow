@@ -6,7 +6,7 @@ import {
   RcJson,
   ReportFormat
 } from '@push-based/user-flow-cli-testing';
-export const DEFAULT_RC_NAME = 'user-flowrc.json';
+export const DEFAULT_RC_NAME = '.user-flowrc.json';
 export const CLI_DEFAULT_RC_JSON: RcJson = {
   'collect': {
     'url': DEFAULT_COLLECT_URL,
