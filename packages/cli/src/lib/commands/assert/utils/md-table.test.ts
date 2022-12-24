@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-import { join } from 'path';
 import {
   createReducedReport,
   enrichReducedReportWithBaseline
@@ -9,10 +7,10 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { ReducedReport } from '../../collect/utils/user-flow/types';
 import { getReportContent } from 'test-data';
 
-const lhr8 = getReportContent<FlowResult>('lhr-8.json');
+const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');
 const LHRREDUCEDMD = getReportContent('lhr-9_reduced.md');
-const lhr9Ex2 = getReportContent<FlowResult>('lhr-e-ex-2.json');
+const lhr9Ex2 = getReportContent<FlowResult>('lhr-9-ex-2.json');
 const lhr9reduced = getReportContent<ReducedReport>('lhr-9_reduced.json');
 const LHRREDUCEDCompareMD = getReportContent('lhr-9_compare.md');
 const lhr9ReducedBaseline = getReportContent<ReducedReport>('lhr-9_reduced-baseline.json');
