@@ -26,14 +26,6 @@
       "options": {
         "lintFilePatterns": ["packages/user-flow-cli-testing/**/*.ts"]
       }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/user-flow-cli-testing/jest.config.ts",
-        "passWithNoTests": true
-      }
     }
   },
   "tags": []
