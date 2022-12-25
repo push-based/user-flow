@@ -1,6 +1,5 @@
 import Budget from 'lighthouse/types/lhr/budget';
-import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
-import { LH_NAVIGATION_BUDGETS_NAME } from '../fixtures/budget/lh-navigation-budget';
+import { UserFlowCliProject, LH_NAVIGATION_BUDGETS_NAME } from '@push-based/user-flow-cli-testing';
 
 export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);

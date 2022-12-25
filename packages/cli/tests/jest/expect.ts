@@ -1,5 +1,4 @@
-import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
-import { LH_CONFIG_NAME } from '../fixtures/config/lh-config';
+import { UserFlowCliProject, LH_CONFIG_NAME } from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '../../src/lib/constants';
 import { GlobalOptionsArgv } from '../../src/lib/global/options/types';
 import { SETUP_CONFIRM_MESSAGE } from '../../src/lib/commands/init/constants';
