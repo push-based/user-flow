@@ -3,16 +3,16 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from '../../fixtures/sandbox/static';
-import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
+import { STATIC_PRJ_CFG } from 'test-data';
+import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from 'test-data';
+import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import {
   expectCollectCfgToContain,
   expectConfigPathUsageLog,
   expectNoConfigFileExistLog,
   expectResultsToIncludeConfig
-} from '../../jest';
-import { LH_CONFIG, LH_CONFIG_NAME } from '../../fixtures/config/lh-config';
+} from '../../../../cli/tests/jest';
+import { LH_CONFIG, LH_CONFIG_NAME } from 'test-data';
 
 let staticPrj: UserFlowCliProject;
 
