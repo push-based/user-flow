@@ -15,7 +15,7 @@ export { LhConfigJson } from './hacky-things/lighthouse';
 export { getEnvPreset, SANDBOX_PRESET } from './pre-set';
 export { InitCommandArgv } from './commands/init/options/types';
 export { GlobalOptionsArgv } from './global/options/types';
-export { CollectCommandArgv } from './commands/collect/options/types';
+export { CollectCommandArgv, CollectArgvOptions } from './commands/collect/options/types';
 export { DEFAULT_RC_NAME } from './constants';
 export { DEFAULT_COLLECT_URL } from './commands/collect/options/url.constant';
 export { DEFAULT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.constant';
