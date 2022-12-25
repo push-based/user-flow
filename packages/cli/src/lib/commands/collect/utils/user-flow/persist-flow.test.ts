@@ -43,11 +43,11 @@ function old_expectPersistedReports(reports: string[], path: string, name: strin
   const expectedPaths = expectedFileNames.map((f) => join(path, f));
 
   expect(reports.length).toEqual(expectedPaths.length);
-  // expect(reports.sort()).toEqual(expectedPaths.sort());
+  expect(reports.sort()).toEqual(expectedPaths.sort());
 
   const persistedReports = readdirSync(path);
   expect(persistedReports.length).toEqual(expectedPaths.length);
- // expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
+  expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
 }
 
 let initializedPrj: UserFlowCliProject;

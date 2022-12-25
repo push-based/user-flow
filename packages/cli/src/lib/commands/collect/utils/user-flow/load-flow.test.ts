@@ -77,18 +77,6 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows.length).toBe(2);
   });
 
-  let notExistingUfPath = join(prjRelativeUfPath, 'not-existing.uf.ts');
-
-  // NOTICE: this error was handles by initializing the folder on the fly.
-  // Should we consider a log message here?
-  /*it('should throw ufPath is not a file or directory', () => {
-  let notExistingUfDirPath = join('not-existing');
-    const ufPath = notExistingUfDirPath;
-    const collectOptions = { url: 'example.com', ufPath };
-    const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
-  });*/
-
   it('should throw if no user flows are in the directory', () => {
     let emptyUfDirPath = join(prjRelativeOutPath);
     const ufPath = emptyUfDirPath;
