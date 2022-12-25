@@ -1,3 +1,5 @@
+export { getGlobalOptionsFromArgv } from './global/utils';
+export { getInitCommandOptionsFromArgv } from './commands/init/utils';
 export { UserFlowMock } from './commands/collect/utils/user-flow/user-flow.mock';
 export { Ufo } from './ufo/ufo';
 export {
@@ -8,7 +10,7 @@ export { MeasureModes } from './commands/collect/utils/replay/types';
 export { RcJson } from './types';
 export { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode';
 export { LhConfigJson } from './hacky-things/lighthouse';
-export { getEnvPreset } from './pre-set';
+export { getEnvPreset, SANDBOX_PRESET } from './pre-set';
 export { InitCommandArgv } from './commands/init/options/types';
 export { GlobalOptionsArgv } from './global/options/types';
 export { CollectCommandArgv } from './commands/collect/options/types';

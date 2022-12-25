@@ -26,9 +26,10 @@
       "@push-based/user-flow-cli-testing": [
         "packages/user-flow-cli-testing/src/index.ts"
       ],
-      "test-data": ["packages/test-data/src/index.ts"],
+      "sandbox": ["packages/sandbox/src/index.ts"],
       "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
       "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
+      "test-data": ["packages/test-data/src/index.ts"],
       "user-flow-example": ["packages/user-flow-example/src/index.ts"]
     }
   },

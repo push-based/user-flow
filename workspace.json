@@ -3,6 +3,7 @@
   "projects": {
     "cli": "packages/cli",
     "cli-testing": "packages/cli-testing",
+    "sandbox": "packages/sandbox",
     "sandbox-empty": "packages/sandbox-empty",
     "sandbox-setup": "packages/sandbox-setup",
     "test-data": "packages/test-data",
