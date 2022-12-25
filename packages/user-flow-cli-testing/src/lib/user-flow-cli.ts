@@ -5,7 +5,6 @@ import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-b
 import {
   CollectCommandArgv,
   DEFAULT_PERSIST_OUT_PATH,
-  DEFAULT_RC_NAME,
   getEnvPreset,
   GlobalOptionsArgv,
   InitCommandArgv,
@@ -17,7 +16,7 @@ import { SERVE_COMMAND_PORT } from './data/constants';
 import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
 import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
-import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT,LH_CONFIG_NAME_DEFAULT } from './constants';
+import { DEFAULT_RC_NAME, LH_CONFIG_NAME_DEFAULT, LH_NAVIGATION_BUDGETS_NAME_DEFAULT } from './constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
