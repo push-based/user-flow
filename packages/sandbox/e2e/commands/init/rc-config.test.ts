@@ -1,5 +1,4 @@
-import { ERROR_PERSIST_FORMAT_WRONG } from '../../../src/lib/commands/collect/options/format.constant';
-import { PROMPT_COLLECT_URL } from '../../../src/lib/commands/collect/options/url.constant';
+import { DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL } from '@push-based/user-flow';
 import { ENTER } from '@push-based/cli-testing/process';
 import {
   CLI_DEFAULT_RC_JSON,
@@ -7,14 +6,8 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
-import { DEFAULT_RC_NAME } from '../../../src/lib/constants';
-import { REMOTE_RC_JSON } from '../../fixtures/rc-files/remote';
-import { STATIC_RC_JSON } from '../../fixtures/rc-files/static';
-
-import { EMPTY_PRJ_CFG } from '../../fixtures/sandbox/empty';
-import { INITIATED_PRJ_CFG } from '../../fixtures/sandbox/initiated';
-import { REMOTE_PRJ_CFG } from '../../fixtures/sandbox/remote';
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON } from 'test-data';
+import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../../../cli/tests/jest';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
