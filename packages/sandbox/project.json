@@ -4,20 +4,6 @@
   "sourceRoot": "packages/sandbox/src",
   "projectType": "library",
   "targets": {
-    "_build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "outputPath": "dist/packages/sandbox",
-        "main": "packages/sandbox/src/index.ts",
-        "tsConfig": "packages/sandbox/tsconfig.lib.json",
-        "assets": [
-          "packages/sandbox/*.md"
-        ]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": [
