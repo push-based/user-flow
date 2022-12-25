@@ -38,11 +38,11 @@ let initializedPrj: UserFlowCliProject;
 
 describe('loading user-flow scripts for execution', () => {
   beforeEach(async () => {
+    process.chdir(initializedPrj.root);
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
     }
     await initializedPrj.setup();
-    process.chdir(initializedPrj.root);
   });
   afterEach(async () => {
     await initializedPrj.teardown();
