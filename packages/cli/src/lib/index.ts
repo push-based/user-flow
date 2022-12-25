@@ -1,3 +1,5 @@
+export { PROMPT_COLLECT_URL } from './commands/collect/options/url.constant';
+export { ERROR_PERSIST_FORMAT_WRONG } from './commands/collect/options/format.constant';
 export { getGlobalOptionsFromArgv } from './global/utils';
 export { getInitCommandOptionsFromArgv } from './commands/init/utils';
 export { UserFlowMock } from './commands/collect/utils/user-flow/user-flow.mock';
