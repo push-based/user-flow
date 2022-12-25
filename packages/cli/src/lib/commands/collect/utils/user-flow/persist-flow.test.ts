@@ -63,12 +63,11 @@ const consoleLog = console.log;
 
 describe('persist flow reports in specified format', () => {
 
-
   beforeAll(() => {
+    process.chdir(INITIATED_PRJ_CFG.root);
     console.log = (...args: any) => void 0;
   })
   beforeEach(async () => {
-    process.chdir(INITIATED_PRJ_CFG.root);
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
@@ -79,10 +78,9 @@ describe('persist flow reports in specified format', () => {
   });
   afterEach(async () => {
     await initializedPrj.teardown();
-    console.log = consoleLog;
-    process.chdir(originalCwd);
   });
   afterAll(() => {
+    process.chdir(originalCwd);
     console.log = consoleLog;
   })
 

@@ -1,5 +1,6 @@
 import { join } from 'path';
 import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 import { loadFlow } from './load-flow';
 import {
   INITIATED_PRJ_CFG,
@@ -16,8 +17,6 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { DEFAULT_RC_NAME } from '../../../../constants';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 
 
 const prjRelativeOutPath = INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
@@ -39,6 +38,9 @@ let initializedPrj: UserFlowCliProject;
 let originalCwd = process.cwd();
 
 describe('loading user-flow scripts for execution', () => {
+  beforeAll(async () => {
+    process.chdir(INITIATED_PRJ_CFG.root);
+  });
   beforeEach(async () => {
     process.chdir(flowValidationCfg.root);
     if (!initializedPrj) {
@@ -48,6 +50,8 @@ describe('loading user-flow scripts for execution', () => {
   });
   afterEach(async () => {
     await initializedPrj.teardown();
+  });
+  afterAll(async () => {
     process.chdir(originalCwd);
   });
 
