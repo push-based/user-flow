@@ -58,9 +58,14 @@ const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
 const flow = new UserFlowReportMock({name: flowName});
 
 let originalCwd = process.cwd();
+const consoleLog = console.log;
 
 describe('persist flow reports in specified format', () => {
 
+
+  beforeAll(() => {
+    console.log = (...args: any) => void 0;
+  })
   beforeEach(async () => {
     process.chdir(INITIATED_PRJ_CFG.root);
     if (!initializedPrj) {
@@ -74,6 +79,9 @@ describe('persist flow reports in specified format', () => {
     await initializedPrj.teardown();
     process.chdir(originalCwd);
   });
+  afterAll(() => {
+    console.log = consoleLog;
+  })
 
   it('does not save any reports if no format is given', async () => {
     const format: ReportFormat[] = [];
