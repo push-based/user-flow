@@ -35,10 +35,11 @@ const flowValidationCfg: UserFlowProjectConfig = {
   }
 };
 let initializedPrj: UserFlowCliProject;
+let originalCwd = process.cwd();
 
 describe('loading user-flow scripts for execution', () => {
   beforeEach(async () => {
-    process.chdir(initializedPrj.root);
+    process.chdir(flowValidationCfg.root);
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
     }
@@ -46,6 +47,7 @@ describe('loading user-flow scripts for execution', () => {
   });
   afterEach(async () => {
     await initializedPrj.teardown();
+    process.chdir(originalCwd);
   });
 
   it('should return flows if files with ts or js are in ufPath', () => {
