@@ -1,33 +1,35 @@
 {
   "name": "sandbox",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/sandbox/src",
+  "sourceRoot": "packages/sandbox/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/sandbox",
-        "main": "libs/sandbox/src/index.ts",
-        "tsConfig": "libs/sandbox/tsconfig.lib.json",
-        "assets": ["libs/sandbox/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/sandbox/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/sandbox/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "libs/sandbox/jest.config.ts",
+        "jestConfig": "packages/sandbox/jest.config.ts",
         "passWithNoTests": true
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     }
   },
   "tags": []
