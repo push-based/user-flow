@@ -16,6 +16,7 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
+import { DEFAULT_RC_NAME } from '../../../../constants';
 import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 
 
@@ -35,17 +36,19 @@ const flowValidationCfg: UserFlowProjectConfig = {
   }
 };
 let initializedPrj: UserFlowCliProject;
+let originalCwd = process.cwd();
 
 describe('loading user-flow scripts for execution', () => {
   beforeEach(async () => {
+    process.chdir(flowValidationCfg.root);
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
     }
     await initializedPrj.setup();
-    process.chdir(initializedPrj.root);
   });
   afterEach(async () => {
     await initializedPrj.teardown();
+    process.chdir(originalCwd);
   });
 
   it('should return flows if files with ts or js are in ufPath', async () => {
