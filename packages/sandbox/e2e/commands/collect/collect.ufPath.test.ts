@@ -1,23 +1,25 @@
-import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from 'test-data';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory
+} from '@push-based/user-flow-cli-testing';
+import { INITIATED_PRJ_CFG } from 'test-data';
 
-let staticPrj: UserFlowCliProject;
-const ufStaticName = 'Sandbox Setup StaticDist';
+let initPrj: UserFlowCliProject;
 
 describe('ufPath and collect command in static sandbox', () => {
   beforeEach(async () => {
-    if (!staticPrj) {
-      staticPrj = await UserFlowCliProjectFactory.create(STATIC_PRJ_CFG);
+    if (!initPrj) {
+      initPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
-    await staticPrj.setup();
+    await initPrj.setup();
   });
   afterEach(async () => {
-    await staticPrj.teardown();
+    await initPrj.teardown();
   });
 
   it('should throw if no user-flow is given', async () => {
-    const existingEmptyFolder = staticPrj.readRcJson().persist.outPath;
-    const { exitCode, stderr } = await staticPrj.$collect({
+    const existingEmptyFolder = initPrj.readRcJson().persist.outPath;
+    const { exitCode, stderr } = await initPrj.$collect({
       ufPath: existingEmptyFolder
     });
 
