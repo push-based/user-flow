@@ -4,8 +4,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import { getReportContent } from '../../../../../../test-data/raw-reports';
+import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
 import { PersistFlowOptions } from './types';
 import { dateToIsoLikeString, toReportName } from './utils';
 
