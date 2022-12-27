@@ -37,14 +37,14 @@ export class UserFlowReportMock {
  * @param format
  */
 function old_expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
+  const formatChecker = /(\.json|\.html\.md)*$/g;
   const expectedFileNames = format.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
   const expectedPaths = expectedFileNames.map((f) => join(path, f));
 
   expect(reports.sort()).toEqual(expectedPaths.sort());
 
-  const formatChecker = /(\.json|\.html\.md)*$/;
-  const persistedReports = readdirSync(path).filter(f => f.match(formatChecker));
+  const persistedReports = readdirSync(path).filter(f => !!f.match(formatChecker));
   expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
 }
 
