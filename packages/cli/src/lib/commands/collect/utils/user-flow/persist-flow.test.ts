@@ -44,7 +44,7 @@ function old_expectPersistedReports(reports: string[], path: string, name: strin
 
   expect(reports.sort()).toEqual(expectedPaths.sort());
 
-  const persistedReports = readdirSync(path).filter(f => !!f.match(formatChecker));
+  const persistedReports = readdirSync(path).filter(f => formatChecker.test(f));
   expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
 }
 
