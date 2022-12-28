@@ -1,9 +1,10 @@
+import { mkdirSync, readdirSync } from 'fs';
+import { RcJson } from '../../../types';
 import { get as interactive } from '../../../global/options/interactive';
 import { promptParam } from '../../../core/prompt';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
 import { PROMPT_PERSIST_OUT_PATH, DEFAULT_PERSIST_OUT_PATH, ERROR_PERSIST_OUT_PATH_REQUIRED } from '../../collect/options/outPath.constant';
-import { mkdirSync, readdirSync } from 'fs';
-import { RcJson } from '../../../types';
+import { logVerbose } from '../../../core/loggin';
 
 export async function setupOutPath(
   config: RcJson
@@ -30,6 +31,7 @@ export async function setupOutPath(
   try {
     readdirSync(outPath);
   } catch (e) {
+    logVerbose(`outPath ${outPath} does not exist.`);
     mkdirSync(outPath);
   }
 
