@@ -7,7 +7,7 @@ import {
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
 import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON } from 'test-data';
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../../../cli/tests/jest';
+import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;

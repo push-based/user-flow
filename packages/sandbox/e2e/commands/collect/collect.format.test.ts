@@ -11,7 +11,7 @@ import {
   expectCollectCommandCreatesJsonReport,
   expectCollectCommandCreatesMdReport,
   expectCollectLogsReport
-} from '../../../../cli/tests/jest';
+} from '../../jest';
 
 let setupRemotePrj: UserFlowCliProject;
 

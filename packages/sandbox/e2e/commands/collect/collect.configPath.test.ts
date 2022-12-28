@@ -11,7 +11,7 @@ import {
   expectConfigPathUsageLog,
   expectNoConfigFileExistLog,
   expectResultsToIncludeConfig
-} from '../../../../cli/tests/jest';
+} from '../../jest';
 import { LH_CONFIG, LH_CONFIG_NAME } from 'test-data';
 
 let staticPrj: UserFlowCliProject;
