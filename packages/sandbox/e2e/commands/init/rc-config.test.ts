@@ -66,7 +66,7 @@ describe('.rc.json in empty sandbox', () => {
       ENTER,
       // measures default folder
       outPath, ENTER,
-      'n'
+      DECLINE_BOOLEAN
     ]);
 
     expect(stderr).toBe('');
