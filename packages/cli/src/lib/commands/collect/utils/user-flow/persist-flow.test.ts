@@ -34,17 +34,17 @@ export class UserFlowReportMock {
  * @param persistedReportPaths
  * @param path
  * @param name
- * @param format
+ * @param formats
  */
-function old_expectPersistedReports(persistedReportPaths: string[], path: string, name: string, format: ReportFormat[]) {
-  const formatChecker = /(\.json|\.html\.md)*$/g;
-  const fileNamesToPersist = format.filter((f) => f !== 'stdout')
+function old_expectPersistedReports(persistedReportPaths: string[], outPath: string, name: string, formats: ReportFormat[]) {
+ // const formatChecker = /(\.json|\.html\.md)*$/g;
+  const fileNamesToPersist = formats.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
-  const reportPathsToPersist = fileNamesToPersist.map((f) => join(path, f)).filter(f => formatChecker.test(f));
+  const reportPathsToPersist = fileNamesToPersist.map((f) => join(outPath, f))
 
   expect(persistedReportPaths.sort()).toEqual(reportPathsToPersist.sort());
 
-  const expectedReportPaths = readdirSync(path).filter(f => formatChecker.test(f));
+  const expectedReportPaths = readdirSync(outPath)
   expect(expectedReportPaths.sort()).toEqual(fileNamesToPersist.sort());
 }
 
@@ -76,7 +76,7 @@ describe('persist flow reports in specified format', () => {
     persistFlowOptions.outPath = outPath;
   });
   afterEach(async () => {
-    await initializedPrj.teardown();
+ //   await initializedPrj.teardown();
     process.chdir(originalCwd);
   });
   afterAll(() => {
@@ -103,7 +103,6 @@ describe('persist flow reports in specified format', () => {
     const format: ReportFormat[] = ['json'];
     persistFlowOptions.format = format;
     const report = await persistFlow(flow, persistFlowOptions);
-
     old_expectPersistedReports(report, outPath, flowFileName, format);
   });
 
