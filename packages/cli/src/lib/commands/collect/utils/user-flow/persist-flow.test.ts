@@ -76,7 +76,7 @@ describe('persist flow reports in specified format', () => {
     persistFlowOptions.outPath = outPath;
   });
   afterEach(async () => {
- //   await initializedPrj.teardown();
+    await initializedPrj.teardown();
     process.chdir(originalCwd);
   });
   afterAll(() => {
