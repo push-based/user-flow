@@ -2,7 +2,7 @@ import { CollectArgvOptions, GlobalOptionsArgv, SANDBOX_PRESET } from '@push-bas
 import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { DEFAULT_RC_NAME } from '@push-based/user-flow-cli-testing';
 import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG } from 'test-data';
-import { expectInitOptionsToBeContainedInStdout } from '../../../../cli/tests/jest/expect.init';
+import { expectInitOptionsToBeContainedInStdout } from '../../jest/expect.init';
 
 let emptyPrj: UserFlowCliProject;
 

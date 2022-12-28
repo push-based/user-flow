@@ -1,3 +1,7 @@
+export { SETUP_CONFIRM_MESSAGE } from './commands/init/constants';
+export { PROMPT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.constant';
+export { PROMPT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.constant';
+export { PROMPT_PERSIST_FORMAT } from './commands/collect/options/format.constant';
 export { PROMPT_COLLECT_URL } from './commands/collect/options/url.constant';
 export { ERROR_PERSIST_FORMAT_WRONG } from './commands/collect/options/format.constant';
 export { getGlobalOptionsFromArgv } from './global/utils';

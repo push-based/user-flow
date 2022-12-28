@@ -8,7 +8,7 @@ import { getGlobalOptionsFromArgv, getInitCommandOptionsFromArgv, SANDBOX_PRESET
 import {
   expectGlobalOptionsToBeContainedInStdout,
   expectInitOptionsToBeContainedInStdout
-} from '../../../cli/tests/jest';
+} from '../jest';
 
 let emptyPrjSandbox: UserFlowCliProject;
 

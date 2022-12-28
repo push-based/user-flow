@@ -4,8 +4,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import { getReportContent } from '../../../../../../test-data/raw-reports';
+import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
 import { PersistFlowOptions } from './types';
 import { dateToIsoLikeString, toReportName } from './utils';
 
@@ -32,20 +31,21 @@ export class UserFlowReportMock {
  * @deprecated
  * use expectPersistedReports from expect.ts instead
  * To do so we have to bootstrap the cli within the it block with different formats
- * @param reports
+ * @param persistedReportPaths
  * @param path
  * @param name
- * @param format
+ * @param formats
  */
-function old_expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
-  const expectedFileNames = format.filter((f) => f !== 'stdout')
+function old_expectPersistedReports(persistedReportPaths: string[], outPath: string, name: string, formats: ReportFormat[]) {
+ // const formatChecker = /(\.json|\.html\.md)*$/g;
+  const fileNamesToPersist = formats.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
-  const expectedPaths = expectedFileNames.map((f) => join(path, f));
+  const reportPathsToPersist = fileNamesToPersist.map((f) => join(outPath, f))
 
-  expect(reports.sort()).toEqual(expectedPaths.sort());
+  expect(persistedReportPaths.sort()).toEqual(reportPathsToPersist.sort());
 
-  const persistedReports = readdirSync(path);
-  expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
+  const expectedReportPaths = readdirSync(outPath)
+  expect(expectedReportPaths.sort()).toEqual(fileNamesToPersist.sort());
 }
 
 let initializedPrj: UserFlowCliProject;
@@ -103,7 +103,6 @@ describe('persist flow reports in specified format', () => {
     const format: ReportFormat[] = ['json'];
     persistFlowOptions.format = format;
     const report = await persistFlow(flow, persistFlowOptions);
-
     old_expectPersistedReports(report, outPath, flowFileName, format);
   });
 

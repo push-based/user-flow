@@ -16,7 +16,7 @@ import {
   expectBudgetsUsageLog,
   expectNoBudgetsFileExistLog,
   expectResultsToIncludeBudgets
-} from '../../../../cli/tests/jest';
+} from '../../jest';
 
 let staticPrj: UserFlowCliProject;
 

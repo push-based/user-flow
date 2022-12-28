@@ -1,7 +1,9 @@
-import { PROMPT_COLLECT_URL } from '../../src/lib/commands/collect/options/url.constant';
-import { PROMPT_COLLECT_UF_PATH } from '../../src/lib/commands/collect/options/ufPath.constant';
-import { PROMPT_PERSIST_OUT_PATH } from '../../src/lib/commands/collect/options/outPath.constant';
-import { PROMPT_PERSIST_FORMAT } from '../../src/lib/commands/collect/options/format.constant';
+import {
+  PROMPT_COLLECT_UF_PATH,
+  PROMPT_COLLECT_URL,
+  PROMPT_PERSIST_FORMAT,
+  PROMPT_PERSIST_OUT_PATH
+} from '@push-based/user-flow';
 
 export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Init options:`);
