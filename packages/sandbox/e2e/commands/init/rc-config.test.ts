@@ -1,4 +1,5 @@
 import { DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL } from '@push-based/user-flow';
+import { ACCEPT_BOOLEAN, DECLINE_BOOLEAN, ENTER } from '@push-based/cli-testing/process';
 import {
   CLI_DEFAULT_RC_JSON,
   ENTER,
@@ -36,7 +37,7 @@ describe('.rc.json in empty sandbox', () => {
       // outPath
       ENTER, ENTER,
       // create NO flow example
-      'n'
+      DECLINE_BOOLEAN
     ]);
 
     // Assertions
@@ -49,8 +50,8 @@ describe('.rc.json in empty sandbox', () => {
     expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);
     expect(stderr).toBe('');
-    // const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
-    // expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
+    const hardRc = emptyPrj.readRcJson();
+    expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
   });
 
   it('should take custom params from prompt', async () => {
@@ -65,14 +66,14 @@ describe('.rc.json in empty sandbox', () => {
       // html default format
       ENTER,
       // measures default folder
-      outPath, ENTER
+      outPath, ENTER,
+      DECLINE_BOOLEAN
     ]);
 
     expect(stderr).toBe('');
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
-
-    const hardRc = emptyPrj.readRcJson(DEFAULT_RC_NAME);
+   const hardRc = emptyPrj.readRcJson();
     expect(hardRc).toEqual({
       collect: {
         url,

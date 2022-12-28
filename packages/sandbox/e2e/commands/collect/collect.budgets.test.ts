@@ -1,4 +1,5 @@
 import {
+  DEFAULT_RC_NAME,
   LH_NAVIGATION_BUDGETS_NAME_DEFAULT,
   UserFlowCliProject,
   UserFlowCliProjectFactory,
@@ -11,7 +12,6 @@ import {
   STATIC_PRJ_CFG,
   STATIC_RC_JSON
 } from 'test-data';
-import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import Budget from 'lighthouse/types/lhr/budget';
 
 export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {

@@ -32,22 +32,21 @@ export class UserFlowReportMock {
  * @deprecated
  * use expectPersistedReports from expect.ts instead
  * To do so we have to bootstrap the cli within the it block with different formats
- * @param reports
+ * @param persistedReportPaths
  * @param path
  * @param name
- * @param format
+ * @param formats
  */
-function old_expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
-  const expectedFileNames = format.filter((f) => f !== 'stdout')
+function old_expectPersistedReports(persistedReportPaths: string[], outPath: string, name: string, formats: ReportFormat[]) {
+ // const formatChecker = /(\.json|\.html\.md)*$/g;
+  const fileNamesToPersist = formats.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
-  const expectedPaths = expectedFileNames.map((f) => join(path, f));
+  const reportPathsToPersist = fileNamesToPersist.map((f) => join(outPath, f))
 
-  expect(reports.length).toEqual(expectedPaths.length);
-  expect(reports.sort()).toEqual(expectedPaths.sort());
+  expect(persistedReportPaths.sort()).toEqual(reportPathsToPersist.sort());
 
-  const persistedReports = readdirSync(path);
-  expect(persistedReports.length).toEqual(expectedPaths.length);
-  expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
+  const expectedReportPaths = readdirSync(outPath)
+  expect(expectedReportPaths.sort()).toEqual(fileNamesToPersist.sort());
 }
 
 let initializedPrj: UserFlowCliProject;
@@ -104,7 +103,6 @@ describe('persist flow reports in specified format', () => {
     const format: ReportFormat[] = ['json'];
     persistFlowOptions.format = format;
     const report = await persistFlow(flow, persistFlowOptions);
-
     old_expectPersistedReports(report, outPath, flowFileName, format);
   });
 
