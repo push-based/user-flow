@@ -31,8 +31,7 @@ export async function setupOutPath(
   try {
     readdirSync(outPath);
   } catch (e) {
-    logVerbose(`outPath ${outPath} does not exist.`);
-    mkdirSync(outPath);
+    mkdirSync(outPath, {recursive: true});
   }
 
   return {
