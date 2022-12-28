@@ -3,12 +3,9 @@ import {
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { EMPTY_PRJ_CFG } from 'test-data';
+import { expectGlobalOptionsToBeContainedInStdout, expectInitOptionsToBeContainedInStdout } from '../jest';
 import { getGlobalOptionsFromArgv, getInitCommandOptionsFromArgv, SANDBOX_PRESET } from '@push-based/user-flow';
-import {
-  expectGlobalOptionsToBeContainedInStdout,
-  expectInitOptionsToBeContainedInStdout
-} from '../jest';
+import { EMPTY_PRJ_CFG } from 'test-data';
 
 let emptyPrjSandbox: UserFlowCliProject;
 

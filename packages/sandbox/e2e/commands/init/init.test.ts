@@ -1,5 +1,4 @@
-import { ENTER } from '@push-based/cli-testing/process';
-import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
+import { ENTER, SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { expectCliToCreateRc, expectOutputRcInStdout } from '../../jest/expect';
 import { expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout } from '../../jest/expect.init';
 import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG } from 'test-data';

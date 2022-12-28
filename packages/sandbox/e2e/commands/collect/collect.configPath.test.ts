@@ -1,18 +1,16 @@
+import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
 } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG } from 'test-data';
-import { STATIC_JSON_REPORT_NAME, STATIC_RC_JSON } from 'test-data';
-import { DEFAULT_RC_NAME } from '@push-based/user-flow';
+import { LH_CONFIG, LH_CONFIG_NAME, STATIC_JSON_REPORT_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
 import {
   expectCollectCfgToContain,
   expectConfigPathUsageLog,
   expectNoConfigFileExistLog,
   expectResultsToIncludeConfig
 } from '../../jest';
-import { LH_CONFIG, LH_CONFIG_NAME } from 'test-data';
 
 let staticPrj: UserFlowCliProject;
 

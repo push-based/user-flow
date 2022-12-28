@@ -1,7 +1,8 @@
 import { DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL } from '@push-based/user-flow';
-import { ACCEPT_BOOLEAN, DECLINE_BOOLEAN, ENTER } from '@push-based/cli-testing/process';
 import {
   CLI_DEFAULT_RC_JSON,
+  DECLINE_BOOLEAN,
+  ENTER,
   SANDBOX_BASE_RC_JSON,
   UserFlowCliProject,
   UserFlowCliProjectFactory
@@ -72,7 +73,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(stderr).toBe('');
     expectPromptsOfInitInStdout(stdout);
     expect(exitCode).toBe(0);
-   const hardRc = emptyPrj.readRcJson();
+    const hardRc = emptyPrj.readRcJson();
     expect(hardRc).toEqual({
       collect: {
         url,

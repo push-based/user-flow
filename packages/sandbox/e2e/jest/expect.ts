@@ -1,8 +1,6 @@
-import { UserFlowCliProject, DEFAULT_RC_NAME } from '@push-based/user-flow-cli-testing';
+import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
 import { LH_CONFIG_NAME } from 'test-data';
-import { GlobalOptionsArgv } from '@push-based/user-flow';
-import { SETUP_CONFIRM_MESSAGE } from '@push-based/user-flow';
-import { RcJson } from '@push-based/user-flow';
+import { DEFAULT_RC_NAME, GlobalOptionsArgv, RcJson, SETUP_CONFIRM_MESSAGE } from '@push-based/user-flow';
 import { quoted, unquoted } from './utils';
 
 export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
