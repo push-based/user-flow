@@ -31,21 +31,21 @@ export class UserFlowReportMock {
  * @deprecated
  * use expectPersistedReports from expect.ts instead
  * To do so we have to bootstrap the cli within the it block with different formats
- * @param reports
+ * @param persistedReportPaths
  * @param path
  * @param name
  * @param format
  */
-function old_expectPersistedReports(reports: string[], path: string, name: string, format: ReportFormat[]) {
+function old_expectPersistedReports(persistedReportPaths: string[], path: string, name: string, format: ReportFormat[]) {
   const formatChecker = /(\.json|\.html\.md)*$/g;
-  const expectedFileNames = format.filter((f) => f !== 'stdout')
+  const fileNamesToPersist = format.filter((f) => f !== 'stdout')
     .map(f => `${name}.${f}`) || [];
-  const expectedPaths = expectedFileNames.map((f) => join(path, f));
+  const reportPathsToPersist = fileNamesToPersist.map((f) => join(path, f)).filter(f => formatChecker.test(f));
 
-  expect(reports.sort()).toEqual(expectedPaths.sort());
+  expect(persistedReportPaths.sort()).toEqual(reportPathsToPersist.sort());
 
-  const persistedReports = readdirSync(path).filter(f => formatChecker.test(f));
-  expect(persistedReports.sort()).toEqual(expectedFileNames.sort());
+  const expectedReportPaths = readdirSync(path).filter(f => formatChecker.test(f));
+  expect(expectedReportPaths.sort()).toEqual(fileNamesToPersist.sort());
 }
 
 let initializedPrj: UserFlowCliProject;
