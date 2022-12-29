@@ -2,6 +2,7 @@ import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-
 import {
   STATIC_JSON_REPORT_NAME,
   STATIC_MD_REPORT_NAME,
+  STATIC_HTML_REPORT_NAME,
   STATIC_PRJ_CFG,
   STATIC_USERFLOW_NAME,
   STATIC_USERFLOW_TITLE
@@ -82,6 +83,6 @@ describe('collect command in setup sandbox', () => {
     expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
-    expectCollectLogsReportByDefault(stdout, STATIC_USERFLOW_TITLE);
+    expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
   }, 90_000);
 });

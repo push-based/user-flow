@@ -54,7 +54,6 @@ export async function setupFormat(
     }
 
     if (errors.allOf) {
-      console.log('errors.allOf: ', errors);
       throw new Error(ERROR_PERSIST_FORMAT_WRONG(errors.allOf.value));
     }
   }
