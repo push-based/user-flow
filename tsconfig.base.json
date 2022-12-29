@@ -15,9 +15,19 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@push-based/cli-testing": ["packages/cli-testing/src/index.ts"],
+      "@push-based/cli-testing/cli-project": [
+        "packages/cli-testing/cli-project/src/index.ts"
+      ],
+      "@push-based/cli-testing/process": [
+        "packages/cli-testing/process/src/index.ts"
+      ],
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
-      "sandbox-empty": ["packages/sandbox-empty/src/index.ts"],
-      "sandbox-setup": ["packages/sandbox-setup/src/index.ts"],
+      "@push-based/user-flow-cli-testing": [
+        "packages/user-flow-cli-testing/src/index.ts"
+      ],
+      "test-data": ["packages/test-data/src/index.ts"],
+      "sandbox": ["packages/sandbox/src/index.ts"],
       "user-flow-example": ["packages/user-flow-example/src/index.ts"]
     }
   },

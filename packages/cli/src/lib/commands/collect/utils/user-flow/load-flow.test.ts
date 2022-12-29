@@ -1,35 +1,31 @@
 import { join } from 'path';
 import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
 import { loadFlow } from './load-flow';
+import {
+  INITIATED_PRJ_CFG,
+  INITIATED_RC_JSON,
+  VALIDE_EXAMPLE_USERFLOW_CONTENT,
+  VALIDE_EXAMPLE_USERFLOW_NAME,
+  WRONG_EXT_USERFLOW_CONTENT,
+  WRONG_EXT_USERFLOW_NAME,
+  WRONG_MOD_EXPORT_USERFLOW_CONTENT,
+  WRONG_MOD_EXPORT_USERFLOW_NAME
+} from 'test-data';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig
-} from '../../../../../../tests/user-flow-cli-project';
-import { INITIATED_PRJ_CFG } from '../../../../../../tests/fixtures/sandbox/initiated';
-import {
-  VALIDE_EXAMPLE_USERFLOW_CONTENT,
-  VALIDE_EXAMPLE_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/valide.example.uf';
-import { DEFAULT_RC_NAME } from '../../../../constants';
-import {
-  WRONG_EXT_USERFLOW_CONTENT,
-  WRONG_EXT_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/wrong-ext.example.uf';
-import {
-  WRONG_MOD_EXPORT_USERFLOW_CONTENT,
-  WRONG_MOD_EXPORT_USERFLOW_NAME
-} from '../../../../../../tests/fixtures/user-flows/wrong-mod-export.example.uf';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
+} from '@push-based/user-flow-cli-testing';
 
-const rcFile = INITIATED_PRJ_CFG?.rcFile;
-const prjRelativeOutPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].persist.outPath : DEFAULT_PERSIST_OUT_PATH);
+
+const prjRelativeOutPath = INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
 
 // prj.readUserFlow('name.uf.ts') => process.cwd() + sandbox-setup/src/lib/user-flows/name.uf.ts
 // prj.readUserFlow('name.uf.ts') => ./sandbox-setup/src/lib/user-flows/name.uf.ts
 
 // ./src/lib/user-flows (from rc.json)
-const prjRelativeUfPath = join(rcFile ? rcFile[DEFAULT_RC_NAME].collect.ufPath : DEFAULT_COLLECT_UF_PATH);
+const prjRelativeUfPath = INITIATED_RC_JSON?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
 const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
@@ -39,21 +35,28 @@ const flowValidationCfg: UserFlowProjectConfig = {
   }
 };
 let initializedPrj: UserFlowCliProject;
+let originalCwd = process.cwd();
 
 describe('loading user-flow scripts for execution', () => {
+  beforeAll(async () => {
+    process.chdir(INITIATED_PRJ_CFG.root);
+  });
   beforeEach(async () => {
+    process.chdir(flowValidationCfg.root);
     if (!initializedPrj) {
       initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
     }
     await initializedPrj.setup();
-    process.chdir(initializedPrj.root);
   });
   afterEach(async () => {
     await initializedPrj.teardown();
   });
+  afterAll(async () => {
+    process.chdir(originalCwd);
+  });
 
-  it('should return flows if files with ts or js are in ufPath', () => {
-    let validUfDirPath = join(prjRelativeUfPath);
+  it('should return flows if files with ts or js are in ufPath', async () => {
+    let validUfDirPath = prjRelativeUfPath;
     const ufPath = validUfDirPath;
     const collectOptions = { url: 'example.com', ufPath };
 
@@ -80,18 +83,6 @@ describe('loading user-flow scripts for execution', () => {
     const userFlows = loadFlow(collectOptions);
     expect(userFlows.length).toBe(2);
   });
-
-  let notExistingUfPath = join(prjRelativeUfPath, 'not-existing.uf.ts');
-
-  // NOTICE: this error was handles by initializing the folder on the fly.
-  // Should we consider a log message here?
-  /*it('should throw ufPath is not a file or directory', () => {
-  let notExistingUfDirPath = join('not-existing');
-    const ufPath = notExistingUfDirPath;
-    const collectOptions = { url: 'example.com', ufPath };
-    const userFlows = () => loadFlow(collectOptions);
-    expect(userFlows).toThrow(`ufPath: ${join(process.cwd(), ufPath)} is no directory`);
-  });*/
 
   it('should throw if no user flows are in the directory', () => {
     let emptyUfDirPath = join(prjRelativeOutPath);

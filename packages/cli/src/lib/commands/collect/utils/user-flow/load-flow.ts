@@ -1,6 +1,6 @@
 import { UserFlowProvider } from './types';
 import { join } from 'path';
-import { existsSync, lstatSync, mkdirSync, readdirSync } from 'fs';
+import { existsSync, lstatSync, readdirSync } from 'fs';
 import { resolveAnyFile } from '../../../../core/file';
 import { CollectRcOptions } from '../../options/types';
 

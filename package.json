@@ -1,6 +1,9 @@
 {
   "name": "push-based-user-flow-workspace",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.14.3"
+  },
   "license": "MIT",
   "scripts": {
     "nx": "nx",
@@ -11,8 +14,9 @@
     "test": "nx build cli && nx test cli",
     "publish": "nx run cli",
     "link": "nx link cli",
+    "import-graph": "npx @rx-angular/import-graph-visualizer -t packages/cli/tsconfig.lib.json",
     "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
-    "@push-based/user-flow": "npm run build && npx ./dist/packages/cli/src/cli.js",
+    "@push-based/user-flow": "npm run build && npx ./dist/packages/cli",
     "@push-based/user-flow:help": "npm run @push-based/user-flow -- --help",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
@@ -51,6 +55,7 @@
     "@nrwl/nx-cloud": "^15.0.2",
     "@nrwl/tao": "^15.2.1",
     "@nrwl/workspace": "^15.2.1",
+    "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.14",
     "@types/jest": "^28.1.8",
@@ -61,6 +66,7 @@
     "commitlint": "^16.3.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
+    "http-server": "^14.1.1",
     "husky": "^7.0.0",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
@@ -69,8 +75,6 @@
     "nx": "15.2.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
-    "typescript": "^4.9.3",
-    "http-server": "^14.1.1"
+    "typescript": "^4.9.3"
   }
 }
-

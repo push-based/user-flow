@@ -4,16 +4,16 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
-  const budgets = cfg?.config?.settings?.budgets;
+  const config = cfg?.config || { };
+  logVerbose('dummy config used:', config)
   const report = {
     name: cfg.name,
     steps: [
       {
         name: 'Navigation report (127.0.0.1/)',
         lhr: {
-          configSettings: {
-            // "budgets": [] // budgets from configurations
-          },
+          fetchTime: new Date().toISOString(),
+          configSettings: config,
           audits: {
             // "performance-budget": {},
             // "timing-budget": {}
@@ -22,6 +22,11 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
       }
     ]
   };
+  if (config) {
+    report.steps[0].lhr.configSettings = config;
+  }
+
+  const budgets = config?.settings?.budgets;
   if (budgets) {
     report.steps[0].lhr.configSettings.budgets = budgets;
     report.steps[0].lhr.audits['performance-budget'] = {};
@@ -55,6 +60,7 @@ ${JSON.stringify(dummyFlowResult(cfg))}
 export class UserFlowMock {
 
   protected cfg: UserFlowOptions = {} as any;
+  protected name: string = '';
   protected page: Page;
 
   /**
@@ -69,6 +75,7 @@ export class UserFlowMock {
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;
+    this.name = cfg.name;
   }
 
   /**

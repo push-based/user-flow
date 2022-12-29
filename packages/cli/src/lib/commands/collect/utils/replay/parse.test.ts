@@ -1,9 +1,8 @@
-import * as PupeteerReplay from '../../../../../../test-data/raw-reports/pupeteer-replay.json';
-import * as UserFlowReplay from '../../../../../../test-data/raw-reports/userflow-replay.json';
 import { parse } from './parse';
+import { getReportContent } from 'test-data';
 
-const pupeteerReplay = PupeteerReplay as any;
-const userFlowReplay = UserFlowReplay as any;
+const pupeteerReplay = getReportContent('pupeteer-replay.json');
+const userFlowReplay = getReportContent('userflow-replay.json');
 
 describe('replay', () => {
 

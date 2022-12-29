@@ -5,6 +5,7 @@ import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
 
+export {toFileName} from './to-file-name';
 
 /*
 type _a = Not<undefined, undefined>;
@@ -100,13 +101,3 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   return { exports, path };
 }
 
-/**
- * Upper or camelCase to lowercase hyphenated
- */
-export function toFileName(s: string): string {
-  return s
-    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-    .toLowerCase()
-    .replace(/[ _]/g, '-')
-    .replace(/[/\\]/g, '-');
-}

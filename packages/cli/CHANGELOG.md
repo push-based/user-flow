@@ -2,6 +2,90 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.13.6](https://github.com/push-based/user-flow/compare/cli-0.13.5...cli-0.13.6) (2022-12-28)
+
+
+
+## [0.13.5](https://github.com/push-based/user-flow/compare/cli-0.13.4...cli-0.13.5) (2022-12-28)
+
+
+
+## [0.13.4](https://github.com/push-based/user-flow/compare/cli-0.13.3...cli-0.13.4) (2022-12-25)
+
+
+
+## [0.13.3](https://github.com/push-based/user-flow/compare/cli-0.13.2...cli-0.13.3) (2022-12-25)
+
+
+
+## [0.13.2](https://github.com/push-based/user-flow/compare/cli-0.13.1...cli-0.13.2) (2022-12-25)
+
+
+
+## [0.13.1](https://github.com/push-based/user-flow/compare/cli-0.13.0...cli-0.13.1) (2022-12-25)
+
+
+
+# [0.13.0](https://github.com/push-based/user-flow/compare/cli-0.12.0...cli-0.13.0) (2022-12-22)
+
+
+### Features
+
+* intro user-flow-cli-testing lib ([#170](https://github.com/push-based/user-flow/issues/170)) ([79a7aeb](https://github.com/push-based/user-flow/commit/79a7aeb67a23cbb72ead6ec9167f3781f8d1448f))
+
+
+
+# [0.12.0](https://github.com/push-based/user-flow/compare/cli-0.11.1...cli-0.12.0) (2022-12-21)
+
+
+### Features
+
+* cli-testing helpers as lib ([#173](https://github.com/push-based/user-flow/issues/173)) ([e3f5c10](https://github.com/push-based/user-flow/commit/e3f5c1097475e772e612d4c407162cd48a86b976))
+
+
+
+## [0.11.1](https://github.com/push-based/user-flow/compare/cli-0.11.0...cli-0.11.1) (2022-12-18)
+
+
+
+# [0.11.0](https://github.com/push-based/user-flow/compare/cli-0.10.45...cli-0.11.0) (2022-12-17)
+
+
+### Features
+
+* add config path to collect ([#168](https://github.com/push-based/user-flow/issues/168)) ([a7e9ea2](https://github.com/push-based/user-flow/commit/a7e9ea23a4c52d3ac65ee24c2e6bd2a93ccd1fdc))
+
+
+
+## [0.10.45](https://github.com/push-based/user-flow/compare/cli-0.10.44...cli-0.10.45) (2022-12-17)
+
+
+
+## [0.10.44](https://github.com/push-based/user-flow/compare/cli-0.10.43...cli-0.10.44) (2022-12-17)
+
+
+### Bug Fixes
+
+* adopt generated flow name to neutral naming ([#163](https://github.com/push-based/user-flow/issues/163)) ([ddb5bd7](https://github.com/push-based/user-flow/commit/ddb5bd78076b78a07df5782043fcb87a44d9616d))
+
+
+
+## [0.10.43](https://github.com/push-based/user-flow/compare/cli-0.10.42...cli-0.10.43) (2022-12-17)
+
+
+
+## [0.10.42](https://github.com/push-based/user-flow/compare/cli-0.10.41...cli-0.10.42) (2022-12-16)
+
+
+
+## [0.10.41](https://github.com/push-based/user-flow/compare/cli-0.10.40...cli-0.10.41) (2022-12-16)
+
+
+
+## [0.10.40](https://github.com/push-based/user-flow/compare/cli-0.10.39...cli-0.10.40) (2022-12-16)
+
+
+
 ## [0.10.39](https://github.com/push-based/user-flow/compare/cli-0.10.38...cli-0.10.39) (2022-12-03)
 
 

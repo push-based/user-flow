@@ -4,7 +4,7 @@ import {
   isEnvCi,
   isEnvSandbox
 } from './cli-mode';
-import { setupEnvVars, teardownEnvVars } from '../../../../tests/user-flow-cli-project/utils/cli-mode';
+import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
 
 describe('isEnvCi', () => {
 

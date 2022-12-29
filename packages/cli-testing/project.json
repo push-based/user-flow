@@ -1,0 +1,26 @@
+{
+  "name": "packages-cli-testing",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/cli-testing/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/cli-testing",
+        "main": "packages/cli-testing/src/index.ts",
+        "tsConfig": "packages/cli-testing/tsconfig.lib.json",
+        "assets": ["packages/cli-testing/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/cli-testing/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
