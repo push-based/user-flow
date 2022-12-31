@@ -18,7 +18,7 @@ export async function setupFormat(
 
 
   if (interactive()) {
-    const { f }: { f: ReportFormat[] } = format.length ? {f: format}: await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
