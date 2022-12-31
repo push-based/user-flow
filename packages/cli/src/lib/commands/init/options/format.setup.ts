@@ -3,7 +3,6 @@ import { get as interactive } from '../../../global/options/interactive';
 import {
   ERROR_PERSIST_FORMAT_REQUIRED,
   ERROR_PERSIST_FORMAT_WRONG,
-  PERSIST_FORMAT_HTML,
   PROMPT_PERSIST_FORMAT
 } from '../../collect/options/format.constant';
 import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
@@ -19,7 +18,7 @@ export async function setupFormat(
 
 
   if (interactive()) {
-    const { f }: { f: ReportFormat[] } = format.length ? {f: format}: await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
@@ -55,7 +54,6 @@ export async function setupFormat(
     }
 
     if (errors.allOf) {
-      console.log('errors.allOf: ', errors);
       throw new Error(ERROR_PERSIST_FORMAT_WRONG(errors.allOf.value));
     }
   }
