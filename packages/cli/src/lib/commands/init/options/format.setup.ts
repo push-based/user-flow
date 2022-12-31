@@ -16,7 +16,6 @@ export async function setupFormat(
 ): Promise<RcJson> {
   let format: ReportFormat[] = Array.isArray(config?.persist?.format) ? config.persist.format : [];
 
-
   if (interactive()) {
     const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await prompt<{ f: ReportFormat[] }>([
       {
