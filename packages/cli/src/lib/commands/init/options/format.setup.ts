@@ -17,7 +17,7 @@ export async function setupFormat(
   let format: ReportFormat[] = Array.isArray(config?.persist?.format) ? config.persist.format : [];
 
 
-  if (interactive()) {
+  if (interactive() && !format.length) {
     const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
