@@ -1,6 +1,6 @@
 {
   "name": "@push-based/user-flow",
-  "version": "0.13.7",
+  "version": "0.13.8",
   "type": "commonjs",
   "main": "src/index.js",
   "bin": "src/cli.js",
