@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.13.8](https://github.com/push-based/user-flow/compare/cli-0.13.7...cli-0.13.8) (2023-01-04)
+
+
+
+## [0.13.7](https://github.com/push-based/user-flow/compare/cli-0.13.6...cli-0.13.7) (2022-12-31)
+
+
+### Bug Fixes
+
+* remove unused imports and console.logs ([#182](https://github.com/push-based/user-flow/issues/182)) ([494fb59](https://github.com/push-based/user-flow/commit/494fb5989af0fed9ce2b36e9eb86518269d74c64))
+* test commit ([393dd0a](https://github.com/push-based/user-flow/commit/393dd0ab1c1e49e36cab365c6e25c83cf5f4cb8b))
+* use all persist format items in array ([#181](https://github.com/push-based/user-flow/issues/181)) ([15d6570](https://github.com/push-based/user-flow/commit/15d6570719581500f748bb60c5a3b7b80c8303a8))
+
+
+
 ## [0.13.6](https://github.com/push-based/user-flow/compare/cli-0.13.5...cli-0.13.6) (2022-12-28)
 
 
