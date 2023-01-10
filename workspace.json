@@ -2,7 +2,6 @@
   "version": 2,
   "projects": {
     "cli": "packages/cli",
-    "cli-testing": "packages/cli-testing",
     "test-data": "packages/test-data",
     "sandbox": "packages/sandbox",
     "user-flow-cli-testing": "packages/user-flow-cli-testing",

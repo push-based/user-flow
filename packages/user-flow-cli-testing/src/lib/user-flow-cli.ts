@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
-import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/cli-testing';
+import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/node-cli-testing';
 import {
   CollectCommandArgv,
   DEFAULT_PERSIST_OUT_PATH,
