@@ -3,7 +3,7 @@ name: user-flow
 on:
   pull_request:
     paths-ignore:
-      - '*.md'
+      - '*.md' 
 
 jobs:
   user-flow-integrated-in-ci:
