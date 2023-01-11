@@ -23,9 +23,9 @@ jobs:
       - name: build
         run: npm run build
       - name: Add reduced report as comment to the PR
-       uses: @push-based/user-flow-gh-action
-       with:
-         rcPath: ./user-flow.rc
+        uses: @push-based/user-flow-gh-action
+        with:
+          rcPath: ./user-flow.rc
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
