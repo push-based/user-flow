@@ -1,10 +1,11 @@
 import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
 import { logVerbose } from '../loggin';
 import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
 
+export {toFileName} from './to-file-name';
 
 /*
 type _a = Not<undefined, undefined>;
@@ -39,22 +40,21 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
 export function readFile<R extends any = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T) {
   const {fail, ext} = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
-  let textContent = '';
-  if (existsSync(path)) {
-    textContent = readFileSync(path, 'utf-8');
-    if (ext === 'json') {
-      return jsonParse<RETURN>(textContent);
-    }
-    return textContent as RETURN;
-  } else {
+
+  if (!existsSync(path)) {
     const errorStr = `${path} does not exist.`;
-    if (fail) {
-      throw new Error(errorStr);
+    if (!fail) {
+      logVerbose(errorStr);
+      return '' as RETURN;
     }
-    logVerbose(errorStr);
+    throw new Error(errorStr);
+  }
+  if (lstatSync(path).isDirectory()) {
+    throw new Error(`${path} is a directory but needs to be a file.`);
   }
 
-  return textContent as RETURN;
+  const fileContent = readFileSync(path, 'utf-8');
+  return ext === 'json' ? jsonParse<RETURN>(fileContent) : fileContent as RETURN;
 }
 
 
@@ -101,13 +101,3 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   return { exports, path };
 }
 
-/**
- * Upper or camelCase to lowercase hyphenated
- */
-export function toFileName(s: string): string {
-  return s
-    .replace(/([a-z\d])([A-Z])/g, '$1_$2')
-    .toLowerCase()
-    .replace(/[ _]/g, '-')
-    .replace(/[/\\]/g, '-');
-}

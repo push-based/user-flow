@@ -9,7 +9,7 @@
     "importHelpers": true,
     "module": "commonjs",
     "paths": {
-      "@packageName":  [
+      "@packageName": [
         "../../asva/wgra/af",
         "dist/asva/wgra/af",
         "node_modules/asva/wgra/af"
@@ -21,6 +21,8 @@
     "**/tests/*",
     "**/*.spec.ts",
     "**/*.test.ts",
-    "**/static/**"
+    "**/static/**",
+    "**/test-data/**",
+    "jest.config.ts"
   ]
 }

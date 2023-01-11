@@ -12,6 +12,7 @@ import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
+import { CollectArgvOptions, PersistArgvOptions } from '../../options/types';
 
 
 export type UserFlowContext = {
@@ -65,6 +66,8 @@ export type UserFlowProvider = {
   launchOptions?: LaunchOptions;
 };
 
+export type PersistFlowOptions = Pick<PersistArgvOptions, 'outPath' | 'format'> & Pick<CollectArgvOptions, 'url'>;
+
 export type ReducedReport = {
   name: string;
   steps: ReducedFlowStep[];
@@ -101,5 +104,6 @@ export type ReducedFlowStepResult = Record<string, number | FractionResults>;
 export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
   {
     results: ReducedFlowStepResult;
+    baseline?: ReducedFlowStepResult;
   };
 

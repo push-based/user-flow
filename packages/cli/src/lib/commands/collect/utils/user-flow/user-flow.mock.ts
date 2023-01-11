@@ -4,32 +4,37 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { StepOptions, UserFlowOptions } from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
-  const budgets = cfg?.config?.settings?.budgets;
+  const config = cfg?.config || { };
+  logVerbose('dummy config used:', config)
   const report = {
     name: cfg.name,
     steps: [
       {
         name: 'Navigation report (127.0.0.1/)',
         lhr: {
-          configSettings: {
-            // "budgets": [] // budgets from configurations
-          },
+          fetchTime: new Date().toISOString(),
+          configSettings: config,
           audits: {
-           // "performance-budget": {},
-           // "timing-budget": {}
+            // "performance-budget": {},
+            // "timing-budget": {}
           }
         } as any
       }
     ]
   };
-  if(budgets) {
+  if (config) {
+    report.steps[0].lhr.configSettings = config;
+  }
+
+  const budgets = config?.settings?.budgets;
+  if (budgets) {
     report.steps[0].lhr.configSettings.budgets = budgets;
-    report.steps[0].lhr.audits['performance-budget'] = { };
-    report.steps[0].lhr.audits['timing-budget'] = { };
+    report.steps[0].lhr.audits['performance-budget'] = {};
+    report.steps[0].lhr.audits['timing-budget'] = {};
   }
 
   return report;
-}
+};
 
 const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions) => `
 <!DOCTYPE html>
@@ -43,7 +48,7 @@ const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions)
 <title>Lighthouse Flow Report</title>
 <style></style>
 <script>
-${dummyFlowResult(cfg)}
+${JSON.stringify(dummyFlowResult(cfg))}
 </script>
 </head>
 <body></body>
@@ -55,6 +60,7 @@ ${dummyFlowResult(cfg)}
 export class UserFlowMock {
 
   protected cfg: UserFlowOptions = {} as any;
+  protected name: string = '';
   protected page: Page;
 
   /**
@@ -69,6 +75,7 @@ export class UserFlowMock {
   constructor(page: Page, cfg: UserFlowOptions) {
     this.page = page;
     this.cfg = cfg;
+    this.name = cfg.name;
   }
 
   /**
@@ -117,6 +124,7 @@ export class UserFlowMock {
 
 export class UserFlowReportMock {
   protected cfg: UserFlowOptions = {} as any;
+
   /**
    * @param {LH.NavigationRequestor} requestor
    * @param {StepOptions=} stepOptions
@@ -126,7 +134,9 @@ export class UserFlowReportMock {
     return Promise.resolve();
   }
 
-  constructor(cfg: UserFlowOptions) {this.cfg = cfg;}
+  constructor(cfg: UserFlowOptions) {
+    this.cfg = cfg;
+  }
 
   /**
    * @param {StepOptions=} stepOptions

@@ -1,12 +1,12 @@
 import { get as dryRun } from '../../../../commands/collect/options/dryRun';
-import { get as openOpt } from '../../options/open';
+import { get as openReport } from '../../options/openReport';
 import { get as interactive } from '../../../../global/options/interactive';
 import { logVerbose } from '../../../../core/loggin';
 import * as openFileInBrowser from 'open';
 
 export async function openFlowReport(fileNames: string[]): Promise<void> {
   // open report if requested and not in executed in CI
-  if (!dryRun() && openOpt() && interactive()) {
+  if (!dryRun() && openReport() && interactive()) {
 
     const htmlReport = fileNames.find(i => i.includes('.html'));
     if (htmlReport) {

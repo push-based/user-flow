@@ -1,31 +1,35 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
-import { PersistOptions } from '../../../../global/rc-json/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { userFlowReportToMdTable } from '../../../assert/processes/md-table';
-import { log } from '../../../../core/loggin';
+import { generateMdReport } from '../../processes/generate-reports';
+import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
-import { toFileName, writeFile } from '../../../../core/file';
+import { writeFile } from '../../../../core/file';
+import { existsSync, mkdirSync } from 'fs';
+import { PersistFlowOptions } from './types';
+import { isoDateStringToIsoLikeString, toReportName } from './utils';
 
-export async function persistFlow(flow: UserFlow, name: string, { outPath, format }: PersistOptions): Promise<string[]> {
+export async function persistFlow(
+  flow: UserFlow,
+  { outPath, format, url }: PersistFlowOptions
+): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }
 
   const jsonReport: FlowResult = await flow.createFlowResult();
 
-
-  const results: { format: string, out: any }[] = [];
+  const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
 
   let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
-    mdReport = userFlowReportToMdTable(jsonReport);
+    mdReport = generateMdReport(jsonReport);
     results.push({ format: 'md', out: mdReport });
   }
   if (format.includes('stdout')) {
-    mdReport = mdReport || userFlowReportToMdTable(jsonReport);
+    mdReport = mdReport || generateMdReport(jsonReport);
     log(mdReport + '');
   }
   if (format.includes('html')) {
@@ -33,10 +37,22 @@ export async function persistFlow(flow: UserFlow, name: string, { outPath, forma
     results.push({ format: 'html', out: htmlReport });
   }
 
+  if (!existsSync(outPath)) {
+    try {
+      mkdirSync(outPath, { recursive: true });
+    } catch (e) {
+      // @TODO use a constant instead of a string e.g. `OUT_PATH_NO_DIR_ERROR(dir)`
+      throw new Error(`outPath: ${outPath} is no directory`);
+    }
+  }
+  const fetchTime = isoDateStringToIsoLikeString(jsonReport.steps[0].lhr.fetchTime);
+  const fileName = toReportName(url, flow.name, fetchTime);
+
   const fileNames = results.map((result) => {
-    const fileName = join(outPath, `${toFileName(name)}.uf.${result.format}`);
-    writeFile(fileName, result.out);
-    return fileName;
+    const filePath = join(outPath, `${fileName}.${result.format}`);
+    writeFile(filePath, result.out);
+    logVerbose(`Report path: ${filePath}.`);
+    return filePath;
   });
   return fileNames;
 }

@@ -2,8 +2,12 @@ import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
 import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../commands/collect/options/dryRun';
-import { AssertOptions, RcJson } from '../../../global/rc-json/types';
-import { collectFlow, openFlowReport, persistFlow, loadFlow } from '../utils/user-flow';
+import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/user-flow';
+import { AssertRcOptions } from '../../assert/options/types';
+import { RcJson } from '../../../types';
+import { CollectArgvOptions } from '../options/types';
+import { readFile } from '../../../core/file';
+import { readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -17,10 +21,11 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
     (_: any) => {
 
       provider = normalizeProviderObject(provider);
+      provider = addConfigIfGiven(provider, collect);
       provider = addBudgetsIfGiven(provider, assert);
 
       return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
-        .then((flow) => persistFlow(flow, provider.flowOptions.name, persist))
+        .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(openFlowReport)
         .then(_ => cfg);
     })
@@ -40,15 +45,28 @@ function normalizeProviderObject(provider: UserFlowProvider): UserFlowProvider {
   return provider;
 }
 
-function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertOptions = {} as AssertOptions): UserFlowProvider {
+function addConfigIfGiven(provider: UserFlowProvider, collectOptions: CollectArgvOptions = {} as CollectArgvOptions): UserFlowProvider {
+  const { configPath } = collectOptions;
+
+  if (configPath) {
+    logVerbose(`Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+
+    // @ts-ignore
+    provider.flowOptions.config = readConfig(configPath);
+  }
+
+  return provider;
+}
+
+function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertRcOptions = {} as AssertRcOptions): UserFlowProvider {
   const { budgetPath, budgets } = assertOptions;
 
   if (budgetPath) {
-    logVerbose(`CLI options --budgetPath or .user-flowrc.json configuration ${budgetPath} is used instead of a potential configuration in the user flow`);
+    logVerbose(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
     // @ts-ignore
     provider.flowOptions.config.settings.budgets = budgetPath;
   } else if (budgets) {
-    logVerbose('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
+    logVerbose('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
     // @ts-ignore
     provider.flowOptions.config.settings.budgets = budgets;
   }

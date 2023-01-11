@@ -1,14 +1,13 @@
 import { YargsCommandObject } from '../../core/yargs/types';
 import { log, logVerbose } from '../../core/loggin';
 import { INIT_OPTIONS } from './options';
-import { addUserFlow, getExamplePathDest } from './utils';
-import { setupRcJson } from './processes/setup-rc-json';
+import { getInitCommandOptionsFromArgv } from './utils';
+import { collectRcJson } from './processes/collect-rc-json';
 import { askToSkip } from '../../core/prompt';
-import { run } from '../../core/processing';
-import { readFile } from '../../core/file';
+import { run } from '../../core/processing/behaviors';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
-import { getCLIConfigFromArgv } from '../../global/rc-json';
-import { RcArgvOptions, RcJson } from '../../global/rc-json/types';
+import { updateRcJson } from './processes/update-rc-json';
+import { generateUserFlow, userflowIsNotCreated } from './processes/generate-userflow';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -17,24 +16,19 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-
-      const potentialExistingCfg = getCLIConfigFromArgv(argv as RcArgvOptions);
-
-      const exampleName = 'basic-navigation';
-      const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+      const cfg = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', cfg);
 
       await run([
-        setupRcJson,
+        collectRcJson,
+        updateRcJson,
         askToSkip(
           'Setup user flow',
-          async (cfg: RcJson): Promise<RcJson> => {
-            addUserFlow(exampleName, cfg.collect.ufPath);
-            return Promise.resolve(cfg);
-          },
+          generateUserFlow,
           {
             precondition: userflowIsNotCreated
           })
-      ])(potentialExistingCfg);
+      ])(cfg);
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants
       log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');

@@ -1,5 +1,6 @@
 {
-  "root": "packages/user-flow-example",
+  "name": "user-flow-example",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/user-flow-example/src",
   "projectType": "library",
   "targets": {

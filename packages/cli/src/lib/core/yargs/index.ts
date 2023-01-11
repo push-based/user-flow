@@ -1,38 +1,39 @@
 import * as yargs from 'yargs';
 import { Options } from 'yargs';
 import { YargsCommandObject } from './types';
+import { applyConfigMiddleware } from '../../config.middleware';
 
 export function setupYargs(
   commands: YargsCommandObject[],
   options: { [key: string]: Options },
-  config: Record<string, any> = {}
+  configParser: Options['configParser']
 ) {
   yargs.options(options)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
-    .config(config)
     .example([
       ['init', 'Setup user-flows over prompts']
     ])
-    .help();
+    .help()
+    .alias('h', 'help');
 
   commands.forEach((command) => yargs.command(
     command.command,
     command.description,
     command?.builder || (() => {
     }),
-    command.module.handler
+    applyConfigMiddleware(command.module.handler, configParser)
   ));
-
   return yargs;
 }
 
 export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
-  config: Record<string, any>
+  configParser: Options['configParser']; //RcArgvOptions & GlobalOptionsArgv
 }) {
-  // `.argv` to get ars as plain obj available
-  setupYargs(cliCfg.commands, cliCfg.options, cliCfg.config).argv;
+  // apply `.argv` to get args as plain obj available
+  setupYargs(cliCfg.commands, cliCfg.options, cliCfg.configParser).argv;
+
 }
 

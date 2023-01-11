@@ -1,58 +1,27 @@
-
 import { readFile, writeFile } from '../../core/file';
-
 import { logVerbose } from '../../core/loggin';
-import { get as getRcPath } from '../options/rc';
-import { CollectOptions, PersistOptions, RcArgvOptions, RcJson } from './types';
+import { RcJson } from '../../types';
+import { globalOptions } from '../options';
 
-export function readRcConfig(cfgPath: string = ''): RcJson {
-  const configPath = cfgPath || getRcPath();
-  const repoConfigFile = readFile(configPath) || '{}';
-  logVerbose('readRcConfig:', configPath, JSON.parse(repoConfigFile))
-  return JSON.parse(repoConfigFile);
+export function readRcConfig(rcPath: string = ''): RcJson {
+  rcPath = rcPath || globalOptions.getRcPath();
+  const repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json' }) || {};
+  return repoConfigJson;
 }
 
-export function updateRcConfig(config: RcJson, cfgPath: string = ''): void {
-  const configPath = cfgPath || getRcPath();
-  logVerbose(`Update config under ${configPath}`);
+export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
+  rcPath = rcPath || globalOptions.getRcPath();
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
-
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
-    writeFile(configPath, JSON.stringify(config));
-    logVerbose(`New config ${JSON.stringify(config)}`);
-  } else {
-    logVerbose(`No updates for ${configPath} to save.`);
+    writeFile(rcPath, JSON.stringify(config));
+    logVerbose(`Update config under ${rcPath} to`, config);
   }
 }
 
-export function getCliOptionsFromRcConfig(config: RcJson): RcArgvOptions {
-  const {collect, persist, assert} = config;
-  return {...collect, ...persist, ...assert};
+export function getCliOptionsFromRcConfig<T>(rcPath?: string): T {
+  const { collect, persist, assert } = readRcConfig(rcPath || globalOptions.getRcPath());
+  return { ...collect, ...persist, ...assert } as unknown as T;
 }
 
-export function getCLIConfigFromArgv(argv: RcArgvOptions): RcJson {
-  const { url, ufPath, serveCommand, awaitServeStdout, outPath, format, budgetPath, budgets } = (argv || {}) as any as (keyof CollectOptions & keyof PersistOptions);
 
-  const cfg: RcJson = {
-    collect: {
-      url,
-      ufPath,
-      serveCommand,
-      awaitServeStdout
-    },
-    persist: {
-      outPath,
-      format
-    }
-  };
-
-  if (budgetPath || budgets) {
-    cfg.assert = {
-      budgetPath,
-      budgets
-    };
-  }
-
-  return cfg;
-}
