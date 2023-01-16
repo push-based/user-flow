@@ -25,7 +25,7 @@ jobs:
       - name: Add reduced report as comment to the PR
         uses: push-based/user-flow-gh-action@v0.0.0-alpha.2
         with:
-          rcPath: ./user-flow.rc
+          rcPath: ./user-flowrc.json
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
