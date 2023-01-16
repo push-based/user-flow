@@ -3,7 +3,7 @@ name: user-flow
 on:
   pull_request:
     paths-ignore:
-      - '*.md' 
+      - '*.md'
 
 jobs:
   user-flow-integrated-in-ci:
@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
       - name: Add reduced report as comment to the PR
-        uses: push-based/user-flow-gh-action@v0.0.0-alpha.1
+        uses: push-based/user-flow-gh-action@v0.0.0-alpha.2
         with:
           rcPath: ./user-flow.rc
       - name: Add reduced report as comment to the PR
