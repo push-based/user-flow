@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
       - name: Add reduced report as comment to the PR
-        uses: @push-based/user-flow-gh-action@v0.0.0-alpha.1
+        uses: push-based/user-flow-gh-action@v0.0.0-alpha.1
         with:
           rcPath: ./user-flow.rc
       - name: Add reduced report as comment to the PR
