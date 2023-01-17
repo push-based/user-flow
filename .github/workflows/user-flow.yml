@@ -13,7 +13,7 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -29,7 +29,7 @@ jobs:
         #  verbose: on
         #  rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
       - name: Commit measures
-        uses: EndBug/add-and-commit@v2
+        uses: EndBug/add-and-commit@v7
         with:
           author_name: push-based-bot
           author_email: opensource@push-based.io
