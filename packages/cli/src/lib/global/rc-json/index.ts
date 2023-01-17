@@ -3,9 +3,17 @@ import { logVerbose } from '../../core/loggin';
 import { RcJson } from '../../types';
 import { globalOptions } from '../options';
 
-export function readRcConfig(rcPath: string = ''): RcJson {
+export function readRcConfig(rcPath: string = '', options?: {
+  fail?: boolean,
+  fallback?: {}
+}): RcJson {
+  let { fail, fallback } = options || {};
+  fallback = fallback || {};
   rcPath = rcPath || globalOptions.getRcPath();
-  const repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json' }) || {};
+  let repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json', fail: !!fail });
+  if (!repoConfigJson) {
+    repoConfigJson = fallback as RcJson;
+  }
   return repoConfigJson;
 }
 
