@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.13.10](https://github.com/push-based/user-flow/compare/cli-0.13.9...cli-0.13.10) (2023-01-17)
+
+
+### Bug Fixes
+
+* export reduced report helper ([#191](https://github.com/push-based/user-flow/issues/191)) ([0859c4f](https://github.com/push-based/user-flow/commit/0859c4f815cb22bb2e02bdd9762996ba59e88d08))
+
+
+
 ## [0.13.9](https://github.com/push-based/user-flow/compare/cli-0.13.8...cli-0.13.9) (2023-01-17)
 
 
