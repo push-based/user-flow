@@ -1,7 +1,10 @@
 {
   "collect": {
-    "url": "https://coffee-cart.netlify.app/",
-    "ufPath": "./user-flows"
+    "url": "http://127.0.0.1:5056",
+    "ufPath": "./packages/sandbox-setup/src/lib/dirty-user-flows",
+    "serveCommand": "cd ./packages/sandbox-setup && npm run start",
+    "awaitServeStdout": "Available on:"
   },
-  "persist": { "outPath": "./measures", "format": ["stdout"] }
+  "persist": { "outPath": "./measures", "format": ["json"] },
+  "assert": {}
 }
