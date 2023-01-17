@@ -25,9 +25,9 @@ jobs:
       - name: Executing user-flow CLI
         run: user-flow collect --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
         #uses: push-based/user-flow-gh-action@v0.0.0-alpha.4
-        with:
-          verbose: on
-          rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
+        #with:
+        #  verbose: on
+        #  rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
