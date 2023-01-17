@@ -28,6 +28,13 @@ jobs:
         #with:
         #  verbose: on
         #  rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
+      - name: Commit measures
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: push-based.io
+          author_email: opensource@push-based.io
+          message: 'Persist user flow reports'
+          add: '*'
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
