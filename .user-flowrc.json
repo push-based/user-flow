@@ -3,6 +3,6 @@
     "url": "https://google.com",
     "ufPath": "./packages/user-flow-example/user-flows/order-coffee-1.uf.ts"
   },
-  "persist": { "outPath": "./measures", "format": ["md"] },
+  "persist": { "outPath": "./measures", "format": ["json"] },
   "assert": {}
 }

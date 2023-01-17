@@ -30,4 +30,4 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: step name
-          path: ./measures/order-coffee-1.uf.md
+          path: ./measures/order-coffee-1.uf.json
