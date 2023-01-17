@@ -31,4 +31,4 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: step name
-          path: ./packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.md
+          path: ./packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.json
