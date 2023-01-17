@@ -1,8 +1,10 @@
 {
   "collect": {
     "url": "https://google.com",
-    "ufPath": "./packages/user-flow-example/user-flows/order-coffee-1.uf.ts"
+    "ufPath": "./packages/user-flow-ci-integration/user-flows"
   },
-  "persist": { "outPath": "./measures", "format": ["json"] },
-  "assert": {}
+  "persist": {
+    "outPath": "./packages/user-flow-ci-integration/measures",
+    "format": ["md"]
+  }
 }
