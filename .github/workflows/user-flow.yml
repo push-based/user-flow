@@ -23,11 +23,12 @@ jobs:
       - name: build
         run: npm run build
       - name: Executing user-flow CLI
-        run: npx @push-based/user-flow collect --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
-        #uses: push-based/user-flow-gh-action@v0.0.0-alpha.4
-        #with:
-        #  verbose: on
-        #  rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
+        id: uf
+        #run: npx @push-based/user-flow collect --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
+        uses: push-based/user-flow-gh-action@v0.0.0-alpha.5
+        with:
+          verbose: on
+          rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
         with:
@@ -39,4 +40,4 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: step name
-          path: ./packages/user-flow-ci-integration/measures/order-coffee-in-ci.uf.json
+          message: {steps.uf.outputs.result}
