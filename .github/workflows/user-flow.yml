@@ -41,7 +41,7 @@ jobs:
         with:
           header: step name
           message: |
-            Test result:
+            Test result::
             ```
             ${{ steps.uf.outputs.result }}
             ```
