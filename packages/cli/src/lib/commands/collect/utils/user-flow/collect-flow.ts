@@ -45,7 +45,7 @@ export async function collectFlow(
   const cliMode = detectCliMode();
   if (cliMode !== 'DEFAULT') {
     logVerbose(`Set headless to true as we are running in ${cliMode} mode`);
-    launchOptions.headless = true;
+    launchOptions.headless = 'chrome';
   }
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
