@@ -43,3 +43,5 @@ jobs:
           message: |
             steps.uf.outputs.result-path:
             ${{ steps.uf.outputs.result-path }}
+            steps.uf.outputs.result:
+            ${{ steps.uf.outputs.result }}
