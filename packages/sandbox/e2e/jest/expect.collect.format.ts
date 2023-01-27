@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
-import fs from "fs";
 
 export function expectCollectCommandCreatesHtmlReport(
   prj: UserFlowCliProject,
@@ -9,6 +8,8 @@ export function expectCollectCommandCreatesHtmlReport(
   rcName?: string
 ) {
   const reportHTML = prj.readOutput(userFlowName, rcName);
+  const outputFiles = fs.readdirSync(prj.outputPath());
+  console.log('outputFiles: ', outputFiles);
   expect(reportHTML).toContain(flowTitle);
 }
 
