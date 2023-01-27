@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
+import fs from "fs";
 
 export function expectCollectCommandCreatesHtmlReport(
   prj: UserFlowCliProject,

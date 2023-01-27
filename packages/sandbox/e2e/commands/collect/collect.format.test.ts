@@ -13,6 +13,7 @@ import {
   expectCollectCommandCreatesMdReport,
   expectCollectLogsReport
 } from '../../jest';
+import fs from "fs";
 
 let setupRemotePrj: UserFlowCliProject;
 
@@ -86,6 +87,9 @@ describe('collect command in setup sandbox', () => {
       dryRun: false, verbose:true
     });
     expect(stdout).toContain('Available on');
+    const outputFiles = fs.readdirSync(setupRemotePrj.outputPath());
+    console.log('outputFiles: ', outputFiles);
+    expect(stderr).toBe('');
     expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
   }, 90_000);
 
