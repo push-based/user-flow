@@ -85,7 +85,8 @@ describe('collect command in setup sandbox', () => {
       format: ['html'],
       dryRun: false, verbose:true
     });
-    expect(stdout).toContain('teee');
+    expect(stdout).toContain('Available on');
+    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
   }, 90_000);
 
   it('should save the results as a HTML, JSON and Markdown files and log to stdout', async () => {
