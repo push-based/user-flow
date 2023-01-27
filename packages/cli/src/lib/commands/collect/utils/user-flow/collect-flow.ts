@@ -44,8 +44,9 @@ export async function collectFlow(
   // @TODO consider CI vs dev mode => headless, openReport, persist etc
   const cliMode = detectCliMode();
   if (cliMode !== 'DEFAULT') {
-    logVerbose(`Set headless to true as we are running in ${cliMode} mode`);
-    launchOptions.headless = true;
+    const headlessMode = false;
+    logVerbose(`Set headless to ${headlessMode} as we are running in ${cliMode} mode`);
+    launchOptions.headless = headlessMode;
   }
   const browser: Browser = await puppeteer.launch(launchOptions);
   const page: Page = await browser.newPage();
