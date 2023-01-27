@@ -8,8 +8,6 @@ export function expectCollectCommandCreatesHtmlReport(
   rcName?: string
 ) {
   const reportHTML = prj.readOutput(userFlowName, rcName);
-  const outputFiles = fs.readdirSync(prj.outputPath());
-  console.log('outputFiles: ', outputFiles);
   expect(reportHTML).toContain(flowTitle);
 }
 
