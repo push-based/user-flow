@@ -85,7 +85,7 @@ describe('collect command in setup sandbox', () => {
       format: ['html'],
       dryRun: false, verbose:true
     });
-    expect(stderr).toBe('');
+    expect(stdout).toContain('teee');
   }, 90_000);
 
   it('should save the results as a HTML, JSON and Markdown files and log to stdout', async () => {
