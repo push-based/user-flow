@@ -23,4 +23,4 @@ jobs:
       - name: build
         run: npm run nx -- affected:build
       - name: test
-        run: npm run nx test sandbox --testNamePattern="-with-html-format$"
+        run: npm run nx test sandbox -- --testNamePattern="-with-html-format$"
