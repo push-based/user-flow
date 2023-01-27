@@ -13,7 +13,7 @@ import {
   expectCollectCommandCreatesMdReport,
   expectCollectLogsReport
 } from '../../jest';
-import fs from "fs";
+import * as fs from "fs";
 
 let setupRemotePrj: UserFlowCliProject;
 
