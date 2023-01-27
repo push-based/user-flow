@@ -23,4 +23,4 @@ jobs:
       - name: build
         run: npm run nx -- affected:build
       - name: test
-        run: jest --testNamePattern="-with-html-format$"
+        run: nx test sandbox --testNamePattern="-with-html-format$"
