@@ -72,7 +72,7 @@ describe('collect command in setup sandbox', () => {
     expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
 
-  it('should save the results as a HTML, JSON and Markdown files $$with-html-format', async () => {
+  it('should save the results as a HTML, JSON and Markdown files', async () => {
     const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
       format: ['json', 'html', 'md'],
       dryRun: false, verbose:true
