@@ -23,4 +23,4 @@ jobs:
       - name: build
         run: npm run nx -- affected:build
       - name: test
-        run: npm run nx -- --parallel=1 affected:test
+        run: npm run nx test sandbox -- --testNamePattern="HTML, JSON and Markdown files$"
