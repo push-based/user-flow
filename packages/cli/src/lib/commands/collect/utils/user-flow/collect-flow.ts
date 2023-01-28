@@ -44,7 +44,7 @@ export async function collectFlow(
   // @TODO consider CI vs dev mode => headless, openReport, persist etc
   const cliMode = detectCliMode();
   if (cliMode !== 'DEFAULT') {
-    const headlessMode = false;
+    const headlessMode = true;
     logVerbose(`Set headless to ${headlessMode} as we are running in ${cliMode} mode`);
     launchOptions.headless = headlessMode;
   }
