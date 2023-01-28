@@ -104,6 +104,7 @@ export function isEnvCi(): boolean {
 
   const ciValue: string | undefined =
     env[CI_PROPERTY] || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+    env['GITHUB_ACTIONS'] || // GITHUB
     env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
     env.BUILD_NUMBER || // Jenkins, TeamCity
     env.RUN_ID; // TaskCluster, dsari
