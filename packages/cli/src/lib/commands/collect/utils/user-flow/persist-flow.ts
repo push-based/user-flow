@@ -23,18 +23,27 @@ export async function persistFlow(
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
 
+
   let mdReport: string | undefined = undefined;
-  if (format.includes('md')) {
-    mdReport = generateMdReport(jsonReport);
-    results.push({ format: 'md', out: mdReport });
+  try {
+    if (format.includes('md')) {
+      mdReport = generateMdReport(jsonReport);
+      results.push({ format: 'md', out: mdReport });
+    }
+    if (format.includes('stdout')) {
+      mdReport = mdReport || generateMdReport(jsonReport);
+      log(mdReport + '');
+    }
+  } catch (e) {
+    throw new Error(`Not able to process ${JSON.stringify(jsonReport)} to MD report`);
   }
-  if (format.includes('stdout')) {
-    mdReport = mdReport || generateMdReport(jsonReport);
-    log(mdReport + '');
-  }
-  if (format.includes('html')) {
-    const htmlReport = await flow.generateReport();
-    results.push({ format: 'html', out: htmlReport });
+  try {
+    if (format.includes('html')) {
+      const htmlReport = await flow.generateReport();
+      results.push({ format: 'html', out: htmlReport });
+    }
+  } catch (e) {
+    throw new Error(`Not able to process ${JSON.stringify(jsonReport)} to HTML report`);
   }
 
   if (!existsSync(outPath)) {
