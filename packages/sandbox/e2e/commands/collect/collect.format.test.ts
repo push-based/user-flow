@@ -94,14 +94,15 @@ describe('collect command in setup sandbox', () => {
       dryRun: false, verbose:true
     });
 
-    const outputFiles = fs.readdirSync(setupRemotePrj.outputPath());
+    const outputFiles = setupRemotePrj.readOutput(STATIC_USERFLOW_TITLE);
     console.log('outputFiles: ', outputFiles);
+    expect(outputFiles.length).toBe(3);
     // Check report file and content of report
     expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
     expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
     expect(stderr).toBe('');
-    //expect(exitCode).toBe(0);
+    expect(exitCode).toBe(0);
   }, 90_000);
 });
