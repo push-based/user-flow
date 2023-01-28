@@ -14,7 +14,7 @@ import {
 } from 'test-data';
 import Budget from 'lighthouse/types/lhr/budget';
 
-export function expectBudgetsPathUsageLog(stdout: string) {
+export function expectBudgetsPathUsageLog(stdout: string,budgetPath: string) {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
   expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
@@ -130,7 +130,7 @@ describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
     });
 
     expect(stderr).toBe('');
-    expectBudgetsPathUsageLog(stdout);
+    expectBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
     expectResultsToIncludeBudgets(staticWBudgetAssetsPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);
 
