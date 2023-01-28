@@ -321,5 +321,5 @@ See [performance-budgets](https://github.com/push-based/user-flow/blob/main/pack
 - [Understanding the lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md)
 - [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
 - [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
-
+- [lighthouse user flow recorder features](https://m.youtube.com/watch?v=PupwBARjaYU&feature=youtu.be)
 made with ❤ by [push-based.io](https://www.push-based.io)
