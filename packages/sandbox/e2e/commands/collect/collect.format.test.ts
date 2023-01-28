@@ -74,7 +74,7 @@ describe('collect command in setup sandbox', () => {
 
   it('should-run-with-html-format', async () => {
     const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
-      format: ['md'],
+      format: ['json', 'html', 'md'],
       dryRun: false, verbose:true
     });
     expect(stdout).toContain('Available on');
