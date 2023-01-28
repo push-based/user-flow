@@ -79,7 +79,6 @@ describe('collect command in setup sandbox', () => {
     });
 
     const outputFiles = setupRemotePrj.readOutput(STATIC_USERFLOW_TITLE);
-    console.log('outputFiles: ', Object.keys(outputFiles));
     expect(outputFiles.length).toBe(3);
     // Check report file and content of report
     expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
