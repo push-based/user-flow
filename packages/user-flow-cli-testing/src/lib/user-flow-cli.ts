@@ -127,6 +127,9 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
+    if(!this.rcFile[rcFileName]) {
+      throw new Error(`Rc file ${rcFileName} does not exist in ${Object.keys(this.rcFile).join(', ')}`);
+    }
     return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 

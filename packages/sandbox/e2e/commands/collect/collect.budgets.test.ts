@@ -14,7 +14,7 @@ import {
 } from 'test-data';
 import Budget from 'lighthouse/types/lhr/budget';
 
-export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '') {
+export function expectBudgetsPathUsageLog(stdout: string) {
   expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
   expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
@@ -28,7 +28,7 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
 
-export function expectBudgetsUsageLog(stdout: string, budgets: Budget[] = []) {
+export function expectBudgetsUsageLog(stdout: string) {
   expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
   expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
@@ -90,7 +90,7 @@ describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
     const { exitCode, stdout, stderr } = await staticWRcBudgetPrj.$collect({ dryRun: false });
 
     expect(stderr).toBe('');
-    expectBudgetsUsageLog(stdout, LH_NAVIGATION_BUDGETS);
+    expectBudgetsUsageLog(stdout);
     expectResultsToIncludeBudgets(staticWRcBudgetPrj, STATIC_JSON_REPORT_NAME, LH_NAVIGATION_BUDGETS);
     expect(exitCode).toBe(0);
   }, 90_000);
@@ -130,7 +130,7 @@ describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
     });
 
     expect(stderr).toBe('');
-    expectBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
+    expectBudgetsPathUsageLog(stdout);
     expectResultsToIncludeBudgets(staticWBudgetAssetsPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);
 
