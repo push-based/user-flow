@@ -1,14 +1,13 @@
 import {Util} from '../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
-
 import {ReducedReport, ReducedFlowStepResult} from '../utils/user-flow/types';
 import { userFlowReportToMdTable } from "../../assert/utils/md-table";
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = flowResult.steps.map((step) => {
     let results: ReducedFlowStepResult
-    if(step.lhr) {
+    if(step?.lhr?.categories) {
       const stepReport = Util.prepareReportResult(step.lhr);
       const { gatherMode } = stepReport;
       const categoriesEntries: [string, LHR.Category][] = Object.entries(stepReport.categories) as unknown as [string, LHR.Category][];
@@ -18,7 +17,9 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
         return res
       }, {} as ReducedFlowStepResult);
       return { name: step.name, gatherMode, results };
-    } else return undefined as any
+    }
+    // @TODO inspect wrong step
+    return undefined as any
   }).filter(v => v !== undefined);
   return {name: flowResult.name, steps};
 }
