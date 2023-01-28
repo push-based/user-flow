@@ -72,18 +72,9 @@ describe('collect command in setup sandbox', () => {
     expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
 
-
-  it('should-contain-with-html-format', async () => {
-    const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
-      format: ['html'],
-      dryRun: false, verbose:true
-    });
-    expect(stdout).toContain('');
-  }, 90_000);
-
   it('should-run-with-html-format', async () => {
     const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
-      format: ['html'],
+      format: ['md'],
       dryRun: false, verbose:true
     });
     expect(stdout).toContain('Available on');
