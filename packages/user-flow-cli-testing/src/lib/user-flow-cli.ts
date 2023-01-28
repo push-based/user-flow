@@ -9,7 +9,8 @@ import {
   GlobalOptionsArgv,
   InitCommandArgv,
   LhConfigJson,
-  RcJson
+  RcJson,
+  ReportFormat
 } from '@push-based/user-flow';
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { SERVE_COMMAND_PORT } from './data/constants';
@@ -26,6 +27,10 @@ export class UserFlowCliProjectFactory {
   }
 }
 
+type FileResult = {
+  content: string | {},
+  reportPath: string
+}
 export class UserFlowCliProject extends CliProject<RcJson> {
   envPreset = getEnvPreset();
   serveCommandPort = SERVE_COMMAND_PORT;
@@ -105,11 +110,20 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return path.join(this.root, configName);
   }
 
-  readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME): string | {} {
+  readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME, format?: ReportFormat): FileResult[] {
     const outputFiles = fs.readdirSync(this.outputPath());
-    const reportName = outputFiles.find((name) => name.includes(name)) || userFlowName;
-    const content = fs.readFileSync(this.outputPath(reportName, rcFileName)).toString('utf8');
-    return reportName.includes('.json') ? JSON.parse(content) : content;
+    const reportPaths = outputFiles.filter((name) => {
+      if (format) {
+        return name.endsWith(format) && name.includes(name);
+      }
+      return name.includes(name);
+    }) || userFlowName;
+    return reportPaths.reduce((res, reportPath: string) => {
+      let content = fs.readFileSync(this.outputPath(reportPath, rcFileName)).toString('utf8');
+      content = reportPath.includes('.json') ? JSON.parse(content) : content;
+      res.push({ reportPath, content });
+      return res;
+    }, [] as FileResult[]);
   }
 
   outputPath(reportName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {

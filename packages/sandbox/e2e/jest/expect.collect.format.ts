@@ -7,7 +7,7 @@ export function expectCollectCommandCreatesHtmlReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportHTML = prj.readOutput(userFlowName, rcName);
+  const reportHTML = prj.readOutput(userFlowName, rcName, 'html')[0];
   expect(reportHTML).toContain(flowTitle);
 }
 
@@ -17,7 +17,7 @@ export function expectCollectCommandCreatesJsonReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportJson = prj.readOutput(reportName, rcName) as any;
+  const reportJson = prj.readOutput(reportName, rcName, 'json')[0] as any;
   expect(reportJson.name).toContain(flowTitle);
 }
 
@@ -32,7 +32,7 @@ export function expectCollectCommandCreatesMdReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportMd = prj.readOutput(reportName, rcName);
+  const reportMd = prj.readOutput(reportName, rcName, 'md')[0];
   expect(reportMd).toContain(flowTitle);
   expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
 }

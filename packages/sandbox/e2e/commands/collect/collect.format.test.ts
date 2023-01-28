@@ -82,6 +82,9 @@ describe('collect command in setup sandbox', () => {
     console.log('outputFiles: ', outputFiles);
     expect(stderr).toBe('');
     expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
+    //expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
+    //expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
+
   }, 90_000);
 
   it('should save the results as a HTML, JSON and Markdown files and log to stdout', async () => {
