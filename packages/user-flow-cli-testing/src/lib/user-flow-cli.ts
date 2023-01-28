@@ -27,8 +27,8 @@ export class UserFlowCliProjectFactory {
   }
 }
 
-type FileResult = {
-  content: string | {},
+type FileResult<T = string> = {
+  content: string | {} | unknown[] | T,
   reportPath: string
 }
 export class UserFlowCliProject extends CliProject<RcJson> {
@@ -110,7 +110,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return path.join(this.root, configName);
   }
 
-  readOutput(userFlowName: string, rcFileName: string = DEFAULT_RC_NAME, format?: ReportFormat): FileResult[] {
+  readOutput(userFlowName: string, format: ReportFormat | undefined = undefined, rcFileName: string = DEFAULT_RC_NAME, ): FileResult[] {
     const outputFiles = fs.readdirSync(this.outputPath());
     const reportPaths = outputFiles.filter((name) => {
       if (format) {

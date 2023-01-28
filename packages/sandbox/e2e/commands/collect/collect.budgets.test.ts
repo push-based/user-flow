@@ -20,7 +20,7 @@ export function expectBudgetsPathUsageLog(stdout: string, budgetPath: string = '
 }
 
 export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: string | Budget[] = LH_NAVIGATION_BUDGETS_NAME_DEFAULT) {
-  const report = prj.readOutput(reportName) as any;
+  const report = prj.readOutput(reportName, undefined, 'json')[0].content as any;
   const resolvedBudgets = Array.isArray(budgets) ? budgets : prj.readBudget(budgets);
 
   expect(report.steps[0].lhr.configSettings.budgets).toEqual(resolvedBudgets);
