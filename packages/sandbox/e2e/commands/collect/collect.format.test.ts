@@ -72,22 +72,6 @@ describe('collect command in setup sandbox', () => {
     expectCollectLogsReport(stdout, STATIC_USERFLOW_TITLE);
   }, 180_000);
 
-  it('should save the results as a HTML, JSON and Markdown files', async () => {
-    const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
-      format: ['json', 'html', 'md'],
-      dryRun: false, verbose:true
-    });
-
-    const outputFiles = setupRemotePrj.readOutput(STATIC_USERFLOW_TITLE);
-    console.log('outputFiles: ', outputFiles);
-    expect(outputFiles.length).toBe(3);
-    expectCollectCommandCreatesHtmlReport(setupRemotePrj, STATIC_HTML_REPORT_NAME, STATIC_USERFLOW_TITLE);
-    expectCollectCommandCreatesJsonReport(setupRemotePrj, STATIC_JSON_REPORT_NAME, STATIC_USERFLOW_TITLE);
-    expectCollectCommandCreatesMdReport(setupRemotePrj, STATIC_MD_REPORT_NAME, STATIC_USERFLOW_TITLE);
-    expect(stderr).toBe('');
-    //expect(exitCode).toBe(0);
-  }, 90_000);
-
   it('should save the results as a HTML, JSON and Markdown files and log to stdout', async () => {
     const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
       format: ['html', 'json', 'md', 'stdout'],
