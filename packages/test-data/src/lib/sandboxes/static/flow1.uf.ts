@@ -9,6 +9,7 @@ module.exports = {
     const { flow, collectOptions, page } = ctx as any;
     const { url } = collectOptions;
     const testUrl = url;
+    console.log("interactions collectOptions: ", collectOptions);
 
     // # Navigation
     await flow.navigate(testUrl);
