@@ -27,6 +27,7 @@ jobs:
         #run: npx @push-based/user-flow collect --dryRun false --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
         uses: push-based/user-flow-gh-action@v0.0.0-alpha.10
         with:
+          dryRun: off
           verbose: on
           rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
       - name: Commit measures
