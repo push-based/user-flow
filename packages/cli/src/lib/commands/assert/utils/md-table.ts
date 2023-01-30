@@ -1,7 +1,7 @@
 import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
 import { formatCode } from '../../../core/prettier';
 import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/processes/generate-reports';
-import FlowResult from 'lighthouse/types/lhr/flow';
+// import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
  * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
@@ -10,7 +10,7 @@ import FlowResult from 'lighthouse/types/lhr/flow';
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function userFlowReportToMdTable(flowResult: FlowResult, baselineResults?: FlowResult): string {
+export function userFlowReportToMdTable(flowResult: any, baselineResults?: any): string {
   const reducedReport = createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
@@ -19,7 +19,7 @@ export function userFlowReportToMdTable(flowResult: FlowResult, baselineResults?
   return markdownTable(tableArr, alignOptions);
 }
 
-function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: FlowResult): string[][] {
+function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
   if (baselineResults) {
     const enrichedReducedReport = enrichReducedReportWithBaseline(reducedReport, baselineResults);
     return enrichedReducedReport.steps.map((step) => {

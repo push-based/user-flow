@@ -4,7 +4,7 @@ import { DEFAULT_RC_NAME, GlobalOptionsArgv, RcJson, SETUP_CONFIRM_MESSAGE } fro
 import { quoted, unquoted } from './utils';
 
 export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
-  const report = prj.readOutput(reportName) as any;
+  const report = prj.readOutput(reportName, 'json')[0].content as any;
   const resolvedConfig = prj.readConfig(config);
   expect(report.steps[0].lhr.configSettings).toEqual(resolvedConfig);
 }

@@ -2,6 +2,28 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.13.14](https://github.com/push-based/user-flow/compare/cli-0.13.13...cli-0.13.14) (2023-01-28)
+
+
+
+## [0.13.13](https://github.com/push-based/user-flow/compare/cli-0.13.12...cli-0.13.13) (2023-01-28)
+
+
+
+## [0.13.12](https://github.com/push-based/user-flow/compare/cli-0.13.11...cli-0.13.12) (2023-01-28)
+
+
+### Bug Fixes
+
+* add test to insure it can persist reports in multiple formats ([8a18034](https://github.com/push-based/user-flow/commit/8a18034ee81a8690c2251f91fa9d9c207b2ac003))
+* use all persist format items in array ([bf479a9](https://github.com/push-based/user-flow/commit/bf479a93a66e43a9629f3c2ab1c102b47ca448e7))
+
+
+
+## [0.13.11](https://github.com/push-based/user-flow/compare/cli-0.13.10...cli-0.13.11) (2023-01-26)
+
+
+
 ## [0.13.10](https://github.com/push-based/user-flow/compare/cli-0.13.9...cli-0.13.10) (2023-01-17)
 
 

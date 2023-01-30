@@ -7,7 +7,7 @@ export function expectCollectCommandCreatesHtmlReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportHTML = prj.readOutput(userFlowName, rcName);
+  const reportHTML = prj.readOutput(userFlowName, 'html', rcName)[0].content;
   expect(reportHTML).toContain(flowTitle);
 }
 
@@ -17,7 +17,7 @@ export function expectCollectCommandCreatesJsonReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportJson = prj.readOutput(reportName, rcName) as any;
+  const reportJson = prj.readOutput(reportName,'json', rcName)[0].content as any;
   expect(reportJson.name).toContain(flowTitle);
 }
 
@@ -32,7 +32,7 @@ export function expectCollectCommandCreatesMdReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportMd = prj.readOutput(reportName, rcName);
+  const reportMd = prj.readOutput(reportName, 'md', rcName)[0].content;
   expect(reportMd).toContain(flowTitle);
   expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
 }
@@ -44,7 +44,7 @@ export function expectCollectCommandNotToCreateReport(
 ) {
   // Check report file is not created
   try {
-    prj.readOutput(reportName, rcName);
+    prj.readOutput(reportName, undefined, rcName);
   } catch (e: any) {
     expect(e.message).toContain('no such file or directory');
   }
