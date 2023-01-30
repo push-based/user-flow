@@ -29,7 +29,6 @@ jobs:
         with:
           verbose: on
           rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
-          dryRun: false
       - name: Commit measures
         uses: EndBug/add-and-commit@v7
         with:
