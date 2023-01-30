@@ -13,7 +13,6 @@ export function setupEnvVars(env: CLI_MODES): void {
 export function teardownEnvVars() {
   delete process.env[CI_PROPERTY];
   delete process.env[CLI_MODE_PROPERTY];
-  delete process.env['GITHUB_ACTIONS'];
 }
 
 // @TODO: move into cli-project as it deals with env vars
