@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import * as path from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/node-cli-testing';
@@ -87,7 +87,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   readRcJson(rcFileName: string = DEFAULT_RC_NAME): RcJson {
-    return JSON.parse(fs.readFileSync(this.rcJsonPath(rcFileName)) as any);
+    return JSON.parse(readFileSync(this.rcJsonPath(rcFileName)) as any);
   }
 
   rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
@@ -95,7 +95,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): Budget[] {
-    return JSON.parse(fs.readFileSync(this.budgetPath(budgetName)) as any);
+    return JSON.parse(readFileSync(this.budgetPath(budgetName)) as any);
   }
 
   budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): string {
@@ -103,7 +103,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
-    return JSON.parse(fs.readFileSync(this.configPath(configName)) as any);
+    return JSON.parse(readFileSync(this.configPath(configName)) as any);
   }
 
   configPath(configName: string = LH_CONFIG_NAME_DEFAULT): string {
@@ -111,7 +111,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   readOutput(userFlowName: string, format: ReportFormat | undefined = undefined, rcFileName: string = DEFAULT_RC_NAME, ): FileResult[] {
-    const outputFiles = fs.readdirSync(this.outputPath());
+    const outputFiles = readdirSync(this.outputPath());
     const reportPaths = outputFiles.filter((name) => {
       if (format) {
         return name.endsWith(format) && name.includes(name);
@@ -119,7 +119,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
       return name.includes(name);
     }) || userFlowName;
     return reportPaths.reduce((res, reportPath: string) => {
-      let content = fs.readFileSync(this.outputPath(reportPath, rcFileName)).toString('utf8');
+      let content = readFileSync(this.outputPath(reportPath, rcFileName)).toString('utf8');
       content = reportPath.includes('.json') ? JSON.parse(content) : content;
       res.push({ reportPath, content });
       return res;
@@ -136,7 +136,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   readUserFlow(userFlowName: string = DEFAULT_PERSIST_OUT_PATH, rcFileName: string = DEFAULT_RC_NAME): string[][] {
     const flowPath = this.userFlowPath(userFlowName, rcFileName);
     const files = getFolderContent([flowPath]);
-    return files.map(f => ([f, fs.readFileSync(flowPath).toString('utf8')]));
+    return files.map(f => ([f, readFileSync(flowPath).toString('utf8')]));
   }
 
   userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
