@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync } from 'fs';
-import * as path from 'path';
+import { join }  from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/node-cli-testing';
 import {
@@ -91,7 +91,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   rcJsonPath(rcFileName: string = DEFAULT_RC_NAME): string {
-    return path.join(this.root, rcFileName);
+    return join(this.root, rcFileName);
   }
 
   readBudget(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): Budget[] {
@@ -99,7 +99,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   budgetPath(budgetName: string = LH_NAVIGATION_BUDGETS_NAME_DEFAULT): string {
-    return path.join(this.root, budgetName);
+    return join(this.root, budgetName);
   }
 
   readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
@@ -107,7 +107,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   configPath(configName: string = LH_CONFIG_NAME_DEFAULT): string {
-    return path.join(this.root, configName);
+    return join(this.root, configName);
   }
 
   readOutput(userFlowName: string, format: ReportFormat | undefined = undefined, rcFileName: string = DEFAULT_RC_NAME, ): FileResult[] {
@@ -130,7 +130,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     if(!this.rcFile[rcFileName]) {
       throw new Error(`Rc file "${rcFileName}" does not exist in: ${Object.keys(this.rcFile).join(', ')}`);
     }
-    return path.join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
+    return join(this.root, this.rcFile[rcFileName].persist.outPath, reportName);
   }
 
   readUserFlow(userFlowName: string = DEFAULT_PERSIST_OUT_PATH, rcFileName: string = DEFAULT_RC_NAME): string[][] {
@@ -140,7 +140,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
   }
 
   userFlowPath(userFlowName: string = '', rcFileName: string = DEFAULT_RC_NAME): string {
-    return path.join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
+    return join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 
 }

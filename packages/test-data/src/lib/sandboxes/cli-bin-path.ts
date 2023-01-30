@@ -1,3 +1,3 @@
-import * as path from 'path';
+import { join } from 'path';
 
-export const CLI_PATH = path.join(__dirname, '..','..', '..', '..', '..', 'dist', 'packages', 'cli', 'src', 'cli.js');
+export const CLI_PATH = join(__dirname, '..','..', '..', '..', '..', 'dist', 'packages', 'cli', 'src', 'cli.js');
