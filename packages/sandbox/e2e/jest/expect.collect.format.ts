@@ -1,4 +1,4 @@
-import * as path from 'path';
+import { join, basename } from 'path';
 import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
 
 export function expectCollectCommandCreatesHtmlReport(
@@ -51,7 +51,7 @@ export function expectCollectCommandNotToCreateReport(
 }
 
 export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
-  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => path.join(prj.readRcJson().persist.outPath, path.basename(p)));
+  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => join(prj.readRcJson().persist.outPath, basename(p)));
   // expect(flowNames).toBe('flowNames')
   const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
   const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
