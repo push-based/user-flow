@@ -40,9 +40,5 @@ jobs:
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: step name
-          message: |
-            steps.uf.outputs.resultPath:
-            ${{ steps.uf.outputs.resultPath }}
-            steps.uf.outputs.result:
-            ${{ steps.uf.outputs.resultSummary }}
+          header: user flow summary report
+          message: ${{ steps.uf.outputs.resultSummary }}
