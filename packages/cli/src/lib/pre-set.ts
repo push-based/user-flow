@@ -20,7 +20,7 @@ export const CI_PRESET: ArgvPreset = {
   interactive: false,
   verbose: false,
   // COLLECT COMMAND
-  dryRun: true,
+  dryRun: false,
   // PERSIST COMMAND
   openReport: false
 };
