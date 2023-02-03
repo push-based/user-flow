@@ -44,10 +44,10 @@ jobs:
 # How to test the setup
 1. If you open a new PR in your repository you should see the runner execution your user-flow in the CI
 
-![Action is executing]()
+<img width="672" alt="gh-ci-running" title="Action is executing" src="https://user-images.githubusercontent.com/10064416/216594684-ea9e3a5e-007e-47d6-b438-c16d2158f940.PNG">
 
 2. After the user flow executed you should see a mark down report as comment attached to your PR
 
-![Comments]()
+<img width="583" alt="gh-ci-complete" title="Action completed" src="https://user-images.githubusercontent.com/10064416/216594803-65cb2cfd-1924-44ae-84ec-8b1d09e49ada.PNG">
 
 made with ❤ by [push-based.io](https://www.push-based.io)
