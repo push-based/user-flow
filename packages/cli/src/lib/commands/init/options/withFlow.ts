@@ -6,8 +6,7 @@ export const param: Param = {
   withFlow: {
     alias: 'g',
     type: 'boolean',
-    description: 'Create as user flow under "ufPath"',
-    default: true
+    description: 'Create as user flow under "ufPath"'
   }
 };
 
