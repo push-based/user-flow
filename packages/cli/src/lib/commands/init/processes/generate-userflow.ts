@@ -8,6 +8,7 @@ import { FlowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
+import { logVerbose } from '../../../core/loggin';
 
 const exampleName = 'basic-navigation';
 
@@ -19,7 +20,7 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
 export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
 export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
-
+console.log('generateUserFlow');
   const ufPath = cliCfg.collect.ufPath;
   // DX create directory if it does ot exist
   try {
@@ -32,7 +33,8 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   const exampleDestination = join(ufPath, tplFileName);
 
   if (readFile(exampleDestination) !== '') {
-    throw new Error(`No flow example given for name ${exampleName}.`);
+    logVerbose(`User flow ${exampleName} already generated under ${exampleDestination}.`);
+    return Promise.resolve(cliCfg);
   }
 
   const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
