@@ -1,4 +1,4 @@
-# GitHub CI integration of lighthouse userflow in your PR
+# GitHub workflow integration of lighthouse user flows in your PR
 
 In this section you will learn how to run @push-based/user-flow in your CI as [GitHub action](https://github.com/marketplace/actions/lighthouse-user-flow-ci-action).
 

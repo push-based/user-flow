@@ -155,6 +155,13 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 > For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
 > This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation  
 
+## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
+
+With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as comments.
+
+ 
+See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md) for more details.
+
 # CLI
 You can read more about tricks and DX the [general CLI features](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/general-cli-features.md) in our docs. 
 
