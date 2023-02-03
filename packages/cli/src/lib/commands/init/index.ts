@@ -8,8 +8,8 @@ import { run } from '../../core/processing/behaviors';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { updateRcJson } from './processes/update-rc-json';
 import { generateUserFlow, userflowIsNotCreated } from './processes/generate-userflow';
-import { ifThenElse } from '../../../../../../dist/packages/cli/src/lib/core/processing/behaviors';
-import { getGlobalOptionsFromArgv } from '../../../../../../dist/packages/cli/src/lib';
+import { ifThenElse } from '../../core/processing/behaviors';
+import { getGlobalOptionsFromArgv } from '../../global/utils';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -26,9 +26,16 @@ export const initCommand: YargsCommandObject = {
         collectRcJson,
         updateRcJson,
         ifThenElse(
+          // if `withFlow` is not used ind the CLI is in interactive mode
           () => interactive == true && withFlow === undefined,
-          askToSkip('Setup user flow', generateUserFlow, { precondition: userflowIsNotCreated }),
-          ifThenElse(() => withFlow, generateUserFlow, async (_) => _)
+          // Prompt for flow generation
+          askToSkip('Setup user flow', generateUserFlow,
+            // if the flow is not created already
+            { precondition: userflowIsNotCreated }),
+          // else `withFlow` is used and true
+          ifThenElse(() => withFlow,
+            // generate the file else do nothing
+            generateUserFlow)
         )
       ])(cfg);
       log(SETUP_CONFIRM_MESSAGE);
