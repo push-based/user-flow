@@ -159,6 +159,7 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 
 With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as comments.
 
+![user-flow-gh-action-cover](https://user-images.githubusercontent.com/10064416/216605948-b8fffdda-3459-48c9-975a-75ec95544d30.png)
  
 See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md) for more details.
 
