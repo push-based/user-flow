@@ -4,7 +4,7 @@ import { AssertRcOptions } from '../assert/options/types';
 
 export function getInitCommandOptionsFromArgv(argv: any) {
   let {
-    withFlow,
+    generateFlow,
     url, ufPath, serveCommand, awaitServeStdout,
     outPath, format, budgetPath, budgets
   } = argv as unknown as InitArgvOptions;
@@ -24,6 +24,6 @@ export function getInitCommandOptionsFromArgv(argv: any) {
   budgetPath && (assert.budgetPath = budgetPath);
   budgets && (assert.budgets = budgets);
 
-  return { collect, persist, assert, withFlow };
+  return { collect, persist, assert, generateFlow };
 }
 
