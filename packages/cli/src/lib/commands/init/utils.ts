@@ -3,10 +3,13 @@ import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
 import { AssertRcOptions } from '../assert/options/types';
 
 export function getInitCommandOptionsFromArgv(argv: any) {
-  const {
+  let {
+    withFlow,
     url, ufPath, serveCommand, awaitServeStdout,
     outPath, format, budgetPath, budgets
   } = argv as unknown as InitArgvOptions;
+  // CLI only
+  withFlow = withFlow === undefined ? true : !!withFlow;
 
   let collect = {} as CollectRcOptions;
   url && (collect.url = url);
@@ -23,6 +26,6 @@ export function getInitCommandOptionsFromArgv(argv: any) {
   budgetPath && (assert.budgetPath = budgetPath);
   budgets && (assert.budgets = budgets);
 
-  return { collect, persist, assert };
+  return { collect, persist, assert, withFlow };
 }
 

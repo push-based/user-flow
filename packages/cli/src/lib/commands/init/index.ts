@@ -8,6 +8,8 @@ import { run } from '../../core/processing/behaviors';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { updateRcJson } from './processes/update-rc-json';
 import { generateUserFlow, userflowIsNotCreated } from './processes/generate-userflow';
+import { ifThenElse } from '../../../../../../dist/packages/cli/src/lib/core/processing/behaviors';
+import { getGlobalOptionsFromArgv } from '../../../../../../dist/packages/cli/src/lib';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -16,18 +18,18 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      const cfg = getInitCommandOptionsFromArgv(argv);
-      logVerbose('Init options: ', cfg);
+      const { interactive } = getGlobalOptionsFromArgv(argv);
+      const { withFlow, ...cfg } = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', { withFlow, ...cfg });
 
       await run([
         collectRcJson,
         updateRcJson,
-        askToSkip(
-          'Setup user flow',
-          generateUserFlow,
-          {
-            precondition: userflowIsNotCreated
-          })
+        ifThenElse(
+          () => interactive == true && withFlow === undefined,
+          askToSkip('Setup user flow', generateUserFlow, { precondition: userflowIsNotCreated }),
+          ifThenElse(() => withFlow, generateUserFlow, async (_) => _)
+        )
       ])(cfg);
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants
