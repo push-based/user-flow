@@ -24,7 +24,9 @@ If everything works you are good to go!
 
 ## How to set up a `workflow.yml`
 
-1. Create a file called `user-flow-ci` and paste the following content:
+1. Create a file called `user-flow-ci.yml` in `./.github/workflows`.
+
+2. Paste the following content into `user-flow-ci.yml`:
 
 ```yml
 name: user-flow-ci
