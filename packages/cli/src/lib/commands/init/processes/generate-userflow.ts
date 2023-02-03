@@ -5,6 +5,9 @@ import { log } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'fs';
 import { FlowExampleMap } from '../constants';
 import { FlowExamples } from '../types';
+import { ifThenElse } from '../../../core/processing/behaviors';
+import { askToSkip } from '../../../core/prompt';
+import { CLIProcess } from '../../../core/processing/types';
 
 const exampleName = 'basic-navigation';
 
@@ -37,5 +40,20 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
 
   log(`setup user-flow for basic navigation in ${ufPath} successfully`);
   return Promise.resolve(cliCfg);
+}
+
+export function handleFlowGeneration({ withFlow, interactive }: {interactive: boolean, withFlow?: boolean}): CLIProcess {
+  return ifThenElse(
+    // if `withFlow` is not used ind the CLI is in interactive mode
+    () => interactive == true && withFlow === undefined,
+    // Prompt for flow generation
+    askToSkip('Setup user flow', generateUserFlow,
+      // if the flow is not created already
+      { precondition: userflowIsNotCreated }),
+    // else `withFlow` is used and true
+    ifThenElse(() => !!withFlow,
+      // generate the file else do nothing
+      generateUserFlow)
+  )
 }
 

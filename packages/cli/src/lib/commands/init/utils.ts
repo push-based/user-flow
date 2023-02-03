@@ -8,8 +8,6 @@ export function getInitCommandOptionsFromArgv(argv: any) {
     url, ufPath, serveCommand, awaitServeStdout,
     outPath, format, budgetPath, budgets
   } = argv as unknown as InitArgvOptions;
-  // CLI only
-  withFlow = withFlow === undefined ? true : !!withFlow;
 
   let collect = {} as CollectRcOptions;
   url && (collect.url = url);
