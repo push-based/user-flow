@@ -3,45 +3,65 @@ import {
   UserFlowContext,
   UserFlowProvider
 } from '@push-based/user-flow';
-import { Coffee } from '../ufo/coffee.ufo';
-import { CheckoutForm } from '../ufo/checkout.form';
-import { formData } from '../data/checkout.data';
 
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { flow, collectOptions } = ctx;
+  const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
-
-  const coffeeUfo = new Coffee(ctx);
-  const checkoutFormUfo = new CheckoutForm(ctx);
 
   // Navigate to coffee order site
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart'
+    stepName: 'Navigate to coffee cart',
   });
 
   await flow.startTimespan({ stepName: 'Select coffee' });
+
   // Select coffee
-  coffeeUfo.selectCappuccino();
+  const cappuccinoItem = '[data-test=Cappucino]';
+  await page.waitForSelector(cappuccinoItem);
+  await page.click(cappuccinoItem);
+
   await flow.endTimespan();
+
   await flow.snapshot({ stepName: 'Coffee selected' });
 
+
   await flow.startTimespan({ stepName: 'Checkout order' });
+
   // Checkout order
-  await checkoutFormUfo.openOrder();
-  await checkoutFormUfo.fillCheckoutForm(formData);
+  const checkoutBtn = '[data-test=checkout]';
+  await page.waitForSelector(checkoutBtn);
+  await page.click(checkoutBtn);
+
+  const nameInputSelector = '#name';
+  await page.waitForSelector(nameInputSelector);
+  await page.type(nameInputSelector, 'nina');
+
+  const emailInputSelector = '#email';
+  await page.waitForSelector(emailInputSelector);
+  await page.type(emailInputSelector, 'nina@gmail.com');
+
   await flow.endTimespan();
+
   await flow.snapshot({ stepName: 'Order checked out' });
 
   await flow.startTimespan({ stepName: 'Submit order' });
+
   // Submit order
-  await checkoutFormUfo.submitOrder();
+  const submitBtn = '#submit-payment';
+  await page.click(submitBtn);
+  await page.waitForSelector(submitBtn);
+  const successMsg = '.snackbar.success';
+  await page.waitForSelector(successMsg);
+
   await flow.endTimespan();
+
   await flow.snapshot({ stepName: 'Order submitted' });
+
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: { name: 'Order Coffee' },
+  flowOptions: {name: 'Order Coffee'},
   interactions
 };
 
