@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.13.18](https://github.com/push-based/user-flow/compare/cli-0.13.17...cli-0.13.18) (2023-02-03)
+
+
+### Bug Fixes
+
+* set dryRun ci preset to false ([c973028](https://github.com/push-based/user-flow/commit/c97302803897a7dcaca6f4a6f088cd01b72926df))
+
+
+### Reverts
+
+* Revert "refactor: add GH to checks" ([dd6ad5a](https://github.com/push-based/user-flow/commit/dd6ad5ae30ac1d007d0ead814256a302993390d9))
+* Revert "refactor: adjust CI check" ([acab2dc](https://github.com/push-based/user-flow/commit/acab2dca83fa24f7dbfced8fbe22875818569460))
+* Revert "refactor: adjust env helpers 3" ([5ab06c5](https://github.com/push-based/user-flow/commit/5ab06c5141ec0aff6cbee49c64a4a2c68a18b212))
+* Revert "refactor: adjust env helpers 5" ([d9ffba3](https://github.com/push-based/user-flow/commit/d9ffba3937e26cd3624229c39dd5217ebc40fa8d))
+
+
+
 ## [0.13.17](https://github.com/push-based/user-flow/compare/cli-0.13.16...cli-0.13.17) (2023-01-31)
 
 
