@@ -25,7 +25,7 @@ jobs:
       - name: Executing user-flow CLI
         id: uf
         #run: npx @push-based/user-flow collect --dryRun false --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
-        uses: push-based/user-flow-gh-action@v0.0.0-alpha.17
+        uses: push-based/user-flow-gh-action@v0.0.0-alpha.18
         with:
           dryRun: off
           verbose: on
