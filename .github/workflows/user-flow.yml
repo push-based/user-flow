@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-
     steps:
       - uses: actions/checkout@v2
       - name: use Node.js ${{ matrix.node-version }}
@@ -24,16 +23,8 @@ jobs:
         run: npm run build
       - name: Executing user-flow CLI
         id: uf
-        #run: npx @push-based/user-flow collect --dryRun false --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json
-        uses: push-based/user-flow-gh-action@v0.0.0-alpha.19
+        uses: push-based/user-flow-gh-action@v0.0.0-alpha.20
         with:
           dryRun: off
           verbose: on
           rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
-      - name: Commit measures # To check if we have test file leftovers
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: push-based-bot
-          author_email: opensource@push-based.io
-          message: 'Persist user-flow-gh-action build'
-          add: '*'
