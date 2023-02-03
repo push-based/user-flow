@@ -52,7 +52,7 @@
     "@nrwl/nx-cloud": "^15.0.2",
     "@nrwl/tao": "^15.2.1",
     "@nrwl/workspace": "^15.2.1",
-    "@push-based/node-cli-testing": "^0.0.1",
+    "@push-based/node-cli-testing": "^0.2.2",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.14",
