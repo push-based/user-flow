@@ -46,7 +46,7 @@ console.log('generateUserFlow');
 
 export function handleFlowGeneration({ withFlow, interactive }: {interactive: boolean, withFlow?: boolean}): CLIProcess {
   return ifThenElse(
-    // if `withFlow` is not used ind the CLI is in interactive mode
+    // if `withFlow` is not used in the CLI is in interactive mode
     () => interactive == true && withFlow === undefined,
     // Prompt for flow generation
     askToSkip('Setup user flow', generateUserFlow,
@@ -54,7 +54,7 @@ export function handleFlowGeneration({ withFlow, interactive }: {interactive: bo
       { precondition: userflowIsNotCreated }),
     // else `withFlow` is used and true
     ifThenElse(() => !!withFlow,
-      // generate the file else do nothing
+      // generate the file => else do nothing
       generateUserFlow)
   )
 }
