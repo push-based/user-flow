@@ -1,9 +1,7 @@
-name: user-flow
+name: user-flow-gh-action-example
 
 on:
   pull_request:
-    paths-ignore:
-      - '*.md'
 
 jobs:
   user-flow-integrated-in-ci:
@@ -13,14 +11,6 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v2
-      - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: install
-        run: npm i
-      - name: build
-        run: npm run build
       - name: Executing user-flow CLI
         id: uf
         uses: push-based/user-flow-gh-action@v0.0.0-alpha.20
