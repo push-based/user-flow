@@ -12,9 +12,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Executing user-flow CLI
-        id: uf
         uses: push-based/user-flow-gh-action@v0.0.0-alpha.20
-        with:
-          dryRun: off
-          verbose: on
-          rcPath: ./packages/user-flow-ci-integration/.user-flowrc.json
