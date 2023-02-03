@@ -186,6 +186,10 @@ Run command over:
 Description:  
 This command helps you to set up a `.user-flowrc.json` and asks for input over CLI prompts.
 
+|  Option                            |  Type     | Default                | Description                                                                                              |  
+| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
+| **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
+
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
 As a result we get a `.user-flowrc.json` and an example flow if answered with yes.
