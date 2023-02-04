@@ -198,7 +198,7 @@ As a result we get a `.user-flowrc.json` and an example flow if answered with ye
 > Set up user flows in a sub directory:  
 > `npx @push-based/user-flow init --rcPath ./path/to/project/.user-flowrc.json`
 
-### `collect` command
+### [`collect` command](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/command-collect.md)
 
 Run command over:  
 `@npx @push-based/user-flow collect [options]`  or `@npx @push-based/user-flow [options]` as it is the default command.  
