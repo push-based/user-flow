@@ -7,9 +7,11 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
-import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON } from 'test-data';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON, BASIC_NAVIGATION_USERFLOW_NAME } from 'test-data';
 import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
 import { ACCEPT_BOOLEAN } from '@push-based/node-cli-testing';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -53,7 +55,11 @@ describe('.rc.json in empty sandbox', () => {
     expect(stderr).toBe('');
     const hardRc = emptyPrj.readRcJson();
     expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
-    const hardFlow = emptyPrj.readUserFlow()[0];
+    const p = join(CLI_DEFAULT_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME);
+    if(!existsSync(p)) {
+      throw new Error(`User flow ${p} does nt exist`)
+    }
+    const hardFlow = readFileSync(p, {encoding: 'utf8'});
     expect(hardFlow).toContain('basic');
   });
 
