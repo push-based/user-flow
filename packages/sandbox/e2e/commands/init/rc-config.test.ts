@@ -56,7 +56,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(stderr).toBe('');
     const hardRc = emptyPrj.readRcJson();
     expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
-    const p = join(CLI_DEFAULT_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME);
+    const p = join(EMPTY_PRJ_CFG.root, CLI_DEFAULT_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME);
     if(!existsSync(p)) {
       throw new Error(`User flow ${p} does nt exist`)
     }
