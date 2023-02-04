@@ -1,5 +1,5 @@
-import { readFileSync, readdirSync } from 'fs';
-import { join }  from 'path';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import { CliProject, getFolderContent, ProcessParams, TestResult, withProject } from '@push-based/node-cli-testing';
 import {
@@ -145,11 +145,9 @@ export class UserFlowCliProject extends CliProject<RcJson> {
 
 }
 
-
 export function withUserFlowProject<T extends {}>(
   cfg: any,
-  fn: (prj: unknown) => Promise<void>,
-  factory: Record<'create', (cfg: UserFlowProjectConfig) => Promise<CliProject<T>>> = UserFlowCliProjectFactory
+  fn: (prj: unknown) => Promise<void>
 ): () => Promise<void> {
-  return withProject(cfg, fn, UserFlowCliProjectFactory);
+  return withProject(cfg, fn, UserFlowCliProjectFactory as any);
 }
