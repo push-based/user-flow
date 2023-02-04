@@ -1,4 +1,4 @@
-name: user-flow-gh-action-example
+name: user-flow-ci
 on:
   pull_request:
 jobs:
