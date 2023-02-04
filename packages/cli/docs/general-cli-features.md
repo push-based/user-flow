@@ -99,13 +99,6 @@ logVerbose('test');
 `npx user-flow collect` logs nothing  
 `npx user-flow collect --verbose` logs "test"  
 
-### `dryRun`
-
-For a faster development process you can use the `--dryRun` option to skip measurement and perform the interactions only  
-This is a multitude faster e.g. **3s** vs **53s** for a simple 2 step flow with navigation.
-
-It will produce a dummy report in all formats and spin up chromium as usual.  
-
 ---
 
 made with ❤ by [push-based.io](https://www.push-based.io)

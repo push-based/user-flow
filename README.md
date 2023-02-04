@@ -178,7 +178,7 @@ Run the default command over:
 Description:  
 The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow#collect-command) command.
 
-### `init` command
+### [`init` command](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/command-init.md)
 
 Run command over:  
 `@npx @push-based/user-flow init [options]`  
@@ -210,13 +210,13 @@ This command executes a set of user-flow definitions against the target URL and 
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                           |  
 | **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containg user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
-| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
+| **`-b`**, **`--budget-path`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
+| **`-c`**, **`--config-path`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
 | **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`  |  
 | **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
 | **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                            |  
+| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
 | **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                              |  
-| **`-b`**, **`--budget-path`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
-| **`-c`**, **`--config-path`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
 | **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                   |  
 
 > **💡 Pro Tip:**
@@ -334,4 +334,7 @@ See [github-workflow-integration](https://github.com/push-based/user-flow/blob/m
 - [lighthouse user flows](https://web.dev/lighthouse-user-flows/)
 - [lighthouse user flow recorder](https://developer.chrome.com/docs/devtools/recorder/)
 - [lighthouse user flow recorder features](https://m.youtube.com/watch?v=PupwBARjaYU&feature=youtu.be)
+
+---
+
 made with ❤ by [push-based.io](https://www.push-based.io)
