@@ -32,7 +32,7 @@ async function shouldProceed(question: string): Promise<boolean> {
 
 export function askToSkip(
   question: string,
-  crawlerProcess: CLIProcess,
+  cliProcess: CLIProcess,
   options: {
     precondition?: (r?: RcJson) => Promise<boolean>;
   } = {
@@ -47,7 +47,7 @@ export function askToSkip(
     }
 
     if (await shouldProceed(question)) {
-      return await crawlerProcess(d);
+      return await cliProcess(d);
     }
 
     return d;

@@ -3,11 +3,11 @@ import { log, logVerbose } from '../../core/loggin';
 import { INIT_OPTIONS } from './options';
 import { getInitCommandOptionsFromArgv } from './utils';
 import { collectRcJson } from './processes/collect-rc-json';
-import { askToSkip } from '../../core/prompt';
 import { run } from '../../core/processing/behaviors';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { updateRcJson } from './processes/update-rc-json';
-import { generateUserFlow, userflowIsNotCreated } from './processes/generate-userflow';
+import { handleFlowGeneration } from './processes/generate-userflow';
+import { getGlobalOptionsFromArgv } from '../../global/utils';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -16,19 +16,15 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      const cfg = getInitCommandOptionsFromArgv(argv);
-      logVerbose('Init options: ', cfg);
+      const { interactive } = getGlobalOptionsFromArgv(argv);
+      const { generateFlow, ...cfg } = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', { interactive, generateFlow, ...cfg });
 
       await run([
         collectRcJson,
         updateRcJson,
-        askToSkip(
-          'Setup user flow',
-          generateUserFlow,
-          {
-            precondition: userflowIsNotCreated
-          })
-      ])(cfg);
+        handleFlowGeneration({ interactive: !!interactive, generateFlow })
+      ])(cfg );
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants
       log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');

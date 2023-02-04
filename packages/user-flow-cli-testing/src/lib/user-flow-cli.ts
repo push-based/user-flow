@@ -1,7 +1,7 @@
-import { readFileSync, readdirSync } from 'fs';
-import { join }  from 'path';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
-import { CliProject, getFolderContent, ProcessParams, TestResult } from '@push-based/node-cli-testing';
+import { CliProject, getFolderContent, ProcessParams, TestResult, withProject } from '@push-based/node-cli-testing';
 import {
   CollectCommandArgv,
   DEFAULT_PERSIST_OUT_PATH,
@@ -143,4 +143,11 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return join(this.root, this.rcFile[rcFileName].collect.ufPath, userFlowName);
   }
 
+}
+
+export function withUserFlowProject<T extends {}>(
+  cfg: any,
+  fn: (prj: unknown) => Promise<void>
+): () => Promise<void> {
+  return withProject(cfg, fn, UserFlowCliProjectFactory as any);
 }

@@ -56,4 +56,6 @@ jobs:
 
 <img width="676" alt="gh-ci-comment" title="Action created comment in PR" src="https://user-images.githubusercontent.com/10064416/216596391-35a041e2-9839-4cf5-b8c5-b55e93cb622e.PNG">
 
+---
+
 made with ❤ by [push-based.io](https://www.push-based.io)

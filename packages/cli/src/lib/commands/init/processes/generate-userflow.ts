@@ -5,6 +5,11 @@ import { log } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'fs';
 import { FlowExampleMap } from '../constants';
 import { FlowExamples } from '../types';
+import { ifThenElse } from '../../../core/processing/behaviors';
+import { askToSkip } from '../../../core/prompt';
+import { CLIProcess } from '../../../core/processing/types';
+import { logVerbose } from '../../../core/loggin';
+import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 
 const exampleName = 'basic-navigation';
 
@@ -16,7 +21,7 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
 export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
 export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
-
+console.log('generateUserFlow');
   const ufPath = cliCfg.collect.ufPath;
   // DX create directory if it does ot exist
   try {
@@ -29,7 +34,8 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   const exampleDestination = join(ufPath, tplFileName);
 
   if (readFile(exampleDestination) !== '') {
-    throw new Error(`No flow example given for name ${exampleName}.`);
+    logVerbose(`User flow ${exampleName} already generated under ${exampleDestination}.`);
+    return Promise.resolve(cliCfg);
   }
 
   const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
@@ -37,5 +43,20 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
 
   log(`setup user-flow for basic navigation in ${ufPath} successfully`);
   return Promise.resolve(cliCfg);
+}
+
+export function handleFlowGeneration({ generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean}): CLIProcess {
+  return ifThenElse(
+    // if `withFlow` is not used in the CLI is in interactive mode
+    () => interactive == true && generateFlow === undefined,
+    // Prompt for flow generation
+    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
+      // if the flow is not created already, otherwise skip creation
+      { precondition: userflowIsNotCreated }),
+    // else `withFlow` is used and true
+    ifThenElse(() => !!generateFlow,
+      // generate the file => else do nothing
+      generateUserFlow)
+  )
 }
 

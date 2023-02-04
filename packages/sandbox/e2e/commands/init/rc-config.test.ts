@@ -7,8 +7,11 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
-import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON } from 'test-data';
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON, BASIC_NAVIGATION_USERFLOW_NAME } from 'test-data';
+import { expectOutputRcInStdout, expectPromptsOfGenerateFlowInStdout, expectPromptsOfInitInStdout } from '../../jest';
+import { ACCEPT_BOOLEAN } from '@push-based/node-cli-testing';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -23,6 +26,42 @@ describe('.rc.json in empty sandbox', () => {
   });
   afterEach(async () => {
     await emptyPrj.teardown();
+  });
+
+  it('should take default params from prompt with flow', async () => {
+
+    const { exitCode, stdout, stderr } = await emptyPrj.$init({ verbose: true }, [
+      //url
+      ENTER,
+      // ufPath
+      ENTER,
+      // HTML format
+      ENTER,
+      // outPath
+      ENTER, ENTER,
+      // create flow example
+      ACCEPT_BOOLEAN
+    ]);
+
+    // Assertions
+
+    // STDOUT
+    expect(stdout).toContain('.user-flowrc.json does not exist.');
+    // prompts
+    expectPromptsOfInitInStdout(stdout);
+    expectPromptsOfGenerateFlowInStdout(stdout);
+    // setup log
+    expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
+    expect(exitCode).toBe(0);
+    expect(stderr).toBe('');
+    const hardRc = emptyPrj.readRcJson();
+    expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
+    const p = join(EMPTY_PRJ_CFG.root, CLI_DEFAULT_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME);
+    if(!existsSync(p)) {
+      throw new Error(`User flow ${p} does nt exist`)
+    }
+    const hardFlow = readFileSync(p, {encoding: 'utf8'});
+    expect(hardFlow).toContain('basic');
   });
 
   it('should take default params from prompt', async () => {
