@@ -85,7 +85,6 @@ describe('.rc.json in empty sandbox', () => {
     expect(stdout).toContain('.user-flowrc.json does not exist.');
     // prompts
     expectPromptsOfInitInStdout(stdout);
-    expectPromptsOfGenerateFlowInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);

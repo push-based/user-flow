@@ -51,7 +51,7 @@ export function handleFlowGeneration({ generateFlow, interactive }: {interactive
     () => interactive == true && generateFlow === undefined,
     // Prompt for flow generation
     askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
-      // if the flow is not created already
+      // if the flow is not created already, otherwise skip creation
       { precondition: userflowIsNotCreated }),
     // else `withFlow` is used and true
     ifThenElse(() => !!generateFlow,

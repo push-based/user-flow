@@ -18,7 +18,7 @@ export const initCommand: YargsCommandObject = {
       logVerbose(`run "init" as a yargs command`);
       const { interactive } = getGlobalOptionsFromArgv(argv);
       const { generateFlow, ...cfg } = getInitCommandOptionsFromArgv(argv);
-      logVerbose('Init options: ', { generateFlow, ...cfg });
+      logVerbose('Init options: ', { interactive, generateFlow, ...cfg });
 
       await run([
         collectRcJson,
