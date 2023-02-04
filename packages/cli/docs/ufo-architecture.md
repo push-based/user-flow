@@ -180,4 +180,6 @@ To run the user flows use the `-p` option to point to the new config file
 
 `npx @push-based/user-flow -p=./my-app-user-flows/.user-flowrc.json`
 
+---
+
 made with ❤ by [push-based.io](https://www.push-based.io)

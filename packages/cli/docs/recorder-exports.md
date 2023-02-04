@@ -171,4 +171,6 @@ We can also pass additional options to each step, such as a `stepName` the repor
 
 // TODO add resource link
 
+---
+
 made with ❤ by [push-based.io](https://www.push-based.io)

@@ -146,4 +146,6 @@ The many of the timing related metrics are visible in the "Performance" tab
 - [Use Lighthouse for performance budgets](https://web.dev/use-lighthouse-for-performance-budgets/?utm_source=lighthouse&utm_medium=node)
 - [Understand the performance budget structure](https://github.com/GoogleChrome/lighthouse/blob/master/docs/performance-budgets.md)
 
+---
+
 made with ❤ by [push-based.io](https://www.push-based.io)
