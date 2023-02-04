@@ -176,7 +176,7 @@ Run the default command over:
 `@npx @push-based/user-flow [options]`  
 
 Description:  
-The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow/tree/main/packages/cli#collect-command).
+The default command forwards all options to the [`collect`](https://github.com/push-based/user-flow#collect-command) command.
 
 ### `init` command
 
