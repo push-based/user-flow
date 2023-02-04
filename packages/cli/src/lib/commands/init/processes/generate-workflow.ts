@@ -1,23 +1,22 @@
 import { RcJson } from '../../../types';
 import { join } from 'path';
 import { readFile, writeFile } from '../../../core/file';
-import { log } from '../../../core/loggin';
+import { log, logVerbose } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'fs';
 import { GhWorkflowExampleMap } from '../constants';
 import { GhWorkflowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
-import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
-import { logVerbose } from '../../../core/loggin';
 
 const exampleName = 'basic-workflow';
 
+const destPath =   join('.github', 'workflows');
 export function getExamplePathDest(workflowExample: GhWorkflowExamples): string {
   const fileName = GhWorkflowExampleMap[workflowExample];
   if(!fileName) {
     throw new Error(`workflowExample ${workflowExample} is not registered`);
   }
-  return join('.github', 'workflows', fileName);
+  return join(destPath, fileName);
 }
 
 export const workflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName)) === '' : false);
@@ -40,6 +39,7 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   }
 
   const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
+  mkdirSync(destPath, {recursive: true})
   writeFile(exampleDestination, fileContent);
 
   log(`setup workflow for user-flow integration in the CI in ${exampleDestination} successfully`);
