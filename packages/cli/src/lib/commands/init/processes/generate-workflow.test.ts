@@ -6,10 +6,10 @@ import { handleGhWorkflowGeneration } from './generate-workflow';
 
 let originalCwd = process.cwd();
 
-const expectedFilePath = join('.github', 'workflows','user-flow-ci.yml');
+const expectedFilePath = join(EMPTY_PRJ_CFG.root, '.github', 'workflows','user-flow-ci.yml');
 const CFG = {
   ...EMPTY_PRJ_CFG,
-  delete: [expectedFilePath].concat(EMPTY_PRJ_CFG?.delete || [])
+  delete: [join('.github', 'workflows','user-flow-ci.yml')].concat(EMPTY_PRJ_CFG?.delete || [])
 }
 
 describe('generate GH workflow', () => {
