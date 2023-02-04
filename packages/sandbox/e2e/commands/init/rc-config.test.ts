@@ -8,7 +8,7 @@ import {
   UserFlowCliProjectFactory
 } from '@push-based/user-flow-cli-testing';
 import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON, BASIC_NAVIGATION_USERFLOW_NAME } from 'test-data';
-import { expectOutputRcInStdout, expectPromptsOfInitInStdout } from '../../jest';
+import { expectOutputRcInStdout, expectPromptsOfGenerateFlowInStdout, expectPromptsOfInitInStdout } from '../../jest';
 import { ACCEPT_BOOLEAN } from '@push-based/node-cli-testing';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
@@ -49,6 +49,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(stdout).toContain('.user-flowrc.json does not exist.');
     // prompts
     expectPromptsOfInitInStdout(stdout);
+    expectPromptsOfGenerateFlowInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);
@@ -84,6 +85,7 @@ describe('.rc.json in empty sandbox', () => {
     expect(stdout).toContain('.user-flowrc.json does not exist.');
     // prompts
     expectPromptsOfInitInStdout(stdout);
+    expectPromptsOfGenerateFlowInStdout(stdout);
     // setup log
     expectOutputRcInStdout(stdout, CLI_DEFAULT_RC_JSON);
     expect(exitCode).toBe(0);

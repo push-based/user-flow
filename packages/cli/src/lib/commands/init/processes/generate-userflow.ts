@@ -9,6 +9,7 @@ import { ifThenElse } from '../../../core/processing/behaviors';
 import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
 import { logVerbose } from '../../../core/loggin';
+import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 
 const exampleName = 'basic-navigation';
 
@@ -49,7 +50,7 @@ export function handleFlowGeneration({ generateFlow, interactive }: {interactive
     // if `withFlow` is not used in the CLI is in interactive mode
     () => interactive == true && generateFlow === undefined,
     // Prompt for flow generation
-    askToSkip('Setup user flow', generateUserFlow,
+    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
       // if the flow is not created already
       { precondition: userflowIsNotCreated }),
     // else `withFlow` is used and true
