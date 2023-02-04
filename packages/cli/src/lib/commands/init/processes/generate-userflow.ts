@@ -21,7 +21,6 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
 export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
 
 export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
-console.log('generateUserFlow');
   const ufPath = cliCfg.collect.ufPath;
   // DX create directory if it does ot exist
   try {
