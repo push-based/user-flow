@@ -1,7 +1,15 @@
-import { ENTER, SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
+import {
+  ENTER,
+  SANDBOX_BASE_RC_JSON,
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+  withUserFlowProject
+} from '@push-based/user-flow-cli-testing';
 import { expectCliToCreateRc, expectOutputRcInStdout } from '../../jest/expect';
 import { expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout } from '../../jest/expect.init';
 import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG } from 'test-data';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 let emptyPrj: UserFlowCliProject;
 
@@ -55,6 +63,7 @@ describe('init command in empty sandbox', () => {
 });
 
 let initializedPrj: UserFlowCliProject;
+const expectedFilePath = join('.github', 'workflows', 'user-flow-ci.yml');
 
 describe('init command in setup sandbox', () => {
 
@@ -86,6 +95,19 @@ describe('init command in setup sandbox', () => {
     // file output
     expectCliToCreateRc(initializedPrj, SANDBOX_BASE_RC_JSON);
   });
+
+  it('should create a workflow if `--generateGhWorkflow is used` ', withUserFlowProject({
+    ...INITIATED_PRJ_CFG,
+    delete: [expectedFilePath].concat(INITIATED_PRJ_CFG.delete || [])
+  }, async () => {
+
+    expect(existsSync(expectedFilePath)).toBeFalsy();
+    const { exitCode, stderr } = await initializedPrj.$init({ generateGhWorkflow: true });
+    expect(existsSync(expectedFilePath)).toBeTruthy();
+    expect(stderr).toBe('');
+    expect(exitCode).toBe(0);
+
+  }));
 
 });
 
