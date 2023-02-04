@@ -50,6 +50,7 @@ All of the listed options can be used to set values in the rc file.
 npx user-flow init --url http://test.io --format json --format md --outPath tmp/user-flows
 ```  
 
+**Description:**  
 If a value is provided where normally a prompt would ask for a value it will skip the question and take the provided value.
 After the init command ran the rc file should be updated with answers of possible prompts as well as the provided values.
 
@@ -59,6 +60,19 @@ npx user-flow init --url http://test.io --ufPath user-flows --format json --outP
 ```  
 
 would directly create a rc file without any prompt showing up.
+
+You can execute `init` against a existing rc json file by using the `--rcPath`param.
+This can be handy to quickly update a setting in you rc file:  
+```
+npx user-flow init --rcPath .user-flowrc.ci.json --outPath tmp/measures
+```  
+
+Another helpful feature is using init in combination with `--verbose` to quickly log rc files:
+```
+npx user-flow init --rcPath .user-flowrc.ci.json --verbose
+```  
+
+
 
 ## Options file scaffolding
 
