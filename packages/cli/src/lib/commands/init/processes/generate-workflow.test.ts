@@ -39,14 +39,14 @@ describe('generate GH workflow', () => {
   it('should create flow when --generateGhWorkflow is used', withUserFlowProject(CFG, async () => {
     expect(existsSync(expectedFilePath)).toBeFalsy();
     await handleGhWorkflowGeneration({generateGhWorkflow: true})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeTruthy();
+    expect(existsSync(join('.github', 'workflows','user-flow-ci.yml'))).toBeTruthy();
   }));
 
   // [f, nf] init --no-generateGhWorkflow => [nF]
   it('should not create flow when --no-generateGhWorkflow is used', withUserFlowProject(CFG, async () => {
     expect(existsSync(expectedFilePath)).toBeFalsy();
     await handleGhWorkflowGeneration({generateGhWorkflow: false})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeFalsy();
+    expect(existsSync(join('..','..','.github', 'workflows','user-flow-ci.yml'))).toBeFalsy();
   }));
 
 });
