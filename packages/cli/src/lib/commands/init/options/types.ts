@@ -12,6 +12,7 @@ export type InitYargsOptions = CollectYargsOptions & PersistYargsOptions & Asser
 
 export type InitCliOnlyOptions = {
   generateFlow?: boolean;
+  generateGhWorkflow?: boolean;
 }
 
 export type InitArgvOptions = CollectRcOptions & PersistRcOptions & AssertRcOptions & InitCliOnlyOptions;
