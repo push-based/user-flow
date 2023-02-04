@@ -189,6 +189,7 @@ This command helps you to set up a `.user-flowrc.json` and asks for input over C
 |  Option                            |  Type     | Default                | Description                                                                                              |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
 
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
