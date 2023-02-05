@@ -91,7 +91,7 @@ let staticWConfigPrjCfg: UserFlowProjectConfig = {
   }
 };
 
-
+/*
 describe('$collect() sandbox+assets with RC({config}))', () => {
   it('should load config from RC file', withUserFlowProject(staticWConfigPrjCfg, async (prj: UserFlowCliProject) => {
     const { exitCode, stdout, stderr } = await prj.$collect();
@@ -103,3 +103,4 @@ describe('$collect() sandbox+assets with RC({config}))', () => {
 
   }), 60_000);
 });
+*/

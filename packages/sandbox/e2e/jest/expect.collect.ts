@@ -31,6 +31,7 @@ export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
       case 'awaitServeStdout':
       case 'budgetPath':
       case 'configPath':
+      case 'config':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
