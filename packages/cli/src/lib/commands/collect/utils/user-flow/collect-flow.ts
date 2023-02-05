@@ -31,8 +31,7 @@ export async function collectFlow(
   // includes config, configPath, budgets, budgetPath
   let globalLhCfg = getLhConfigFromArgv(cliOption);
   const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
-  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedConfig) };
-
+  const flowOptions = { ...rest, config: mergedConfig };
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
@@ -51,7 +50,7 @@ export async function collectFlow(
   return flow;
 }
 
-
+/*
 function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.default.Json {
   flowOptionsConfig = flowOptionsConfig || {} as any;
   // @ts-ignore
@@ -67,7 +66,7 @@ function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.de
 
   return flowOptionsConfig as any as Config.default.Json;
 }
-
+*/
 function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {

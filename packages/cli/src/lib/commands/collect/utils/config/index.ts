@@ -62,28 +62,25 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   return cfg;
 }
 
-export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: {
-  config?: LhConfigJson, budgets?: Budget[]
-} = {}): LhConfigJson {
-  const {config, budgets}  = localCfg;
+export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: LhConfigJson = {}): LhConfigJson {
+
   let cfg = { ...globalCfg };
   // Add extends if not given
   // @ts-ignore
   cfg?.extends || (cfg.extends = 'lighthouse:default');
 
-  if(config) {
-    cfg = { ...cfg, ...config };
-  }
-
-  if(budgets) {
+  if(localCfg) {
     cfg = {
       ...cfg,
-      ...config,
+      ...localCfg,
       settings: {
         ...cfg.settings,
-        ...config?.settings
-      } };
-    logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+        ...localCfg?.settings
+      }
+    };
+    if(localCfg?.settings?.budgets) {
+      logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+    }
   }
 return cfg;
 }
