@@ -8,6 +8,7 @@ import { SETUP_CONFIRM_MESSAGE } from './constants';
 import { updateRcJson } from './processes/update-rc-json';
 import { handleFlowGeneration } from './processes/generate-userflow';
 import { getGlobalOptionsFromArgv } from '../../global/utils';
+import { handleGhWorkflowGeneration } from './processes/generate-workflow';
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -17,13 +18,14 @@ export const initCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
       const { interactive } = getGlobalOptionsFromArgv(argv);
-      const { generateFlow, ...cfg } = getInitCommandOptionsFromArgv(argv);
-      logVerbose('Init options: ', { interactive, generateFlow, ...cfg });
+      const { generateFlow, generateGhWorkflow, ...cfg } = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, ...cfg });
 
       await run([
         collectRcJson,
         updateRcJson,
-        handleFlowGeneration({ interactive: !!interactive, generateFlow })
+        handleFlowGeneration({ interactive: !!interactive, generateFlow }),
+        handleGhWorkflowGeneration({ generateGhWorkflow })
       ])(cfg );
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants

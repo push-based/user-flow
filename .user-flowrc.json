@@ -1,0 +1,8 @@
+{
+  "collect": {
+    "url": "https://coffee-cart.netlify.app/",
+    "ufPath": "./user-flows"
+  },
+  "persist": { "outPath": "./measures", "format": ["html"] },
+  "assert": {}
+}

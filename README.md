@@ -189,6 +189,7 @@ This command helps you to set up a `.user-flowrc.json` and asks for input over C
 |  Option                            |  Type     | Default                | Description                                                                                              |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
 
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
@@ -318,6 +319,9 @@ See [performance-budgets](https://github.com/push-based/user-flow/blob/main/pack
 ## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
 
 With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as comments.
+
+Automatically create a workflow with:  
+`npx user-flow --generateGhWorkflow`  
 
 ![user-flow-gh-action-cover](https://user-images.githubusercontent.com/10064416/216605948-b8fffdda-3459-48c9-975a-75ec95544d30.png)
  

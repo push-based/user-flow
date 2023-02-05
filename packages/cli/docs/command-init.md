@@ -37,9 +37,11 @@ In addition, it helps to do scaffolding by create basic files and folders needed
 
 **Options file scaffolding:**  
 
-|  Option                            |  Type     | Default                | Description                                                                                              |  
-| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
-| **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
+|  Option                              |  Type     | Default                | Description                                                                                              |  
+| ------------------------------------ | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
+| **`-h`**, **`--generateFlow`**       | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
+    
 
 ## Options related to the `user-flowrc.json` file  
 
@@ -101,6 +103,30 @@ It contains a basic user flow and will be placed in the folder configured in you
 The `basic-navigation.uf.ts` template can be found [here](https://github.com/push-based/user-flow/blob/ba6a8d4fbf8060bea067e0fa3528611be5653ddf/packages/cli/src/lib/commands/init/static/basic-navigation.uf.ts#L2)
  
 If the `init` command executes with `--no-generateFlow` nothing will be created nor prompted in the console.
+
+### generateGhWorkflow
+
+|  Option                              |  Type     | Default                |   
+| ------------------------------------ | --------- | ---------------------- |  
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | 
+
+**Execution:**   
+```
+npx user-flow init --generateGhWorkflow
+  
+# or as negation
+
+npx user-flow init --no-generateGhWorkflow
+```  
+
+**Description:**   
+
+If the `init` command is executed with `--generateGhWorkflow` it will generate a file named `user-flow-ci.yml`.  
+It contains a basic workflow to execute the CLI in GitHubs pipe line.
+
+The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/ba6a8d4fbf8060bea067e0fa3528611be5653ddf/packages/cli/src/lib/commands/init/static/basic-navigation.uf.ts#L2)
+ 
+If the `init` command executes with `--no-generateGhWorkflow` nothing will be created nor prompted in the console.
 
 ---
 

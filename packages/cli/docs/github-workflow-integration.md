@@ -26,7 +26,10 @@ If everything works you are good to go!
 
 1. Create a file called `user-flow-ci.yml` in `./.github/workflows`.
 
-2. Paste the following content into `user-flow-ci.yml`:
+This can be done by using the `init`:  
+`npx user-flow --generateGhWorkflow`  
+
+2. The generated `user-flow-ci.yml` file should have the following content:
 
 ```yml
 name: user-flow-ci
