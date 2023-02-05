@@ -36,10 +36,6 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
     cfg = rc.config;
     logVerbose(`LH Configuration is used from config property .user-flowrc.json`);
   }
-  // Add extends if not given
-  // @ts-ignore
-  cfg?.extends || (cfg.extends = 'lighthouse:default');
-
 
   if (!!rc?.budgetPath && !!rc?.budgets) {
     throw new Error('budgetPath and budgets can\'t be used together');
@@ -67,13 +63,9 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
 }
 
 export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: LhConfigJson = {}): LhConfigJson {
-
   let cfg = { ...globalCfg };
-  // Add extends if not given
-  // @ts-ignore
-  cfg?.extends || (cfg.extends = 'lighthouse:default');
 
-  if(localCfg) {
+  if (localCfg) {
     cfg = {
       ...cfg,
       ...localCfg,
@@ -83,9 +75,15 @@ export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: LhConfigJs
       }
     };
     logVerbose(`LH Configuration is used from a user flow file`);
-    if(localCfg?.settings?.budgets) {
+    if (localCfg?.settings?.budgets) {
       logVerbose(`LH Performance Budget is used in a flows UserFlowProvider#flowOptions.settings.budgets`);
     }
   }
-return cfg;
+
+  if (Object.keys(cfg).length) {
+    // Add extends if not given
+    // @ts-ignore
+    cfg?.extends || (cfg.extends = 'lighthouse:default');
+  }
+  return cfg;
 }

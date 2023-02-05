@@ -34,7 +34,7 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
 }
 
 export function expectNoBudgetsFileExistLog(stdout: string) {
-  expect(stdout).toContain(`LH Performance Budget`);
+  expect(stdout).not.toContain(`LH Performance Budget`);
 }
 
 let staticPrj: UserFlowCliProject;

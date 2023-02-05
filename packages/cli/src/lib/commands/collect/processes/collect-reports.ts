@@ -19,6 +19,7 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
       const lhConfig = mergeLhConfig(globalLhCfg, provider?.flowOptions?.config);
+
       provider.flowOptions.config = lhConfig;
 
       return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
