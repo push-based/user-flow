@@ -1,4 +1,3 @@
-import { INITIATED_RC_JSON } from 'test-data';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { handleGhWorkflowGeneration } from './generate-workflow';
@@ -15,7 +14,7 @@ describe('generate GH workflow', () => {
 
   it('should not create flow when --no-generateGhWorkflow is used', async () => {
     expect(existsSync(expectedFilePath)).toBeFalsy();
-    await handleGhWorkflowGeneration({generateGhWorkflow: false})(INITIATED_RC_JSON);
+    await handleGhWorkflowGeneration({generateGhWorkflow: false})({} as any);
     expect(existsSync(expectedFilePath)).toBeFalsy();
   });
 
