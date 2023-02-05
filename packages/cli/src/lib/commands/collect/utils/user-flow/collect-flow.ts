@@ -27,14 +27,11 @@ export async function collectFlow(
   } = userFlowProvider;
 
 
+  let { config, ...rest } = providerFlowOptions;
   // includes config, configPath, budgets, budgetPath
   let globalLhCfg = getLhConfigFromArgv(cliOption);
-
-  // const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
-  let { config, ...rest } = providerFlowOptions;
-  let mergedLhConfig = { ...globalLhCfg };
-
-  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedLhConfig) };
+  const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
+  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedConfig) };
 
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
