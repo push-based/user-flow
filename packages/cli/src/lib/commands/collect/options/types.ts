@@ -13,10 +13,10 @@ export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitS
 export type CollectRcOptions = {
   url: string,
   ufPath: string,
+  configPath?: string;
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;
-  configPath?: string;
 }
 export type CollectCliOnlyOptions = {
   dryRun?: boolean;
