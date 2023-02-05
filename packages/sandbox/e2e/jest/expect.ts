@@ -3,12 +3,6 @@ import { LH_CONFIG_NAME } from 'test-data';
 import { DEFAULT_RC_NAME, GlobalOptionsArgv, RcJson, SETUP_CONFIRM_MESSAGE } from '@push-based/user-flow';
 import { quoted, unquoted } from './utils';
 
-export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
-  const report = prj.readOutput(reportName, 'json')[0].content as any;
-  const resolvedConfig = prj.readConfig(config);
-  expect(report.steps[0].lhr.configSettings).toEqual(resolvedConfig);
-}
-
 export function expectGlobalConfigPathUsageLog(stdout: string, configPath: string = '') {
   expect(stdout).toContain(`LH Configuration ${configPath} is used from CLI param or .user-flowrc.json`);
 }

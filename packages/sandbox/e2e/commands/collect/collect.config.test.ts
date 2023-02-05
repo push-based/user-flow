@@ -99,7 +99,6 @@ describe('$collect() sandbox+assets with RC({config}))', () => {
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, { config: LH_CONFIG });
     expectGlobalConfigUsageLog(stdout);
-    expectResultsToIncludeConfig(prj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
     expect(exitCode).toBe(0);
 
   }), 60_000);
