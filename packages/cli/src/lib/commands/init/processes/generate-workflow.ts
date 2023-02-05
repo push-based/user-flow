@@ -22,13 +22,6 @@ export function getExamplePathDest(workflowExample: GhWorkflowExamples): string 
 export const workflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName)) === '' : false);
 
 export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
-  const ufPath = cliCfg.collect.ufPath;
-  // DX create directory if it does ot exist
-  try {
-    readdirSync(ufPath);
-  } catch (e) {
-    mkdirSync(ufPath, { recursive: true });
-  }
   const tplFileName = GhWorkflowExampleMap[exampleName];
   const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
   const exampleDestination = getExamplePathDest(exampleName as any);
