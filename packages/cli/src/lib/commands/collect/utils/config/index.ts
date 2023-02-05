@@ -70,9 +70,10 @@ export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: {
   if(budgets) {
     cfg = {
       ...cfg,
+      ...config,
       settings: {
         ...cfg.settings,
-        budgets
+        ...config?.settings
       } };
     logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
   }
