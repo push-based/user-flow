@@ -32,10 +32,7 @@ export async function collectFlow(
 
   // const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
   let { config, ...rest } = providerFlowOptions;
-  let mergedLhConfig = { ...config };
-  if (cliOption?.configPath) {
-    mergedLhConfig = { ...mergedLhConfig, ...globalLhCfg };
-  }
+  let mergedLhConfig = { ...globalLhCfg };
 
   const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedLhConfig) };
 
