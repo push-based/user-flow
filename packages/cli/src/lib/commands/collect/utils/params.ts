@@ -17,7 +17,8 @@ export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArgv): CollectCom
 
   const {
     url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport,
-    outPath, format, budgetPath, budgets, configPath
+    outPath, format,
+    budgetPath, budgets, configPath, config
   } = (argv || {}) as any as (keyof CollectRcOptions & keyof PersistRcOptions);
 
   let collect = {} as CollectArgvOptions;
@@ -27,6 +28,7 @@ export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArgv): CollectCom
   serveCommand && (collect.serveCommand = serveCommand);
   awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
   configPath && (collect.configPath = configPath);
+  config && (collect.config = config);
   // cli only
   dryRun !== undefined && (collect.dryRun = Boolean(dryRun));
 

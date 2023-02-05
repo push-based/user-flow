@@ -1,17 +1,18 @@
 import { UserFlowProvider } from './types';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
-import { Browser, Page } from 'puppeteer';
+import { Browser, Page, LaunchOptions } from 'puppeteer';
 import { normalize } from 'path';
 import { LhConfigJson, startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
 import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
-import * as Config from 'lighthouse/types/config';
-import Budget from 'lighthouse/types/lhr/budget';
-import { readBudgets } from '../../../assert/utils/budgets';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
-import { readConfig } from '../config';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config';
+import { readConfig } from '../../utils/config';
+import { readBudgets } from '../../../assert/utils/budgets';
+import * as Config from 'lighthouse/types/config';
+import Budget from 'lighthouse/types/lhr/budget';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions,
@@ -20,36 +21,13 @@ export async function collectFlow(
   let {
     path,
     // object containing the LH setting for budgets
-    flowOptions: providerFlowOptions,
+    flowOptions,
     interactions,
     launchOptions
   } = userFlowProvider;
 
-  let { config, ...rest } = providerFlowOptions;
-  let mergedLhConfig = { ...config }
-  if(cliOption?.configPath) {
-    mergedLhConfig = {...mergedLhConfig, ...readConfig(cliOption.configPath)};
-  }
 
-  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedLhConfig) };
-
-  // object containing the options for puppeteer/chromium
-  launchOptions = launchOptions || {
-    // has to be false to run in the CI because of a bug :(
-    // https://github.com/puppeteer/puppeteer/issues/8148
-    headless: false,
-    // hack for dryRun => should get fixed inside user flow in future
-    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
-  };
-  // @TODO consider CI vs dev mode => headless, openReport, persist etc
-  const cliMode = detectCliMode();
-  // cli mode is "CI" or "SANDBOX"
-  if (cliMode !== 'DEFAULT') {
-    const headlessMode = true;
-    logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
-    launchOptions.headless = headlessMode;
-  }
-  const browser: Browser = await puppeteer.launch(launchOptions);
+  const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
 
   logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
@@ -66,7 +44,7 @@ export async function collectFlow(
   return flow;
 }
 
-
+/*
 function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.default.Json {
   flowOptionsConfig = flowOptionsConfig || {} as any;
   // @ts-ignore
@@ -81,4 +59,25 @@ function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.de
   }
 
   return flowOptionsConfig as any as Config.default.Json;
+}
+*/
+function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
+  // object containing the options for puppeteer/chromium
+  launchOptions = launchOptions || {
+    // has to be false to run in the CI because of a bug :(
+    // https://github.com/puppeteer/puppeteer/issues/8148
+    headless: false,
+    // hack for dryRun => should get fixed inside user flow in future
+    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
+  } as any;
+  // @TODO consider CI vs dev mode => headless, openReport, persist etc
+  const cliMode = detectCliMode();
+  // cli mode is "CI" or "SANDBOX"
+  if (cliMode !== 'DEFAULT' && launchOptions) {
+    const headlessMode = true;
+    logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
+    (launchOptions as any).headless = headlessMode;
+  }
+
+  return launchOptions as any;
 }

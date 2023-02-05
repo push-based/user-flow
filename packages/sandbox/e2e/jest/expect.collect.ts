@@ -33,6 +33,9 @@ export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
       case 'configPath':
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
+      case 'config':
+        expect(stdout).toContain(`${k}: { `);
+        break;
       case 'format':
         let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
         values = values !== '' ? ' ' + values + ' ' : values;

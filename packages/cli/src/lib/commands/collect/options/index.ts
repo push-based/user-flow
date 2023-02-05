@@ -2,6 +2,7 @@ import { CollectYargsOptions, PersistYargsOptions } from './types';
 import { AssertYargsOptions } from '../../assert/options/types';
 import { param as openReport } from './openReport';
 import { param as ufPath } from './ufPath';
+import { param as configPath } from './configPath';
 import { param as outPath } from './outPath';
 import { param as url } from './url';
 import { param as format } from './format';
@@ -19,6 +20,7 @@ export const PERSIST_OPTIONS: PersistYargsOptions = {
 export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...url,
   ...ufPath,
+  ...configPath,
   ...serveCommand,
   ...awaitServeStdout,
   ...dryRun,

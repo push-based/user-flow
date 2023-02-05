@@ -5,7 +5,8 @@ import { Param as ServeCommand } from './serveCommand.model';
 import { Param as AwaitServeStdout } from './awaitServeStdout.model';
 import { Param as OutPath } from './outPath.model';
 import { Param as Format } from './format.model';
-import { AssertArgvOptions, AssertRcOptions } from '../../assert/options/types';
+import { AssertArgvOptions } from '../../assert/options/types';
+import { LhConfigJson } from '../../../hacky-things/lighthouse';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
 export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
@@ -13,10 +14,11 @@ export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitS
 export type CollectRcOptions = {
   url: string,
   ufPath: string,
+  configPath?: string;
+  config?: LhConfigJson,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;
-  configPath?: string;
 }
 export type CollectCliOnlyOptions = {
   dryRun?: boolean;

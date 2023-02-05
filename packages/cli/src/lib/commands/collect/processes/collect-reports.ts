@@ -6,8 +6,7 @@ import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/use
 import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
 import { CollectArgvOptions } from '../options/types';
-import { readFile } from '../../../core/file';
-import { readConfig } from '../utils/config';
+import { getLhConfigFromArgv, mergeLhConfig, readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -16,13 +15,12 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
   let userFlows = [] as ({ exports: UserFlowProvider, path: string })[];
   // Load and run user-flows in sequential
   userFlows = loadFlow(collect);
-
+  let globalLhCfg = getLhConfigFromArgv({ ...collect, ...persist, ...assert });
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
+      const lhConfig = mergeLhConfig(globalLhCfg, provider?.flowOptions?.config);
 
-      provider = normalizeProviderObject(provider);
-      provider = addConfigIfGiven(provider, collect);
-      provider = addBudgetsIfGiven(provider, assert);
+      provider.flowOptions.config = lhConfig;
 
       return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
@@ -37,10 +35,6 @@ function normalizeProviderObject(provider: UserFlowProvider): UserFlowProvider {
   provider = provider || {};
   if (provider.flowOptions?.config === undefined) {
     provider.flowOptions.config = {} as any;
-    if (provider.flowOptions.config?.settings === undefined) {
-      // @ts-ignore
-      provider.flowOptions.config.settings = {} as any;
-    }
   }
   return provider;
 }

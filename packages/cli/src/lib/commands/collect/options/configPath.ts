@@ -6,7 +6,7 @@ export const param: Param = {
   configPath: {
     alias: 'c',
     type: 'string',
-    description: 'Path to config.json'
+    description: 'Path to Lighthouse configuration e.g config.json'
   }
 };
 
