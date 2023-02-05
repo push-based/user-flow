@@ -2,8 +2,8 @@ import { readFile, writeFile } from '../../../../core/file';
 import { logVerbose } from '../../../../core/loggin';
 import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
 import { LhConfigJson } from '../../../../hacky-things/lighthouse';
-import { CollectCommandArgv, RcJson } from '../../../../../../../../dist/packages/cli/src/lib';
-import { readBudgets } from '../../../../../../../../dist/packages/cli/src/lib/commands/assert/utils/budgets';
+import { CollectCommandArgv } from '../../options/types';
+import { readBudgets } from '../../../assert/utils/budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 
 
@@ -56,19 +56,4 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   }
 
   return cfg;
-}
-
-/**
- * merges [N] configurations into 1 and handles fallbacks
- * The
- */
-export function mergeConfig(argvCfg: RcJson, flowLh: any) {
-  // Steps before entering the command
-  // this happens on CLI bootstrap in `configParser`
-  // 1. get cfg from rc file
-  // 2. get CLI params
-  // 3. merged CLI into cfg from rc into argv => CLI overwrites RC
-  // Steps in the command
-  // 1. get config object for argv
-  // 2.
 }
