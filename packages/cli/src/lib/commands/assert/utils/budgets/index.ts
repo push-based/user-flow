@@ -4,7 +4,7 @@ import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant';
 
 export function readBudgets(budgetPath: string = DEFAULT_ASSERT_BUDGET_PATH): Budget[] {
-  const budgetsJson = JSON.parse(readFile(budgetPath) || '{}');
+  const budgetsJson = JSON.parse(readFile(budgetPath, {fail: true}) || '{}');
   return budgetsJson;
 }
 

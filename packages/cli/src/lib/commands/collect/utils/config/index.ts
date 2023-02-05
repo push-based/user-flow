@@ -31,8 +31,10 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
 
   if (rc?.configPath) {
     cfg = readConfig(rc.configPath);
+    logVerbose(`Configuration ${rc.configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
   } else if (rc?.config) {
     cfg = rc.config;
+    logVerbose(`Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${rc.config} is used instead of a potential configuration in the user-flow.uf.ts`);
   }
   // Add extends if not given
   // @ts-ignore
@@ -46,8 +48,10 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   let budgets: Budget[] | undefined = undefined;
   if (rc?.budgetPath) {
     budgets = readBudgets(rc.budgetPath);
+    logVerbose(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${rc.budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
   } else if (rc?.budgets) {
     budgets = rc.budgets as Budget[];
+    logVerbose(`Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${rc.budgets} is used instead of a potential configuration in the user-flow.uf.ts`);
   }
   if (budgets) {
     cfg = {

@@ -21,17 +21,11 @@ export async function collectFlow(
   let {
     path,
     // object containing the LH setting for budgets
-    flowOptions: providerFlowOptions,
+    flowOptions,
     interactions,
     launchOptions
   } = userFlowProvider;
 
-
-  let { config, ...rest } = providerFlowOptions;
-  // includes config, configPath, budgets, budgetPath
-  let globalLhCfg = getLhConfigFromArgv(cliOption);
-  const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
-  const flowOptions = { ...rest, config: mergedConfig };
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
