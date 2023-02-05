@@ -2,6 +2,26 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.15.0](https://github.com/push-based/user-flow/compare/cli-0.14.1...cli-0.15.0) (2023-02-05)
+
+
+### Bug Fixes
+
+* adopt action name ([178d3d9](https://github.com/push-based/user-flow/commit/178d3d99747a1c5dcdb51883fc4fdefa47b7b772))
+* adopt action version ([779a73d](https://github.com/push-based/user-flow/commit/779a73d367ebc515f8f33169608952f422087207))
+* adopt action version to a24 ([1c98cb3](https://github.com/push-based/user-flow/commit/1c98cb3a0310df33f59b6429ca208711a87e2d89))
+
+
+### Features
+
+* add generate workflow loginc ([d8e2aa1](https://github.com/push-based/user-flow/commit/d8e2aa151b859c8081f3664096f9e4ba971971e7))
+* add param parsing ([1627234](https://github.com/push-based/user-flow/commit/162723475275d8542f5409aee09b3d8f26e146f6))
+* add param to yml config ([a246173](https://github.com/push-based/user-flow/commit/a2461738a3d2bfc21d71138c2b44cc5414aa80cc))
+* add static file and formatting for yml ([5d061f2](https://github.com/push-based/user-flow/commit/5d061f20fb85e3d9393bf39edeec969a9a01a7e2))
+* integrate generate workflow logic ([fa4e357](https://github.com/push-based/user-flow/commit/fa4e357d8e124a68953c8a58b86a4cd96646cdfa))
+
+
+
 ## [0.14.1](https://github.com/push-based/user-flow/compare/cli-0.14.0...cli-0.14.1) (2023-02-04)
 
 
