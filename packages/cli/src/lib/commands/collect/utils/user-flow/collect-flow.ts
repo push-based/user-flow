@@ -8,7 +8,7 @@ import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
-import { getLhConfigFromArgv } from '../config';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions,
@@ -22,12 +22,10 @@ export async function collectFlow(
     launchOptions
   } = userFlowProvider;
 
-  let globalLhCfg = getLhConfigFromArgv(cliOption);
-  let { config, ...rest } = providerFlowOptions;
-  let mergedConfig: LhConfigJson = globalLhCfg;
-  if(config) {
-    mergedConfig = {...mergedConfig, ...config};
-  }
+  const globalLhCfg = getLhConfigFromArgv(cliOption);
+  const { config, ...rest } = providerFlowOptions;
+  const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
+
   const flowOptions = { ...rest, config: mergedConfig };
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
@@ -48,7 +46,7 @@ export async function collectFlow(
 }
 
 
-function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions  {
+function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
     // has to be false to run in the CI because of a bug :(
@@ -66,5 +64,5 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions  {
     (launchOptions as any).headless = headlessMode;
   }
 
-  return launchOptions as any
+  return launchOptions as any;
 }
