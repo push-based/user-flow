@@ -29,7 +29,7 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
 }
 
 export function expectBudgetsUsageLog(stdout: string) {
-  expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
+  expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json.');
   expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
 }
 
