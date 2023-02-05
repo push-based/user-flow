@@ -77,7 +77,7 @@ describe('init command in setup sandbox', () => {
     await initializedPrj.teardown();
   });
 
-  it('should inform about the already existing cli-setup', async () => {
+  it('should inform about the already existing cli-setup', withUserFlowProject(INITIATED_PRJ_CFG,async () => {
 
     const { exitCode, stdout, stderr } = await initializedPrj.$init({});
 
@@ -94,16 +94,17 @@ describe('init command in setup sandbox', () => {
 
     // file output
     expectCliToCreateRc(initializedPrj, SANDBOX_BASE_RC_JSON);
-  });
+  }));
 
   it('should create a workflow if `--generateGhWorkflow is used` ', withUserFlowProject({
     ...INITIATED_PRJ_CFG,
     delete: [expectedFilePath].concat(INITIATED_PRJ_CFG.delete || [])
-  }, async () => {
+  }, async (prj) => {
 
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-    const { exitCode, stderr } = await initializedPrj.$init({ generateGhWorkflow: true });
-    expect(existsSync(expectedFilePath)).toBeTruthy();
+    const workflowPath = join(process.cwd(),expectedFilePath);
+    expect(existsSync(workflowPath)).toBeFalsy();
+    const { exitCode, stderr } = await prj.$init({ generateGhWorkflow: true });
+    expect(existsSync(workflowPath)).toBeTruthy();
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
 
