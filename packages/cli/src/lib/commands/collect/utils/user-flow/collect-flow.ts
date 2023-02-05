@@ -9,6 +9,10 @@ import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config';
+import { readConfig } from '../../../../../../../../dist/packages/cli/src/lib/commands/collect/utils/config';
+import { readBudgets } from '../../../../../../../../dist/packages/cli/src/lib/commands/assert/utils/budgets';
+import * as Config from 'lighthouse/types/config';
+import Budget from 'lighthouse/types/lhr/budget';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions,
@@ -22,11 +26,20 @@ export async function collectFlow(
     launchOptions
   } = userFlowProvider;
 
+  /*
+  // includes config, configPath, budgets, budgetPath
   const globalLhCfg = getLhConfigFromArgv(cliOption);
   const { config, ...rest } = providerFlowOptions;
   const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
+  */
+  let { config, ...rest } = providerFlowOptions;
+  let mergedLhConfig = { ...config }
+  if(cliOption?.configPath) {
+    mergedLhConfig = {...mergedLhConfig, ...readConfig(cliOption.configPath)};
+  }
 
-  const flowOptions = { ...rest, config: mergedConfig };
+  const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedLhConfig) };
+
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
@@ -45,6 +58,22 @@ export async function collectFlow(
   return flow;
 }
 
+
+function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.default.Json {
+  flowOptionsConfig = flowOptionsConfig || {} as any;
+  // @ts-ignore
+  flowOptionsConfig?.extends || (flowOptionsConfig.extends = 'lighthouse:default');
+
+  // if budgets are given
+  if (flowOptionsConfig?.settings?.budgets) {
+    logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+    let budgets: Budget[] = flowOptionsConfig?.settings?.budgets;
+    budgets && (budgets = Array.isArray(budgets) ? budgets : readBudgets(budgets));
+    flowOptionsConfig.settings.budgets = budgets;
+  }
+
+  return flowOptionsConfig as any as Config.default.Json;
+}
 
 function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   // object containing the options for puppeteer/chromium
