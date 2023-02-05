@@ -34,6 +34,10 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   } else if (rc?.config) {
     cfg = rc.config;
   }
+  // Add extends if not given
+  // @ts-ignore
+  cfg?.extends || (cfg.extends = 'lighthouse:default');
+
 
   if (!!rc?.budgetPath && !!rc?.budgets) {
     throw new Error('budgetPath and budgets can\'t be used together');
@@ -63,6 +67,10 @@ export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: {
 } = {}): LhConfigJson {
   const {config, budgets}  = localCfg;
   let cfg = { ...globalCfg };
+  // Add extends if not given
+  // @ts-ignore
+  cfg?.extends || (cfg.extends = 'lighthouse:default');
+
   if(config) {
     cfg = { ...cfg, ...config };
   }

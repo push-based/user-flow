@@ -26,16 +26,15 @@ export async function collectFlow(
     launchOptions
   } = userFlowProvider;
 
-  /*
+
   // includes config, configPath, budgets, budgetPath
-  const globalLhCfg = getLhConfigFromArgv(cliOption);
-  const { config, ...rest } = providerFlowOptions;
-  const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
-  */
+  let globalLhCfg = getLhConfigFromArgv(cliOption);
+
+  // const mergedConfig: LhConfigJson = mergeLhConfig(globalLhCfg, config as any);
   let { config, ...rest } = providerFlowOptions;
-  let mergedLhConfig = { ...config }
-  if(cliOption?.configPath) {
-    mergedLhConfig = {...mergedLhConfig, ...readConfig(cliOption.configPath)};
+  let mergedLhConfig = { ...config };
+  if (cliOption?.configPath) {
+    mergedLhConfig = { ...mergedLhConfig, ...globalLhCfg };
   }
 
   const flowOptions = { ...rest, config: parseUserFlowOptionsConfig(mergedLhConfig) };
