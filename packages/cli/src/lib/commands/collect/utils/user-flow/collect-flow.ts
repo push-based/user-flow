@@ -9,8 +9,8 @@ import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config';
-import { readConfig } from '../../../../../../../../dist/packages/cli/src/lib/commands/collect/utils/config';
-import { readBudgets } from '../../../../../../../../dist/packages/cli/src/lib/commands/assert/utils/budgets';
+import { readConfig } from '../../utils/config';
+import { readBudgets } from '../../../assert/utils/budgets';
 import * as Config from 'lighthouse/types/config';
 import Budget from 'lighthouse/types/lhr/budget';
 
