@@ -7,7 +7,7 @@ import {
 import { LH_CONFIG, LH_CONFIG_NAME, STATIC_JSON_REPORT_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
 import {
   expectCollectCfgToContain,
-  expectConfigPathUsageLog,
+  expectGlobalConfigPathUsageLog, expectGlobalConfigUsageLog,
   expectNoConfigFileExistLog,
   expectResultsToIncludeConfig
 } from '../../jest';
@@ -70,7 +70,7 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
 
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, { configPath: LH_CONFIG_NAME });
-    expectConfigPathUsageLog(stdout, LH_CONFIG_NAME);
+    expectGlobalConfigPathUsageLog(stdout, LH_CONFIG_NAME);
     expectResultsToIncludeConfig(staticWConfigAssetsPrj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
     expect(exitCode).toBe(0);
 
@@ -91,16 +91,17 @@ let staticWConfigPrjCfg: UserFlowProjectConfig = {
   }
 };
 
-/*
+
 describe('$collect() sandbox+assets with RC({config}))', () => {
   it('should load config from RC file', withUserFlowProject(staticWConfigPrjCfg, async (prj: UserFlowCliProject) => {
     const { exitCode, stdout, stderr } = await prj.$collect();
 
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, { config: LH_CONFIG });
+    expectGlobalConfigUsageLog(stdout);
     expectResultsToIncludeConfig(prj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
     expect(exitCode).toBe(0);
 
   }), 60_000);
 });
-*/
+

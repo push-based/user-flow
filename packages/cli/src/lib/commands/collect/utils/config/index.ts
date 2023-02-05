@@ -31,10 +31,10 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
 
   if (rc?.configPath) {
     cfg = readConfig(rc.configPath);
-    logVerbose(`Configuration ${rc.configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+    logVerbose(`LH Configuration ${rc.configPath} is used from CLI param or .user-flowrc.json`);
   } else if (rc?.config) {
     cfg = rc.config;
-    logVerbose(`Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${rc.config} is used instead of a potential configuration in the user-flow.uf.ts`);
+    logVerbose(`LH Configuration is used from config property .user-flowrc.json`);
   }
   // Add extends if not given
   // @ts-ignore
@@ -48,10 +48,10 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   let budgets: Budget[] | undefined = undefined;
   if (rc?.budgetPath) {
     budgets = readBudgets(rc.budgetPath);
-    logVerbose(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${rc.budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+    logVerbose(`LH Performance Budget ${rc.budgetPath} is used from CLI param or .user-flowrc.json`);
   } else if (rc?.budgets) {
     budgets = rc.budgets as Budget[];
-    logVerbose(`Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${rc.budgets} is used instead of a potential configuration in the user-flow.uf.ts`);
+    logVerbose(`LH Performance Budget is used from config property .user-flowrc.json`);
   }
   if (budgets) {
     cfg = {
@@ -82,8 +82,9 @@ export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: LhConfigJs
         ...localCfg?.settings
       }
     };
+    logVerbose(`LH Configuration is used from a user flow file`);
     if(localCfg?.settings?.budgets) {
-      logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+      logVerbose(`LH Performance Budget is used in a flows UserFlowProvider#flowOptions.settings.budgets`);
     }
   }
 return cfg;

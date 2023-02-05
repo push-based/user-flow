@@ -14,11 +14,16 @@ import {
 } from 'test-data';
 import Budget from 'lighthouse/types/lhr/budget';
 
-export function expectBudgetsPathUsageLog(stdout: string,budgetPath: string) {
-  expect(stdout).toContain(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-  expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+export function expectGlobalBudgetsPathUsageLog(stdout: string, budgetPath: string) {
+  expect(stdout).toContain(`LH Performance Budget ${budgetPath} is used from CLI param or .user-flowrc.json`);
+}
+export function expectGlobalBudgetsUsageLog(stdout: string) {
+  expect(stdout).toContain(`LH Performance Budget is used from config property .user-flowrc.json`);
 }
 
+export function expectLocalBudgetsUsageLog(stdout: string) {
+  expect(stdout).toContain(`LH Performance Budget is used in a flows UserFlowProvider#flowOptions.settings.budgets`);
+}
 export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportName: string, budgets: string | Budget[] = LH_NAVIGATION_BUDGETS_NAME_DEFAULT) {
   const report = prj.readOutput(reportName, 'json')[0].content as any;
   const resolvedBudgets = Array.isArray(budgets) ? budgets : prj.readBudget(budgets);
@@ -28,15 +33,8 @@ export function expectResultsToIncludeBudgets(prj: UserFlowCliProject, reportNam
   expect(report.steps[0].lhr.audits['timing-budget']).toBeDefined();
 }
 
-export function expectBudgetsUsageLog(stdout: string) {
-  expect(stdout).toContain('Collect options budgets is used over CLI param or .user-flowrc.json.');
-  expect(stdout).toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
-}
-
 export function expectNoBudgetsFileExistLog(stdout: string) {
-  expect(stdout).not.toContain(`CLI options --budgetPath or .user-flowrc.json configuration`);
-  expect(stdout).not.toContain('.user-flowrc.json configuration is used instead of a potential configuration in the user flow');
-  expect(stdout).not.toContain('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
+  expect(stdout).toContain(`LH Performance Budget`);
 }
 
 let staticPrj: UserFlowCliProject;
@@ -90,7 +88,7 @@ describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
     const { exitCode, stdout, stderr } = await staticWRcBudgetPrj.$collect({ dryRun: false });
 
     expect(stderr).toBe('');
-    expectBudgetsUsageLog(stdout);
+    expectGlobalBudgetsUsageLog(stdout);
     expectResultsToIncludeBudgets(staticWRcBudgetPrj, STATIC_JSON_REPORT_NAME, LH_NAVIGATION_BUDGETS);
     expect(exitCode).toBe(0);
   }, 90_000);
@@ -130,7 +128,7 @@ describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
     });
 
     expect(stderr).toBe('');
-    expectBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
+    expectGlobalBudgetsPathUsageLog(stdout, LH_NAVIGATION_BUDGETS_NAME);
     expectResultsToIncludeBudgets(staticWBudgetAssetsPrj, STATIC_JSON_REPORT_NAME);
     expect(exitCode).toBe(0);
 

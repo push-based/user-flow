@@ -9,8 +9,11 @@ export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName
   expect(report.steps[0].lhr.configSettings).toEqual(resolvedConfig);
 }
 
-export function expectConfigPathUsageLog(stdout: string, configPath: string = '') {
-  expect(stdout).toContain(`Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
+export function expectGlobalConfigPathUsageLog(stdout: string, configPath: string = '') {
+  expect(stdout).toContain(`LH Configuration ${configPath} is used from CLI param or .user-flowrc.json`);
+}
+export function expectGlobalConfigUsageLog(stdout: string) {
+  expect(stdout).toContain(`LH Configuration is used from config property .user-flowrc.json`);
 }
 
 export function expectNoConfigFileExistLog(stdout: string) {
