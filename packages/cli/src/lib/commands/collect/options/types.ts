@@ -6,6 +6,7 @@ import { Param as AwaitServeStdout } from './awaitServeStdout.model';
 import { Param as OutPath } from './outPath.model';
 import { Param as Format } from './format.model';
 import { AssertArgvOptions, AssertRcOptions } from '../../assert/options/types';
+import { LhConfigJson } from '../../../../../../../dist/packages/cli/src/lib';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
 export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
@@ -14,6 +15,7 @@ export type CollectRcOptions = {
   url: string,
   ufPath: string,
   configPath?: string;
+  config?: LhConfigJson,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;

@@ -6,7 +6,6 @@ import { collectFlow, loadFlow, openFlowReport, persistFlow } from '../utils/use
 import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
 import { CollectArgvOptions } from '../options/types';
-import { readFile } from '../../../core/file';
 import { readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
