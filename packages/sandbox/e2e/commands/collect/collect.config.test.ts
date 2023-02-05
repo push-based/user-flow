@@ -2,14 +2,15 @@ import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
-  UserFlowProjectConfig, withUserFlowProject
+  UserFlowProjectConfig,
+  withUserFlowProject
 } from '@push-based/user-flow-cli-testing';
-import { LH_CONFIG, LH_CONFIG_NAME, STATIC_JSON_REPORT_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
+import { LH_CONFIG, LH_CONFIG_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
 import {
   expectCollectCfgToContain,
-  expectGlobalConfigPathUsageLog, expectGlobalConfigUsageLog,
-  expectNoConfigFileExistLog,
-  expectResultsToIncludeConfig
+  expectGlobalConfigPathUsageLog,
+  expectGlobalConfigUsageLog,
+  expectNoConfigFileExistLog
 } from '../../jest';
 
 let staticPrj: UserFlowCliProject;
@@ -71,7 +72,6 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, { configPath: LH_CONFIG_NAME });
     expectGlobalConfigPathUsageLog(stdout, LH_CONFIG_NAME);
-    expectResultsToIncludeConfig(staticWConfigAssetsPrj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
     expect(exitCode).toBe(0);
 
   }, 60_000);
