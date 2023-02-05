@@ -2,7 +2,7 @@ import { RcJson } from '../../../types';
 import { join } from 'path';
 import { readFile, writeFile } from '../../../core/file';
 import { log, logVerbose } from '../../../core/loggin';
-import { mkdirSync, readdirSync } from 'fs';
+import { mkdirSync, existsSync } from 'fs';
 import { GhWorkflowExampleMap } from '../constants';
 import { GhWorkflowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
@@ -32,7 +32,11 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   }
 
   const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
-  mkdirSync(destPath, {recursive: true})
+  if(!existsSync(destPath)) {
+    mkdirSync(destPath, {recursive: true});
+    logVerbose(`setup workflow folder ${destPath}`);
+  }
+
   writeFile(exampleDestination, fileContent);
 
   log(`setup workflow for user-flow integration in the CI in ${exampleDestination} successfully`);
