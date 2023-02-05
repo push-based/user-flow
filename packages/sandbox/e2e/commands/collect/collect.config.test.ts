@@ -2,7 +2,7 @@ import { DEFAULT_RC_NAME } from '@push-based/user-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
-  UserFlowProjectConfig
+  UserFlowProjectConfig, withUserFlowProject
 } from '@push-based/user-flow-cli-testing';
 import { LH_CONFIG, LH_CONFIG_NAME, STATIC_JSON_REPORT_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
 import {
@@ -60,7 +60,7 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
     }
     await staticWConfigAssetsPrj.setup();
   });
- afterEach(async () => await staticWConfigAssetsPrj.teardown());
+  afterEach(async () => await staticWConfigAssetsPrj.teardown());
 
   it('should load configPath from RC file', async () => {
     const { exitCode, stdout, stderr } = await staticWConfigAssetsPrj.$collect({
@@ -69,11 +69,37 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
 
 
     expect(stderr).toBe('');
-    expectCollectCfgToContain(stdout, {configPath: LH_CONFIG_NAME})
+    expectCollectCfgToContain(stdout, { configPath: LH_CONFIG_NAME });
     expectConfigPathUsageLog(stdout, LH_CONFIG_NAME);
-    expectResultsToIncludeConfig(staticWConfigAssetsPrj, STATIC_JSON_REPORT_NAME.split('.json').pop()+'');
+    expectResultsToIncludeConfig(staticWConfigAssetsPrj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
     expect(exitCode).toBe(0);
 
   }, 60_000);
 
+});
+
+let staticWConfigPrjCfg: UserFlowProjectConfig = {
+  ...STATIC_PRJ_CFG,
+  rcFile: {
+    [DEFAULT_RC_NAME]: {
+      ...STATIC_RC_JSON,
+      collect: {
+        ...STATIC_RC_JSON.collect,
+        config: LH_CONFIG
+      }
+    }
+  }
+};
+
+
+describe('$collect() sandbox+assets with RC({config}))', () => {
+  it('should load config from RC file', withUserFlowProject(staticWConfigPrjCfg, async (prj: UserFlowCliProject) => {
+    const { exitCode, stdout, stderr } = await prj.$collect();
+
+    expect(stderr).toBe('');
+    expectCollectCfgToContain(stdout, { config: LH_CONFIG });
+    expectResultsToIncludeConfig(prj, STATIC_JSON_REPORT_NAME.split('.json').pop() + '');
+    expect(exitCode).toBe(0);
+
+  }), 60_000);
 });

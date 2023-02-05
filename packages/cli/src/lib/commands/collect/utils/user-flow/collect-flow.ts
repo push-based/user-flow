@@ -1,7 +1,7 @@
 import { UserFlowProvider } from './types';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
-import { Browser, Page } from 'puppeteer';
+import { Browser, Page, LaunchOptions } from 'puppeteer';
 import { normalize } from 'path';
 import { LhConfigJson, startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
 import { get as dryRun } from '../../../../commands/collect/options/dryRun';
@@ -9,7 +9,6 @@ import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv } from '../config';
-import { LaunchOptions } from '../../../../../../../../dist/packages/cli/src/lib';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions,
@@ -57,15 +56,15 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions  {
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
-  };
+  } as any;
   // @TODO consider CI vs dev mode => headless, openReport, persist etc
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
-  if (cliMode !== 'DEFAULT') {
+  if (cliMode !== 'DEFAULT' && launchOptions) {
     const headlessMode = true;
     logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
-    launchOptions.headless = headlessMode;
+    (launchOptions as any).headless = headlessMode;
   }
 
-  return launchOptions
+  return launchOptions as any
 }

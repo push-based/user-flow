@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './config.model';
-import { LhConfigJson } from '../../../../../../../dist/packages/cli/src/lib';
+import { LhConfigJson } from '../../../hacky-things/lighthouse';
 
 export const param: Param = {
   config: {
