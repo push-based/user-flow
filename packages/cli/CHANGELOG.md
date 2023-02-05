@@ -2,6 +2,25 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.16.0](https://github.com/push-based/user-flow/compare/cli-0.15.0...cli-0.16.0) (2023-02-05)
+
+
+### Bug Fixes
+
+* add extends for better DX ([6c2368c](https://github.com/push-based/user-flow/commit/6c2368c8b42541f93f5722e60907f1ea09066ec7))
+* fix imports ([30fb351](https://github.com/push-based/user-flow/commit/30fb3511f692c9d45fa167e81de859aa07b75795))
+* imports ([e6120dd](https://github.com/push-based/user-flow/commit/e6120dd99967dc480a2493ada89b250623e1c9fb))
+* remove old code ([bb228b5](https://github.com/push-based/user-flow/commit/bb228b57c6a2aaf722054e4b3edf4428eefb5dd8))
+* remove old code 2 ([3b48933](https://github.com/push-based/user-flow/commit/3b489337b9db39fa44238ebf1e8cb01ee8a6e35a))
+* typing ([1eac32d](https://github.com/push-based/user-flow/commit/1eac32d859ce3ddedd894c341f67c2e433b8bc9b))
+
+
+### Features
+
+* add config path ([7781692](https://github.com/push-based/user-flow/commit/7781692ee49b76de9435532dde578ce89037c9aa))
+
+
+
 # [0.15.0](https://github.com/push-based/user-flow/compare/cli-0.14.1...cli-0.15.0) (2023-02-05)
 
 
