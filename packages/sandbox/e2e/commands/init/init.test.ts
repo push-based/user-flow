@@ -12,6 +12,7 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 
 let emptyPrj: UserFlowCliProject;
+const cwd = process.cwd();
 
 describe('init command in empty sandbox', () => {
 
@@ -72,9 +73,11 @@ describe('init command in setup sandbox', () => {
       initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
     }
     await initializedPrj.setup();
+    process.chdir(INITIATED_PRJ_CFG.root);
   });
   afterEach(async () => {
     await initializedPrj.teardown();
+    process.chdir(cwd);
   });
 
   it('should inform about the already existing cli-setup', withUserFlowProject(INITIATED_PRJ_CFG,async () => {
@@ -99,7 +102,8 @@ describe('init command in setup sandbox', () => {
   it('should create a workflow if `--generateGhWorkflow is used` ', withUserFlowProject({
     ...INITIATED_PRJ_CFG,
     delete: [expectedFilePath].concat(INITIATED_PRJ_CFG.delete || [])
-  }, async (prj) => {
+  },
+    async (prj) => {
 
     const workflowPath = join(process.cwd(),expectedFilePath);
     expect(existsSync(workflowPath)).toBeFalsy();
@@ -108,7 +112,8 @@ describe('init command in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
 
-  }));
+  })
+  );
 
 });
 
