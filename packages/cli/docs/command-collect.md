@@ -104,6 +104,7 @@ npx user-flow collect --ufPath ./user-flows/spectial-flow.uf.ts
 ```
 
 **Description:**   
+
 The path to user-flow file or folder containing user-flows. 
 
 You can point to a folder to execute all user flows in there, or execute one file directly.
