@@ -149,5 +149,5 @@ export function withUserFlowProject<T extends {}>(
   cfg: ProjectConfig<T>,
   fn: (prj: UserFlowCliProject) => Promise<void>
 ): () => Promise<void> {
-  return withProject<T>(cfg, fn as any, UserFlowCliProjectFactory as any);
+  return withProject<T>(cfg, fn as any, UserFlowCliProjectFactory.create);
 }
