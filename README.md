@@ -25,12 +25,13 @@ In addition, it is always up-to-date with the latest Chrome DevTools features.
 
 **Benefits**
 
-- ⚙ Run it in your CI  
+- ⚙ [Run it in your CI  ](https://github.com/push-based/user-flow#github-workflow-integration-of-lighthouse-user-flows-in-your-pr)  
+- ▶ [Execute ChromeDevTools recorder exports](https://github.com/push-based/user-flow#working-with-devtools-recorder-exports)  
 - 🏃‍♀️ Measure Runtime performance
-- 🔒 Performance budgets
+- 🔒 [Performance budgets](https://github.com/push-based/user-flow#performance-budgets)
 - 🦮 Zero setup cost
 - 🤓 Excellent DX through `--dryRun` and friends 
-- 🛸 Advanced architecture with UFO's
+- 🛸 [Advanced architecture with UFO's](https://github.com/push-based/user-flow#advanced-architecture)
 - 🔥 Write tests directly in TypeScript (we compile them live)
 - 🧠 Use best practices out of the box
 - 🅾 No boilerplate
