@@ -31,6 +31,7 @@ export async function persistFlow(
     mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
+
   if (format.includes('stdout')) {
     if(!mdReport) {
       const reducedReport = createReducedReport(jsonReport);

@@ -11,8 +11,7 @@ import { Alignment, markdownTable } from '../../../core/md/md-table';
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function userFlowReportToMdTable(flowResult: any, baselineResults?: any): string {
-  const reducedReport = createReducedReport(flowResult);
+export function userFlowReportToMdTable(reducedReport: ReducedReport, baselineResults?: any): string {
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
