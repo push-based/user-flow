@@ -3,34 +3,23 @@
  * https://github.com/GoogleChrome/lighthouse
  */
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
-import { ReducedFlowStepResult } from '../user-flow/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
+import { ReducedFlowStepResult } from './types';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStepResult[]  {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
     const { gatherMode } = stepReport;
     const categoriesEntries: [string, LHR.Category][] = Object.entries(stepReport.categories) as unknown as [string, LHR.Category][];
-    const results: ReducedFlowStepResult = categoriesEntries.reduce((res, [categoryName, category]) => {
+    const results: ReducedFlowStepResult = categoriesEntries.reduce((res: any, [categoryName, category]) => {
       res[categoryName] = (shouldDisplayAsFraction(stepReport.gatherMode) ?
         calculateCategoryFraction(category) : (category).score) as any;
       return res;
-    }, {} as ReducedFlowStepResult);
-    return { name: step.name, gatherMode, results };
+    }, {});
+    return { name: step.name, gatherMode, results } as any as ReducedFlowStepResult;
   });
 }
 
-
-/**
- * This type is the result of `calculateCategoryFraction` https://github.com/GoogleChrome/lighthouse/blob/master/core/util.cjs#L540.
- * As there is no typing present ATM we maintain our own.
- */
-export type FractionResults = {
-  numPassed: number;
-  numPassableAudits: number;
-  numInformative: number;
-  totalWeight: number;
-}
 
 const SCREENSHOT_PREFIX = 'data:image/jpeg;base64,';
 const PASS_THRESHOLD = 0.9;
