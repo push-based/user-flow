@@ -5,7 +5,7 @@ import { join } from 'path';
 import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { generateMdReport, isoDateStringToIsoLikeString} from './utils';
+import { generateMdReport } from './utils';
 import { createReducedReport } from '../../../..';
 import { generateStdoutReport } from '../persist/utils';
 import { toReportName } from '../report/utils';
@@ -20,23 +20,21 @@ export async function persistFlow(
   }
 
   const jsonReport: FlowResult = await flow.createFlowResult();
-
+  const reducedReport: ReducedReport = createReducedReport(jsonReport);
   const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
 
   let mdReport: string | undefined = undefined;
-  let reducedReport: ReducedReport| undefined = undefined;
+
   if (format.includes('md')) {
-    reducedReport = createReducedReport(jsonReport);
     mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
 
   if (format.includes('stdout')) {
     if(!mdReport) {
-      reducedReport = createReducedReport(jsonReport);
       mdReport = generateStdoutReport(reducedReport);
     }
 
@@ -56,8 +54,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport as ReducedReport);
-
+  const fileName = toReportName(url, flow.name, reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

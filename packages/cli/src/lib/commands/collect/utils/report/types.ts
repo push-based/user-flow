@@ -4,7 +4,7 @@ import { CLI_MODES } from '../../../../global/cli-mode';
 import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 
-type OverBudget = {overBudget: number};
+type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget)[];
 
 type UfrSlice = PickOne<FlowResult>;
@@ -33,6 +33,7 @@ export type FractionResults = {
 }
 
 export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
+  { fetchTime: string } &
   {
     results: ReducedFlowStepResult;
     baseline?: ReducedFlowStepResult;
@@ -46,10 +47,10 @@ export type ReducedReport = {
   date: string;
   steps: ReducedFlowStep[];
   assertions?: {
-   lhBudgetAssertion: BudgetAssertion,
-   baselineAssertion: BudgetAssertion,
+    lhBudgetAssertion: BudgetAssertion,
+    baselineAssertion: BudgetAssertion,
   }
-  config?: Config.Json & {baseline?:any};
+  config?: Config.Json & { baseline?: any };
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;
