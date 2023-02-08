@@ -4,7 +4,7 @@
     {
       "name": "Navigation report (127.0.0.1/)",
       "gatherMode": "navigation",
-      "fetchTime": "2022-04-21T21:47:34.326Z",
+      "fetchTime": "2022-04-21T21:47:59.033Z",
       "results": {
         "performance": null,
         "accessibility": 1,
@@ -16,7 +16,7 @@
     {
       "name": "Timespan report (127.0.0.1/)",
       "gatherMode": "timespan",
-      "fetchTime": "2022-04-21T21:47:34.326Z",
+      "fetchTime": "2022-04-21T21:47:59.033Z",
       "results": {
         "performance": {
           "numPassed": 10,
@@ -35,7 +35,7 @@
     {
       "name": "Snapshot report (127.0.0.1/)",
       "gatherMode": "snapshot",
-      "fetchTime": "2022-04-21T21:47:34.326Z",
+      "fetchTime": "2022-04-21T21:47:59.033Z",
       "results": {
         "performance": {
           "numPassed": 3,
