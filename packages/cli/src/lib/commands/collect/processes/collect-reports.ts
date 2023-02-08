@@ -17,14 +17,9 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
   let userFlows = [] as ({ exports: UserFlowProvider, path: string })[];
   // Load and run user-flows in sequential
   userFlows = loadFlow(collect);
-  let globalLhCfg = getLhConfigFromArgv({ ...collect, ...persist, ...assert });
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
-      const lhConfig = mergeLhConfig(globalLhCfg, provider?.flowOptions?.config);
-
-      provider.flowOptions.config = lhConfig;
-
-      return collectFlow({ ...collect, dryRun: dryRun() }, { ...provider, path })
+      return collectFlow({ ...collect, dryRun: dryRun(), ...persist, ...assert }, { ...provider, path })
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(openFlowReport)
         .then(_ => cfg);

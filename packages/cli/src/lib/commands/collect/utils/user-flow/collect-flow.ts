@@ -9,9 +9,12 @@ import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config';
+import { PersistArgvOptions } from '../../options/types';
+import { AssertRcOptions } from '../../../assert/options/types';
 
 export async function collectFlow(
-  cliOption: CollectArgvOptions,
+  cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
@@ -22,6 +25,9 @@ export async function collectFlow(
     launchOptions
   } = userFlowProvider;
 
+  let globalLhCfg = getLhConfigFromArgv(cliOption);
+  const lhConfig = mergeLhConfig(globalLhCfg, flowOptions?.config);
+  flowOptions.config = lhConfig;
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
