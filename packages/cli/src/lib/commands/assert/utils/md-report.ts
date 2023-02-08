@@ -1,7 +1,7 @@
 import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
-import { formatCode } from '../../../core/prettier';
 import { enrichReducedReportWithBaseline } from '../../collect/processes/generate-reports';
 import { createReducedReport } from '../../collect/utils/report/utils';
+import { Alignment, markdownTable } from '../../../core/md/md-table';
 
 // import FlowResult from 'lighthouse/types/lhr/flow';
 
@@ -16,7 +16,7 @@ export function userFlowReportToMdTable(flowResult: any, baselineResults?: any):
   const reducedReport = createReducedReport(flowResult);
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
-  const alignOptions = generateTableAlignOptions(reportCategories);
+  const alignOptions = headerAlignment(reportCategories);
   const tableArr = extractTableArr(reportCategories, tableStepsArr);
   return markdownTable(tableArr, alignOptions);
 }
@@ -35,19 +35,8 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
   });
 }
 
-type Alignment = 'l' | 'c' | 'r';
-
-const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r', '--:']]);
-
-function markdownTable(data: string[][], align: Alignment[]): string {
-  const _data = data.map((arr) => arr.join('|'));
-  const secondRow = align.map((s) => alignString.get(s)).join('|');
-  return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
-}
-
 function extractTableArr(reportCategories: string[],  steps: any[]): string[][] {
   const tableHead = extractTableHead(reportCategories);
-
   return [tableHead].concat(steps);
 }
 
@@ -85,7 +74,7 @@ function resultWithBaselineComparison(result: string, baseline: string): string 
   return `${result} (${difference > 0 ? '+' : ''}${difference})`;
 }
 
-function generateTableAlignOptions(reportCategories: string[]):  Alignment[] {
+function headerAlignment(reportCategories: string[]):  Alignment[] {
   const reportFormats = reportCategories.map(_ => 'c');
   return ['l', 'c'].concat(reportFormats) as Alignment[];
 }

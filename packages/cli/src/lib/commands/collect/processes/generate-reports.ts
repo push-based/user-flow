@@ -1,5 +1,5 @@
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { userFlowReportToMdTable } from '../../assert/utils/md-table';
+import { userFlowReportToMdTable } from '../../assert/utils/md-report';
 import { createReducedReport } from '../utils/report/utils';
 import { ReducedReport } from '../utils/report/types';
 

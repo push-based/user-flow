@@ -1,7 +1,7 @@
 import {
   enrichReducedReportWithBaseline
 } from '../../collect/processes/generate-reports';
-import { userFlowReportToMdTable } from './md-table';
+import { userFlowReportToMdTable } from './md-report';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { getReportContent } from 'test-data';
 import { ReducedReport } from '../../collect/utils/report/types';

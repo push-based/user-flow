@@ -7,6 +7,7 @@ import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
 import { isoDateStringToIsoLikeString, toReportName } from './utils';
+import { createReducedReport } from '../../../..';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -25,6 +26,7 @@ export async function persistFlow(
 
   let mdReport: string | undefined = undefined;
   if (format.includes('md')) {
+    const reducedReport = createReducedReport(flowResult);
     mdReport = generateMdReport(jsonReport);
     results.push({ format: 'md', out: mdReport });
   }
