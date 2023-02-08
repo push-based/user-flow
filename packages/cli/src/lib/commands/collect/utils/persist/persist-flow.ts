@@ -1,13 +1,13 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { generateMdReport } from '../../processes/generate-reports';
 import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
 import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { isoDateStringToIsoLikeString, toReportName } from './utils';
+import { generateMdReport, isoDateStringToIsoLikeString, toReportName } from './utils';
 import { createReducedReport } from '../../../..';
+import { generateStdoutReport } from '../persist/utils';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -25,13 +25,18 @@ export async function persistFlow(
   }
 
   let mdReport: string | undefined = undefined;
+
   if (format.includes('md')) {
     const reducedReport = createReducedReport(flow);
     mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
   if (format.includes('stdout')) {
-    mdReport = mdReport || generateMdReport(jsonReport);
+    if(!mdReport) {
+      const reducedReport = createReducedReport(flow);
+      mdReport = generateStdoutReport(reducedReport);
+    }
+
     log(mdReport + '');
   }
   if (format.includes('html')) {
