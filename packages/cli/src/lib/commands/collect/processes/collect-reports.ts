@@ -8,7 +8,7 @@ import { openFlowReport } from '../utils/persist/open-report';
 import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
 import { CollectArgvOptions } from '../options/types';
-import { getLhConfigFromArgv, mergeLhConfig, readConfig } from '../utils/config';
+import { readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -19,7 +19,9 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
   userFlows = loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
-      return collectFlow({ ...collect, dryRun: dryRun(), ...persist, ...assert }, { ...provider, path })
+      return collectFlow({
+        ...collect, ...persist, ...assert, dryRun: dryRun()
+      }, { ...provider, path })
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(openFlowReport)
         .then(_ => cfg);

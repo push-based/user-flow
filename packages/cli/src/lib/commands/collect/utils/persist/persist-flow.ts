@@ -27,13 +27,13 @@ export async function persistFlow(
   let mdReport: string | undefined = undefined;
 
   if (format.includes('md')) {
-    const reducedReport = createReducedReport(flow);
+    const reducedReport = createReducedReport(jsonReport);
     mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
   if (format.includes('stdout')) {
     if(!mdReport) {
-      const reducedReport = createReducedReport(flow);
+      const reducedReport = createReducedReport(jsonReport);
       mdReport = generateStdoutReport(reducedReport);
     }
 

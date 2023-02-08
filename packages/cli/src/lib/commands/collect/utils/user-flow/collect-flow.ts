@@ -20,6 +20,7 @@ export async function collectFlow(
   let {
     path,
     // object containing the LH setting for budgets
+    // @TODO refactor typing
     flowOptions,
     interactions,
     launchOptions
