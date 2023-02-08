@@ -9,6 +9,7 @@ import { generateMdReport, isoDateStringToIsoLikeString} from './utils';
 import { createReducedReport } from '../../../..';
 import { generateStdoutReport } from '../persist/utils';
 import { toReportName } from '../report/utils';
+import { ReducedReport } from '../report/types';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -26,16 +27,16 @@ export async function persistFlow(
   }
 
   let mdReport: string | undefined = undefined;
-
+  let reducedReport: ReducedReport| undefined = undefined;
   if (format.includes('md')) {
-    const reducedReport = createReducedReport(jsonReport);
+    reducedReport = createReducedReport(jsonReport);
     mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
 
   if (format.includes('stdout')) {
     if(!mdReport) {
-      const reducedReport = createReducedReport(jsonReport);
+      reducedReport = createReducedReport(jsonReport);
       mdReport = generateStdoutReport(reducedReport);
     }
 
@@ -55,7 +56,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, flow);
+  const fileName = toReportName(url, flow.name, reducedReport as ReducedReport);
 
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
