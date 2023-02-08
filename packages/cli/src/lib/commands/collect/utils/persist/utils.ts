@@ -1,6 +1,5 @@
 import { ReducedReport } from '../report/types';
-import { userFlowReportToMdTable } from '../../../..';
-import { toFileName } from '../../../../core/file';
+import { userFlowReportToMdTable } from '../../../assert/utils/md-report';
 
 export function generateStdoutReport(flowResult: ReducedReport): string {
   const dateTime = new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3);
@@ -21,7 +20,3 @@ export function isoDateStringToIsoLikeString(isoDate: string): string {
   return isoDate.replace(/[\-:]/gm, '').split('.').shift() as string;
 }
 
-export function toReportName(url: string, flowName: string, date?: string): string {
-  date = date || new Date().toISOString();
-  return `${toFileName(url)}-${toFileName(flowName)}-${isoDateStringToIsoLikeString(date)}`;
-}

@@ -6,7 +6,7 @@ import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { PersistFlowOptions } from './types';
-import { toReportName } from './utils';
+import { createReducedReport, toReportName } from '../report/utils';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const htmlReport = getReportContent('lhr-9.html') as string;
@@ -53,7 +53,7 @@ let initializedPrj: UserFlowCliProject;
 let outPath;
 const url = 'test.url';
 const flowName = `flow-example-name`;
-const flowFileName = toReportName(url, flowName, jsonReport.steps[0].lhr.fetchTime);
+const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
 const flow = new UserFlowReportMock({ name: flowName });
 

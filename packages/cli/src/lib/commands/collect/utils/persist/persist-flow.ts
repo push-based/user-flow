@@ -5,9 +5,10 @@ import { join } from 'path';
 import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { generateMdReport, isoDateStringToIsoLikeString, toReportName } from './utils';
+import { generateMdReport, isoDateStringToIsoLikeString} from './utils';
 import { createReducedReport } from '../../../..';
 import { generateStdoutReport } from '../persist/utils';
+import { toReportName } from '../report/utils';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -53,8 +54,8 @@ export async function persistFlow(
       throw new Error(`outPath: ${outPath} is no directory`);
     }
   }
-  const fetchTime = isoDateStringToIsoLikeString(jsonReport.steps[0].lhr.fetchTime);
-  const fileName = toReportName(url, flow.name, fetchTime);
+
+  const fileName = toReportName(url, flow.name, flow);
 
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);

@@ -16,7 +16,7 @@ export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStepResult[]  {
         calculateCategoryFraction(category) : (category).score) as any;
       return res;
     }, {});
-    return { name: step.name, gatherMode, results } as any as ReducedFlowStepResult;
+    return { name: step.name, gatherMode, results, fetchTime: step.lhr.fetchTime } as any as ReducedFlowStepResult;
   });
 }
 

@@ -1,6 +1,8 @@
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { ReducedReport } from '../report/types';
 import { parseSteps } from './lh-utils';
+import { toFileName } from '../../../../core/file';
+import { isoDateStringToIsoLikeString } from '../persist/utils';
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = parseSteps(flowResult.steps);
@@ -19,4 +21,9 @@ export function enrichReducedReportWithBaseline(reducedReport: ReducedReport, ba
     ...reducedReport,
     steps
   };
+}
+
+export function toReportName(url: string, flowName: string, report: ReducedReport): string {
+  const fetchTime = isoDateStringToIsoLikeString(report.steps[0].fetchTime);
+  return `${toFileName(url)}-${toFileName(flowName)}-${isoDateStringToIsoLikeString(fetchTime)}`;
 }

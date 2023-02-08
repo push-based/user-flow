@@ -49,7 +49,7 @@ export type ReducedReport = {
    lhBudgetAssertion: BudgetAssertion,
    baselineAssertion: BudgetAssertion,
   }
-  config?: Config.Json;
+  config?: Config.Json & {baseline?:any};
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

@@ -1,14 +1,10 @@
 import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
-import { logVerbose } from '../../../core/loggin';
 import { get as dryRun } from '../../../commands/collect/options/dryRun';
 import { collectFlow, loadFlow } from '../utils/user-flow';
 import { persistFlow } from '../utils/persist/persist-flow';
 import { openFlowReport } from '../utils/persist/open-report';
-import { AssertRcOptions } from '../../assert/options/types';
 import { RcJson } from '../../../types';
-import { CollectArgvOptions } from '../options/types';
-import { readConfig } from '../utils/config';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 
@@ -28,40 +24,4 @@ export async function collectReports(cfg: RcJson): Promise<RcJson> {
     })
   )(cfg);
   return Promise.resolve(cfg);
-}
-
-function normalizeProviderObject(provider: UserFlowProvider): UserFlowProvider {
-  provider = provider || {};
-  if (provider.flowOptions?.config === undefined) {
-    provider.flowOptions.config = {} as any;
-  }
-  return provider;
-}
-
-function addConfigIfGiven(provider: UserFlowProvider, collectOptions: CollectArgvOptions = {} as CollectArgvOptions): UserFlowProvider {
-  const { configPath } = collectOptions;
-
-  if (configPath) {
-    logVerbose(`Configuration ${configPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-
-    // @ts-ignore
-    provider.flowOptions.config = readConfig(configPath);
-  }
-
-  return provider;
-}
-
-function addBudgetsIfGiven(provider: UserFlowProvider, assertOptions: AssertRcOptions = {} as AssertRcOptions): UserFlowProvider {
-  const { budgetPath, budgets } = assertOptions;
-
-  if (budgetPath) {
-    logVerbose(`Collect options budgetPath is used over CLI param or .user-flowrc.json. Configuration ${budgetPath} is used instead of a potential configuration in the user-flow.uf.ts`);
-    // @ts-ignore
-    provider.flowOptions.config.settings.budgets = budgetPath;
-  } else if (budgets) {
-    logVerbose('Collect options budgets is used over CLI param or .user-flowrc.json. Configuration ${budgets} is used instead of a potential configuration in the user-flow.uf.ts');
-    // @ts-ignore
-    provider.flowOptions.config.settings.budgets = budgets;
-  }
-  return provider;
 }
