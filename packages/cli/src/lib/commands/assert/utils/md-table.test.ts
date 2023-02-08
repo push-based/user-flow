@@ -1,11 +1,11 @@
 import {
-  createReducedReport,
   enrichReducedReportWithBaseline
 } from '../../collect/processes/generate-reports';
 import { userFlowReportToMdTable } from './md-table';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedReport } from '../../collect/utils/user-flow/types';
 import { getReportContent } from 'test-data';
+import { ReducedReport } from '../../collect/utils/report/types';
+import { createReducedReport } from '../../collect/utils/report/utils';
 
 const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');

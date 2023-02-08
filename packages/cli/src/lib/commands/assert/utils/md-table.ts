@@ -1,6 +1,8 @@
-import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/user-flow/types';
+import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
 import { formatCode } from '../../../core/prettier';
-import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/processes/generate-reports';
+import { enrichReducedReportWithBaseline } from '../../collect/processes/generate-reports';
+import { createReducedReport } from '../../collect/utils/report/utils';
+
 // import FlowResult from 'lighthouse/types/lhr/flow';
 
 /**
