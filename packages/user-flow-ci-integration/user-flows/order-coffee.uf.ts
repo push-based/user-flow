@@ -61,7 +61,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   await flow.navigate(url+'github', {
     stepName: '🧭 Navigate to github',
     config: {
-      extends:'lighthouse:default'
+      extends:'lighthouse:default',
+      settings: {
+        onlyAudits: ['lcp-lazy-loaded']
+      }
     }
   });
 };
