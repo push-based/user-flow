@@ -1,5 +1,12 @@
 import { NEW_LINE } from './constants';
 
+/**
+ * ```{format}
+ *   {code}
+ * ```
+ * or with inline set to `true`
+ * `{code}`
+ */
 export function code(code: string, cfg: {format: string, inline: boolean}): string {
   if(cfg?.inline) {
     return `\`${code}\``;
