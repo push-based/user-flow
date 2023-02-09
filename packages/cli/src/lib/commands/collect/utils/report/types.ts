@@ -39,7 +39,7 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resultsPerformanceBudget: any,
+    resultsPerformanceBudget?: any,
     baseline?: ReducedFlowStepResult;
   };
 

@@ -16,17 +16,17 @@ export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
         calculateCategoryFraction(category) : (category).score) as any;
       return res;
     }, {});
-    let resultsPerformanceBudget;
-    if(step.lhr.audits['performance-budget']) {
-      resultsPerformanceBudget = step.lhr.audits['performance-budget'].details
-    }
-    return {
+
+    const reducedStep: ReducedFlowStep  = {
+      fetchTime: step.lhr.fetchTime,
       gatherMode: gatherMode,
       name: step.name,
-      fetchTime: step.lhr.fetchTime,
-      results,
-      resultsPerformanceBudget,
+      results
     };
+    if(step.lhr.audits['performance-budget']) {
+      reducedStep.resultsPerformanceBudget = step.lhr.audits['performance-budget'].details
+    }
+    return reducedStep;
   });
 }
 
