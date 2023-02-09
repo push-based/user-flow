@@ -60,7 +60,9 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   // Navigate to github info site
   await flow.navigate(url+'github', {
     stepName: '🧭 Navigate to github',
-    config: {}
+    config: {
+      extends:'lighthouse:default'
+    }
   });
 };
 
