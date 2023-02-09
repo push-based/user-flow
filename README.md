@@ -231,7 +231,7 @@ This command executes a set of user-flow definitions against the target URL and 
 
 The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
 
-Details on how to work with configurations can be found in the [configuratin section]().    
+Details on how to work with configurations can be found in the [configuratin section](./packages/cli/docs/lh-configuraton.md).    
 
 
 # Writing user flows for the CLI
