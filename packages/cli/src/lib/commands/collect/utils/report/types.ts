@@ -48,7 +48,7 @@ export type ReducedReport = {
   dryRun?: boolean;
   headless?: boolean;
   name: string;
-  date: string;
+  fetchTime: string;
   steps: ReducedFlowStep[];
   assertions?: {
     lhBudgetAssertion: BudgetAssertion,

@@ -1,5 +1,6 @@
 {
   "name": "Sandbox Setup StaticDist",
+  "fetchTime": "2022-04-21T21:47:59.033Z",
   "steps": [
     {
       "name": "Navigation report (127.0.0.1/)",
