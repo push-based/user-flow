@@ -4,7 +4,6 @@ import {
   UserFlowProvider
 } from '@push-based/user-flow';
 
-// Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
@@ -58,7 +57,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   await flow.snapshot({ stepName: '📧 Order submitted' });
 
-  // Navigate to coffee order site
+  // Navigate to github info site
   await flow.navigate(url+'github', {
     stepName: '🧭 Navigate to github',
   });

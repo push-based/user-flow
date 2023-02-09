@@ -22,7 +22,7 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "ci-test": "node ./dist/packages/cli/src/cli.js -p ./packages/user-flow-ci-integration/.user-flowrc.json --open false",
+    "ci-test": "npm run @push-based/user-flow -- --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json --openReport false",
     "prepare": "husky install"
   },
   "dependencies": {
