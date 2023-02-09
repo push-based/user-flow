@@ -6,6 +6,6 @@ const stylesMap = {
 
 export type FontStyle = keyof typeof stylesMap;
 
-export function style(text: string, styles: FontStyle[]): string {
+export function style(text: string, styles: FontStyle[] = ['b']): string {
     return styles.reduce((t, s) => `${stylesMap[s]}${t}${stylesMap[s]}`, text);
 }
