@@ -58,6 +58,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   await flow.snapshot({ stepName: '📧 Order submitted' });
 
+  // Navigate to coffee order site
+  await flow.navigate(url+'github', {
+    stepName: '🧭 Navigate to github',
+  });
 };
 
 const userFlowProvider: UserFlowProvider = {
