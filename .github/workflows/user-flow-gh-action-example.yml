@@ -9,7 +9,7 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v2
-      - name: run:user-flow
+      - name: run:user-flow-action
         uses: push-based/user-flow-gh-action@v0.1.1
         with:
           rcPath: packages/user-flow-ci-integration/.user-flowrc.json
