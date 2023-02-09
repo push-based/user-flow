@@ -22,7 +22,7 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "md-report-test": "npm run @push-based/user-flow -- --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json --openReport false && ts-node -p ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
+    "md-report-test": "npm run @push-based/user-flow -- --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json --openReport false && ts-node -P ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
     "prepare": "husky install"
   },
   "dependencies": {

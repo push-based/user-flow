@@ -1,6 +1,7 @@
 import { readdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
+console.log(`Reame results for comment action`);
 const path = 'packages/user-flow-ci-integration/measures';
 const reportJsonPath = readdirSync(path)[0];
 if (!reportJsonPath) {
