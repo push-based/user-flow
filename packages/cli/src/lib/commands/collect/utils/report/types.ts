@@ -32,10 +32,14 @@ export type FractionResults = {
   totalWeight: number;
 }
 
-export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
-  { fetchTime: string } &
+export type ReducedFlowStep =
+  // gatherMode
+  LhrGatherModeSlice &
   {
+    name: string;
+    fetchTime: string;
     results: ReducedFlowStepResult;
+    resultsPerformanceBudget: any,
     baseline?: ReducedFlowStepResult;
   };
 

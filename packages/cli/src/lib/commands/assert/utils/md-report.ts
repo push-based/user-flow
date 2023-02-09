@@ -29,6 +29,8 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
   }
   return reducedReport.steps.map((step) => {
     const results = reportCategories.map(category => extractResultsValue(step.results[category]));
+    // add 🔒 to gatherMode to indicate budgets
+    step.resultsPerformanceBudget && (step.gatherMode = step.gatherMode + ' 🔒' as any);
     return [step.name, step.gatherMode].concat(results);
   });
 }

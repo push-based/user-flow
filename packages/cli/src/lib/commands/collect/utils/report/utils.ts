@@ -8,7 +8,7 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = parseSteps(flowResult.steps);
   return {
     name: flowResult.name,
-   // date:
+    date: steps[0].fetchTime,
     steps
   } as any as ReducedReport;
 }
