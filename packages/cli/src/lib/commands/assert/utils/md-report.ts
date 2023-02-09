@@ -1,6 +1,6 @@
 import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
 import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
-import { Alignment, markdownTable } from '../../../core/md/md-table';
+import { Alignment, table } from '../../../core/md/table';
 
 // import FlowResult from 'lighthouse/types/lhr/flow';
 
@@ -16,7 +16,7 @@ export function userFlowReportToMdTable(reducedReport: ReducedReport, baselineRe
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
   const tableArr = extractTableArr(reportCategories, tableStepsArr);
-  return markdownTable(tableArr, alignOptions);
+  return table(tableArr, alignOptions);
 }
 
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
