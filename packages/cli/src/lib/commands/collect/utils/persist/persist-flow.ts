@@ -1,12 +1,15 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { generateMdReport } from '../../processes/generate-reports';
 import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
 import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { isoDateStringToIsoLikeString, toReportName } from './utils';
+import { generateMdReport } from './utils';
+import { createReducedReport } from '../../../..';
+import { generateStdoutReport } from '../persist/utils';
+import { toReportName } from '../report/utils';
+import { ReducedReport } from '../report/types';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -17,19 +20,24 @@ export async function persistFlow(
   }
 
   const jsonReport: FlowResult = await flow.createFlowResult();
-
+  const reducedReport: ReducedReport = createReducedReport(jsonReport);
   const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
 
   let mdReport: string | undefined = undefined;
+
   if (format.includes('md')) {
-    mdReport = generateMdReport(jsonReport);
+    mdReport = generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
+
   if (format.includes('stdout')) {
-    mdReport = mdReport || generateMdReport(jsonReport);
+    if(!mdReport) {
+      mdReport = generateStdoutReport(reducedReport);
+    }
+
     log(mdReport + '');
   }
   if (format.includes('html')) {
@@ -45,9 +53,8 @@ export async function persistFlow(
       throw new Error(`outPath: ${outPath} is no directory`);
     }
   }
-  const fetchTime = isoDateStringToIsoLikeString(jsonReport.steps[0].lhr.fetchTime);
-  const fileName = toReportName(url, flow.name, fetchTime);
 
+  const fileName = toReportName(url, flow.name, reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

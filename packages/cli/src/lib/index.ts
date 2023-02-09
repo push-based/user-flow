@@ -3,8 +3,7 @@ export { ERROR_PERSIST_FORMAT_WRONG } from './commands/collect/options/format.co
 export { getGlobalOptionsFromArgv } from './global/utils';
 export { SETUP_CONFIRM_MESSAGE } from './commands/init/constants';
 export { PROMPT_COLLECT_URL } from './commands/collect/options/url.constant';
-export { createReducedReport, enrichReducedReportWithBaseline } from './commands/collect/processes/generate-reports';
-export { userFlowReportToMdTable } from './commands/assert/utils/md-table';
+export { userFlowReportToMdTable } from './commands/assert/utils/md-report';
 export { PROMPT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.constant';
 export { PROMPT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.constant';
 export { PROMPT_PERSIST_FORMAT } from './commands/collect/options/format.constant';
@@ -28,3 +27,5 @@ export { DEFAULT_COLLECT_URL } from './commands/collect/options/url.constant';
 export { DEFAULT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.constant';
 export { DEFAULT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.constant';
 export { ReportFormat } from './commands/collect/options/types';
+export { createReducedReport } from './commands/collect/utils/report/utils';
+export { enrichReducedReportWithBaseline } from './commands/collect/utils/report/utils';

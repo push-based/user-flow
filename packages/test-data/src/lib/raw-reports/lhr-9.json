@@ -5,7 +5,7 @@
         "lighthouseVersion": "9.5.0",
         "requestedUrl": "http://127.0.0.1:5032/",
         "finalUrl": "http://127.0.0.1:5032/",
-        "fetchTime": "2022-04-21T21:46:53.180Z",
+        "fetchTime": "2022-04-21T21:47:59.033Z",
         "gatherMode": "navigation",
         "runtimeError": {
           "code": "PROTOCOL_TIMEOUT",
@@ -5141,7 +5141,7 @@
         "lighthouseVersion": "9.5.0",
         "requestedUrl": "http://127.0.0.1:5032/",
         "finalUrl": "http://127.0.0.1:5032/",
-        "fetchTime": "2022-04-21T21:47:34.326Z",
+        "fetchTime": "2022-04-21T21:47:59.033Z",
         "gatherMode": "timespan",
         "runWarnings": [],
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4889.0 Safari/537.36",

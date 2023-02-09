@@ -1,31 +1,34 @@
 import { UserFlowProvider } from './types';
 import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
-import { Browser, Page, LaunchOptions } from 'puppeteer';
+import { Browser, LaunchOptions, Page } from 'puppeteer';
 import { normalize } from 'path';
-import { LhConfigJson, startFlow, UserFlow } from '../../../../hacky-things/lighthouse';
+// @ts-ignore
+import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 import { get as dryRun } from '../../../../commands/collect/options/dryRun';
 import { UserFlowMock } from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config';
-import { readConfig } from '../../utils/config';
-import { readBudgets } from '../../../assert/utils/budgets';
-import * as Config from 'lighthouse/types/config';
-import Budget from 'lighthouse/types/lhr/budget';
+import { PersistArgvOptions } from '../../options/types';
+import { AssertRcOptions } from '../../../assert/options/types';
 
 export async function collectFlow(
-  cliOption: CollectArgvOptions,
+  cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,
   userFlowProvider: UserFlowProvider & { path: string }
 ) {
   let {
     path,
     // object containing the LH setting for budgets
+    // @TODO refactor typing
     flowOptions,
     interactions,
     launchOptions
   } = userFlowProvider;
 
+  let globalLhCfg = getLhConfigFromArgv(cliOption);
+  const lhConfig = mergeLhConfig(globalLhCfg, flowOptions?.config);
+  flowOptions.config = lhConfig;
 
   const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
   const page: Page = await browser.newPage();
@@ -44,23 +47,6 @@ export async function collectFlow(
   return flow;
 }
 
-/*
-function parseUserFlowOptionsConfig(flowOptionsConfig?: LhConfigJson): Config.default.Json {
-  flowOptionsConfig = flowOptionsConfig || {} as any;
-  // @ts-ignore
-  flowOptionsConfig?.extends || (flowOptionsConfig.extends = 'lighthouse:default');
-
-  // if budgets are given
-  if (flowOptionsConfig?.settings?.budgets) {
-    logVerbose('Use budgets from UserFlowProvider objects under the flowOptions.settings.budgets property');
-    let budgets: Budget[] = flowOptionsConfig?.settings?.budgets;
-    budgets && (budgets = Array.isArray(budgets) ? budgets : readBudgets(budgets));
-    flowOptionsConfig.settings.budgets = budgets;
-  }
-
-  return flowOptionsConfig as any as Config.default.Json;
-}
-*/
 function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {

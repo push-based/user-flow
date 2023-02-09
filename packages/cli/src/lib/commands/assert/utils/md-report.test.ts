@@ -1,11 +1,8 @@
-import {
-  createReducedReport,
-  enrichReducedReportWithBaseline
-} from '../../collect/processes/generate-reports';
-import { userFlowReportToMdTable } from './md-table';
+import { userFlowReportToMdTable } from './md-report';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedReport } from '../../collect/utils/user-flow/types';
 import { getReportContent } from 'test-data';
+import { ReducedReport } from '../../collect/utils/report/types';
+import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 
 const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');
@@ -38,12 +35,14 @@ describe('md-table', () => {
   });
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
-    const mdTable = userFlowReportToMdTable(lhr9);
+    const reducedLhr9 = createReducedReport(lhr9);
+    const mdTable = userFlowReportToMdTable(reducedLhr9);
     expect(mdTable).toEqual(LHRREDUCEDMD);
   });
 
   it('should return a Md table comparing to reports if userFlowReportToMdTable is passed a baseline report', () => {
-    const mdTable = userFlowReportToMdTable(lhr9, lhr9Ex2);
+    const reducedLhr9 = createReducedReport(lhr9);
+    const mdTable = userFlowReportToMdTable(reducedLhr9, lhr9Ex2);
     expect(mdTable).toEqual(LHRREDUCEDCompareMD);
   });
 });

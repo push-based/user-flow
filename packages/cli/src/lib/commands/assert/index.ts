@@ -1,10 +1,10 @@
 import { YargsCommandObject } from '../../core/yargs/types';
 import { logVerbose } from '../../core/loggin/index';
 import { readBudgets } from './utils/budgets';
-import { generateMdReport } from '../collect/processes/generate-reports';
 import { readFile } from '../../core/file';
 import { getCollectCommandOptionsFromArgv } from '../collect/utils/params';
 import { RcJson } from '../../types';
+import { generateMdReport } from '../collect/utils/persist/utils';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

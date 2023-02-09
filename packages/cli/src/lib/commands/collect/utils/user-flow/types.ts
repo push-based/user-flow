@@ -10,9 +10,6 @@ import {
 import * as Config from 'lighthouse/types/config';
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-import { PickOne } from '../../../../core/types';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { CollectArgvOptions, PersistArgvOptions } from '../../options/types';
 
 
 export type UserFlowContext = {
@@ -65,45 +62,4 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
-
-export type PersistFlowOptions = Pick<PersistArgvOptions, 'outPath' | 'format'> & Pick<CollectArgvOptions, 'url'>;
-
-export type ReducedReport = {
-  name: string;
-  steps: ReducedFlowStep[];
-}
-
-
-type UfrSlice = PickOne<FlowResult>;
-type LhrSlice = PickOne<FlowResult.Step['lhr']>;
-/**
- * Plucks key value from oroginal LH report
- * @example
- *
- * const t: GatherModeSlice = {gatherMode: 'navigation'};
- * const f1: GatherModeSlice = {gatherddMode: 'navigation'};
- * const f2: GatherModeSlice = {gatherMode: 'navigationddddd'};
- */
-type LhrGatherModeSlice = LhrSlice & { gatherMode: FlowResult.Step['lhr']['gatherMode'] };
-type UfrNameSlice = UfrSlice & { name: string };
-
-
-/**
- * This type is the result of `calculateCategoryFraction` https://github.com/GoogleChrome/lighthouse/blob/master/core/util.cjs#L540.
- * As there is no typing present ATM we maintain our own.
- */
-export type FractionResults = {
-  numPassed: number;
-  numPassableAudits: number;
-  numInformative: number;
-  totalWeight: number;
-}
-
-export type ReducedFlowStepResult = Record<string, number | FractionResults>;
-
-export type ReducedFlowStep = UfrNameSlice & LhrGatherModeSlice &
-  {
-    results: ReducedFlowStepResult;
-    baseline?: ReducedFlowStepResult;
-  };
 
