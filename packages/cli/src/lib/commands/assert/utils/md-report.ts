@@ -28,7 +28,7 @@ ${stepsTable}${NEW_LINE}
 }
 
 /**
- * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
+ * | ResourceType    | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
  * | --------------- | ----------- | ------------- | ------------- | ---- | --- |
  * |  Nav1           |  99         | 50            | 100           | 98   |  -  |
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
