@@ -38,7 +38,7 @@ export function getBudgetTable(reducedReport: ReducedReport): string {
   const performanceBudgets = reducedReport.steps
     .filter(step => step.gatherMode === 'navigation')
     .map(step => step.resultsPerformanceBudget);
-  return performanceBudgets.length ? 'performanceBudgets' : '';
+  return performanceBudgets.length ? JSON.stringify(performanceBudgets) : '';
 }
 
 /**
