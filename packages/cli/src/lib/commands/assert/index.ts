@@ -4,7 +4,7 @@ import { readBudgets } from './utils/budgets';
 import { readFile } from '../../core/file';
 import { getCollectCommandOptionsFromArgv } from '../collect/utils/params';
 import { RcJson } from '../../types';
-import { generateMdReport } from '../collect/utils/persist/utils';
+import { generateMdReport } from './utils/md-report';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

@@ -5,11 +5,11 @@ import { join } from 'path';
 import { writeFile } from '../../../../core/file';
 import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { generateMdReport } from './utils';
 import { createReducedReport } from '../../../..';
 import { generateStdoutReport } from '../persist/utils';
 import { toReportName } from '../report/utils';
 import { ReducedReport } from '../report/types';
+import { generateMdReport } from '../../../assert/utils/md-report';
 
 export async function persistFlow(
   flow: UserFlow,

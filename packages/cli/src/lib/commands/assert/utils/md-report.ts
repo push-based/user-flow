@@ -1,8 +1,31 @@
-import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
+import { FractionResults, GatherMode, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
 import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 import { Alignment, table } from '../../../core/md/table';
+import { style } from '../../../core/md/font-style';
+import { headline } from '../../../core/md/headline';
+import { NEW_LINE } from '../../../core/md/constants';
+import { details } from '../../../core/md/details';
 
-// import FlowResult from 'lighthouse/types/lhr/flow';
+const budgetsSymbol = '🔒'
+
+export function generateMdReport(flowResult: ReducedReport): string {
+  const name = flowResult.name;
+  const dateTime = `Date/Time: ${style(new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3))}  `;
+  const stepsTable = getStepsTable(flowResult);
+
+  let md = `${headline(name)}${NEW_LINE}
+${dateTime}${NEW_LINE}
+${stepsTable}${NEW_LINE}
+`;
+
+  const budgetsTable = getBudgetTable(flowResult);
+  if(budgetsTable !== '') {
+    md += details(`${budgetsSymbol} Budgets`, budgetsTable) + NEW_LINE;
+  }
+
+
+  return md;
+}
 
 /**
  * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
@@ -11,7 +34,21 @@ import { Alignment, table } from '../../../core/md/table';
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function userFlowReportToMdTable(reducedReport: ReducedReport, baselineResults?: any): string {
+export function getBudgetTable(reducedReport: ReducedReport): string {
+  const performanceBudgets = reducedReport.steps
+    .filter(step => step.gatherMode === 'navigation')
+    .map(step => step.resultsPerformanceBudget);
+  return performanceBudgets.length ? 'performanceBudgets' : '';
+}
+
+/**
+ * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
+ * | --------------- | ----------- | ------------- | ------------- | ---- | --- |
+ * |  Nav1           |  99         | 50            | 100           | 98   |  -  |
+ * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
+ * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
+ */
+export function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): string {
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
@@ -30,12 +67,12 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
   return reducedReport.steps.map((step) => {
     const results = reportCategories.map(category => extractResultsValue(step.results[category]));
     // add 🔒 to gatherMode to indicate budgets
-    step.resultsPerformanceBudget && (step.gatherMode = step.gatherMode + ' 🔒' as any);
+    step.resultsPerformanceBudget && (step.gatherMode = step.gatherMode + ` ${budgetsSymbol}` as GatherMode);
     return [step.name, step.gatherMode].concat(results);
   });
 }
 
-function extractTableArr(reportCategories: string[],  steps: any[]): string[][] {
+function extractTableArr(reportCategories: string[], steps: any[]): string[][] {
   const tableHead = extractTableHead(reportCategories);
   return [tableHead].concat(steps);
 }
@@ -61,11 +98,11 @@ function extractResultsValue(stepResult?: number | FractionResults): string {
 function extractEnrichedResults(step: ReducedFlowStep, category: string): string {
   const result = extractResultsValue(step.results[category]);
   const baseline = extractResultsValue(step.baseline![category]);
-  return resultWithBaselineComparison(result, baseline)
+  return resultWithBaselineComparison(result, baseline);
 }
 
 function resultWithBaselineComparison(result: string, baseline: string): string {
-  if (result ===  baseline) {
+  if (result === baseline) {
     return result;
   }
   const resultNum = Number(result.replace('Ø ', '').split('/')[0]);
@@ -74,7 +111,8 @@ function resultWithBaselineComparison(result: string, baseline: string): string 
   return `${result} (${difference > 0 ? '+' : ''}${difference})`;
 }
 
-function headerAlignment(reportCategories: string[]):  Alignment[] {
+function headerAlignment(reportCategories: string[]): Alignment[] {
   const reportFormats = reportCategories.map(_ => 'c');
   return ['l', 'c'].concat(reportFormats) as Alignment[];
 }
+
