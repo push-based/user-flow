@@ -20,7 +20,7 @@ ${stepsTable}${NEW_LINE}
 
   const budgetsTable = getBudgetTable(flowResult);
   if(budgetsTable !== '') {
-    md += details(`${budgetsSymbol} Budgets`, budgetsTable) + NEW_LINE;
+    md += details(`${budgetsSymbol} Budgets`, budgetsTable, {open:true}) + NEW_LINE;
   }
 
 

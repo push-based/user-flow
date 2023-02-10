@@ -36,13 +36,13 @@ describe('md-table', () => {
 
   it('should print MD table if userFlowReportToMdTable is called with a reduced result', () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = userFlowReportToMdTable(reducedLhr9);
+    const mdTable = getStepsTable(reducedLhr9);
     expect(mdTable).toEqual(LHRREDUCEDMD);
   });
 
   it('should return a Md table comparing to reports if userFlowReportToMdTable is passed a baseline report', () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = userFlowReportToMdTable(reducedLhr9, lhr9Ex2);
+    const mdTable = getStepsTable(reducedLhr9, lhr9Ex2);
     expect(mdTable).toEqual(LHRREDUCEDCompareMD);
   });
 });
