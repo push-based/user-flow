@@ -4,9 +4,9 @@
  */
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedFlowStepResult } from './types';
+import { ReducedFlowStep, ReducedFlowStepResult } from './types';
 
-export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStepResult[]  {
+export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
     const { gatherMode } = stepReport;
@@ -16,7 +16,17 @@ export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStepResult[]  {
         calculateCategoryFraction(category) : (category).score) as any;
       return res;
     }, {});
-    return { name: step.name, gatherMode, results, fetchTime: step.lhr.fetchTime } as any as ReducedFlowStepResult;
+
+    const reducedStep: ReducedFlowStep  = {
+      fetchTime: step.lhr.fetchTime,
+      gatherMode: gatherMode,
+      name: step.name,
+      results
+    };
+    if(step.lhr.audits['performance-budget']) {
+      reducedStep.resultsPerformanceBudget = step.lhr.audits['performance-budget'].details
+    }
+    return reducedStep;
   });
 }
 

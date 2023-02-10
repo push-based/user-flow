@@ -1,7 +1,42 @@
 {
   "collect": {
     "url": "https://coffee-cart.netlify.app/",
-    "ufPath": "./packages/user-flow-ci-integration/user-flows"
+    "ufPath": "./packages/user-flow-ci-integration/user-flows",
+    "budgets": [
+      {
+        "resourceSizes": [
+          {
+            "resourceType": "total",
+            "budget": 26
+          },
+          {
+            "resourceType": "script",
+            "budget": 150
+          }
+        ],
+        "resourceCounts": [
+          {
+            "resourceType": "third-party",
+            "budget": 100
+          }
+        ],
+        "timings": [
+          {
+            "metric": "interactive",
+            "budget": 5000
+          },
+          {
+            "metric": "first-meaningful-paint",
+            "budget": 2000
+          }
+        ]
+      }
+    ]
   },
-  "persist": { "outPath": "./packages/user-flow-ci-integration/measures", "format": ["md"] }
+  "persist": {
+    "outPath": "./packages/user-flow-ci-integration/measures",
+    "format": [
+      "md"
+    ]
+  }
 }

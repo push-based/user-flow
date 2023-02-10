@@ -1,0 +1,32 @@
+name: user-flow-md-report-test
+
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install
+        run: npm i
+      - name: build
+        run: npm run nx -- affected:build
+      - name: run
+        run: npm run md-report-test
+      - name: Add reduced report as comment to the PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          hide_and_recreate: true
+          header: md-report-test
+          path: ./packages/user-flow-ci-integration/measures/md-report.md
