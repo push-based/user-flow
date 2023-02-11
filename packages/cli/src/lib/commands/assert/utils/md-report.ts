@@ -51,11 +51,13 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
           resultsPerformanceBudget.headings
             .filter(v => v.key !== 'countOverBudget')
             .map((h) => h.text as string),
-          ...resultsPerformanceBudget.items.map(({label, transferSize, resourceType, sizeOverBudget}) => [label, transferSize, resourceType, sizeOverBudget || '-'] as (string|number)[]) || [] as (string|number)[]
+          ...resultsPerformanceBudget.items.map(({label, transferSize, resourceType, sizeOverBudget}) =>
+            [label, formatBytes(transferSize as number), resourceType, sizeOverBudget || '-'] as (string|number)[]) || []
         ] : [],
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
-          ...resultsTimingBudget.items.map(({label, measurement, overBudget}) => [label, measurement, overBudget || '-'] as (string|number)[]) || [] as (string|number)[]
+          ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
+            [label, measurement + ' ms', overBudget || '-'] as (string|number)[]) || []
         ] : []
       })
     );
@@ -102,6 +104,19 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
     return [step.name, step.gatherMode].concat(results);
   });
 }
+
+function formatBytes(bytes: number, decimals = 2) {
+  if (!+bytes) return '0 Bytes'
+
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+}
+
 
 function extractTableArr(reportCategories: string[], steps: any[]): string[][] {
   const tableHead = extractTableHead(reportCategories);
