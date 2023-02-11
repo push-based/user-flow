@@ -20,7 +20,7 @@ ${stepsTable}${NEW_LINE}
 
   const budgetsTable = getBudgetTable(flowResult);
   if(budgetsTable !== '') {
-    md += details(`${budgetsSymbol} Budgets`, budgetsTable, {open:false}) + NEW_LINE;
+    md += details(style(`${budgetsSymbol} Budgets`), budgetsTable) + NEW_LINE;
   }
 
 
@@ -49,10 +49,10 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
         name,
         resultsPerformanceBudget: resultsPerformanceBudget !== undefined ? [
           resultsPerformanceBudget.headings
-            .filter(v => v.key !== 'countOverBudget')
             .map((h) => h.text as string),
-          ...resultsPerformanceBudget.items.map(({label, transferSize, resourceType, sizeOverBudget}) =>
-            [label, formatBytes(transferSize as number), resourceType, sizeOverBudget || '-'] as (string|number)[]) || []
+          ...resultsPerformanceBudget.items.map(
+            ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
+            [label, requestCount, formatBytes(transferSize as number), sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-', countOverBudget || '-'] as (string|number)[]) || []
         ] : [],
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
