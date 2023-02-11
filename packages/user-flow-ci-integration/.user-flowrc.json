@@ -15,7 +15,7 @@
           },
           {
             "resourceType": "third-party",
-            "budget": 100
+            "budget": 10
           }
         ],
         "resourceCounts": [
@@ -30,12 +30,12 @@
         ],
         "timings": [
           {
-            "metric": "interactive",
-            "budget": 5000
-          },
-          {
             "metric": "first-meaningful-paint",
             "budget": 2000
+          },
+          {
+            "metric": "interactive",
+            "budget": 2100
           }
         ]
       }
