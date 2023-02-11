@@ -3,7 +3,7 @@ import Config from 'lighthouse/types/config';
 import { CLI_MODES } from '../../../../global/cli-mode';
 import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { Result } from 'lighthouse/types/lhr/audit-result';
+import Details from 'lighthouse/types/lhr/audit-details';
 
 type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
@@ -42,8 +42,8 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resultsPerformanceBudget?: Result['details'],
-    resultsTimingBudget?: Budget.TimingBudget & OverBudget,
+    resultsPerformanceBudget?: Details.Table,
+    resultsTimingBudget?: Details.Table,
     baseline?: ReducedFlowStepResult;
   };
 

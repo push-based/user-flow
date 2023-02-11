@@ -45,14 +45,30 @@ export function getBudgetTable(reducedReport: ReducedReport): string {
 
   const performanceBudgets = reducedReport.steps
     .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
-    .map(({ resultsPerformanceBudget, resultsTimingBudget }) => ({
-      resultsPerformanceBudget: resultsPerformanceBudget?.map((d: Details.Table) => [
-          d.headings.map(h => h.text),
-          ...d.items.map(({label, transferSize, resourceType, sizeOverBudget}) => [label, transferSize, resourceType, sizeOverBudget])
-        ]) || [],
-      resultsTimingBudget: resultsTimingBudget
-    }));
-  return performanceBudgets.length ? JSON.stringify(performanceBudgets) : '';
+    .map(({ name, resultsPerformanceBudget, resultsTimingBudget }) => ({
+        name,
+        resultsPerformanceBudget: resultsPerformanceBudget !== undefined ? [
+          resultsPerformanceBudget.headings
+            .filter(v => v.key !== 'countOverBudget')
+            .map((h) => h.text as string),
+          ...resultsPerformanceBudget.items.map(({label, transferSize, resourceType, sizeOverBudget}) => [label, transferSize, resourceType, sizeOverBudget || '-'] as (string|number)[]) || [] as (string|number)[]
+        ] : [],
+        resultsTimingBudget: resultsTimingBudget !== undefined ? [
+          resultsTimingBudget.headings.map(h => h.text as string),
+          ...resultsTimingBudget.items.map(({label, measurement, overBudget}) => [label, measurement, overBudget || '-'] as (string|number)[]) || [] as (string|number)[]
+        ] : []
+      })
+    );
+  return performanceBudgets.length ? performanceBudgets.map(b => {
+    let md = ''
+    if(b.resultsPerformanceBudget !== undefined) {
+      md += table(b.resultsPerformanceBudget) + NEW_LINE
+    }
+    if(b.resultsTimingBudget !== undefined) {
+      md += (b.resultsPerformanceBudget ? NEW_LINE : '') + table(b.resultsTimingBudget) + NEW_LINE;
+    }
+    return md;
+  }).join(NEW_LINE) : '';
 }
 
 
