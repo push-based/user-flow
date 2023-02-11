@@ -1,3 +1,5 @@
+## Navigation report (127.0.0.1/)
+
 | Resource Type | Requests | Transfer Size | Over Budget |
 | :-----------: | :------: | :-----------: | :---------: |
 |     Total     |  205774  |     total     |   204750    |

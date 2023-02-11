@@ -1,17 +1,11 @@
-import {
-  FractionResults,
-  GatherMode,
-  ReducedFlowStep,
-  ReducedFlowStepResult,
-  ReducedReport
-} from '../../collect/utils/report/types';
+import { FractionResults, GatherMode, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
 import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 import { Alignment, table } from '../../../core/md/table';
 import { style } from '../../../core/md/font-style';
-import { headline } from '../../../core/md/headline';
+import { headline, Hierarchy } from '../../../core/md/headline';
 import { NEW_LINE } from '../../../core/md/constants';
 import { details } from '../../../core/md/details';
-import  Details  from 'lighthouse/types/lhr/audit-details';
+
 const budgetsSymbol = '🔒'
 
 export function generateMdReport(flowResult: ReducedReport): string {
@@ -34,15 +28,21 @@ ${stepsTable}${NEW_LINE}
 }
 
 /**
- * | ResourceType    | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
- * | --------------- | ----------- | ------------- | ------------- | ---- | --- |
- * |  Nav1           |  99         | 50            | 100           | 98   |  -  |
- * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
- * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
+ * ## Navigation report (127.0.0.1/)
+ *
+ * | Resource Type | Requests | Transfer Size | Over Budget |
+ * | :-----------: | :------: | :-----------: | :---------: |
+ * |     Total     |  205774  |     total     |   204750    |
+ * |    Script     |  101958  |    script     |      -      |
+ * |  Third-party  |  97308   |  third-party  |      -      |
+ *
+ * |         Metric         | Measurement | Over Budget |
+ * | :--------------------: | :---------: | :---------: |
+ * | First Meaningful Paint |    2043     |     43      |
+ * |  Time to Interactive   |    4745     |      -      |
+ *
  */
-export function getBudgetTable(reducedReport: ReducedReport): string {
-  type StepWithBudgets = Required<Pick<ReducedFlowStep, 'resultsPerformanceBudget' | 'resultsTimingBudget'>>;
-
+export function getBudgetTable(reducedReport: ReducedReport, options: {heading: Hierarchy} = {heading: 2}): string {
   const performanceBudgets = reducedReport.steps
     .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
     .map(({ name, resultsPerformanceBudget, resultsTimingBudget }) => ({
@@ -60,7 +60,7 @@ export function getBudgetTable(reducedReport: ReducedReport): string {
       })
     );
   return performanceBudgets.length ? performanceBudgets.map(b => {
-    let md = ''
+    let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
     if(b.resultsPerformanceBudget !== undefined) {
       md += table(b.resultsPerformanceBudget) + NEW_LINE
     }
