@@ -26,6 +26,9 @@ export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
     if(step.lhr.audits['performance-budget']) {
       reducedStep.resultsPerformanceBudget = step.lhr.audits['performance-budget'].details as any
     }
+    if(step.lhr.audits['timing-budget']) {
+      reducedStep.resultsTimingBudget = step.lhr.audits['timing-budget'].details as any
+    }
     return reducedStep;
   });
 }

@@ -15,7 +15,9 @@
           "networkUserAgent": "",
           "hostUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/100.0.4889.0 Safari/537.36",
           "benchmarkIndex": 1600,
-          "credits": { "axe-core": "4.3.5" }
+          "credits": {
+            "axe-core": "4.3.5"
+          }
         },
         "audits": {
           "is-on-https": {
@@ -24,7 +26,11 @@
             "description": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding [mixed content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content), where some resources are loaded over HTTP despite the initial request being served over HTTPS. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://web.dev/is-on-https/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "service-worker": {
             "id": "service-worker",
@@ -202,7 +208,11 @@
             "description": "Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. [Learn more](https://web.dev/errors-in-console/)",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "server-response-time": {
             "id": "server-response-time",
@@ -216,7 +226,11 @@
             "details": {
               "type": "opportunity",
               "headings": [
-                { "key": "url", "valueType": "url", "label": "URL" },
+                {
+                  "key": "url",
+                  "valueType": "url",
+                  "label": "URL"
+                },
                 {
                   "key": "responseTime",
                   "valueType": "timespanMs",
@@ -224,7 +238,10 @@
                 }
               ],
               "items": [
-                { "url": "https://www.google.com/", "responseTime": 153.964 }
+                {
+                  "url": "https://www.google.com/",
+                  "responseTime": 153.964
+                }
               ],
               "overallSavingsMs": 53.964
             }
@@ -245,7 +262,11 @@
             "description": "Consider instrumenting your app with the User Timing API to measure your app's real-world performance during key user experiences. [Learn more](https://web.dev/user-timings/).",
             "score": null,
             "scoreDisplayMode": "notApplicable",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "critical-request-chains": {
             "id": "critical-request-chains",
@@ -326,7 +347,11 @@
             "details": {
               "type": "opportunity",
               "headings": [
-                { "key": "url", "valueType": "url", "label": "URL" },
+                {
+                  "key": "url",
+                  "valueType": "url",
+                  "label": "URL"
+                },
                 {
                   "key": "wastedMs",
                   "valueType": "timespanMs",
@@ -334,8 +359,14 @@
                 }
               ],
               "items": [
-                { "url": "https://google.com/", "wastedMs": 850.2330000000001 },
-                { "url": "https://www.google.com/", "wastedMs": 0 }
+                {
+                  "url": "https://google.com/",
+                  "wastedMs": 850.2330000000001
+                },
+                {
+                  "url": "https://www.google.com/",
+                  "wastedMs": 0
+                }
               ],
               "overallSavingsMs": 850.2330000000001
             }
@@ -449,7 +480,11 @@
             "description": "Image display dimensions should match natural aspect ratio. [Learn more](https://web.dev/image-aspect-ratio/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "image-size-responsive": {
             "id": "image-size-responsive",
@@ -457,7 +492,11 @@
             "description": "Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. [Learn more](https://web.dev/serve-responsive-images/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "preload-fonts": {
             "id": "preload-fonts",
@@ -472,7 +511,11 @@
             "description": "Deprecated APIs will eventually be removed from the browser. [Learn more](https://web.dev/deprecations/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "mainthread-work-breakdown": {
             "id": "mainthread-work-breakdown",
@@ -486,7 +529,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "groupLabel", "itemType": "text", "text": "Category" },
+                {
+                  "key": "groupLabel",
+                  "itemType": "text",
+                  "text": "Category"
+                },
                 {
                   "key": "duration",
                   "itemType": "ms",
@@ -540,7 +587,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "url", "itemType": "url", "text": "URL" },
+                {
+                  "key": "url",
+                  "itemType": "url",
+                  "text": "URL"
+                },
                 {
                   "key": "total",
                   "granularity": 1,
@@ -586,7 +637,9 @@
                   "scriptParseCompile": 11.936
                 }
               ],
-              "summary": { "wastedMs": 485.0000000000005 }
+              "summary": {
+                "wastedMs": 485.0000000000005
+              }
             }
           },
           "uses-rel-preload": {
@@ -626,7 +679,11 @@
             "score": 1,
             "scoreDisplayMode": "binary",
             "warnings": [],
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "diagnostics": {
             "id": "diagnostics",
@@ -668,8 +725,16 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "url", "itemType": "url", "text": "URL" },
-                { "key": "protocol", "itemType": "text", "text": "Protocol" },
+                {
+                  "key": "url",
+                  "itemType": "url",
+                  "text": "URL"
+                },
+                {
+                  "key": "protocol",
+                  "itemType": "text",
+                  "text": "Protocol"
+                },
                 {
                   "key": "startTime",
                   "itemType": "ms",
@@ -701,7 +766,11 @@
                   "itemType": "text",
                   "text": "Status Code"
                 },
-                { "key": "mimeType", "itemType": "text", "text": "MIME Type" },
+                {
+                  "key": "mimeType",
+                  "itemType": "text",
+                  "text": "MIME Type"
+                },
                 {
                   "key": "resourceType",
                   "itemType": "text",
@@ -987,7 +1056,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "origin", "itemType": "text", "text": "URL" },
+                {
+                  "key": "origin",
+                  "itemType": "text",
+                  "text": "URL"
+                },
                 {
                   "key": "rtt",
                   "itemType": "ms",
@@ -1000,10 +1073,22 @@
                   "origin": "https://www.gstatic.com",
                   "rtt": 49.644000000000005
                 },
-                { "origin": "https://google.com", "rtt": 25.22 },
-                { "origin": "https://apis.google.com", "rtt": 22.029 },
-                { "origin": "https://fonts.gstatic.com", "rtt": 21.679 },
-                { "origin": "https://www.google.com", "rtt": 0 }
+                {
+                  "origin": "https://google.com",
+                  "rtt": 25.22
+                },
+                {
+                  "origin": "https://apis.google.com",
+                  "rtt": 22.029
+                },
+                {
+                  "origin": "https://fonts.gstatic.com",
+                  "rtt": 21.679
+                },
+                {
+                  "origin": "https://www.google.com",
+                  "rtt": 0
+                }
               ]
             }
           },
@@ -1019,7 +1104,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "origin", "itemType": "text", "text": "URL" },
+                {
+                  "key": "origin",
+                  "itemType": "text",
+                  "text": "URL"
+                },
                 {
                   "key": "serverResponseTime",
                   "itemType": "ms",
@@ -1044,7 +1133,10 @@
                   "origin": "https://fonts.gstatic.com",
                   "serverResponseTime": 8.631999999999994
                 },
-                { "origin": "https://www.gstatic.com", "serverResponseTime": 0 }
+                {
+                  "origin": "https://www.gstatic.com",
+                  "serverResponseTime": 0
+                }
               ]
             }
           },
@@ -1071,12 +1163,30 @@
                 }
               ],
               "items": [
-                { "duration": 25.99, "startTime": 508.244 },
-                { "duration": 22.268, "startTime": 536.878 },
-                { "duration": 47.695, "startTime": 595.707 },
-                { "duration": 40.865, "startTime": 656.752 },
-                { "duration": 29.511, "startTime": 893.81 },
-                { "duration": 32.37, "startTime": 1100.741 }
+                {
+                  "duration": 25.99,
+                  "startTime": 508.244
+                },
+                {
+                  "duration": 22.268,
+                  "startTime": 536.878
+                },
+                {
+                  "duration": 47.695,
+                  "startTime": 595.707
+                },
+                {
+                  "duration": 40.865,
+                  "startTime": 656.752
+                },
+                {
+                  "duration": 29.511,
+                  "startTime": 893.81
+                },
+                {
+                  "duration": 32.37,
+                  "startTime": 1100.741
+                }
               ]
             }
           },
@@ -1134,7 +1244,9 @@
                   "observedSpeedIndex": 691,
                   "observedSpeedIndexTs": 330357525837
                 },
-                { "lcpInvalidated": false }
+                {
+                  "lcpInvalidated": false
+                }
               ]
             }
           },
@@ -1147,7 +1259,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "label", "itemType": "text", "text": "Resource Type" },
+                {
+                  "key": "label",
+                  "itemType": "text",
+                  "text": "Resource Type"
+                },
                 {
                   "key": "requestCount",
                   "itemType": "numeric",
@@ -1158,7 +1274,11 @@
                   "itemType": "bytes",
                   "text": "Transfer Size"
                 },
-                { "key": "countOverBudget", "itemType": "text", "text": "" },
+                {
+                  "key": "countOverBudget",
+                  "itemType": "text",
+                  "text": ""
+                },
                 {
                   "key": "sizeOverBudget",
                   "itemType": "bytes",
@@ -1197,13 +1317,21 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "label", "itemType": "text", "text": "Metric" },
+                {
+                  "key": "label",
+                  "itemType": "text",
+                  "text": "Metric"
+                },
                 {
                   "key": "measurement",
                   "itemType": "ms",
                   "text": "Measurement"
                 },
-                { "key": "overBudget", "itemType": "ms", "text": "Over Budget" }
+                {
+                  "key": "overBudget",
+                  "itemType": "ms",
+                  "text": "Over Budget"
+                }
               ],
               "items": [
                 {
@@ -1230,7 +1358,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "label", "itemType": "text", "text": "Resource Type" },
+                {
+                  "key": "label",
+                  "itemType": "text",
+                  "text": "Resource Type"
+                },
                 {
                   "key": "requestCount",
                   "itemType": "numeric",
@@ -1314,21 +1446,28 @@
                   "key": "entity",
                   "itemType": "link",
                   "text": "Third-Party",
-                  "subItemsHeading": { "key": "url", "itemType": "url" }
+                  "subItemsHeading": {
+                    "key": "url",
+                    "itemType": "url"
+                  }
                 },
                 {
                   "key": "transferSize",
                   "granularity": 1,
                   "itemType": "bytes",
                   "text": "Transfer Size",
-                  "subItemsHeading": { "key": "transferSize" }
+                  "subItemsHeading": {
+                    "key": "transferSize"
+                  }
                 },
                 {
                   "key": "blockingTime",
                   "granularity": 1,
                   "itemType": "ms",
                   "text": "Main-Thread Blocking Time",
-                  "subItemsHeading": { "key": "blockingTime" }
+                  "subItemsHeading": {
+                    "key": "blockingTime"
+                  }
                 }
               ],
               "items": [
@@ -1381,7 +1520,10 @@
                   }
                 }
               ],
-              "summary": { "wastedBytes": 97308, "wastedMs": 46.324 }
+              "summary": {
+                "wastedBytes": 97308,
+                "wastedMs": 46.324
+              }
             }
           },
           "third-party-facades": {
@@ -1401,7 +1543,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "node", "itemType": "node", "text": "Element" }
+                {
+                  "key": "node",
+                  "itemType": "node",
+                  "text": "Element"
+                }
               ],
               "items": [
                 {
@@ -1434,7 +1580,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "node", "itemType": "node", "text": "Element" }
+                {
+                  "key": "node",
+                  "itemType": "node",
+                  "text": "Element"
+                }
               ],
               "items": [
                 {
@@ -1464,7 +1614,11 @@
             "description": "These DOM elements contribute most to the CLS of the page.",
             "score": null,
             "scoreDisplayMode": "notApplicable",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "long-tasks": {
             "id": "long-tasks",
@@ -1476,7 +1630,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "url", "itemType": "url", "text": "URL" },
+                {
+                  "key": "url",
+                  "itemType": "url",
+                  "text": "URL"
+                },
                 {
                   "key": "startTime",
                   "itemType": "ms",
@@ -1532,7 +1690,11 @@
             "description": "Animations which are not composited can be janky and increase CLS. [Learn more](https://web.dev/non-composited-animations)",
             "score": null,
             "scoreDisplayMode": "notApplicable",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "unsized-images": {
             "id": "unsized-images",
@@ -1543,8 +1705,16 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "node", "itemType": "node", "text": "" },
-                { "key": "url", "itemType": "url", "text": "URL" }
+                {
+                  "key": "node",
+                  "itemType": "node",
+                  "text": ""
+                },
+                {
+                  "key": "url",
+                  "itemType": "url",
+                  "text": "URL"
+                }
               ],
               "items": [
                 {
@@ -1575,7 +1745,11 @@
             "description": "Source maps translate minified code to the original source code. This helps developers debug in production. In addition, Lighthouse is able to provide further insights. Consider deploying source maps to take advantage of these benefits. [Learn more](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "preload-lcp-image": {
             "id": "preload-lcp-image",
@@ -1605,19 +1779,25 @@
                 {
                   "key": "description",
                   "itemType": "text",
-                  "subItemsHeading": { "key": "description" },
+                  "subItemsHeading": {
+                    "key": "description"
+                  },
                   "text": "Description"
                 },
                 {
                   "key": "directive",
                   "itemType": "code",
-                  "subItemsHeading": { "key": "directive" },
+                  "subItemsHeading": {
+                    "key": "directive"
+                  },
                   "text": "Directive"
                 },
                 {
                   "key": "severity",
                   "itemType": "text",
-                  "subItemsHeading": { "key": "severity" },
+                  "subItemsHeading": {
+                    "key": "severity"
+                  },
                   "text": "Severity"
                 }
               ],
@@ -2143,7 +2323,10 @@
             "details": {
               "type": "treemap-data",
               "nodes": [
-                { "name": "https://www.google.com/", "resourceBytes": 104671 },
+                {
+                  "name": "https://www.google.com/",
+                  "resourceBytes": 104671
+                },
                 {
                   "name": "https://apis.google.com/_/scs/abc-static/_/js/k=gapi.gapi.en.Yozr9QYVVr4.O/m=gapi_iframes,googleapis_client/rt=j/sv=1/d=1/ed=1/rs=AHpOoo8ePFN_mLj5L9BxNRnarRImlQEt0w/cb=gapi.loaded_0",
                   "resourceBytes": 110677,
@@ -2191,7 +2374,11 @@
             "description": "Each ARIA `role` supports a specific subset of `aria-*` attributes. Mismatching these invalidates the `aria-*` attributes. [Learn more](https://web.dev/aria-allowed-attr/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "aria-command-name": {
             "id": "aria-command-name",
@@ -2206,7 +2393,11 @@
             "description": "Assistive technologies, like screen readers, work inconsistently when `aria-hidden=\"true\"` is set on the document `<body>`. [Learn more](https://web.dev/aria-hidden-body/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "aria-hidden-focus": {
             "id": "aria-hidden-focus",
@@ -2214,7 +2405,11 @@
             "description": "Focusable descendents within an `[aria-hidden=\"true\"]` element prevent those interactive elements from being available to users of assistive technologies like screen readers. [Learn more](https://web.dev/aria-hidden-focus/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "aria-input-field-name": {
             "id": "aria-input-field-name",
@@ -2243,7 +2438,18 @@
             "description": "Some ARIA roles have required attributes that describe the state of the element to screen readers. [Learn more](https://web.dev/aria-required-attr/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
+          },
+          "aria-required-children": {
+            "id": "aria-required-children",
+            "title": "Elements with an ARIA `[role]` that require children to contain a specific `[role]` have all required children.",
+            "description": "Some ARIA parent roles must contain specific child roles to perform their intended accessibility functions. [Learn more](https://web.dev/aria-required-children/).",
+            "score": null,
+            "scoreDisplayMode": "notApplicable"
           },
           "aria-required-children": {
             "id": "aria-required-children",
@@ -2265,7 +2471,11 @@
             "description": "ARIA roles must have valid values in order to perform their intended accessibility functions. [Learn more](https://web.dev/aria-roles/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "aria-toggle-field-name": {
             "id": "aria-toggle-field-name",
@@ -2294,7 +2504,11 @@
             "description": "Assistive technologies, like screen readers, can't interpret ARIA attributes with invalid values. [Learn more](https://web.dev/aria-valid-attr-value/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "aria-valid-attr": {
             "id": "aria-valid-attr",
@@ -2302,7 +2516,11 @@
             "description": "Assistive technologies, like screen readers, can't interpret ARIA attributes with invalid names. [Learn more](https://web.dev/aria-valid-attr/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "button-name": {
             "id": "button-name",
@@ -2310,7 +2528,11 @@
             "description": "When a button doesn't have an accessible name, screen readers announce it as \"button\", making it unusable for users who rely on screen readers. [Learn more](https://web.dev/button-name/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "bypass": {
             "id": "bypass",
@@ -2318,7 +2540,11 @@
             "description": "Adding ways to bypass repetitive content lets keyboard users navigate the page more efficiently. [Learn more](https://web.dev/bypass/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "color-contrast": {
             "id": "color-contrast",
@@ -2699,7 +2925,11 @@
               "debugData": {
                 "type": "debugdata",
                 "impact": "serious",
-                "tags": ["cat.color", "wcag2aa", "wcag143"]
+                "tags": [
+                  "cat.color",
+                  "wcag2aa",
+                  "wcag143"
+                ]
               }
             }
           },
@@ -2723,7 +2953,11 @@
             "description": "The title gives screen reader users an overview of the page, and search engine users rely on it heavily to determine if a page is relevant to their search. [Learn more](https://web.dev/document-title/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "duplicate-id-active": {
             "id": "duplicate-id-active",
@@ -2731,7 +2965,11 @@
             "description": "All focusable elements must have a unique `id` to ensure that they're visible to assistive technologies. [Learn more](https://web.dev/duplicate-id-active/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "duplicate-id-aria": {
             "id": "duplicate-id-aria",
@@ -2739,7 +2977,11 @@
             "description": "The value of an ARIA ID must be unique to prevent other instances from being overlooked by assistive technologies. [Learn more](https://web.dev/duplicate-id-aria/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "form-field-multiple-labels": {
             "id": "form-field-multiple-labels",
@@ -2761,7 +3003,11 @@
             "description": "Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. [Learn more](https://web.dev/heading-order/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "html-has-lang": {
             "id": "html-has-lang",
@@ -2769,7 +3015,11 @@
             "description": "If a page doesn't specify a lang attribute, a screen reader assumes that the page is in the default language that the user chose when setting up the screen reader. If the page isn't actually in the default language, then the screen reader might not announce the page's text correctly. [Learn more](https://web.dev/html-has-lang/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "html-lang-valid": {
             "id": "html-lang-valid",
@@ -2777,7 +3027,11 @@
             "description": "Specifying a valid [BCP 47 language](https://www.w3.org/International/questions/qa-choosing-language-tags#question) helps screen readers announce text properly. [Learn more](https://web.dev/html-lang-valid/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "image-alt": {
             "id": "image-alt",
@@ -2785,7 +3039,11 @@
             "description": "Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt attribute. [Learn more](https://web.dev/image-alt/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "input-image-alt": {
             "id": "input-image-alt",
@@ -2807,7 +3065,11 @@
             "description": "Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the navigation experience for screen reader users. [Learn more](https://web.dev/link-name/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "list": {
             "id": "list",
@@ -2815,7 +3077,11 @@
             "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://web.dev/list/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "listitem": {
             "id": "listitem",
@@ -2823,7 +3089,11 @@
             "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://web.dev/listitem/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "meta-refresh": {
             "id": "meta-refresh",
@@ -2838,7 +3108,11 @@
             "description": "Disabling zooming is problematic for users with low vision who rely on screen magnification to properly see the contents of a web page. [Learn more](https://web.dev/meta-viewport/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "object-alt": {
             "id": "object-alt",
@@ -2853,7 +3127,11 @@
             "description": "A value greater than 0 implies an explicit navigation ordering. Although technically valid, this often creates frustrating experiences for users who rely on assistive technologies. [Learn more](https://web.dev/tabindex/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "td-headers-attr": {
             "id": "td-headers-attr",
@@ -2966,7 +3244,9 @@
               "type": "table",
               "headings": [],
               "items": [],
-              "summary": { "wastedBytes": 0 }
+              "summary": {
+                "wastedBytes": 0
+              }
             }
           },
           "total-byte-weight": {
@@ -2981,7 +3261,11 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "url", "itemType": "url", "text": "URL" },
+                {
+                  "key": "url",
+                  "itemType": "url",
+                  "text": "URL"
+                },
                 {
                   "key": "totalBytes",
                   "itemType": "bytes",
@@ -2993,7 +3277,10 @@
                   "url": "https://www.gstatic.com/og/_/js/k=og.qtm.en_US.dPyW-2_N-wg.O/rt=j/m=qabr,q_dnp,qcwid,qapid/exm=qaaw,qadd,qaid,qein,qhaw,qhbr,qhch,qhga,qhid,qhin,qhpr/d=1/ed=1/rs=AA2YrTshJ7rMgELB7P1bkV0inIKSumTmkw",
                   "totalBytes": 64594
                 },
-                { "url": "https://www.google.com/", "totalBytes": 56007 },
+                {
+                  "url": "https://www.google.com/",
+                  "totalBytes": 56007
+                },
                 {
                   "url": "https://apis.google.com/_/scs/abc-static/_/js/k=gapi.gapi.en.Yozr9QYVVr4.O/m=gapi_iframes,googleapis_client/rt=j/sv=1/d=1/ed=1/rs=AHpOoo8ePFN_mLj5L9BxNRnarRImlQEt0w/cb=gapi.loaded_0",
                   "totalBytes": 37364
@@ -3129,19 +3416,26 @@
                 {
                   "key": "url",
                   "valueType": "url",
-                  "subItemsHeading": { "key": "source", "valueType": "code" },
+                  "subItemsHeading": {
+                    "key": "source",
+                    "valueType": "code"
+                  },
                   "label": "URL"
                 },
                 {
                   "key": "totalBytes",
                   "valueType": "bytes",
-                  "subItemsHeading": { "key": "sourceBytes" },
+                  "subItemsHeading": {
+                    "key": "sourceBytes"
+                  },
                   "label": "Transfer Size"
                 },
                 {
                   "key": "wastedBytes",
                   "valueType": "bytes",
-                  "subItemsHeading": { "key": "sourceWastedBytes" },
+                  "subItemsHeading": {
+                    "key": "sourceWastedBytes"
+                  },
                   "label": "Potential Savings"
                 }
               ],
@@ -3291,7 +3585,9 @@
                 {
                   "key": null,
                   "valueType": "code",
-                  "subItemsHeading": { "key": "signal" },
+                  "subItemsHeading": {
+                    "key": "signal"
+                  },
                   "label": ""
                 },
                 {
@@ -3352,12 +3648,27 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "statistic", "itemType": "text", "text": "Statistic" },
-                { "key": "node", "itemType": "node", "text": "Element" },
-                { "key": "value", "itemType": "numeric", "text": "Value" }
+                {
+                  "key": "statistic",
+                  "itemType": "text",
+                  "text": "Statistic"
+                },
+                {
+                  "key": "node",
+                  "itemType": "node",
+                  "text": "Element"
+                },
+                {
+                  "key": "value",
+                  "itemType": "numeric",
+                  "text": "Value"
+                }
               ],
               "items": [
-                { "statistic": "Total DOM Elements", "value": 359 },
+                {
+                  "statistic": "Total DOM Elements",
+                  "value": 359
+                },
                 {
                   "node": {
                     "type": "node",
@@ -3407,7 +3718,11 @@
             "description": "Users are mistrustful of or confused by sites that request their location without context. Consider tying the request to a user action instead. [Learn more](https://web.dev/geolocation-on-start/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "inspector-issues": {
             "id": "inspector-issues",
@@ -3415,7 +3730,11 @@
             "description": "Issues logged to the `Issues` panel in Chrome Devtools indicate unresolved problems. They can come from network request failures, insufficient security controls, and other browser concerns. Open up the Issues panel in Chrome DevTools for more details on each issue.",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "no-document-write": {
             "id": "no-document-write",
@@ -3423,7 +3742,11 @@
             "description": "For users on slow connections, external scripts dynamically injected via `document.write()` can delay page load by tens of seconds. [Learn more](https://web.dev/no-document-write/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "no-vulnerable-libraries": {
             "id": "no-vulnerable-libraries",
@@ -3447,12 +3770,31 @@
             "details": {
               "type": "table",
               "headings": [
-                { "key": "name", "itemType": "text", "text": "Name" },
-                { "key": "version", "itemType": "text", "text": "Version" }
+                {
+                  "key": "name",
+                  "itemType": "text",
+                  "text": "Name"
+                },
+                {
+                  "key": "version",
+                  "itemType": "text",
+                  "text": "Version"
+                }
               ],
-              "items": [{ "name": "Boq" }],
+              "items": [
+                {
+                  "name": "Boq"
+                }
+              ],
               "summary": {},
-              "debugData": { "type": "debugdata", "stacks": [{ "id": "boq" }] }
+              "debugData": {
+                "type": "debugdata",
+                "stacks": [
+                  {
+                    "id": "boq"
+                  }
+                ]
+              }
             }
           },
           "notification-on-start": {
@@ -3461,7 +3803,11 @@
             "description": "Users are mistrustful of or confused by sites that request to send notifications without context. Consider tying the request to user gestures instead. [Learn more](https://web.dev/notification-on-start/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "password-inputs-can-be-pasted-into": {
             "id": "password-inputs-can-be-pasted-into",
@@ -3469,7 +3815,11 @@
             "description": "Preventing password pasting undermines good security policy. [Learn more](https://web.dev/password-inputs-can-be-pasted-into/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "uses-http2": {
             "id": "uses-http2",
@@ -3543,17 +3893,28 @@
                   "itemType": "source-location",
                   "text": "Source"
                 },
-                { "key": "selector", "itemType": "code", "text": "Selector" },
+                {
+                  "key": "selector",
+                  "itemType": "code",
+                  "text": "Selector"
+                },
                 {
                   "key": "coverage",
                   "itemType": "text",
                   "text": "% of Page Text"
                 },
-                { "key": "fontSize", "itemType": "text", "text": "Font Size" }
+                {
+                  "key": "fontSize",
+                  "itemType": "text",
+                  "text": "Font Size"
+                }
               ],
               "items": [
                 {
-                  "source": { "type": "code", "value": "Legible text" },
+                  "source": {
+                    "type": "code",
+                    "value": "Legible text"
+                  },
                   "selector": "",
                   "coverage": "100.00%",
                   "fontSize": "≥ 12px"
@@ -3617,7 +3978,11 @@
             "description": "Search engines are unable to include your pages in search results if they don't have permission to crawl them. [Learn more](https://web.dev/is-crawable/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "robots-txt": {
             "id": "robots-txt",
@@ -3639,7 +4004,11 @@
             "score": 1,
             "scoreDisplayMode": "binary",
             "displayValue": "100% appropriately sized tap targets",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "hreflang": {
             "id": "hreflang",
@@ -3647,7 +4016,11 @@
             "description": "hreflang links tell search engines what version of a page they should list in search results for a given language or region. [Learn more](https://web.dev/hreflang/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "plugins": {
             "id": "plugins",
@@ -3655,7 +4028,11 @@
             "description": "Search engines can't index plugin content, and many devices restrict plugins or don't support them. [Learn more](https://web.dev/plugins/).",
             "score": 1,
             "scoreDisplayMode": "binary",
-            "details": { "type": "table", "headings": [], "items": [] }
+            "details": {
+              "type": "table",
+              "headings": [],
+              "items": []
+            }
           },
           "canonical": {
             "id": "canonical",
@@ -3703,23 +4080,46 @@
             {
               "path": "/*",
               "resourceSizes": [
-                { "resourceType": "total", "budget": 1 },
-                { "resourceType": "script", "budget": 150 }
+                {
+                  "resourceType": "total",
+                  "budget": 1
+                },
+                {
+                  "resourceType": "script",
+                  "budget": 150
+                }
               ],
               "resourceCounts": [
-                { "resourceType": "third-party", "budget": 100 }
+                {
+                  "resourceType": "third-party",
+                  "budget": 100
+                }
               ],
               "timings": [
-                { "metric": "interactive", "budget": 5000 },
-                { "metric": "first-meaningful-paint", "budget": 2000 }
+                {
+                  "metric": "interactive",
+                  "budget": 5000
+                },
+                {
+                  "metric": "first-meaningful-paint",
+                  "budget": 2000
+                }
               ]
             },
             {
               "path": "/checkout",
               "options": {
-                "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
+                "firstPartyHostnames": [
+                  "*.my-site.com",
+                  "my-site.cdn.com"
+                ]
               },
-              "resourceSizes": [{ "resourceType": "script", "budget": 200 }]
+              "resourceSizes": [
+                {
+                  "resourceType": "script",
+                  "budget": 200
+                }
+              ]
             }
           ],
           "locale": "en-US",
@@ -3734,7 +4134,11 @@
         "categories": {
           "performance": {
             "title": "Performance",
-            "supportedModes": ["navigation", "timespan", "snapshot"],
+            "supportedModes": [
+              "navigation",
+              "timespan",
+              "snapshot"
+            ],
             "auditRefs": [
               {
                 "id": "first-contentful-paint",
@@ -3819,68 +4223,232 @@
                   "unsized-images"
                 ]
               },
-              { "id": "max-potential-fid", "weight": 0, "group": "hidden" },
+              {
+                "id": "max-potential-fid",
+                "weight": 0,
+                "group": "hidden"
+              },
               {
                 "id": "first-meaningful-paint",
                 "weight": 0,
                 "acronym": "FMP",
                 "group": "hidden"
               },
-              { "id": "render-blocking-resources", "weight": 0 },
-              { "id": "uses-responsive-images", "weight": 0 },
-              { "id": "offscreen-images", "weight": 0 },
-              { "id": "unminified-css", "weight": 0 },
-              { "id": "unminified-javascript", "weight": 0 },
-              { "id": "unused-css-rules", "weight": 0 },
-              { "id": "unused-javascript", "weight": 0 },
-              { "id": "uses-optimized-images", "weight": 0 },
-              { "id": "modern-image-formats", "weight": 0 },
-              { "id": "uses-text-compression", "weight": 0 },
-              { "id": "uses-rel-preconnect", "weight": 0 },
-              { "id": "server-response-time", "weight": 0 },
-              { "id": "redirects", "weight": 0 },
-              { "id": "uses-rel-preload", "weight": 0 },
-              { "id": "uses-http2", "weight": 0 },
-              { "id": "efficient-animated-content", "weight": 0 },
-              { "id": "duplicated-javascript", "weight": 0 },
-              { "id": "legacy-javascript", "weight": 0 },
-              { "id": "preload-lcp-image", "weight": 0 },
-              { "id": "total-byte-weight", "weight": 0 },
-              { "id": "uses-long-cache-ttl", "weight": 0 },
-              { "id": "dom-size", "weight": 0 },
-              { "id": "critical-request-chains", "weight": 0 },
-              { "id": "user-timings", "weight": 0 },
-              { "id": "bootup-time", "weight": 0 },
-              { "id": "mainthread-work-breakdown", "weight": 0 },
-              { "id": "font-display", "weight": 0 },
-              { "id": "resource-summary", "weight": 0 },
-              { "id": "third-party-summary", "weight": 0 },
-              { "id": "third-party-facades", "weight": 0 },
-              { "id": "largest-contentful-paint-element", "weight": 0 },
-              { "id": "lcp-lazy-loaded", "weight": 0 },
-              { "id": "layout-shift-elements", "weight": 0 },
-              { "id": "uses-passive-event-listeners", "weight": 0 },
-              { "id": "no-document-write", "weight": 0 },
-              { "id": "long-tasks", "weight": 0 },
-              { "id": "non-composited-animations", "weight": 0 },
-              { "id": "unsized-images", "weight": 0 },
-              { "id": "viewport", "weight": 0 },
-              { "id": "no-unload-listeners", "weight": 0 },
-              { "id": "performance-budget", "weight": 0, "group": "budgets" },
-              { "id": "timing-budget", "weight": 0, "group": "budgets" },
-              { "id": "network-requests", "weight": 0, "group": "hidden" },
-              { "id": "network-rtt", "weight": 0, "group": "hidden" },
+              {
+                "id": "render-blocking-resources",
+                "weight": 0
+              },
+              {
+                "id": "uses-responsive-images",
+                "weight": 0
+              },
+              {
+                "id": "offscreen-images",
+                "weight": 0
+              },
+              {
+                "id": "unminified-css",
+                "weight": 0
+              },
+              {
+                "id": "unminified-javascript",
+                "weight": 0
+              },
+              {
+                "id": "unused-css-rules",
+                "weight": 0
+              },
+              {
+                "id": "unused-javascript",
+                "weight": 0
+              },
+              {
+                "id": "uses-optimized-images",
+                "weight": 0
+              },
+              {
+                "id": "modern-image-formats",
+                "weight": 0
+              },
+              {
+                "id": "uses-text-compression",
+                "weight": 0
+              },
+              {
+                "id": "uses-rel-preconnect",
+                "weight": 0
+              },
+              {
+                "id": "server-response-time",
+                "weight": 0
+              },
+              {
+                "id": "redirects",
+                "weight": 0
+              },
+              {
+                "id": "uses-rel-preload",
+                "weight": 0
+              },
+              {
+                "id": "uses-http2",
+                "weight": 0
+              },
+              {
+                "id": "efficient-animated-content",
+                "weight": 0
+              },
+              {
+                "id": "duplicated-javascript",
+                "weight": 0
+              },
+              {
+                "id": "legacy-javascript",
+                "weight": 0
+              },
+              {
+                "id": "preload-lcp-image",
+                "weight": 0
+              },
+              {
+                "id": "total-byte-weight",
+                "weight": 0
+              },
+              {
+                "id": "uses-long-cache-ttl",
+                "weight": 0
+              },
+              {
+                "id": "dom-size",
+                "weight": 0
+              },
+              {
+                "id": "critical-request-chains",
+                "weight": 0
+              },
+              {
+                "id": "user-timings",
+                "weight": 0
+              },
+              {
+                "id": "bootup-time",
+                "weight": 0
+              },
+              {
+                "id": "mainthread-work-breakdown",
+                "weight": 0
+              },
+              {
+                "id": "font-display",
+                "weight": 0
+              },
+              {
+                "id": "resource-summary",
+                "weight": 0
+              },
+              {
+                "id": "third-party-summary",
+                "weight": 0
+              },
+              {
+                "id": "third-party-facades",
+                "weight": 0
+              },
+              {
+                "id": "largest-contentful-paint-element",
+                "weight": 0
+              },
+              {
+                "id": "lcp-lazy-loaded",
+                "weight": 0
+              },
+              {
+                "id": "layout-shift-elements",
+                "weight": 0
+              },
+              {
+                "id": "uses-passive-event-listeners",
+                "weight": 0
+              },
+              {
+                "id": "no-document-write",
+                "weight": 0
+              },
+              {
+                "id": "long-tasks",
+                "weight": 0
+              },
+              {
+                "id": "non-composited-animations",
+                "weight": 0
+              },
+              {
+                "id": "unsized-images",
+                "weight": 0
+              },
+              {
+                "id": "viewport",
+                "weight": 0
+              },
+              {
+                "id": "no-unload-listeners",
+                "weight": 0
+              },
+              {
+                "id": "performance-budget",
+                "weight": 0,
+                "group": "budgets"
+              },
+              {
+                "id": "timing-budget",
+                "weight": 0,
+                "group": "budgets"
+              },
+              {
+                "id": "network-requests",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "network-rtt",
+                "weight": 0,
+                "group": "hidden"
+              },
               {
                 "id": "network-server-latency",
                 "weight": 0,
                 "group": "hidden"
               },
-              { "id": "main-thread-tasks", "weight": 0, "group": "hidden" },
-              { "id": "diagnostics", "weight": 0, "group": "hidden" },
-              { "id": "metrics", "weight": 0, "group": "hidden" },
-              { "id": "screenshot-thumbnails", "weight": 0, "group": "hidden" },
-              { "id": "final-screenshot", "weight": 0, "group": "hidden" },
-              { "id": "script-treemap-data", "weight": 0, "group": "hidden" }
+              {
+                "id": "main-thread-tasks",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "diagnostics",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "metrics",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "screenshot-thumbnails",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "final-screenshot",
+                "weight": 0,
+                "group": "hidden"
+              },
+              {
+                "id": "script-treemap-data",
+                "weight": 0,
+                "group": "hidden"
+              }
             ],
             "id": "performance",
             "score": 0.92
@@ -3889,19 +4457,46 @@
             "title": "Accessibility",
             "description": "These checks highlight opportunities to [improve the accessibility of your web app](https://web.dev/lighthouse-accessibility/). Only a subset of accessibility issues can be automatically detected so manual testing is also encouraged.",
             "manualDescription": "These items address areas which an automated testing tool cannot cover. Learn more in our guide on [conducting an accessibility review](https://developers.google.com/web/fundamentals/accessibility/how-to-review).",
-            "supportedModes": ["navigation", "snapshot"],
+            "supportedModes": [
+              "navigation",
+              "snapshot"
+            ],
             "auditRefs": [
-              { "id": "accesskeys", "weight": 0, "group": "a11y-navigation" },
-              { "id": "aria-allowed-attr", "weight": 10, "group": "a11y-aria" },
-              { "id": "aria-command-name", "weight": 0, "group": "a11y-aria" },
-              { "id": "aria-hidden-body", "weight": 10, "group": "a11y-aria" },
-              { "id": "aria-hidden-focus", "weight": 3, "group": "a11y-aria" },
+              {
+                "id": "accesskeys",
+                "weight": 0,
+                "group": "a11y-navigation"
+              },
+              {
+                "id": "aria-allowed-attr",
+                "weight": 10,
+                "group": "a11y-aria"
+              },
+              {
+                "id": "aria-command-name",
+                "weight": 0,
+                "group": "a11y-aria"
+              },
+              {
+                "id": "aria-hidden-body",
+                "weight": 10,
+                "group": "a11y-aria"
+              },
+              {
+                "id": "aria-hidden-focus",
+                "weight": 3,
+                "group": "a11y-aria"
+              },
               {
                 "id": "aria-input-field-name",
                 "weight": 0,
                 "group": "a11y-aria"
               },
-              { "id": "aria-meter-name", "weight": 0, "group": "a11y-aria" },
+              {
+                "id": "aria-meter-name",
+                "weight": 0,
+                "group": "a11y-aria"
+              },
               {
                 "id": "aria-progressbar-name",
                 "weight": 0,
@@ -3922,26 +4517,46 @@
                 "weight": 0,
                 "group": "a11y-aria"
               },
-              { "id": "aria-roles", "weight": 10, "group": "a11y-aria" },
+              {
+                "id": "aria-roles",
+                "weight": 10,
+                "group": "a11y-aria"
+              },
               {
                 "id": "aria-toggle-field-name",
                 "weight": 0,
                 "group": "a11y-aria"
               },
-              { "id": "aria-tooltip-name", "weight": 0, "group": "a11y-aria" },
-              { "id": "aria-treeitem-name", "weight": 0, "group": "a11y-aria" },
+              {
+                "id": "aria-tooltip-name",
+                "weight": 0,
+                "group": "a11y-aria"
+              },
+              {
+                "id": "aria-treeitem-name",
+                "weight": 0,
+                "group": "a11y-aria"
+              },
               {
                 "id": "aria-valid-attr-value",
                 "weight": 10,
                 "group": "a11y-aria"
               },
-              { "id": "aria-valid-attr", "weight": 10, "group": "a11y-aria" },
+              {
+                "id": "aria-valid-attr",
+                "weight": 10,
+                "group": "a11y-aria"
+              },
               {
                 "id": "button-name",
                 "weight": 10,
                 "group": "a11y-names-labels"
               },
-              { "id": "bypass", "weight": 3, "group": "a11y-navigation" },
+              {
+                "id": "bypass",
+                "weight": 3,
+                "group": "a11y-navigation"
+              },
               {
                 "id": "color-contrast",
                 "weight": 3,
@@ -3952,7 +4567,11 @@
                 "weight": 0,
                 "group": "a11y-tables-lists"
               },
-              { "id": "dlitem", "weight": 0, "group": "a11y-tables-lists" },
+              {
+                "id": "dlitem",
+                "weight": 0,
+                "group": "a11y-tables-lists"
+              },
               {
                 "id": "document-title",
                 "weight": 3,
@@ -3963,7 +4582,11 @@
                 "weight": 3,
                 "group": "a11y-navigation"
               },
-              { "id": "duplicate-id-aria", "weight": 10, "group": "a11y-aria" },
+              {
+                "id": "duplicate-id-aria",
+                "weight": 10,
+                "group": "a11y-aria"
+              },
               {
                 "id": "form-field-multiple-labels",
                 "weight": 0,
@@ -3979,22 +4602,46 @@
                 "weight": 2,
                 "group": "a11y-navigation"
               },
-              { "id": "html-has-lang", "weight": 3, "group": "a11y-language" },
+              {
+                "id": "html-has-lang",
+                "weight": 3,
+                "group": "a11y-language"
+              },
               {
                 "id": "html-lang-valid",
                 "weight": 3,
                 "group": "a11y-language"
               },
-              { "id": "image-alt", "weight": 10, "group": "a11y-names-labels" },
+              {
+                "id": "image-alt",
+                "weight": 10,
+                "group": "a11y-names-labels"
+              },
               {
                 "id": "input-image-alt",
                 "weight": 0,
                 "group": "a11y-names-labels"
               },
-              { "id": "label", "weight": 0, "group": "a11y-names-labels" },
-              { "id": "link-name", "weight": 3, "group": "a11y-names-labels" },
-              { "id": "list", "weight": 3, "group": "a11y-tables-lists" },
-              { "id": "listitem", "weight": 3, "group": "a11y-tables-lists" },
+              {
+                "id": "label",
+                "weight": 0,
+                "group": "a11y-names-labels"
+              },
+              {
+                "id": "link-name",
+                "weight": 3,
+                "group": "a11y-names-labels"
+              },
+              {
+                "id": "list",
+                "weight": 3,
+                "group": "a11y-tables-lists"
+              },
+              {
+                "id": "listitem",
+                "weight": 3,
+                "group": "a11y-tables-lists"
+              },
               {
                 "id": "meta-refresh",
                 "weight": 0,
@@ -4005,8 +4652,16 @@
                 "weight": 10,
                 "group": "a11y-best-practices"
               },
-              { "id": "object-alt", "weight": 0, "group": "a11y-names-labels" },
-              { "id": "tabindex", "weight": 3, "group": "a11y-navigation" },
+              {
+                "id": "object-alt",
+                "weight": 0,
+                "group": "a11y-names-labels"
+              },
+              {
+                "id": "tabindex",
+                "weight": 3,
+                "group": "a11y-navigation"
+              },
               {
                 "id": "td-headers-attr",
                 "weight": 0,
@@ -4017,29 +4672,67 @@
                 "weight": 0,
                 "group": "a11y-tables-lists"
               },
-              { "id": "valid-lang", "weight": 0, "group": "a11y-language" },
+              {
+                "id": "valid-lang",
+                "weight": 0,
+                "group": "a11y-language"
+              },
               {
                 "id": "video-caption",
                 "weight": 0,
                 "group": "a11y-audio-video"
               },
-              { "id": "logical-tab-order", "weight": 0 },
-              { "id": "focusable-controls", "weight": 0 },
-              { "id": "interactive-element-affordance", "weight": 0 },
-              { "id": "managed-focus", "weight": 0 },
-              { "id": "focus-traps", "weight": 0 },
-              { "id": "custom-controls-labels", "weight": 0 },
-              { "id": "custom-controls-roles", "weight": 0 },
-              { "id": "visual-order-follows-dom", "weight": 0 },
-              { "id": "offscreen-content-hidden", "weight": 0 },
-              { "id": "use-landmarks", "weight": 0 }
+              {
+                "id": "logical-tab-order",
+                "weight": 0
+              },
+              {
+                "id": "focusable-controls",
+                "weight": 0
+              },
+              {
+                "id": "interactive-element-affordance",
+                "weight": 0
+              },
+              {
+                "id": "managed-focus",
+                "weight": 0
+              },
+              {
+                "id": "focus-traps",
+                "weight": 0
+              },
+              {
+                "id": "custom-controls-labels",
+                "weight": 0
+              },
+              {
+                "id": "custom-controls-roles",
+                "weight": 0
+              },
+              {
+                "id": "visual-order-follows-dom",
+                "weight": 0
+              },
+              {
+                "id": "offscreen-content-hidden",
+                "weight": 0
+              },
+              {
+                "id": "use-landmarks",
+                "weight": 0
+              }
             ],
             "id": "accessibility",
             "score": 0.98
           },
           "best-practices": {
             "title": "Best Practices",
-            "supportedModes": ["navigation", "timespan", "snapshot"],
+            "supportedModes": [
+              "navigation",
+              "timespan",
+              "snapshot"
+            ],
             "auditRefs": [
               {
                 "id": "is-on-https",
@@ -4129,23 +4822,85 @@
             "title": "SEO",
             "description": "These checks ensure that your page is following basic search engine optimization advice. There are many additional factors Lighthouse does not score here that may affect your search ranking, including performance on [Core Web Vitals](https://web.dev/learn-web-vitals/). [Learn more](https://support.google.com/webmasters/answer/35769).",
             "manualDescription": "Run these additional validators on your site to check additional SEO best practices.",
-            "supportedModes": ["navigation", "snapshot"],
+            "supportedModes": [
+              "navigation",
+              "snapshot"
+            ],
             "auditRefs": [
-              { "id": "viewport", "weight": 1, "group": "seo-mobile" },
-              { "id": "document-title", "weight": 1, "group": "seo-content" },
-              { "id": "meta-description", "weight": 1, "group": "seo-content" },
-              { "id": "http-status-code", "weight": 1, "group": "seo-crawl" },
-              { "id": "link-text", "weight": 1, "group": "seo-content" },
-              { "id": "crawlable-anchors", "weight": 1, "group": "seo-crawl" },
-              { "id": "is-crawlable", "weight": 1, "group": "seo-crawl" },
-              { "id": "robots-txt", "weight": 1, "group": "seo-crawl" },
-              { "id": "image-alt", "weight": 1, "group": "seo-content" },
-              { "id": "hreflang", "weight": 1, "group": "seo-content" },
-              { "id": "canonical", "weight": 0, "group": "seo-content" },
-              { "id": "font-size", "weight": 1, "group": "seo-mobile" },
-              { "id": "plugins", "weight": 1, "group": "seo-content" },
-              { "id": "tap-targets", "weight": 1, "group": "seo-mobile" },
-              { "id": "structured-data", "weight": 0 }
+              {
+                "id": "viewport",
+                "weight": 1,
+                "group": "seo-mobile"
+              },
+              {
+                "id": "document-title",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "meta-description",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "http-status-code",
+                "weight": 1,
+                "group": "seo-crawl"
+              },
+              {
+                "id": "link-text",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "crawlable-anchors",
+                "weight": 1,
+                "group": "seo-crawl"
+              },
+              {
+                "id": "is-crawlable",
+                "weight": 1,
+                "group": "seo-crawl"
+              },
+              {
+                "id": "robots-txt",
+                "weight": 1,
+                "group": "seo-crawl"
+              },
+              {
+                "id": "image-alt",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "hreflang",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "canonical",
+                "weight": 0,
+                "group": "seo-content"
+              },
+              {
+                "id": "font-size",
+                "weight": 1,
+                "group": "seo-mobile"
+              },
+              {
+                "id": "plugins",
+                "weight": 1,
+                "group": "seo-content"
+              },
+              {
+                "id": "tap-targets",
+                "weight": 1,
+                "group": "seo-mobile"
+              },
+              {
+                "id": "structured-data",
+                "weight": 0
+              }
             ],
             "id": "seo",
             "score": 0.85
@@ -4154,34 +4909,71 @@
             "title": "PWA",
             "description": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
             "manualDescription": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
-            "supportedModes": ["navigation"],
+            "supportedModes": [
+              "navigation"
+            ],
             "auditRefs": [
               {
                 "id": "installable-manifest",
                 "weight": 2,
                 "group": "pwa-installable"
               },
-              { "id": "service-worker", "weight": 1, "group": "pwa-optimized" },
-              { "id": "splash-screen", "weight": 1, "group": "pwa-optimized" },
-              { "id": "themed-omnibox", "weight": 1, "group": "pwa-optimized" },
-              { "id": "content-width", "weight": 1, "group": "pwa-optimized" },
-              { "id": "viewport", "weight": 2, "group": "pwa-optimized" },
+              {
+                "id": "service-worker",
+                "weight": 1,
+                "group": "pwa-optimized"
+              },
+              {
+                "id": "splash-screen",
+                "weight": 1,
+                "group": "pwa-optimized"
+              },
+              {
+                "id": "themed-omnibox",
+                "weight": 1,
+                "group": "pwa-optimized"
+              },
+              {
+                "id": "content-width",
+                "weight": 1,
+                "group": "pwa-optimized"
+              },
+              {
+                "id": "viewport",
+                "weight": 2,
+                "group": "pwa-optimized"
+              },
               {
                 "id": "apple-touch-icon",
                 "weight": 1,
                 "group": "pwa-optimized"
               },
-              { "id": "maskable-icon", "weight": 1, "group": "pwa-optimized" },
-              { "id": "pwa-cross-browser", "weight": 0 },
-              { "id": "pwa-page-transitions", "weight": 0 },
-              { "id": "pwa-each-page-has-url", "weight": 0 }
+              {
+                "id": "maskable-icon",
+                "weight": 1,
+                "group": "pwa-optimized"
+              },
+              {
+                "id": "pwa-cross-browser",
+                "weight": 0
+              },
+              {
+                "id": "pwa-page-transitions",
+                "weight": 0
+              },
+              {
+                "id": "pwa-each-page-has-url",
+                "weight": 0
+              }
             ],
             "id": "pwa",
             "score": 0.5
           }
         },
         "categoryGroups": {
-          "metrics": { "title": "Metrics" },
+          "metrics": {
+            "title": "Metrics"
+          },
           "load-opportunities": {
             "title": "Opportunities",
             "description": "These suggestions can help your page load faster. They don't [directly affect](https://web.dev/performance-scoring/) the Performance score."
@@ -4194,8 +4986,12 @@
             "title": "Diagnostics",
             "description": "More information about the performance of your application. These numbers don't [directly affect](https://web.dev/performance-scoring/) the Performance score."
           },
-          "pwa-installable": { "title": "Installable" },
-          "pwa-optimized": { "title": "PWA Optimized" },
+          "pwa-installable": {
+            "title": "Installable"
+          },
+          "pwa-optimized": {
+            "title": "PWA Optimized"
+          },
           "a11y-best-practices": {
             "title": "Best practices",
             "description": "These items highlight common accessibility best practices."
@@ -4240,11 +5036,21 @@
             "title": "Crawling and Indexing",
             "description": "To appear in search results, crawlers need access to your app."
           },
-          "best-practices-trust-safety": { "title": "Trust and Safety" },
-          "best-practices-ux": { "title": "User Experience" },
-          "best-practices-browser-compat": { "title": "Browser Compatibility" },
-          "best-practices-general": { "title": "General" },
-          "hidden": { "title": "" }
+          "best-practices-trust-safety": {
+            "title": "Trust and Safety"
+          },
+          "best-practices-ux": {
+            "title": "User Experience"
+          },
+          "best-practices-browser-compat": {
+            "title": "Browser Compatibility"
+          },
+          "best-practices-general": {
+            "title": "General"
+          },
+          "hidden": {
+            "title": ""
+          }
         },
         "stackPacks": [],
         "timing": {
@@ -5627,31 +6433,45 @@
             ],
             "lighthouse-core/lib/i18n/i18n.js | seconds": [
               {
-                "values": { "timeInMs": 1995.7740000000003 },
+                "values": {
+                  "timeInMs": 1995.7740000000003
+                },
                 "path": "audits[first-contentful-paint].displayValue"
               },
               {
-                "values": { "timeInMs": 2084.2740000000003 },
+                "values": {
+                  "timeInMs": 2084.2740000000003
+                },
                 "path": "audits[largest-contentful-paint].displayValue"
               },
               {
-                "values": { "timeInMs": 2043.2740000000003 },
+                "values": {
+                  "timeInMs": 2043.2740000000003
+                },
                 "path": "audits[first-meaningful-paint].displayValue"
               },
               {
-                "values": { "timeInMs": 2142.2544222584984 },
+                "values": {
+                  "timeInMs": 2142.2544222584984
+                },
                 "path": "audits[speed-index].displayValue"
               },
               {
-                "values": { "timeInMs": 4745.307000000001 },
+                "values": {
+                  "timeInMs": 4745.307000000001
+                },
                 "path": "audits.interactive.displayValue"
               },
               {
-                "values": { "timeInMs": 1130.460000000001 },
+                "values": {
+                  "timeInMs": 1130.460000000001
+                },
                 "path": "audits[mainthread-work-breakdown].displayValue"
               },
               {
-                "values": { "timeInMs": 485.0000000000005 },
+                "values": {
+                  "timeInMs": 485.0000000000005
+                },
                 "path": "audits[bootup-time].displayValue"
               }
             ],
@@ -5682,19 +6502,27 @@
             ],
             "lighthouse-core/lib/i18n/i18n.js | ms": [
               {
-                "values": { "timeInMs": 205.82200000000012 },
+                "values": {
+                  "timeInMs": 205.82200000000012
+                },
                 "path": "audits[total-blocking-time].displayValue"
               },
               {
-                "values": { "timeInMs": 129 },
+                "values": {
+                  "timeInMs": 129
+                },
                 "path": "audits[max-potential-fid].displayValue"
               },
               {
-                "values": { "timeInMs": 49.644000000000005 },
+                "values": {
+                  "timeInMs": 49.644000000000005
+                },
                 "path": "audits[network-rtt].displayValue"
               },
               {
-                "values": { "timeInMs": 45.541000000000004 },
+                "values": {
+                  "timeInMs": 45.541000000000004
+                },
                 "path": "audits[network-server-latency].displayValue"
               }
             ],
@@ -5724,7 +6552,9 @@
             ],
             "lighthouse-core/audits/server-response-time.js | displayValue": [
               {
-                "values": { "timeInMs": 153.964 },
+                "values": {
+                  "timeInMs": 153.964
+                },
                 "path": "audits[server-response-time].displayValue"
               }
             ],
@@ -5768,7 +6598,9 @@
             ],
             "lighthouse-core/audits/critical-request-chains.js | displayValue": [
               {
-                "values": { "itemCount": 3 },
+                "values": {
+                  "itemCount": 3
+                },
                 "path": "audits[critical-request-chains].displayValue"
               }
             ],
@@ -5780,7 +6612,9 @@
             ],
             "lighthouse-core/lib/i18n/i18n.js | displayValueMsSavings": [
               {
-                "values": { "wastedMs": 850.2330000000001 },
+                "values": {
+                  "wastedMs": 850.2330000000001
+                },
                 "path": "audits.redirects.displayValue"
               }
             ],
@@ -5955,7 +6789,10 @@
             ],
             "lighthouse-core/audits/resource-summary.js | displayValue": [
               {
-                "values": { "requestCount": 16, "byteCount": 205774 },
+                "values": {
+                  "requestCount": 16,
+                  "byteCount": 205774
+                },
                 "path": "audits[resource-summary].displayValue"
               }
             ],
@@ -5985,7 +6822,9 @@
             ],
             "lighthouse-core/audits/third-party-summary.js | displayValue": [
               {
-                "values": { "timeInMs": 46.324 },
+                "values": {
+                  "timeInMs": 46.324
+                },
                 "path": "audits[third-party-summary].displayValue"
               }
             ],
@@ -6009,7 +6848,9 @@
             ],
             "lighthouse-core/lib/i18n/i18n.js | displayValueElementsFound": [
               {
-                "values": { "nodeCount": 1 },
+                "values": {
+                  "nodeCount": 1
+                },
                 "path": "audits[largest-contentful-paint-element].displayValue"
               }
             ],
@@ -6038,7 +6879,9 @@
             ],
             "lighthouse-core/audits/long-tasks.js | displayValue": [
               {
-                "values": { "itemCount": 5 },
+                "values": {
+                  "itemCount": 5
+                },
                 "path": "audits[long-tasks].displayValue"
               }
             ],
@@ -6392,7 +7235,9 @@
             ],
             "lighthouse-core/audits/byte-efficiency/uses-long-cache-ttl.js | displayValue": [
               {
-                "values": { "itemCount": 0 },
+                "values": {
+                  "itemCount": 0
+                },
                 "path": "audits[uses-long-cache-ttl].displayValue"
               }
             ],
@@ -6404,7 +7249,9 @@
             ],
             "lighthouse-core/audits/byte-efficiency/total-byte-weight.js | displayValue": [
               {
-                "values": { "totalBytes": 205774 },
+                "values": {
+                  "totalBytes": 205774
+                },
                 "path": "audits[total-byte-weight].displayValue"
               }
             ],
@@ -6446,11 +7293,15 @@
             ],
             "lighthouse-core/lib/i18n/i18n.js | displayValueByteSavings": [
               {
-                "values": { "wastedBytes": 68948 },
+                "values": {
+                  "wastedBytes": 68948
+                },
                 "path": "audits[unused-javascript].displayValue"
               },
               {
-                "values": { "wastedBytes": 7475 },
+                "values": {
+                  "wastedBytes": 7475
+                },
                 "path": "audits[legacy-javascript].displayValue"
               }
             ],
@@ -6520,7 +7371,9 @@
             ],
             "lighthouse-core/audits/dobetterweb/dom-size.js | displayValue": [
               {
-                "values": { "itemCount": 359 },
+                "values": {
+                  "itemCount": 359
+                },
                 "path": "audits[dom-size].displayValue"
               }
             ],
@@ -6623,7 +7476,9 @@
             ],
             "lighthouse-core/audits/seo/font-size.js | displayValue": [
               {
-                "values": { "decimalProportion": 1 },
+                "values": {
+                  "decimalProportion": 1
+                },
                 "path": "audits[font-size].displayValue"
               }
             ],
@@ -6674,7 +7529,9 @@
             ],
             "lighthouse-core/audits/seo/tap-targets.js | displayValue": [
               {
-                "values": { "decimalProportion": 1 },
+                "values": {
+                  "decimalProportion": 1
+                },
                 "path": "audits[tap-targets].displayValue"
               }
             ],

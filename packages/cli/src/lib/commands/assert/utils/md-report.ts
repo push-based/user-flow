@@ -1,11 +1,17 @@
-import { FractionResults, GatherMode, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
+import {
+  FractionResults,
+  GatherMode,
+  ReducedFlowStep,
+  ReducedFlowStepResult,
+  ReducedReport
+} from '../../collect/utils/report/types';
 import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 import { Alignment, table } from '../../../core/md/table';
 import { style } from '../../../core/md/font-style';
 import { headline } from '../../../core/md/headline';
 import { NEW_LINE } from '../../../core/md/constants';
 import { details } from '../../../core/md/details';
-
+import  Details  from 'lighthouse/types/lhr/audit-details';
 const budgetsSymbol = '🔒'
 
 export function generateMdReport(flowResult: ReducedReport): string {
@@ -35,11 +41,21 @@ ${stepsTable}${NEW_LINE}
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
 export function getBudgetTable(reducedReport: ReducedReport): string {
+  type StepWithBudgets = Required<Pick<ReducedFlowStep, 'resultsPerformanceBudget' | 'resultsTimingBudget'>>;
+
   const performanceBudgets = reducedReport.steps
-    .filter(step => step.gatherMode === 'navigation')
-    .map(step => step.resultsPerformanceBudget);
+    .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
+    .map(({ resultsPerformanceBudget, resultsTimingBudget }) => ({
+      // @ts-ignore
+      resultsPerformanceBudget: resultsPerformanceBudget.map((d: Details.Table) => [
+          d.headings.map(h => h.text),
+          ...d.items.map(({label, transferSize, resourceType, sizeOverBudget}) => [label, transferSize, resourceType, sizeOverBudget])
+        ]),
+      resultsTimingBudget: resultsTimingBudget
+    }));
   return performanceBudgets.length ? JSON.stringify(performanceBudgets) : '';
 }
+
 
 /**
  * | Step Name       | Gather Mode |Performance | Accessibility | BestPractices | Seo  | PWA |
@@ -66,7 +82,7 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
   }
   return reducedReport.steps.map((step) => {
     const results = reportCategories.map(category => extractResultsValue(step.results[category]));
-    // add 🔒 to gatherMode to indicate budgets
+    // add `budgetsSymbol` to gatherMode to indicate budgets
     step.resultsPerformanceBudget && (step.gatherMode = step.gatherMode + ` ${budgetsSymbol}` as GatherMode);
     return [step.name, step.gatherMode].concat(results);
   });
