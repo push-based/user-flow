@@ -46,11 +46,10 @@ export function getBudgetTable(reducedReport: ReducedReport): string {
   const performanceBudgets = reducedReport.steps
     .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
     .map(({ resultsPerformanceBudget, resultsTimingBudget }) => ({
-      // @ts-ignore
-      resultsPerformanceBudget: resultsPerformanceBudget.map((d: Details.Table) => [
+      resultsPerformanceBudget: resultsPerformanceBudget?.map((d: Details.Table) => [
           d.headings.map(h => h.text),
           ...d.items.map(({label, transferSize, resourceType, sizeOverBudget}) => [label, transferSize, resourceType, sizeOverBudget])
-        ]),
+        ]) || [],
       resultsTimingBudget: resultsTimingBudget
     }));
   return performanceBudgets.length ? JSON.stringify(performanceBudgets) : '';
