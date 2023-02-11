@@ -7,14 +7,22 @@
         "resourceSizes": [
           {
             "resourceType": "total",
-            "budget": 26
+            "budget": 2000
           },
           {
             "resourceType": "script",
             "budget": 150
+          },
+          {
+            "resourceType": "third-party",
+            "budget": 100
           }
         ],
         "resourceCounts": [
+          {
+            "resourceType": "stylesheet",
+            "budget": 1
+          },
           {
             "resourceType": "third-party",
             "budget": 1
