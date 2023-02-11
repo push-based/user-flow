@@ -20,7 +20,7 @@ ${stepsTable}${NEW_LINE}
 
   const budgetsTable = getBudgetTable(flowResult);
   if(budgetsTable !== '') {
-    md += details(`${budgetsSymbol} Budgets`, budgetsTable, {open:true}) + NEW_LINE;
+    md += details(`${budgetsSymbol} Budgets`, budgetsTable, {open:false}) + NEW_LINE;
   }
 
 
@@ -42,7 +42,7 @@ ${stepsTable}${NEW_LINE}
  * |  Time to Interactive   |    4745     |      -      |
  *
  */
-export function getBudgetTable(reducedReport: ReducedReport, options: {heading: Hierarchy} = {heading: 2}): string {
+export function getBudgetTable(reducedReport: ReducedReport, options: {heading: Hierarchy} = {heading: 3}): string {
   const performanceBudgets = reducedReport.steps
     .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
     .map(({ name, resultsPerformanceBudget, resultsTimingBudget }) => ({
@@ -57,16 +57,18 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
-            [label, measurement + ' ms', overBudget || '-'] as (string|number)[]) || []
+            [label, measurement + ' ms', overBudget ? formatBytes(overBudget as number) : '-'] as (string|number)[]) || []
         ] : []
       })
     );
   return performanceBudgets.length ? performanceBudgets.map(b => {
     let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
     if(b.resultsPerformanceBudget !== undefined) {
+      md += style('Resource Budget') + NEW_LINE;
       md += table(b.resultsPerformanceBudget) + NEW_LINE
     }
     if(b.resultsTimingBudget !== undefined) {
+      md += style('Timing Budget') + NEW_LINE;
       md += (b.resultsPerformanceBudget ? NEW_LINE : '') + table(b.resultsTimingBudget) + NEW_LINE;
     }
     return md;
