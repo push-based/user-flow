@@ -64,11 +64,11 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
   return performanceBudgets.length ? performanceBudgets.map(b => {
     let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
     if(b.resultsPerformanceBudget !== undefined) {
-      md += style('Resource Budget') + NEW_LINE;
-      md += table(b.resultsPerformanceBudget) + NEW_LINE
+      md += style('Resource Budget') + NEW_LINE+ NEW_LINE;
+      md += table(b.resultsPerformanceBudget) + NEW_LINE + NEW_LINE
     }
     if(b.resultsTimingBudget !== undefined) {
-      md += style('Timing Budget') + NEW_LINE;
+      md += style('Timing Budget') + NEW_LINE+ NEW_LINE;
       md += (b.resultsPerformanceBudget ? NEW_LINE : '') + table(b.resultsTimingBudget) + NEW_LINE;
     }
     return md;
