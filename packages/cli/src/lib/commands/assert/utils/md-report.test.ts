@@ -51,7 +51,6 @@ describe('md-table', () => {
   it('should return a Md table if getBudgetTable is passed a baseline report', () => {
     const reducedLhr9 = createReducedReport(lhr9budgets);
     const mdTable = getBudgetTable(reducedLhr9);
-    writeFileSync('t.md', mdTable, {encoding: 'utf8'});
     expect(mdTable).toContain('| Resource Type | Requests | Transfer Size | Over Budget |');
     expect(mdTable).toContain('|         Metric         | Measurement | Over Budget |');
   });
