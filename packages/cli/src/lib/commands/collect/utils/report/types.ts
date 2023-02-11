@@ -3,12 +3,15 @@ import Config from 'lighthouse/types/config';
 import { CLI_MODES } from '../../../../global/cli-mode';
 import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
+import Details from 'lighthouse/types/lhr/audit-details';
 
 type OverBudget = { overBudget: number };
-type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget)[];
+type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
 
 type UfrSlice = PickOne<FlowResult>;
 type LhrSlice = PickOne<FlowResult.Step['lhr']>;
+
+export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
 /**
  * Plucks key value from oroginal LH report
  * @example
@@ -17,7 +20,7 @@ type LhrSlice = PickOne<FlowResult.Step['lhr']>;
  * const f1: GatherModeSlice = {gatherMode: 'timespan'};
  * const f2: GatherModeSlice = {gatherMode: 'snapshot'};
  */
-type LhrGatherModeSlice = LhrSlice & { gatherMode: FlowResult.Step['lhr']['gatherMode'] };
+type LhrGatherModeSlice = LhrSlice & { gatherMode: GatherMode };
 type UfrNameSlice = UfrSlice & { name: string };
 
 
@@ -39,7 +42,8 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resultsPerformanceBudget?: any,
+    resultsPerformanceBudget?: Details.Table,
+    resultsTimingBudget?: Details.Table,
     baseline?: ReducedFlowStepResult;
   };
 
