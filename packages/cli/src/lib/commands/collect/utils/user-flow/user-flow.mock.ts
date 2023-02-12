@@ -1,11 +1,10 @@
 import { Page } from 'puppeteer';
 import { logVerbose } from '../../../../core/loggin';
 import UFR from 'lighthouse/types/lhr/flow-result';
+import FlowResult from 'lighthouse/types/lhr/flow-result';
 import { StepOptions, UserFlowOptions } from './types';
-import { UserFlow } from 'lighthouse/core/user-flow';
 import * as LH from 'lighthouse/types/lh';
 import { getReportContent } from '../../../../../../../test-data/src/lib/raw-reports';
-import FlowResult from 'lighthouse/types/lhr/flow-result';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const htmlReport = getReportContent('lhr-9.html') as string;
