@@ -5,6 +5,7 @@ import { style } from '../../../core/md/font-style';
 import { headline, Hierarchy } from '../../../core/md/headline';
 import { NEW_LINE } from '../../../core/md/constants';
 import { details } from '../../../core/md/details';
+import { code } from '../../../core/md/code';
 
 const budgetsSymbol = '🔒'
 
@@ -57,7 +58,9 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
-            [label, measurement + ' ms', overBudget ? `${overBudget} ms` : '-'] as (string|number)[]) || []
+            [label,
+              label === 'Cumulative Layout Shift' ? measurement : measurement + ' ms'
+              , overBudget ? `${overBudget} ms` : '-'] as (string|number)[]) || []
         ] : []
       })
     );
