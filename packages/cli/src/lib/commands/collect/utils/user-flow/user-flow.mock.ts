@@ -2,6 +2,7 @@ import { Page } from 'puppeteer';
 import { logVerbose } from '../../../../core/loggin';
 import UFR from 'lighthouse/types/lhr/flow-result';
 import { StepOptions, UserFlowOptions } from './types';
+import { UserFlow } from 'lighthouse/core/user-flow';
 import * as LH from 'lighthouse/types/lh';
 
 const dummyFlowResult: (cfg?: UserFlowOptions) => UFR = (cfg?: UserFlowOptions): UFR => {
@@ -18,7 +19,7 @@ const dummyFlowResult: (cfg?: UserFlowOptions) => UFR = (cfg?: UserFlowOptions):
           lighthouseVersion: '9.5.0',
           requestedUrl: 'http://127.0.0.1:5032/',
           finalUrl: 'http://127.0.0.1:5032/',
-          fetchTime: new Date().toISOString(),
+          fetchTime: new Date('2022-04-21T23:47:59').toISOString(),
           gatherMode: 'navigation',
           runtimeError: {
             'code': 'PROTOCOL_TIMEOUT',
