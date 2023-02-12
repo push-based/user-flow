@@ -49,7 +49,7 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
         name,
         resultsPerformanceBudget: resultsPerformanceBudget !== undefined ? [
           resultsPerformanceBudget.headings
-            .map((h) => h.label as string),
+            .map((h: any) => h.text as string),
           ...resultsPerformanceBudget.items.map(
             ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
             [
