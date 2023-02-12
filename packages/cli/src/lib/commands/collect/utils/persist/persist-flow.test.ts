@@ -7,6 +7,7 @@ import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { PersistFlowOptions } from './types';
 import { createReducedReport, toReportName } from '../report/utils';
+import UserFlow from 'lighthouse/types/user-flow';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const htmlReport = getReportContent('lhr-9.html') as string;
@@ -55,7 +56,7 @@ const url = 'test.url';
 const flowName = `flow-example-name`;
 const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
-const flow = new UserFlowReportMock({ name: flowName });
+const flow = new UserFlowReportMock({ name: flowName }) as any as UserFlow;
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;
