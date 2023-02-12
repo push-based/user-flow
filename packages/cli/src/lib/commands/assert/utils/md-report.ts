@@ -11,10 +11,12 @@ const budgetsSymbol = '🔒'
 export function generateMdReport(flowResult: ReducedReport): string {
   const name = flowResult.name;
   const dateTime = `Date/Time: ${style(new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3))}  `;
+  const settings = `View-port: ${style(flowResult.configSettings.viewPort)}, Network: ${style(flowResult.configSettings.viewPort)} throttling, CPU: ${style(flowResult.configSettings.cpu)}x throttling`;
   const stepsTable = getStepsTable(flowResult);
 
   let md = `${headline(name)}${NEW_LINE}
 ${dateTime}${NEW_LINE}
+${settings}${NEW_LINE}
 ${stepsTable}${NEW_LINE}
 `;
 

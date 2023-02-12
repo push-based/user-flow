@@ -6,10 +6,16 @@ import { isoDateStringToIsoLikeString } from '../persist/utils';
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = parseSteps(flowResult.steps);
+  const {throttling, formFactor} = flowResult.steps[0].lhr.configSettings;
   return {
     name: flowResult.name,
     fetchTime: steps[0].fetchTime,
-    steps
+    steps,
+    configSettings: {
+      viewPort: formFactor,
+      network: throttling.requestLatencyMs,
+      cpu: throttling.cpuSlowdownMultiplier
+    }
   };
 }
 
