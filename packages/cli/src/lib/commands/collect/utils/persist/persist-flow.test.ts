@@ -39,7 +39,7 @@ const url = 'test.url';
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const flowFileName = toReportName(url, jsonReport.name, createReducedReport(jsonReport));
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
-const flow = new UserFlowMock(null as any, { name: jsonReport.name }) as any as UserFlow;
+const flow = new UserFlowMock(null as any, { name: jsonReport.name }, jsonReport) as any as UserFlow;
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;
