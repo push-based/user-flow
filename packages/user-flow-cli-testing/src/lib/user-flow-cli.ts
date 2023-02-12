@@ -2,13 +2,13 @@ import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import { CliProject, getFolderContent, ProcessParams, TestResult, withProject, ProjectConfig } from '@push-based/node-cli-testing';
+import LhConfig from 'lighthouse/types/config'
 import {
   CollectCommandArgv,
   DEFAULT_PERSIST_OUT_PATH,
   getEnvPreset,
   GlobalOptionsArgv,
   InitCommandArgv,
-  LhConfigJson,
   RcJson,
   ReportFormat
 } from '@push-based/user-flow';
@@ -102,7 +102,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return join(this.root, budgetName);
   }
 
-  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfig {
     return JSON.parse(readFileSync(this.configPath(configName)) as any);
   }
 
