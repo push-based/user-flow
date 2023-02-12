@@ -5,7 +5,6 @@ import { style } from '../../../core/md/font-style';
 import { headline, Hierarchy } from '../../../core/md/headline';
 import { NEW_LINE } from '../../../core/md/constants';
 import { details } from '../../../core/md/details';
-import { code } from '../../../core/md/code';
 
 const budgetsSymbol = '🔒'
 
@@ -53,14 +52,20 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
             .map((h) => h.text as string),
           ...resultsPerformanceBudget.items.map(
             ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
-            [label, requestCount, formatBytes(transferSize as number), sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-', countOverBudget || '-'] as (string|number)[]) || []
+            [
+              label,
+              requestCount,
+              formatBytes(transferSize as number),
+              sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-',
+              countOverBudget || '-'
+            ] as (string|number)[]) || []
         ] : [],
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
             [label,
-              label === 'Cumulative Layout Shift' ? measurement : measurement + ' ms'
-              , overBudget ? `${overBudget} ms` : '-'] as (string|number)[]) || []
+              (measurement as any)?.value ? (measurement as any).value : measurement + ' ms'
+              , overBudget+'' ? `${overBudget} ms` : '-']) || []
         ] : []
       })
     );
