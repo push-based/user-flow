@@ -11,7 +11,7 @@ const budgetsSymbol = '🔒'
 export function generateMdReport(flowResult: ReducedReport): string {
   const name = flowResult.name;
   const dateTime = `Date/Time: ${style(new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3))}  `;
-  const settings = `View-port: ${style(flowResult.configSettings.viewPort)}, Network: ${style(flowResult.configSettings.viewPort)} throttling, CPU: ${style(flowResult.configSettings.cpu)}x throttling`;
+  const settings = `View-port: ${style(flowResult.configSettings.viewPort)}, Network: ${style('fast 3G' + ' throttling')}, CPU: ${style(flowResult.configSettings.cpu + 'x throttling')}`;
   const stepsTable = getStepsTable(flowResult);
 
   let md = `${headline(name)}${NEW_LINE}
@@ -24,7 +24,6 @@ ${stepsTable}${NEW_LINE}
   if(budgetsTable !== '') {
     md += details(`${budgetsSymbol} Budgets`, budgetsTable) + NEW_LINE;
   }
-
 
   return md;
 }
@@ -120,7 +119,6 @@ function formatBytes(bytes: number, decimals = 2) {
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
-
 
 function extractTableArr(reportCategories: string[], steps: any[]): string[][] {
   const tableHead = extractTableHead(reportCategories);
