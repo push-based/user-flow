@@ -52,12 +52,20 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
             .map((h) => h.text as string),
           ...resultsPerformanceBudget.items.map(
             ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
-            [label, requestCount, formatBytes(transferSize as number), sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-', countOverBudget || '-'] as (string|number)[]) || []
+            [
+              label,
+              requestCount,
+              formatBytes(transferSize as number),
+              sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-',
+              countOverBudget || '-'
+            ] as (string|number)[]) || []
         ] : [],
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
           resultsTimingBudget.headings.map(h => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
-            [label, measurement + ' ms', overBudget ? `${overBudget} ms` : '-'] as (string|number)[]) || []
+            [label,
+              typeof  measurement === 'object' ? (measurement as any).value : measurement + ' ms'
+              , overBudget !== undefined ? `${overBudget} ms` : '-']) || []
         ] : []
       })
     );

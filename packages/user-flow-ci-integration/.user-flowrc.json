@@ -4,38 +4,70 @@
     "ufPath": "./packages/user-flow-ci-integration/user-flows",
     "budgets": [
       {
-        "resourceSizes": [
+        "resourceCounts": [
           {
-            "resourceType": "total",
-            "budget": 2000
+            "resourceType": "document",
+            "budget": 1
           },
           {
             "resourceType": "script",
-            "budget": 150
+            "budget": 1
           },
-          {
-            "resourceType": "third-party",
-            "budget": 10
-          }
-        ],
-        "resourceCounts": [
           {
             "resourceType": "stylesheet",
             "budget": 1
           },
           {
+            "resourceType": "image",
+            "budget": 0
+          },
+          {
+            "resourceType": "media",
+            "budget": 0
+          },
+          {
+            "resourceType": "font",
+            "budget": 0
+          },
+          {
+            "resourceType": "other",
+            "budget": 0
+          },
+          {
             "resourceType": "third-party",
-            "budget": 1
+            "budget": 0
+          }
+        ],
+        "resourceSizes": [
+          {
+            "resourceType": "script",
+            "budget": 0
+          },
+          {
+            "resourceType": "stylesheet",
+            "budget": 0
           }
         ],
         "timings": [
           {
-            "metric": "first-meaningful-paint",
-            "budget": 2000
+            "metric": "first-contentful-paint",
+            "budget": 10
           },
           {
-            "metric": "interactive",
-            "budget": 2100
+            "metric": "speed-index",
+            "budget": 10
+          },
+          {
+            "metric": "largest-contentful-paint",
+            "budget": 10
+          },
+          {
+            "metric": "cumulative-layout-shift",
+            "budget": 0
+          },
+          {
+            "metric": "total-blocking-time",
+            "budget": 10
           }
         ]
       }
