@@ -3,10 +3,10 @@
  * https://github.com/GoogleChrome/lighthouse
  */
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import UFR from 'lighthouse/types/lhr/flow-result';
 import { ReducedFlowStep, ReducedFlowStepResult } from './types';
 
-export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
+export function parseSteps(steps: UFR.Step[]): ReducedFlowStep[]  {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
     const { gatherMode } = stepReport;

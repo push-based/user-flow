@@ -49,7 +49,7 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
         name,
         resultsPerformanceBudget: resultsPerformanceBudget !== undefined ? [
           resultsPerformanceBudget.headings
-            .map((h) => h.text as string),
+            .map((h) => h.label as string),
           ...resultsPerformanceBudget.items.map(
             ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
             [
@@ -61,7 +61,7 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
             ] as (string|number)[]) || []
         ] : [],
         resultsTimingBudget: resultsTimingBudget !== undefined ? [
-          resultsTimingBudget.headings.map(h => h.text as string),
+          resultsTimingBudget.headings.map((h: any) => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
             [label,
               typeof  measurement === 'object' ? (measurement as any).value : measurement + ' ms'

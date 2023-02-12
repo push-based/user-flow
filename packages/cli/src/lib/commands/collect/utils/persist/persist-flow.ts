@@ -1,5 +1,5 @@
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import UserFlow from 'lighthouse/types/user-flow';
+import UFR from 'lighthouse/types/lhr/flow-result';
 import { log, logVerbose } from '../../../../core/loggin';
 import { join } from 'path';
 import { writeFile } from '../../../../core/file';
@@ -19,7 +19,7 @@ export async function persistFlow(
     format = ['stdout'];
   }
 
-  const jsonReport: FlowResult = await flow.createFlowResult();
+  const jsonReport: UFR = await flow.createFlowResult();
   const reducedReport: ReducedReport = createReducedReport(jsonReport);
   const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
@@ -54,7 +54,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport);
+  const fileName = toReportName(url, reducedReport.name, reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

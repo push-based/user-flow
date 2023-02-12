@@ -1,17 +1,17 @@
 import Budget from 'lighthouse/types/lhr/budget';
-import Config from 'lighthouse/types/config';
+import LhConfig from 'lighthouse/types/config';
 import { CLI_MODES } from '../../../../global/cli-mode';
 import { PickOne } from '../../../../core/types';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import UFR from 'lighthouse/types/lhr/flow-result';
 import Details from 'lighthouse/types/lhr/audit-details';
 
 type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
 
-type UfrSlice = PickOne<FlowResult>;
-type LhrSlice = PickOne<FlowResult.Step['lhr']>;
+type UfrSlice = PickOne<UFR>;
+type LhrSlice = PickOne<UFR.Step['lhr']>;
 
-export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
+export type GatherMode = UFR.Step['lhr']['gatherMode'];
 /**
  * Plucks key value from oroginal LH report
  * @example
@@ -58,7 +58,7 @@ export type ReducedReport = {
     lhBudgetAssertion: BudgetAssertion,
     baselineAssertion: BudgetAssertion,
   }
-  config?: Config.Json & { baseline?: any };
+  config?: LhConfig & { baseline?: any };
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

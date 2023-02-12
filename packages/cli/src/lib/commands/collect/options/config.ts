@@ -1,6 +1,6 @@
 import { argv } from 'yargs';
 import { Param } from './config.model';
-import { LhConfigJson } from '../../../hacky-things/lighthouse';
+import LhConfig from 'lighthouse/types/config';
 
 export const param: Param = {
   config: {
@@ -11,6 +11,6 @@ export const param: Param = {
 };
 
 export function get(): string[] {
-  const { config } = argv as any as { config: LhConfigJson };
+  const { config } = argv as any as { config: LhConfig };
   return config as string[];
 }

@@ -1,13 +1,14 @@
 import { Page } from 'puppeteer';
 import { logVerbose } from '../../../../core/loggin';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import UFR from 'lighthouse/types/lhr/flow-result';
 import { StepOptions, UserFlowOptions } from './types';
+import * as LH from 'lighthouse/types/lh';
 
-const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
+const dummyFlowResult: (cfg?: UserFlowOptions) => UFR = (cfg?: UserFlowOptions): UFR => {
   const config = cfg?.config || {};
   logVerbose('dummy config used:', config);
   const report = {
-    name: cfg.name,
+    name: cfg?.name || 'name-missing',
     steps: [
       {
         name: 'Navigation report (127.0.0.1/)',
@@ -248,10 +249,10 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
     report.steps[0].lhr.audits['timing-budget'] = {};
   }
 
-  return report;
+  return report as any;
 };
 
-const dummyFlowReport: (cfg: UserFlowOptions) => string = (cfg: UserFlowOptions) => `
+const dummyFlowReport: (cfg: UserFlowOptions | undefined) => string = (cfg?: UserFlowOptions) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -274,62 +275,64 @@ ${JSON.stringify(dummyFlowResult(cfg))}
  */
 export class UserFlowMock {
 
-  protected cfg: UserFlowOptions = {} as any;
+  protected cfg: LH.UserFlow.Options | undefined = {} as any;
   protected name: string = '';
   protected page: Page;
 
-  /**
-   * @param {LH.NavigationRequestor} requestor
-   * @param {StepOptions=} stepOptions
-   */
-  async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
-    logVerbose(`flow#navigate: ${stepName || requestor}`);
+  async navigate(requestor: any, flags?: LH.UserFlow.StepFlags | undefined): Promise<any> {
+    logVerbose(`flow#navigate: ${flags?.name || requestor}`);
     return this.page.goto(requestor);
   }
+  startNavigation(stepOptions?: LH.UserFlow.StepFlags | undefined): Promise<void> {
+    logVerbose(`flow#startNavigation: ${stepOptions?.name}`);
+    return Promise.resolve()
+  }
+  currentNavigation: { continueAndAwaitResult: () => Promise<void>; } | undefined;
+  endNavigation(): Promise<void> {
+    logVerbose(`flow#navigateEnd`);
+    return Promise.resolve()
+  }
+  currentTimespan: { timespan: { endTimespanGather(): Promise<LH.Gatherer.FRGatherResult>; }; flags: LH.UserFlow.StepFlags | undefined; } | undefined;
+  createArtifactsJson(): LH.UserFlow.FlowArtifacts {
+    throw new Error('Method not implemented.');
+  }
 
-  constructor(page: Page, cfg: UserFlowOptions) {
+
+  constructor(page: Page, flags?: LH.UserFlow.Options | undefined) {
+    //super(page, flags);
     this.page = page;
-    this.cfg = cfg;
-    this.name = cfg.name;
+    this.cfg = flags;
+    this.name = flags?.name || 'name-missing';
   }
 
-  /**
-   * @param {StepOptions=} stepOptions
-   */
-  async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#startTimespan: ${stepName}`);
+
+  async startTimespan(flags?: LH.UserFlow.StepFlags | undefined): Promise<void> {
+    logVerbose(`flow#startTimespan: ${flags?.name}`);
     return Promise.resolve();
   }
 
-  async endTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#endTimespan: ${stepName}`);
+  async endTimespan(flags?: LH.UserFlow.StepFlags | undefined): Promise<void> {
+    logVerbose(`flow#endTimespan: ${flags?.name}`);
     return Promise.resolve();
   }
 
-  /**
-   * @param {StepOptions=} stepOptions
-   */
-  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#snapshot: ${stepName}`);
+  async snapshot(flags?: LH.UserFlow.StepFlags | undefined): Promise<void> {
+    logVerbose(`flow#snapshot: ${flags?.name}`);
     return Promise.resolve();
   }
 
-  /**
-   * @return {LH.FlowResult}
-   */
-  getFlowResult(): FlowResult {
+
+  getFlowResult(): UFR {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
 
-  createFlowResult(): FlowResult {
+  createFlowResult() {
     logVerbose(`flow#getFlowResult`);
-    return dummyFlowResult(this.cfg);
+    return Promise.resolve(dummyFlowResult(this.cfg));
   }
 
-  /**
-   * @return {Promise<string>}
-   */
+
   generateReport(): Promise<string> {
     logVerbose(`flow#generateReport`);
     return Promise.resolve(dummyFlowReport(this.cfg));
@@ -340,10 +343,6 @@ export class UserFlowMock {
 export class UserFlowReportMock {
   protected cfg: UserFlowOptions = {} as any;
 
-  /**
-   * @param {LH.NavigationRequestor} requestor
-   * @param {StepOptions=} stepOptions
-   */
   async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return Promise.resolve();
@@ -353,9 +352,6 @@ export class UserFlowReportMock {
     this.cfg = cfg;
   }
 
-  /**
-   * @param {StepOptions=} stepOptions
-   */
   async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#startTimespan: ${stepName}`);
     return Promise.resolve();
@@ -366,30 +362,21 @@ export class UserFlowReportMock {
     return Promise.resolve();
   }
 
-  /**
-   * @param {StepOptions=} stepOptions
-   */
   async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#snapshot: ${stepName}`);
     return Promise.resolve();
   }
 
-  /**
-   * @return {LH.FlowResult}
-   */
-  getFlowResult(): FlowResult {
+  getFlowResult(): UFR {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
 
-  createFlowResult(): FlowResult {
+  createFlowResult(): UFR {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
 
-  /**
-   * @return {Promise<string>}
-   */
   generateReport(): Promise<string> {
     logVerbose(`flow#generateReport`);
     return Promise.resolve(dummyFlowReport(this.cfg));

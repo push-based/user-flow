@@ -1,10 +1,10 @@
-import FlowResult from 'lighthouse/types/lhr/flow';
+import UFR from 'lighthouse/types/lhr/flow-result';
 import { ReducedReport } from '../report/types';
 import { parseSteps } from './lh-utils';
 import { toFileName } from '../../../../core/file';
 import { isoDateStringToIsoLikeString } from '../persist/utils';
 
-export function createReducedReport(flowResult: FlowResult): ReducedReport {
+export function createReducedReport(flowResult: UFR): ReducedReport {
   const steps = parseSteps(flowResult.steps);
   return {
     name: flowResult.name,
@@ -13,7 +13,7 @@ export function createReducedReport(flowResult: FlowResult): ReducedReport {
   };
 }
 
-export function enrichReducedReportWithBaseline(reducedReport: ReducedReport, baselineReport: FlowResult): ReducedReport {
+export function enrichReducedReportWithBaseline(reducedReport: ReducedReport, baselineReport: UFR): ReducedReport {
   const baselineReducedReport = createReducedReport(baselineReport);
   const baselineResults = Object.fromEntries(baselineReducedReport.steps.map((step) => [step.name, step.results]));
   const steps = reducedReport.steps.map((step) => ({ ...step, 'baseline': baselineResults[step.name] }));
