@@ -10,8 +10,6 @@ import { createReducedReport, toReportName } from '../report/utils';
 import UserFlow from 'lighthouse/types/user-flow';
 import { UserFlowMock } from '../user-flow/user-flow.mock';
 
-const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
-const htmlReport = getReportContent('lhr-9.html') as string;
 
 /**
  * @deprecated
@@ -37,10 +35,11 @@ function old_expectPersistedReports(persistedReportPaths: string[], outPath: str
 let initializedPrj: UserFlowCliProject;
 let outPath;
 const url = 'test.url';
-const flowName = `flow-example-name`;
-const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));
+
+const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
+const flowFileName = toReportName(url, jsonReport.name, createReducedReport(jsonReport));
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
-const flow = new UserFlowMock(null as any, { name: flowName }) as any as UserFlow;
+const flow = new UserFlowMock(null as any, { name: jsonReport.name }) as any as UserFlow;
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;
