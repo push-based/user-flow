@@ -64,8 +64,8 @@ export function getBudgetTable(reducedReport: ReducedReport, options: {heading: 
           resultsTimingBudget.headings.map(h => h.text as string),
           ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
             [label,
-              (measurement as any)?.value ? (measurement as any).value : measurement + ' ms'
-              , overBudget+'' ? `${overBudget} ms` : '-']) || []
+              typeof  measurement === 'object' ? (measurement as any).value : measurement + ' ms'
+              , overBudget !== undefined ? `${overBudget} ms` : '-']) || []
         ] : []
       })
     );

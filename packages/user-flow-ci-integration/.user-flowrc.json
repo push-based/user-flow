@@ -51,23 +51,23 @@
         "timings": [
           {
             "metric": "first-contentful-paint",
-            "budget": 3000
+            "budget": 10
           },
           {
             "metric": "speed-index",
-            "budget": 5800
+            "budget": 10
           },
           {
             "metric": "largest-contentful-paint",
-            "budget": 4000
+            "budget": 10
           },
           {
             "metric": "cumulative-layout-shift",
-            "budget": 0.25
+            "budget": 0
           },
           {
             "metric": "total-blocking-time",
-            "budget": 600
+            "budget": 10
           }
         ]
       }
