@@ -211,9 +211,9 @@ This command executes a set of user-flow definitions against the target URL and 
 |  Option                            |  Type     | Default                | Description                                                                                              |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                           |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containg user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
-| **`-c`**, **`--config-path`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
-| **`-b`**, **`--budget-path`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
+| **`-c`**, **`--configPath`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
+| **`-b`**, **`--budgetPath`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
 | **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`  |  
 | **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
 | **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                                                           |  
