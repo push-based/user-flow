@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: run:user-flow-action
-        uses: push-based/user-flow-gh-action@v0.1.1
+        uses: push-based/user-flow-gh-action@v0.1.2
         with:
           rcPath: packages/user-flow-ci-integration/.user-flowrc.json
