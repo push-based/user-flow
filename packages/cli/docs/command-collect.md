@@ -132,10 +132,10 @@ npx user-flow collect --format md --format html
 The format in which the report should get produced.
 
 The following formats are available:
-- json - The raw `LHR` as `.json` file e.g. [lhr-9.json]()
-- html - The default `LHR` as `.html` file e.g. [lhr-9.json](). This is a single `.html` file visualizing the report. 
-- md - A `.md` file including a summary of the raw `.json` file 
-- stdout -  A standard output of the console including a summary of the raw `.json` file (same as for the `md` format)
+- `json` - The raw `LHR` as `.json` file e.g. [order-coffee.json](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/raw/order-coffee.json)
+- `html` - The default `LHR` as `.html` file e.g. [order-coffee.html](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/raw/order-coffee.json). This is a single `.html` file visualizing the report. 
+- `md` - A `.md` file including a summary of the raw `.json` file e.g. [order-coffee.md](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/raw/order-coffee.md)
+- `stdout` -  A standard output of the console including a summary of the raw `.json` file (same as for the `md` format)
 
 ### outPath
 
