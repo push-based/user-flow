@@ -70,14 +70,14 @@ _Schema JSON validation in IDE_
   }
 }
 ```
-You can also paste the whole configuration directly as array:
+You can also paste the whole configuration directly as array with `budgets`:
 
 **./my-app-user-flows/.user-flowrc.json**
 ```json
 {
   ...
   "assert": {
-    "budgetPath": [...]
+    "budgets": [...]
   }
 }
 ```
