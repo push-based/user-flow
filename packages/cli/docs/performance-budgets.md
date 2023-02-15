@@ -7,7 +7,9 @@ Even harder is it to keep it that way.
 
 At the moment budgets are only supported for "Navigation". "Timespan" and "Snapshot" measures are not supported by user flows directly. 
 
-![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164580628-967f169e-f4ee-4aca-9cb4-bd9a787b8762.PNG)
+| HTML | MARKDOWN |
+| :--: | :------: |
+|  ![img-budgets-mode-support-html](https://user-images.githubusercontent.com/10064416/219039874-0f10d7fe-620a-4d61-9b4d-f7fb2f0252d0.png) |    ![md-budget](https://user-images.githubusercontent.com/10064416/219039911-f42c72f2-8e11-402a-a402-199099cd1bd2.png) |
 
 **Budget Structure**
 The CLI follows exactly the same budget structure as lighthouse. 
