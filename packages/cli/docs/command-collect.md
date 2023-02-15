@@ -137,6 +137,10 @@ The following formats are available:
 - `md` - A `.md` file including a summary of the raw `.json` file e.g. [order-coffee.md](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/raw/order-coffee.md)
 - `stdout` -  A standard output of the console including a summary of the raw `.json` file (same as for the `md` format)
 
+|  HTML                              |  JSON     | MARKDOWN                | STDOUT                |   
+| ---------------------------------- | --------- | ---------------------- | ---------------------- |  
+| ![lighthouse_user-flow-html-report](https://user-images.githubusercontent.com/10064416/219036514-98568103-c182-44cf-bc5c-e5dbc61d76ed.png) | ![lighthouse_user-flow-json-report](https://user-images.githubusercontent.com/10064416/219036583-2cd3e116-91d7-4dbf-847d-95de0a0363ab.png) | ![lighthouse_user-flow-md-report](https://user-images.githubusercontent.com/10064416/219036654-b26c0f44-1c5d-479c-845b-007537b86028.png) | ![lighthouse_user-flow-stdout-report]() |    
+
 ### outPath
 
 |  Option                            |  Type     | Default                |   
