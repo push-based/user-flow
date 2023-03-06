@@ -10,7 +10,7 @@ import { CLIProcess } from '../../../core/processing/types';
 export async function generateLgBudgets(cliCfg: RcJson): Promise<RcJson> {
   const destPath = process.cwd();
   const tplFileName = BudgetsExampleMap['budgets'];
-  const targetFileName = 'budgets.json';
+  const targetFileName = 'budget.json';
   const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
   const exampleDestination = join(destPath, targetFileName);
 
@@ -27,7 +27,7 @@ export async function generateLgBudgets(cliCfg: RcJson): Promise<RcJson> {
 
   writeFile(exampleDestination, fileContent);
 
-  log(`setup budgets ${exampleDestination} successfully`);
+  log(`Setup budgets ${exampleDestination} successfully`);
   return Promise.resolve(cliCfg);
 }
 
