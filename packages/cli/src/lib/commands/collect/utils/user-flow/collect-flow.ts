@@ -11,7 +11,7 @@ import { getLhConfigFromArgv, mergeLhConfig } from '../config';
 import { PersistArgvOptions } from '../../options/types';
 import { AssertRcOptions } from '../../../assert/options/types';
 import UserFlow from 'lighthouse/types/user-flow';
-import { startFlow } from 'lighthouse/core/index';
+import { startFlow } from 'lighthouse';
 
 
 export async function collectFlow(
