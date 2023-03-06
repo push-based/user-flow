@@ -2,28 +2,22 @@
   {
     "resourceSizes": [
       {
-        "resourceType": "total",
-        "budget": 26
+        "resourceType": "script",
+        "budget": 300
       },
       {
-        "resourceType": "script",
-        "budget": 150
-      }
-    ],
-    "resourceCounts": [
-      {
-        "resourceType": "third-party",
+        "resourceType": "stylesheet",
         "budget": 100
       }
     ],
     "timings": [
       {
-        "metric": "interactive",
-        "budget": 5000
+        "metric": "cumulative-layout-shift",
+        "budget": 0.25
       },
       {
-        "metric": "first-meaningful-paint",
-        "budget": 2000
+        "metric": "largest-contentful-paint",
+        "budget": 2500
       }
     ]
   }
