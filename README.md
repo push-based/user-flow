@@ -190,7 +190,9 @@ This command helps you to set up a `.user-flowrc.json` and asks for input over C
 |  Option                            |  Type     | Default                | Description                                                                                              |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
-| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                  | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
+| **`-x`**, **`--generateBudgets`**    | `boolean` | n/a                  | Generate `budget.json` file under the current working directury                                          |    
+| **`--lhr`**                          | `string`  | n/a                  | Used together with `--generateBudgets`. Path to lighthouse report for initial budget                     |    
 
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
@@ -282,6 +284,11 @@ Implementing performance improvements without breaking something is hard.
 **Even harder is it, to keep it that way. 🔒**
 
 ![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164581870-3534f8b0-b7c1-4252-9f44-f07febaa7359.PNG)
+
+Automatically create budgets with:  
+`npx user-flow init --generateBudgets`  
+Automatically create budgets from an existing lhr with:   
+`npx user-flow init --generateBudgets --lhr path/to/lhr.json`   
 
 See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 

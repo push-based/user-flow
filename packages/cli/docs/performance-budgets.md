@@ -22,6 +22,10 @@ _Schema JSON validation in IDE_
 
 ## Setup budgets in RC file
 
+Run `npx user-flow init --generateBudgets` to generate a budgets file automatically.
+
+To set it up manually follow the folllowing steps:
+
 1. Create a `budget.json` file and paste the following content:  
 
 **./my-app-user-flows/budget.json**

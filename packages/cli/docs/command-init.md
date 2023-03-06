@@ -40,7 +40,9 @@ In addition, it helps to do scaffolding by create basic files and folders needed
 |  Option                              |  Type     | Default                | Description                                                                                              |  
 | ------------------------------------ | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-h`**, **`--generateFlow`**       | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
-| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
+| **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                    | Generate `user-flow.yml` file under `.github/workflows`                                                  |    
+| **`-x`**, **`--generateBudgets`**    | `boolean` | n/a                    | Generate `budget.json` file under the current working directury                                          |    
+| **`--lhr`**                          | `string`  | n/a                    | Used together with `--generateBudgets`. Path to lighthouse report for initial budget                     |    
     
 
 ## Options related to the `user-flowrc.json` file  
@@ -127,6 +129,36 @@ It contains a basic workflow to execute the CLI in GitHubs pipe line.
 The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/ba6a8d4fbf8060bea067e0fa3528611be5653ddf/packages/cli/src/lib/commands/init/static/basic-navigation.uf.ts#L2)
  
 If the `init` command executes with `--no-generateGhWorkflow` nothing will be created nor prompted in the console.
+
+### generateBudgets & lhr
+
+|  Option                              |  Type     | Default                |   
+| ------------------------------------ | --------- | ---------------------- |  
+| **`-x`**, **`--generateBudgets`**    | `boolean` | n/a                    |     
+| **`--lhr`**                          | `string`  | n/a                    |     
+
+**Execution:**   
+```
+npx user-flow init --generateBudgets
+  
+# or as negation
+
+npx user-flow init --no-generateBudgets
+
+# or to derive budgets form an existing lighthouse report
+
+npx user-flow init --generateBudgets --lhr path/to/lhr.json
+```  
+
+**Description:**   
+
+If the `init` command is executed with `--generateBudgets` it will generate a file named `budgets.json`.  
+It contains basic lighthouse budgets to be used in the rc file or CLI.
+ 
+If the `init` command executes with `--no-generateBudgets` nothing will be created nor prompted in the console.
+
+Automatically derive budgets from a report:
+If the `init` command executes with `--generateBudgets` and `--lhr=path/to/lhr.json` the budgets will be derived from the given lighthouse report.
 
 ---
 
