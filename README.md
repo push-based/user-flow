@@ -283,6 +283,9 @@ Implementing performance improvements without breaking something is hard.
 
 ![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164581870-3534f8b0-b7c1-4252-9f44-f07febaa7359.PNG)
 
+Automatically create budgets with:  
+`npx user-flow init --generateBudgets`  
+
 See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 
 ## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
