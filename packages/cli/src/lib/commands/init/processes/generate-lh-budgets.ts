@@ -13,11 +13,16 @@ export async function generateLgBudgets(cliCfg: RcJson & { lhr?: string }): Prom
   const targetFileName = 'budget.json';
   let fileContent = '';
 
+  if (readFile(targetFileName) !== '') {
+    logVerbose(`Budgets ${targetFileName} already generated.`);
+    return Promise.resolve(cliCfg);
+  }
+
   if (!cliCfg.lhr) {
     const tplFileName = BudgetsExampleMap['budgets'];
     const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
     fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
-    logVerbose('New budgets created');
+    logVerbose('New budgets used');
   } else {
     const lhrJson = readFile(cliCfg.lhr);
     if (lhrJson === '') {
@@ -27,11 +32,6 @@ export async function generateLgBudgets(cliCfg: RcJson & { lhr?: string }): Prom
     logVerbose('Budgets derived from lhr');
   }
   const exampleDestination = join(destPath, targetFileName);
-
-  if (readFile(targetFileName) !== '') {
-    logVerbose(`Budgets ${targetFileName} already generated.`);
-    return Promise.resolve(cliCfg);
-  }
 
   if (!existsSync(destPath)) {
     mkdirSync(destPath, { recursive: true });

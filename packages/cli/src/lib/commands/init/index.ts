@@ -19,15 +19,15 @@ export const initCommand: YargsCommandObject = {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
       const { interactive } = getGlobalOptionsFromArgv(argv);
-      const { generateFlow, generateGhWorkflow, generateBudgets, ...cfg } = getInitCommandOptionsFromArgv(argv);
-      logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, generateBudgets, ...cfg });
+      const { generateFlow, generateGhWorkflow, generateBudgets, lhr, ...cfg } = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, generateBudgets,lhr, ...cfg });
 
       await run([
         collectRcJson,
         updateRcJson,
         handleFlowGeneration({ interactive: !!interactive, generateFlow }),
         handleGhWorkflowGeneration({ generateGhWorkflow }),
-        handleBudgetsGeneration({ generateBudgets }),
+        handleBudgetsGeneration({ generateBudgets, lhr }),
       ])(cfg );
       log(SETUP_CONFIRM_MESSAGE);
       // @TODO move to constants
