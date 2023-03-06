@@ -6,12 +6,26 @@ import { existsSync, mkdirSync } from 'fs';
 import { BudgetsExampleMap } from '../constants';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { CLIProcess } from '../../../core/processing/types';
+import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr';
 
-export async function generateLgBudgets(cliCfg: RcJson): Promise<RcJson> {
+export async function generateLgBudgets(cliCfg: RcJson & { lhr?: string }): Promise<RcJson> {
   const destPath = process.cwd();
-  const tplFileName = BudgetsExampleMap['budgets'];
   const targetFileName = 'budget.json';
-  const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+  let fileContent = '';
+
+  if (!cliCfg.lhr) {
+    const tplFileName = BudgetsExampleMap['budgets'];
+    const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+    fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
+    logVerbose('New budgets created');
+  } else {
+    const lhrJson = readFile(cliCfg.lhr);
+    if (lhrJson === '') {
+      throw new Error(`Lighthouse report ${cliCfg.lhr} to derive budgets from is not given.`);
+    }
+    fileContent = JSON.stringify(deriveBudgetsFromLhr(JSON.parse(lhrJson)));
+    logVerbose('Budgets derived from lhr');
+  }
   const exampleDestination = join(destPath, targetFileName);
 
   if (readFile(targetFileName) !== '') {
@@ -19,7 +33,6 @@ export async function generateLgBudgets(cliCfg: RcJson): Promise<RcJson> {
     return Promise.resolve(cliCfg);
   }
 
-  const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
   if (!existsSync(destPath)) {
     mkdirSync(destPath, { recursive: true });
     logVerbose(`setup budgets folder ${destPath}`);
@@ -31,12 +44,11 @@ export async function generateLgBudgets(cliCfg: RcJson): Promise<RcJson> {
   return Promise.resolve(cliCfg);
 }
 
-export function handleBudgetsGeneration({ generateBudgets }: { generateBudgets?: boolean }): CLIProcess {
+export function handleBudgetsGeneration({ generateBudgets, lhr }: { generateBudgets?: boolean, lhr?: string }): CLIProcess {
   return ifThenElse(
     // if `generateBudgets` is used
-    () => generateBudgets === true,
+    () => !!generateBudgets,
     // generate the file => else do nothing
-    generateLgBudgets
+    (cfg) => generateLgBudgets({ ...cfg, lhr })
   );
 }
-

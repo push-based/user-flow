@@ -10,3 +10,16 @@ export const GhWorkflowExampleMap: Record<GhWorkflowExamples, string> = {
 export const BudgetsExampleMap: Record<BudgetsExamples, string> = {
   'budgets': 'lh-budgets.json'
 };
+export const TransferSizeResourceTypeBudgets: string[] = [
+  'xhr',
+  'script',
+  'stylesheet',
+  'font',
+  'document',
+  'third-party'
+];
+export const RequestCountResourceTypeBudgets: string[] = [
+  'xhr',
+  'script',
+  'stylesheet'
+];
