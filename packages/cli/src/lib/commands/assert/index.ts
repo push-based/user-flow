@@ -2,9 +2,10 @@ import { YargsCommandObject } from '../../core/yargs/types';
 import { logVerbose } from '../../core/loggin/index';
 import { readBudgets } from './utils/budgets';
 import { readFile } from '../../core/file';
-import { getCollectCommandOptionsFromArgv } from '../collect/utils/params';
 import { RcJson } from '../../types';
 import { generateMdReport } from './utils/md-report';
+import { getAssertCommandOptionsFromArgv } from './utils/params';
+import { run } from '../../core/processing/behaviors';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',
@@ -12,16 +13,14 @@ export const assertCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "assert" as a yargs command`);
-      const cfg = getCollectCommandOptionsFromArgv(argv);
+      const cfg = getAssertCommandOptionsFromArgv(argv);
       const json = JSON.parse(readFile('./packages/cli/docs/raw/order-coffee.uf.json').toString());
-      const mdReport = generateMdReport(json);
-      console.log('md report', mdReport);
-      //  await run(cfg);
+      logVerbose('Assert options: ', cfg);
+      await run([
+        () => {
+
+        }
+      ])(cfg);
     }
   }
 };
-
-export async function run(argv: Partial<RcJson>): Promise<void> {
-  logVerbose(readBudgets());
-  return Promise.resolve();
-}
