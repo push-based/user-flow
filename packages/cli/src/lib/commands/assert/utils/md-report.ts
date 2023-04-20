@@ -87,8 +87,8 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
         const row = [];
         if(label === 'Cumulative Layout Shift') {
           return [label + '',
-            measurement === undefined ? '-' : (Math.round((parseFloat(measurement) + Number.EPSILON) * 100) / 100)+'',
-            overBudget === undefined ? '-' : (Math.round((parseFloat(overBudget) + Number.EPSILON) * 100) / 100)+''
+            measurement === undefined ? '-' : parseFloat(measurement).toFixed(2) + '---'+measurement,
+            overBudget === undefined ? '-' : parseFloat(overBudget).toFixed(2)+ '---'+overBudget,
           ]
         } else {
           return [label + '',
@@ -115,7 +115,7 @@ function getResourceSizes(resourceSizesBudget: Table | undefined): undefined | s
             [
               label+'',
               formatBytes(transferSize),
-              formatBytes(sizeOverBudget) || '-'
+              sizeOverBudget ? formatBytes(sizeOverBudget) : '-'
             ])
     ]
   }
