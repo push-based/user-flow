@@ -85,8 +85,10 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
       resultsTimingBudget.headings.map((h: any) => h.text as string),
       ...resultsTimingBudget.items.map(({label, measurement, overBudget}: any) => {
         return [label + '',
-          typeof measurement === 'object' ? (measurement as any).value + '' : measurement + ' ms'
-          , overBudget !== undefined ? `${overBudget} ms` : '-'] || []
+          overBudget === undefined ? '-' :
+          label === 'Cumulative Layout Shift' ? (Math.round((measurement + Number.EPSILON) * 100) / 100)+'' :
+            measurement + ' ms'
+        ] || []
       })
     ]
   }
@@ -105,8 +107,8 @@ function getResourceSizes(resourceSizesBudget: Table | undefined): undefined | s
           ({label, transferSize, sizeOverBudget}: any) =>
             [
               label+'',
-              formatBytes(transferSize as number)+'',
-              sizeOverBudget+'' || '-'
+              formatBytes(transferSize),
+              formatBytes(sizeOverBudget) || '-'
             ])
     ]
   }
@@ -119,14 +121,14 @@ function getResourceCounts(resourceCountsBudget: Table | undefined): undefined |
     return [
       resourceCountsBudget.headings
         .filter((i: any) => ['label', 'requestCount', 'countOverBudget'].includes(i.key))
-        .map((h: any) => h.text as string),
+        .map((h: any) => h.key === 'countOverBudget' ? 'Over Budget' : h.text as string),
       ...resourceCountsBudget.items
         .map(
           ({label, requestCount, countOverBudget}: any) =>
             [
               label+'',
               requestCount+'',
-              countOverBudget+'' || '-'
+              countOverBudget ? countOverBudget : '-'
             ])
     ]
   }
