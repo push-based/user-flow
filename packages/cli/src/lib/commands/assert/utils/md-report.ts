@@ -51,10 +51,10 @@ ${stepsTable}${NEW_LINE}
 export function getBudgetTable(reducedReport: ReducedReport, options: { heading: Hierarchy } = {heading: 3}): string {
   const performanceBudgets = reducedReport.steps
     .filter(({resourceCountsBudget, resourceSizesBudget, timingsBudget}) => resourceCountsBudget || resourceSizesBudget || timingsBudget)
-    .map(({name, resourceCountsBudget, timingsBudget}) => ({
+    .map(({name, resourceCountsBudget, resourceSizesBudget, timingsBudget}) => ({
         name,
-        resultsSizeBudget: getResourceSizes(timingsBudget),
-        resultsCountBudget: getResourceCounts(timingsBudget),
+        resultsSizeBudget: getResourceSizes(resourceSizesBudget),
+        resultsCountBudget: getResourceCounts(resourceCountsBudget),
         resultsTimingBudget: getTimings(timingsBudget)
       })
     );
