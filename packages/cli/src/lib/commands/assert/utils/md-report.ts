@@ -84,11 +84,18 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
       // [ {text: string, ...props } ]
       resultsTimingBudget.headings.map((h: any) => h.text as string),
       ...resultsTimingBudget.items.map(({label, measurement, overBudget}: any) => {
-        return [label + '',
-          measurement === undefined ? '-' :
-          label === 'Cumulative Layout Shift' ? (Math.round((parseFloat(measurement) + Number.EPSILON) * 100) / 100)+'' :
-            measurement + ' ms'
-        ] || []
+        const row = [];
+        if(label === 'Cumulative Layout Shift') {
+          return [label + '',
+            measurement === undefined ? '-' : (Math.round((parseFloat(measurement) + Number.EPSILON) * 100) / 100)+'',
+            overBudget === undefined ? '-' : (Math.round((parseFloat(overBudget) + Number.EPSILON) * 100) / 100)+''
+          ]
+        } else {
+          return [label + '',
+            measurement === undefined ? '-' : measurement + ' ms',
+            overBudget === undefined ? '-' : overBudget + ' ms'
+          ]
+        }
       })
     ]
   }
