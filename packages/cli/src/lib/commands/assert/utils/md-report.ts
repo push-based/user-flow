@@ -85,7 +85,7 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
       resultsTimingBudget.headings.map((h: any) => h.text as string),
       ...resultsTimingBudget.items.map(({label, measurement, overBudget}: any) => {
         return [label + '',
-          overBudget === undefined ? '-' :
+          measurement === undefined ? '-' :
           label === 'Cumulative Layout Shift' ? (Math.round((measurement + Number.EPSILON) * 100) / 100)+'' :
             measurement + ' ms'
         ] || []
