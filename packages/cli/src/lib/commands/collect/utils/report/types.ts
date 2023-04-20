@@ -42,8 +42,9 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resultsPerformanceBudget?: Details.Table,
-    resultsTimingBudget?: Details.Table,
+    resourceCountsBudget?: Details.Table,
+    resourceSizesBudget?: Details.Table,
+    timingsBudget?: Details.Table,
     baseline?: ReducedFlowStepResult;
   };
 

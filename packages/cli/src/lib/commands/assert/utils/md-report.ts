@@ -1,10 +1,15 @@
-import { FractionResults, GatherMode, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types';
-import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
-import { Alignment, table } from '../../../core/md/table';
-import { style } from '../../../core/md/font-style';
-import { headline, Hierarchy } from '../../../core/md/headline';
-import { NEW_LINE } from '../../../core/md/constants';
-import { details } from '../../../core/md/details';
+import {FractionResults, GatherMode, ReducedFlowStep, ReducedReport} from '../../collect/utils/report/types';
+import {enrichReducedReportWithBaseline} from '../../collect/utils/report/utils';
+import {Alignment, table} from '../../../core/md/table';
+import {style} from '../../../core/md/font-style';
+import {headline, Hierarchy} from '../../../core/md/headline';
+import {NEW_LINE} from '../../../core/md/constants';
+import {details} from '../../../core/md/details';
+import Budget from "lighthouse/types/lhr/budget";
+import TimingBudget = Budget.TimingBudget;
+import {elementAt} from "rxjs";
+import Details from "lighthouse/types/lhr/audit-details";
+import Table = Details.Table;
 
 const budgetsSymbol = '🔒'
 
@@ -19,7 +24,7 @@ ${stepsTable}${NEW_LINE}
 `;
 
   const budgetsTable = getBudgetTable(flowResult);
-  if(budgetsTable !== '') {
+  if (budgetsTable !== '') {
     md += details(`${budgetsSymbol} Budgets`, budgetsTable) + NEW_LINE;
   }
 
@@ -42,46 +47,91 @@ ${stepsTable}${NEW_LINE}
  * |  Time to Interactive   |    4745     |      -      |
  *
  */
-export function getBudgetTable(reducedReport: ReducedReport, options: {heading: Hierarchy} = {heading: 3}): string {
+
+export function getBudgetTable(reducedReport: ReducedReport, options: { heading: Hierarchy } = {heading: 3}): string {
   const performanceBudgets = reducedReport.steps
-    .filter(({ resultsPerformanceBudget, resultsTimingBudget }) => resultsPerformanceBudget || resultsTimingBudget)
-    .map(({ name, resultsPerformanceBudget, resultsTimingBudget }) => ({
+    .filter(({resourceCountsBudget, resourceSizesBudget, timingsBudget}) => resourceCountsBudget || resourceSizesBudget || timingsBudget)
+    .map(({name, resourceCountsBudget, timingsBudget}) => ({
         name,
-        resultsPerformanceBudget: resultsPerformanceBudget !== undefined ? [
-          resultsPerformanceBudget.headings
-            .map((h) => h.text as string),
-          ...resultsPerformanceBudget.items.map(
-            ({label, transferSize, requestCount, sizeOverBudget, countOverBudget}) =>
-            [
-              label,
-              requestCount,
-              formatBytes(transferSize as number),
-              sizeOverBudget ? formatBytes(sizeOverBudget as number) : '-',
-              countOverBudget || '-'
-            ] as (string|number)[]) || []
-        ] : [],
-        resultsTimingBudget: resultsTimingBudget !== undefined ? [
-          resultsTimingBudget.headings.map(h => h.text as string),
-          ...resultsTimingBudget.items.map(({label, measurement, overBudget}) =>
-            [label,
-              typeof  measurement === 'object' ? (measurement as any).value : measurement + ' ms'
-              , overBudget !== undefined ? `${overBudget} ms` : '-']) || []
-        ] : []
+        resultsSizeBudget: getResourceSizes(timingsBudget),
+        resultsCountBudget: getResourceCounts(timingsBudget),
+        resultsTimingBudget: getTimings(timingsBudget)
       })
     );
   return performanceBudgets.length ? performanceBudgets.map(b => {
     let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
-    if(b.resultsPerformanceBudget !== undefined) {
-      md += style('Resource Budget') + NEW_LINE+ NEW_LINE;
-      md += table(b.resultsPerformanceBudget) + NEW_LINE + NEW_LINE
+    if (b.resultsSizeBudget !== undefined) {
+      md += style('Resource Size Budget') + NEW_LINE + NEW_LINE;
+      md += table(b.resultsSizeBudget) + NEW_LINE + NEW_LINE
     }
-    if(b.resultsTimingBudget !== undefined) {
-      md += style('Timing Budget') + NEW_LINE+ NEW_LINE;
-      md += (b.resultsPerformanceBudget ? NEW_LINE : '') + table(b.resultsTimingBudget) + NEW_LINE;
+    if (b.resultsCountBudget !== undefined) {
+      md += style('Resource Count Budget') + NEW_LINE + NEW_LINE;
+      md += table(b.resultsCountBudget) + NEW_LINE + NEW_LINE
+    }
+    if (b.resultsTimingBudget !== undefined) {
+      md += style('Timing Budget') + NEW_LINE + NEW_LINE;
+      md += table(b.resultsTimingBudget) + NEW_LINE + NEW_LINE
     }
     return md;
   }).join(NEW_LINE) : '';
 }
+
+
+function getTimings(resultsTimingBudget: Table | undefined): undefined | string[][] {
+  if (resultsTimingBudget === undefined) {
+    return undefined
+  } else {
+    return [
+      // [ {text: string, ...props } ]
+      resultsTimingBudget.headings.map(h => h.text as string),
+      ...resultsTimingBudget.items.map(({label, measurement, overBudget}) => {
+        return [label + '',
+          typeof measurement === 'object' ? (measurement as any).value + '' : measurement + ' ms'
+          , overBudget !== undefined ? `${overBudget} ms` : '-'] || []
+      })
+    ]
+  }
+};
+
+function getResourceSizes(resourceSizesBudget: Table | undefined): undefined | string[][] {
+  if (resourceSizesBudget === undefined) {
+    return undefined
+  } else {
+    return [
+      resourceSizesBudget.headings
+        .map((h) => h.text as string),
+      ...resourceSizesBudget.items
+        .filter(({transferSize, sizeOverBudget}) => transferSize )
+        .map(
+          ({label, transferSize, sizeOverBudget}) =>
+            [
+              label+'',
+              formatBytes(transferSize as number)+'',
+              sizeOverBudget+'' || '-'
+            ])
+    ]
+  }
+}
+
+function getResourceCounts(resourceCountsBudget: Table | undefined): undefined | string[][] {
+  if (resourceCountsBudget === undefined) {
+    return undefined
+  } else {
+    return [
+      resourceCountsBudget.headings
+        .map((h) => h.text as string),
+      ...resourceCountsBudget.items
+        .map(
+          ({label, transferCount, countOverBudget}) =>
+            [
+              label+'',
+              transferCount+'',
+              countOverBudget+'' || '-'
+            ])
+    ]
+  }
+}
+
 
 
 /**
@@ -110,7 +160,7 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
   return reducedReport.steps.map((step) => {
     const results = reportCategories.map(category => extractResultsValue(step.results[category]));
     // add `budgetsSymbol` to gatherMode to indicate budgets
-    step.resultsPerformanceBudget && (step.gatherMode = step.gatherMode + ` ${budgetsSymbol}` as GatherMode);
+    step.resourceCountsBudget && (step.gatherMode = step.gatherMode + ` ${budgetsSymbol}` as GatherMode);
     return [step.name, step.gatherMode].concat(results);
   });
 }
@@ -139,7 +189,7 @@ function extractTableHead(reportCategories: string[]): string[] {
 }
 
 function extractFractionalResultValue(fractionResults: FractionResults): string {
-  const { totalWeight, numPassed, numPassableAudits } = fractionResults;
+  const {totalWeight, numPassed, numPassableAudits} = fractionResults;
   const value = numPassed + '/' + numPassableAudits;
   return totalWeight === 0 ? 'Ø ' + value : value;
 }
