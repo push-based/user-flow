@@ -87,8 +87,8 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
         const row = [];
         if(label === 'Cumulative Layout Shift') {
           return [label + '',
-            measurement === undefined ? '-' : parseFloat(measurement).toFixed(2) + '---'+measurement,
-            overBudget === undefined ? '-' : parseFloat(overBudget).toFixed(2)+ '---'+overBudget,
+            measurement === undefined ? '-' : parseFloat(measurement.value).toFixed(2),
+            overBudget === undefined ? '-' : parseFloat(overBudget).toFixed(2),
           ]
         } else {
           return [label + '',
