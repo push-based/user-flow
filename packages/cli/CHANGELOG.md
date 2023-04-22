@@ -2,6 +2,44 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.19.2](https://github.com/push-based/user-flow/compare/cli-0.19.1...cli-0.19.2) (2023-04-20)
+
+
+
+## [0.19.1](https://github.com/push-based/user-flow/compare/cli-0.19.0...cli-0.19.1) (2023-04-03)
+
+
+
+# [0.19.0](https://github.com/push-based/user-flow/compare/cli-0.18.6...cli-0.19.0) (2023-03-06)
+
+
+### Features
+
+* add budget derivation from lhr to process ([446ec19](https://github.com/push-based/user-flow/commit/446ec199ee9b11d02b2f54d0d7e0d848b9a037d6))
+* add budgets form lhr derivation logic and tests ([66ef9b8](https://github.com/push-based/user-flow/commit/66ef9b87531a996d276fc5b4983cd618a49d2cd9))
+* add budgets generation logic ([4948796](https://github.com/push-based/user-flow/commit/49487960464eaaf049caaa065094e19461fd6947))
+* add cli param and logic ([9204559](https://github.com/push-based/user-flow/commit/9204559117547f5ae66b30debd8f4d31dd0ad414))
+* add lhr param for budgets derivation to cli ([b7bce32](https://github.com/push-based/user-flow/commit/b7bce32f61e37bfcf18ced3c2a419f2477993b50))
+* smart new defaults ([8497c00](https://github.com/push-based/user-flow/commit/8497c00453640d1f9429555ed7754b285af6e96f))
+
+
+
+## [0.18.6](https://github.com/push-based/user-flow/compare/cli-0.18.5...cli-0.18.6) (2023-02-15)
+
+
+
+## [0.18.5](https://github.com/push-based/user-flow/compare/cli-0.18.4...cli-0.18.5) (2023-02-15)
+
+
+
+## [0.18.4](https://github.com/push-based/user-flow/compare/cli-0.18.3...cli-0.18.4) (2023-02-15)
+
+
+
+## [0.18.3](https://github.com/push-based/user-flow/compare/cli-0.18.2...cli-0.18.3) (2023-02-14)
+
+
+
 ## [0.18.2](https://github.com/push-based/user-flow/compare/cli-0.18.1...cli-0.18.2) (2023-02-12)
 
 

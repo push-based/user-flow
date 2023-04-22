@@ -1,0 +1,24 @@
+[
+  {
+    "resourceSizes": [
+      {
+        "resourceType": "script",
+        "budget": 300
+      },
+      {
+        "resourceType": "stylesheet",
+        "budget": 100
+      }
+    ],
+    "timings": [
+      {
+        "metric": "cumulative-layout-shift",
+        "budget": 0.25
+      },
+      {
+        "metric": "largest-contentful-paint",
+        "budget": 2500
+      }
+    ]
+  }
+]

@@ -7,7 +7,9 @@ Even harder is it to keep it that way.
 
 At the moment budgets are only supported for "Navigation". "Timespan" and "Snapshot" measures are not supported by user flows directly. 
 
-![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164580628-967f169e-f4ee-4aca-9cb4-bd9a787b8762.PNG)
+| HTML | MARKDOWN |
+| :--: | :------: |
+|  ![img-budgets-mode-support-html](https://user-images.githubusercontent.com/10064416/219039874-0f10d7fe-620a-4d61-9b4d-f7fb2f0252d0.png) |    ![md-budget](https://user-images.githubusercontent.com/10064416/219039911-f42c72f2-8e11-402a-a402-199099cd1bd2.png) |
 
 **Budget Structure**
 The CLI follows exactly the same budget structure as lighthouse. 
@@ -19,6 +21,10 @@ _Schema JSON validation in IDE_
 ![budgets-json-validation](https://user-images.githubusercontent.com/10064416/164541563-57379716-ec88-423b-9e5d-bd10d0c4a78d.PNG)
 
 ## Setup budgets in RC file
+
+Run `npx user-flow init --generateBudgets` to generate a budgets file automatically.
+
+To set it up manually follow the folllowing steps:
 
 1. Create a `budget.json` file and paste the following content:  
 
@@ -68,14 +74,14 @@ _Schema JSON validation in IDE_
   }
 }
 ```
-You can also paste the whole configuration directly as array:
+You can also paste the whole configuration directly as array with `budgets`:
 
 **./my-app-user-flows/.user-flowrc.json**
 ```json
 {
   ...
   "assert": {
-    "budgetPath": [...]
+    "budgets": [...]
   }
 }
 ```

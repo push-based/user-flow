@@ -55,8 +55,7 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
     headless: false,
     // hack for dryRun => should get fixed inside user flow in future
     defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
-  } as any;
-  // @TODO consider CI vs dev mode => headless, openReport, persist etc
+  } as LaunchOptions;
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
   if (cliMode !== 'DEFAULT' && launchOptions) {
@@ -65,5 +64,5 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
     (launchOptions as any).headless = headlessMode;
   }
 
-  return launchOptions as any;
+  return launchOptions;
 }
