@@ -6,7 +6,6 @@ export {
   UserFlowInteractionsFn,
   UserFlowContext,
   UserFlowProvider,
-  LhConfigJson,
   ReportFormat
 } from '@push-based/user-flow';
 

@@ -8,7 +8,6 @@ import {
   getEnvPreset,
   GlobalOptionsArgv,
   InitCommandArgv,
-  LhConfigJson,
   RcJson,
   ReportFormat
 } from '@push-based/user-flow';
@@ -18,6 +17,7 @@ import { kill } from './utils/kill';
 import { UserFlowProjectConfig } from './types';
 import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
 import { DEFAULT_RC_NAME, LH_CONFIG_NAME_DEFAULT, LH_NAVIGATION_BUDGETS_NAME_DEFAULT } from './constants';
+import LhConfigJson from 'lighthouse/types/config'
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
