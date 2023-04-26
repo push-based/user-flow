@@ -1,6 +1,6 @@
-import { ArgvPreset } from './types';
-import { detectCliMode } from './global/cli-mode/cli-mode';
-import { DEFAULT_FULL_RC_PATH } from './constants';
+import { ArgvPreset } from './types.js';
+import { detectCliMode } from './global/cli-mode/cli-mode.js';
+import { DEFAULT_FULL_RC_PATH } from './constants.js';
 
 export const DEFAULT_PRESET: ArgvPreset = {
   // GLOBAL

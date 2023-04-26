@@ -1,6 +1,8 @@
-import { argv, Options } from 'yargs';
-import { Param } from './outPath.model';
-import { ArgvOption } from '../../../core/yargs/types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const yargs = _yargs(hideBin(process.argv));
+import { Param } from './outPath.model.js';
+import { ArgvOption } from '../../../core/yargs/types.js';
 
 export const param: Param = {
   outPath: {
@@ -11,6 +13,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { outPath } = argv as any as ArgvOption<Param>;
-  return outPath;
+  const { outPath } = yargs.argv as any as ArgvOption<Param>;
+  return outPath as string;
 }

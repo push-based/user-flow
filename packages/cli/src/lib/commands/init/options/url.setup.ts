@@ -1,8 +1,8 @@
-import { get as interactive } from '../../../global/options/interactive';
-import { DEFAULT_COLLECT_URL, ERROR_COLLECT_URL_REQUIRED, PROMPT_COLLECT_URL } from '../../collect/options/url.constant';
-import { promptParam } from '../../../core/prompt';
-import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { RcJson } from '../../../types';
+import { get as interactive } from '../../../global/options/interactive.js';
+import { DEFAULT_COLLECT_URL, ERROR_COLLECT_URL_REQUIRED, PROMPT_COLLECT_URL } from '../../collect/options/url.constant.js';
+import { promptParam } from '../../../core/prompt.js';
+import { applyValidations, hasError, VALIDATORS } from '../../../core/validation/index.js';
+import { RcJson } from '../../../types.js';
 
 export async function setupUrl(
   config: RcJson

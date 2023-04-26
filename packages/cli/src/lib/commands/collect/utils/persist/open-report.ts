@@ -1,8 +1,8 @@
-import { get as dryRun } from '../../../../commands/collect/options/dryRun';
-import { get as openReport } from '../../options/openReport';
-import { get as interactive } from '../../../../global/options/interactive';
-import { logVerbose } from '../../../../core/loggin';
-import * as openFileInBrowser from 'open';
+import { get as dryRun } from '../../../../commands/collect/options/dryRun.js';
+import { get as openReport } from '../../options/openReport.js';
+import { get as interactive } from '../../../../global/options/interactive.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import openFileInBrowser from 'open';
 
 export async function openFlowReport(fileNames: string[]): Promise<void> {
   // open report if requested and not in executed in CI

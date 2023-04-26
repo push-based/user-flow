@@ -1,4 +1,4 @@
-import { formatCode } from '../prettier';
+import { formatCode } from '../prettier/index.js';
 
 export type Alignment = 'l' | 'c' | 'r';
 const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r', '--:']]);

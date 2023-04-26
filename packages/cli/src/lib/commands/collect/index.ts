@@ -1,12 +1,12 @@
-import { YargsCommandObject } from '../../core/yargs/types';
-import { logVerbose } from '../../core/loggin/index';
-import { COLLECT_OPTIONS } from './options';
-import { startServerIfNeededAndExecute } from './utils/serve-command';
-import { collectRcJson } from '../init/processes/collect-rc-json';
-import { run } from '../../core/processing/behaviors';
-import { collectReports } from './processes/collect-reports';
-import { RcJson } from '../../types';
-import { getCollectCommandOptionsFromArgv } from './utils/params';
+import { YargsCommandObject } from '../../core/yargs/types.js';
+import { logVerbose } from '../../core/loggin/index.js';
+import { COLLECT_OPTIONS } from './options/index.js';
+import { startServerIfNeededAndExecute } from './utils/serve-command.js';
+import { collectRcJson } from '../init/processes/collect-rc-json.js';
+import { run } from '../../core/processing/behaviors.js';
+import { collectReports } from './processes/collect-reports.js';
+import { RcJson } from '../../types.js';
+import { getCollectCommandOptionsFromArgv } from './utils/params.js';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',

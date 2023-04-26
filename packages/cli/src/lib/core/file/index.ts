@@ -1,11 +1,12 @@
 import { dirname } from 'path';
 import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
-import { logVerbose } from '../loggin';
-import { getParserFromExtname, formatCode } from '../prettier';
-import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
-import { ExtToOutPut, ResolveFileResult } from './types';
+import { logVerbose } from '../loggin/index.js';
+import { getParserFromExtname, formatCode } from '../prettier/index.js';
+import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
+import { ExtToOutPut, ResolveFileResult } from './types.js';
+import { createRequire } from "module";
 
-export {toFileName} from './to-file-name';
+export {toFileName} from './to-file-name.js';
 
 /*
 type _a = Not<undefined, undefined>;
@@ -75,6 +76,7 @@ export function writeFile(filePath: string, data: string) {
 }
 
 export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
+  const require = createRequire(import.meta.url)
   // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily

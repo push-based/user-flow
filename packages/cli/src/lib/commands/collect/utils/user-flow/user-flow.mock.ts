@@ -1,9 +1,8 @@
 import { Page } from 'puppeteer';
-import { logVerbose } from '../../../../core/loggin';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { StepOptions, UserFlowOptions } from './types';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import { StepOptions, UserFlowOptions } from './types.js';
 
-const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
+const dummyFlowResult: (cfg: UserFlowOptions) => any = (cfg: UserFlowOptions): any => {
   const config = cfg?.config || {};
   logVerbose('dummy config used:', config);
   const report = {
@@ -317,12 +316,12 @@ export class UserFlowMock {
   /**
    * @return {LH.FlowResult}
    */
-  getFlowResult(): FlowResult {
+  getFlowResult(): any {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
 
-  createFlowResult(): FlowResult {
+  createFlowResult(): any {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
@@ -377,12 +376,12 @@ export class UserFlowReportMock {
   /**
    * @return {LH.FlowResult}
    */
-  getFlowResult(): FlowResult {
+  getFlowResult(): any {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }
 
-  createFlowResult(): FlowResult {
+  createFlowResult(): any {
     logVerbose(`flow#getFlowResult`);
     return dummyFlowResult(this.cfg);
   }

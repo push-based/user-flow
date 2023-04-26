@@ -1,7 +1,9 @@
-import * as yargs from 'yargs';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const yargs = _yargs(hideBin(process.argv));
 import { Options } from 'yargs';
-import { YargsCommandObject } from './types';
-import { applyConfigMiddleware } from '../../config.middleware';
+import { YargsCommandObject } from './types.js';
+import { applyConfigMiddleware } from '../../config.middleware.js';
 
 export function setupYargs(
   commands: YargsCommandObject[],

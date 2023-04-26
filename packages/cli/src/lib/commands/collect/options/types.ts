@@ -1,12 +1,11 @@
-import { Param as OpenReport } from './openReport.model';
-import { Param as UfPath } from './ufPath.model';
-import { Param as Url } from './url.model';
-import { Param as ServeCommand } from './serveCommand.model';
-import { Param as AwaitServeStdout } from './awaitServeStdout.model';
-import { Param as OutPath } from './outPath.model';
-import { Param as Format } from './format.model';
-import { AssertArgvOptions } from '../../assert/options/types';
-import { LhConfigJson } from '../../../hacky-things/lighthouse';
+import { Param as OpenReport } from './openReport.model.js';
+import { Param as UfPath } from './ufPath.model.js';
+import { Param as Url } from './url.model.js';
+import { Param as ServeCommand } from './serveCommand.model.js';
+import { Param as AwaitServeStdout } from './awaitServeStdout.model.js';
+import { Param as OutPath } from './outPath.model.js';
+import { Param as Format } from './format.model.js';
+import { AssertArgvOptions } from '../../assert/options/types.js';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
 export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
@@ -15,7 +14,7 @@ export type CollectRcOptions = {
   url: string,
   ufPath: string,
   configPath?: string;
-  config?: LhConfigJson,
+  config?: any,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;

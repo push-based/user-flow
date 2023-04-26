@@ -1,4 +1,4 @@
-import { FlowExamples, GhWorkflowExamples, BudgetsExamples } from './types';
+import { FlowExamples, GhWorkflowExamples, BudgetsExamples } from './types.js';
 
 export const SETUP_CONFIRM_MESSAGE = 'user-flow CLI is set up now! 🎉';
 export const FlowExampleMap: Record<FlowExamples, string> = {

@@ -1,7 +1,9 @@
-import { argv } from 'yargs';
-import { Param } from './rc.model';
-import { getEnvPreset } from '../../../pre-set';
-import { GlobalOptionsArgv } from '../../options/types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const yargs = _yargs(hideBin(process.argv));
+import { Param } from './rc.model.js';
+import { getEnvPreset } from '../../../pre-set.js';
+import { GlobalOptionsArgv } from '../../options/types.js';
 
 export const param: Param = {
   rcPath: {
@@ -14,6 +16,6 @@ export const param: Param = {
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): string {
-  const { rcPath } = argv as unknown as GlobalOptionsArgv;
+  const { rcPath } = yargs.argv as unknown as GlobalOptionsArgv;
   return rcPath as string
 }

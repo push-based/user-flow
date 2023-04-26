@@ -1,25 +1,21 @@
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { log, logVerbose } from '../../../../core/loggin';
+import { log, logVerbose } from '../../../../core/loggin/index.js';
 import { join } from 'path';
-import { writeFile } from '../../../../core/file';
+import { writeFile } from '../../../../core/file/index.js';
 import { existsSync, mkdirSync } from 'fs';
-import { PersistFlowOptions } from './types';
-import { createReducedReport } from '../../../..';
-import { generateStdoutReport } from '../persist/utils';
-import { toReportName } from '../report/utils';
-import { ReducedReport } from '../report/types';
-import { generateMdReport } from '../../../assert/utils/md-report';
+import { PersistFlowOptions } from './types.js';
+import { createReducedReport } from '../../../../index.js';
+import { generateStdoutReport } from '../persist/utils.js';
+import { toReportName } from '../report/utils.js';
+import { ReducedReport } from '../report/types.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
+import { UserFlow } from 'lighthouse'
 
-export async function persistFlow(
-  flow: UserFlow,
-  { outPath, format, url }: PersistFlowOptions
-): Promise<string[]> {
+export async function persistFlow(flow: UserFlow, { outPath, format, url }: PersistFlowOptions): Promise<string[]> {
   if (!format.length) {
     format = ['stdout'];
   }
 
-  const jsonReport: FlowResult = await flow.createFlowResult();
+  const jsonReport: any = await flow.createFlowResult();
   const reducedReport: ReducedReport = createReducedReport(jsonReport);
   const results: { format: string, out: string }[] = [];
   if (format.includes('json')) {
@@ -54,7 +50,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport);
+  const fileName = toReportName(url, flow._options?.name || '', reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

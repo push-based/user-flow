@@ -1,7 +1,9 @@
-import { argv } from 'yargs';
-import { Param } from './interactive.model';
-import { ArgvOption } from '../../core/yargs/types';
-import { getEnvPreset } from '../../pre-set';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const argv = _yargs(hideBin(process.argv)).argv;
+import { Param } from './interactive.model.js';
+import { ArgvOption } from '../../core/yargs/types.js';
+import { getEnvPreset } from '../../pre-set.js';
 
 function getDefaultByCliMode(): boolean {
   return getEnvPreset().interactive as boolean;

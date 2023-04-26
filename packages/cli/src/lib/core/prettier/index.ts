@@ -1,6 +1,8 @@
-import { format as prettier, Options as PrettierOptions, resolveConfig } from 'prettier';
-import { SupportedExtname, SupportedParser } from './types';
-import { supportedExtname } from './constants';
+import prettier, { Options as PrettierOptions } from 'prettier';
+import { SupportedExtname, SupportedParser } from './types.js';
+import { supportedExtname } from './constants.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 export function getParserFromExtname(extname: SupportedExtname | string): SupportedParser {
   extname = extname[0] === '.' ? extname.slice(1, extname.length) : extname;
@@ -23,12 +25,15 @@ export function getParserFromExtname(extname: SupportedExtname | string): Suppor
  * @param code
  * @param parser
  */
+
+
 export function formatCode(
   code: string,
   parser: PrettierOptions['parser'] = 'typescript'
 ) {
-  const prettierConfig = resolveConfig.sync(__dirname);
-  return prettier(code, {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const prettierConfig = prettier.resolveConfig.sync(__dirname);
+  return prettier.format(code, {
     parser,
     ...prettierConfig
   }).trim();

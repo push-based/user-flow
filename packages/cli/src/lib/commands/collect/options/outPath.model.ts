@@ -1,6 +1,5 @@
 import { Options } from 'yargs';
-import { Modify} from '../../../core/types';
-import { YargsOptionTypeToTsType } from '../../../core/yargs/types';
+import { Modify} from '../../../core/types.js';
 
 export type Param = {
   outPath: Modify<Options, {

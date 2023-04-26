@@ -1,6 +1,8 @@
-import { argv } from 'yargs';
-import { Param } from './serveCommand.model';
-import { ArgvOption } from '../../../core/yargs/types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const yargs = _yargs(hideBin(process.argv));
+import { Param } from './serveCommand.model.js';
+import { ArgvOption } from '../../../core/yargs/types.js';
 
 // inspired by: https://github.com/GoogleChrome/lighthouse-ci/blob/main/packages/cli/src/collect/collect.js#L28-L98
 export const param: Param = {
@@ -13,6 +15,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { serveCommand } = argv as any as ArgvOption<Param>;
-  return serveCommand;
+  const { serveCommand } = yargs.argv as any as ArgvOption<Param>;
+  return serveCommand as string;
 }

@@ -1,11 +1,11 @@
-import { GlobalOptionsArgv } from './global/options/types';
+import { GlobalOptionsArgv } from './global/options/types.js';
 import {
   CollectArgvOptions,
   CollectRcOptions,
   PersistArgvOptions,
   PersistRcOptions
-} from './commands/collect/options/types';
-import { AssertArgvOptions, AssertRcOptions } from './commands/assert/options/types';
+} from './commands/collect/options/types.js';
+import { AssertArgvOptions, AssertRcOptions } from './commands/assert/options/types.js';
 
 export type ArgvPreset =
   { rcPath: GlobalOptionsArgv['rcPath'] } &

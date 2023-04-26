@@ -1,8 +1,8 @@
 import { concurrently } from 'concurrently';
-import { logVerbose } from '../../../core/loggin';
+import { logVerbose } from '../../../core/loggin/index.js';
 import { Subscription } from 'rxjs';
-import { CollectRcOptions } from '../options/types';
-import { RcJson } from '../../../types';
+import { CollectRcOptions } from '../options/types.js';
+import { RcJson } from '../../../types.js';
 
 // @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
 // I suggest a single function returning a promise.

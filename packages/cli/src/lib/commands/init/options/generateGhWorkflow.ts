@@ -1,6 +1,8 @@
-import { argv } from 'yargs';
-import { Param } from './generateGhWorkflow.model';
-import { ArgvOption } from '../../../core/yargs/types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+const argv = _yargs(hideBin(process.argv)).argv;
+import { Param } from './generateGhWorkflow.model.js';
+import { ArgvOption } from '../../../core/yargs/types.js';
 
 export const param: Param = {
   generateGhWorkflow: {
@@ -12,5 +14,5 @@ export const param: Param = {
 
 export function get(): boolean {
   const { generateGhWorkflow } = argv as any as ArgvOption<Param>;
-  return generateGhWorkflow;
+  return generateGhWorkflow as boolean;
 }

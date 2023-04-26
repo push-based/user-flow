@@ -1,15 +1,15 @@
-import { RcJson } from '../../../types';
+import { RcJson } from '../../../types.js';
 import { join } from 'path';
-import { readFile, writeFile } from '../../../core/file';
-import { log } from '../../../core/loggin';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { log } from '../../../core/loggin/index.js';
 import { mkdirSync, readdirSync } from 'fs';
-import { FlowExampleMap } from '../constants';
-import { FlowExamples } from '../types';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { askToSkip } from '../../../core/prompt';
-import { CLIProcess } from '../../../core/processing/types';
-import { logVerbose } from '../../../core/loggin';
-import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
+import { FlowExampleMap } from '../constants.js';
+import { FlowExamples } from '../types.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { askToSkip } from '../../../core/prompt.js';
+import { CLIProcess } from '../../../core/processing/types.js';
+import { logVerbose } from '../../../core/loggin/index.js';
+import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants.js';
 
 const exampleName = 'basic-navigation';
 

@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, rmSync } from 'fs';
 import { join } from 'path';
-import { handleGhWorkflowGeneration } from './generate-workflow';
-import { handleBudgetsGeneration } from './generate-lh-budgets';
+import { handleBudgetsGeneration } from './generate-lh-budgets.js';
 
 const _cwd = process.cwd();
 const packagesRoot = join(__dirname, '..', '..', '..', '..', '..', '..');
@@ -58,8 +57,7 @@ describe('generate LH budgets', () => {
     await handleBudgetsGeneration({
       generateBudgets: true,
       lhr: lhrPath
-    })
-    ({} as any);
+    })({} as any);
     expect(existsSync(expectedFilePath)).toBeTruthy();
     const result = JSON.parse(readFileSync(expectedFilePath, {encoding: 'utf8'}));
     expect(result).toStrictEqual(expectedBudgets);

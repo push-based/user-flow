@@ -1,11 +1,10 @@
-import { argv } from 'yargs';
-import { Param } from './format.model';
-import { getEnvPreset } from '../../../pre-set';
-import { PersistRcOptions } from './types';
-import { REPORT_FORMAT_VALUES } from '../constants';
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 
-// @ts-ignore
-// @ts-ignore
+import { Param } from './format.model.js';
+import { PersistRcOptions } from './types.js';
+import { REPORT_FORMAT_VALUES } from '../constants.js';
+
 export const param: Param = {
   format: {
     alias: 'f',
@@ -18,6 +17,7 @@ export const param: Param = {
 };
 
 export function get(): string[] {
-  const { format } = argv as unknown as PersistRcOptions;
+  const yarg = yargs(hideBin(process.argv));
+  const { format } = yarg.argv as unknown as PersistRcOptions;
   return format as string[];
 }

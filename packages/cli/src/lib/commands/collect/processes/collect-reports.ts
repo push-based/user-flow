@@ -1,10 +1,10 @@
-import { UserFlowProvider } from '../utils/user-flow/types';
-import { concat } from '../../../core/processing/behaviors';
-import { get as dryRun } from '../../../commands/collect/options/dryRun';
-import { collectFlow, loadFlow } from '../utils/user-flow';
-import { persistFlow } from '../utils/persist/persist-flow';
-import { openFlowReport } from '../utils/persist/open-report';
-import { RcJson } from '../../../types';
+import { UserFlowProvider } from '../utils/user-flow/types.js';
+import { concat } from '../../../core/processing/behaviors.js';
+import { get as dryRun } from '../../../commands/collect/options/dryRun.js';
+import { collectFlow, loadFlow } from '../utils/user-flow/index.js';
+import { persistFlow } from '../utils/persist/persist-flow.js';
+import { openFlowReport } from '../utils/persist/open-report.js';
+import { RcJson } from '../../../types.js';
 
 export async function collectReports(cfg: RcJson): Promise<RcJson> {
 

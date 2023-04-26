@@ -76,6 +76,13 @@
           }
         ]
       }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/cli/**/*.ts"]
+      }
     }
   },
   "tags": []

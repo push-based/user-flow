@@ -1,17 +1,16 @@
-import { UserFlowProvider } from './types';
-import { logVerbose } from '../../../../core/loggin';
+import { UserFlowProvider } from './types.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
 import * as puppeteer from 'puppeteer';
 import { Browser, LaunchOptions, Page } from 'puppeteer';
 import { normalize } from 'path';
-// @ts-ignore
-import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
-import { get as dryRun } from '../../../../commands/collect/options/dryRun';
-import { UserFlowMock } from './user-flow.mock';
-import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
-import { CollectArgvOptions } from '../../options/types';
-import { getLhConfigFromArgv, mergeLhConfig } from '../config';
-import { PersistArgvOptions } from '../../options/types';
-import { AssertRcOptions } from '../../../assert/options/types';
+import { get as dryRun } from '../../../../commands/collect/options/dryRun.js';
+import { UserFlowMock } from './user-flow.mock.js';
+import { detectCliMode } from '../../../../global/cli-mode/cli-mode.js';
+import { CollectArgvOptions } from '../../options/types.js';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config/index.js';
+import { PersistArgvOptions } from '../../options/types.js';
+import { AssertRcOptions } from '../../../assert/options/types.js';
+import { UserFlow } from 'lighthouse';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,
@@ -37,7 +36,8 @@ export async function collectFlow(
   logVerbose(`User-flow path: ${normalize(path)}`);
   let start = Date.now();
 
-  const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
+  const lighthouse = await import('lighthouse')
+  const flow: UserFlow = !dryRun() ? await lighthouse.startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions) as any as UserFlow;
 
   // run custom interactions
   await interactions({ flow, page, browser, collectOptions: cliOption });
