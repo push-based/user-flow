@@ -1,0 +1,65 @@
+{
+  "name": "plugin-user-flow",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/plugin-user-flow/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/plugin-user-flow",
+        "main": "packages/plugin-user-flow/src/index.ts",
+        "tsConfig": "packages/plugin-user-flow/tsconfig.lib.json",
+        "assets": [
+          "packages/plugin-user-flow/*.md",
+          {
+            "input": "./packages/plugin-user-flow/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/plugin-user-flow/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/plugin-user-flow",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/plugin-user-flow",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/plugin-user-flow/**/*.ts",
+          "packages/plugin-user-flow/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/plugin-user-flow/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

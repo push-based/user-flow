@@ -19,6 +19,7 @@
       "@push-based/user-flow-cli-testing": [
         "packages/user-flow-cli-testing/src/index.ts"
       ],
+      "@user-flow/plugin-user-flow": ["packages/plugin-user-flow/src/index.ts"],
       "sandbox": ["packages/sandbox/src/index.ts"],
       "test-data": ["packages/test-data/src/index.ts"],
       "user-flow-example": ["packages/user-flow-example/src/index.ts"]
