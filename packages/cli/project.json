@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/cli",
@@ -21,7 +21,7 @@
       }
     },
     "sandbox": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
         "jestConfig": "packages/cli/jest.config.ts",
@@ -29,7 +29,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
         "jestConfig": "packages/cli/jest.config.ts",
@@ -40,8 +40,7 @@
       "executor": "@jscutlery/semver:version",
       "dependsOn": [
         {
-          "target": "build",
-          "projects": "self"
+          "target": "build"
         }
       ],
       "options": {
