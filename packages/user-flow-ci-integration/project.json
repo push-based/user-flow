@@ -1,10 +1,11 @@
 {
-  "root": "packages/user-flow-ci-integration",
+  "name": "user-flow-ci-integration",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/user-flow-ci-integration/src",
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/user-flow-ci-integration/**/*.ts"]

@@ -1,23 +1,23 @@
 {
-  "extends": "nx/presets/core.json",
-  "npmScope": "user-flow",
-  "affected": {
-    "defaultBase": "origin/main"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "ZjBiNDZmMGYtZWE4Yy00ZWNjLWEyYWMtMDQzOWQxOWM5ZTg4fHJlYWQtd3JpdGU="
       }
     }
   },
+  "extends": "nx/presets/core.json",
+  "npmScope": "user-flow",
+  "affected": {
+    "defaultBase": "origin/main"
+  },
+  "cli": {
+    "defaultCollection": "@nx/workspace"
+  },
   "pluginsConfig": {
-    "@nrwl/js": {
+    "@nx/js": {
       "analyzeSourceFiles": true
     }
   },
