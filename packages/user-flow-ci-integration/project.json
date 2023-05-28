@@ -4,6 +4,14 @@
   "sourceRoot": "packages/user-flow-ci-integration/src",
   "projectType": "library",
   "targets": {
+    "e2e": {
+      "executor": "@user-flow/plugin-user-flow:user-flow",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
+        "dryRun": true
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

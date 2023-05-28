@@ -4,6 +4,7 @@
   "sourceRoot": "packages/user-flow-example/src",
   "projectType": "library",
   "targets": {
+
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

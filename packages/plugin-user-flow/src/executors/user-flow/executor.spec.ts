@@ -1,8 +1,9 @@
-import { TestExecutorSchema } from './schema';
+import { UserFlowExecutorSchema } from './schema';
 import executor from './executor';
 
-const options: TestExecutorSchema = {};
+const options: UserFlowExecutorSchema = {
 
+};
 describe('Test Executor', () => {
   it('can run', async () => {
     const output = await executor(options);

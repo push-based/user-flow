@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "title": "user-flow executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "verbose": {
+      "type": "boolean",
+      "description": "Verbose logging on/off"
+    },
+    "rcPath": {
+      "type": "string",
+      "description": "Path to `.user-flowrc.json`"
+    },
+    "interactive": {
+      "type": "boolean",
+      "description": "Prompt active"
+    },
+    "url": {
+      "type": "string"
+    },
+    "ufPath": {
+      "type": "string"
+    },
+    "configPath": {
+      "type": "string"
+    },
+    "config": {
+      "type": "string"
+    },
+    "serveCommand": {
+      "type": "string"
+    },
+    "awaitServeStdout": {
+      "type": "string"
+    },
+    "outPath": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "openReport": {
+      "type": "string"
+    },
+    "budgetPath": {
+      "type": "string"
+    },
+    "budgets": {
+      "type": "string"
+    },
+    "dryRun": {
+      "type": "boolean",
+      "description": "Enable dryRun mode"
+    }
+  },
+  "required": []
+}
