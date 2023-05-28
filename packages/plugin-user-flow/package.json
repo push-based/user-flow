@@ -1,5 +1,6 @@
 {
   "name": "@user-flow/plugin-user-flow",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "executors": "./executors.json"
 }

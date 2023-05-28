@@ -42,7 +42,8 @@
       "options": {
         "lintFilePatterns": [
           "packages/plugin-user-flow/**/*.ts",
-          "packages/plugin-user-flow/package.json"
+          "packages/plugin-user-flow/package.json",
+          "packages/plugin-user-flow/executors.json"
         ]
       }
     },
