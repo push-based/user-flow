@@ -9,7 +9,8 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
-        "dryRun": true
+        "dryRun": true,
+        "outputPath": "dist/user-flow/user-flow-ci-integration"
       }
     },
     "lint": {

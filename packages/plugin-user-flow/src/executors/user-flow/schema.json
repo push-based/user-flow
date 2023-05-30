@@ -38,6 +38,9 @@
     "outPath": {
       "type": "string"
     },
+    "outputPath": {
+      "type": "string"
+    },
     "format": {
       "type": "string"
     },
