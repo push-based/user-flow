@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Target",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "",
+      "x-prompt": "What project would you like to add your target to?"
+    },
+    "targetName": {
+      "type": "string",
+      "description": "",
+      "x-prompt": "What name would you like to use for your target?"
+    },
+    "skipPackageJson": {
+      "type": "boolean",
+      "default": false,
+      "description": "Do not add dependencies to `package.json`."
+    }
+  },
+  "required": ["targetName", "projectName"]
+}

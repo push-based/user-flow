@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "target": {
+      "factory": "./src/generators/target/generator",
+      "schema": "./src/generators/target/schema.json",
+      "description": "target generator"
+    }
+  }
+}
