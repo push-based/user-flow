@@ -8,9 +8,8 @@ import {
 
 import generator from './generator';
 import {normalizeOptions} from "./utils";
-import {addUpdatedAndDeletedFiles} from "nx/src/daemon/server/project-graph-incremental-recomputation";
 import {join} from "path";
-import {options} from "yargs";
+
 
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
@@ -51,8 +50,8 @@ describe('target generator', () => {
 
   it('should add user-flow dependency if missing', async () => {
     const opt = normalizeOptions(appTree, baseOptions);
-    const packageJson = readJson(appTree, join(opt.projectRoot, 'package.json'));
     await generator(appTree, baseOptions);
+    const packageJson = readJson(appTree, join(opt.projectRoot, 'package.json'));
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
   });
 

@@ -1,11 +1,12 @@
-# plugin-user-flow
+# Nx plugin to execute lighthouse user flows
 
-This library was generated with [Nx](https://nx.dev).
+This library maintains a set of generators, executors and helper code to integrate user flow into your tool chain.
 
-## Building
+## Add target to execute user flows
 
-Run `nx build plugin-user-flow` to build the library.
+`npx generate @push-based/user-flow-nx-plugin/plugin-user-flow:target --targetName [target-name]`
 
-## Running unit tests
 
-Run `nx test plugin-user-flow` to execute the unit tests via [Jest](https://jestjs.io).
+## Execute user flows as Nx target
+
+`npx [target-name] [project-name]`
