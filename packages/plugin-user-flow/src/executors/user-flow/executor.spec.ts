@@ -12,8 +12,8 @@ const baseOptions = {
   projectName: PROJECT_NAME,
   skipPackageJson: false,
   url: "https://coffee-cart.netlify.app/",
-  ufPath: './user-flows',
-  outputPath: join(PROJECT_NAME, '/user-flows')
+  ufPath: join('./packages', 'plugin-user-flow', 'user-flows'),
+  outputPath: join('./dist', 'user-flows', PROJECT_NAME)
 };
 
 describe('Test Executor', () => {
@@ -36,6 +36,7 @@ describe('Test Executor', () => {
         },
       }
     );
+
     writeJson(appTree, join(normalizedOptions.projectRoot, 'user-flows', 'flow.uf.ts'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
@@ -43,13 +44,13 @@ describe('Test Executor', () => {
       devDependencies: {}
     })
   });
+
   it('can run', async () => {
     const execResult = await executor(baseOptions, {} as any);
     expect(execResult.success).toBe(true);
     expect(outputContainsConfig(execResult.output, {
-      verbose: true,
       // test alias for outputPath
-      outPath: join(PROJECT_NAME, '/user-flows')
+      outPath: 'dist/user-flows/generated-test'
     })).toBe(true);
   })
 });
