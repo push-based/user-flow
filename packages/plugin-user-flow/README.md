@@ -1,12 +1,45 @@
 # Nx plugin to execute lighthouse user flows
 
-This library maintains a set of generators, executors and helper code to integrate user flow into your tool chain.
+Run generators, executors and helper code to seamlessly integrate user flow into your Nx workspace.
 
-## Add target to execute user flows
+## Quick Start
 
-`npx generate @push-based/user-flow-nx-plugin/plugin-user-flow:target --targetName [target-name]`
+1. Add `user-flow-nx-plugin` to your project. It will unlock generators, executors and migrations for a seamless DX:
 
+    ```bash
+    npm install --save-dev user-flow-nx-plugin
+    nx generate user-flow-nx-plugin:install
+    ```
+
+2. Add a target to your project and configure it.
+
+   ```sh
+   nx generate user-flow-nx-plugin:target --targetName=xyz
+   ```
+
+2.1 To test out the result before changing your code add `--dry-run` to the options
+
+## Install user flows as Nx target
+
+You can easily use the generators to setup user flows in the workspace.
+
+run:  
+`nx generate user-flow-nx-plugin:install`
+
+This should add the necessary dependencies your `package.json`.
+
+```shell
+>  NX  Generating @push-based/user-flow-nx-plugin:install
+
+Adding packages
+UPDATE package.json
+```
+
+In your workspace package json you will find the packages added.
+Now you can go and setup user-flows under a target or generate tests over the CLI.
 
 ## Execute user flows as Nx target
+
+To execute user flows you need to have a target set up as pre-condition.
 
 `npx [target-name] [project-name]`

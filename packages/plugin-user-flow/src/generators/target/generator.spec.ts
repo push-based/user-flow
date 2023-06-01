@@ -1,10 +1,5 @@
 import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
-import {
-  Tree,
-  readProjectConfiguration,
-  addProjectConfiguration,
-  readJson, updateJson, writeJson
-} from '@nrwl/devkit';
+import {addProjectConfiguration, readJson, readProjectConfiguration, Tree, updateJson} from '@nrwl/devkit';
 
 import generator from './generator';
 import {normalizeOptions} from "./utils";
@@ -35,10 +30,6 @@ describe('target generator', () => {
         },
       }
     );
-    writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
-      dependencies: {},
-      devDependencies: {}
-    })
 
   });
 

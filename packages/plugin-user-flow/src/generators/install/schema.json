@@ -4,6 +4,11 @@
   "title": "",
   "type": "object",
   "properties": {
+    "skipPackageJson": {
+      "type": "boolean",
+      "default": false,
+      "description": "Do not add dependencies to `package.json`."
+    }
   },
   "required": []
 }

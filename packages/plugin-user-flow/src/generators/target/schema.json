@@ -13,11 +13,6 @@
       "type": "string",
       "description": "",
       "x-prompt": "What name would you like to use for your target?"
-    },
-    "skipPackageJson": {
-      "type": "boolean",
-      "default": false,
-      "description": "Do not add dependencies to `package.json`."
     }
   },
   "required": ["targetName", "projectName"]
