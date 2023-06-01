@@ -1,5 +1,6 @@
 import {UserFlowExecutorSchema} from './schema';
 import executor from './executor';
+import * as process from "process";
 
 const options: UserFlowExecutorSchema = {
   outputPath: 'outputPathoutputPath'

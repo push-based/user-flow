@@ -34,13 +34,3 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
     return json;
   });
 }
-export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
-  const {projectRoot} = options
-  updateJson(tree, join(projectRoot,'package.json'), (json) => {
-    if (!json.devDependencies) {
-      json.devDependencies = {};
-    }
-    json.devDependencies['@push-based/user-flow'] = '^0.19.0';
-    return json;
-  });
-}

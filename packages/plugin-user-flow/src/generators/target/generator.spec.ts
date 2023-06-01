@@ -48,37 +48,6 @@ describe('target generator', () => {
     expect(config).toBeDefined();
   });
 
-  it('should add user-flow dependency if missing', async () => {
-    const opt = normalizeOptions(appTree, baseOptions);
-    await generator(appTree, baseOptions);
-    const packageJson = readJson(appTree, join(opt.projectRoot, 'package.json'));
-    expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
-  });
-
-  it('should update user-flow dependency if existing', async () => {
-    const opt = normalizeOptions(appTree, baseOptions);
-    updateJson(appTree, join(opt.projectRoot, 'package.json'), (json) => {
-      json.devDependencies[NPM_NAME] = '^1.0.0';
-      return json;
-    });
-    await generator(appTree, baseOptions);
-    const packageJson = readJson(appTree, join(opt.projectRoot, 'package.json'),);
-    expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
-  });
-
-  it('should not change dep version if skip option is turned on', async () => {
-    const opt = normalizeOptions(appTree, baseOptions);
-    updateJson(appTree, join(opt.projectRoot, 'package.json'), (json) => {
-      json.devDependencies[NPM_NAME] = '^1.0.0';
-      return json;
-    });
-    const oldPackageJson = readJson(appTree, join(opt.projectRoot, 'package.json'),);
-    expect(oldPackageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
-    await generator(appTree, {...baseOptions, skipPackageJson: true});
-    const packageJson = readJson(appTree, join(opt.projectRoot, 'package.json'),);
-    expect(packageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
-  });
-
   it('should add user-flow target to project.json', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     const opt = normalizeOptions(appTree, options);

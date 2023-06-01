@@ -4,6 +4,11 @@
       "factory": "./src/generators/target/generator",
       "schema": "./src/generators/target/schema.json",
       "description": "target generator"
+    },
+    "install": {
+      "factory": "./src/generators/install/generator",
+      "schema": "./src/generators/install/schema.json",
+      "description": "install generator"
     }
   }
 }
