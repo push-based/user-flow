@@ -1,9 +1,4 @@
-import {
-  UserFlowContext,
-  UserFlowInteractionsFn,
-  UserFlowProvider,
-  createUserFlowRunner
-} from '@push-based/user-flow';
+import {createUserFlowRunner, UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
 import {UserFlow as LhUserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (
