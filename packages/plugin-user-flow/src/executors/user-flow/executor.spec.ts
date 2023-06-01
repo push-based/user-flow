@@ -7,8 +7,13 @@ import {join} from "path";
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {
-  projectName: PROJECT_NAME, skipPackageJson: false, url: "https://coffee-cart.netlify.app/", ufPath: './user-flows',
-  outPath: join(PROJECT_NAME)
+  verbose: true,
+  dryRun: true,
+  projectName: PROJECT_NAME,
+  skipPackageJson: false,
+  url: "https://coffee-cart.netlify.app/",
+  ufPath: './user-flows',
+  outputPath: join(PROJECT_NAME, '/user-flows')
 };
 
 describe('Test Executor', () => {
@@ -44,10 +49,11 @@ describe('Test Executor', () => {
     expect(outputContainsConfig(execResult.output, {
       verbose: true,
       // test alias for outputPath
-      outPath: 'outputPathoutputPath'
+      outPath: join(PROJECT_NAME, '/user-flows')
     })).toBe(true);
   })
 });
+
 function outputContainsConfig(output: string, config: Record<string, unknown>): boolean {
 
   Object.entries(config).forEach(([k, v]) => {
@@ -82,7 +88,7 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
         throw new Error(`${k} handling not implemented for configuration check`);
         break;
     }
-    if(!contains) {
+    if (!contains) {
       throw new Error(`${k} not present in output ${output}`);
     }
   });
