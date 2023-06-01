@@ -8,7 +8,7 @@ import {NormalizedSchema} from "./types";
 
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
-const baseOptions = {projectName: PROJECT_NAME, skipPackageJson: false};
+const baseOptions = {projectName: PROJECT_NAME, skipPackageJson: false, url: "https://test-url.com"};
 
 
 describe('install generator', () => {
@@ -31,6 +31,7 @@ describe('install generator', () => {
         },
       }
     );
+    writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
       dependencies: {},
       devDependencies: {}
@@ -61,7 +62,6 @@ describe('install generator', () => {
   });
 
   it('should not change dep version if skip option is turned on', async () => {
-
     updateJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), (json) => {
       json.devDependencies[NPM_NAME] = '^1.0.0';
       return json;

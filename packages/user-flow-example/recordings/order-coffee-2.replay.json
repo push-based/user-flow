@@ -21,7 +21,7 @@
           "aria/Cappucino"
         ],
         [
-          "[data-test=Cappucino]"
+          ".cup:nth-child(1)"
         ]
       ],
       "offsetY": 103.6608657836914,

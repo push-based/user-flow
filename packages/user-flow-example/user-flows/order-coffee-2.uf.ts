@@ -11,7 +11,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 
   // Select coffee
-  const cappuccinoItem = '[data-test=Cappucino]';
+  const cappuccinoItem = '.cup:nth-child(1)';
   await page.waitForSelector(cappuccinoItem);
   await page.click(cappuccinoItem);
 

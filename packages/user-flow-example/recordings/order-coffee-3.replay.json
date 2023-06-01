@@ -8,7 +8,7 @@
         "stepName": "Navigate to coffee cart"
       }
     },
-    { 
+    {
       "type": "startTimespan",
       "stepOptions": {
         "stepName": "Select coffee"
@@ -22,20 +22,20 @@
           "aria/Cappucino"
         ],
         [
-          "[data-test=Cappucino]"
+          ".cup:nth-child(1)"
         ]
       ],
       "offsetY": 103.6608657836914,
       "offsetX": 133.40185546875
     },
     { "type": "endTimespan" },
-    { 
+    {
       "type": "snapshot",
       "stepOptions": {
         "stepName": "Coffee selected"
       }
     },
-    { 
+    {
       "type": "startTimespan",
       "stepOptions": {
         "stepName": "Checkout order"
@@ -87,13 +87,13 @@
       "target": "main"
     },
     { "type": "endTimespan" },
-    { 
+    {
       "type": "snapshot",
       "stepOptions": {
         "stepName": "Order checked out"
       }
     },
-    { 
+    {
       "type": "startTimespan",
       "stepOptions": {
         "stepName": "Submit order"
@@ -114,7 +114,7 @@
       "offsetX": 48.359375
     },
     { "type": "endTimespan" },
-    { 
+    {
       "type": "snapshot",
       "stepOptions": {
         "stepName": "Order submitted"

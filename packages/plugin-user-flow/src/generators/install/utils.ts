@@ -14,8 +14,9 @@ export function normalizeOptions(tree: Tree, options?: InstallGeneratorSchema): 
     projectRoot
   };
 }
-export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
-  updateJson(tree, join('package.json'), (json) => {
+
+export function updateDependencies(tree: Tree, options: NormalizedSchema) {
+  updateJson(tree, join(options.projectRoot, 'package.json'), (json) => {
     if (!json.devDependencies) {
       json.devDependencies = {};
     }

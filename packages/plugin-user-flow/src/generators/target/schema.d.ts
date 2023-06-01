@@ -1,7 +1,7 @@
 export interface TargetGeneratorSchema {
   projectName: string;
-  targetName?: string;
   url: string;
+  targetName?: string;
   skipPackageJson?: boolean;
   verbose?: boolean;
 }

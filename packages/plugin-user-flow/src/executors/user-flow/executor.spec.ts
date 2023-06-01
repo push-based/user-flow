@@ -1,18 +1,51 @@
-import {UserFlowExecutorSchema} from './schema';
 import executor from './executor';
-import * as process from "process";
+import {createTreeWithEmptyWorkspace} from "@nrwl/devkit/testing";
+import {normalizeOptions} from "../../generators/target/utils";
+import {addProjectConfiguration, Tree, writeJson} from "@nrwl/devkit";
+import {join} from "path";
 
-const options: UserFlowExecutorSchema = {
-  outputPath: 'outputPathoutputPath'
+const NPM_NAME = '@push-based/user-flow';
+const PROJECT_NAME = 'generated-test';
+const baseOptions = {
+  projectName: PROJECT_NAME, skipPackageJson: false, url: "https://coffee-cart.netlify.app/", ufPath: './user-flows',
+  outPath: join(PROJECT_NAME)
 };
+
 describe('Test Executor', () => {
+  let appTree: Tree;
+  let normalizedOptions;
+  beforeEach(() => {
+    appTree = createTreeWithEmptyWorkspace({layout: 'apps-libs'});
+    normalizedOptions = normalizeOptions(appTree, baseOptions);
+    addProjectConfiguration(
+      appTree,
+      PROJECT_NAME,
+      {
+        root: normalizedOptions.projectRoot,
+        projectType: 'library',
+        sourceRoot: `${normalizedOptions.projectRoot}/src`,
+        targets: {
+          build: {
+            executor: "@user-flow/plugin-user-flow:build",
+          },
+        },
+      }
+    );
+    writeJson(appTree, join(normalizedOptions.projectRoot, 'user-flows', 'flow.uf.ts'), {});
+    writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
+    writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
+      dependencies: {},
+      devDependencies: {}
+    })
+  });
   it('can run', async () => {
-    const execResult = await executor(options, {} as any);
+    const execResult = await executor(baseOptions, {} as any);
     expect(execResult.success).toBe(true);
     expect(outputContainsConfig(execResult.output, {
       verbose: true,
       // test alias for outputPath
-      outPath: 'outputPathoutputPath'})).toBe(true);
+      outPath: 'outputPathoutputPath'
+    })).toBe(true);
   })
 });
 function outputContainsConfig(output: string, config: Record<string, unknown>): boolean {

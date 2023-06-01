@@ -21,7 +21,6 @@
         "{options.outputPath}"
       ],
       "options": {
-        "tsConfig": "packages/user-flow-example/tsconfig.ux-e2e.json",
         "url": "https://coffee-cart.netlify.app/",
         "rcPath": "packages/user-flow-example/.user-flowrc.json",
         "ufPath": "packages/user-flow-example/user-flows",

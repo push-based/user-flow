@@ -23,8 +23,8 @@ export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
     writeJson(tree, join(projectRoot, '.user-flowrc.json'), {});
   } else {
     const {collect, persist, assert} = existing;
-    const {ufPath, url, ...restC} = collect;
-    const {format, outPath, ...restP} = persist;
+    const {ufPath, url, ...restC} = collect || {};
+    const {format, outPath, ...restP} = persist || {};
     writeJson(tree, join(projectRoot, '.user-flowrc.json'), {
       collect: restC,
       persist: restP,

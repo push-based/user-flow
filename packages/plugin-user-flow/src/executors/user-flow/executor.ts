@@ -6,7 +6,7 @@ import {CLI_MODES} from "@push-based/user-flow";
 import {logger} from "@nrwl/devkit";
 
 
-export default async function runExecutor(options: UserFlowExecutorSchema, context?: ExecutorContext & { projectName: string }) {
+export default async function runExecutor(options: UserFlowExecutorSchema, context?: ExecutorContext & UserFlowExecutorSchema) {
   options.interactive = options.interactive !== undefined;
   const verbose = !!options.verbose;
 
