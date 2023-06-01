@@ -19,7 +19,7 @@ Run generators, executors and helper code to seamlessly integrate user flow into
 
 2.1 To test out the result before changing your code add `--dry-run` to the options
 
-## Install user flows as Nx target
+## Install user flows in your Nx workspace
 
 You can easily use the generators to setup user flows in the workspace.
 
@@ -37,6 +37,25 @@ UPDATE package.json
 
 In your workspace package json you will find the packages added.
 Now you can go and setup user-flows under a target or generate tests over the CLI.
+
+## Add a target to execute user flows in a project
+
+You have to add a target over the generator to be able to execute user-flows.
+
+run:  
+`nx generate user-flow-nx-plugin:target e2e`
+
+This should add the new target to your `project.json`.
+
+```shell
+>  NX  Generating @push-based/user-flow-nx-plugin:target [target-name-here]
+
+? What project would you like to add your target to? …
+project-name
+
+Adding target e2e to project user-flow-cli-testing
+UPDATE packages/user-flow-cli-testing/project.json
+```
 
 ## Execute user flows as Nx target
 
