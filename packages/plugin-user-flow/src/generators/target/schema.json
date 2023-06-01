@@ -17,6 +17,12 @@
       "type": "string",
       "description": "",
       "x-prompt": "What project would you like to add your target to?"
+    },
+    "url": {
+      "type": "string",
+      "description": "Target URL",
+      "default": "https://coffee-cart.netlify.app/",
+      "x-prompt": "What URL you want to target?"
     }
   },
   "required": ["targetName", "projectName"]

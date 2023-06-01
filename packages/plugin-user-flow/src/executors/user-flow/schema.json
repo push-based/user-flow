@@ -11,11 +11,11 @@
     },
     "url": {
       "type": "string",
-      "description": "URL to analyze"
+      "description": "Target URL"
     },
     "cliMode": {
       "type": "string",
-      "description": "DEFAULT | SANDBOX | CI"
+      "description": "CLI mode for execution of user-flows. This is useful when you debug or write tests. (DEFAULT | SANDBOX | CI)"
     },
     "rcPath": {
       "type": "string",

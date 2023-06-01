@@ -12,7 +12,7 @@ export default async function runExecutor(options: UserFlowExecutorSchema, conte
 
   handleCliMode(options.cliMode, verbose);
   verbose && console.log('Executor ran for user-flow', options);
-  const cliArgs = ['npx @push-based/user-flow collect -v'].concat(processParamsToParamsArray(options as any)).join(' ');
+  const cliArgs = ['npx @push-based/user-flow collect'].concat(processParamsToParamsArray(options as any)).join(' ');
 
   verbose && console.log('Execute: ', cliArgs);
   const output = execSync(cliArgs).toString();

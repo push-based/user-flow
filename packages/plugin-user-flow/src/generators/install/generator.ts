@@ -12,5 +12,6 @@ export default async function (tree: Tree, options: InstallGeneratorSchema) {
   } else {
     logger.log('Skip adding packages');
   }
+
   await formatFiles(tree);
 }
