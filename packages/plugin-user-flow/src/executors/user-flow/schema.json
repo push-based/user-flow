@@ -9,6 +9,14 @@
       "type": "boolean",
       "description": "Verbose logging on/off"
     },
+    "url": {
+      "type": "string",
+      "description": "URL to analyze"
+    },
+    "cliMode": {
+      "type": "string",
+      "description": "DEFAULT | SANDBOX | CI"
+    },
     "rcPath": {
       "type": "string",
       "description": "Path to `.user-flowrc.json`"
@@ -17,46 +25,53 @@
       "type": "boolean",
       "description": "Prompt active"
     },
-    "url": {
-      "type": "string"
-    },
     "ufPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`) "
     },
     "configPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Path to the lighthouse `config.json` file"
     },
     "config": {
       "type": "string"
     },
     "serveCommand": {
-      "type": "string"
+      "type": "string",
+      "description": "Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`"
     },
     "awaitServeStdout": {
-      "type": "string"
+      "type": "string",
+      "description": "Waits for stdout from the serve command to start collecting user-flows ()"
     },
     "outPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Output folder for the user-flow reports"
     },
     "outputPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Output folder for the user-flow reports"
     },
     "format": {
-      "type": "string"
+      "type": "string",
+      "description": "Format of the creates reports ( `html`, `json`, `md`, `stdout`)"
     },
     "openReport": {
-      "type": "string"
+      "type": "string",
+      "description": "Opens file automatically after the user-flow is captured"
     },
     "budgetPath": {
-      "type": "string"
-    },
-    "budgets": {
-      "type": "string"
+      "type": "string",
+      "description": "Path to the lighthouse `budget.json` file"
     },
     "dryRun": {
       "type": "boolean",
-      "description": "Enable dryRun mode"
+      "description": "When true the user-flow test will get executed without measures (for fast development)"
     }
   },
-  "required": []
+  "required": [
+    "ufPath",
+    "outputPath",
+    "rcPath"
+  ]
 }

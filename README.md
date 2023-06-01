@@ -210,18 +210,18 @@ Run command over:
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
-|  Option                            |  Type     | Default                | Description                                                                                              |  
-| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
-| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                           |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
-| **`-c`**, **`--configPath`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
-| **`-b`**, **`--budgetPath`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
-| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`  |  
-| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
-| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                                                           |  
-| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
-| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                              |  
-| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                   |  
+| Option                             | Type      | Default                | Description                                                                                             |  
+|------------------------------------|-----------|------------------------|---------------------------------------------------------------------------------------------------------|  
+| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                          |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)             |  
+| **`-c`**, **`--configPath`**       | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                               |  
+| **`-b`**, **`--budgetPath`**       | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                               |  
+| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout` |  
+| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                  |  
+| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                         |  
+| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                 |  
+| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens file automatically after the user-flow is captured                                                |  
+| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                  |  
 
 > **💡 Pro Tip:**
 > CLI arguments that accept multiple values can be set by using the param multiple times in a row:

@@ -9,15 +9,29 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
-        "dryRun": true,
         "outputPath": "dist/user-flow/user-flow-ci-integration"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/user-flow-ci-integration/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/user-flow-ci-integration/**/*.ts"
+        ]
+      }
+    },
+    "ux-e2e": {
+      "executor": "@user-flow/plugin-user-flow:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
+        "outputPath": "dist/user-flow/user-flow-ci-integration",
+        "cliMode": "DEFAULT"
       }
     }
   },

@@ -28,7 +28,7 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
       "outputs": ["{options.outputPath}"],
       "options": {
         "rcPath": `${projectRoot}/.user-flowrc.json`,
-        "dryRun": true,
+        "ufPath": `${projectRoot}/user-flows`,
         "outputPath": `dist/user-flow/${projectName}`
       }
     };
