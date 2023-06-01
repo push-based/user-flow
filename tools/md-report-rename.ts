@@ -1,9 +1,8 @@
-import { readdirSync, writeFileSync, readFileSync } from 'fs';
-import { join } from 'path';
-import { readFile } from '../dist/packages/cli/src/lib/core/file';
+import {readdirSync, readFileSync, writeFileSync} from 'fs';
+import {join} from 'path';
 
 console.log(`Reame results for comment action`);
-const path = 'packages/user-flow-ci-integration/measures';
+const path = 'dist/user-flow/user-flow-ci-integration';
 const reportPath = readdirSync(path)[0];
 if (!reportPath) {
   throw new Error('Report file not found');

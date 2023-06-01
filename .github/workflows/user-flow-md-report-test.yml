@@ -29,4 +29,4 @@ jobs:
         with:
           hide_and_recreate: true
           header: md-report-test
-          path: ./packages/user-flow-ci-integration/measures/md-report.md
+          path: ./dist/user-flow/user-flow-ci-integration/measures/md-report.md

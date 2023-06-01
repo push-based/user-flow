@@ -1,4 +1,4 @@
-import {getWorkspaceLayout, logger, Tree, updateJson, writeJson} from "@nrwl/devkit";
+import {getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson} from "@nrwl/devkit";
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
@@ -18,10 +18,19 @@ export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): N
 export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
   const {projectName, targetName, projectRoot, verbose} = cfg;
   logger.log(`Adding .user-flowrc.json to project`);
-  writeJson(tree, join(projectRoot, '.user-flowrc.json'), {
-    collect: {},
-    persist: {}
-  });
+  const existing = readJson(tree, join(projectRoot, '.user-flowrc.json'));
+  if (!existing) {
+    writeJson(tree, join(projectRoot, '.user-flowrc.json'), {});
+  } else {
+    const {collect, persist, assert} = existing;
+    const {ufPath, url, ...restC} = collect;
+    const {format, outPath, ...restP} = persist;
+    writeJson(tree, join(projectRoot, '.user-flowrc.json'), {
+      collect: restC,
+      persist: restP,
+      assert: assert,
+    });
+  }
 }
 
 export function addTarget(tree: Tree, cfg: NormalizedSchema) {
