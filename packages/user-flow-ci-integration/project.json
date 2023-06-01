@@ -14,6 +14,21 @@
           "packages/user-flow-ci-integration/**/*.ts"
         ]
       }
+    },
+    "ux-e2e": {
+      "executor": "@user-flow/plugin-user-flow:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "https://coffee-cart.netlify.app/",
+        "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
+        "ufPath": "packages/user-flow-ci-integration/user-flows",
+        "outputPath": "dist/user-flow/user-flow-ci-integration",
+        "format": [
+          "md"
+        ]
+      }
     }
   },
   "tags": []

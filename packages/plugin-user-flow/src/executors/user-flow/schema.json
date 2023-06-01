@@ -53,7 +53,7 @@
       "description": "Output folder for the user-flow reports"
     },
     "format": {
-      "type": "string",
+      "type": "array",
       "description": "Format of the creates reports ( `html`, `json`, `md`, `stdout`)"
     },
     "openReport": {
