@@ -1,7 +1,5 @@
 {
   "collect": {
-    "url": "https://coffee-cart.netlify.app/",
-    "ufPath": "./packages/user-flow-ci-integration/user-flows",
     "budgets": [
       {
         "resourceCounts": [
@@ -73,10 +71,5 @@
       }
     ]
   },
-  "persist": {
-    "outPath": "./packages/user-flow-ci-integration/measures",
-    "format": [
-      "md"
-    ]
-  }
+  "persist": {}
 }
