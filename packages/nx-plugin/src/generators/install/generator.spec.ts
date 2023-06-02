@@ -26,7 +26,7 @@ describe('install generator', () => {
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
           build: {
-            executor: "@user-flow/plugin-user-flow:build",
+            executor: "@push-based/user-flow/nx-plugin:build",
           },
         },
       }

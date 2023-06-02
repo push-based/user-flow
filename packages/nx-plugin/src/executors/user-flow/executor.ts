@@ -43,7 +43,7 @@ export function processParamsToParamsArray(params: Record<string, string | boole
   }) as string[];
 }
 
-function handleCliMode(cliMode: CLI_MODES = 'DEFAULT', verbose: boolean = false): void {
+function handleCliMode(cliMode: CLI_MODES = 'DEFAULT', verbose = false): void {
   const CI_PROPERTY = 'CI';
   switch (cliMode) {
     case "DEFAULT":

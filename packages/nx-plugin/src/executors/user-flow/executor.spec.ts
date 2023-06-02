@@ -12,7 +12,7 @@ const baseOptions = {
   projectName: PROJECT_NAME,
   skipPackageJson: false,
   url: "https://coffee-cart.netlify.app/",
-  ufPath: join('./packages', 'plugin-user-flow', 'user-flows'),
+  ufPath: join('./packages', 'nx-plugin', 'user-flows'),
   outputPath: join('./dist', 'user-flows', PROJECT_NAME)
 };
 
@@ -31,7 +31,7 @@ describe('Test Executor', () => {
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
           build: {
-            executor: "@user-flow/plugin-user-flow:build",
+            executor: "@push-based/user-flow/nx-plugin:build",
           },
         },
       }

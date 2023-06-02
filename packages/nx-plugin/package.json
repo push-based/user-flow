@@ -1,5 +1,5 @@
 {
-  "name": "@user-flow/plugin-user-flow",
+  "name": "@push-based/user-flow/nx-plugin",
   "version": "0.0.1",
   "type": "commonjs",
   "executors": "./executors.json",

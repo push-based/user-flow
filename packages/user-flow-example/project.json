@@ -16,7 +16,7 @@
       }
     },
     "ux-e2e": {
-      "executor": "@user-flow/plugin-user-flow:user-flow",
+      "executor": "@push-based/user-flow/nx-plugin:user-flow",
       "outputs": [
         "{options.outputPath}"
       ],
