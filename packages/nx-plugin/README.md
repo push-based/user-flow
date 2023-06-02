@@ -53,8 +53,8 @@ This should add the new target to your `project.json`.
 ? What project would you like to add your target to? …
 project-name
 
-Adding target e2e to project user-flow-cli-testing
-UPDATE packages/user-flow-cli-testing/project.json
+Adding target e2e to project project-name
+UPDATE packages/project-name/project.json
 ```
 
 In your workspace `project.json` you will find the target added.

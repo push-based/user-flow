@@ -30,7 +30,8 @@ In addition, it is always up-to-date with the latest Chrome DevTools features.
 - 🏃‍♀️ Measure Runtime performance
 - 🔒 [Performance budgets](https://github.com/push-based/user-flow#performance-budgets)
 - 🦮 Zero setup cost
-- 🤓 Excellent DX through `--dryRun` and friends 
+- 🤓 Excellent DX through `--dryRun` and friends
+- ⚙ Nx plugin [user-flow-nx-plugin]() to generate/execute/migrate lighthouse user flows
 - 🛸 [Advanced architecture with UFO's](https://github.com/push-based/user-flow#advanced-architecture)
 - 🔥 Write tests directly in TypeScript (we compile them live)
 - 🧠 Use best practices out of the box
@@ -294,14 +295,28 @@ See [performance-budgets](https://github.com/push-based/user-flow/blob/main/pack
 
 ## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
 
-With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as comments.
+With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as
+comments.
 
 Automatically create a workflow with:  
-`npx user-flow init --generateGhWorkflow`  
+`npx user-flow init --generateGhWorkflow`
 
 ![user-flow-gh-action-cover](https://user-images.githubusercontent.com/10064416/216605948-b8fffdda-3459-48c9-975a-75ec95544d30.png)
- 
-See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md) for more details.
+
+See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
+for more details.
+
+## [Nx workspace integration of lighthouse user flows as nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md)
+
+With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as
+comments.
+
+Automatically create a workflow with:  
+`nx g @push-based/user-flow-nx-plugin:install`
+`nx g @push-based/user-flow-nx-plugin:target e2e`
+
+See [user-flow-nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md) for
+more details.
 
 ## Examples
 
