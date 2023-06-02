@@ -308,12 +308,12 @@ for more details.
 
 ## [Nx workspace integration of lighthouse user flows as nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md)
 
-With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as
-comments.
+With just a few steps you can run your user flows in as a Nx workspace to enrich your DX with a nx-plugin.
 
-Automatically create a workflow with:  
-`nx g @push-based/user-flow-nx-plugin:install`
-`nx g @push-based/user-flow-nx-plugin:target e2e`
+Automatically generate/execute/migrate with `user-flow-nx-plugin`:
+
+- `nx g @push-based/user-flow-nx-plugin:install`
+- `nx g @push-based/user-flow-nx-plugin:target e2e`
 
 See [user-flow-nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md) for
 more details.
