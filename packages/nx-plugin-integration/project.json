@@ -1,0 +1,87 @@
+{
+  "name": "nx-plugin-integration",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/nx-plugin-integration/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/nx-plugin-integration",
+        "compiler": "babel",
+        "main": "packages/nx-plugin-integration/src/main.ts",
+        "tsConfig": "packages/nx-plugin-integration/tsconfig.app.json",
+        "webpackConfig": "packages/nx-plugin-integration/webpack.config.js",
+        "assets": [
+          "packages/nx-plugin-integration/src/favicon.ico",
+          "packages/nx-plugin-integration/src/assets"
+        ],
+        "index": "packages/nx-plugin-integration/src/index.html",
+        "baseHref": "/",
+        "styles": [
+          "packages/nx-plugin-integration/src/styles.css"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "fileReplacements": [
+            {
+              "replace": "packages/nx-plugin-integration/src/environments/environment.ts",
+              "with": "packages/nx-plugin-integration/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "options": {
+        "buildTarget": "nx-plugin-integration:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "nx-plugin-integration:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/nx-plugin-integration/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "packages/nx-plugin-integration/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}
