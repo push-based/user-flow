@@ -35,7 +35,6 @@ describe('target generator', () => {
         },
       }
     );
-    writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
   });
 
   it('should run successfully', async () => {
