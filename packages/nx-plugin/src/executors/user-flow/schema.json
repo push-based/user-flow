@@ -57,7 +57,7 @@
       "description": "Format of the creates reports ( `html`, `json`, `md`, `stdout`)"
     },
     "openReport": {
-      "type": "string",
+      "type": "boolean",
       "description": "Opens file automatically after the user-flow is captured"
     },
     "budgetPath": {
