@@ -48,7 +48,8 @@
     "serve": {
       "executor": "@nx/webpack:dev-server",
       "options": {
-        "buildTarget": "nx-plugin-integration:build"
+        "buildTarget": "nx-plugin-integration:build",
+        "port": 4010
       },
       "configurations": {
         "production": {
@@ -81,6 +82,23 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "user-flow": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "url": "http://localhost:4010",
+        "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
+        "ufPath": "packages/nx-plugin-integration/user-flows",
+        "outputPath": "dist/user-flow/packages/nx-plugin-integration",
+        "format": [
+          "md"
+        ],
+        "serveCommand": "npx run nx -- serve nx-plugin-integration",
+        "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
       }
     }
   }

@@ -7,10 +7,7 @@
     "targetName": {
       "type": "string",
       "description": "",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
+      "default": "user-flow",
       "x-prompt": "What name would you like to use for your target?"
     },
     "projectName": {

@@ -14,20 +14,6 @@
           "packages/user-flow-ci-integration/**/*.ts"
         ]
       }
-    },
-    "user-flow": {
-      "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "url": "https://coffee-cart.netlify.app/",
-        "outputPath": "./dist/user-flow/user-flow-ci-integration",
-        "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
-        "dryRun": false,
-        "openReport": false,
-        "verbose": true
-      }
     }
   },
   "tags": []
