@@ -59,7 +59,7 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "accessToken": "ZmJiNzVmMWUtMGU2Zi00NGU0LTkzODYtNzlmNzM3MTUyZTcyfHJlYWQtd3JpdGU="
+        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
       }
     }
   }
