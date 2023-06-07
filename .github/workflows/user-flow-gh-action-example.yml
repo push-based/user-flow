@@ -18,5 +18,5 @@ jobs:
       - name: run:user-flow-action
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
-          customScript: nx user-flow user-flow-ci-integration
+          customScript: npm run nx -- user-flow user-flow-ci-integration
           rcPath: packages/user-flow-ci-integration/.user-flowrc.json
