@@ -8,7 +8,6 @@ import {
   ERROR_PERSIST_OUT_PATH_REQUIRED,
   PROMPT_PERSIST_OUT_PATH
 } from '../../collect/options/outPath.constant';
-import {logVerbose} from '../../../core/loggin';
 
 export async function setupOutPath(
   config: RcJson
@@ -16,7 +15,7 @@ export async function setupOutPath(
 
   let outPath = config?.persist?.outPath;
 
-  logVerbose('config?.persist?.outPath: ', config?.persist?.outPath.toString())
+  throw new Error('config?.persist?.outPath: ' + config?.persist?.outPath.toString());
   if (interactive()) {
     outPath = await promptParam({
       message: PROMPT_PERSIST_OUT_PATH,
