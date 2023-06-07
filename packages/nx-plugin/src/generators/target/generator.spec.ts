@@ -40,14 +40,19 @@ describe('target generator', () => {
 
   it('should run successfully', async () => {
     const config = readProjectConfiguration(appTree, 'generator-test');
+
+    let projectJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
+    expect(projectJson?.targets['user-flow']).toBeUndefined();
     await generator(appTree, baseOptions);
+    projectJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(config).toBeDefined();
+    expect(projectJson?.targets['user-flow']).toBeDefined();
   });
 
   it('should add user-flow target to project.json', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     await generator(appTree, options);
-    const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'),);
+    const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(packageJson.targets[options.targetName].executor).toBe('@push-based/user-flow-nx-plugin:user-flow');
   });
 

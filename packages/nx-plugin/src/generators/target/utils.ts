@@ -2,6 +2,7 @@ import {getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson} from 
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
+import {DEFAULT_TARGET_NAME} from "../constants";
 
 export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): NormalizedSchema {
 
@@ -35,12 +36,13 @@ export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
 
 export function addTarget(tree: Tree, cfg: NormalizedSchema) {
   const {projectName, targetName, projectRoot, url} = cfg;
-  logger.log(`Adding target ${targetName} to project ${projectName}`);
+  const parsedTargetName = targetName || DEFAULT_TARGET_NAME;
+  logger.log(`Adding target ${parsedTargetName} to project ${projectName}`);
   updateJson(tree, join(projectRoot, 'project.json'), (json) => {
-    if (json.targets[targetName] !== undefined) {
-      throw new Error(`Target ${targetName} already exists`)
+    if (json.targets[parsedTargetName] !== undefined) {
+      throw new Error(`Target ${parsedTargetName} already exists`)
     }
-    json.targets[targetName] = {
+    json.targets[parsedTargetName] = {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": ["{options.outputPath}"],
       "options": {

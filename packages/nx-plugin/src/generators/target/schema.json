@@ -25,5 +25,7 @@
       "x-prompt": "What URL you want to target?"
     }
   },
-  "required": ["targetName", "projectName"]
+  "required": [
+    "projectName"
+  ]
 }
