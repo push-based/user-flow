@@ -68,5 +68,13 @@ describe('target generator', () => {
       .rejects.toThrowError(`Target ${opt.targetName} already exists`);
   });
 
+  it('should throw if user-flowrc.json already exists in project root', async () => {
+    const options = {...baseOptions, targetName: 'e2e-test'};
+    const opt = normalizeOptions(appTree, options);
+    writeJson(appTree, join(opt.projectRoot, '.user-flowrc.json'), {});
+    await expect(() => generator(appTree, options))
+      .rejects.toThrowError(`.user-flowrc.json already exists in ${opt.projectRoot}`);
+  });
+
 });
 

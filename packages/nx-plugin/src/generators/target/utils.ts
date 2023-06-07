@@ -23,14 +23,7 @@ export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
   if (!existing) {
     writeJson(tree, join(projectRoot, '.user-flowrc.json'), {});
   } else {
-    const {collect, persist, assert} = existing;
-    const {ufPath, url, ...restC} = collect || {};
-    const {format, outPath, ...restP} = persist || {};
-    writeJson(tree, join(projectRoot, '.user-flowrc.json'), {
-      collect: restC,
-      persist: restP,
-      assert: assert,
-    });
+    throw new Error(`.user-flowrc.json already exists in ${projectRoot}`);
   }
 }
 
