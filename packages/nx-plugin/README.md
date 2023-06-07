@@ -13,9 +13,15 @@ Run generators, executors and helper code to seamlessly integrate user flow into
 
 2. Add a target to your project and configure it.
 
-   ```sh
+ ```sh
+  nx generate user-flow-nx-plugin:target
+ ```
+
+optionally provide a different target name
+
+```sh
    nx generate user-flow-nx-plugin:target --targetName=xyz
-   ```
+```
 
 2.1 To test out the result before changing your code add `--dry-run` to the options
 
@@ -23,7 +29,7 @@ Run generators, executors and helper code to seamlessly integrate user flow into
 
 You can easily use the generators to setup user flows in the workspace.
 
-run:  
+run:
 `nx generate user-flow-nx-plugin:install`
 
 This should add the necessary dependencies your `package.json`.
