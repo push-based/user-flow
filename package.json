@@ -2,7 +2,7 @@
   "name": "push-based-user-flow-workspace",
   "version": "0.0.0",
   "engines": {
-    "node": "^16.19.0",
+    "node": "^16.19.0 |^18.16.0",
     "npm": "^8.19.3"
   },
   "license": "MIT",
