@@ -53,7 +53,7 @@ describe('Test Executor', () => {
   it('can run', async () => {
     const execResult = await executor(baseOptions, {} as any);
     expect(outputContainsConfig(execResult.output, {
-      // test alias for outputPath
+      // test alias for outputPath gets derived from outputPath
       outPath: 'dist/user-flows/generated-test'
     })).toBe(true);
     expect(execResult.success).toBe(true);
