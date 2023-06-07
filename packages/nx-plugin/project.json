@@ -6,6 +6,12 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "outputs": [
         "{options.outputPath}"
       ],
