@@ -20,3 +20,4 @@ jobs:
         with:
           customScript: npm run nx -- user-flow user-flow-ci-integration
           rcPath: packages/user-flow-ci-integration/.user-flowrc.json
+          outPath: dist/user-flow/user-flow-ci-integration/.user-flowrc.json
