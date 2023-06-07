@@ -34,13 +34,6 @@
         "^production"
       ]
     },
-    "sandbox": {
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ]
-    },
     "test": {
       "inputs": [
         "default",
@@ -63,7 +56,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "user-flow"
         ],
         "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
       }
