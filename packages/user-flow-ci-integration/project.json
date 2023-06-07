@@ -16,7 +16,7 @@
       }
     },
     "ux-e2e": {
-      "executor": "@push-based/user-flow/nx-plugin:user-flow",
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": [
         "{options.outputPath}"
       ],
@@ -24,6 +24,7 @@
         "url": "https://coffee-cart.netlify.app/",
         "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
         "ufPath": "packages/user-flow-ci-integration/user-flows",
+        "openReport": false,
         "outputPath": "dist/user-flow/user-flow-ci-integration",
         "format": [
           "md"
