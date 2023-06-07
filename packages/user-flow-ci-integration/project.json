@@ -22,13 +22,10 @@
       ],
       "options": {
         "url": "https://coffee-cart.netlify.app/",
+        "outputPath": "./dist/user-flow/user-flow-ci-integration",
         "rcPath": "packages/user-flow-ci-integration/.user-flowrc.json",
-        "ufPath": "packages/user-flow-ci-integration/user-flows",
-        "openReport": false,
-        "outputPath": "dist/user-flow/user-flow-ci-integration",
-        "format": [
-          "md"
-        ]
+        "dryRun": false,
+        "openReport": false
       }
     }
   },
