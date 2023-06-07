@@ -15,7 +15,6 @@ export async function setupOutPath(
 
   let outPath = config?.persist?.outPath;
 
-  throw new Error('config?.persist?.outPath: ' + config?.persist?.outPath.toString());
   if (interactive()) {
     outPath = await promptParam({
       message: PROMPT_PERSIST_OUT_PATH,

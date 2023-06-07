@@ -74,7 +74,6 @@
     ]
   },
   "persist": {
-    "outPath": "./dist/user-flow/user-flow-ci-integration",
     "format": [
       "md"
     ]
