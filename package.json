@@ -22,7 +22,8 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "md-report-test": "nx ux-e2e user-flow-ci-integration --openReport false && ts-node -P ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
+    "md-report-test": "nx ux-e2e user-flow-ci-integration && npm run md-report-build",
+    "md-report-build": "ts-node -P ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -55,6 +56,7 @@
     "@nx/plugin": "16.2.2",
     "@nx/workspace": "16.2.2",
     "@push-based/node-cli-testing": "^0.2.3",
+    "@push-based/user-flow": "^0.19.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@swc-node/register": "~1.4.2",
     "@swc/cli": "~0.1.62",
@@ -67,6 +69,7 @@
     "@typescript-eslint/parser": "5.59.7",
     "cli-prompts-test": "^0.3.0",
     "commitlint": "^16.3.0",
+    "cpx": "^1.5.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "http-server": "^14.1.1",
@@ -80,7 +83,6 @@
     "nx-cloud": "^16.0.5",
     "rimraf": "^3.0.2",
     "ts-jest": "29.1.0",
-    "typescript": "~5.0.2",
-    "@push-based/user-flow": "^0.19.0"
+    "typescript": "~5.0.2"
   }
 }
