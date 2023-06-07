@@ -45,13 +45,18 @@ describe('Test Executor', () => {
     })
   });
 
+  it('should handle errors', async () => {
+    const execResult = await executor({ }, {} as any);
+    expect(execResult.success).toBe(false);
+  });
+
   it('can run', async () => {
     const execResult = await executor(baseOptions, {} as any);
-    expect(execResult.success).toBe(true);
     expect(outputContainsConfig(execResult.output, {
       // test alias for outputPath
       outPath: 'dist/user-flows/generated-test'
     })).toBe(true);
+    expect(execResult.success).toBe(true);
   })
 });
 

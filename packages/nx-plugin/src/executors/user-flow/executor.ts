@@ -15,10 +15,20 @@ export default async function runExecutor(options: UserFlowExecutorSchema, conte
   const cliArgs = ['npx @push-based/user-flow collect'].concat(processParamsToParamsArray(options as any)).join(' ');
 
   verbose && console.log('Execute: ', cliArgs);
-  const output = execSync(cliArgs).toString();
+  let processResult;
+  let output;
+  let success = true;
+  try {
+    processResult = execSync(cliArgs)
+    output = processResult.toString()
+  }
+  catch (e) {
+    success = false;
+    output = e.toString();
+  }
   verbose && console.log('Result: ', output);
   return {
-    success: true,
+    success,
     output
   };
 }
