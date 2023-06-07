@@ -6,7 +6,10 @@ import {CLI_MODES} from "@push-based/user-flow";
 import {logger} from "@nrwl/devkit";
 
 
-export default async function runExecutor(options: UserFlowExecutorSchema, context?: ExecutorContext & UserFlowExecutorSchema) {
+export default async function runExecutor(
+  options: UserFlowExecutorSchema,
+  context?: ExecutorContext & UserFlowExecutorSchema
+): Promise<{ success: boolean, output: string }> {
   options.interactive = options.interactive !== undefined;
   const verbose = !!options.verbose;
 
@@ -15,18 +18,22 @@ export default async function runExecutor(options: UserFlowExecutorSchema, conte
   const cliArgs = ['npx @push-based/user-flow collect'].concat(processParamsToParamsArray(options as any)).join(' ');
 
   verbose && console.log('Execute: ', cliArgs);
-  let processResult;
-  let output;
-  let success = true;
+
+  let processOutput: Buffer | Error;
   try {
-    processResult = execSync(cliArgs)
-    output = processResult.toString()
+    processOutput = execSync(cliArgs);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      processOutput = error;
+    } else {
+      processOutput = new Error(String(error));
+    }
   }
-  catch (e) {
-    success = false;
-    output = e.toString();
-  }
+  const success = !(processOutput instanceof Error);
+  const output = processOutput.toString();
+
   verbose && console.log('Result: ', output);
+
   return {
     success,
     output
