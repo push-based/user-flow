@@ -1,8 +1,4 @@
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/';
 
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
@@ -15,7 +11,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 
   // Select coffee
-  const cappuccinoItem = '[data-test=Cappucino]';
+  const cappuccinoItem = '.cup:nth-child(1)';
   await page.waitForSelector(cappuccinoItem);
   await page.click(cappuccinoItem);
 

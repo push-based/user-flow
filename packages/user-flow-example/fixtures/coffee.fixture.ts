@@ -1,1 +1,1 @@
-export const cappuccinoSelector = '[data-test=Cappucino]';
+export const cappuccinoSelector = '.cup:nth-child(1)';

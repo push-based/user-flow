@@ -4,15 +4,16 @@
     {
       "type": "navigate",
       "url": "https://coffee-cart.netlify.app/",
-      "assertedEvents": [
-        {
-          "type": "navigation",
-          "url": "https://coffee-cart.netlify.app/",
-          "title": "Coffee cart"
-        }
-      ]
+      "stepOptions": {
+        "stepName": "Navigate to coffee cart"
+      }
     },
-    { "type": "startTimespan" },
+    {
+      "type": "startTimespan",
+      "stepOptions": {
+        "stepName": "Select coffee"
+      }
+    },
     {
       "type": "click",
       "target": "main",
@@ -21,15 +22,25 @@
           "aria/Cappucino"
         ],
         [
-          "[data-test=Cappucino]"
+          ".cup:nth-child(1)"
         ]
       ],
       "offsetY": 103.6608657836914,
       "offsetX": 133.40185546875
     },
     { "type": "endTimespan" },
-    { "type": "snapshot" },
-    { "type": "startTimespan" },
+    {
+      "type": "snapshot",
+      "stepOptions": {
+        "stepName": "Coffee selected"
+      }
+    },
+    {
+      "type": "startTimespan",
+      "stepOptions": {
+        "stepName": "Checkout order"
+      }
+    },
     {
       "type": "click",
       "target": "main",
@@ -76,8 +87,18 @@
       "target": "main"
     },
     { "type": "endTimespan" },
-    { "type": "snapshot" },
-    { "type": "startTimespan" },
+    {
+      "type": "snapshot",
+      "stepOptions": {
+        "stepName": "Order checked out"
+      }
+    },
+    {
+      "type": "startTimespan",
+      "stepOptions": {
+        "stepName": "Submit order"
+      }
+    },
     {
       "type": "click",
       "target": "main",
@@ -93,6 +114,11 @@
       "offsetX": 48.359375
     },
     { "type": "endTimespan" },
-    { "type": "snapshot" }
+    {
+      "type": "snapshot",
+      "stepOptions": {
+        "stepName": "Order submitted"
+      }
+    }
   ]
 }
