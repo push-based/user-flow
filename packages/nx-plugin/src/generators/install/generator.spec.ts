@@ -36,6 +36,22 @@ describe('install generator', () => {
       dependencies: {},
       devDependencies: {}
     })
+    writeJson(appTree, join(normalizedOptions.projectRoot, 'nx.json'), {
+      "extends": "nx/presets/core.json",
+      "tasksRunnerOptions": {
+        "default": {
+          "runner": "nx-cloud",
+          "options": {
+            "cacheableOperations": [
+              "build",
+              "lint",
+              "test",
+              "e2e"
+            ]
+          }
+        }
+      }
+    })
   });
 
   it('should run successfully', async () => {
@@ -71,6 +87,27 @@ describe('install generator', () => {
     await generator(appTree, {...baseOptions, skipPackageJson: true});
     const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'package.json'),);
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
+  });
+
+  it('should update nx.json cacheableOperations if tasksRunnerOptions exists', async () => {
+    let nxJson = readJson(appTree, 'nx.json');
+    expect(nxJson.tasksRunnerOptions).toBeDefined();
+    expect(nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('user-flow')).toBeFalsy();
+    await generator(appTree, baseOptions);
+    nxJson = readJson(appTree, 'nx.json');
+    expect(nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('user-flow')).toBeTruthy();
+  });
+
+  it('should not update nx.json cacheableOperations if tasksRunnerOptions not exists', async () => {
+    updateJson(appTree, 'nx.json', (json) => {
+      delete json.tasksRunnerOptions;
+      return json;
+    });
+    let nxJson = readJson(appTree, 'nx.json');
+    expect(nxJson.tasksRunnerOptions).toBeUndefined();
+    await generator(appTree, baseOptions);
+    nxJson = readJson(appTree, 'nx.json');
+    expect(nxJson.tasksRunnerOptions).toBeUndefined();
   });
 
 });
