@@ -1,8 +1,9 @@
-import { Ufo } from '../../cli/src/lib';
+import {Ufo} from '../../cli/src/lib/ufo';
 import {
   checkoutBtnSelector,
   emailInputSelector,
-  nameInputSelector, snackBarSelector,
+  nameInputSelector,
+  snackBarSelector,
   submitBtnSelector
 } from '../fixtures/checkout.fixture';
 

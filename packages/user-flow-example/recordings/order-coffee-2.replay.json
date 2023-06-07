@@ -2,15 +2,6 @@
   "title": "coffee checkout",
   "steps": [
     {
-      "type": "setViewport",
-      "width": 1920,
-      "height": 969,
-      "deviceScaleFactor": 1,
-      "isMobile": false,
-      "hasTouch": false,
-      "isLandscape": false
-    },
-    {
       "type": "navigate",
       "url": "https://coffee-cart.netlify.app/",
       "assertedEvents": [
@@ -21,6 +12,7 @@
         }
       ]
     },
+    { "type": "startTimespan" },
     {
       "type": "click",
       "target": "main",
@@ -29,12 +21,15 @@
           "aria/Cappucino"
         ],
         [
-          "[data-test=Cappucino]"
+          ".cup:nth-child(1)"
         ]
       ],
       "offsetY": 103.6608657836914,
       "offsetX": 133.40185546875
     },
+    { "type": "endTimespan" },
+    { "type": "snapshot" },
+    { "type": "startTimespan" },
     {
       "type": "click",
       "target": "main",
@@ -80,6 +75,9 @@
       ],
       "target": "main"
     },
+    { "type": "endTimespan" },
+    { "type": "snapshot" },
+    { "type": "startTimespan" },
     {
       "type": "click",
       "target": "main",
@@ -93,6 +91,8 @@
       ],
       "offsetY": 19.859375,
       "offsetX": 48.359375
-    }
+    },
+    { "type": "endTimespan" },
+    { "type": "snapshot" }
   ]
 }
