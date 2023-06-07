@@ -56,7 +56,6 @@
     "@nx/plugin": "16.2.2",
     "@nx/workspace": "16.2.2",
     "@push-based/node-cli-testing": "^0.2.3",
-    "@push-based/user-flow": "^0.19.0",
     "@rx-angular/import-graph-visualizer": "^0.2.0",
     "@swc-node/register": "~1.4.2",
     "@swc/cli": "~0.1.62",
