@@ -8,7 +8,7 @@ import {DEFAULT_TARGET_NAME} from "../constants";
 export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): NormalizedSchema {
 
   const projectName = options.projectName;
-  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectName}`;
+  const projectRoot = join(getWorkspaceLayout(tree).libsDir, projectName);
 
   return {
     ...options,
@@ -20,10 +20,18 @@ export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): N
 export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
   const {projectName, targetName, projectRoot, verbose} = cfg;
   logger.log(`Adding .user-flowrc.json to project`);
-  const existing = existsSync(join(projectRoot, '.user-flowrc.json'));
+  let existing;
+  try {
+    readJson(tree, join(projectRoot, '.user-flowrc.json'));
+    existing = true;
+  }
+  catch (e) {
+    existing = false;
+  }
   if (!existing) {
     writeJson(tree, join(projectRoot, '.user-flowrc.json'), {});
-  } else {
+  }
+  else {
     throw new Error(`.user-flowrc.json already exists in ${projectRoot}`);
   }
 }
@@ -41,9 +49,9 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
       "outputs": ["{options.outputPath}"],
       "options": {
         "url": url,
-        "rcPath": `${projectRoot}/.user-flowrc.json`,
-        "ufPath": `${projectRoot}/user-flows`,
-        "outputPath": `dist/user-flow/${projectName}`,
+        "rcPath": join(projectRoot, './user-flowrc.json'),
+        "ufPath": join(projectRoot, '/user-flows'),
+        "outputPath": join('dist', '/user-flow', projectRoot),
         "format": ["md"]
       }
     };

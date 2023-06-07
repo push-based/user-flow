@@ -28,7 +28,7 @@ describe('Test Executor', () => {
       {
         root: normalizedOptions.projectRoot,
         projectType: 'library',
-        sourceRoot: `${normalizedOptions.projectRoot}/src`,
+        sourceRoot: join(normalizedOptions.projectRoot, '/src'),
         targets: {
           build: {
             executor: "@push-based/user-flow-nx-plugin:build",
@@ -64,6 +64,7 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
       case 'url':
       case 'ufPath':
       case 'outPath':
+      case 'outputPath':
       case 'serveCommand':
       case 'awaitServeStdout':
       case 'budgetPath':

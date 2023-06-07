@@ -58,7 +58,6 @@ describe('target generator', () => {
   it('should throw if user-flow target already exists in project.json', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     const opt = normalizeOptions(appTree, options);
-    writeJson(appTree, join(opt.projectRoot, '.user-flowrc.json'), {});
     updateJson(appTree, join(opt.projectRoot, 'project.json'), (json) => {
       json.targets[opt.targetName] = '@push-based/user-flow-nx-plugin:user-flow';
       return json;
