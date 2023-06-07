@@ -14,21 +14,6 @@
           "packages/user-flow-example/**/*.ts"
         ]
       }
-    },
-    "ux-e2e": {
-      "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
-      "options": {
-        "url": "https://coffee-cart.netlify.app/",
-        "rcPath": "packages/user-flow-example/.user-flowrc.json",
-        "ufPath": "packages/user-flow-example/user-flows",
-        "outputPath": "dist/user-flow/user-flow-example",
-        "format": [
-          "md"
-        ]
-      }
     }
   },
   "tags": []
