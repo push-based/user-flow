@@ -21,7 +21,7 @@
       "@push-based/user-flow-cli-testing": [
         "packages/user-flow-cli-testing/src/index.ts"
       ],
-      "@push-based/user-flow/nx-plugin": [
+      "@push-based/user-flow-nx-plugin": [
         "packages/nx-plugin/src/index.ts"
       ],
       "sandbox": [

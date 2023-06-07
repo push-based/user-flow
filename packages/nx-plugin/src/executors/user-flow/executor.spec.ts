@@ -31,7 +31,7 @@ describe('Test Executor', () => {
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
           build: {
-            executor: "@push-based/user-flow/nx-plugin:build",
+            executor: "@push-based/user-flow-nx-plugin:build",
           },
         },
       }

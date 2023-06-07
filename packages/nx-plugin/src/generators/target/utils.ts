@@ -41,7 +41,7 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
       throw new Error(`Target ${targetName} already exists`)
     }
     json.targets[targetName] = {
-      "executor": "@push-based/user-flow/nx-plugin:user-flow",
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": ["{options.outputPath}"],
       "options": {
         "url": url,

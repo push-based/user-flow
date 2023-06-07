@@ -30,7 +30,7 @@ describe('target generator', () => {
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
           build: {
-            executor: "@push-based/user-flow/nx-plugin:build",
+            executor: "@push-based/user-flow-nx-plugin:build",
           },
         },
       }
@@ -48,7 +48,7 @@ describe('target generator', () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     await generator(appTree, options);
     const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'),);
-    expect(packageJson.targets[options.targetName].executor).toBe('@push-based/user-flow/nx-plugin:user-flow');
+    expect(packageJson.targets[options.targetName].executor).toBe('@push-based/user-flow-nx-plugin:user-flow');
   });
 
   it('should throw if user-flow target already exists in project.json', async () => {
@@ -56,7 +56,7 @@ describe('target generator', () => {
     const opt = normalizeOptions(appTree, options);
     writeJson(appTree, join(opt.projectRoot, '.user-flowrc.json'), {});
     updateJson(appTree, join(opt.projectRoot, 'project.json'), (json) => {
-      json.targets[opt.targetName] = '@push-based/user-flow/nx-plugin:user-flow';
+      json.targets[opt.targetName] = '@push-based/user-flow-nx-plugin:user-flow';
       return json;
     });
     await expect(() => generator(appTree, options))
