@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: install
-        run: npm i
+        run: npm ci
       - name: build
         run: npm run nx -- affected:build
       - name: test

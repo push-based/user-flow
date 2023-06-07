@@ -9,8 +9,14 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v2
+      - name: use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install
+        run: npm ci
       - name: run:user-flow-action
-        uses: push-based/user-flow-gh-action@v0.3.0
+        uses: push-based/user-flow-gh-action@v0.3.2
         with:
           customScript: nx user-flow user-flow-ci-integration
           rcPath: packages/user-flow-ci-integration/.user-flowrc.json
