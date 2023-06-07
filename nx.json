@@ -1,4 +1,12 @@
 {
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
+      }
+    }
+  },
   "extends": "nx/presets/core.json",
   "npmScope": "user-flow",
   "affected": {
@@ -18,7 +26,9 @@
       "{projectRoot}/**/*",
       "sharedGlobals"
     ],
-    "sharedGlobals": [],
+    "sharedGlobals": [
+      "{workspaceRoot}/babel.config.json"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -53,14 +63,20 @@
         "default",
         "{workspaceRoot}/.eslintrc.json"
       ]
+    },
+    "e2e": {
+      "inputs": [
+        "default",
+        "^production"
+      ]
     }
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
-      }
+  "generators": {
+    "@nx/web:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     }
   }
 }
