@@ -9,8 +9,6 @@ import {NormalizedSchema} from "./types";
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {projectName: PROJECT_NAME, skipPackageJson: false, url: "https://test-url.com"};
-
-
 describe('install generator', () => {
   let appTree: Tree;
   let normalizedOptions: NormalizedSchema = {} as any;
