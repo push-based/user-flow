@@ -23,6 +23,7 @@ export function updateDependencies(tree: Tree, options: NormalizedSchema) {
       json.devDependencies = {};
     }
     json.devDependencies['@push-based/user-flow'] = '^0.19.0';
+    json.devDependencies[PLUGIN_NAME] = '^0.0.0';
     return json;
   });
 }
