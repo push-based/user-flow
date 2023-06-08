@@ -77,6 +77,9 @@
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
+    },
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
     }
   }
 }

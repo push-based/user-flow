@@ -6,13 +6,11 @@
   "properties": {
     "targetName": {
       "type": "string",
-      "description": "",
-      "default": "user-flow",
-      "x-prompt": "What name would you like to use for your target?"
+      "description": ""
     },
     "projectName": {
       "type": "string",
-      "description": "",
+      "description": "Project to add the target to",
       "x-prompt": "What project would you like to add your target to?"
     },
     "url": {
