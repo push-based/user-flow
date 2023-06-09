@@ -18,4 +18,4 @@ jobs:
       - name: run:user-flow-action
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
-          rcPath: packages/user-flow-ci-integration/.user-flowrc.json
+          rcPath: packages/user-flow-gh-integration/.user-flowrc.json

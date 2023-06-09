@@ -76,7 +76,7 @@ To execute user flows you need to have a target set up as pre-condition.
 This should add the new target to your `project.json`.
 
 ```shell
-> nx run user-flow-ci-integration:ux-e2e
+> nx run user-flow-gh-integration:ux-e2e
 
  >  NX   Successfully ran target [target-name] for project [project-name]
 ```

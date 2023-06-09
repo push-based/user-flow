@@ -2,19 +2,13 @@
   "name": "push-based-user-flow-workspace",
   "version": "0.0.0",
   "engines": {
-    "node": "^16.19.0",
+    "node": "^16.19.0 | ^18.0.0",
     "npm": "^8.19.3"
   },
   "license": "MIT",
   "scripts": {
     "nx": "nx",
     "build": "nx build cli",
-    "kill": "npx kill-port 5032",
-    "updateSandboxes": "npm run test -- --testNamePattern=cli-setup",
-    "reset": "npm run build && npm run updateSandboxes",
-    "test": "nx build cli && nx test cli",
-    "publish": "nx run cli",
-    "link": "nx link cli",
     "import-graph": "npx @rx-angular/import-graph-visualizer -t packages/cli/tsconfig.lib.json",
     "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
     "@push-based/user-flow": "npm run build && npx ./dist/packages/cli",
@@ -22,7 +16,7 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "md-report-test": "npm run @push-based/user-flow -- --rcPath ./packages/user-flow-ci-integration/.user-flowrc.json --openReport false && ts-node -P ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
+    "md-report-test": "npm run @push-based/user-flow -- --rcPath ./packages/user-flow-gh-integration/.user-flowrc.json --openReport false && ts-node -P ./tools/tsconfig.tools.json ./tools/md-report-rename.ts",
     "prepare": "husky install"
   },
   "dependencies": {

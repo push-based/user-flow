@@ -1,7 +1,7 @@
 {
-  "name": "user-flow-ci-integration",
+  "name": "user-flow-gh-integration",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/user-flow-ci-integration/src",
+  "sourceRoot": "packages/user-flow-gh-integration/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -11,7 +11,7 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "packages/user-flow-ci-integration/**/*.ts"
+          "packages/user-flow-gh-integration/**/*.ts"
         ]
       }
     }
