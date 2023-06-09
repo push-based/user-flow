@@ -47,8 +47,7 @@
     "sandbox": {
       "inputs": [
         "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
+        "^production"
       ]
     },
     "test": {
