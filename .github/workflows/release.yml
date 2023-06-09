@@ -27,6 +27,7 @@ jobs:
       - name: use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
+          cache: 'npm'
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
       - name: install
