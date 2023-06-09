@@ -28,4 +28,5 @@ export { DEFAULT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.const
 export { DEFAULT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.constant';
 export { ReportFormat } from './commands/collect/options/types';
 export { createReducedReport } from './commands/collect/utils/report/utils';
-export { enrichReducedReportWithBaseline } from './commands/collect/utils/report/utils';
+export {enrichReducedReportWithBaseline} from './commands/collect/utils/report/utils';
+export {runCollectCommand} from './commands/collect/index';
