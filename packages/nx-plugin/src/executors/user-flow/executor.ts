@@ -51,11 +51,12 @@ export function processParamsToParamsArray(params: Record<string, string | boole
         key = 'outPath'
       }
       if (typeof value === 'string') {
-        return [`--${key}=${value + ''}`];
+        return [`--${key}="${value}"`];
       } else if (typeof value === 'boolean') {
-        return [`--${value ? '' : 'no-'}${key}`];
+        const noPrefix = value ? '' : 'no-';
+        return [`--${noPrefix}${key}`];
       }
-      return [`--${key}=${value + ''}`];
+      return [`--${key}="${value}"`];
     }
   }) as string[];
 }

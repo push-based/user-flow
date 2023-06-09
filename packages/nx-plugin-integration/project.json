@@ -63,6 +63,7 @@
         "{options.outputPath}"
       ],
       "options": {
+        "verbose": true,
         "url": "http://localhost:4010",
         "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
         "ufPath": "packages/nx-plugin-integration/user-flows",
