@@ -21,7 +21,3 @@ export const assertCommand: YargsCommandObject = {
   }
 };
 
-export async function run(argv: Partial<RcJson>): Promise<void> {
-  logVerbose(readBudgets());
-  return Promise.resolve();
-}
