@@ -1,5 +1,5 @@
-import { RcJson } from '../../../types';
-import { join } from 'path';
+import {RcJson} from '../../../types';
+import {join} from 'path';
 import {readFile, writeFile} from '../../../core/file';
 import {log, logVerbose} from '../../../core/loggin';
 import {mkdirSync, existsSync} from 'fs';

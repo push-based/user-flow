@@ -6,7 +6,7 @@ import {
   UserFlowCliProjectFactory,
 } from '@push-based/user-flow-cli-testing';
 import {getReportContent, INITIATED_PRJ_CFG} from 'test-data';
-import { persistFlow } from './persist-flow';
+import {persistFlow} from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { PersistFlowOptions } from './types';
 import { createReducedReport, toReportName } from '../report/utils';
@@ -67,7 +67,7 @@ const flowFileName = toReportName(
   createReducedReport(jsonReport)
 );
 const persistFlowOptions: PersistFlowOptions = {outPath: '', format: [], url};
-const flow = new UserFlowReportMock({ name: flowName });
+const flow = new UserFlowReportMock({name: flowName});
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;

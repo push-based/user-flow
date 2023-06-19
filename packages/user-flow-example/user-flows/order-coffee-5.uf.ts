@@ -22,7 +22,7 @@ const interactions: UserFlowInteractionsFn = async (
     stepName: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({ stepName: 'Select coffee' });
+  await flow.startTimespan({stepName: 'Select coffee'});
   // Select coffee
   coffeeUfo.selectCappuccino();
   await flow.endTimespan();

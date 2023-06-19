@@ -22,7 +22,7 @@ import {
 import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
 import { SERVE_COMMAND_PORT } from './data/constants';
 import { kill } from './utils/kill';
-import { UserFlowProjectConfig } from './types';
+import {UserFlowProjectConfig} from './types';
 import {getEnvVarsByCliModeAndDeleteOld} from './utils/cli-mode';
 import {
   DEFAULT_RC_NAME,

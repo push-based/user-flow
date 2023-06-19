@@ -1,7 +1,7 @@
 import { getBudgetTable, getStepsTable } from './md-report';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { getReportContent } from 'test-data';
-import { writeFileSync } from 'fs';
+import {writeFileSync} from 'fs';
 import {ReducedReport} from '../../collect/utils/report/types';
 import {
   createReducedReport,

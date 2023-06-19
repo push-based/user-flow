@@ -11,7 +11,7 @@ import {
   expectPromptsOfInitInStdout,
 } from '../../jest/expect.init';
 import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG} from 'test-data';
-import { join } from 'path';
+import {join} from 'path';
 import { existsSync } from 'fs';
 
 let emptyPrj: UserFlowCliProject;

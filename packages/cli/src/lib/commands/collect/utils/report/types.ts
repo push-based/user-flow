@@ -37,7 +37,7 @@ export type FractionResults = {
 };
 
 export type ReducedFlowStep =
-  // gatherMode
+// gatherMode
   LhrGatherModeSlice & {
   name: string;
   fetchTime: string;

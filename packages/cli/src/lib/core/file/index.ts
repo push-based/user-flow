@@ -7,7 +7,7 @@ import {
   lstatSync,
 } from 'fs';
 import {logVerbose} from '../loggin';
-import { getParserFromExtname, formatCode } from '../prettier';
+import {getParserFromExtname, formatCode} from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
 

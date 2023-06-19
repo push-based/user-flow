@@ -9,7 +9,7 @@ import {
   UserFlow,
 } from 'lighthouse/lighthouse-core/fraggle-rock/api';
 import {get as dryRun} from '../../../../commands/collect/options/dryRun';
-import { UserFlowMock } from './user-flow.mock';
+import {UserFlowMock} from './user-flow.mock';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config';

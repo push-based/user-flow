@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { UserFlowProjectConfig } from '@push-based/user-flow-cli-testing';
-import { CLI_PATH } from '../cli-bin-path';
+import {CLI_PATH} from '../cli-bin-path';
 import {SANDBOX_BASE_RC_JSON} from '../user-flowrc.base';
 import {
   BASIC_NAVIGATION_USERFLOW_CONTENT,

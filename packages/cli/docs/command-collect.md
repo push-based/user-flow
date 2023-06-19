@@ -227,9 +227,10 @@ This param is usefule while developing or debugging a user flow.
 It skips the real measurements and fakes them with mock reports.
 
 | Option | Type | Default |
-| ------------------------ | --------- | ------- | -------------------------------------------------------------------------------------- |
-| **`-d`**, **`--dryRun`** | `boolean` | `false` | When true the user-flow test will get executed without measures (for
-fast development) |
+| ------------------------ | --------- | ------- | -------------------------------------------------------------------- |
+| **`-d`**, **`--dryRun`** | `boolean` | `false` | When true the user-flow test will get executed without measures (
+for |
+| fast development)        |
 
 **Execution:**
 

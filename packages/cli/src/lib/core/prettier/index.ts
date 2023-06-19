@@ -4,7 +4,7 @@ import {
   resolveConfig,
 } from 'prettier';
 import {SupportedExtname, SupportedParser} from './types';
-import { supportedExtname } from './constants';
+import {supportedExtname} from './constants';
 
 export function getParserFromExtname(
   extname: SupportedExtname | string

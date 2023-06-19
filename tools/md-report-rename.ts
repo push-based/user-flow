@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync, readFileSync } from 'fs';
-import { join } from 'path';
+import {join} from 'path';
 import {readFile} from '../dist/packages/cli/src/lib/core/file';
 
 console.log(`Reame results for comment action`);
