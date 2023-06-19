@@ -1,4 +1,4 @@
-import {getWorkspaceLayout, Tree, updateJson} from "@nrwl/devkit";
+import { getWorkspaceLayout, readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit';
 import {join} from "path";
 import {NormalizedSchema} from "./types";
 import {InitGeneratorSchema} from "./schema";
@@ -8,7 +8,7 @@ import {DEFAULT_TARGET_NAME} from "../target/constants";
 export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): NormalizedSchema {
 
   const projectName = options.projectName;
-  const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectName}`;
+  const projectRoot = readProjectConfiguration(tree, options.projectName).root;
 
   return {
     ...options,
@@ -17,8 +17,8 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
   };
 }
 
-export function updateDependencies(tree: Tree, options: NormalizedSchema) {
-  updateJson(tree, join(options.projectRoot, 'package.json'), (json) => {
+export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
+  updateJson(tree, join('package.json'), (json) => {
     if (!json.devDependencies) {
       json.devDependencies = {};
     }
@@ -28,8 +28,8 @@ export function updateDependencies(tree: Tree, options: NormalizedSchema) {
   });
 }
 
-export function updateNxJson(tree: Tree, options: NormalizedSchema) {
-  updateJson(tree, join(tree.root, 'nx.json'), (json) => {
+export function updateNxJson(tree: Tree, options?: NormalizedSchema) {
+  updateJson(tree, join('nx.json'), (json) => {
     if (json.tasksRunnerOptions) {
       if (!json.tasksRunnerOptions.default.options.cacheableOperations) {
         json.tasksRunnerOptions.default.options.cacheableOperations = []
