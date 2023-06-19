@@ -22,7 +22,7 @@ jobs:
       - name: install
         run: npm i
       - name: format
-        run: npx nx format:check
+        run: npx nx -- format:check
       - name: build
         run: npm run nx -- affected:build
       - name: test
