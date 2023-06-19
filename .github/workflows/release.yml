@@ -33,7 +33,7 @@ jobs:
       - name: install
         run: npm i
       - name: format
-        run: npx nx format:check
+        run: npm run nx -- format:check
       - name: lint
         run: npx nx affected -t lint
       - name: build
