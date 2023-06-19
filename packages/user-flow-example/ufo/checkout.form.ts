@@ -1,4 +1,4 @@
-import {Ufo} from '../../cli/src/lib/ufo';
+import { Ufo } from '../../cli/src/lib/ufo';
 import {
   checkoutBtnSelector,
   emailInputSelector,

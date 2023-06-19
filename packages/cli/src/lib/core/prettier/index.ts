@@ -1,6 +1,10 @@
-import {format as prettier, Options as PrettierOptions, resolveConfig,} from 'prettier';
-import {SupportedExtname, SupportedParser} from './types';
-import {supportedExtname} from './constants';
+import {
+  format as prettier,
+  Options as PrettierOptions,
+  resolveConfig,
+} from 'prettier';
+import { SupportedExtname, SupportedParser } from './types';
+import { supportedExtname } from './constants';
 
 export function getParserFromExtname(
   extname: SupportedExtname | string

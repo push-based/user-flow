@@ -1,5 +1,5 @@
-import {readdirSync, readFileSync, writeFileSync} from 'fs';
-import {join} from 'path';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
 
 console.log(`Reame results for comment action`);
 const path = 'packages/user-flow-ci-integration/measures';

@@ -1,4 +1,8 @@
-import {DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL,} from '@push-based/user-flow';
+import {
+  DEFAULT_RC_NAME,
+  ERROR_PERSIST_FORMAT_WRONG,
+  PROMPT_COLLECT_URL,
+} from '@push-based/user-flow';
 import {
   CLI_DEFAULT_RC_JSON,
   DECLINE_BOOLEAN,
@@ -15,10 +19,14 @@ import {
   REMOTE_RC_JSON,
   STATIC_RC_JSON,
 } from 'test-data';
-import {expectOutputRcInStdout, expectPromptsOfGenerateFlowInStdout, expectPromptsOfInitInStdout,} from '../../jest';
-import {ACCEPT_BOOLEAN} from '@push-based/node-cli-testing';
-import {existsSync, readFileSync} from 'fs';
-import {join} from 'path';
+import {
+  expectOutputRcInStdout,
+  expectPromptsOfGenerateFlowInStdout,
+  expectPromptsOfInitInStdout,
+} from '../../jest';
+import { ACCEPT_BOOLEAN } from '@push-based/node-cli-testing';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;

@@ -1,6 +1,6 @@
-import {existsSync, readFileSync, rmSync} from 'fs';
-import {join} from 'path';
-import {handleBudgetsGeneration} from './generate-lh-budgets';
+import { existsSync, readFileSync, rmSync } from 'fs';
+import { join } from 'path';
+import { handleBudgetsGeneration } from './generate-lh-budgets';
 
 const _cwd = process.cwd();
 const packagesRoot = join(__dirname, '..', '..', '..', '..', '..', '..');

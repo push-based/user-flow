@@ -1,7 +1,7 @@
-import {argv} from 'yargs';
-import {Param} from './interactive.model';
-import {ArgvOption} from '../../core/yargs/types';
-import {getEnvPreset} from '../../pre-set';
+import { argv } from 'yargs';
+import { Param } from './interactive.model';
+import { ArgvOption } from '../../core/yargs/types';
+import { getEnvPreset } from '../../pre-set';
 
 function getDefaultByCliMode(): boolean {
   return getEnvPreset().interactive as boolean;

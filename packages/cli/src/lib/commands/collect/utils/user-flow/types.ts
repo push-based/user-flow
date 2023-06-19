@@ -8,8 +8,8 @@ import {
 } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
-import {UserFlow} from '../../../../hacky-things/lighthouse';
-import {SharedFlagsSettings} from 'lighthouse/types/lhr/settings';
+import { UserFlow } from '../../../../hacky-things/lighthouse';
+import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 
 export type UserFlowContext = {
   browser: Browser;

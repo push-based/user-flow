@@ -1,7 +1,7 @@
-import {join} from 'path';
-import {DEFAULT_COLLECT_UF_PATH} from '../../options/ufPath.constant';
-import {DEFAULT_PERSIST_OUT_PATH} from '../../options/outPath.constant';
-import {loadFlow} from './load-flow';
+import { join } from 'path';
+import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
+import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
+import { loadFlow } from './load-flow';
 import {
   INITIATED_PRJ_CFG,
   INITIATED_RC_JSON,
@@ -12,7 +12,11 @@ import {
   WRONG_MOD_EXPORT_USERFLOW_CONTENT,
   WRONG_MOD_EXPORT_USERFLOW_NAME,
 } from 'test-data';
-import {UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig,} from '@push-based/user-flow-cli-testing';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+  UserFlowProjectConfig,
+} from '@push-based/user-flow-cli-testing';
 
 const prjRelativeOutPath =
   INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;

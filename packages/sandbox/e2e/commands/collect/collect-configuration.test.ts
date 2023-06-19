@@ -1,7 +1,15 @@
-import {CollectArgvOptions, GlobalOptionsArgv, SANDBOX_PRESET,} from '@push-based/user-flow';
-import {INITIATED_PRJ_CFG, REMOTE_RC_JSON} from 'test-data';
-import {SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
-import {expectCollectCfgToContain} from '../../jest/expect.collect';
+import {
+  CollectArgvOptions,
+  GlobalOptionsArgv,
+  SANDBOX_PRESET,
+} from '@push-based/user-flow';
+import { INITIATED_PRJ_CFG, REMOTE_RC_JSON } from 'test-data';
+import {
+  SANDBOX_BASE_RC_JSON,
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+} from '@push-based/user-flow-cli-testing';
+import { expectCollectCfgToContain } from '../../jest/expect.collect';
 
 let initializedPrj: UserFlowCliProject;
 

@@ -1,7 +1,10 @@
-import {UserFlow} from '../../hacky-things/lighthouse';
+import { UserFlow } from '../../hacky-things/lighthouse';
 import Budget from 'lighthouse/types/lhr/budget';
-import {RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets,} from './constants';
-import {logVerbose} from '../../core/loggin';
+import {
+  RequestCountResourceTypeBudgets,
+  TransferSizeResourceTypeBudgets,
+} from './constants';
+import { logVerbose } from '../../core/loggin';
 
 export function deriveBudgetsFromLhr(flow: UserFlow): Budget[] {
   const budgetObject: Budget = {};

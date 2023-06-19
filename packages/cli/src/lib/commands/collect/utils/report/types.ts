@@ -1,7 +1,7 @@
 import Budget from 'lighthouse/types/lhr/budget';
 import Config from 'lighthouse/types/config';
-import {CLI_MODES} from '../../../../global/cli-mode';
-import {PickOne} from '../../../../core/types';
+import { CLI_MODES } from '../../../../global/cli-mode';
+import { PickOne } from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Details from 'lighthouse/types/lhr/audit-details';
 

@@ -1,5 +1,9 @@
 // Your custom interactions with the page
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider,} from '@push-based/user-flow';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowProvider,
+} from '@push-based/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext

@@ -1,4 +1,4 @@
-import {GlobalOptionsArgv} from './options/types';
+import { GlobalOptionsArgv } from './options/types';
 
 export function getGlobalOptionsFromArgv(
   argv: any

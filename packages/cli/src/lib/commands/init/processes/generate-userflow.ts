@@ -1,14 +1,14 @@
-import {RcJson} from '../../../types';
-import {join} from 'path';
-import {readFile, writeFile} from '../../../core/file';
-import {log, logVerbose} from '../../../core/loggin';
-import {mkdirSync, readdirSync} from 'fs';
-import {FlowExampleMap} from '../constants';
-import {FlowExamples} from '../types';
-import {ifThenElse} from '../../../core/processing/behaviors';
-import {askToSkip} from '../../../core/prompt';
-import {CLIProcess} from '../../../core/processing/types';
-import {PROMPT_INIT_GENERATE_FLOW} from '../options/generateFlow.constants';
+import { RcJson } from '../../../types';
+import { join } from 'path';
+import { readFile, writeFile } from '../../../core/file';
+import { log, logVerbose } from '../../../core/loggin';
+import { mkdirSync, readdirSync } from 'fs';
+import { FlowExampleMap } from '../constants';
+import { FlowExamples } from '../types';
+import { ifThenElse } from '../../../core/processing/behaviors';
+import { askToSkip } from '../../../core/prompt';
+import { CLIProcess } from '../../../core/processing/types';
+import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 
 const exampleName = 'basic-navigation';
 

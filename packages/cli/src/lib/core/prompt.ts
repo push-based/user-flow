@@ -1,6 +1,6 @@
-import {prompt} from 'enquirer';
-import {CLIProcess} from './processing/types';
-import {RcJson} from '../types';
+import { prompt } from 'enquirer';
+import { CLIProcess } from './processing/types';
+import { RcJson } from '../types';
 
 export async function promptParam<T>(cfg: {
   initial?: T;

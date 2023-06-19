@@ -1,9 +1,13 @@
-import {PuppeteerRunnerExtension, Step, UserFlow as UserFlowRecording,} from '@puppeteer/replay';
-import {Browser, Page} from 'puppeteer';
-import {MeasurementStep, UserFlowRecordingStep} from './types';
-import {isMeasureType} from './utils';
+import {
+  PuppeteerRunnerExtension,
+  Step,
+  UserFlow as UserFlowRecording,
+} from '@puppeteer/replay';
+import { Browser, Page } from 'puppeteer';
+import { MeasurementStep, UserFlowRecordingStep } from './types';
+import { isMeasureType } from './utils';
 // @ts-ignore
-import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
 export class UserFlowRunnerExtension extends PuppeteerRunnerExtension {
   constructor(

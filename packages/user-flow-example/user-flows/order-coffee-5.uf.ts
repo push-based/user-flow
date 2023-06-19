@@ -1,7 +1,11 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider,} from '@push-based/user-flow';
-import {Coffee} from '../ufo/coffee.ufo';
-import {CheckoutForm} from '../ufo/checkout.form';
-import {formData} from '../data/checkout.data';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowProvider,
+} from '@push-based/user-flow';
+import { Coffee } from '../ufo/coffee.ufo';
+import { CheckoutForm } from '../ufo/checkout.form';
+import { formData } from '../data/checkout.data';
 
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (

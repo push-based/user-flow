@@ -1,7 +1,7 @@
 import * as yargs from 'yargs';
-import {Options} from 'yargs';
-import {YargsCommandObject} from './types';
-import {applyConfigMiddleware} from '../../config.middleware';
+import { Options } from 'yargs';
+import { YargsCommandObject } from './types';
+import { applyConfigMiddleware } from '../../config.middleware';
 
 export function setupYargs(
   commands: YargsCommandObject[],

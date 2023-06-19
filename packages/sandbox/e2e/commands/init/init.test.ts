@@ -5,11 +5,14 @@ import {
   UserFlowCliProjectFactory,
   withUserFlowProject,
 } from '@push-based/user-flow-cli-testing';
-import {expectCliToCreateRc, expectOutputRcInStdout} from '../../jest/expect';
-import {expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout,} from '../../jest/expect.init';
-import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG} from 'test-data';
-import {join} from 'path';
-import {existsSync} from 'fs';
+import { expectCliToCreateRc, expectOutputRcInStdout } from '../../jest/expect';
+import {
+  expectNoPromptsOfInitInStdout,
+  expectPromptsOfInitInStdout,
+} from '../../jest/expect.init';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG } from 'test-data';
+import { join } from 'path';
+import { existsSync } from 'fs';
 
 let emptyPrj: UserFlowCliProject;
 const cwd = process.cwd();

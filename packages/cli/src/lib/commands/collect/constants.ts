@@ -1,5 +1,5 @@
 // @NOTICE the first value in the array is pre-selected as a default value
-import {ReportFormat} from './options/types';
+import { ReportFormat } from './options/types';
 
 export const REPORT_FORMAT_OPTIONS = [
   { name: 'HTML', value: 'html', hint: 'default' },

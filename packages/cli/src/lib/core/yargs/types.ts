@@ -1,4 +1,4 @@
-import {Argv, CommandModule, Options} from 'yargs';
+import { Argv, CommandModule, Options } from 'yargs';
 
 export interface YargsCommandObject {
   command: string | ReadonlyArray<string>;

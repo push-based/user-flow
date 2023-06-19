@@ -1,5 +1,5 @@
-import {REPORT_FORMAT_VALUES} from '../constants';
-import {ReportFormat} from './types';
+import { REPORT_FORMAT_VALUES } from '../constants';
+import { ReportFormat } from './types';
 
 export const PERSIST_FORMAT_HTML: ReportFormat = 'html';
 /**

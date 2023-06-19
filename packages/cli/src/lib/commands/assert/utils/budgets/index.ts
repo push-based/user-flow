@@ -1,7 +1,7 @@
-import {readFile, writeFile} from '../../../../core/file';
-import {logVerbose} from '../../../../core/loggin';
+import { readFile, writeFile } from '../../../../core/file';
+import { logVerbose } from '../../../../core/loggin';
 import Budget from 'lighthouse/types/lhr/budget';
-import {DEFAULT_ASSERT_BUDGET_PATH} from '../../options/budgetPath.constant';
+import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant';
 
 export function readBudgets(
   budgetPath: string = DEFAULT_ASSERT_BUDGET_PATH

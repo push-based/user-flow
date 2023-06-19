@@ -1,6 +1,6 @@
-import {UserFlowRecordingStep, UserFlowReportJson} from './types';
-import {parse as puppeteerReplayParse, StepType} from '@puppeteer/replay';
-import {isMeasureType} from './utils';
+import { UserFlowRecordingStep, UserFlowReportJson } from './types';
+import { parse as puppeteerReplayParse, StepType } from '@puppeteer/replay';
+import { isMeasureType } from './utils';
 
 export function parse(recordingJson: any): UserFlowReportJson {
   // custom events to exclude from the default parser

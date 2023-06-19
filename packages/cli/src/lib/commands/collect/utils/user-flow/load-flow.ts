@@ -1,8 +1,8 @@
-import {UserFlowProvider} from './types';
-import {join} from 'path';
-import {existsSync, lstatSync, readdirSync} from 'fs';
-import {resolveAnyFile} from '../../../../core/file';
-import {CollectRcOptions} from '../../options/types';
+import { UserFlowProvider } from './types';
+import { join } from 'path';
+import { existsSync, lstatSync, readdirSync } from 'fs';
+import { resolveAnyFile } from '../../../../core/file';
+import { CollectRcOptions } from '../../options/types';
 
 export function loadFlow(
   collect: Pick<CollectRcOptions, 'ufPath'>

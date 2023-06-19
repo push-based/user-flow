@@ -2,9 +2,9 @@
  * THIS CODE IS MOSTLY COPIED FORM:
  * https://github.com/GoogleChrome/lighthouse
  */
-import {default as LHR} from 'lighthouse/types/lhr/lhr';
+import { default as LHR } from 'lighthouse/types/lhr/lhr';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import {ReducedFlowStep, ReducedFlowStepResult} from './types';
+import { ReducedFlowStep, ReducedFlowStepResult } from './types';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[] {
   return steps.map((step) => {

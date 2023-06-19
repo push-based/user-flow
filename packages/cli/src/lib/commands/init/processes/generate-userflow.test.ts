@@ -1,8 +1,8 @@
-import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, INITIATED_RC_JSON} from 'test-data';
-import {handleFlowGeneration} from './generate-userflow';
-import {existsSync} from 'fs';
-import {join} from 'path';
-import {withUserFlowProject} from '@push-based/user-flow-cli-testing';
+import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, INITIATED_RC_JSON } from 'test-data';
+import { handleFlowGeneration } from './generate-userflow';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { withUserFlowProject } from '@push-based/user-flow-cli-testing';
 
 let originalCwd = process.cwd();
 

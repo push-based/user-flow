@@ -1,9 +1,15 @@
-import {dirname} from 'path';
-import {existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync,} from 'fs';
-import {logVerbose} from '../loggin';
-import {formatCode, getParserFromExtname} from '../prettier';
-import {ReadFileConfig} from '../../commands/collect/utils/replay/types';
-import {ExtToOutPut, ResolveFileResult} from './types';
+import { dirname } from 'path';
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs';
+import { logVerbose } from '../loggin';
+import { formatCode, getParserFromExtname } from '../prettier';
+import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
+import { ExtToOutPut, ResolveFileResult } from './types';
 
 export { toFileName } from './to-file-name';
 

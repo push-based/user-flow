@@ -1,16 +1,19 @@
-import {UserFlowProvider} from './types';
-import {logVerbose} from '../../../../core/loggin';
+import { UserFlowProvider } from './types';
+import { logVerbose } from '../../../../core/loggin';
 import * as puppeteer from 'puppeteer';
-import {Browser, LaunchOptions, Page} from 'puppeteer';
-import {normalize} from 'path';
+import { Browser, LaunchOptions, Page } from 'puppeteer';
+import { normalize } from 'path';
 // @ts-ignore
-import {startFlow, UserFlow,} from 'lighthouse/lighthouse-core/fraggle-rock/api';
-import {get as dryRun} from '../../../../commands/collect/options/dryRun';
-import {UserFlowMock} from './user-flow.mock';
-import {detectCliMode} from '../../../../global/cli-mode/cli-mode';
-import {CollectArgvOptions, PersistArgvOptions} from '../../options/types';
-import {getLhConfigFromArgv, mergeLhConfig} from '../config';
-import {AssertRcOptions} from '../../../assert/options/types';
+import {
+  startFlow,
+  UserFlow,
+} from 'lighthouse/lighthouse-core/fraggle-rock/api';
+import { get as dryRun } from '../../../../commands/collect/options/dryRun';
+import { UserFlowMock } from './user-flow.mock';
+import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
+import { CollectArgvOptions, PersistArgvOptions } from '../../options/types';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config';
+import { AssertRcOptions } from '../../../assert/options/types';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,

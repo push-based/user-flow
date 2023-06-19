@@ -1,5 +1,5 @@
-import {readdirSync, readFileSync} from 'fs';
-import {join} from 'path';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import {
   CliProject,
@@ -19,12 +19,16 @@ import {
   RcJson,
   ReportFormat,
 } from '@push-based/user-flow';
-import {SANDBOX_BASE_RC_JSON} from './data/user-flowrc.base';
-import {SERVE_COMMAND_PORT} from './data/constants';
-import {kill} from './utils/kill';
-import {UserFlowProjectConfig} from './types';
-import {getEnvVarsByCliModeAndDeleteOld} from './utils/cli-mode';
-import {DEFAULT_RC_NAME, LH_CONFIG_NAME_DEFAULT, LH_NAVIGATION_BUDGETS_NAME_DEFAULT,} from './constants';
+import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
+import { SERVE_COMMAND_PORT } from './data/constants';
+import { kill } from './utils/kill';
+import { UserFlowProjectConfig } from './types';
+import { getEnvVarsByCliModeAndDeleteOld } from './utils/cli-mode';
+import {
+  DEFAULT_RC_NAME,
+  LH_CONFIG_NAME_DEFAULT,
+  LH_NAVIGATION_BUDGETS_NAME_DEFAULT,
+} from './constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {

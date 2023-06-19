@@ -1,15 +1,23 @@
-import {prompt} from 'enquirer';
-import {get as interactive} from '../../../global/options/interactive';
+import { prompt } from 'enquirer';
+import { get as interactive } from '../../../global/options/interactive';
 import {
   ERROR_PERSIST_FORMAT_REQUIRED,
   ERROR_PERSIST_FORMAT_WRONG,
   PROMPT_PERSIST_FORMAT,
 } from '../../collect/options/format.constant';
-import {applyValidations, hasError, VALIDATORS,} from '../../../core/validation';
-import {REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES,} from '../../collect/constants';
-import {RcJson} from '../../../types';
-import {ReportFormat} from '../../collect/options/types';
-import {getEnvPreset} from '../../../pre-set';
+import {
+  applyValidations,
+  hasError,
+  VALIDATORS,
+} from '../../../core/validation';
+import {
+  REPORT_FORMAT_NAMES,
+  REPORT_FORMAT_OPTIONS,
+  REPORT_FORMAT_VALUES,
+} from '../../collect/constants';
+import { RcJson } from '../../../types';
+import { ReportFormat } from '../../collect/options/types';
+import { getEnvPreset } from '../../../pre-set';
 
 export async function setupFormat(config: RcJson): Promise<RcJson> {
   let format: ReportFormat[] = Array.isArray(config?.persist?.format)

@@ -1,7 +1,7 @@
-import {argv} from 'yargs';
-import {Param} from './verbose.model';
-import {GlobalOptionsArgv} from './types';
-import {getEnvPreset} from '../../pre-set';
+import { argv } from 'yargs';
+import { Param } from './verbose.model';
+import { GlobalOptionsArgv } from './types';
+import { getEnvPreset } from '../../pre-set';
 
 export const param: Param = {
   verbose: {

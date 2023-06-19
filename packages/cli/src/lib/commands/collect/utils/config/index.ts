@@ -1,9 +1,9 @@
-import {readFile, writeFile} from '../../../../core/file';
-import {logVerbose} from '../../../../core/loggin';
-import {DEFAULT_COLLECT_CONFIG_PATH} from '../../options/configPath.constant';
-import {LhConfigJson} from '../../../../hacky-things/lighthouse';
-import {CollectCommandArgv} from '../../options/types';
-import {readBudgets} from '../../../assert/utils/budgets';
+import { readFile, writeFile } from '../../../../core/file';
+import { logVerbose } from '../../../../core/loggin';
+import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
+import { LhConfigJson } from '../../../../hacky-things/lighthouse';
+import { CollectCommandArgv } from '../../options/types';
+import { readBudgets } from '../../../assert/utils/budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 
 export function readConfig(

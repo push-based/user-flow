@@ -1,10 +1,15 @@
-import {FractionResults, GatherMode, ReducedFlowStep, ReducedReport,} from '../../collect/utils/report/types';
-import {enrichReducedReportWithBaseline} from '../../collect/utils/report/utils';
-import {Alignment, table} from '../../../core/md/table';
-import {style} from '../../../core/md/font-style';
-import {headline, Hierarchy} from '../../../core/md/headline';
-import {NEW_LINE} from '../../../core/md/constants';
-import {details} from '../../../core/md/details';
+import {
+  FractionResults,
+  GatherMode,
+  ReducedFlowStep,
+  ReducedReport,
+} from '../../collect/utils/report/types';
+import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
+import { Alignment, table } from '../../../core/md/table';
+import { style } from '../../../core/md/font-style';
+import { headline, Hierarchy } from '../../../core/md/headline';
+import { NEW_LINE } from '../../../core/md/constants';
+import { details } from '../../../core/md/details';
 import Details from 'lighthouse/types/lhr/audit-details';
 import Table = Details.Table;
 

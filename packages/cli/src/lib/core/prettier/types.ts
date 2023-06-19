@@ -1,4 +1,4 @@
-import {BuiltInParserName} from 'prettier';
+import { BuiltInParserName } from 'prettier';
 
 export type SupportedParser = Extract<
   BuiltInParserName,

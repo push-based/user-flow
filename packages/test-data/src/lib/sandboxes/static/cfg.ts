@@ -1,11 +1,23 @@
-import {DEFAULT_RC_NAME, UserFlowProjectConfig,} from '@push-based/user-flow-cli-testing';
-import {STATIC_RC_JSON, STATIC_USERFLOW_PATH} from './rc';
-import {STATIC_USERFLOW_CONTENT} from './flow1.uf';
-import {INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT} from '../initialized/cfg';
-import {STATIC_APP_FAVICON_CONTENT, STATIC_APP_FAVICON_NAME,} from './static-app/favico';
-import {STATIC_APP_IMG_CONTENT, STATIC_APP_IMG_NAME,} from './static-app/user-flow-square';
-import {join} from 'path';
-import {STATIC_APP_INDEX_CONTENT, STATIC_APP_INDEX_NAME,} from './static-app/index.html';
+import {
+  DEFAULT_RC_NAME,
+  UserFlowProjectConfig,
+} from '@push-based/user-flow-cli-testing';
+import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from './rc';
+import { STATIC_USERFLOW_CONTENT } from './flow1.uf';
+import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from '../initialized/cfg';
+import {
+  STATIC_APP_FAVICON_CONTENT,
+  STATIC_APP_FAVICON_NAME,
+} from './static-app/favico';
+import {
+  STATIC_APP_IMG_CONTENT,
+  STATIC_APP_IMG_NAME,
+} from './static-app/user-flow-square';
+import { join } from 'path';
+import {
+  STATIC_APP_INDEX_CONTENT,
+  STATIC_APP_INDEX_NAME,
+} from './static-app/index.html';
 
 const addDistToPath = (p: string) => join('dist', p);
 

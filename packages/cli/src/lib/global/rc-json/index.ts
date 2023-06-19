@@ -1,7 +1,7 @@
-import {readFile, writeFile} from '../../core/file';
-import {logVerbose} from '../../core/loggin';
-import {RcJson} from '../../types';
-import {globalOptions} from '../options';
+import { readFile, writeFile } from '../../core/file';
+import { logVerbose } from '../../core/loggin';
+import { RcJson } from '../../types';
+import { globalOptions } from '../options';
 
 export function readRcConfig(
   rcPath: string = '',

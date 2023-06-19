@@ -1,4 +1,7 @@
-import {UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+} from '@push-based/user-flow-cli-testing';
 import {
   STATIC_HTML_REPORT_NAME,
   STATIC_JSON_REPORT_NAME,

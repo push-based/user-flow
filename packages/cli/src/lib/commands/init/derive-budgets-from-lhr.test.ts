@@ -1,7 +1,7 @@
-import {existsSync} from 'fs';
-import {join} from 'path';
-import {deriveBudgetsFromLhr} from './derive-budgets-from-lhr';
-import {getReportContent} from 'test-data';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { deriveBudgetsFromLhr } from './derive-budgets-from-lhr';
+import { getReportContent } from 'test-data';
 import LHR from 'lighthouse/types/lhr/lhr';
 
 const lhr9 = getReportContent<LHR>('lhr-9.json');

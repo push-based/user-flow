@@ -1,6 +1,6 @@
-import {existsSync, rmSync} from 'fs';
-import {join} from 'path';
-import {handleGhWorkflowGeneration} from './generate-workflow';
+import { existsSync, rmSync } from 'fs';
+import { join } from 'path';
+import { handleGhWorkflowGeneration } from './generate-workflow';
 
 const expectedFilePath = join('.github', 'workflows', 'user-flow-ci.yml');
 describe('generate GH workflow', () => {

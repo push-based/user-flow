@@ -1,4 +1,4 @@
-import {Error, ValidatorFn} from './types';
+import { Error, ValidatorFn } from './types';
 
 export function applyValidations<T>(
   value: T,

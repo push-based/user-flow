@@ -1,4 +1,4 @@
-import {AppElement} from './app.element';
+import { AppElement } from './app.element';
 
 describe('AppElement', () => {
   let app: AppElement;
