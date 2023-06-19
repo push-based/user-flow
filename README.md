@@ -26,10 +26,8 @@ In addition, it is always up-to-date with the latest Chrome DevTools features.
 
 **Benefits**
 
--
-⚙ [Run it in your CI ](https://github.com/push-based/user-flow#github-workflow-integration-of-lighthouse-user-flows-in-your-pr)
--
-▶ [Execute ChromeDevTools recorder exports](https://github.com/push-based/user-flow#working-with-devtools-recorder-exports)
+- ⚙ [Run it in your CI ](https://github.com/push-based/user-flow#github-workflow-integration-of-lighthouse-user-flows-in-your-pr)
+- ▶ [Execute ChromeDevTools recorder exports](https://github.com/push-based/user-flow#working-with-devtools-recorder-exports)
 - 🏃‍♀️ Measure Runtime performance
 - 🔒 [Performance budgets](https://github.com/push-based/user-flow#performance-budgets)
 - 🦮 Zero setup cost
@@ -173,7 +171,7 @@ in our docs.
 ## Global Options
 
 | Option                       | Type      | Default                     | Description                                                                                                |
-|------------------------------|-----------|-----------------------------|------------------------------------------------------------------------------------------------------------|
+| ---------------------------- | --------- | --------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **`--help`**, **`-h`**       | `boolean` | `undefined`                 | Show help                                                                                                  |
 | **`--version`**              | `boolean` | `undefined`                 | Show version number of cli                                                                                 |
 | **`--rcPath`**, **`-p`**     | `string`  | `./user-flowrc.json`        | Path to user-flow.config.json. e.g. `./user-flowrc.json`                                                   |
@@ -199,7 +197,7 @@ Description:
 This command helps you to set up a `.user-flowrc.json` and asks for input over CLI prompts.
 
 | Option                               | Type      | Default | Description                                                                          |
-|--------------------------------------|-----------|---------|--------------------------------------------------------------------------------------|
+| ------------------------------------ | --------- | ------- | ------------------------------------------------------------------------------------ |
 | **`-h`**, **`--generateFlow`**       | `boolean` | n/a     | Generate basic user-flow file under `ufPath`                                         |
 | **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a     | Generate `user-flow.yml` file under `.github/workflows`                              |
 | **`-x`**, **`--generateBudgets`**    | `boolean` | n/a     | Generate `budget.json` file under the current working directury                      |
@@ -222,7 +220,7 @@ Description:
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
 | Option                             | Type      | Default                | Description                                                                                             |
-|------------------------------------|-----------|------------------------|---------------------------------------------------------------------------------------------------------|
+| ---------------------------------- | --------- | ---------------------- | ------------------------------------------------------------------------------------------------------- |
 | **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                          |
 | **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)             |
 | **`-c`**, **`--configPath`**       | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                               |
@@ -259,10 +257,10 @@ Write basic user flows leveraging all 3 measurement modes of lighthouse.
 **User flow measurement modes**
 
 | Icon                                                                                                                                | Mode       | Measure            | Performance | Accessibility | Best Practices | SEO       | PWA   |
-|-------------------------------------------------------------------------------------------------------------------------------------|------------|--------------------|-------------|---------------|----------------|-----------|-------|
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------ | ----------- | ------------- | -------------- | --------- | ----- |
 | ![user-flow_navigation-icon](https://user-images.githubusercontent.com/10064416/165129388-2f62bb82-4856-456c-a513-ae5607cfe4ea.PNG) | Navigation | Page load          | 100% / 30   | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
-| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG)   | Timespan   | User Interaction   | 10 / 10     | ❌             | 7 / 7          | ❌         | ❌     |
-| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG)   | Snapshot   | Current page state | 4 / 4       | 16 / 16       | 5 / 5          | 9 / 9     | ❌     |
+| ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG)   | Timespan   | User Interaction   | 10 / 10     | ❌            | 7 / 7          | ❌        | ❌    |
+| ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG)   | Snapshot   | Current page state | 4 / 4       | 16 / 16       | 5 / 5          | 9 / 9     | ❌    |
 
 When you execute and open the user-flow report you will see the measurement modes also visualized there.
 

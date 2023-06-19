@@ -1,6 +1,6 @@
-import { prompt } from 'enquirer';
-import { CLIProcess } from './processing/types';
-import { RcJson } from '../types';
+import {prompt} from 'enquirer';
+import {CLIProcess} from './processing/types';
+import {RcJson} from '../types';
 
 export async function promptParam<T>(cfg: {
   initial?: T;
@@ -9,10 +9,10 @@ export async function promptParam<T>(cfg: {
   type?: any;
   [key: string]: any;
 }): Promise<T> {
-  let {type, initial, message, skip, choices, result} = cfg;
+  let { type, initial, message, skip, choices, result } = cfg;
   type = type || 'input';
 
-  const {param} = await prompt<{ param: T }>([
+  const { param } = await prompt<{ param: T }>([
     {
       name: 'param',
       type,

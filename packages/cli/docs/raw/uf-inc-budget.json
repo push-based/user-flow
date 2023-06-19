@@ -2925,11 +2925,7 @@
               "debugData": {
                 "type": "debugdata",
                 "impact": "serious",
-                "tags": [
-                  "cat.color",
-                  "wcag2aa",
-                  "wcag143"
-                ]
+                "tags": ["cat.color", "wcag2aa", "wcag143"]
               }
             }
           },
@@ -4109,10 +4105,7 @@
             {
               "path": "/checkout",
               "options": {
-                "firstPartyHostnames": [
-                  "*.my-site.com",
-                  "my-site.cdn.com"
-                ]
+                "firstPartyHostnames": ["*.my-site.com", "my-site.cdn.com"]
               },
               "resourceSizes": [
                 {
@@ -4134,11 +4127,7 @@
         "categories": {
           "performance": {
             "title": "Performance",
-            "supportedModes": [
-              "navigation",
-              "timespan",
-              "snapshot"
-            ],
+            "supportedModes": ["navigation", "timespan", "snapshot"],
             "auditRefs": [
               {
                 "id": "first-contentful-paint",
@@ -4457,10 +4446,7 @@
             "title": "Accessibility",
             "description": "These checks highlight opportunities to [improve the accessibility of your web app](https://web.dev/lighthouse-accessibility/). Only a subset of accessibility issues can be automatically detected so manual testing is also encouraged.",
             "manualDescription": "These items address areas which an automated testing tool cannot cover. Learn more in our guide on [conducting an accessibility review](https://developers.google.com/web/fundamentals/accessibility/how-to-review).",
-            "supportedModes": [
-              "navigation",
-              "snapshot"
-            ],
+            "supportedModes": ["navigation", "snapshot"],
             "auditRefs": [
               {
                 "id": "accesskeys",
@@ -4728,11 +4714,7 @@
           },
           "best-practices": {
             "title": "Best Practices",
-            "supportedModes": [
-              "navigation",
-              "timespan",
-              "snapshot"
-            ],
+            "supportedModes": ["navigation", "timespan", "snapshot"],
             "auditRefs": [
               {
                 "id": "is-on-https",
@@ -4822,10 +4804,7 @@
             "title": "SEO",
             "description": "These checks ensure that your page is following basic search engine optimization advice. There are many additional factors Lighthouse does not score here that may affect your search ranking, including performance on [Core Web Vitals](https://web.dev/learn-web-vitals/). [Learn more](https://support.google.com/webmasters/answer/35769).",
             "manualDescription": "Run these additional validators on your site to check additional SEO best practices.",
-            "supportedModes": [
-              "navigation",
-              "snapshot"
-            ],
+            "supportedModes": ["navigation", "snapshot"],
             "auditRefs": [
               {
                 "id": "viewport",
@@ -4909,9 +4888,7 @@
             "title": "PWA",
             "description": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
             "manualDescription": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
-            "supportedModes": [
-              "navigation"
-            ],
+            "supportedModes": ["navigation"],
             "auditRefs": [
               {
                 "id": "installable-manifest",

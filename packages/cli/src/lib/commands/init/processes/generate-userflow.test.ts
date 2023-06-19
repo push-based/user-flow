@@ -1,8 +1,8 @@
-import { INITIATED_PRJ_CFG, INITIATED_RC_JSON, EMPTY_PRJ_CFG } from 'test-data';
-import { handleFlowGeneration } from './generate-userflow';
-import { existsSync } from 'fs';
-import { join } from 'path';
-import { withUserFlowProject } from '@push-based/user-flow-cli-testing';
+import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, INITIATED_RC_JSON} from 'test-data';
+import {handleFlowGeneration} from './generate-userflow';
+import {existsSync} from 'fs';
+import {join} from 'path';
+import {withUserFlowProject} from '@push-based/user-flow-cli-testing';
 
 let originalCwd = process.cwd();
 
@@ -59,7 +59,7 @@ describe('generate userflow', () => {
         'basic-navigation.uf.ts'
       );
       expect(existsSync(expectedFilePath)).toBeTruthy();
-      await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
+      await handleFlowGeneration({ interactive: true })(INITIATED_RC_JSON);
       expect(existsSync(expectedFilePath)).toBeTruthy();
     })
   );
@@ -74,7 +74,7 @@ describe('generate userflow', () => {
         'basic-navigation.uf.ts'
       );
       expect(existsSync(expectedFilePath)).toBeTruthy();
-      await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
+      await handleFlowGeneration({ interactive: false })(INITIATED_RC_JSON);
       expect(existsSync(expectedFilePath)).toBeTruthy();
     })
   );
@@ -89,7 +89,7 @@ describe('generate userflow', () => {
         'basic-navigation.uf.ts'
       );
       expect(existsSync(expectedFilePath)).toBeFalsy();
-      await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
+      await handleFlowGeneration({ interactive: false })(INITIATED_RC_JSON);
       expect(existsSync(expectedFilePath)).toBeFalsy();
     })
   );
@@ -104,7 +104,7 @@ describe('generate userflow', () => {
         'basic-navigation.uf.ts'
       );
       expect(existsSync(expectedFilePath)).toBeFalsy();
-      await handleFlowGeneration({interactive: true, generateFlow: true})(
+      await handleFlowGeneration({ interactive: true, generateFlow: true })(
         INITIATED_RC_JSON
       );
       expect(existsSync(expectedFilePath)).toBeTruthy();
@@ -121,7 +121,7 @@ describe('generate userflow', () => {
         'basic-navigation.uf.ts'
       );
       expect(existsSync(expectedFilePath)).toBeFalsy();
-      await handleFlowGeneration({interactive: true, generateFlow: false})(
+      await handleFlowGeneration({ interactive: true, generateFlow: false })(
         INITIATED_RC_JSON
       );
       expect(existsSync(expectedFilePath)).toBeFalsy();

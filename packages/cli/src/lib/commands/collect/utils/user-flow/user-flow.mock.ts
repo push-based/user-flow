@@ -1,7 +1,7 @@
-import { Page } from 'puppeteer';
-import { logVerbose } from '../../../../core/loggin';
+import {Page} from 'puppeteer';
+import {logVerbose} from '../../../../core/loggin';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { StepOptions, UserFlowOptions } from './types';
+import {StepOptions, UserFlowOptions} from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (
   cfg: UserFlowOptions
@@ -34,7 +34,7 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (
             hostUserAgent:
               'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4889.0 Safari/537.36',
             benchmarkIndex: 601.5,
-            credits: {'axe-core': '4.3.5'},
+            credits: { 'axe-core': '4.3.5' },
           },
           audits: {
             // "performance-budget": {},
@@ -46,7 +46,7 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (
                 "All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding [mixed content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content), where some resources are loaded over HTTP despite the initial request being served over HTTPS. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more](https://web.dev/is-on-https/).",
               score: 1,
               scoreDisplayMode: 'binary',
-              details: {type: 'table', headings: [], items: []},
+              details: { type: 'table', headings: [], items: [] },
             },
             'service-worker': {
               id: 'service-worker',
@@ -178,68 +178,68 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (
                     'unsized-images',
                   ],
                 },
-                {id: 'max-potential-fid', weight: 0, group: 'hidden'},
+                { id: 'max-potential-fid', weight: 0, group: 'hidden' },
                 {
                   id: 'first-meaningful-paint',
                   weight: 0,
                   acronym: 'FMP',
                   group: 'hidden',
                 },
-                {id: 'render-blocking-resources', weight: 0},
-                {id: 'uses-responsive-images', weight: 0},
-                {id: 'offscreen-images', weight: 0},
-                {id: 'unminified-css', weight: 0},
-                {id: 'unminified-javascript', weight: 0},
-                {id: 'unused-css-rules', weight: 0},
-                {id: 'unused-javascript', weight: 0},
-                {id: 'uses-optimized-images', weight: 0},
-                {id: 'modern-image-formats', weight: 0},
-                {id: 'uses-text-compression', weight: 0},
-                {id: 'uses-rel-preconnect', weight: 0},
-                {id: 'server-response-time', weight: 0},
-                {id: 'redirects', weight: 0},
-                {id: 'uses-rel-preload', weight: 0},
-                {id: 'uses-http2', weight: 0},
-                {id: 'efficient-animated-content', weight: 0},
-                {id: 'duplicated-javascript', weight: 0},
-                {id: 'legacy-javascript', weight: 0},
-                {id: 'preload-lcp-image', weight: 0},
-                {id: 'total-byte-weight', weight: 0},
-                {id: 'uses-long-cache-ttl', weight: 0},
-                {id: 'dom-size', weight: 0},
-                {id: 'critical-request-chains', weight: 0},
-                {id: 'user-timings', weight: 0},
-                {id: 'bootup-time', weight: 0},
-                {id: 'mainthread-work-breakdown', weight: 0},
-                {id: 'font-display', weight: 0},
-                {id: 'resource-summary', weight: 0},
-                {id: 'third-party-summary', weight: 0},
-                {id: 'third-party-facades', weight: 0},
-                {id: 'largest-contentful-paint-element', weight: 0},
-                {id: 'lcp-lazy-loaded', weight: 0},
-                {id: 'layout-shift-elements', weight: 0},
-                {id: 'uses-passive-event-listeners', weight: 0},
-                {id: 'no-document-write', weight: 0},
-                {id: 'long-tasks', weight: 0},
-                {id: 'non-composited-animations', weight: 0},
-                {id: 'unsized-images', weight: 0},
-                {id: 'viewport', weight: 0},
-                {id: 'no-unload-listeners', weight: 0},
-                {id: 'performance-budget', weight: 0, group: 'budgets'},
-                {id: 'timing-budget', weight: 0, group: 'budgets'},
-                {id: 'network-requests', weight: 0, group: 'hidden'},
-                {id: 'network-rtt', weight: 0, group: 'hidden'},
+                { id: 'render-blocking-resources', weight: 0 },
+                { id: 'uses-responsive-images', weight: 0 },
+                { id: 'offscreen-images', weight: 0 },
+                { id: 'unminified-css', weight: 0 },
+                { id: 'unminified-javascript', weight: 0 },
+                { id: 'unused-css-rules', weight: 0 },
+                { id: 'unused-javascript', weight: 0 },
+                { id: 'uses-optimized-images', weight: 0 },
+                { id: 'modern-image-formats', weight: 0 },
+                { id: 'uses-text-compression', weight: 0 },
+                { id: 'uses-rel-preconnect', weight: 0 },
+                { id: 'server-response-time', weight: 0 },
+                { id: 'redirects', weight: 0 },
+                { id: 'uses-rel-preload', weight: 0 },
+                { id: 'uses-http2', weight: 0 },
+                { id: 'efficient-animated-content', weight: 0 },
+                { id: 'duplicated-javascript', weight: 0 },
+                { id: 'legacy-javascript', weight: 0 },
+                { id: 'preload-lcp-image', weight: 0 },
+                { id: 'total-byte-weight', weight: 0 },
+                { id: 'uses-long-cache-ttl', weight: 0 },
+                { id: 'dom-size', weight: 0 },
+                { id: 'critical-request-chains', weight: 0 },
+                { id: 'user-timings', weight: 0 },
+                { id: 'bootup-time', weight: 0 },
+                { id: 'mainthread-work-breakdown', weight: 0 },
+                { id: 'font-display', weight: 0 },
+                { id: 'resource-summary', weight: 0 },
+                { id: 'third-party-summary', weight: 0 },
+                { id: 'third-party-facades', weight: 0 },
+                { id: 'largest-contentful-paint-element', weight: 0 },
+                { id: 'lcp-lazy-loaded', weight: 0 },
+                { id: 'layout-shift-elements', weight: 0 },
+                { id: 'uses-passive-event-listeners', weight: 0 },
+                { id: 'no-document-write', weight: 0 },
+                { id: 'long-tasks', weight: 0 },
+                { id: 'non-composited-animations', weight: 0 },
+                { id: 'unsized-images', weight: 0 },
+                { id: 'viewport', weight: 0 },
+                { id: 'no-unload-listeners', weight: 0 },
+                { id: 'performance-budget', weight: 0, group: 'budgets' },
+                { id: 'timing-budget', weight: 0, group: 'budgets' },
+                { id: 'network-requests', weight: 0, group: 'hidden' },
+                { id: 'network-rtt', weight: 0, group: 'hidden' },
                 {
                   id: 'network-server-latency',
                   weight: 0,
                   group: 'hidden',
                 },
-                {id: 'main-thread-tasks', weight: 0, group: 'hidden'},
-                {id: 'diagnostics', weight: 0, group: 'hidden'},
-                {id: 'metrics', weight: 0, group: 'hidden'},
-                {id: 'screenshot-thumbnails', weight: 0, group: 'hidden'},
-                {id: 'final-screenshot', weight: 0, group: 'hidden'},
-                {id: 'script-treemap-data', weight: 0, group: 'hidden'},
+                { id: 'main-thread-tasks', weight: 0, group: 'hidden' },
+                { id: 'diagnostics', weight: 0, group: 'hidden' },
+                { id: 'metrics', weight: 0, group: 'hidden' },
+                { id: 'screenshot-thumbnails', weight: 0, group: 'hidden' },
+                { id: 'final-screenshot', weight: 0, group: 'hidden' },
+                { id: 'script-treemap-data', weight: 0, group: 'hidden' },
               ],
               id: 'performance',
               score: null,
@@ -297,7 +297,7 @@ export class UserFlowMock {
    */
   async navigate(
     requestor: any,
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<any> {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return this.page.goto(requestor);
@@ -313,14 +313,14 @@ export class UserFlowMock {
    * @param {StepOptions=} stepOptions
    */
   async startTimespan(
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<void> {
     logVerbose(`flow#startTimespan: ${stepName}`);
     return Promise.resolve();
   }
 
   async endTimespan(
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<void> {
     logVerbose(`flow#endTimespan: ${stepName}`);
     return Promise.resolve();
@@ -329,7 +329,7 @@ export class UserFlowMock {
   /**
    * @param {StepOptions=} stepOptions
    */
-  async snapshot({stepName}: StepOptions = {} as StepOptions): Promise<void> {
+  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#snapshot: ${stepName}`);
     return Promise.resolve();
   }
@@ -365,7 +365,7 @@ export class UserFlowReportMock {
    */
   async navigate(
     requestor: any,
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<any> {
     logVerbose(`flow#navigate: ${stepName || requestor}`);
     return Promise.resolve();
@@ -379,14 +379,14 @@ export class UserFlowReportMock {
    * @param {StepOptions=} stepOptions
    */
   async startTimespan(
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<void> {
     logVerbose(`flow#startTimespan: ${stepName}`);
     return Promise.resolve();
   }
 
   async endTimespan(
-    {stepName}: StepOptions = {} as StepOptions
+    { stepName }: StepOptions = {} as StepOptions
   ): Promise<void> {
     logVerbose(`flow#endTimespan: ${stepName}`);
     return Promise.resolve();
@@ -395,7 +395,7 @@ export class UserFlowReportMock {
   /**
    * @param {StepOptions=} stepOptions
    */
-  async snapshot({stepName}: StepOptions = {} as StepOptions): Promise<void> {
+  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
     logVerbose(`flow#snapshot: ${stepName}`);
     return Promise.resolve();
   }

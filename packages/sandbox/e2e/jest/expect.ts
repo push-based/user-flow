@@ -1,11 +1,6 @@
 import {UserFlowCliProject} from '@push-based/user-flow-cli-testing';
 import {LH_CONFIG_NAME} from 'test-data';
-import {
-  DEFAULT_RC_NAME,
-  GlobalOptionsArgv,
-  RcJson,
-  SETUP_CONFIRM_MESSAGE,
-} from '@push-based/user-flow';
+import {DEFAULT_RC_NAME, GlobalOptionsArgv, RcJson, SETUP_CONFIRM_MESSAGE,} from '@push-based/user-flow';
 import {quoted, unquoted} from './utils';
 
 export function expectGlobalConfigPathUsageLog(

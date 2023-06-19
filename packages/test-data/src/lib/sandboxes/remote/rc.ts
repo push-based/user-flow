@@ -1,8 +1,5 @@
 import {join} from 'path';
-import {
-  RcJson,
-  SANDBOX_BASE_RC_JSON,
-} from '@push-based/user-flow-cli-testing';
+import {RcJson, SANDBOX_BASE_RC_JSON,} from '@push-based/user-flow-cli-testing';
 import {REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE} from './flow1.uf';
 
 export const REMOTE_RC_NAME = '.user-flow.remote.json';

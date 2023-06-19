@@ -1,7 +1,7 @@
-import { join } from 'path';
-import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
-import { loadFlow } from './load-flow';
+import {join} from 'path';
+import {DEFAULT_COLLECT_UF_PATH} from '../../options/ufPath.constant';
+import {DEFAULT_PERSIST_OUT_PATH} from '../../options/outPath.constant';
+import {loadFlow} from './load-flow';
 import {
   INITIATED_PRJ_CFG,
   INITIATED_RC_JSON,
@@ -12,11 +12,7 @@ import {
   WRONG_MOD_EXPORT_USERFLOW_CONTENT,
   WRONG_MOD_EXPORT_USERFLOW_NAME,
 } from 'test-data';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-  UserFlowProjectConfig,
-} from '@push-based/user-flow-cli-testing';
+import {UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig,} from '@push-based/user-flow-cli-testing';
 
 const prjRelativeOutPath =
   INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
@@ -31,11 +27,11 @@ const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
     [join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME)]:
-    VALIDE_EXAMPLE_USERFLOW_CONTENT,
+      VALIDE_EXAMPLE_USERFLOW_CONTENT,
     [join(prjRelativeUfPath, WRONG_EXT_USERFLOW_NAME)]:
-    WRONG_EXT_USERFLOW_CONTENT,
+      WRONG_EXT_USERFLOW_CONTENT,
     [join(prjRelativeUfPath, WRONG_MOD_EXPORT_USERFLOW_NAME)]:
-    WRONG_MOD_EXPORT_USERFLOW_CONTENT,
+      WRONG_MOD_EXPORT_USERFLOW_CONTENT,
   },
 };
 let initializedPrj: UserFlowCliProject;
@@ -74,7 +70,7 @@ describe('loading user-flow scripts for execution', () => {
   it('should return flows if ufPath points a user-flow file and not a directory', () => {
     let validUfPath = join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME);
     const ufPath = validUfPath;
-    const collectOptions = {url: 'example.com', ufPath};
+    const collectOptions = { url: 'example.com', ufPath };
 
     expect(initializedPrj.userFlowPath(VALIDE_EXAMPLE_USERFLOW_NAME)).toBe(
       join(process.cwd(), ufPath)

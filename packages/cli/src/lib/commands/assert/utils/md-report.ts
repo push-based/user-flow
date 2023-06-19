@@ -1,9 +1,4 @@
-import {
-  FractionResults,
-  GatherMode,
-  ReducedFlowStep,
-  ReducedReport,
-} from '../../collect/utils/report/types';
+import {FractionResults, GatherMode, ReducedFlowStep, ReducedReport,} from '../../collect/utils/report/types';
 import {enrichReducedReportWithBaseline} from '../../collect/utils/report/utils';
 import {Alignment, table} from '../../../core/md/table';
 import {style} from '../../../core/md/font-style';
@@ -11,7 +6,6 @@ import {headline, Hierarchy} from '../../../core/md/headline';
 import {NEW_LINE} from '../../../core/md/constants';
 import {details} from '../../../core/md/details';
 import Budget from 'lighthouse/types/lhr/budget';
-import TimingBudget = Budget.TimingBudget;
 import Details from 'lighthouse/types/lhr/audit-details';
 import Table = Details.Table;
 
@@ -55,15 +49,15 @@ ${stepsTable}${NEW_LINE}
 
 export function getBudgetTable(
   reducedReport: ReducedReport,
-  options: { heading: Hierarchy } = {heading: 3}
+  options: { heading: Hierarchy } = { heading: 3 }
 ): string {
   const performanceBudgets = reducedReport.steps
     .filter(
-      ({resourceCountsBudget, resourceSizesBudget, timingsBudget}) =>
+      ({ resourceCountsBudget, resourceSizesBudget, timingsBudget }) =>
         resourceCountsBudget || resourceSizesBudget || timingsBudget
     )
     .map(
-      ({name, resourceCountsBudget, resourceSizesBudget, timingsBudget}) => ({
+      ({ name, resourceCountsBudget, resourceSizesBudget, timingsBudget }) => ({
         name,
         resultsSizeBudget: getResourceSizes(resourceSizesBudget),
         resultsCountBudget: getResourceCounts(resourceCountsBudget),
@@ -72,23 +66,23 @@ export function getBudgetTable(
     );
   return performanceBudgets.length
     ? performanceBudgets
-      .map((b) => {
-        let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
-        if (b.resultsSizeBudget !== undefined) {
-          md += style('Resource Size Budget') + NEW_LINE + NEW_LINE;
-          md += table(b.resultsSizeBudget) + NEW_LINE + NEW_LINE;
-        }
-        if (b.resultsCountBudget !== undefined) {
-          md += style('Resource Count Budget') + NEW_LINE + NEW_LINE;
-          md += table(b.resultsCountBudget) + NEW_LINE + NEW_LINE;
-        }
-        if (b.resultsTimingBudget !== undefined) {
-          md += style('Timing Budget') + NEW_LINE + NEW_LINE;
-          md += table(b.resultsTimingBudget) + NEW_LINE + NEW_LINE;
-        }
-        return md;
-      })
-      .join(NEW_LINE)
+        .map((b) => {
+          let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
+          if (b.resultsSizeBudget !== undefined) {
+            md += style('Resource Size Budget') + NEW_LINE + NEW_LINE;
+            md += table(b.resultsSizeBudget) + NEW_LINE + NEW_LINE;
+          }
+          if (b.resultsCountBudget !== undefined) {
+            md += style('Resource Count Budget') + NEW_LINE + NEW_LINE;
+            md += table(b.resultsCountBudget) + NEW_LINE + NEW_LINE;
+          }
+          if (b.resultsTimingBudget !== undefined) {
+            md += style('Timing Budget') + NEW_LINE + NEW_LINE;
+            md += table(b.resultsTimingBudget) + NEW_LINE + NEW_LINE;
+          }
+          return md;
+        })
+        .join(NEW_LINE)
     : '';
 }
 
@@ -102,7 +96,7 @@ function getTimings(
       // [ {text: string, ...props } ]
       resultsTimingBudget.headings.map((h: any) => h.text as string),
       ...resultsTimingBudget.items.map(
-        ({label, measurement, overBudget}: any) => {
+        ({ label, measurement, overBudget }: any) => {
           const row = [];
           if (label === 'Cumulative Layout Shift') {
             return [
@@ -140,7 +134,7 @@ function getResourceSizes(
         )
         .map((h: any) => h.text as string),
       ...resourceSizesBudget.items.map(
-        ({label, transferSize, sizeOverBudget}: any) => [
+        ({ label, transferSize, sizeOverBudget }: any) => [
           label + '',
           formatBytes(transferSize),
           sizeOverBudget ? formatBytes(sizeOverBudget) : '-',
@@ -165,7 +159,7 @@ function getResourceCounts(
           h.key === 'countOverBudget' ? 'Over Budget' : (h.text as string)
         ),
       ...resourceCountsBudget.items.map(
-        ({label, requestCount, countOverBudget}: any) => [
+        ({ label, requestCount, countOverBudget }: any) => [
           label + '',
           requestCount + '',
           countOverBudget ? countOverBudget : '-',
@@ -220,7 +214,7 @@ function formatStepsForMdTable(
     );
     // add `budgetsSymbol` to gatherMode to indicate budgets
     step.resourceCountsBudget &&
-    (step.gatherMode = (step.gatherMode + ` ${budgetsSymbol}`) as GatherMode);
+      (step.gatherMode = (step.gatherMode + ` ${budgetsSymbol}`) as GatherMode);
     return [step.name, step.gatherMode].concat(results);
   });
 }
@@ -256,7 +250,7 @@ function extractTableHead(reportCategories: string[]): string[] {
 function extractFractionalResultValue(
   fractionResults: FractionResults
 ): string {
-  const {totalWeight, numPassed, numPassableAudits} = fractionResults;
+  const { totalWeight, numPassed, numPassableAudits } = fractionResults;
   const value = numPassed + '/' + numPassableAudits;
   return totalWeight === 0 ? 'Ø ' + value : value;
 }

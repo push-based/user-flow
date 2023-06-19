@@ -1,17 +1,11 @@
 import {dirname} from 'path';
-import {
-  existsSync,
-  readFileSync,
-  writeFileSync,
-  mkdirSync,
-  lstatSync,
-} from 'fs';
+import {existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync,} from 'fs';
 import {logVerbose} from '../loggin';
-import {getParserFromExtname, formatCode} from '../prettier';
-import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
-import { ExtToOutPut, ResolveFileResult } from './types';
+import {formatCode, getParserFromExtname} from '../prettier';
+import {ReadFileConfig} from '../../commands/collect/utils/replay/types';
+import {ExtToOutPut, ResolveFileResult} from './types';
 
-export {toFileName} from './to-file-name';
+export { toFileName } from './to-file-name';
 
 /*
 type _a = Not<undefined, undefined>;
@@ -26,7 +20,7 @@ type a2 = ReadFileOutput<{ ext: 'json' }, undefined>;  // {}
 type a3 = ReadFileOutput<{ ext: 'json' }, number>;  // number
 */
 type ReadFileOutput<CFG extends {}, OVERWRITE extends unknown> =
-// if OVERWRITE type is given return it
+  // if OVERWRITE type is given return it
   Not<OVERWRITE, undefined> extends never ? ExtToOutPut<CFG> : OVERWRITE;
 
 function jsonParse<T extends unknown>(str: any): T {
@@ -47,7 +41,7 @@ export function readFile<
   R extends any = undefined,
   T extends ReadFileConfig = {}
 >(path: string, cfg?: T) {
-  const {fail, ext} = {fail: false, ...cfg} as T;
+  const { fail, ext } = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
 
   if (!existsSync(path)) {

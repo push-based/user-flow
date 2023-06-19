@@ -6,7 +6,7 @@ export function kill(args: {
   method?: string;
   verbose?: boolean;
 }): Promise<void[]> {
-  let {verbose, port, method} = args;
+  let { verbose, port, method } = args;
   port = port ? port.toString().split(',') : [];
   const logVerbose = getLogVerbose(Boolean(verbose));
   method = method || 'tcp';

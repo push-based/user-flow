@@ -1,7 +1,6 @@
-import { existsSync, readFileSync, rmSync } from 'fs';
-import { join } from 'path';
-import { handleGhWorkflowGeneration } from './generate-workflow';
-import { handleBudgetsGeneration } from './generate-lh-budgets';
+import {existsSync, readFileSync, rmSync} from 'fs';
+import {join} from 'path';
+import {handleBudgetsGeneration} from './generate-lh-budgets';
 
 const _cwd = process.cwd();
 const packagesRoot = join(__dirname, '..', '..', '..', '..', '..', '..');
@@ -10,19 +9,19 @@ const expectedFilePath = join(sandboxRoot, 'budget.json');
 const expectedBudgets = [
   {
     resourceCounts: [
-      {budget: 0, resourceType: 'stylesheet'},
-      {budget: 0, resourceType: 'script'},
+      { budget: 0, resourceType: 'stylesheet' },
+      { budget: 0, resourceType: 'script' },
     ],
     resourceSizes: [
-      {budget: 941, resourceType: 'document'},
-      {budget: 0, resourceType: 'stylesheet'},
-      {budget: 0, resourceType: 'font'},
-      {budget: 0, resourceType: 'script'},
-      {budget: 0, resourceType: 'third-party'},
+      { budget: 941, resourceType: 'document' },
+      { budget: 0, resourceType: 'stylesheet' },
+      { budget: 0, resourceType: 'font' },
+      { budget: 0, resourceType: 'script' },
+      { budget: 0, resourceType: 'third-party' },
     ],
     timings: [
-      {budget: 0, metric: 'cumulative-layout-shift'},
-      {budget: 724, metric: 'largest-contentful-paint'},
+      { budget: 0, metric: 'cumulative-layout-shift' },
+      { budget: 724, metric: 'largest-contentful-paint' },
     ],
   },
 ];
@@ -67,7 +66,7 @@ describe('generate LH budgets', () => {
     })({} as any);
     expect(existsSync(expectedFilePath)).toBeTruthy();
     const result = JSON.parse(
-      readFileSync(expectedFilePath, {encoding: 'utf8'})
+      readFileSync(expectedFilePath, { encoding: 'utf8' })
     );
     expect(result).toStrictEqual(expectedBudgets);
     rmSync(expectedFilePath);

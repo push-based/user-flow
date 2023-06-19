@@ -1,9 +1,5 @@
 import {join} from 'path';
-import {
-  RcJson,
-  SANDBOX_BASE_RC_JSON,
-  SERVE_COMMAND_PORT,
-} from '@push-based/user-flow-cli-testing';
+import {RcJson, SANDBOX_BASE_RC_JSON, SERVE_COMMAND_PORT,} from '@push-based/user-flow-cli-testing';
 import {STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE} from './flow1.uf';
 
 export const STATIC_RC_NAME = '.user-flow.static.json';

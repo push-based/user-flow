@@ -52,7 +52,7 @@ The `budgetPath` property is handy when all parameters should exist as CLI param
 Used in the rc.json file directly.
 
 | Option                   | Type     | Default | Description                                   |
-|--------------------------|----------|---------|-----------------------------------------------|
+| ------------------------ | -------- | ------- | --------------------------------------------- |
 | **`collect.configPath`** | `string` | n/a     | Path to the lighthouse `config.json` file     |
 | **`collect.config`**     | `object` | n/a     | The lighthouse configuration as `JSON` object |
 | **`collect.budgetPath`** | `string` | n/a     | Path to the lighthouse `budget.json` file     |
@@ -63,7 +63,7 @@ Used in the rc.json file directly.
 Used in the console as `user-flow collect <param>`.
 
 | Option                       | Type     | Default | Description                               |
-|------------------------------|----------|---------|-------------------------------------------|
+| ---------------------------- | -------- | ------- | ----------------------------------------- |
 | **`-c`**, **`--configPath`** | `string` | n/a     | Path to the lighthouse `config.json` file |
 | **`-b`**, **`--budgetPath`** | `string` | n/a     | Path to the lighthouse `budget.json` file |
 
@@ -72,7 +72,7 @@ Used in the console as `user-flow collect <param>`.
 #### collect.configPath property
 
 | Property                 | Type     | Default |
-|--------------------------|----------|---------|
+| ------------------------ | -------- | ------- |
 | **`collect.configPath`** | `string` | n/a     |
 
 **Usage:**
@@ -121,7 +121,7 @@ The usage of it in the rc file looks like this:
 #### collect.config property
 
 | Property             | Type     | Default |
-|----------------------|----------|---------|
+| -------------------- | -------- | ------- |
 | **`collect.config`** | `object` | n/a     |
 
 **Usage:**

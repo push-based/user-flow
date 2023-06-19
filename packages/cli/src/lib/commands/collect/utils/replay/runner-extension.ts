@@ -1,8 +1,4 @@
-import {
-  PuppeteerRunnerExtension,
-  Step,
-  UserFlow as UserFlowRecording,
-} from '@puppeteer/replay';
+import {PuppeteerRunnerExtension, Step, UserFlow as UserFlowRecording,} from '@puppeteer/replay';
 import {Browser, Page} from 'puppeteer';
 import {MeasurementStep, UserFlowRecordingStep} from './types';
 import {isMeasureType} from './utils';
@@ -35,7 +31,7 @@ export class UserFlowRunnerExtension extends PuppeteerRunnerExtension {
           ...stepOptions,
         });
       }
-      return this.flow[userFlowStep.type]({...stepOptions});
+      return this.flow[userFlowStep.type]({ ...stepOptions });
     } else {
       return super.runStep(step as Step, flowRecording);
     }

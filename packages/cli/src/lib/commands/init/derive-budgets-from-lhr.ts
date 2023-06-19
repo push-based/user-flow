@@ -1,9 +1,6 @@
-import { UserFlow } from '../../hacky-things/lighthouse';
+import {UserFlow} from '../../hacky-things/lighthouse';
 import Budget from 'lighthouse/types/lhr/budget';
-import {
-  RequestCountResourceTypeBudgets,
-  TransferSizeResourceTypeBudgets,
-} from './constants';
+import {RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets,} from './constants';
 import {logVerbose} from '../../core/loggin';
 
 export function deriveBudgetsFromLhr(flow: UserFlow): Budget[] {
@@ -12,18 +9,18 @@ export function deriveBudgetsFromLhr(flow: UserFlow): Budget[] {
     if (flow.steps[0].lhr.audits['resource-summary']) {
       const resourceSummary = flow.steps[0].lhr.audits['resource-summary'];
       budgetObject.resourceSizes = (resourceSummary.details.items as any)
-        .filter(({resourceType}: any) =>
+        .filter(({ resourceType }: any) =>
           TransferSizeResourceTypeBudgets.includes(resourceType)
         )
-        .map(({resourceType, transferSize}: any) => ({
+        .map(({ resourceType, transferSize }: any) => ({
           resourceType,
           budget: transferSize,
         }));
       budgetObject.resourceCounts = (resourceSummary.details.items as any)
-        .filter(({resourceType}: any) =>
+        .filter(({ resourceType }: any) =>
           RequestCountResourceTypeBudgets.includes(resourceType)
         )
-        .map(({resourceType, requestCount}: any) => ({
+        .map(({ resourceType, requestCount }: any) => ({
           resourceType,
           budget: requestCount,
         }));
@@ -37,8 +34,8 @@ export function deriveBudgetsFromLhr(flow: UserFlow): Budget[] {
       budgetObject.timings.push({
         metric: 'cumulative-layout-shift',
         budget:
-        flow.steps[0].lhr.audits['cumulative-layout-shift'].details.items[0]
-          .totalCumulativeLayoutShift,
+          flow.steps[0].lhr.audits['cumulative-layout-shift'].details.items[0]
+            .totalCumulativeLayoutShift,
       });
     } else {
       logVerbose(

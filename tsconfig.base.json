@@ -20,9 +20,7 @@
         "packages/user-flow-cli-testing/src/index.ts"
       ],
       "sandbox": ["packages/sandbox/src/index.ts"],
-      "test-data": [
-        "packages/test-data/src/index.ts"
-      ]
+      "test-data": ["packages/test-data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

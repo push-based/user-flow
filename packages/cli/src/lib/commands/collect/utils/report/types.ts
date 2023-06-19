@@ -1,7 +1,7 @@
 import Budget from 'lighthouse/types/lhr/budget';
 import Config from 'lighthouse/types/config';
-import { CLI_MODES } from '../../../../global/cli-mode';
-import { PickOne } from '../../../../core/types';
+import {CLI_MODES} from '../../../../global/cli-mode';
+import {PickOne} from '../../../../core/types';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import Details from 'lighthouse/types/lhr/audit-details';
 
@@ -37,16 +37,16 @@ export type FractionResults = {
 };
 
 export type ReducedFlowStep =
-// gatherMode
+  // gatherMode
   LhrGatherModeSlice & {
-  name: string;
-  fetchTime: string;
-  results: ReducedFlowStepResult;
-  resourceCountsBudget?: Details.Table;
-  resourceSizesBudget?: Details.Table;
-  timingsBudget?: Details.Table;
-  baseline?: ReducedFlowStepResult;
-};
+    name: string;
+    fetchTime: string;
+    results: ReducedFlowStepResult;
+    resourceCountsBudget?: Details.Table;
+    resourceSizesBudget?: Details.Table;
+    timingsBudget?: Details.Table;
+    baseline?: ReducedFlowStepResult;
+  };
 
 export type ReducedReport = {
   cliMode?: CLI_MODES;

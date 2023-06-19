@@ -35,8 +35,6 @@
   },
   "persist": {
     "outputPath": "dist/user-flow/user-flow-example",
-    "format": [
-      "md"
-    ]
+    "format": ["md"]
   }
 }

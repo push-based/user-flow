@@ -1,18 +1,14 @@
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider,
-} from '@push-based/user-flow';
-import { Coffee } from '../ufo/coffee.ufo';
-import { CheckoutForm } from '../ufo/checkout.form';
-import { formData } from '../data/checkout.data';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider,} from '@push-based/user-flow';
+import {Coffee} from '../ufo/coffee.ufo';
+import {CheckoutForm} from '../ufo/checkout.form';
+import {formData} from '../data/checkout.data';
 
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {flow, collectOptions} = ctx;
-  const {url} = collectOptions;
+  const { flow, collectOptions } = ctx;
+  const { url } = collectOptions;
 
   const coffeeUfo = new Coffee(ctx);
   const checkoutFormUfo = new CheckoutForm(ctx);
@@ -22,7 +18,7 @@ const interactions: UserFlowInteractionsFn = async (
     stepName: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({stepName: 'Select coffee'});
+  await flow.startTimespan({ stepName: 'Select coffee' });
   // Select coffee
   coffeeUfo.selectCappuccino();
   await flow.endTimespan();
@@ -43,7 +39,7 @@ const interactions: UserFlowInteractionsFn = async (
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Order Coffee'},
+  flowOptions: { name: 'Order Coffee' },
   interactions,
 };
 

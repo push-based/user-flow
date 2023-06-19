@@ -1,17 +1,6 @@
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-  UserFlowProjectConfig,
-} from '@push-based/user-flow-cli-testing';
-import {
-  expectGlobalOptionsToBeContainedInStdout,
-  expectInitOptionsToBeContainedInStdout,
-} from '../jest';
-import {
-  getGlobalOptionsFromArgv,
-  getInitCommandOptionsFromArgv,
-  SANDBOX_PRESET,
-} from '@push-based/user-flow';
+import {UserFlowCliProject, UserFlowCliProjectFactory, UserFlowProjectConfig,} from '@push-based/user-flow-cli-testing';
+import {expectGlobalOptionsToBeContainedInStdout, expectInitOptionsToBeContainedInStdout,} from '../jest';
+import {getGlobalOptionsFromArgv, getInitCommandOptionsFromArgv, SANDBOX_PRESET,} from '@push-based/user-flow';
 import {EMPTY_PRJ_CFG} from 'test-data';
 
 let emptyPrjSandbox: UserFlowCliProject;
@@ -34,8 +23,8 @@ describe('the CLI configuration in default mode', () => {
   });
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
-    const {exitCode, stdout, stderr} = await emptyPrjSandbox.$init();
-    const {collect, persist, assert} =
+    const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init();
+    const { collect, persist, assert } =
       getInitCommandOptionsFromArgv(SANDBOX_PRESET);
     // @NOTICE: format is not part of yargs params default values
     delete (persist as any).format;
@@ -67,10 +56,10 @@ describe('the CLI configuration in default mode', () => {
   });
 
   it('should have default preset in a fresh environment', async () => {
-    const {exitCode, stdout, stderr} = await emptyPrjDefault.$init({
+    const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({
       verbose: true,
     });
-    const {collect, persist, assert} =
+    const { collect, persist, assert } =
       getInitCommandOptionsFromArgv(SANDBOX_PRESET);
 
     expectGlobalOptionsToBeContainedInStdout(

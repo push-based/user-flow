@@ -2,14 +2,14 @@
  * THIS CODE IS MOSTLY COPIED FORM:
  * https://github.com/GoogleChrome/lighthouse
  */
-import { default as LHR } from 'lighthouse/types/lhr/lhr';
+import {default as LHR} from 'lighthouse/types/lhr/lhr';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedFlowStep, ReducedFlowStepResult } from './types';
+import {ReducedFlowStep, ReducedFlowStepResult} from './types';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[] {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
-    const {gatherMode} = stepReport;
+    const { gatherMode } = stepReport;
     const categoriesEntries: [string, LHR.Category][] = Object.entries(
       stepReport.categories
     ) as unknown as [string, LHR.Category][];
@@ -48,10 +48,10 @@ export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[] {
 const SCREENSHOT_PREFIX = 'data:image/jpeg;base64,';
 const PASS_THRESHOLD = 0.9;
 const RATINGS = {
-  PASS: {label: 'pass', minScore: PASS_THRESHOLD},
-  AVERAGE: {label: 'average', minScore: 0.5},
-  FAIL: {label: 'fail'},
-  ERROR: {label: 'error'},
+  PASS: { label: 'pass', minScore: PASS_THRESHOLD },
+  AVERAGE: { label: 'average', minScore: 0.5 },
+  FAIL: { label: 'fail' },
+  ERROR: { label: 'error' },
 };
 
 function shouldDisplayAsFraction(gatherMode: LHR.GatherMode) {

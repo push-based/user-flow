@@ -2,17 +2,12 @@ import {mkdirSync, readdirSync} from 'fs';
 import {RcJson} from '../../../types';
 import {get as interactive} from '../../../global/options/interactive';
 import {promptParam} from '../../../core/prompt';
+import {applyValidations, hasError, VALIDATORS,} from '../../../core/validation';
 import {
-  applyValidations,
-  hasError,
-  VALIDATORS,
-} from '../../../core/validation';
-import {
-  PROMPT_PERSIST_OUT_PATH,
   DEFAULT_PERSIST_OUT_PATH,
   ERROR_PERSIST_OUT_PATH_REQUIRED,
+  PROMPT_PERSIST_OUT_PATH,
 } from '../../collect/options/outPath.constant';
-import {logVerbose} from '../../../core/loggin';
 
 export async function setupOutPath(config: RcJson): Promise<RcJson> {
   let outPath = config?.persist?.outPath;
@@ -34,11 +29,11 @@ export async function setupOutPath(config: RcJson): Promise<RcJson> {
   try {
     readdirSync(outPath);
   } catch (e) {
-    mkdirSync(outPath, {recursive: true});
+    mkdirSync(outPath, { recursive: true });
   }
 
   return {
     ...config,
-    persist: {...config?.persist, outPath},
+    persist: { ...config?.persist, outPath },
   };
 }

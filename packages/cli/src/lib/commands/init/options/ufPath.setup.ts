@@ -1,10 +1,6 @@
 import {get as interactive} from '../../../global/options/interactive';
 import {promptParam} from '../../../core/prompt';
-import {
-  applyValidations,
-  hasError,
-  VALIDATORS,
-} from '../../../core/validation';
+import {applyValidations, hasError, VALIDATORS,} from '../../../core/validation';
 import {
   DEFAULT_COLLECT_UF_PATH,
   ERROR_COLLECT_UF_PATH_REQUIRED,
@@ -30,6 +26,6 @@ export async function setupUfPath(config: RcJson): Promise<RcJson> {
 
   return {
     ...config,
-    collect: {...config?.collect, ufPath},
+    collect: { ...config?.collect, ufPath },
   };
 }

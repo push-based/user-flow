@@ -17,14 +17,7 @@
     {
       "type": "click",
       "target": "main",
-      "selectors": [
-        [
-          "aria/Cappucino"
-        ],
-        [
-          ".cup:nth-child(1)"
-        ]
-      ],
+      "selectors": [["aria/Cappucino"], [".cup:nth-child(1)"]],
       "offsetY": 103.6608657836914,
       "offsetX": 133.40185546875
     },
@@ -44,46 +37,27 @@
     {
       "type": "click",
       "target": "main",
-      "selectors": [
-        [
-          "aria/Proceed to checkout"
-        ],
-        [
-          "[data-test=checkout]"
-        ]
-      ],
+      "selectors": [["aria/Proceed to checkout"], ["[data-test=checkout]"]],
       "offsetY": 19.796875,
       "offsetX": 53.1875
     },
     {
       "type": "change",
       "value": "nina",
-      "selectors": [
-        [
-          "#name"
-        ]
-      ],
+      "selectors": [["#name"]],
       "target": "main"
     },
     {
       "type": "click",
       "target": "main",
-      "selectors": [
-        [
-          "#email"
-        ]
-      ],
+      "selectors": [["#email"]],
       "offsetY": 14.234375,
       "offsetX": 36
     },
     {
       "type": "change",
       "value": "nina@gmail.com",
-      "selectors": [
-        [
-          "#email"
-        ]
-      ],
+      "selectors": [["#email"]],
       "target": "main"
     },
     { "type": "endTimespan" },
@@ -102,14 +76,7 @@
     {
       "type": "click",
       "target": "main",
-      "selectors": [
-        [
-          "aria/Submit"
-        ],
-        [
-          "#submit-payment"
-        ]
-      ],
+      "selectors": [["aria/Submit"], ["#submit-payment"]],
       "offsetY": 19.859375,
       "offsetX": 48.359375
     },

@@ -1,8 +1,4 @@
-import {
-  format as prettier,
-  Options as PrettierOptions,
-  resolveConfig,
-} from 'prettier';
+import {format as prettier, Options as PrettierOptions, resolveConfig,} from 'prettier';
 import {SupportedExtname, SupportedParser} from './types';
 import {supportedExtname} from './constants';
 
@@ -17,13 +13,13 @@ export function getParserFromExtname(
 
   return (['md', 'ts', 'js', 'yml'].includes(extname)
     ? (
-      {
-        md: 'markdown',
-        ts: 'typescript',
-        js: 'javascript',
-        yml: 'yaml',
-      } as any
-    )[extname]
+        {
+          md: 'markdown',
+          ts: 'typescript',
+          js: 'javascript',
+          yml: 'yaml',
+        } as any
+      )[extname]
     : extname) as any as SupportedParser;
 }
 

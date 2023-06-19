@@ -1,5 +1,5 @@
-import { CustomStep, Step, StepType } from '@puppeteer/replay';
-import { MeasureModes, UserFlowRecordingStep } from './types';
+import {CustomStep, Step, StepType} from '@puppeteer/replay';
+import {MeasureModes, UserFlowRecordingStep} from './types';
 
 export function isMeasureType(str: string) {
   switch (str as MeasureModes) {
@@ -17,7 +17,7 @@ export function stringify(enrichedRecordingJson: {
   title: string;
   steps: UserFlowRecordingStep[];
 }): string {
-  const {title, steps} = enrichedRecordingJson;
+  const { title, steps } = enrichedRecordingJson;
   const standardizedJson = {
     title,
     steps: steps.map((step) => {

@@ -1,14 +1,6 @@
-import {
-  CollectArgvOptions,
-  GlobalOptionsArgv,
-  SANDBOX_PRESET,
-} from '@push-based/user-flow';
+import {CollectArgvOptions, GlobalOptionsArgv, SANDBOX_PRESET,} from '@push-based/user-flow';
 import {INITIATED_PRJ_CFG, REMOTE_RC_JSON} from 'test-data';
-import {
-  SANDBOX_BASE_RC_JSON,
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-} from '@push-based/user-flow-cli-testing';
+import {SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
 import {expectCollectCfgToContain} from '../../jest/expect.collect';
 
 let initializedPrj: UserFlowCliProject;
@@ -27,7 +19,7 @@ describe('collect command configuration in setup sandbox', () => {
   });
 
   it('should have default`s from preset', async () => {
-    const {exitCode, stdout, stderr} = await initializedPrj.$collect();
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect();
 
     const {
       rcPath,
@@ -56,13 +48,13 @@ describe('collect command configuration in setup sandbox', () => {
   }, 90_000);
 
   it('should take cli parameters', async () => {
-    let {collect, persist, assert} = REMOTE_RC_JSON;
-    const {url, ufPath} = collect;
+    let { collect, persist, assert } = REMOTE_RC_JSON;
+    const { url, ufPath } = collect;
     // @TODO fix format
-    let {outPath /*, format*/} = persist;
+    let { outPath /*, format*/ } = persist;
     let budgetPath = assert?.budgetPath;
 
-    const {exitCode, stdout, stderr} = await initializedPrj.$collect(
+    const { exitCode, stdout, stderr } = await initializedPrj.$collect(
       {
         url,
         ufPath,

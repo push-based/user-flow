@@ -1,11 +1,8 @@
+import {UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
 import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-} from '@push-based/user-flow-cli-testing';
-import {
+  STATIC_HTML_REPORT_NAME,
   STATIC_JSON_REPORT_NAME,
   STATIC_MD_REPORT_NAME,
-  STATIC_HTML_REPORT_NAME,
   STATIC_PRJ_CFG,
   STATIC_USERFLOW_NAME,
   STATIC_USERFLOW_TITLE,
@@ -29,7 +26,7 @@ describe('collect command in setup sandbox', () => {
   afterEach(async () => await setupRemotePrj.teardown());
 
   it('should save the results as a HTML file', async () => {
-    const {exitCode, stderr} = await setupRemotePrj.$collect({
+    const { exitCode, stderr } = await setupRemotePrj.$collect({
       format: ['html'],
     });
 
@@ -44,7 +41,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should save the results as a JSON file', async () => {
-    const {exitCode, stderr} = await setupRemotePrj.$collect({
+    const { exitCode, stderr } = await setupRemotePrj.$collect({
       format: ['json'],
     });
     expect(stderr).toBe('');
@@ -59,7 +56,7 @@ describe('collect command in setup sandbox', () => {
   }, 90_000);
 
   it('should save the results as a Markdown file', async () => {
-    const {exitCode, stderr} = await setupRemotePrj.$collect({
+    const { exitCode, stderr } = await setupRemotePrj.$collect({
       // @TODO provide proper mock data for the json report so md also works in dryRun
       dryRun: false,
       format: ['md'],
@@ -89,7 +86,7 @@ describe('collect command in setup sandbox', () => {
   }, 180_000);
 
   it('should save the results as a HTML, JSON and Markdown files and log to stdout', async () => {
-    const {exitCode, stdout, stderr} = await setupRemotePrj.$collect({
+    const { exitCode, stdout, stderr } = await setupRemotePrj.$collect({
       format: ['html', 'json', 'md', 'stdout'],
       // enforce real report generation
       dryRun: false,

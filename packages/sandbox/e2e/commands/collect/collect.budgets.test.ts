@@ -101,7 +101,7 @@ describe('$collect() sandbox+NO-assets with RC({budgets}))', () => {
   afterEach(async () => await staticWRcBudgetPrj.teardown());
 
   it('should load budgets from RC file', async () => {
-    const {exitCode, stdout, stderr} = await staticWRcBudgetPrj.$collect({
+    const { exitCode, stdout, stderr } = await staticWRcBudgetPrj.$collect({
       dryRun: false,
     });
 
@@ -147,7 +147,7 @@ describe('$collect() sandbox+assets with RC({budgetPath}))', () => {
   afterEach(async () => await staticWBudgetAssetsPrj.teardown());
 
   it('should load budgetPath from RC file', async () => {
-    const {exitCode, stdout, stderr} = await staticWBudgetAssetsPrj.$collect({
+    const { exitCode, stdout, stderr } = await staticWBudgetAssetsPrj.$collect({
       budgetPath: LH_NAVIGATION_BUDGETS_NAME,
     });
 

@@ -2,7 +2,7 @@ import {RcJson} from '../../../types';
 import {join} from 'path';
 import {readFile, writeFile} from '../../../core/file';
 import {log, logVerbose} from '../../../core/loggin';
-import {mkdirSync, existsSync} from 'fs';
+import {existsSync, mkdirSync} from 'fs';
 import {GhWorkflowExampleMap} from '../constants';
 import {GhWorkflowExamples} from '../types';
 import {ifThenElse} from '../../../core/processing/behaviors';
@@ -43,7 +43,7 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
     fail: true,
   }).toString();
   if (!existsSync(destPath)) {
-    mkdirSync(destPath, {recursive: true});
+    mkdirSync(destPath, { recursive: true });
     logVerbose(`setup workflow folder ${destPath}`);
   }
 
@@ -56,8 +56,8 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
 }
 
 export function handleGhWorkflowGeneration({
-                                             generateGhWorkflow,
-                                           }: {
+  generateGhWorkflow,
+}: {
   generateGhWorkflow?: boolean;
 }): CLIProcess {
   return ifThenElse(

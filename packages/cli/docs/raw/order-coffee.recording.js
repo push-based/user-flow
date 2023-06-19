@@ -21,7 +21,7 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
 
   async function scrollIntoViewIfNeeded(element, timeout) {
     await waitForConnected(element, timeout);
-    const isInViewport = await element.isIntersectingViewport({threshold: 0});
+    const isInViewport = await element.isIntersectingViewport({ threshold: 0 });
     if (isInViewport) {
       return;
     }
@@ -43,7 +43,7 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
 
   async function waitForInViewport(element, timeout) {
     await waitForFunction(async () => {
-      return await element.isIntersectingViewport({threshold: 0});
+      return await element.isIntersectingViewport({ threshold: 0 });
     }, timeout);
   }
 
@@ -161,7 +161,7 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
 
   {
     const targetPage = page;
-    await targetPage.setViewport({width: 1077, height: 975});
+    await targetPage.setViewport({ width: 1077, height: 975 });
   }
   {
     const targetPage = page;
@@ -175,11 +175,11 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
     const element = await waitForSelectors(
       [['aria/Cappucino'], ['[data-test=Cappucino]']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
     await element.click({
-      offset: {x: 190.90185546875, y: 159.6608657836914},
+      offset: { x: 190.90185546875, y: 159.6608657836914 },
     });
   }
   {
@@ -187,27 +187,27 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
     const element = await waitForSelectors(
       [['aria/Proceed to checkout'], ['[data-test=checkout]']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
-    await element.click({offset: {x: 103.1875, y: 18.796875}});
+    await element.click({ offset: { x: 103.1875, y: 18.796875 } });
   }
   {
     const targetPage = page;
     const element = await waitForSelectors(
       [['aria/Name'], ['#name']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
-    await element.click({offset: {x: 122.515625, y: 23.921875}});
+    await element.click({ offset: { x: 122.515625, y: 23.921875 } });
   }
   {
     const targetPage = page;
     const element = await waitForSelectors(
       [['aria/Name'], ['#name']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
     const type = await element.evaluate((el) => el.type);
@@ -229,8 +229,8 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
       await element.focus();
       await element.evaluate((el, value) => {
         el.value = value;
-        el.dispatchEvent(new Event('input', {bubbles: true}));
-        el.dispatchEvent(new Event('change', {bubbles: true}));
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
       }, 'nina');
     }
   }
@@ -239,17 +239,17 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
     const element = await waitForSelectors(
       [['aria/Email'], ['#email']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
-    await element.click({offset: {x: 124.5, y: 17.234375}});
+    await element.click({ offset: { x: 124.5, y: 17.234375 } });
   }
   {
     const targetPage = page;
     const element = await waitForSelectors(
       [['aria/Email'], ['#email']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
     const type = await element.evaluate((el) => el.type);
@@ -271,8 +271,8 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
       await element.focus();
       await element.evaluate((el, value) => {
         el.value = value;
-        el.dispatchEvent(new Event('input', {bubbles: true}));
-        el.dispatchEvent(new Event('change', {bubbles: true}));
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
       }, 'nina@gmail.com');
     }
   }
@@ -281,10 +281,10 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
     const element = await waitForSelectors(
       [['aria/Submit'], ['#submit-payment']],
       targetPage,
-      {timeout, visible: true}
+      { timeout, visible: true }
     );
     await scrollIntoViewIfNeeded(element, timeout);
-    await element.click({offset: {x: 21.859375, y: 26.859375}});
+    await element.click({ offset: { x: 21.859375, y: 26.859375 } });
   }
   {
     const targetPage = page;

@@ -378,9 +378,7 @@
         "type": "debugdata",
         "items": [
           {
-            "failures": [
-              "No manifest was fetched"
-            ],
+            "failures": ["No manifest was fetched"],
             "isParseFailure": true,
             "parseFailureReason": "No manifest was fetched"
           }
@@ -1576,12 +1574,7 @@
         "debugData": {
           "type": "debugdata",
           "impact": "serious",
-          "tags": [
-            "cat.language",
-            "wcag2a",
-            "wcag311",
-            "ACT"
-          ]
+          "tags": ["cat.language", "wcag2a", "wcag311", "ACT"]
         }
       }
     },
@@ -2392,9 +2385,7 @@
     }
   },
   "configSettings": {
-    "output": [
-      "json"
-    ],
+    "output": ["json"],
     "maxWaitForFcp": 30000,
     "maxWaitForLoad": 45000,
     "formFactor": "mobile",
@@ -2433,11 +2424,7 @@
   "categories": {
     "performance": {
       "title": "Performance",
-      "supportedModes": [
-        "navigation",
-        "timespan",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "timespan", "snapshot"],
       "auditRefs": [
         {
           "id": "first-contentful-paint",
@@ -2756,10 +2743,7 @@
       "title": "Accessibility",
       "description": "These checks highlight opportunities to [improve the accessibility of your web app](https://web.dev/lighthouse-accessibility/). Only a subset of accessibility issues can be automatically detected so manual testing is also encouraged.",
       "manualDescription": "These items address areas which an automated testing tool cannot cover. Learn more in our guide on [conducting an accessibility review](https://developers.google.com/web/fundamentals/accessibility/how-to-review).",
-      "supportedModes": [
-        "navigation",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "snapshot"],
       "auditRefs": [
         {
           "id": "accesskeys",
@@ -3027,11 +3011,7 @@
     },
     "best-practices": {
       "title": "Best Practices",
-      "supportedModes": [
-        "navigation",
-        "timespan",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "timespan", "snapshot"],
       "auditRefs": [
         {
           "id": "is-on-https",
@@ -3121,10 +3101,7 @@
       "title": "SEO",
       "description": "These checks ensure that your page is following basic search engine optimization advice. There are many additional factors Lighthouse does not score here that may affect your search ranking, including performance on [Core Web Vitals](https://web.dev/learn-web-vitals/). [Learn more](https://support.google.com/webmasters/answer/35769).",
       "manualDescription": "Run these additional validators on your site to check additional SEO best practices.",
-      "supportedModes": [
-        "navigation",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "snapshot"],
       "auditRefs": [
         {
           "id": "viewport",
@@ -3208,9 +3185,7 @@
       "title": "PWA",
       "description": "These checks validate the aspects of a Progressive Web App. [Learn more](https://developers.google.com/web/progressive-web-apps/checklist).",
       "manualDescription": "These checks are required by the baseline [PWA Checklist](https://developers.google.com/web/progressive-web-apps/checklist) but are not automatically checked by Lighthouse. They do not affect your score but it's important that you verify them manually.",
-      "supportedModes": [
-        "navigation"
-      ],
+      "supportedModes": ["navigation"],
       "auditRefs": [
         {
           "id": "installable-manifest",
@@ -5201,9 +5176,7 @@
       "lighthouse-core/audits/service-worker.js | description": [
         "audits[service-worker].description"
       ],
-      "lighthouse-core/audits/viewport.js | title": [
-        "audits.viewport.title"
-      ],
+      "lighthouse-core/audits/viewport.js | title": ["audits.viewport.title"],
       "lighthouse-core/audits/viewport.js | description": [
         "audits.viewport.description"
       ],
@@ -5379,9 +5352,7 @@
       "lighthouse-core/audits/critical-request-chains.js | description": [
         "audits[critical-request-chains].description"
       ],
-      "lighthouse-core/audits/redirects.js | title": [
-        "audits.redirects.title"
-      ],
+      "lighthouse-core/audits/redirects.js | title": ["audits.redirects.title"],
       "lighthouse-core/audits/redirects.js | description": [
         "audits.redirects.description"
       ],
@@ -5666,9 +5637,7 @@
       "lighthouse-core/audits/preload-lcp-image.js | description": [
         "audits[preload-lcp-image].description"
       ],
-      "lighthouse-core/audits/csp-xss.js | title": [
-        "audits[csp-xss].title"
-      ],
+      "lighthouse-core/audits/csp-xss.js | title": ["audits[csp-xss].title"],
       "lighthouse-core/audits/csp-xss.js | description": [
         "audits[csp-xss].description"
       ],
@@ -6252,9 +6221,7 @@
       "lighthouse-core/audits/seo/hreflang.js | description": [
         "audits.hreflang.description"
       ],
-      "lighthouse-core/audits/seo/plugins.js | title": [
-        "audits.plugins.title"
-      ],
+      "lighthouse-core/audits/seo/plugins.js | title": ["audits.plugins.title"],
       "lighthouse-core/audits/seo/plugins.js | description": [
         "audits.plugins.description"
       ],

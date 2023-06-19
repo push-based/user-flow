@@ -1,7 +1,4 @@
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-} from '@push-based/user-flow-cli-testing';
+import {UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
 import {STATIC_PRJ_CFG, STATIC_USERFLOW_NAME} from 'test-data';
 import {expectCollectLogsFromMockInStdout} from '../../jest';
 

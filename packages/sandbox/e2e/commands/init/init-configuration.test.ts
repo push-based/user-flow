@@ -1,14 +1,5 @@
-import {
-  CollectArgvOptions,
-  DEFAULT_RC_NAME,
-  GlobalOptionsArgv,
-  SANDBOX_PRESET,
-} from '@push-based/user-flow';
-import {
-  SANDBOX_BASE_RC_JSON,
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-} from '@push-based/user-flow-cli-testing';
+import {CollectArgvOptions, DEFAULT_RC_NAME, GlobalOptionsArgv, SANDBOX_PRESET,} from '@push-based/user-flow';
+import {SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
 import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG} from 'test-data';
 import {expectInitOptionsToBeContainedInStdout} from '../../jest/expect.init';
 
@@ -27,7 +18,7 @@ describe('init command configuration in empty sandbox', () => {
   });
 
   it('should have default`s from preset', async () => {
-    const {exitCode, stdout, stderr} = await emptyPrj.$init();
+    const { exitCode, stdout, stderr } = await emptyPrj.$init();
 
     // @NOTICE formats are in the preset but not used as default param
     const {
@@ -36,7 +27,7 @@ describe('init command configuration in empty sandbox', () => {
       verbose,
       ...rest
     }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
-    const {dryRun, openReport, format, ...initOptions} = rest as any;
+    const { dryRun, openReport, format, ...initOptions } = rest as any;
     expectInitOptionsToBeContainedInStdout(stdout, initOptions);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
@@ -89,11 +80,11 @@ describe('init command configuration in setup sandbox', () => {
       budgetPath: 'XXXXXX.json',
     };
 
-    const {url, ufPath} = collect;
-    let {outPath, format} = persist;
-    let {budgetPath} = assert;
+    const { url, ufPath } = collect;
+    let { outPath, format } = persist;
+    let { budgetPath } = assert;
 
-    const {exitCode, stdout, stderr} = await initializedPrj.$init(
+    const { exitCode, stdout, stderr } = await initializedPrj.$init(
       {
         // -- collect
         url,

@@ -6,13 +6,10 @@ import {
   withUserFlowProject,
 } from '@push-based/user-flow-cli-testing';
 import {expectCliToCreateRc, expectOutputRcInStdout} from '../../jest/expect';
-import {
-  expectNoPromptsOfInitInStdout,
-  expectPromptsOfInitInStdout,
-} from '../../jest/expect.init';
+import {expectNoPromptsOfInitInStdout, expectPromptsOfInitInStdout,} from '../../jest/expect.init';
 import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG} from 'test-data';
 import {join} from 'path';
-import { existsSync } from 'fs';
+import {existsSync} from 'fs';
 
 let emptyPrj: UserFlowCliProject;
 const cwd = process.cwd();
@@ -80,7 +77,7 @@ describe('init command in setup sandbox', () => {
   it(
     'should inform about the already existing cli-setup',
     withUserFlowProject(INITIATED_PRJ_CFG, async () => {
-      const {exitCode, stdout, stderr} = await initializedPrj.$init({});
+      const { exitCode, stdout, stderr } = await initializedPrj.$init({});
 
       // Assertions
 
@@ -108,7 +105,7 @@ describe('init command in setup sandbox', () => {
       async (prj) => {
         const workflowPath = join(process.cwd(), expectedFilePath);
         expect(existsSync(workflowPath)).toBeFalsy();
-        const {exitCode, stderr} = await prj.$init({
+        const { exitCode, stderr } = await prj.$init({
           generateGhWorkflow: true,
         });
         expect(existsSync(workflowPath)).toBeTruthy();

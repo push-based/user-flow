@@ -6,13 +6,9 @@
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "packages/user-flow-example/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/user-flow-example/**/*.ts"]
       }
     }
   },

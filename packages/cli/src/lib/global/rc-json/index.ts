@@ -1,7 +1,7 @@
-import { readFile, writeFile } from '../../core/file';
-import { logVerbose } from '../../core/loggin';
-import { RcJson } from '../../types';
-import { globalOptions } from '../options';
+import {readFile, writeFile} from '../../core/file';
+import {logVerbose} from '../../core/loggin';
+import {RcJson} from '../../types';
+import {globalOptions} from '../options';
 
 export function readRcConfig(
   rcPath: string = '',
@@ -10,10 +10,10 @@ export function readRcConfig(
     fallback?: {};
   }
 ): RcJson {
-  let {fail, fallback} = options || {};
+  let { fail, fallback } = options || {};
   fallback = fallback || {};
   rcPath = rcPath || globalOptions.getRcPath();
-  let repoConfigJson = readFile<RcJson>(rcPath, {ext: 'json', fail: !!fail});
+  let repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json', fail: !!fail });
   if (!repoConfigJson) {
     repoConfigJson = fallback as RcJson;
   }
@@ -31,8 +31,8 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
 }
 
 export function getCliOptionsFromRcConfig<T>(rcPath?: string): T {
-  const {collect, persist, assert} = readRcConfig(
+  const { collect, persist, assert } = readRcConfig(
     rcPath || globalOptions.getRcPath()
   );
-  return {...collect, ...persist, ...assert} as unknown as T;
+  return { ...collect, ...persist, ...assert } as unknown as T;
 }

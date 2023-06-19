@@ -1,15 +1,15 @@
-import { readFile, writeFile } from '../../../../core/file';
-import { logVerbose } from '../../../../core/loggin';
-import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
-import { LhConfigJson } from '../../../../hacky-things/lighthouse';
-import { CollectCommandArgv } from '../../options/types';
-import { readBudgets } from '../../../assert/utils/budgets';
+import {readFile, writeFile} from '../../../../core/file';
+import {logVerbose} from '../../../../core/loggin';
+import {DEFAULT_COLLECT_CONFIG_PATH} from '../../options/configPath.constant';
+import {LhConfigJson} from '../../../../hacky-things/lighthouse';
+import {CollectCommandArgv} from '../../options/types';
+import {readBudgets} from '../../../assert/utils/budgets';
 import Budget from 'lighthouse/types/lhr/budget';
 
 export function readConfig(
   configPath: string = DEFAULT_COLLECT_CONFIG_PATH
 ): LhConfigJson {
-  const configJson = JSON.parse(readFile(configPath, {fail: true}));
+  const configJson = JSON.parse(readFile(configPath, { fail: true }));
   return configJson;
 }
 
@@ -82,7 +82,7 @@ export function mergeLhConfig(
   globalCfg: LhConfigJson = {},
   localCfg: LhConfigJson = {}
 ): LhConfigJson {
-  let cfg = {...globalCfg};
+  let cfg = { ...globalCfg };
 
   if (localCfg) {
     cfg = {

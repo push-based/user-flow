@@ -1,8 +1,8 @@
-import { concurrently } from 'concurrently';
-import { logVerbose } from '../../../core/loggin';
-import { Subscription } from 'rxjs';
-import { CollectRcOptions } from '../options/types';
-import { RcJson } from '../../../types';
+import {concurrently} from 'concurrently';
+import {logVerbose} from '../../../core/loggin';
+import {Subscription} from 'rxjs';
+import {CollectRcOptions} from '../options/types';
+import {RcJson} from '../../../types';
 
 // @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
 // I suggest a single function returning a promise.
@@ -13,7 +13,7 @@ export async function startServerIfNeededAndExecute(
   workTargetingServer: () => Promise<any>,
   collectOption: CollectRcOptions = {} as CollectRcOptions
 ): Promise<RcJson> {
-  const {serveCommand, awaitServeStdout} = collectOption;
+  const { serveCommand, awaitServeStdout } = collectOption;
 
   if (serveCommand && !awaitServeStdout) {
     return Promise.reject(

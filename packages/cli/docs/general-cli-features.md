@@ -39,7 +39,7 @@ These key combinations can be used on _multiple_ choice prompts.For more details
 see [enquirer - multiselect](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md)
 
 | **command**       | **description**                                                                                                      |
-|-------------------|----------------------------------------------------------------------------------------------------------------------|
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- |
 | <kbd>space</kbd>  | Toggle the currently selected choice when `options.multiple` is true.                                                |
 | <kbd>number</kbd> | Move the pointer to the choice at the given index. Also toggles the selected choice when `options.multiple` is true. |
 | <kbd>a</kbd>      | Toggle all choices to be enabled or disabled.                                                                        |

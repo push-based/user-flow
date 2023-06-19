@@ -1,13 +1,13 @@
-import { readdirSync, readFileSync } from 'fs';
-import { join } from 'path';
+import {readdirSync, readFileSync} from 'fs';
+import {join} from 'path';
 import Budget from 'lighthouse/types/lhr/budget';
 import {
   CliProject,
   getFolderContent,
   ProcessParams,
+  ProjectConfig,
   TestResult,
   withProject,
-  ProjectConfig,
 } from '@push-based/node-cli-testing';
 import {
   CollectCommandArgv,
@@ -19,16 +19,12 @@ import {
   RcJson,
   ReportFormat,
 } from '@push-based/user-flow';
-import { SANDBOX_BASE_RC_JSON } from './data/user-flowrc.base';
-import { SERVE_COMMAND_PORT } from './data/constants';
-import { kill } from './utils/kill';
+import {SANDBOX_BASE_RC_JSON} from './data/user-flowrc.base';
+import {SERVE_COMMAND_PORT} from './data/constants';
+import {kill} from './utils/kill';
 import {UserFlowProjectConfig} from './types';
 import {getEnvVarsByCliModeAndDeleteOld} from './utils/cli-mode';
-import {
-  DEFAULT_RC_NAME,
-  LH_CONFIG_NAME_DEFAULT,
-  LH_NAVIGATION_BUDGETS_NAME_DEFAULT,
-} from './constants';
+import {DEFAULT_RC_NAME, LH_CONFIG_NAME_DEFAULT, LH_NAVIGATION_BUDGETS_NAME_DEFAULT,} from './constants';
 
 export class UserFlowCliProjectFactory {
   static async create(cfg: UserFlowProjectConfig): Promise<UserFlowCliProject> {
@@ -60,10 +56,10 @@ export class UserFlowCliProject extends CliProject<RcJson> {
 
     cfg.cliMode = cfg.cliMode || 'SANDBOX';
     cfg.cliMode &&
-    (cfg.env = {
-      ...cfg.env,
-      ...getEnvVarsByCliModeAndDeleteOld(cfg.cliMode),
-    } as any);
+      (cfg.env = {
+        ...cfg.env,
+        ...getEnvVarsByCliModeAndDeleteOld(cfg.cliMode),
+      } as any);
 
     // console.log('cfg: ', cfg);
     // handle user-flow related output folders defined in rcFiles and related configurations
@@ -87,7 +83,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
 
   override async teardown(): Promise<void> {
     await super.teardown();
-    await kill({port: this.serveCommandPort});
+    await kill({ port: this.serveCommandPort });
   }
 
   $init(
@@ -159,7 +155,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
         this.outputPath(reportPath, rcFileName)
       ).toString('utf8');
       content = reportPath.includes('.json') ? JSON.parse(content) : content;
-      res.push({reportPath, content});
+      res.push({ reportPath, content });
       return res;
     }, [] as FileResult[]);
   }

@@ -1,7 +1,7 @@
 import * as yargs from 'yargs';
-import { Options } from 'yargs';
-import { YargsCommandObject } from './types';
-import { applyConfigMiddleware } from '../../config.middleware';
+import {Options} from 'yargs';
+import {YargsCommandObject} from './types';
+import {applyConfigMiddleware} from '../../config.middleware';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -10,7 +10,7 @@ export function setupYargs(
 ) {
   yargs
     .options(options)
-    .parserConfiguration({'boolean-negation': true})
+    .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
     .example([['init', 'Setup user-flows over prompts']])
     .help()
@@ -20,8 +20,7 @@ export function setupYargs(
     yargs.command(
       command.command,
       command.description,
-      command?.builder || (() => {
-      }),
+      command?.builder || (() => {}),
       applyConfigMiddleware(command.module.handler, configParser)
     )
   );

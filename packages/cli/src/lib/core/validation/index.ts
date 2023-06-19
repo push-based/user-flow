@@ -1,11 +1,11 @@
-import { Error, ValidatorFn } from './types';
+import {Error, ValidatorFn} from './types';
 
 export function applyValidations<T>(
   value: T,
   validators: ValidatorFn[]
 ): Error {
   return validators.reduce((errors, validator) => {
-    return {...errors, ...(validator(value) || {})};
+    return { ...errors, ...(validator(value) || {}) };
   }, {});
 }
 
@@ -18,13 +18,13 @@ const oneOf = (set: string[]) => (value: string) => {
     return i === value;
   }) === undefined
     ? {
-      oneOf: {value},
-    }
+        oneOf: { value },
+      }
     : null;
 };
 export const VALIDATORS = {
   required: (value: string) =>
-    value !== undefined && value !== '' ? null : {required: true},
+    value !== undefined && value !== '' ? null : { required: true },
   oneOf,
   allOf: (set: string[]) => (values: string[]) => {
     const _oneOf = oneOf(set);
@@ -34,7 +34,7 @@ export const VALIDATORS = {
       const e = _oneOf(value);
       if (e) {
         errors = {
-          allOf: {value},
+          allOf: { value },
         };
       }
     });

@@ -8,8 +8,8 @@ import {
 } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import {UserFlow} from '../../../../hacky-things/lighthouse';
+import {SharedFlagsSettings} from 'lighthouse/types/lhr/settings';
 
 export type UserFlowContext = {
   browser: Browser;
@@ -41,9 +41,9 @@ export type UserFlowOptions = {
 export type LaunchOptions = PPTLaunchOptions &
   BrowserLaunchArgumentOptions &
   BrowserConnectOptions & {
-  product?: Product;
-  extraPrefsFirefox?: Record<string, unknown>;
-};
+    product?: Product;
+    extraPrefsFirefox?: Record<string, unknown>;
+  };
 
 /**
  * budgets: path to budgets file

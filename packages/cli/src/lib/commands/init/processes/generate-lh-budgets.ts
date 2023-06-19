@@ -1,12 +1,12 @@
-import { RcJson } from '../../../types';
-import { join } from 'path';
-import { readFile, writeFile } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
-import { existsSync, mkdirSync } from 'fs';
-import { BudgetsExampleMap } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
-import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr';
+import {RcJson} from '../../../types';
+import {join} from 'path';
+import {readFile, writeFile} from '../../../core/file';
+import {log, logVerbose} from '../../../core/loggin';
+import {existsSync, mkdirSync} from 'fs';
+import {BudgetsExampleMap} from '../constants';
+import {ifThenElse} from '../../../core/processing/behaviors';
+import {CLIProcess} from '../../../core/processing/types';
+import {deriveBudgetsFromLhr} from '../derive-budgets-from-lhr';
 
 export async function generateLgBudgets(
   cliCfg: RcJson & { lhr?: string }
@@ -49,9 +49,9 @@ export async function generateLgBudgets(
 }
 
 export function handleBudgetsGeneration({
-                                          generateBudgets,
-                                          lhr,
-                                        }: {
+  generateBudgets,
+  lhr,
+}: {
   generateBudgets?: boolean;
   lhr?: string;
 }): CLIProcess {
@@ -59,6 +59,6 @@ export function handleBudgetsGeneration({
     // if `generateBudgets` is used
     () => !!generateBudgets,
     // generate the file => else do nothing
-    (cfg) => generateLgBudgets({...cfg, lhr})
+    (cfg) => generateLgBudgets({ ...cfg, lhr })
   );
 }

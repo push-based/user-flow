@@ -5,9 +5,7 @@
     "declaration": true,
     "types": ["node"],
     "paths": {
-      "@push-based/user-flow": [
-        "dist/packages/user-flow"
-      ]
+      "@push-based/user-flow": ["dist/packages/user-flow"]
     }
   },
   "include": ["**/*.ts"],

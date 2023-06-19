@@ -42,7 +42,7 @@ start collecting user-flows |
 **Options file scaffolding:**
 
 | Option                               | Type      | Default | Description                                                                          |
-|--------------------------------------|-----------|---------|--------------------------------------------------------------------------------------|
+| ------------------------------------ | --------- | ------- | ------------------------------------------------------------------------------------ |
 | **`-h`**, **`--generateFlow`**       | `boolean` | n/a     | Generate basic user-flow file under `ufPath`                                         |
 | **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a     | Generate `user-flow.yml` file under `.github/workflows`                              |
 | **`-x`**, **`--generateBudgets`**    | `boolean` | n/a     | Generate `budget.json` file under the current working directury                      |
@@ -92,7 +92,7 @@ This params help to create additional files like user flows or CI integration.
 ### generateFlow
 
 | Option                         | Type      | Default |
-|--------------------------------|-----------|---------|
+| ------------------------------ | --------- | ------- |
 | **`-h`**, **`--generateFlow`** | `boolean` | n/a     |
 
 **Execution:**
@@ -119,7 +119,7 @@ If the `init` command executes with `--no-generateFlow` nothing will be created 
 ### generateGhWorkflow
 
 | Option                               | Type      | Default |
-|--------------------------------------|-----------|---------|
+| ------------------------------------ | --------- | ------- |
 | **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a     |
 
 **Execution:**
@@ -144,7 +144,7 @@ If the `init` command executes with `--no-generateGhWorkflow` nothing will be cr
 ### generateBudgets & lhr
 
 | Option                            | Type      | Default |
-|-----------------------------------|-----------|---------|
+| --------------------------------- | --------- | ------- |
 | **`-x`**, **`--generateBudgets`** | `boolean` | n/a     |
 | **`--lhr`**                       | `string`  | n/a     |
 

@@ -1,7 +1,6 @@
-import { startServerIfNeededAndExecute } from './serve-command';
-
+import {startServerIfNeededAndExecute} from './serve-command';
+import {CollectRcOptions} from '../options/types';
 import spyOn = jest.spyOn;
-import { CollectRcOptions } from '../options/types';
 
 describe('startServerIfNeeded', () => {
   it('should throw if serveCommand is provided but no await string', async () => {
@@ -9,7 +8,7 @@ describe('startServerIfNeeded', () => {
       serveCommand: 'npm run start',
     } as CollectRcOptions;
     const userFlowWork = () => Promise.resolve(void 0);
-    const spy = spyOn({userFlowWork}, 'userFlowWork');
+    const spy = spyOn({ userFlowWork }, 'userFlowWork');
 
     let err: string | undefined = undefined;
     const res = await startServerIfNeededAndExecute(userFlowWork, o).catch(

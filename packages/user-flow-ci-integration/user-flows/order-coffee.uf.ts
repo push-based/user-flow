@@ -1,21 +1,17 @@
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider,} from '@push-based/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {page, flow, browser, collectOptions} = ctx;
-  const {url} = collectOptions;
+  const { page, flow, browser, collectOptions } = ctx;
+  const { url } = collectOptions;
 
   // Navigate to coffee order site
   await flow.navigate(url, {
     stepName: '🧭 Navigate to coffee cart',
   });
 
-  await flow.startTimespan({stepName: '☕ Select coffee'});
+  await flow.startTimespan({ stepName: '☕ Select coffee' });
 
   // Select coffee
   const cappuccinoItem = '.cup:nth-child(1)';
@@ -56,7 +52,7 @@ const interactions: UserFlowInteractionsFn = async (
 
   await flow.endTimespan();
 
-  await flow.snapshot({stepName: '📧 Order submitted'});
+  await flow.snapshot({ stepName: '📧 Order submitted' });
 
   // Navigate to github info site
   await flow.navigate(url + 'github', {
@@ -65,7 +61,7 @@ const interactions: UserFlowInteractionsFn = async (
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: '☕ Order Coffee ☕'},
+  flowOptions: { name: '☕ Order Coffee ☕' },
   interactions,
 };
 

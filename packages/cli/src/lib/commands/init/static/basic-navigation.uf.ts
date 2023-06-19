@@ -1,15 +1,11 @@
 // Your custom interactions with the page
-import {
-  UserFlowContext,
-  UserFlowInteractionsFn,
-  UserFlowProvider,
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider,} from '@push-based/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {flow, collectOptions} = ctx;
-  const {url} = collectOptions;
+  const { flow, collectOptions } = ctx;
+  const { url } = collectOptions;
 
   await flow.navigate(url, {
     stepName: `Navigate to ${url}`,
@@ -21,7 +17,7 @@ const interactions: UserFlowInteractionsFn = async (
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Basic Navigation Example'},
+  flowOptions: { name: 'Basic Navigation Example' },
   interactions,
 };
 

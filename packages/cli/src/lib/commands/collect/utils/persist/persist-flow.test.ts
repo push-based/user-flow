@@ -1,15 +1,12 @@
-import { join } from 'path';
-import { readdirSync } from 'fs';
+import {join} from 'path';
+import {readdirSync} from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import {
-  UserFlowCliProject,
-  UserFlowCliProjectFactory,
-} from '@push-based/user-flow-cli-testing';
+import {UserFlowCliProject, UserFlowCliProjectFactory,} from '@push-based/user-flow-cli-testing';
 import {getReportContent, INITIATED_PRJ_CFG} from 'test-data';
 import {persistFlow} from './persist-flow';
-import { ReportFormat } from '../../options/types';
-import { PersistFlowOptions } from './types';
-import { createReducedReport, toReportName } from '../report/utils';
+import {ReportFormat} from '../../options/types';
+import {PersistFlowOptions} from './types';
+import {createReducedReport, toReportName} from '../report/utils';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const htmlReport = getReportContent('lhr-9.html') as string;
@@ -66,8 +63,8 @@ const flowFileName = toReportName(
   flowName,
   createReducedReport(jsonReport)
 );
-const persistFlowOptions: PersistFlowOptions = {outPath: '', format: [], url};
-const flow = new UserFlowReportMock({name: flowName});
+const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
+const flow = new UserFlowReportMock({ name: flowName });
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;

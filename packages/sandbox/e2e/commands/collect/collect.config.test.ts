@@ -1,16 +1,11 @@
-import { DEFAULT_RC_NAME } from '@push-based/user-flow';
+import {DEFAULT_RC_NAME} from '@push-based/user-flow';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig,
   withUserFlowProject,
 } from '@push-based/user-flow-cli-testing';
-import {
-  LH_CONFIG,
-  LH_CONFIG_NAME,
-  STATIC_PRJ_CFG,
-  STATIC_RC_JSON,
-} from 'test-data';
+import {LH_CONFIG, LH_CONFIG_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON,} from 'test-data';
 import {
   expectCollectCfgToContain,
   expectGlobalConfigPathUsageLog,
@@ -99,10 +94,10 @@ describe('$collect() sandbox+assets with RC({config}))', () => {
     withUserFlowProject(
       staticWConfigPrjCfg,
       async (prj: UserFlowCliProject) => {
-        const {exitCode, stdout, stderr} = await prj.$collect();
+        const { exitCode, stdout, stderr } = await prj.$collect();
 
         expect(stderr).toBe('');
-        expectCollectCfgToContain(stdout, {config: LH_CONFIG});
+        expectCollectCfgToContain(stdout, { config: LH_CONFIG });
         expectGlobalConfigUsageLog(stdout);
         expect(exitCode).toBe(0);
       }

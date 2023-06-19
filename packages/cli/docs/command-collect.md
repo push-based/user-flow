@@ -41,7 +41,7 @@ start collecting user-flows |
 **Additional options:**
 
 | Option                       | Type      | Default | Description                                                                            |
-|------------------------------|-----------|---------|----------------------------------------------------------------------------------------|
+| ---------------------------- | --------- | ------- | -------------------------------------------------------------------------------------- |
 | **`-e`**, **`--openReport`** | `boolean` | `true`  | Opens browser automatically after the user-flow is captured                            |
 | **`-d`**, **`--dryRun`**     | `boolean` | `false` | When true the user-flow test will get executed without measures (for fast development) |
 
@@ -83,7 +83,7 @@ npx user-flow collect --verbose
 ### url
 
 | Option                | Type     | Default |
-|-----------------------|----------|---------|
+| --------------------- | -------- | ------- |
 | **`-t`**, **`--url`** | `string` | n/a     |
 
 **Execution:**
@@ -99,7 +99,7 @@ It has to start with `http://` or `https://` to be valid.
 ### ufPath
 
 | Option                   | Type     | Default        |
-|--------------------------|----------|----------------|
+| ------------------------ | -------- | -------------- |
 | **`-u`**, **`--ufPath`** | `string` | `./user-flows` |
 
 **Execution:**
@@ -126,7 +126,7 @@ File formats accepted:
 ### format
 
 | Option                   | Type     | Default                |
-|--------------------------|----------|------------------------|
+| ------------------------ | -------- | ---------------------- |
 | **`-f`**, **`--format`** | `string` | `html`, `json` setting |
 
 **Execution:**
@@ -154,13 +154,13 @@ The following formats are available:
 - `stdout` - A standard output of the console including a summary of the raw `.json` file (same as for the `md` format)
 
 | HTML                                                                                                                                       | JSON                                                                                                                                       | MARKDOWN                                                                                                                                 | STDOUT                                  |
-|--------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
 | ![lighthouse_user-flow-html-report](https://user-images.githubusercontent.com/10064416/219036514-98568103-c182-44cf-bc5c-e5dbc61d76ed.png) | ![lighthouse_user-flow-json-report](https://user-images.githubusercontent.com/10064416/219036583-2cd3e116-91d7-4dbf-847d-95de0a0363ab.png) | ![lighthouse_user-flow-md-report](https://user-images.githubusercontent.com/10064416/219036654-b26c0f44-1c5d-479c-845b-007537b86028.png) | ![lighthouse_user-flow-stdout-report]() |
 
 ### outPath
 
 | Option                    | Type     | Default      |
-|---------------------------|----------|--------------|
+| ------------------------- | -------- | ------------ |
 | **`-o`**, **`--outPath`** | `string` | `./measures` |
 
 **Execution:**
@@ -176,7 +176,7 @@ The CLI will automatically create the folder if it does not exist.
 ### budgetPath
 
 | Option                       | Type     | Default |
-|------------------------------|----------|---------|
+| ---------------------------- | -------- | ------- |
 | **`-b`**, **`--budgetPath`** | `string` | n/a     |
 
 **Execution:**
@@ -199,7 +199,7 @@ The `budgets.json` file path can also be placed directly into the rc file under 
 ### configPath
 
 | Option                       | Type     | Default |
-|------------------------------|----------|---------|
+| ---------------------------- | -------- | ------- |
 | **`-c`**, **`--configPath`** | `string` | n/a     |
 
 **Execution:**
@@ -226,10 +226,10 @@ This params help to get better DX or debugging configurations.
 This param is usefule while developing or debugging a user flow.  
 It skips the real measurements and fakes them with mock reports.
 
-| Option | Type | Default |
-| ------------------------ | --------- | ------- | -------------------------------------------------------------------- |
-| **`-d`**, **`--dryRun`** | `boolean` | `false` | When true the user-flow test will get executed without measures (
-for |
+| Option                   | Type      | Default |
+| ------------------------ | --------- | ------- | ----------------------------------------------------------------- |
+| **`-d`**, **`--dryRun`** | `boolean` | `false` | When true the user-flow test will get executed without measures ( |
+| for                      |
 | fast development)        |
 
 **Execution:**
@@ -254,7 +254,7 @@ It will produce a dummy report in all formats and spin up chromium as usual.
 
 This param is responsible to open reports automatically on your machine
 
-| Option | Type | Default |
+| Option                       | Type      | Default |
 | ---------------------------- | --------- | ------- | ----------------------------------------------------------- |
 | **`-e`**, **`--openReport`** | `boolean` | `true`  | Opens browser automatically after the user-flow is captured |
 
