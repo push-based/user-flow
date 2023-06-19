@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.20.0](https://github.com/push-based/user-flow/compare/cli-0.19.3...cli-0.20.0) (2023-06-19)
+
+
+### Bug Fixes
+
+* gh action test 6 ([4ccd878](https://github.com/push-based/user-flow/commit/4ccd8785d62cdefbf38cd9f6fc597a9984b1bc2d))
+* gh action test 7 ([c1965ad](https://github.com/push-based/user-flow/commit/c1965adab5c9c17eb0d6da58c39b9c256d9885a7))
+* gh action test 8 ([0db57d1](https://github.com/push-based/user-flow/commit/0db57d1601347751a525803765a917215c8fff2a))
+
+
+### Features
+
+* add executor logic and config ([89ba347](https://github.com/push-based/user-flow/commit/89ba3478f76267b3bd99723771df4fc6baf321c5))
+* add nx-plugin setup and basic test ([4e86008](https://github.com/push-based/user-flow/commit/4e8600804e390e8b25d4299b8272fe3c7d170844))
+
+
+
 ## [0.19.3](https://github.com/push-based/user-flow/compare/cli-0.19.2...cli-0.19.3) (2023-06-03)
 
 
