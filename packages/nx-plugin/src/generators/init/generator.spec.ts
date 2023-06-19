@@ -23,6 +23,7 @@ describe('init generator', () => {
   let normalizedOptions: NormalizedSchema = {} as any;
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace({layout: 'apps-libs'});
+
     const projectRoot = `${getWorkspaceLayout(appTree).libsDir}/${PROJECT_NAME}`;
     addProjectConfiguration(
       appTree,
@@ -44,7 +45,7 @@ describe('init generator', () => {
       dependencies: {},
       devDependencies: {}
     })
-    writeJson(appTree, join(normalizedOptions.projectRoot, 'nx.json'), {
+    writeJson(appTree, join(appTree.root, 'nx.json'), {
       "extends": "nx/presets/core.json",
       "tasksRunnerOptions": {
         "default": {
@@ -63,6 +64,8 @@ describe('init generator', () => {
   });
 
   it('should run successfully', async () => {
+    expect(appTree.children('nx.json')).toBe('')
+
     await generator(appTree, baseOptions);
     const config = readProjectConfiguration(appTree, PROJECT_NAME);
     expect(config).toBeDefined();
@@ -103,23 +106,25 @@ describe('init generator', () => {
   });
 
   it('should update nx.json cacheableOperations if tasksRunnerOptions exists', async () => {
-    let nxJson = readJson(appTree, 'nx.json');
+    const nxJsonPath = join(appTree.root, 'nx.json');
+    let nxJson = readJson(appTree, nxJsonPath);
     expect(nxJson.tasksRunnerOptions).toBeDefined();
     expect(nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('user-flow')).toBeFalsy();
     await generator(appTree, baseOptions);
-    nxJson = readJson(appTree, 'nx.json');
+    nxJson = readJson(appTree, nxJsonPath);
     expect(nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('user-flow')).toBeTruthy();
   });
 
   it('should not update nx.json cacheableOperations if tasksRunnerOptions not exists', async () => {
-    updateJson(appTree, 'nx.json', (json) => {
+    const nxJsonPath = join(appTree.root, 'nx.json');
+    updateJson(appTree, nxJsonPath, (json) => {
       delete json.tasksRunnerOptions;
       return json;
     });
-    let nxJson = readJson(appTree, 'nx.json');
+    let nxJson = readJson(appTree, nxJsonPath);
     expect(nxJson.tasksRunnerOptions).toBeUndefined();
     await generator(appTree, baseOptions);
-    nxJson = readJson(appTree, 'nx.json');
+    nxJson = readJson(appTree, nxJsonPath);
     expect(nxJson.tasksRunnerOptions).toBeUndefined();
   });
 

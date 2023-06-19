@@ -18,7 +18,7 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
 }
 
 export function updateDependencies(tree: Tree, options: NormalizedSchema) {
-  updateJson(tree, join('package.json'), (json) => {
+  updateJson(tree, join(options.projectRoot, 'package.json'), (json) => {
     if (!json.devDependencies) {
       json.devDependencies = {};
     }
@@ -29,7 +29,7 @@ export function updateDependencies(tree: Tree, options: NormalizedSchema) {
 }
 
 export function updateNxJson(tree: Tree, options: NormalizedSchema) {
-  updateJson(tree, 'nx.json', (json) => {
+  updateJson(tree, join(tree.root, 'nx.json'), (json) => {
     if (json.tasksRunnerOptions) {
       if (!json.tasksRunnerOptions.default.options.cacheableOperations) {
         json.tasksRunnerOptions.default.options.cacheableOperations = []
