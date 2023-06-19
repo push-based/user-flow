@@ -1,4 +1,4 @@
-import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
+import {createTreeWithEmptyWorkspace} from '@nx/devkit/testing';
 import {
   joinPathFragments,
   addProjectConfiguration,
@@ -8,7 +8,7 @@ import {
   Tree,
   updateJson,
   writeJson
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 
 import generator from './generator';
 import {normalizeOptions} from "./utils";

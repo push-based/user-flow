@@ -1,4 +1,4 @@
-import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
+import {createTreeWithEmptyWorkspace} from '@nx/devkit/testing';
 import {
   joinPathFragments,
   addProjectConfiguration,
@@ -7,7 +7,7 @@ import {
   Tree,
   updateJson,
   writeJson
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 
 import generator from './generator';
 import {normalizeOptions} from "../target/utils";
@@ -74,31 +74,36 @@ describe('init generator', () => {
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
   });
 
-  it('should update user-flow dependency if existing', async () => {
+  it('should update user-flow dependencies if existing', async () => {
     updateJson(appTree, 'package.json', (json) => {
       json.devDependencies[NPM_NAME] = '^1.0.0';
       json.devDependencies[PLUGIN_NAME] = '^0.0.0-alpha';
+      json.devDependencies['@nx/devkit'] = '^15.0.0';
       return json;
     });
     await generator(appTree, baseOptions);
     const packageJson = readJson(appTree, 'package.json');
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
     expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
+    expect(packageJson.devDependencies['@nx/devkit']).toBe('^16.0.0');
   });
 
   it('should not change dep version if skip option is turned on', async () => {
     updateJson(appTree, 'package.json', (json) => {
       json.devDependencies[NPM_NAME] = '^1.0.0';
       json.devDependencies[PLUGIN_NAME] = '^0.0.0';
+      json.devDependencies['@nx/devkit'] = '^15.0.0';
       return json;
     });
     const oldPackageJson = readJson(appTree, 'package.json');
     expect(oldPackageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
     expect(oldPackageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
+    expect(oldPackageJson.devDependencies['@nx/devkit']).toBe('^15.0.0');
     await generator(appTree, {...baseOptions, skipPackageJson: true});
     const packageJson = readJson(appTree, 'package.json');
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
     expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
+    expect(packageJson.devDependencies['@nx/devkit']).toBe('^15.0.0');
   });
 
   it('should update nx.json cacheableOperations if tasksRunnerOptions exists', async () => {

@@ -1,7 +1,7 @@
 import executor from './executor';
-import {createTreeWithEmptyWorkspace} from "@nrwl/devkit/testing";
+import {createTreeWithEmptyWorkspace} from "@nx/devkit/testing";
 import {normalizeOptions} from "../../generators/target/utils";
-import {joinPathFragments, addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nrwl/devkit";
+import {joinPathFragments, addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nx/devkit";
 
 const basicNavigationContent = `
 import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';

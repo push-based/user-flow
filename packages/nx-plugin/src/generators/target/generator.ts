@@ -1,4 +1,4 @@
-import {formatFiles, Tree,} from '@nrwl/devkit';
+import {formatFiles, Tree} from '@nx/devkit';
 
 import {TargetGeneratorSchema} from './schema';
 import {NormalizedSchema} from "./types";

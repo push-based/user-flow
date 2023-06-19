@@ -6,7 +6,7 @@ import {
   Tree,
   updateJson,
   writeJson
-} from '@nrwl/devkit';
+} from '@nx/devkit';
 import {TargetGeneratorSchema} from "./schema";
 import {NormalizedSchema} from "./types";
 import {DEFAULT_TARGET_NAME} from "../target/constants";
