@@ -1,9 +1,9 @@
 import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
 import {
+  joinPathFragments,
   addProjectConfiguration,
   getWorkspaceLayout,
   readJson,
-  readProjectConfiguration,
   Tree,
   updateJson,
   writeJson
@@ -11,7 +11,6 @@ import {
 
 import generator from './generator';
 import {normalizeOptions} from "../target/utils";
-import {join} from "path";
 import {NormalizedSchema} from "./types";
 import {PLUGIN_NAME} from "../constants";
 
@@ -40,11 +39,11 @@ describe('init generator', () => {
       }
     );
     normalizedOptions = normalizeOptions(appTree, baseOptions);
-    writeJson(appTree, join('package.json'), {
+    writeJson(appTree, joinPathFragments('package.json'), {
       dependencies: {},
       devDependencies: {}
     })
-    writeJson(appTree, join('nx.json'), {
+    writeJson(appTree, joinPathFragments('nx.json'), {
       "extends": "nx/presets/core.json",
       "tasksRunnerOptions": {
         "default": {
@@ -60,7 +59,7 @@ describe('init generator', () => {
         }
       }
     })
-    writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
+    writeJson(appTree, joinPathFragments(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
   });
 
   it('should run successfully', async () => {
@@ -103,7 +102,7 @@ describe('init generator', () => {
   });
 
   it('should update nx.json cacheableOperations if tasksRunnerOptions exists', async () => {
-    const nxJsonPath = join('nx.json');
+    const nxJsonPath = joinPathFragments('nx.json');
     let nxJson = readJson(appTree, nxJsonPath);
     expect(nxJson.tasksRunnerOptions).toBeDefined();
     expect(nxJson.tasksRunnerOptions.default.options.cacheableOperations.includes('user-flow')).toBeFalsy();
@@ -113,7 +112,7 @@ describe('init generator', () => {
   });
 
   it('should not update nx.json cacheableOperations if tasksRunnerOptions not exists', async () => {
-    const nxJsonPath = join('nx.json');
+    const nxJsonPath = joinPathFragments('nx.json');
     updateJson(appTree, nxJsonPath, (json) => {
       delete json.tasksRunnerOptions;
       return json;

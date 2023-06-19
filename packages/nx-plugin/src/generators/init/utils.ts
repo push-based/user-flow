@@ -1,5 +1,4 @@
-import { getWorkspaceLayout, readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit';
-import {join} from "path";
+import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit';
 import {NormalizedSchema} from "./types";
 import {InitGeneratorSchema} from "./schema";
 import {PLUGIN_NAME} from "../constants";
@@ -18,7 +17,7 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
 }
 
 export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
-  updateJson(tree, join('package.json'), (json) => {
+  updateJson(tree, joinPathFragments('package.json'), (json) => {
     if (!json.devDependencies) {
       json.devDependencies = {};
     }
@@ -29,7 +28,7 @@ export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
 }
 
 export function updateNxJson(tree: Tree, options?: NormalizedSchema) {
-  updateJson(tree, join('nx.json'), (json) => {
+  updateJson(tree, joinPathFragments('nx.json'), (json) => {
     if (json.tasksRunnerOptions) {
       if (!json.tasksRunnerOptions.default.options.cacheableOperations) {
         json.tasksRunnerOptions.default.options.cacheableOperations = []

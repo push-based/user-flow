@@ -1,8 +1,7 @@
 import executor from './executor';
 import {createTreeWithEmptyWorkspace} from "@nrwl/devkit/testing";
 import {normalizeOptions} from "../../generators/target/utils";
-import {addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nrwl/devkit";
-import {join} from "path";
+import {joinPathFragments, addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nrwl/devkit";
 
 const basicNavigationContent = `
 import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
@@ -28,8 +27,8 @@ const baseOptions = {
   projectName: PROJECT_NAME,
   skipPackageJson: false,
   url: "https://coffee-cart.netlify.app/",
-  ufPath: join('./libs', PROJECT_NAME, 'user-flows'),
-  outputPath: join('./dist', 'user-flows', PROJECT_NAME)
+  ufPath: joinPathFragments('./libs', PROJECT_NAME, 'user-flows'),
+  outputPath: joinPathFragments('./dist', 'user-flows', PROJECT_NAME)
 };
 
 describe('Test Executor', () => {
@@ -45,7 +44,7 @@ describe('Test Executor', () => {
       {
         root: projectRoot,
         projectType: 'library',
-        sourceRoot: join(projectRoot, '/src'),
+        sourceRoot: joinPathFragments(projectRoot, '/src'),
         targets: {
           build: {
             executor: "@push-based/user-flow-nx-plugin:build",
@@ -54,10 +53,10 @@ describe('Test Executor', () => {
       }
     );
     normalizedOptions = normalizeOptions(appTree, baseOptions);
-    appTree.write(join(baseOptions.ufPath, 'flow.uf.ts'), basicNavigationContent);
+    appTree.write(joinPathFragments(baseOptions.ufPath, 'flow.uf.ts'), basicNavigationContent);
 
-    writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
-    writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
+    writeJson(appTree, joinPathFragments(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
+    writeJson(appTree, joinPathFragments(normalizedOptions.projectRoot, 'package.json'), {
       dependencies: {},
       devDependencies: {}
     })
