@@ -5,7 +5,6 @@ import {style} from '../../../core/md/font-style';
 import {headline, Hierarchy} from '../../../core/md/headline';
 import {NEW_LINE} from '../../../core/md/constants';
 import {details} from '../../../core/md/details';
-import Budget from 'lighthouse/types/lhr/budget';
 import Details from 'lighthouse/types/lhr/audit-details';
 import Table = Details.Table;
 
