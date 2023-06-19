@@ -6,8 +6,8 @@ export const param: Param = {
   generateFlow: {
     alias: 'h',
     type: 'boolean',
-    description: 'Create as user flow under "ufPath"'
-  }
+    description: 'Create as user flow under "ufPath"',
+  },
 };
 
 export function get(): boolean {

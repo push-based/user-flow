@@ -1,5 +1,8 @@
 export const VALIDE_EXAMPLE_USERFLOW_NAME = 'valide.example.uf.ts';
-export const VALIDE_EXAMPLE_USERFLOW_TITLE = VALIDE_EXAMPLE_USERFLOW_NAME.slice(0, -3);
+export const VALIDE_EXAMPLE_USERFLOW_TITLE = VALIDE_EXAMPLE_USERFLOW_NAME.slice(
+  0,
+  -3
+);
 export const VALIDE_EXAMPLE_USERFLOW_CONTENT = `
 module.exports = {
   flowOptions: {

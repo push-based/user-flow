@@ -4,17 +4,19 @@ import {
   emailInputSelector,
   nameInputSelector,
   snackBarSelector,
-  submitBtnSelector
+  submitBtnSelector,
 } from '../fixtures/checkout.fixture';
 
 export class CheckoutForm extends Ufo {
-
   async openOrder(): Promise<void> {
     await this.page.waitForSelector(checkoutBtnSelector);
     await this.page.click(checkoutBtnSelector);
   }
 
-  async fillCheckoutForm(formData: {name: string, email: string}): Promise<void>  {
+  async fillCheckoutForm(formData: {
+    name: string;
+    email: string;
+  }): Promise<void> {
     const {name, email} = formData;
 
     await this.page.waitForSelector(nameInputSelector);
@@ -29,5 +31,4 @@ export class CheckoutForm extends Ufo {
     await this.page.waitForSelector(submitBtnSelector);
     await this.page.waitForSelector(snackBarSelector);
   }
-
 }

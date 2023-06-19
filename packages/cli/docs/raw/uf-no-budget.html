@@ -750,10 +750,12 @@ limitations under the License.
    * Icon -- Metric Name
    *      -- Metric Value
    */
-        grid-template-columns: calc(
+        grid-template-columns:
+          calc(
             var(--score-icon-size) + var(--score-icon-margin-left) +
-              var(--score-icon-margin-right)
-          ) 1fr;
+            var(--score-icon-margin-right)
+          )
+          1fr;
         align-items: center;
         padding: var(--default-padding);
       }
@@ -801,10 +803,12 @@ limitations under the License.
           /**
    * Icon -- Metric Name -- Metric Value
    */
-          grid-template-columns: calc(
+          grid-template-columns:
+            calc(
               var(--score-icon-size) + var(--score-icon-margin-left) +
-                var(--score-icon-margin-right)
-            ) 2fr 1fr;
+              var(--score-icon-margin-right)
+            )
+            2fr 1fr;
         }
         .lh-metric__value {
           justify-self: end;
@@ -2237,10 +2241,9 @@ limitations under the License.
         display: grid;
         max-width: var(--report-content-max-width);
         grid-auto-rows: min-content;
-        grid-template-columns: min-content min-content minmax(
-            var(--min-text-width),
-            max-content
-          ) 1fr 1fr 1fr 1fr;
+        grid-template-columns:
+          min-content min-content minmax(var(--min-text-width), max-content)
+          1fr 1fr 1fr 1fr;
         align-items: center;
         margin: var(--base-spacing) 0px;
         --gauge-circle-size: 48px;
@@ -2481,11 +2484,9 @@ limitations under the License.
           '.        prev-title .             current-tn    .             next-title .'
           '.        prev-title current-title current-title current-title next-title .';
         grid-template-rows: 1fr auto 1fr auto;
-        grid-template-columns: var(--header-margin) var(
-            --header-adjacent-title-width
-          ) auto auto auto var(--header-adjacent-title-width) var(
-            --header-margin
-          );
+        grid-template-columns:
+          var(--header-margin) var(--header-adjacent-title-width)
+          auto auto auto var(--header-adjacent-title-width) var(--header-margin);
         align-items: center;
         margin: var(--double-base-spacing) 0px;
       }

@@ -2,7 +2,10 @@ import { Options } from 'yargs';
 import { Modify } from '../../../core/types';
 
 export type Param = {
-  configPath: Modify<Options, {
-    type: 'string';
-  }>
+  configPath: Modify<
+    Options,
+    {
+      type: 'string';
+    }
+  >;
 };

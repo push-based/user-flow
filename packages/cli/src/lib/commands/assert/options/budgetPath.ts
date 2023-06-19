@@ -6,8 +6,8 @@ export const param: Param = {
   budgetPath: {
     alias: 'k',
     type: 'string',
-    description: 'Path to budgets.json'
-  }
+    description: 'Path to budgets.json',
+  },
 };
 
 export function get(): string {

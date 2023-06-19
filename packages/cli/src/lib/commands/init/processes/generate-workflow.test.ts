@@ -2,10 +2,9 @@ import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { handleGhWorkflowGeneration } from './generate-workflow';
 
-const expectedFilePath = join('.github', 'workflows','user-flow-ci.yml');
+const expectedFilePath = join('.github', 'workflows', 'user-flow-ci.yml');
 describe('generate GH workflow', () => {
-
-  it('should create flow when --generateGhWorkflow is used',  async () => {
+  it('should create flow when --generateGhWorkflow is used', async () => {
     expect(existsSync(expectedFilePath)).toBeFalsy();
     await handleGhWorkflowGeneration({generateGhWorkflow: true})({} as any);
     expect(existsSync(expectedFilePath)).toBeTruthy();
@@ -17,5 +16,4 @@ describe('generate GH workflow', () => {
     await handleGhWorkflowGeneration({generateGhWorkflow: false})({} as any);
     expect(existsSync(expectedFilePath)).toBeFalsy();
   });
-
 });

@@ -7,8 +7,8 @@ export const param: Param = {
     alias: 'j',
     type: 'array',
     string: true,
-    description: 'Performance budgets (RC file only)'
-  }
+    description: 'Performance budgets (RC file only)',
+  },
 };
 
 export function get(): string[] {

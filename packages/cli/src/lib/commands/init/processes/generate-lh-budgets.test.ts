@@ -10,25 +10,24 @@ const expectedFilePath = join(sandboxRoot, 'budget.json');
 const expectedBudgets = [
   {
     resourceCounts: [
-      { budget: 0, resourceType: 'stylesheet' },
-      { budget: 0, resourceType: 'script' }
+      {budget: 0, resourceType: 'stylesheet'},
+      {budget: 0, resourceType: 'script'},
     ],
     resourceSizes: [
-      { budget: 941, resourceType: 'document' },
-      { budget: 0, resourceType: 'stylesheet' },
-      { budget: 0, resourceType: 'font' },
-      { budget: 0, resourceType: 'script' },
-      { budget: 0, resourceType: 'third-party' }
+      {budget: 941, resourceType: 'document'},
+      {budget: 0, resourceType: 'stylesheet'},
+      {budget: 0, resourceType: 'font'},
+      {budget: 0, resourceType: 'script'},
+      {budget: 0, resourceType: 'third-party'},
     ],
     timings: [
-      { budget: 0, metric: 'cumulative-layout-shift' },
-      { budget: 724, metric: 'largest-contentful-paint' }
-    ]
-  }
+      {budget: 0, metric: 'cumulative-layout-shift'},
+      {budget: 724, metric: 'largest-contentful-paint'},
+    ],
+  },
 ];
 
 describe('generate LH budgets', () => {
-
   beforeAll(() => {
     process.chdir(sandboxRoot);
   });
@@ -52,19 +51,26 @@ describe('generate LH budgets', () => {
 
   it('should create budgets derived form lhr when --generateBudgets --lhr is used', async () => {
     expect(existsSync(expectedFilePath)).toBeFalsy();
-    const lhrPath = join(packagesRoot, 'test-data', 'src', 'lib', 'raw-reports', 'lhr-9.json');
+    const lhrPath = join(
+      packagesRoot,
+      'test-data',
+      'src',
+      'lib',
+      'raw-reports',
+      'lhr-9.json'
+    );
 
     expect(existsSync(lhrPath)).toBeTruthy();
     await handleBudgetsGeneration({
       generateBudgets: true,
-      lhr: lhrPath
-    })
-    ({} as any);
+      lhr: lhrPath,
+    })({} as any);
     expect(existsSync(expectedFilePath)).toBeTruthy();
-    const result = JSON.parse(readFileSync(expectedFilePath, {encoding: 'utf8'}));
+    const result = JSON.parse(
+      readFileSync(expectedFilePath, {encoding: 'utf8'})
+    );
     expect(result).toStrictEqual(expectedBudgets);
     rmSync(expectedFilePath);
     expect(existsSync(expectedFilePath)).toBeFalsy();
   });
-
 });

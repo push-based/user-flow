@@ -5,7 +5,6 @@ const pupeteerReplay = getReportContent('pupeteer-replay.json');
 const userFlowReplay = getReportContent('userflow-replay.json');
 
 describe('replay', () => {
-
   it('should parse original replay script without changes', () => {
     expect(pupeteerReplay['steps']).toBeDefined();
 
@@ -17,5 +16,4 @@ describe('replay', () => {
 
     expect(parse(userFlowReplay)).toEqual(userFlowReplay);
   });
-
 });

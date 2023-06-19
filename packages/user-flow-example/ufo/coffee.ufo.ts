@@ -2,7 +2,6 @@ import {Ufo} from '../../cli/src/lib/ufo';
 import {cappuccinoSelector} from '../fixtures/coffee.fixture';
 
 export class Coffee extends Ufo {
-
   async selectCappuccino() {
     await this.selectCoffee(cappuccinoSelector);
   }
@@ -11,5 +10,4 @@ export class Coffee extends Ufo {
     await this.page.waitForSelector(itemSelector);
     await this.page.click(itemSelector);
   }
-
 }

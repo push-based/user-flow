@@ -10,29 +10,33 @@ import {
   WRONG_EXT_USERFLOW_CONTENT,
   WRONG_EXT_USERFLOW_NAME,
   WRONG_MOD_EXPORT_USERFLOW_CONTENT,
-  WRONG_MOD_EXPORT_USERFLOW_NAME
+  WRONG_MOD_EXPORT_USERFLOW_NAME,
 } from 'test-data';
 import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
-  UserFlowProjectConfig
+  UserFlowProjectConfig,
 } from '@push-based/user-flow-cli-testing';
 
-
-const prjRelativeOutPath = INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
+const prjRelativeOutPath =
+  INITIATED_RC_JSON?.persist?.outPath || DEFAULT_PERSIST_OUT_PATH;
 
 // prj.readUserFlow('name.uf.ts') => process.cwd() + sandbox-setup/src/lib/user-flows/name.uf.ts
 // prj.readUserFlow('name.uf.ts') => ./sandbox-setup/src/lib/user-flows/name.uf.ts
 
 // ./src/lib/user-flows (from rc.json)
-const prjRelativeUfPath = INITIATED_RC_JSON?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
+const prjRelativeUfPath =
+  INITIATED_RC_JSON?.collect?.ufPath || DEFAULT_COLLECT_UF_PATH;
 const flowValidationCfg: UserFlowProjectConfig = {
   ...INITIATED_PRJ_CFG,
   create: {
-    [join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME)]: VALIDE_EXAMPLE_USERFLOW_CONTENT,
-    [join(prjRelativeUfPath, WRONG_EXT_USERFLOW_NAME)]: WRONG_EXT_USERFLOW_CONTENT,
-    [join(prjRelativeUfPath, WRONG_MOD_EXPORT_USERFLOW_NAME)]: WRONG_MOD_EXPORT_USERFLOW_CONTENT
-  }
+    [join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME)]:
+    VALIDE_EXAMPLE_USERFLOW_CONTENT,
+    [join(prjRelativeUfPath, WRONG_EXT_USERFLOW_NAME)]:
+    WRONG_EXT_USERFLOW_CONTENT,
+    [join(prjRelativeUfPath, WRONG_MOD_EXPORT_USERFLOW_NAME)]:
+    WRONG_MOD_EXPORT_USERFLOW_CONTENT,
+  },
 };
 let initializedPrj: UserFlowCliProject;
 let originalCwd = process.cwd();
@@ -44,7 +48,9 @@ describe('loading user-flow scripts for execution', () => {
   beforeEach(async () => {
     process.chdir(flowValidationCfg.root);
     if (!initializedPrj) {
-      initializedPrj = await UserFlowCliProjectFactory.create(flowValidationCfg);
+      initializedPrj = await UserFlowCliProjectFactory.create(
+        flowValidationCfg
+      );
     }
     await initializedPrj.setup();
   });
@@ -68,9 +74,11 @@ describe('loading user-flow scripts for execution', () => {
   it('should return flows if ufPath points a user-flow file and not a directory', () => {
     let validUfPath = join(prjRelativeUfPath, VALIDE_EXAMPLE_USERFLOW_NAME);
     const ufPath = validUfPath;
-    const collectOptions = { url: 'example.com', ufPath };
+    const collectOptions = {url: 'example.com', ufPath};
 
-    expect(initializedPrj.userFlowPath(VALIDE_EXAMPLE_USERFLOW_NAME)).toBe(join(process.cwd(), ufPath));
+    expect(initializedPrj.userFlowPath(VALIDE_EXAMPLE_USERFLOW_NAME)).toBe(
+      join(process.cwd(), ufPath)
+    );
     const userFlows = loadFlow(collectOptions);
     expect(userFlows.length).toBe(1);
   });
@@ -93,4 +101,3 @@ describe('loading user-flow scripts for execution', () => {
     expect(userFlows).toThrow(`No user flows found in ${ufPath}`);
   });
 });
-

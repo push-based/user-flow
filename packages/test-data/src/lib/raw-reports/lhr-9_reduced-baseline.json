@@ -91,7 +91,7 @@
           "numPassed": 9,
           "totalWeight": 57
         },
-        "best-practices":  {
+        "best-practices": {
           "numInformative": 0,
           "numPassableAudits": 5,
           "numPassed": 4,

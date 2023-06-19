@@ -4,13 +4,12 @@ import {
   BrowserLaunchArgumentOptions,
   LaunchOptions as PPTLaunchOptions,
   Page,
-  Product
+  Product,
 } from 'puppeteer';
 
 import * as Config from 'lighthouse/types/config';
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-
 
 export type UserFlowContext = {
   browser: Browser;
@@ -62,4 +61,3 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
-

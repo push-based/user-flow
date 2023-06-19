@@ -21,7 +21,7 @@ export async function persistFlow(
 
   const jsonReport: FlowResult = await flow.createFlowResult();
   const reducedReport: ReducedReport = createReducedReport(jsonReport);
-  const results: { format: string, out: string }[] = [];
+  const results: { format: string; out: string }[] = [];
   if (format.includes('json')) {
     results.push({ format: 'json', out: JSON.stringify(jsonReport) });
   }
@@ -34,7 +34,7 @@ export async function persistFlow(
   }
 
   if (format.includes('stdout')) {
-    if(!mdReport) {
+    if (!mdReport) {
       mdReport = generateStdoutReport(reducedReport);
     }
 

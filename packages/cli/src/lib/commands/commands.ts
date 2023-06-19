@@ -8,7 +8,7 @@ export const commands: YargsCommandObject[] = [
   collectUserFlowsCommand,
   {
     ...collectUserFlowsCommand,
-    command: '*'
+    command: '*',
   },
-  assertCommand
+  assertCommand,
 ];

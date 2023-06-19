@@ -7,8 +7,8 @@ import { NEW_LINE } from './constants';
  * or with inline set to `true`
  * `{code}`
  */
-export function code(code: string, cfg: {format: string}): string {
-  if(cfg?.format === 'inline') {
+export function code(code: string, cfg: { format: string }): string {
+  if (cfg?.format === 'inline') {
     return `\`${code}\``;
   }
   const format = cfg?.format || 'javascript';

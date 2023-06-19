@@ -6,8 +6,9 @@ export const param: Param = {
   ufPath: {
     alias: 'u',
     type: 'string',
-    description: 'folder containing user-flow files to run. (`*.uf.ts` or `*.uf.js`)'
-  }
+    description:
+      'folder containing user-flow files to run. (`*.uf.ts` or `*.uf.js`)',
+  },
 };
 
 export function get(): string {

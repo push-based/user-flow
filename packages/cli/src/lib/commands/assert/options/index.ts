@@ -4,5 +4,5 @@ import { AssertYargsOptions } from './types';
 
 export const ASSERT_OPTIONS: AssertYargsOptions = {
   ...budgetPath,
-  ...budgets
+  ...budgets,
 };

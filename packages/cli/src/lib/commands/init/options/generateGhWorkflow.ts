@@ -6,8 +6,8 @@ export const param: Param = {
   generateGhWorkflow: {
     alias: 'g',
     type: 'boolean',
-    description: 'Create a workflow using user-flow under .github/workflows'
-  }
+    description: 'Create a workflow using user-flow under .github/workflows',
+  },
 };
 
 export function get(): boolean {

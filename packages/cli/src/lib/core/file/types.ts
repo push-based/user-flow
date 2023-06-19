@@ -3,9 +3,13 @@ import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 type GetDefinedType<
   T extends {} | undefined,
   K extends keyof T | undefined
-  > = T extends undefined ? never :
-  K extends undefined ? never
-    : K extends keyof T ? T[K] : never;
+> = T extends undefined
+  ? never
+  : K extends undefined
+    ? never
+    : K extends keyof T
+      ? T[K]
+      : never;
 /*
 //type undef = GetDefinedType; // never
 //type r = GetDefinedType; // never
@@ -15,18 +19,18 @@ type GetDefinedType<
 type v = GetDefinedType<{ po: string }, 'po'>; // string
 */
 
-
-
 /*
 type ExtToOutPut<CFG extends ReadFileConfig | undefined = undefined> = GetDefinedType<CFG> extends CFG ?
   GetDefinedType<CFG>['ext'] extends string ? GetDefinedType<CFG>['ext'] extends 'json' ? {} : never;
  */
 
 export type ExtToOutPut<CFG extends ReadFileConfig = ReadFileConfig> =
-  // if cfg is given
-  GetDefinedType<CFG, 'ext'> extends never ? string :
-    // if ext prop present
-    CFG['ext'] extends 'json' ? {}
+// if cfg is given
+  GetDefinedType<CFG, 'ext'> extends never
+    ? string
+    : // if ext prop present
+    CFG['ext'] extends 'json'
+      ? {}
       : never;
 /*
 type aaa = ExtToOutPut<{}>; // string

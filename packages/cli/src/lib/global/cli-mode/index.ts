@@ -1,2 +1,2 @@
-export * from './cli-mode'
-export * from './types'
+export * from './cli-mode';
+export * from './types';

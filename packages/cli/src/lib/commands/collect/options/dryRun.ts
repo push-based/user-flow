@@ -8,8 +8,8 @@ export const param: Param = {
     alias: 'd',
     type: 'boolean',
     description: 'Execute commands without effects',
-    default: getEnvPreset().dryRun as boolean
-  }
+    default: getEnvPreset().dryRun as boolean,
+  },
 };
 
 export function get(): boolean {

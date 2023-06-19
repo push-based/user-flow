@@ -1,17 +1,32 @@
-import { DEFAULT_RC_NAME, ERROR_PERSIST_FORMAT_WRONG, PROMPT_COLLECT_URL } from '@push-based/user-flow';
+import {
+  DEFAULT_RC_NAME,
+  ERROR_PERSIST_FORMAT_WRONG,
+  PROMPT_COLLECT_URL,
+} from '@push-based/user-flow';
 import {
   CLI_DEFAULT_RC_JSON,
   DECLINE_BOOLEAN,
   ENTER,
   SANDBOX_BASE_RC_JSON,
   UserFlowCliProject,
-  UserFlowCliProjectFactory
+  UserFlowCliProjectFactory,
 } from '@push-based/user-flow-cli-testing';
-import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG, REMOTE_PRJ_CFG, REMOTE_RC_JSON, STATIC_RC_JSON, BASIC_NAVIGATION_USERFLOW_NAME } from 'test-data';
-import { expectOutputRcInStdout, expectPromptsOfGenerateFlowInStdout, expectPromptsOfInitInStdout } from '../../jest';
-import { ACCEPT_BOOLEAN } from '@push-based/node-cli-testing';
-import { existsSync, readFileSync } from 'fs';
-import { join } from 'path';
+import {
+  EMPTY_PRJ_CFG,
+  INITIATED_PRJ_CFG,
+  REMOTE_PRJ_CFG,
+  REMOTE_RC_JSON,
+  STATIC_RC_JSON,
+  BASIC_NAVIGATION_USERFLOW_NAME,
+} from 'test-data';
+import {
+  expectOutputRcInStdout,
+  expectPromptsOfGenerateFlowInStdout,
+  expectPromptsOfInitInStdout,
+} from '../../jest';
+import {ACCEPT_BOOLEAN} from '@push-based/node-cli-testing';
+import {existsSync, readFileSync} from 'fs';
+import {join} from 'path';
 
 let emptyPrj: UserFlowCliProject;
 let remotePrj: UserFlowCliProject;
@@ -29,19 +44,22 @@ describe('.rc.json in empty sandbox', () => {
   });
 
   it('should take default params from prompt with flow', async () => {
-
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({ verbose: true }, [
-      //url
-      ENTER,
-      // ufPath
-      ENTER,
-      // HTML format
-      ENTER,
-      // outPath
-      ENTER, ENTER,
-      // create flow example
-      ACCEPT_BOOLEAN
-    ]);
+    const {exitCode, stdout, stderr} = await emptyPrj.$init(
+      {verbose: true},
+      [
+        //url
+        ENTER,
+        // ufPath
+        ENTER,
+        // HTML format
+        ENTER,
+        // outPath
+        ENTER,
+        ENTER,
+        // create flow example
+        ACCEPT_BOOLEAN,
+      ]
+    );
 
     // Assertions
 
@@ -56,28 +74,35 @@ describe('.rc.json in empty sandbox', () => {
     expect(stderr).toBe('');
     const hardRc = emptyPrj.readRcJson();
     expect(hardRc).toEqual(CLI_DEFAULT_RC_JSON);
-    const p = join(EMPTY_PRJ_CFG.root, CLI_DEFAULT_RC_JSON.collect.ufPath, BASIC_NAVIGATION_USERFLOW_NAME);
-    if(!existsSync(p)) {
-      throw new Error(`User flow ${p} does nt exist`)
+    const p = join(
+      EMPTY_PRJ_CFG.root,
+      CLI_DEFAULT_RC_JSON.collect.ufPath,
+      BASIC_NAVIGATION_USERFLOW_NAME
+    );
+    if (!existsSync(p)) {
+      throw new Error(`User flow ${p} does nt exist`);
     }
     const hardFlow = readFileSync(p, {encoding: 'utf8'});
     expect(hardFlow).toContain('basic');
   });
 
   it('should take default params from prompt', async () => {
-
-    const { exitCode, stdout, stderr } = await emptyPrj.$init({ verbose: true }, [
-      //url
-      ENTER,
-      // ufPath
-      ENTER,
-      // HTML format
-      ENTER,
-      // outPath
-      ENTER, ENTER,
-      // create NO flow example
-      DECLINE_BOOLEAN
-    ]);
+    const {exitCode, stdout, stderr} = await emptyPrj.$init(
+      {verbose: true},
+      [
+        //url
+        ENTER,
+        // ufPath
+        ENTER,
+        // HTML format
+        ENTER,
+        // outPath
+        ENTER,
+        ENTER,
+        // create NO flow example
+        DECLINE_BOOLEAN,
+      ]
+    );
 
     // Assertions
 
@@ -99,14 +124,17 @@ describe('.rc.json in empty sandbox', () => {
     const { outPath } = persist;
     const { exitCode, stdout, stderr } = await emptyPrj.$init({}, [
       // url
-      url, ENTER,
+      url,
+      ENTER,
       // ufPath
-      ufPath, ENTER,
+      ufPath,
+      ENTER,
       // html default format
       ENTER,
       // measures default folder
-      outPath, ENTER,
-      DECLINE_BOOLEAN
+      outPath,
+      ENTER,
+      DECLINE_BOOLEAN,
     ]);
 
     expect(stderr).toBe('');
@@ -116,20 +144,20 @@ describe('.rc.json in empty sandbox', () => {
     expect(hardRc).toEqual({
       collect: {
         url,
-        ufPath
+        ufPath,
       },
-      persist: { outPath, format: ['html'] },
-      assert: {}
+      persist: {outPath, format: ['html']},
+      assert: {},
     });
   }, 40_000);
-
 });
 
 describe('.rc.json in initialized sandbox', () => {
-
   beforeEach(async () => {
     if (!initializedPrj) {
-      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
+      initializedPrj = await UserFlowCliProjectFactory.create(
+        INITIATED_PRJ_CFG
+      );
     }
 
     await initializedPrj.setup();
@@ -142,7 +170,7 @@ describe('.rc.json in initialized sandbox', () => {
     const wrongFormat = 'wrong';
     const { exitCode, stdout, stderr } = await initializedPrj.$init({
       interactive: false,
-      format: [wrongFormat as any]
+      format: [wrongFormat as any],
     });
 
     // Assertions
@@ -153,7 +181,9 @@ describe('.rc.json in initialized sandbox', () => {
   });
 
   it('should log and ask if specified rc file param -p does not exist', async () => {
-    const { exitCode, stdout, stderr } = await initializedPrj.$init({ rcPath: 'wrong/path/to/file.json' });
+    const {exitCode, stdout, stderr} = await initializedPrj.$init({
+      rcPath: 'wrong/path/to/file.json',
+    });
 
     // Assertions
     expect(exitCode).toBe(0);
@@ -162,12 +192,13 @@ describe('.rc.json in initialized sandbox', () => {
   });
 
   it('should take params from cli', async () => {
-    const { collect, persist } = STATIC_RC_JSON;
-    const { url, ufPath, serveCommand, awaitServeStdout } = collect;
-    let { outPath, format } = persist;
+    const {collect, persist} = STATIC_RC_JSON;
+    const {url, ufPath, serveCommand, awaitServeStdout} = collect;
+    let {outPath, format} = persist;
     let htmlFormat = format[0];
 
-    const { exitCode, stdout, stderr } = await initializedPrj.$init({
+    const {exitCode, stdout, stderr} = await initializedPrj.$init(
+      {
         // collect
         url,
         ufPath,
@@ -175,9 +206,10 @@ describe('.rc.json in initialized sandbox', () => {
         awaitServeStdout,
         // persist
         outPath,
-        format: [htmlFormat]
+        format: [htmlFormat],
       },
-      ['n']);
+      ['n']
+    );
 
     // Assertions
     expect(stderr).toBe('');
@@ -200,7 +232,6 @@ describe('.rc.json in initialized sandbox', () => {
 });
 
 describe('.rc.json in remote sandbox', () => {
-
   beforeEach(async () => {
     if (!remotePrj) {
       remotePrj = await UserFlowCliProjectFactory.create(REMOTE_PRJ_CFG);
@@ -213,14 +244,14 @@ describe('.rc.json in remote sandbox', () => {
   });
 
   it('should load configuration if specified rc file param -p is given', async () => {
-    const { exitCode, stdout, stderr } = await remotePrj.$init(
-      { rcPath: DEFAULT_RC_NAME },
-      ['n']);
+    const {exitCode, stdout, stderr} = await remotePrj.$init(
+      {rcPath: DEFAULT_RC_NAME},
+      ['n']
+    );
 
     // Assertions
     expect(stderr).toBe('');
     expectOutputRcInStdout(stdout, REMOTE_RC_JSON);
     expect(exitCode).toBe(0);
   });
-
 });

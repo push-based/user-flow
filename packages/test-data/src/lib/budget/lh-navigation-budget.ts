@@ -4,31 +4,31 @@ import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT } from './constants';
 export const LH_NAVIGATION_BUDGETS_NAME = LH_NAVIGATION_BUDGETS_NAME_DEFAULT;
 export const LH_NAVIGATION_BUDGETS: Budget[] = [
   {
-    'resourceSizes': [
+    resourceSizes: [
       {
-        'resourceType': 'total',
-        'budget': 26
+        resourceType: 'total',
+        budget: 26,
       },
       {
-        'resourceType': 'script',
-        'budget': 150
-      }
+        resourceType: 'script',
+        budget: 150,
+      },
     ],
-    'resourceCounts': [
+    resourceCounts: [
       {
-        'resourceType': 'third-party',
-        'budget': 100
-      }
+        resourceType: 'third-party',
+        budget: 100,
+      },
     ],
-    'timings': [
+    timings: [
       {
-        'metric': 'interactive',
-        'budget': 5000
+        metric: 'interactive',
+        budget: 5000,
       },
       {
-        'metric': 'first-meaningful-paint',
-        'budget': 2000
-      }
-    ]
-  }
+        metric: 'first-meaningful-paint',
+        budget: 2000,
+      },
+    ],
+  },
 ];

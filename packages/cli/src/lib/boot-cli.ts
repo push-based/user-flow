@@ -14,7 +14,9 @@ function configParser(rcPath?: string): {} {
   return { ...globalConfig, ...rcConfig };
 }
 
-(async () => runCli({
-  commands: commands,
-  options: {...GLOBAL_OPTIONS_YARGS_CFG},
-  configParser }))();
+(async () =>
+  runCli({
+    commands: commands,
+    options: {...GLOBAL_OPTIONS_YARGS_CFG},
+    configParser,
+  }))();

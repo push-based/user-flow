@@ -1,8 +1,15 @@
-import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
-import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
+import {
+  CI_PRESET,
+  DEFAULT_PRESET,
+  getEnvPreset,
+  SANDBOX_PRESET,
+} from './pre-set';
+import {
+  setupEnvVars,
+  teardownEnvVars,
+} from '@push-based/user-flow-cli-testing';
 
 describe('getEnvPreset', () => {
-
   afterEach(() => setupEnvVars('SANDBOX'));
   afterEach(teardownEnvVars);
 
@@ -21,5 +28,4 @@ describe('getEnvPreset', () => {
     setupEnvVars('SANDBOX');
     expect(getEnvPreset()).toEqual(SANDBOX_PRESET);
   });
-
 });

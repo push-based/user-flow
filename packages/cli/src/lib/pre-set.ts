@@ -9,7 +9,7 @@ export const DEFAULT_PRESET: ArgvPreset = {
   verbose: false,
   // PERSIST COMMAND
   openReport: true,
-  format: ['html']
+  format: ['html'],
 };
 
 export const CI_PRESET: ArgvPreset = {
@@ -20,7 +20,7 @@ export const CI_PRESET: ArgvPreset = {
   // COLLECT COMMAND
   dryRun: false,
   // PERSIST COMMAND
-  openReport: false
+  openReport: false,
 };
 
 export const SANDBOX_PRESET: ArgvPreset = {
@@ -30,7 +30,7 @@ export const SANDBOX_PRESET: ArgvPreset = {
   // COLLECT COMMAND
   dryRun: true,
   // PERSIST COMMAND
-  openReport: false
+  openReport: false,
 };
 
 export function getEnvPreset(): ArgvPreset {

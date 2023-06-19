@@ -1,12 +1,20 @@
-import { CollectArgvOptions, DEFAULT_RC_NAME, GlobalOptionsArgv, SANDBOX_PRESET } from '@push-based/user-flow';
-import { SANDBOX_BASE_RC_JSON, UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { EMPTY_PRJ_CFG, INITIATED_PRJ_CFG } from 'test-data';
-import { expectInitOptionsToBeContainedInStdout } from '../../jest/expect.init';
+import {
+  CollectArgvOptions,
+  DEFAULT_RC_NAME,
+  GlobalOptionsArgv,
+  SANDBOX_PRESET,
+} from '@push-based/user-flow';
+import {
+  SANDBOX_BASE_RC_JSON,
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+} from '@push-based/user-flow-cli-testing';
+import {EMPTY_PRJ_CFG, INITIATED_PRJ_CFG} from 'test-data';
+import {expectInitOptionsToBeContainedInStdout} from '../../jest/expect.init';
 
 let emptyPrj: UserFlowCliProject;
 
 describe('init command configuration in empty sandbox', () => {
-
   beforeEach(async () => {
     if (!emptyPrj) {
       emptyPrj = await UserFlowCliProjectFactory.create(EMPTY_PRJ_CFG);
@@ -19,25 +27,30 @@ describe('init command configuration in empty sandbox', () => {
   });
 
   it('should have default`s from preset', async () => {
-    const { exitCode, stdout, stderr } = await emptyPrj.$init();
+    const {exitCode, stdout, stderr} = await emptyPrj.$init();
 
     // @NOTICE formats are in the preset but not used as default param
-    const { rcPath, interactive, verbose, ...rest }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
-    const { dryRun, openReport, format, ...initOptions } = rest as any;
+    const {
+      rcPath,
+      interactive,
+      verbose,
+      ...rest
+    }: Partial<GlobalOptionsArgv> = SANDBOX_PRESET;
+    const {dryRun, openReport, format, ...initOptions} = rest as any;
     expectInitOptionsToBeContainedInStdout(stdout, initOptions);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
-
 });
 
 let initializedPrj: UserFlowCliProject;
 
 describe('init command configuration in setup sandbox', () => {
-
   beforeEach(async () => {
     if (!initializedPrj) {
-      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
+      initializedPrj = await UserFlowCliProjectFactory.create(
+        INITIATED_PRJ_CFG
+      );
     }
     await initializedPrj.setup();
   });
@@ -56,13 +69,12 @@ describe('init command configuration in setup sandbox', () => {
     expectInitOptionsToBeContainedInStdout(stdout, cfg);
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
-
   }, 90_000);
 
   it('should take cli parameters and save it to json file', async () => {
     const collect = {
       url: 'http://www.xxx.xx',
-      ufPath: 'xxxufPath'
+      ufPath: 'xxxufPath',
       // note: complicated to implement
       // serveCommand: 'xxxstart',
       // awaitServeStdout: 'xxxawaitServeStdout'
@@ -70,18 +82,19 @@ describe('init command configuration in setup sandbox', () => {
 
     const persist: any = {
       outPath: 'xxxoutPath',
-      format: ['md']
+      format: ['md'],
     };
 
     const assert: any = {
-      budgetPath: 'XXXXXX.json'
+      budgetPath: 'XXXXXX.json',
     };
 
-    const { url, ufPath } = collect;
-    let { outPath, format } = persist;
-    let { budgetPath } = assert;
+    const {url, ufPath} = collect;
+    let {outPath, format} = persist;
+    let {budgetPath} = assert;
 
-    const { exitCode, stdout, stderr } = await initializedPrj.$init({
+    const {exitCode, stdout, stderr} = await initializedPrj.$init(
+      {
         // -- collect
         url,
         ufPath,
@@ -91,7 +104,7 @@ describe('init command configuration in setup sandbox', () => {
         outPath,
         format,
         // -- assert
-        budgetPath
+        budgetPath,
       },
       ['n']
     );
@@ -99,7 +112,7 @@ describe('init command configuration in setup sandbox', () => {
     const cfg = {
       ...collect,
       ...persist,
-      ...assert
+      ...assert,
     };
 
     expectInitOptionsToBeContainedInStdout(stdout, cfg);
@@ -108,5 +121,4 @@ describe('init command configuration in setup sandbox', () => {
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   }, 90_000);
-
 });

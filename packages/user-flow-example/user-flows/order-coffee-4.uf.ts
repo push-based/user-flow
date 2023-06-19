@@ -1,16 +1,22 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowProvider,
+} from '@push-based/user-flow';
 
 // Your custom interactions with the page
-const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { page, flow, browser, collectOptions } = ctx;
-  const { url } = collectOptions;
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext
+): Promise<any> => {
+  const {page, flow, browser, collectOptions} = ctx;
+  const {url} = collectOptions;
 
   // Navigate to coffee order site
   await flow.navigate(url, {
     stepName: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({ stepName: 'Select coffee' });
+  await flow.startTimespan({stepName: 'Select coffee'});
 
   // Select coffee
   const cappuccinoItem = '.cup:nth-child(1)';
@@ -20,7 +26,6 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   await flow.endTimespan();
 
   await flow.snapshot({ stepName: 'Coffee selected' });
-
 
   await flow.startTimespan({ stepName: 'Checkout order' });
 
@@ -53,12 +58,11 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   await flow.endTimespan();
 
   await flow.snapshot({ stepName: 'Order submitted' });
-
 };
 
 const userFlowProvider: UserFlowProvider = {
   flowOptions: {name: 'Order Coffee'},
-  interactions
+  interactions,
 };
 
 module.exports = userFlowProvider;

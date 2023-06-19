@@ -14,7 +14,7 @@ import { ASSERT_OPTIONS } from '../../assert/options';
 export const PERSIST_OPTIONS: PersistYargsOptions = {
   ...outPath,
   ...format,
-  ...openReport
+  ...openReport,
 };
 
 export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
@@ -25,5 +25,5 @@ export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...awaitServeStdout,
   ...dryRun,
   ...PERSIST_OPTIONS,
-  ...ASSERT_OPTIONS
+  ...ASSERT_OPTIONS,
 };

@@ -3,16 +3,19 @@ import {
   CollectArgvOptions,
   CollectRcOptions,
   PersistArgvOptions,
-  PersistRcOptions
+  PersistRcOptions,
 } from './commands/collect/options/types';
-import { AssertArgvOptions, AssertRcOptions } from './commands/assert/options/types';
+import {
+  AssertArgvOptions,
+  AssertRcOptions,
+} from './commands/assert/options/types';
 
-export type ArgvPreset =
-  { rcPath: GlobalOptionsArgv['rcPath'] } &
-  Partial<Omit<GlobalOptionsArgv, 'rcPath'> &
-    CollectArgvOptions &
-    PersistArgvOptions &
-    AssertArgvOptions>
+export type ArgvPreset = { rcPath: GlobalOptionsArgv['rcPath'] } & Partial<
+  Omit<GlobalOptionsArgv, 'rcPath'> &
+  CollectArgvOptions &
+  PersistArgvOptions &
+  AssertArgvOptions
+>;
 
 export type RcJson = {
   collect: CollectRcOptions;
@@ -21,5 +24,6 @@ export type RcJson = {
   // eslint-disable-next-line @typescript-eslint/ban-types
 } & Object;
 
-export type RcJsonAsArgv = CollectRcOptions & PersistRcOptions & AssertRcOptions;
-
+export type RcJsonAsArgv = CollectRcOptions &
+  PersistRcOptions &
+  AssertRcOptions;

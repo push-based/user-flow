@@ -6,8 +6,8 @@ export const param: Param = {
   config: {
     alias: 'l',
     type: 'object',
-    description: 'Lighthouse configuration (RC file only)'
-  }
+    description: 'Lighthouse configuration (RC file only)',
+  },
 };
 
 export function get(): string[] {

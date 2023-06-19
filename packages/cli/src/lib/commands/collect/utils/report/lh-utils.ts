@@ -6,42 +6,52 @@ import { default as LHR } from 'lighthouse/types/lhr/lhr';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { ReducedFlowStep, ReducedFlowStepResult } from './types';
 
-export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
+export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[] {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
-    const { gatherMode } = stepReport;
-    const categoriesEntries: [string, LHR.Category][] = Object.entries(stepReport.categories) as unknown as [string, LHR.Category][];
-    const results: ReducedFlowStepResult = categoriesEntries.reduce((res: any, [categoryName, category]) => {
-      res[categoryName] = (shouldDisplayAsFraction(stepReport.gatherMode) ?
-        calculateCategoryFraction(category) : (category).score) as any;
-      return res;
-    }, {});
+    const {gatherMode} = stepReport;
+    const categoriesEntries: [string, LHR.Category][] = Object.entries(
+      stepReport.categories
+    ) as unknown as [string, LHR.Category][];
+    const results: ReducedFlowStepResult = categoriesEntries.reduce(
+      (res: any, [categoryName, category]) => {
+        res[categoryName] = (
+          shouldDisplayAsFraction(stepReport.gatherMode)
+            ? calculateCategoryFraction(category)
+            : category.score
+        ) as any;
+        return res;
+      },
+      {}
+    );
 
-    const reducedStep: ReducedFlowStep  = {
+    const reducedStep: ReducedFlowStep = {
       fetchTime: step.lhr.fetchTime,
       gatherMode: gatherMode,
       name: step.name,
-      results
+      results,
     };
-    if(step.lhr.audits['performance-budget']) {
-      reducedStep.resourceCountsBudget = step.lhr.audits['performance-budget'].details as any
-      reducedStep.resourceSizesBudget = step.lhr.audits['performance-budget'].details as any
+    if (step.lhr.audits['performance-budget']) {
+      reducedStep.resourceCountsBudget = step.lhr.audits['performance-budget']
+        .details as any;
+      reducedStep.resourceSizesBudget = step.lhr.audits['performance-budget']
+        .details as any;
     }
-    if(step.lhr.audits['timing-budget']) {
-      reducedStep.timingsBudget = step.lhr.audits['timing-budget'].details as any
+    if (step.lhr.audits['timing-budget']) {
+      reducedStep.timingsBudget = step.lhr.audits['timing-budget']
+        .details as any;
     }
     return reducedStep;
   });
 }
 
-
 const SCREENSHOT_PREFIX = 'data:image/jpeg;base64,';
 const PASS_THRESHOLD = 0.9;
 const RATINGS = {
-  PASS: { label: 'pass', minScore: PASS_THRESHOLD },
-  AVERAGE: { label: 'average', minScore: 0.5 },
-  FAIL: { label: 'fail' },
-  ERROR: { label: 'error' }
+  PASS: {label: 'pass', minScore: PASS_THRESHOLD},
+  AVERAGE: {label: 'average', minScore: 0.5},
+  FAIL: {label: 'fail'},
+  ERROR: {label: 'error'},
 };
 
 function shouldDisplayAsFraction(gatherMode: LHR.GatherMode) {
@@ -61,9 +71,11 @@ function calculateCategoryFraction(category: LHR.Category) {
     const auditPassed = showAsPassed(auditRef.result);
 
     // Don't count the audit if it's manual, N/A, or isn't displayed.
-    if (auditRef.group === 'hidden' ||
+    if (
+      auditRef.group === 'hidden' ||
       auditRef.result.scoreDisplayMode === 'manual' ||
-      auditRef.result.scoreDisplayMode === 'notApplicable') {
+      auditRef.result.scoreDisplayMode === 'notApplicable'
+    ) {
       continue;
     } else if (auditRef.result.scoreDisplayMode === 'informative') {
       if (!auditPassed) {
@@ -96,7 +108,7 @@ function showAsPassed(audit: any) {
 
 function prepareReportResult(result: any) {
   // If any mutations happen to the report within the renderers, we want the original object untouched
-  const clone = (JSON.parse(JSON.stringify(result)));
+  const clone = JSON.parse(JSON.stringify(result));
 
   // If LHR is older (≤3.0.3), it has no locale setting. Set default.
   if (!clone.configSettings.locale) {
@@ -110,14 +122,20 @@ function prepareReportResult(result: any) {
     // Turn 'not-applicable' (LHR <4.0) and 'not_applicable' (older proto versions)
     // into 'notApplicable' (LHR ≥4.0).
     // eslint-disable-next-line max-len
-    if (audit.scoreDisplayMode === 'not_applicable' || audit.scoreDisplayMode === 'not-applicable') {
+    if (
+      audit.scoreDisplayMode === 'not_applicable' ||
+      audit.scoreDisplayMode === 'not-applicable'
+    ) {
       audit.scoreDisplayMode = 'notApplicable';
     }
 
     if (audit.details) {
       // Turn `auditDetails.type` of undefined (LHR <4.2) and 'diagnostic' (LHR <5.0)
       // into 'debugdata' (LHR ≥5.0).
-      if (audit.details.type === undefined || audit.details.type === 'diagnostic') {
+      if (
+        audit.details.type === undefined ||
+        audit.details.type === 'diagnostic'
+      ) {
         audit.details.type = 'debugdata';
       }
 
@@ -133,7 +151,8 @@ function prepareReportResult(result: any) {
   }
 
   // For convenience, smoosh all AuditResults into their auditRef (which has just weight & group)
-  if (typeof clone.categories !== 'object') throw new Error('No categories provided.');
+  if (typeof clone.categories !== 'object')
+    throw new Error('No categories provided.');
 
   /** @type {Map<string, Array<LH.ReportResult.AuditRef>>} */
   const relevantAuditToMetricsMap = new Map();
@@ -149,7 +168,9 @@ function prepareReportResult(result: any) {
     for (const auditRef of perfCategory.auditRefs) {
       if (!auditRef.group) {
         auditRef.group = 'hidden';
-      } else if (['load-opportunities', 'diagnostics'].includes(auditRef.group)) {
+      } else if (
+        ['load-opportunities', 'diagnostics'].includes(auditRef.group)
+      ) {
         delete auditRef.group;
       }
     }
@@ -162,7 +183,7 @@ function prepareReportResult(result: any) {
       metricRef.relevantAudits.forEach((auditId: any) => {
         const arr = relevantAuditToMetricsMap.get(auditId) || [];
         arr.push(metricRef);
-        relevantAuditToMetricsMap.set((auditId as any), arr);
+        relevantAuditToMetricsMap.set(auditId as any, arr);
       });
     });
 
@@ -183,7 +204,7 @@ function prepareReportResult(result: any) {
             auditRef.stackPacks.push({
               title: pack.title,
               iconDataURL: pack.iconDataURL,
-              description: pack.descriptions[auditRef.id]
+              description: pack.descriptions[auditRef.id],
             });
           }
         });

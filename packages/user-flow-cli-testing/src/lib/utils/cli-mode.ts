@@ -1,4 +1,8 @@
-import { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from '@push-based/user-flow';
+import {
+  CLI_MODES,
+  CI_PROPERTY,
+  CLI_MODE_PROPERTY,
+} from '@push-based/user-flow';
 
 export function setupEnvVars(env: CLI_MODES): void {
   if (env === 'DEFAULT') {
@@ -14,8 +18,9 @@ export function teardownEnvVars() {
 }
 
 // @TODO: move into cli-project as it deals with env vars
-export function getEnvVarsByCliModeAndDeleteOld(cliMode: CLI_MODES): Record<string, string | undefined> {
-
+export function getEnvVarsByCliModeAndDeleteOld(
+  cliMode: CLI_MODES
+): Record<string, string | undefined> {
   if (cliMode === 'DEFAULT') {
     delete process.env[CI_PROPERTY];
     return {};

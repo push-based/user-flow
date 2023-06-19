@@ -7,9 +7,10 @@ export const param: Param = {
   awaitServeStdout: {
     alias: 'w',
     type: 'string',
-    description: 'A string in stdou resulting from serving the app, to be awaited before start running the tests. e.g. "server running..."',
-    implies: ['w', 'serveCommand']
-  }
+    description:
+      'A string in stdou resulting from serving the app, to be awaited before start running the tests. e.g. "server running..."',
+    implies: ['w', 'serveCommand'],
+  },
 };
 
 export function get(): string {

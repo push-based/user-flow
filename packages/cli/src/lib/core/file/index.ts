@@ -1,6 +1,12 @@
-import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
-import { logVerbose } from '../loggin';
+import {dirname} from 'path';
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  lstatSync,
+} from 'fs';
+import {logVerbose} from '../loggin';
 import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
@@ -37,8 +43,11 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
 /**
  * Ensures the file exists before reading it
  */
-export function readFile<R extends any = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T) {
-  const {fail, ext} = { fail: false, ...cfg } as T;
+export function readFile<
+  R extends any = undefined,
+  T extends ReadFileConfig = {}
+>(path: string, cfg?: T) {
+  const {fail, ext} = {fail: false, ...cfg} as T;
   type RETURN = ReadFileOutput<T, R>;
 
   if (!existsSync(path)) {
@@ -54,9 +63,10 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
   }
 
   const fileContent = readFileSync(path, 'utf-8');
-  return ext === 'json' ? jsonParse<RETURN>(fileContent) : fileContent as RETURN;
+  return ext === 'json'
+    ? jsonParse<RETURN>(fileContent)
+    : (fileContent as RETURN);
 }
-
 
 /**
  * Ensures the folder exists before writing it
@@ -85,8 +95,8 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
       transpileOnly: true,
       compilerOptions: {
         module: 'commonjs',
-        strict: false
-      }
+        strict: false,
+      },
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -100,4 +110,3 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   const exports = file.default || file;
   return { exports, path };
 }
-

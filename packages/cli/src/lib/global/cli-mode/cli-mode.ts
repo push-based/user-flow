@@ -53,7 +53,7 @@ export const CLI_MODE_PROPERTY = '__CLI_MODE__';
  * detects the current CLI mode
  */
 export function detectCliMode(): CLI_MODES {
-  return isEnvCi() ?  'CI' : isEnvSandbox() ? 'SANDBOX' : 'DEFAULT';
+  return isEnvCi() ? 'CI' : isEnvSandbox() ? 'SANDBOX' : 'DEFAULT';
 }
 
 /**
@@ -68,7 +68,6 @@ export function isEnvSandbox(): boolean {
  * Determines if the CLI is running in a CI setup
  */
 export function isEnvCi(): boolean {
-
   /*
   Detailed links: https://github.com/push-based/user-flow/issues/15
   The following platforms have a CI key:
@@ -98,7 +97,7 @@ export function isEnvCi(): boolean {
     ??? - Azure Pipelines
    */
 
-  if(env[CI_PROPERTY] === 'SANDBOX') {
+  if (env[CI_PROPERTY] === 'SANDBOX') {
     return false;
   }
 

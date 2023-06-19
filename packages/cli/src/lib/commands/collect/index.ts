@@ -20,10 +20,11 @@ export const collectUserFlowsCommand: YargsCommandObject = {
       await run([
         collectRcJson,
         (cfg: RcJson) =>
-          startServerIfNeededAndExecute(() => collectReports(cfg)
-              .then()
-            , cfg.collect)
+          startServerIfNeededAndExecute(
+            () => collectReports(cfg).then(),
+            cfg.collect
+          ),
       ])(cfg);
-    }
-  }
+    },
+  },
 };

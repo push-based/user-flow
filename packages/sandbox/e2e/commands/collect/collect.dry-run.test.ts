@@ -1,5 +1,8 @@
-import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { STATIC_PRJ_CFG, STATIC_USERFLOW_NAME } from 'test-data';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+} from '@push-based/user-flow-cli-testing';
+import {STATIC_PRJ_CFG, STATIC_USERFLOW_NAME} from 'test-data';
 import { expectCollectLogsFromMockInStdout } from '../../jest';
 
 let staticPrj: UserFlowCliProject;
@@ -18,8 +21,7 @@ describe('dryRun and collect command in static sandbox', () => {
     const { exitCode, stdout, stderr } = await staticPrj.$collect({});
 
     expect(stderr).toBe('');
-    expectCollectLogsFromMockInStdout(stdout, staticPrj, STATIC_USERFLOW_NAME)
+    expectCollectLogsFromMockInStdout(stdout, staticPrj, STATIC_USERFLOW_NAME);
     expect(exitCode).toBe(0);
   }, 90_000);
-
 });

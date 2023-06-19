@@ -2,11 +2,14 @@ import {
   PROMPT_COLLECT_UF_PATH,
   PROMPT_COLLECT_URL,
   PROMPT_PERSIST_FORMAT,
-  PROMPT_PERSIST_OUT_PATH
+  PROMPT_PERSIST_OUT_PATH,
 } from '@push-based/user-flow';
 import { PROMPT_INIT_GENERATE_FLOW } from '../../../cli/src/lib/commands/init/options/generateFlow.constants';
 
-export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams: {}) {
+export function expectInitOptionsToBeContainedInStdout(
+  stdout: string,
+  cliParams: {}
+) {
   expect(stdout).toContain(`Init options:`);
   Object.entries(cliParams).forEach(([k, v]) => {
     switch (k) {
@@ -20,7 +23,7 @@ export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams
         expect(stdout).toContain(`${k}: '${v}'`);
         break;
       case 'format':
-        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ');
+        let values = (v as any[]).map((i) => "'" + i + "'").join(', ');
         values = values !== '' ? ' ' + values + ' ' : values;
         expect(stdout).toContain(`${k}: [${values}]`);
         break;
@@ -29,7 +32,9 @@ export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams
         expect(stdout).toContain(`${k}: ${v}`);
         break;
       default:
-        throw new Error(`${k} handling not implemented for init configuration check`);
+        throw new Error(
+          `${k} handling not implemented for init configuration check`
+        );
         break;
     }
   });

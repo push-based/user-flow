@@ -6,8 +6,8 @@ export const param: Param = {
   configPath: {
     alias: 'c',
     type: 'string',
-    description: 'Path to Lighthouse configuration e.g config.json'
-  }
+    description: 'Path to Lighthouse configuration e.g config.json',
+  },
 };
 
 export function get(): string {

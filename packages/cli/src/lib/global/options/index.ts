@@ -6,12 +6,11 @@ import { CoreOptions } from './types';
 export const GLOBAL_OPTIONS_YARGS_CFG: CoreOptions = {
   ...verbose,
   ...rc,
-  ...interactive
+  ...interactive,
 };
 
 export const globalOptions = {
   getVerbose,
   getRcPath,
-  getInteractive
+  getInteractive,
 };
-

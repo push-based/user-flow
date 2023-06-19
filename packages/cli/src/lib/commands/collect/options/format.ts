@@ -14,7 +14,7 @@ export const param: Param = {
     description: 'Report output formats e.g. JSON',
     choices: REPORT_FORMAT_VALUES,
     //default: (getEnvPreset() as any).format
-  }
+  },
 };
 
 export function get(): string[] {

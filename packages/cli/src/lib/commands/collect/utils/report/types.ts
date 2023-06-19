@@ -6,7 +6,9 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import Details from 'lighthouse/types/lhr/audit-details';
 
 type OverBudget = { overBudget: number };
-type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
+type BudgetAssertion =
+  | (Budget.ResourceBudget & OverBudget)
+  | (Budget.TimingBudget & OverBudget);
 
 type UfrSlice = PickOne<FlowResult>;
 type LhrSlice = PickOne<FlowResult.Step['lhr']>;
@@ -23,7 +25,6 @@ export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
 type LhrGatherModeSlice = LhrSlice & { gatherMode: GatherMode };
 type UfrNameSlice = UfrSlice & { name: string };
 
-
 /**
  * This type is the result of `calculateCategoryFraction` https://github.com/GoogleChrome/lighthouse/blob/master/core/util.cjs#L540.
  * As there is no typing present ATM we maintain our own.
@@ -33,20 +34,19 @@ export type FractionResults = {
   numPassableAudits: number;
   numInformative: number;
   totalWeight: number;
-}
+};
 
 export type ReducedFlowStep =
   // gatherMode
-  LhrGatherModeSlice &
-  {
-    name: string;
-    fetchTime: string;
-    results: ReducedFlowStepResult;
-    resourceCountsBudget?: Details.Table,
-    resourceSizesBudget?: Details.Table,
-    timingsBudget?: Details.Table,
-    baseline?: ReducedFlowStepResult;
-  };
+  LhrGatherModeSlice & {
+  name: string;
+  fetchTime: string;
+  results: ReducedFlowStepResult;
+  resourceCountsBudget?: Details.Table;
+  resourceSizesBudget?: Details.Table;
+  timingsBudget?: Details.Table;
+  baseline?: ReducedFlowStepResult;
+};
 
 export type ReducedReport = {
   cliMode?: CLI_MODES;
@@ -56,10 +56,10 @@ export type ReducedReport = {
   fetchTime: string;
   steps: ReducedFlowStep[];
   assertions?: {
-    lhBudgetAssertion: BudgetAssertion,
-    baselineAssertion: BudgetAssertion,
-  }
+    lhBudgetAssertion: BudgetAssertion;
+    baselineAssertion: BudgetAssertion;
+  };
   config?: Config.Json & { baseline?: any };
-}
+};
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

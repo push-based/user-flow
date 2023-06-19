@@ -4,7 +4,11 @@ import { Modify } from '../../../../core/types';
 /**
  *  'navigation' is already covered by `@puppeteer/replay`
  */
-export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimespan';
+export type MeasureModes =
+  | 'navigate'
+  | 'snapshot'
+  | 'startTimespan'
+  | 'endTimespan';
 
 /*
 // Consider modify the Step type
@@ -13,15 +17,18 @@ export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimesp
 }>;*/
 export type MeasurementStep = {
   type: MeasureModes;
-  stepOptions?: { stepName?: string; }
+  stepOptions?: { stepName?: string };
   url?: string;
-}
+};
 
 export type UserFlowRecordingStep = MeasurementStep | Step;
 
-export type UserFlowReportJson = Modify<UserFlow, {
-  steps: UserFlowRecordingStep[];
-}>;
+export type UserFlowReportJson = Modify<
+  UserFlow,
+  {
+    steps: UserFlowRecordingStep[];
+  }
+>;
 
-export type ReadFileExtTypes = { json: {}, html: string, text: string };
-export type ReadFileConfig = { fail?: boolean, ext?: keyof ReadFileExtTypes};
+export type ReadFileExtTypes = { json: {}; html: string; text: string };
+export type ReadFileConfig = { fail?: boolean; ext?: keyof ReadFileExtTypes };

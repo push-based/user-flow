@@ -2,12 +2,14 @@ import {
   CLI_MODE_PROPERTY,
   detectCliMode,
   isEnvCi,
-  isEnvSandbox
+  isEnvSandbox,
 } from './cli-mode';
-import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
+import {
+  setupEnvVars,
+  teardownEnvVars,
+} from '@push-based/user-flow-cli-testing';
 
 describe('isEnvCi', () => {
-
   afterEach(teardownEnvVars);
   // This will only pass run in CI
   it('should return true in the CI', () => {
@@ -24,11 +26,9 @@ describe('isEnvCi', () => {
     teardownEnvVars();
     expect(isEnvCi()).toBe(false);
   });
-
 });
 
 describe('isEnvSandbox', () => {
-
   afterEach(teardownEnvVars);
 
   it('should return true if sandbox is configured', () => {
@@ -40,7 +40,6 @@ describe('isEnvSandbox', () => {
     setupEnvVars('CI');
     expect(isEnvSandbox()).toBe(false);
   });
-
 });
 
 describe('detectCliMode', () => {
@@ -60,7 +59,6 @@ describe('detectCliMode', () => {
     setupEnvVars('CI');
     expect(isEnvSandbox()).toBe(false);
   });
-
 });
 
 describe('detectCliMode', () => {
@@ -76,12 +74,10 @@ describe('detectCliMode', () => {
     expect(process.env[CLI_MODE_PROPERTY]).toBe(undefined);
     setupEnvVars('CI');
     expect(detectCliMode()).toBe('CI');
-
   });
 
   it('should return DEFAULT if it is no CI or sandbox environment', () => {
     teardownEnvVars();
     expect(detectCliMode()).toBe('DEFAULT');
   });
-
 });

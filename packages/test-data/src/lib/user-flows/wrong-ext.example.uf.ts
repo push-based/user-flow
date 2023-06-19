@@ -31,4 +31,4 @@ const userFlowProvider: UserFlowProvider = {
 };
 
   module.exports = userFlowProvider;
-  `
+  `;

@@ -3,14 +3,19 @@ import {
   UserFlowCliProject,
   UserFlowCliProjectFactory,
   UserFlowProjectConfig,
-  withUserFlowProject
+  withUserFlowProject,
 } from '@push-based/user-flow-cli-testing';
-import { LH_CONFIG, LH_CONFIG_NAME, STATIC_PRJ_CFG, STATIC_RC_JSON } from 'test-data';
+import {
+  LH_CONFIG,
+  LH_CONFIG_NAME,
+  STATIC_PRJ_CFG,
+  STATIC_RC_JSON,
+} from 'test-data';
 import {
   expectCollectCfgToContain,
   expectGlobalConfigPathUsageLog,
   expectGlobalConfigUsageLog,
-  expectNoConfigFileExistLog
+  expectNoConfigFileExistLog,
 } from '../../jest';
 
 let staticPrj: UserFlowCliProject;
@@ -30,9 +35,7 @@ describe('$collect() sandbox+NO-assets with RC()', () => {
     expect(stderr).toBe('');
     expectNoConfigFileExistLog(stdout);
     expect(exitCode).toBe(0);
-
   });
-
 });
 
 let staticWConfigAssetsPrj: UserFlowCliProject;
@@ -43,21 +46,23 @@ let staticWConfigPathPrjCfg: UserFlowProjectConfig = {
       ...STATIC_RC_JSON,
       collect: {
         ...STATIC_RC_JSON.collect,
-        configPath: LH_CONFIG_NAME
-      }
-    }
+        configPath: LH_CONFIG_NAME,
+      },
+    },
   },
   create: {
     ...STATIC_PRJ_CFG.create,
-    [LH_CONFIG_NAME]: LH_CONFIG
+    [LH_CONFIG_NAME]: LH_CONFIG,
   },
-  delete: [LH_CONFIG_NAME].concat(STATIC_PRJ_CFG?.delete || [])
+  delete: [LH_CONFIG_NAME].concat(STATIC_PRJ_CFG?.delete || []),
 };
 
 describe('$collect() sandbox+assets with RC({configPath}))', () => {
   beforeEach(async () => {
     if (!staticWConfigAssetsPrj) {
-      staticWConfigAssetsPrj = await UserFlowCliProjectFactory.create(staticWConfigPathPrjCfg);
+      staticWConfigAssetsPrj = await UserFlowCliProjectFactory.create(
+        staticWConfigPathPrjCfg
+      );
     }
     await staticWConfigAssetsPrj.setup();
   });
@@ -65,17 +70,14 @@ describe('$collect() sandbox+assets with RC({configPath}))', () => {
 
   it('should load configPath from RC file', async () => {
     const { exitCode, stdout, stderr } = await staticWConfigAssetsPrj.$collect({
-      configPath: LH_CONFIG_NAME
+      configPath: LH_CONFIG_NAME,
     });
-
 
     expect(stderr).toBe('');
     expectCollectCfgToContain(stdout, { configPath: LH_CONFIG_NAME });
     expectGlobalConfigPathUsageLog(stdout, LH_CONFIG_NAME);
     expect(exitCode).toBe(0);
-
   }, 60_000);
-
 });
 
 let staticWConfigPrjCfg: UserFlowProjectConfig = {
@@ -85,22 +87,26 @@ let staticWConfigPrjCfg: UserFlowProjectConfig = {
       ...STATIC_RC_JSON,
       collect: {
         ...STATIC_RC_JSON.collect,
-        config: LH_CONFIG
-      }
-    }
-  }
+        config: LH_CONFIG,
+      },
+    },
+  },
 };
 
-
 describe('$collect() sandbox+assets with RC({config}))', () => {
-  it('should load config from RC file', withUserFlowProject(staticWConfigPrjCfg, async (prj: UserFlowCliProject) => {
-    const { exitCode, stdout, stderr } = await prj.$collect();
+  it(
+    'should load config from RC file',
+    withUserFlowProject(
+      staticWConfigPrjCfg,
+      async (prj: UserFlowCliProject) => {
+        const {exitCode, stdout, stderr} = await prj.$collect();
 
-    expect(stderr).toBe('');
-    expectCollectCfgToContain(stdout, { config: LH_CONFIG });
-    expectGlobalConfigUsageLog(stdout);
-    expect(exitCode).toBe(0);
-
-  }), 60_000);
+        expect(stderr).toBe('');
+        expectCollectCfgToContain(stdout, {config: LH_CONFIG});
+        expectGlobalConfigUsageLog(stdout);
+        expect(exitCode).toBe(0);
+      }
+    ),
+    60_000
+  );
 });
-

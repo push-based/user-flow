@@ -1,6 +1,6 @@
 import {
   UserFlowCliProject,
-  UserFlowCliProjectFactory
+  UserFlowCliProjectFactory,
 } from '@push-based/user-flow-cli-testing';
 import { INITIATED_PRJ_CFG } from 'test-data';
 
@@ -20,7 +20,7 @@ describe('ufPath and collect command in static sandbox', () => {
   it('should throw if no user-flow is given', async () => {
     const existingEmptyFolder = initPrj.readRcJson().persist.outPath;
     const { exitCode, stderr } = await initPrj.$collect({
-      ufPath: existingEmptyFolder
+      ufPath: existingEmptyFolder,
     });
 
     expect(stderr).toContain(`No user flows found in ${existingEmptyFolder}`);

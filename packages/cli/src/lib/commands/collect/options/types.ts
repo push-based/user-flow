@@ -9,37 +9,43 @@ import { AssertArgvOptions } from '../../assert/options/types';
 import { LhConfigJson } from '../../../hacky-things/lighthouse';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
-export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
+export type CollectYargsOptions = UfPath &
+  OutPath &
+  Url &
+  ServeCommand &
+  AwaitServeStdout;
 
 export type CollectRcOptions = {
-  url: string,
-  ufPath: string,
+  url: string;
+  ufPath: string;
   configPath?: string;
-  config?: LhConfigJson,
+  config?: LhConfigJson;
   // @TODO get better typing for if serveCommand is given await is required
-  serveCommand?: string,
+  serveCommand?: string;
   awaitServeStdout?: string;
-}
+};
 export type CollectCliOnlyOptions = {
   dryRun?: boolean;
-}
+};
 export type CollectArgvOptions = CollectRcOptions & CollectCliOnlyOptions;
 
-export type ReportFormat = 'html' | 'md' | 'json'  | 'stdout';
+export type ReportFormat = 'html' | 'md' | 'json' | 'stdout';
 export type PersistRcOptions = {
-  outPath: string,
-  format: ReportFormat[]
-}
+  outPath: string;
+  format: ReportFormat[];
+};
 export type PersistCliOnlyOptions = {
   openReport?: boolean;
-}
+};
 
 export type PersistArgvOptions = PersistRcOptions & PersistCliOnlyOptions;
 
 export type CollectCommandCfg = {
-  collect: CollectArgvOptions,
-  persist: PersistArgvOptions,
+  collect: CollectArgvOptions;
+  persist: PersistArgvOptions;
   assert?: AssertArgvOptions;
-}
+};
 
-export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions;
+export type CollectCommandArgv = CollectArgvOptions &
+  PersistArgvOptions &
+  AssertArgvOptions;

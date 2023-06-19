@@ -6,8 +6,8 @@ export const param: Param = {
   outPath: {
     alias: 'o',
     type: 'string',
-    description: 'output folder for the user-flow reports'
-  }
+    description: 'output folder for the user-flow reports',
+  },
 };
 
 export function get(): string {

@@ -8,7 +8,7 @@ export const param: Param = {
     type: 'string',
     description: 'URL to analyze',
     // demandOption: true
-  }
+  },
 };
 
 export function get(): string {

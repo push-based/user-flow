@@ -1,8 +1,11 @@
 import { join } from 'path';
 import { readdirSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
-import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
+import {
+  UserFlowCliProject,
+  UserFlowCliProjectFactory,
+} from '@push-based/user-flow-cli-testing';
+import {getReportContent, INITIATED_PRJ_CFG} from 'test-data';
 import { persistFlow } from './persist-flow';
 import { ReportFormat } from '../../options/types';
 import { PersistFlowOptions } from './types';
@@ -37,15 +40,20 @@ export class UserFlowReportMock {
  * @param name
  * @param formats
  */
-function old_expectPersistedReports(persistedReportPaths: string[], outPath: string, name: string, formats: ReportFormat[]) {
- // const formatChecker = /(\.json|\.html\.md)*$/g;
-  const fileNamesToPersist = formats.filter((f) => f !== 'stdout')
-    .map(f => `${name}.${f}`) || [];
-  const reportPathsToPersist = fileNamesToPersist.map((f) => join(outPath, f))
+function old_expectPersistedReports(
+  persistedReportPaths: string[],
+  outPath: string,
+  name: string,
+  formats: ReportFormat[]
+) {
+  // const formatChecker = /(\.json|\.html\.md)*$/g;
+  const fileNamesToPersist =
+    formats.filter((f) => f !== 'stdout').map((f) => `${name}.${f}`) || [];
+  const reportPathsToPersist = fileNamesToPersist.map((f) => join(outPath, f));
 
   expect(persistedReportPaths.sort()).toEqual(reportPathsToPersist.sort());
 
-  const expectedReportPaths = readdirSync(outPath)
+  const expectedReportPaths = readdirSync(outPath);
   expect(expectedReportPaths.sort()).toEqual(fileNamesToPersist.sort());
 }
 
@@ -53,22 +61,27 @@ let initializedPrj: UserFlowCliProject;
 let outPath;
 const url = 'test.url';
 const flowName = `flow-example-name`;
-const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));
-const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
+const flowFileName = toReportName(
+  url,
+  flowName,
+  createReducedReport(jsonReport)
+);
+const persistFlowOptions: PersistFlowOptions = {outPath: '', format: [], url};
 const flow = new UserFlowReportMock({ name: flowName });
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;
 
 describe('persist flow reports in specified format', () => {
-
   beforeAll(() => {
     process.chdir(INITIATED_PRJ_CFG.root);
     console.log = (...args: any) => void 0;
-  })
+  });
   beforeEach(async () => {
     if (!initializedPrj) {
-      initializedPrj = await UserFlowCliProjectFactory.create(INITIATED_PRJ_CFG);
+      initializedPrj = await UserFlowCliProjectFactory.create(
+        INITIATED_PRJ_CFG
+      );
     }
     await initializedPrj.setup();
     outPath = initializedPrj.outputPath();
@@ -81,7 +94,7 @@ describe('persist flow reports in specified format', () => {
   afterAll(() => {
     process.chdir(originalCwd);
     console.log = consoleLog;
-  })
+  });
 
   it('does not save any reports if no format is given', async () => {
     const format: ReportFormat[] = [];
@@ -137,5 +150,4 @@ describe('persist flow reports in specified format', () => {
 
     old_expectPersistedReports(reports, outPath, flowFileName, format);
   });
-
 });

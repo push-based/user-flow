@@ -7,7 +7,6 @@ import { withUserFlowProject } from '@push-based/user-flow-cli-testing';
 let originalCwd = process.cwd();
 
 describe('generate userflow', () => {
-
   /**
    * Legend:
    * - [nf] - flow file does not exist
@@ -51,43 +50,81 @@ describe('generate userflow', () => {
   );*/
 
   // [f] init --interactive => [L]: "File already here"; [nF]
-  it('should not prompt with --interactive if file exists', withUserFlowProject(INITIATED_PRJ_CFG, async () => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-    await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-  }));
+  it(
+    'should not prompt with --interactive if file exists',
+    withUserFlowProject(INITIATED_PRJ_CFG, async () => {
+      const expectedFilePath = join(
+        INITIATED_PRJ_CFG.root,
+        INITIATED_RC_JSON.collect.ufPath,
+        'basic-navigation.uf.ts'
+      );
+      expect(existsSync(expectedFilePath)).toBeTruthy();
+      await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
+      expect(existsSync(expectedFilePath)).toBeTruthy();
+    })
+  );
 
   // [f] init --no-interactive => [N]
-  it('should not prompt with --no-interactive if file exists', withUserFlowProject(INITIATED_PRJ_CFG, async () => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-    await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-  }));
+  it(
+    'should not prompt with --no-interactive if file exists',
+    withUserFlowProject(INITIATED_PRJ_CFG, async () => {
+      const expectedFilePath = join(
+        INITIATED_PRJ_CFG.root,
+        INITIATED_RC_JSON.collect.ufPath,
+        'basic-navigation.uf.ts'
+      );
+      expect(existsSync(expectedFilePath)).toBeTruthy();
+      await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
+      expect(existsSync(expectedFilePath)).toBeTruthy();
+    })
+  );
 
   // [nf] init --no-interactive => [N]
-  it('should not prompt with --no-interactive if file does not exists', withUserFlowProject(EMPTY_PRJ_CFG, async () => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-    await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-  }));
+  it(
+    'should not prompt with --no-interactive if file does not exists',
+    withUserFlowProject(EMPTY_PRJ_CFG, async () => {
+      const expectedFilePath = join(
+        INITIATED_PRJ_CFG.root,
+        INITIATED_RC_JSON.collect.ufPath,
+        'basic-navigation.uf.ts'
+      );
+      expect(existsSync(expectedFilePath)).toBeFalsy();
+      await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
+      expect(existsSync(expectedFilePath)).toBeFalsy();
+    })
+  );
 
   // [nf] init --interactive --generateFlow => [L]: "File already here"; [nF]
-  it('should create flow when --generateFlow is used', withUserFlowProject(EMPTY_PRJ_CFG, async () => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-    await handleFlowGeneration({interactive: true, generateFlow: true})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-  }));
+  it(
+    'should create flow when --generateFlow is used',
+    withUserFlowProject(EMPTY_PRJ_CFG, async () => {
+      const expectedFilePath = join(
+        INITIATED_PRJ_CFG.root,
+        INITIATED_RC_JSON.collect.ufPath,
+        'basic-navigation.uf.ts'
+      );
+      expect(existsSync(expectedFilePath)).toBeFalsy();
+      await handleFlowGeneration({interactive: true, generateFlow: true})(
+        INITIATED_RC_JSON
+      );
+      expect(existsSync(expectedFilePath)).toBeTruthy();
+    })
+  );
 
   // [f] init --interactive --no-generateFlow => [N]
-  it('should not create flow when --no-generateFlow is used', withUserFlowProject(EMPTY_PRJ_CFG, async () => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-    await handleFlowGeneration({interactive: true, generateFlow: false})(INITIATED_RC_JSON);
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-  }));
-
+  it(
+    'should not create flow when --no-generateFlow is used',
+    withUserFlowProject(EMPTY_PRJ_CFG, async () => {
+      const expectedFilePath = join(
+        INITIATED_PRJ_CFG.root,
+        INITIATED_RC_JSON.collect.ufPath,
+        'basic-navigation.uf.ts'
+      );
+      expect(existsSync(expectedFilePath)).toBeFalsy();
+      await handleFlowGeneration({interactive: true, generateFlow: false})(
+        INITIATED_RC_JSON
+      );
+      expect(existsSync(expectedFilePath)).toBeFalsy();
+    })
+  );
 });

@@ -17,13 +17,15 @@ export function expectCollectCommandCreatesJsonReport(
   flowTitle: string,
   rcName?: string
 ) {
-  const reportJson = prj.readOutput(reportName,'json', rcName)[0].content as any;
+  const reportJson = prj.readOutput(reportName, 'json', rcName)[0]
+    .content as any;
   expect(reportJson.name).toContain(flowTitle);
 }
 
-
 export function expectCollectLogsReport(stdout: string, ufName: string) {
-  expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
+  expect(stdout).toContain(
+    `| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`
+  );
   expect(stdout).toContain(ufName);
 }
 export function expectCollectCommandCreatesMdReport(
@@ -34,7 +36,9 @@ export function expectCollectCommandCreatesMdReport(
 ) {
   const reportMd = prj.readOutput(reportName, 'md', rcName)[0].content;
   expect(reportMd).toContain(flowTitle);
-  expect(reportMd).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`);
+  expect(reportMd).toContain(
+    `| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`
+  );
 }
 
 export function expectCollectCommandNotToCreateReport(
@@ -50,12 +54,20 @@ export function expectCollectCommandNotToCreateReport(
   }
 }
 
-export function expectPersistedReports(prj: UserFlowCliProject, resultingReportNames: string[]) {
-  const flowNames: string[] = prj.readUserFlow(prj.outputPath()).map(([p]) => join(prj.readRcJson().persist.outPath, basename(p)));
+export function expectPersistedReports(
+  prj: UserFlowCliProject,
+  resultingReportNames: string[]
+) {
+  const flowNames: string[] = prj
+    .readUserFlow(prj.outputPath())
+    .map(([p]) => join(prj.readRcJson().persist.outPath, basename(p)));
   // expect(flowNames).toBe('flowNames')
-  const formats = prj.readRcJson().persist.format.filter(f => f !== 'stdout');
-  const userFlowNames = flowNames.map(f => f.slice(0, -6)); // xyz(.uf.ts)
-  const expectedFileNames = userFlowNames.flatMap(flowName => formats.map(format => `${flowName}.${format}`)) || [];
+  const formats = prj.readRcJson().persist.format.filter((f) => f !== 'stdout');
+  const userFlowNames = flowNames.map((f) => f.slice(0, -6)); // xyz(.uf.ts)
+  const expectedFileNames =
+    userFlowNames.flatMap((flowName) =>
+      formats.map((format) => `${flowName}.${format}`)
+    ) || [];
 
   expect(resultingReportNames.sort()).toEqual(expectedFileNames.sort());
 }

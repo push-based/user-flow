@@ -7,10 +7,11 @@ export const param: Param = {
   openReport: {
     alias: 'e',
     type: 'boolean',
-    description: 'Opens browser automatically after the user-flow is collected. (true by default)',
+    description:
+      'Opens browser automatically after the user-flow is collected. (true by default)',
     default: getEnvPreset().openReport as boolean,
-    requiresArg: true
-  }
+    requiresArg: true,
+  },
 };
 
 export function get(): boolean {

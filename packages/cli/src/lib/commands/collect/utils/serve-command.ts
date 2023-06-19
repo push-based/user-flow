@@ -9,12 +9,18 @@ import { RcJson } from '../../../types';
 // This fn takes the serve options as well ans the run block and makes sure execution is done correctly and errors are forwarded too.
 // In there we compose easier to test fn's
 
-export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
-
-  const { serveCommand, awaitServeStdout } = collectOption;
+export async function startServerIfNeededAndExecute(
+  workTargetingServer: () => Promise<any>,
+  collectOption: CollectRcOptions = {} as CollectRcOptions
+): Promise<RcJson> {
+  const {serveCommand, awaitServeStdout} = collectOption;
 
   if (serveCommand && !awaitServeStdout) {
-    return Promise.reject(new Error('If a serve command is provided awaitServeStdout is also required'));
+    return Promise.reject(
+      new Error(
+        'If a serve command is provided awaitServeStdout is also required'
+      )
+    );
   }
 
   if (!serveCommand || !awaitServeStdout) {
@@ -35,14 +41,14 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
     const endRes = res.result
       // We resolve when the awaited value arrives
       // .then((v) => console.log('concurrently resolve', v))
-      .catch(e => {
+      .catch((e) => {
         reject('Error while executing ' + serveCommand);
-      }).finally();
-
+      })
+      .finally();
 
     let isCollecting = false;
-    sub.add(cR.stdout.subscribe(
-      stdout => {
+    sub.add(
+      cR.stdout.subscribe((stdout) => {
         const out = stdout.toString();
         logVerbose(out);
         // await stdout and start collecting once
@@ -50,11 +56,12 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
           isCollecting = true;
           workTargetingServer()
             .then(resolve)
-            .catch(e => {
+            .catch((e) => {
               reject('Error while running user flows. ' + e);
-            }).finally(stopServer);
+            })
+            .finally(stopServer);
         }
-      }));
+      })
+    );
   });
-
 }

@@ -14,5 +14,5 @@ export type FontStyle = keyof typeof stylesMap;
  * ~**{text}**~ // bold & stroke-through - styles set to `['b','s']`
  */
 export function style(text: string, styles: FontStyle[] = ['b']): string {
-    return styles.reduce((t, s) => `${stylesMap[s]}${t}${stylesMap[s]}`, text);
+  return styles.reduce((t, s) => `${stylesMap[s]}${t}${stylesMap[s]}`, text);
 }

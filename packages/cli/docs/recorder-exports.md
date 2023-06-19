@@ -7,6 +7,7 @@ If you are not familiar with the Chrome Devtools Recorder, please make sure you 
 - [How to edit and extend user flows with Recorder and Puppeteer Replay](https://youtu.be/LBgzmqzp7ew)
 
 In this document we will learn:
+
 - How to recode a user flow with chrome devtools recorder
 - How to export it
 - How to use it in `@push-based/user-flow`
@@ -30,14 +31,14 @@ const interactions: UserFlowInteractionsFn = async (
   const { flow, page, browser } = ctx;
 
   await flow.startTimespan({ stepName: 'Checkout order' });
-  
+
   //... Interactions
 
   await flow.endTimespan();
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: { name: "Order Coffee" },
+  flowOptions: { name: 'Order Coffee' },
   interactions,
 };
 
@@ -60,10 +61,10 @@ module.exports = userFlowProvider;
 coffee-app-userflows
 📦my-app
  ┣ ...
- ┣ 📂src 
+ ┣ 📂src
  ┃  ┗ 📂my-app-user-flows
- ┃    ┣ ... 
- ┃    ┣ 📂user-flows 
+ ┃    ┣ ...
+ ┃    ┣ 📂user-flows
  ┃    ┗ 📂recordings
  ┃      ┗ 📄recording.json
  ┗ 📜.user-flowrc.json
@@ -72,8 +73,9 @@ coffee-app-userflows
 ## Using the file in your user-flow
 
 To execute the replay recording you need to
+
 - Create and runner over `createUserFlowRunner` inside a timespan
-- Run the runner inside a timespan measurement 
+- Run the runner inside a timespan measurement
 
 ## Create and runner over `createUserFlowRunner` inside a timespan
 
@@ -84,29 +86,34 @@ const interactions: UserFlowInteractionsFn = async (
   // ...
 
   await flow.startTimespan({ stepName: 'Checkout order' });
-  
+
   // Use the create function to instanciate a the user-flow runner.
-  const runner = await createUserFlowRunner('./recordings/order-coffee.replay.json', ctx)
+  const runner = await createUserFlowRunner(
+    './recordings/order-coffee.replay.json',
+    ctx
+  );
   await runner.run();
 
   await flow.endTimespan();
 };
 ```
 
-## Run the runner inside a timespan measurement 
+## Run the runner inside a timespan measurement
 
-Now you can execute it with `npx @push-based/user-flow`. 
+Now you can execute it with `npx @push-based/user-flow`.
 You should see the browser opening a report.
 
 ![Replay userflow example without custom code](./images/lhr-replay-example-results-1.png)
 
 ## Separating the recording into multiple timespan's
 
-Now that we have a basic user flow running we can add actions to get more detailed information about the different interactions. 
+Now that we have a basic user flow running we can add actions to get more detailed information about the different
+interactions.
 
 We can add the a set of `@push-based/user-flow` actions as simple object to the steps array:
 
 The available types are:
+
 - navigation
 - startTimespan
 - endTimespan
@@ -115,7 +122,7 @@ The available types are:
 ```json
 [
   { "type": "startTimespan" },
-  { 
+  {
     "type": "click",
     ...
   },
@@ -130,8 +137,10 @@ Now that we have added the timespans in the json we need to remove the surroundi
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-
-  const runner = await createUserFlowRunner('./recordings/order-coffee-2.replay.json', ctx);
+  const runner = await createUserFlowRunner(
+    './recordings/order-coffee-2.replay.json',
+    ctx
+  );
   await runner.run();
 };
 ```
@@ -140,17 +149,17 @@ const interactions: UserFlowInteractionsFn = async (
 
 ## Combine it with custom code
 
-We can also pass additional options to each step, such as a `stepName` the report: 
+We can also pass additional options to each step, such as a `stepName` the report:
 
 ```json
 [
-  { 
+  {
     "type": "startTimespan",
     "stepOptions": {
       "stepName": "Select coffee"
     }
   },
-  { 
+  {
     "type": "click",
     ...
   },

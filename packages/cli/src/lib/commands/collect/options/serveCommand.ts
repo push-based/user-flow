@@ -7,9 +7,10 @@ export const param: Param = {
   serveCommand: {
     alias: 's',
     type: 'string',
-    description: 'The npm command to serve your application. e.g. "npm run serve:prod"',
+    description:
+      'The npm command to serve your application. e.g. "npm run serve:prod"',
     // demandOption: true
-  }
+  },
 };
 
 export function get(): string {

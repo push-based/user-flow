@@ -8,6 +8,7 @@ If you are not familiar with GitHub actions please read the following content:
 - [GitHub action marketplace](https://github.com/marketplace?type=actions&query=user+flow+)
 
 In this document we will learn:
+
 - How to setup user flow for CI
 - How to setup a `workflow.yml`
 - How to test the setup
@@ -27,7 +28,7 @@ If everything works you are good to go!
 1. Create a file called `user-flow-ci.yml` in `./.github/workflows`.
 
 This can be done by using the `init`:  
-`npx user-flow --generateGhWorkflow`  
+`npx user-flow --generateGhWorkflow`
 
 2. The generated `user-flow-ci.yml` file should have the following content:
 

@@ -1,7 +1,6 @@
 /* @TODO add description => explain functionality*/
 export type Modify<T, R> = Omit<T, keyof R> & R;
 
-
 /**
  * Type to pluck out a key value pain of an existing type
  *
@@ -21,6 +20,5 @@ export type Modify<T, R> = Omit<T, keyof R> & R;
  *
  */
 export type PickOne<T> = {
-  [P in keyof T]?: Record<P, T[P]>
-}[keyof T]
-
+  [P in keyof T]?: Record<P, T[P]>;
+}[keyof T];

@@ -1,18 +1,19 @@
 # How to use performance budgets with lighthouse user flow?
 
-Implementing performance improvements without breaking something is hard. 
+Implementing performance improvements without breaking something is hard.
 Even harder is it to keep it that way.
 
 ## Availability
 
-At the moment budgets are only supported for "Navigation". "Timespan" and "Snapshot" measures are not supported by user flows directly. 
+At the moment budgets are only supported for "Navigation". "Timespan" and "Snapshot" measures are not supported by user
+flows directly.
 
-| HTML | MARKDOWN |
-| :--: | :------: |
-|  ![img-budgets-mode-support-html](https://user-images.githubusercontent.com/10064416/219039874-0f10d7fe-620a-4d61-9b4d-f7fb2f0252d0.png) |    ![md-budget](https://user-images.githubusercontent.com/10064416/219039911-f42c72f2-8e11-402a-a402-199099cd1bd2.png) |
+|                                                                  HTML                                                                   |                                                      MARKDOWN                                                       |
+|:---------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|
+| ![img-budgets-mode-support-html](https://user-images.githubusercontent.com/10064416/219039874-0f10d7fe-620a-4d61-9b4d-f7fb2f0252d0.png) | ![md-budget](https://user-images.githubusercontent.com/10064416/219039911-f42c72f2-8e11-402a-a402-199099cd1bd2.png) |
 
 **Budget Structure**
-The CLI follows exactly the same budget structure as lighthouse. 
+The CLI follows exactly the same budget structure as lighthouse.
 
 The [`Budget` types](https://github.com/GoogleChrome/lighthouse/blob/89a61379e6bd0a55b94643b3ce583c00203c0fbc/types/lhr/budget.d.ts) can be used from the node package.  
 However, if you use JSON, there is also provide a [`lighthouse-budgets.schema.json`](../src/lighthouse-budgets.schema.json) provided.
@@ -26,9 +27,10 @@ Run `npx user-flow init --generateBudgets` to generate a budgets file automatica
 
 To set it up manually follow the folllowing steps:
 
-1. Create a `budget.json` file and paste the following content:  
+1. Create a `budget.json` file and paste the following content:
 
 **./my-app-user-flows/budget.json**
+
 ```json
 [
   {
@@ -66,6 +68,7 @@ To set it up manually follow the folllowing steps:
 2. open your `.user-flowrc.json` and add assert options:
 
 **./my-app-user-flows/.user-flowrc.json**
+
 ```json
 {
   ...
@@ -74,9 +77,11 @@ To set it up manually follow the folllowing steps:
   }
 }
 ```
+
 You can also paste the whole configuration directly as array with `budgets`:
 
 **./my-app-user-flows/.user-flowrc.json**
+
 ```json
 {
   ...
@@ -96,43 +101,47 @@ Budgets configured in the RC file (or over the CLI option `--budgetPath` or `-b`
 1. Open the respective user flow test and add config options to the flowOptions:
 
 **./my-app-user-flows/.user-flowrc.json**
- ```typescript
+
+```typescript
 // ...
 
 const userFlowProvider: UserFlowProvider = {
   // ...
-  flowOptions : {
+  flowOptions: {
     name: 'user-flow with budgets',
     config: {
       settings: {
-        budgets: "./budget.json"
-      }
-    }
-  }
+        budgets: './budget.json',
+      },
+    },
+  },
 };
 
 module.exports = userFlowProvider;
 ```
+
 You can also paste the whole configuration directly as array:
 
 **./my-app-user-flows/.user-flowrc.json**
- ```typescript
+
+```typescript
 // ...
 
 const userFlowProvider: UserFlowProvider = {
-  // ...
-  flowOptions : {
-    name: 'user-flow with budgets',
-    config: {
-      settings: {
-        budgets: [...]
-      }
-    }
-  }
+ // ...
+ flowOptions : {
+   name: 'user-flow with budgets',
+   config: {
+     settings: {
+       budgets: [...]
+     }
+   }
+ }
 };
 
 module.exports = userFlowProvider;
 ```
+
 3. Run the `collect` command and check the output.
 
 ## How to debug?
@@ -147,8 +156,8 @@ All of the resource related metrics can be found in the "Network" tab.
 The many of the timing related metrics are visible in the "Performance" tab
 ![performance-budget--devtools-performance-tab](https://user-images.githubusercontent.com/10064416/164570353-6f9ff215-ad25-4928-9ca1-49151a4e57ed.png)
 
-
 # Resources
+
 - [Use Lighthouse for performance budgets](https://web.dev/use-lighthouse-for-performance-budgets/?utm_source=lighthouse&utm_medium=node)
 - [Understand the performance budget structure](https://github.com/GoogleChrome/lighthouse/blob/master/docs/performance-budgets.md)
 

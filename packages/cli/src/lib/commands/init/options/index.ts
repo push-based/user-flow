@@ -5,5 +5,5 @@ import { CollectYargsOptions } from '../../collect/options/types';
 
 export const INIT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...COLLECT_OPTIONS,
-  ...ASSERT_OPTIONS
+  ...ASSERT_OPTIONS,
 };
