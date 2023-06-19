@@ -31,13 +31,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
       - name: install
-        run: npm i
+        run: npm ci
       - name: build
         run: npm run nx -- affected:build
       - name: test
         run: npm run nx -- affected:test
-      - name: release
+      - name: release CLI
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run nx -- run cli:version
+      - name: release Nx plugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run nx -- run nx-plugin:version

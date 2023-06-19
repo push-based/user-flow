@@ -48,7 +48,8 @@
     "serve": {
       "executor": "@nx/webpack:dev-server",
       "options": {
-        "buildTarget": "nx-plugin-integration:build"
+        "buildTarget": "nx-plugin-integration:build",
+        "port": 4010
       },
       "configurations": {
         "production": {
@@ -56,31 +57,23 @@
         }
       }
     },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "packages/nx-plugin-integration/**/*.ts"
-        ]
-      }
-    },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
       "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
+        "{options.outputPath}"
       ],
       "options": {
-        "jestConfig": "packages/nx-plugin-integration/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "verbose": true,
+        "dryRun": true,
+        "url": "http://localhost:4010",
+        "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
+        "ufPath": "packages/nx-plugin-integration/user-flows",
+        "outputPath": "dist/user-flow/packages/nx-plugin-integration",
+        "format": [
+          "md"
+        ],
+        "serveCommand": "npm run nx -- serve nx-plugin-integration",
+        "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
       }
     }
   }

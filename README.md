@@ -30,7 +30,8 @@ In addition, it is always up-to-date with the latest Chrome DevTools features.
 - 🏃‍♀️ Measure Runtime performance
 - 🔒 [Performance budgets](https://github.com/push-based/user-flow#performance-budgets)
 - 🦮 Zero setup cost
-- 🤓 Excellent DX through `--dryRun` and friends 
+- 🤓 Excellent DX through `--dryRun` and friends
+- ⚙ Nx plugin [user-flow-nx-plugin]() to generate/execute/migrate lighthouse user flows
 - 🛸 [Advanced architecture with UFO's](https://github.com/push-based/user-flow#advanced-architecture)
 - 🔥 Write tests directly in TypeScript (we compile them live)
 - 🧠 Use best practices out of the box
@@ -210,18 +211,18 @@ Run command over:
 Description:  
 This command executes a set of user-flow definitions against the target URL and saves the output.
 
-|  Option                            |  Type     | Default                | Description                                                                                              |  
-| ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
-| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                           |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
-| **`-c`**, **`--configPath`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
-| **`-b`**, **`--budgetPath`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
-| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`  |  
-| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                   |  
-| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                                                           |  
-| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
-| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens browser automatically after the user-flow is captured                                              |  
-| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                   |  
+| Option                             | Type      | Default                | Description                                                                                             |  
+|------------------------------------|-----------|------------------------|---------------------------------------------------------------------------------------------------------|  
+| **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                          |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)             |  
+| **`-c`**, **`--configPath`**       | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                               |  
+| **`-b`**, **`--budgetPath`**       | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                               |  
+| **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout` |  
+| **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                  |  
+| **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                         |  
+| **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                 |  
+| **`-e`**, **`--openReport`**       | `boolean` | `true`                 | Opens file automatically after the user-flow is captured                                                |  
+| **`-d`**, **`--dryRun`**           | `boolean` | `false`                | When true the user-flow test will get executed without measures (for fast development)                  |  
 
 > **💡 Pro Tip:**
 > CLI arguments that accept multiple values can be set by using the param multiple times in a row:
@@ -294,14 +295,28 @@ See [performance-budgets](https://github.com/push-based/user-flow/blob/main/pack
 
 ## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
 
-With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as comments.
+With just a few steps you can run your user flows in as a GitHub workflow to enrich your PR's with report summaries as
+comments.
 
 Automatically create a workflow with:  
-`npx user-flow init --generateGhWorkflow`  
+`npx user-flow init --generateGhWorkflow`
 
 ![user-flow-gh-action-cover](https://user-images.githubusercontent.com/10064416/216605948-b8fffdda-3459-48c9-975a-75ec95544d30.png)
- 
-See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md) for more details.
+
+See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
+for more details.
+
+## [Nx workspace integration of lighthouse user flows as nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md)
+
+With just a few steps you can run your user flows in as a Nx workspace to enrich your DX with a nx-plugin.
+
+Automatically generate/execute/migrate with `user-flow-nx-plugin`:
+
+- `nx g @push-based/user-flow-nx-plugin:install`
+- `nx g @push-based/user-flow-nx-plugin:target e2e`
+
+See [user-flow-nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md) for
+more details.
 
 ## Examples
 

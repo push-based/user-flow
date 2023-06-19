@@ -3,12 +3,15 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
+        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "user-flow"
+        ]
       }
     }
   },
   "extends": "nx/presets/core.json",
-  "npmScope": "user-flow",
+  "npmScope": "@push-based",
   "affected": {
     "defaultBase": "origin/main"
   },
@@ -47,8 +50,7 @@
     "sandbox": {
       "inputs": [
         "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
+        "^production"
       ]
     },
     "test": {
@@ -77,6 +79,9 @@
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
+    },
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
     }
   }
 }
