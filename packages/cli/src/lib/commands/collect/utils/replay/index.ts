@@ -1,4 +1,5 @@
 import { createRunner, Runner } from '@puppeteer/replay';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 import { UserFlowContext } from '../../../..';

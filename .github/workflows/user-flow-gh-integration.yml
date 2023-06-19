@@ -1,27 +1,22 @@
-name: ci
-
+name: user-flow-gh-integration
 on:
   pull_request:
-    paths-ignore:
-      - '*.md'
-
 jobs:
-  build_and_test:
+  user-flow-integrated-in-ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
-
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm ci
-      - name: build
-        run: npm run nx -- affected:build
-      - name: test
-        run: npm run nx -- affected:test --parallel=1
+      - name: run:user-flow-action
+        uses: push-based/user-flow-gh-action@v0.3.2
+        with:
+          rcPath: packages/user-flow-gh-integration/.user-flowrc.json

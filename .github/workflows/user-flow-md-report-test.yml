@@ -15,11 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
+          cache: 'npm'
           node-version: ${{ matrix.node-version }}
       - name: install
-        run: npm i
+        run: npm ci
       - name: build
         run: npm run nx -- affected:build
       - name: run
@@ -29,4 +30,4 @@ jobs:
         with:
           hide_and_recreate: true
           header: md-report-test
-          path: ./packages/user-flow-ci-integration/measures/md-report.md
+          path: ./dist/user-flow/user-flow-gh-integration/md-report.md

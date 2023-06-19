@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Target",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "targetName": {
+      "type": "string",
+      "description": ""
+    },
+    "projectName": {
+      "type": "string",
+      "description": "Project to add the target to",
+      "x-prompt": "What project would you like to add your target to?"
+    },
+    "url": {
+      "type": "string",
+      "description": "Target URL",
+      "default": "https://coffee-cart.netlify.app/",
+      "x-prompt": "What URL you want to target?"
+    }
+  },
+  "required": [
+    "projectName"
+  ]
+}

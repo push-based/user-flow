@@ -65,13 +65,16 @@
     },
     "link": {
       "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "commands": [
           {
             "command": "cd ./dist/packages/cli"
           },
           {
-            "command": "npm link -f"
+            "command": "npx cpx \"./dist/packages/cli/**\" ./node_modules/@push-based/user-flow"
           }
         ]
       }

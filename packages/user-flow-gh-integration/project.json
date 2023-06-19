@@ -1,0 +1,20 @@
+{
+  "name": "user-flow-gh-integration",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/user-flow-gh-integration/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/user-flow-gh-integration/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

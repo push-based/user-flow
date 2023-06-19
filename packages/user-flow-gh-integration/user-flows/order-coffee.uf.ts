@@ -1,8 +1,4 @@
-import {
-  UserFlowInteractionsFn,
-  UserFlowContext,
-  UserFlowProvider
-} from '@push-based/user-flow';
+import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   const { page, flow, browser, collectOptions } = ctx;
