@@ -1,11 +1,12 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
+import {LH_NAVIGATION_BUDGETS_NAME} from 'test-data';
 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const {page, flow, browser, collectOptions} = ctx;
+  const {flow, collectOptions} = ctx;
   const {url} = collectOptions;
 
   await flow.navigate(url, {
-    stepName: '🧭 Navigate to Home',
+    stepName: '🧭 Navigate to Home'+LH_NAVIGATION_BUDGETS_NAME,
   });
 
 };

@@ -4,8 +4,8 @@ import { existsSync, lstatSync, readdirSync } from 'fs';
 import { resolveAnyFile } from '../../../../core/file';
 import { CollectRcOptions } from '../../options/types';
 
-export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports: UserFlowProvider, path: string })[] {
-  const { ufPath } = collect;
+export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath' | 'tsConfigPath'>): ({ exports: UserFlowProvider, path: string })[] {
+  const { ufPath, tsConfigPath } = collect;
   const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is no directory`);
@@ -19,7 +19,7 @@ export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports:
   }
 
   const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
-    .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
+    .map((file) => resolveAnyFile<UserFlowProvider & { path: string, extendsPath: string }>({ path: file, tsConfigExtendPath: tsConfigPath }));
 
   if (flows.length === 0) {
     // @TODO use const for error msg

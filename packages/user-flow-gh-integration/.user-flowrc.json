@@ -2,6 +2,7 @@
   "collect": {
     "url": "https://coffee-cart.netlify.app/",
     "ufPath": "./packages/user-flow-gh-integration/user-flows",
+    "tsConfigPath": "./packages/user-flow-gh-integration/tsconfig.uf.json",
     "budgets": [
       {
         "resourceCounts": [

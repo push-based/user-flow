@@ -4,6 +4,7 @@ import {ExecutorContext} from "nx/src/config/misc-interfaces";
 import * as process from "process";
 import {CLI_MODES} from "@push-based/user-flow";
 import {logger} from "@nx/devkit";
+import {runCollectCommand} from "@push-based/user-flow";
 
 
 export default async function runExecutor(
@@ -21,7 +22,7 @@ export default async function runExecutor(
 
   let processOutput: Buffer | Error;
   try {
-    processOutput = execSync(cliArgs);
+    await runCollectCommand(options);
   } catch (error: unknown) {
     if (error instanceof Error) {
       processOutput = error;

@@ -1,9 +1,10 @@
-import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
-import { logVerbose } from '../loggin';
-import { getParserFromExtname, formatCode } from '../prettier';
-import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
-import { ExtToOutPut, ResolveFileResult } from './types';
+import {dirname} from 'path';
+import {existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync} from 'fs';
+import {logVerbose} from '../loggin';
+import {getParserFromExtname, formatCode} from '../prettier';
+import {ReadFileConfig} from '../../commands/collect/utils/replay/types';
+import {ExtToOutPut, ResolveFileResult} from './types';
+import * as process from "process";
 
 export {toFileName} from './to-file-name';
 
@@ -38,7 +39,7 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
  * Ensures the file exists before reading it
  */
 export function readFile<R extends any = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T) {
-  const {fail, ext} = { fail: false, ...cfg } as T;
+  const {fail, ext} = {fail: false, ...cfg} as T;
   type RETURN = ReadFileOutput<T, R>;
 
   if (!existsSync(path)) {
@@ -74,23 +75,32 @@ export function writeFile(filePath: string, data: string) {
   return writeFileSync(filePath, formattedData);
 }
 
-export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
+export function resolveAnyFile<T>(cfg: { path: string, tsConfigExtendPath?: string }): ResolveFileResult<T> {
   // 🔥 Live compilation of TypeScript files
-  if (path.endsWith('.ts')) {
+  if (cfg.path.endsWith('.ts')) {
+    let tsConfig: any = undefined;
+    logVerbose(`cwd: ${process.cwd()}`);
+    logVerbose(`tsConfigExtendPath: ${cfg.tsConfigExtendPath}`);
+    if (cfg.tsConfigExtendPath) {
+      if (existsSync(cfg.tsConfigExtendPath)) {
+        logVerbose(`${cfg.tsConfigExtendPath} is used as "extends" to load ${cfg.path}`)
+        tsConfig = cfg.tsConfigExtendPath;
+      } else {
+        throw new Error(`tsConfigPath ${cfg.tsConfigExtendPath} is provided but does not exist!`);
+      }
+    }
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
     // so that imports in the `*.uf.ts` files work.
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('ts-node').register({
-      transpileOnly: true,
-      compilerOptions: {
-        module: 'commonjs',
-        strict: false
-      }
-    });
+   // require('ts-node').register(tsConfig);
+
+    const { register } = require('@swc-node/register/register');
+    register(tsConfig)
+
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = require(path);
+  const file = require(cfg.path);
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporting an object. The first one is:
@@ -98,6 +108,6 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   // `export default { ... }`. The ESM format is compiled into:
   // `{ default: { ... } }`
   const exports = file.default || file;
-  return { exports, path };
+  return { exports, path: cfg.path };
 }
 

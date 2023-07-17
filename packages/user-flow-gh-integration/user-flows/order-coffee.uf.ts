@@ -1,5 +1,5 @@
 import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
-
+import { LH_NAVIGATION_BUDGETS } from 'test-data';
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   const { page, flow, browser, collectOptions } = ctx;
   const { url } = collectOptions;
@@ -7,6 +7,12 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   // Navigate to coffee order site
   await flow.navigate(url, {
     stepName: '🧭 Navigate to coffee cart',
+    config: {
+      extends: 'lighthouse:default',
+      settings: {
+        budgets: LH_NAVIGATION_BUDGETS,
+      },
+    }
   });
 
   await flow.startTimespan({ stepName: '☕ Select coffee' });

@@ -19,6 +19,7 @@ export type CollectRcOptions = {
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;
+  tsConfigPath?: string;
 }
 export type CollectCliOnlyOptions = {
   dryRun?: boolean;

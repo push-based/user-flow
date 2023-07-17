@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "user-flows/*.uf.ts",
+    "user-flows/**/*.uf.ts",
+    "user-flows/**/*.d.ts"
+  ]
+}

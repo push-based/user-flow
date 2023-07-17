@@ -14,6 +14,19 @@
           "packages/user-flow-gh-integration/**/*.ts"
         ]
       }
+    },
+    "user-flow": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "commands": [
+          {
+            "command": "npm run @push-based/user-flow:collect -- --rcPath=packages/user-flow-gh-integration/.user-flowrc.json -v --tsConfigPath=./packages/user-flow-gh-integration/tsconfig.uf.json"
+          }
+        ]
+      }
     }
   },
   "tags": []

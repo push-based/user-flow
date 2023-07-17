@@ -17,13 +17,14 @@ export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArgv): CollectCom
 
   const {
     url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport,
-    outPath, format,
+    outPath, format, tsConfigPath,
     budgetPath, budgets, configPath, config
   } = (argv || {}) as any as (keyof CollectRcOptions & keyof PersistRcOptions);
 
-  let collect = {} as CollectArgvOptions;
+  const collect = {} as CollectArgvOptions;
   url && (collect.url = url);
   ufPath && (collect.ufPath = ufPath);
+  tsConfigPath && (collect.tsConfigPath = tsConfigPath);
   // optional
   serveCommand && (collect.serveCommand = serveCommand);
   awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
@@ -32,13 +33,13 @@ export function getCollectCommandOptionsFromArgv(argv: RcJsonAsArgv): CollectCom
   // cli only
   dryRun !== undefined && (collect.dryRun = Boolean(dryRun));
 
-  let persist = {} as PersistArgvOptions;
+  const persist = {} as PersistArgvOptions;
   outPath && (persist.outPath = outPath);
   format && (persist.format = format);
   // cli only
   openReport !== undefined && (persist.openReport = Boolean(openReport));
 
-  let assert = {} as AssertArgvOptions;
+  const assert = {} as AssertArgvOptions;
   budgetPath && (assert.budgetPath = budgetPath);
   budgets && (assert.budgets = budgets);
 
