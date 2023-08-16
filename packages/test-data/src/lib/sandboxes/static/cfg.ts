@@ -1,4 +1,3 @@
-import { UserFlowProjectConfig,DEFAULT_RC_NAME } from '@push-based/user-flow-cli-testing';
 import { STATIC_RC_JSON, STATIC_USERFLOW_PATH } from './rc';
 import { STATIC_USERFLOW_CONTENT } from './flow1.uf';
 import { INITIATED_PRJ_BIN, INITIATED_PRJ_ROOT } from '../initialized/cfg';
@@ -9,11 +8,11 @@ import { STATIC_APP_INDEX_CONTENT, STATIC_APP_INDEX_NAME } from './static-app/in
 
 const addDistToPath = (p: string) => join('dist', p);
 
-export const STATIC_PRJ_CFG: UserFlowProjectConfig = {
+export const STATIC_PRJ_CFG = {
   root: INITIATED_PRJ_ROOT,
   bin: INITIATED_PRJ_BIN,
   rcFile: {
-    [DEFAULT_RC_NAME]: STATIC_RC_JSON
+    [".user-flowrc.json"]: STATIC_RC_JSON
   },
   delete: [
     addDistToPath(STATIC_APP_INDEX_NAME),

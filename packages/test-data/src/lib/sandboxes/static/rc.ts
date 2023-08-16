@@ -1,12 +1,21 @@
 import { join } from 'path';
-import { RcJson, SANDBOX_BASE_RC_JSON, SERVE_COMMAND_PORT } from '@push-based/user-flow-cli-testing';
 import { STATIC_USERFLOW_NAME, STATIC_USERFLOW_TITLE } from './flow1.uf';
 
-export const STATIC_RC_NAME = '.user-flow.static.json';
-export const STATIC_RC_JSON: RcJson = {
+export const SANDBOX_BASE_RC_JSON = {
+  'collect': {
+    'url':  "https://coffee-cart.netlify.app/",
+    'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH
+  },
+  'persist': {
+    'outPath': './src/lib/measures', //DEFAULT_PERSIST_OUT_PATH,
+    'format': ['stdout']
+  },
+  'assert': {}
+};
+export const STATIC_RC_JSON = {
   ...SANDBOX_BASE_RC_JSON,
   'collect': {
-    'url': 'http://127.0.0.1:' + SERVE_COMMAND_PORT,
+    'url': 'http://127.0.0.1:' + '5032',
     'ufPath': './src/lib/user-flows',
     'serveCommand': 'npm run start',
     'awaitServeStdout': 'Available on:'

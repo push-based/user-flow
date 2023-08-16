@@ -1,32 +1,24 @@
-import {
-  DEFAULT_COLLECT_UF_PATH,
-  DEFAULT_COLLECT_URL,
-  DEFAULT_PERSIST_OUT_PATH,
-  getEnvPreset,
-  RcJson,
-  ReportFormat
-} from '@push-based/user-flow-cli-testing';
 export const DEFAULT_RC_NAME = '.user-flowrc.json';
-export const CLI_DEFAULT_RC_JSON: RcJson = {
+export const CLI_DEFAULT_RC_JSON = {
   'collect': {
-    'url': DEFAULT_COLLECT_URL,
-    'ufPath': DEFAULT_COLLECT_UF_PATH
+    'url': "https://coffee-cart.netlify.app/",
+    'ufPath': "./user-flows"
   },
   'persist': {
-    'outPath': DEFAULT_PERSIST_OUT_PATH,
-    'format': getEnvPreset().format as ReportFormat[]
+    'outPath': "./measures",
+    'format': ['stdout']
   },
   'assert': {}
 };
 
-export const SANDBOX_BASE_RC_JSON: RcJson = {
+export const SANDBOX_BASE_RC_JSON = {
   'collect': {
-    'url': DEFAULT_COLLECT_URL,
+    'url': "https://coffee-cart.netlify.app/",
     'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH
   },
   'persist': {
     'outPath': './src/lib/measures', //DEFAULT_PERSIST_OUT_PATH,
-    'format': getEnvPreset().format as ReportFormat[]
+    'format': ['stdout']
   },
   'assert': {}
 };

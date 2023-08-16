@@ -1,9 +1,20 @@
 import { join } from 'path';
-import { RcJson, SANDBOX_BASE_RC_JSON } from '@push-based/user-flow-cli-testing';
 import { REMOTE_USERFLOW_NAME, REMOTE_USERFLOW_TITLE } from './flow1.uf';
 
+const SANDBOX_BASE_RC_JSON = {
+  'collect': {
+    'url': "https://coffee-cart.netlify.app/",
+    'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH
+  },
+  'persist': {
+    'outPath': './src/lib/measures', //DEFAULT_PERSIST_OUT_PATH,
+    'format': ['stdout']
+  },
+  'assert': {}
+};
+
 export const REMOTE_RC_NAME = '.user-flow.remote.json';
-export const REMOTE_RC_JSON: RcJson = {
+export const REMOTE_RC_JSON = {
   ...SANDBOX_BASE_RC_JSON,
   'collect': {
     ...SANDBOX_BASE_RC_JSON.collect,
