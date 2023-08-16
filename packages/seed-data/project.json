@@ -1,0 +1,27 @@
+{
+  "name": "seed-data",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/seed-data/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/seed-data",
+        "main": "packages/seed-data/src/index.ts",
+        "tsConfig": "packages/seed-data/tsconfig.lib.json",
+        "assets": ["packages/seed-data/*.md"],
+        "generatePackageJson": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/seed-data/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["seed-data"]
+}
