@@ -1,4 +1,6 @@
-import { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from '@push-based/user-flow';
+type CLI_MODES = "DEFAULT" | "CI" | "SANDBOX";
+const CI_PROPERTY = "CI";
+const CLI_MODE_PROPERTY =  "__CLI_MODE__";
 
 export function setupEnvVars(env: CLI_MODES): void {
   if (env === 'DEFAULT') {

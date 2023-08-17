@@ -3,12 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"],
-    "paths": {
-      "@push-based/user-flow": [
-        "dist/packages/user-flow"
-      ]
-    }
+    "types": ["node"]
   },
   "include": ["**/*.ts"],
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
