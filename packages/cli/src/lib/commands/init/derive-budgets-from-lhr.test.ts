@@ -4,7 +4,8 @@ import { deriveBudgetsFromLhr } from './derive-budgets-from-lhr';
 import LHR from 'lighthouse/types/lhr/lhr';
 
 function getReportContent<T = string>(fileName: string): T {
-  const path = join(__dirname, fileName);
+  const refPath = '../../../../../../../packages/test-data/src/lib/raw-reports';
+  const path = join(__dirname, refPath, fileName);
   let report: string = readFileSync(path, 'utf-8').trim();
   report = report[1] === ' ' ? '| ' + report.slice(2) : report;
   if (fileName.endsWith('.json')) {

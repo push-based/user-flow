@@ -5,6 +5,17 @@ import FlowResult from 'lighthouse/types/lhr/flow';
 import { ReducedReport } from '../../collect/utils/report/types';
 import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 
+function getReportContent<T = string>(fileName: string): T {
+  const refPath = '../../../../../../../packages/test-data/src/lib/raw-reports';
+  const path = join(__dirname, refPath,fileName);
+  let report: string = readFileSync(path, 'utf-8').trim();
+  report = report[1] === ' ' ? '| ' + report.slice(2) : report;
+  if (fileName.endsWith('.json')) {
+    return JSON.parse(report as string);
+  }
+  return report as unknown as T;
+}
+
 const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');
 const lhr9budgets = getReportContent<FlowResult>('lhr-9-budgets.json');
@@ -13,16 +24,6 @@ const lhr9Ex2 = getReportContent<FlowResult>('lhr-9-ex-2.json');
 const lhr9reduced = getReportContent<ReducedReport>('lhr-9_reduced.json');
 const LHRREDUCEDCompareMD = getReportContent('lhr-9_compare.md');
 const lhr9ReducedBaseline = getReportContent<ReducedReport>('lhr-9_reduced-baseline.json');
-
-function getReportContent<T = string>(fileName: string): T {
-  const path = join(__dirname, fileName);
-  let report: string = readFileSync(path, 'utf-8').trim();
-  report = report[1] === ' ' ? '| ' + report.slice(2) : report;
-  if (fileName.endsWith('.json')) {
-    return JSON.parse(report as string);
-  }
-  return report as unknown as T;
-}
 
 
 describe('md-table', () => {
