@@ -1,8 +1,17 @@
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { deriveBudgetsFromLhr } from './derive-budgets-from-lhr';
-import { getReportContent } from 'test-data';
 import LHR from 'lighthouse/types/lhr/lhr';
+
+function getReportContent<T = string>(fileName: string): T {
+  const path = join(__dirname, fileName);
+  let report: string = readFileSync(path, 'utf-8').trim();
+  report = report[1] === ' ' ? '| ' + report.slice(2) : report;
+  if (fileName.endsWith('.json')) {
+    return JSON.parse(report as string);
+  }
+  return report as unknown as T;
+}
 
 const lhr9 = getReportContent<LHR>('lhr-9.json');
 const expectedBudgets = [
