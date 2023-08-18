@@ -1,7 +1,7 @@
+import { join } from 'path';
+import { readFileSync } from 'fs';
 import { getBudgetTable, getStepsTable } from './md-report';
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { getReportContent } from 'test-data';
-import { writeFileSync } from 'fs';
 import { ReducedReport } from '../../collect/utils/report/types';
 import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
 
@@ -13,6 +13,17 @@ const lhr9Ex2 = getReportContent<FlowResult>('lhr-9-ex-2.json');
 const lhr9reduced = getReportContent<ReducedReport>('lhr-9_reduced.json');
 const LHRREDUCEDCompareMD = getReportContent('lhr-9_compare.md');
 const lhr9ReducedBaseline = getReportContent<ReducedReport>('lhr-9_reduced-baseline.json');
+
+function getReportContent<T = string>(fileName: string): T {
+  const path = join(__dirname, fileName);
+  let report: string = readFileSync(path, 'utf-8').trim();
+  report = report[1] === ' ' ? '| ' + report.slice(2) : report;
+  if (fileName.endsWith('.json')) {
+    return JSON.parse(report as string);
+  }
+  return report as unknown as T;
+}
+
 
 describe('md-table', () => {
 

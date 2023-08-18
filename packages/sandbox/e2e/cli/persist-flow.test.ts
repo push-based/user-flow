@@ -3,10 +3,10 @@ import { readdirSync } from 'fs';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
-import { persistFlow } from './persist-flow';
-import { ReportFormat } from '../../options/types';
-import { PersistFlowOptions } from './types';
-import { createReducedReport, toReportName } from '../report/utils';
+import { persistFlow } from '../../../cli/src/lib/commands/collect/utils/persist/persist-flow';
+import { ReportFormat } from '@push-based/user-flow';
+import { PersistFlowOptions } from '../../../cli/src/lib/commands/collect/utils/persist/types';
+import { createReducedReport, toReportName } from '../../../cli/src/lib/commands/collect/utils/report/utils';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as FlowResult;
 const htmlReport = getReportContent('lhr-9.html') as string;
@@ -50,7 +50,7 @@ function old_expectPersistedReports(persistedReportPaths: string[], outPath: str
 }
 
 let initializedPrj: UserFlowCliProject;
-let outPath;
+let outPath: any;
 const url = 'test.url';
 const flowName = `flow-example-name`;
 const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));

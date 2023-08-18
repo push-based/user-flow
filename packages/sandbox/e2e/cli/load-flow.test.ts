@@ -1,7 +1,6 @@
 import { join } from 'path';
-import { DEFAULT_COLLECT_UF_PATH } from '../../options/ufPath.constant';
-import { DEFAULT_PERSIST_OUT_PATH } from '../../options/outPath.constant';
-import { loadFlow } from './load-flow';
+import { DEFAULT_COLLECT_UF_PATH, DEFAULT_PERSIST_OUT_PATH } from '@push-based/user-flow';
+import { loadFlow } from '../../../cli/src/lib/commands/collect/utils/user-flow';
 import {
   INITIATED_PRJ_CFG,
   INITIATED_RC_JSON,

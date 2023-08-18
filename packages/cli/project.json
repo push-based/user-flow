@@ -63,6 +63,15 @@
         "access": "public"
       }
     },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/cli/**/*.ts"
+        ]
+      }
+    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": [
