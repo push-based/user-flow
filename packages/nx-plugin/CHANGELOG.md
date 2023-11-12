@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.1](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.0...nx-plugin-0.1.1) (2023-11-12)
+
+
+
 # 0.1.0 (2023-06-19)
 
 
