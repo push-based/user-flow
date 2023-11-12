@@ -5,14 +5,10 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "packages/user-flow-example/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/user-flow-example/**/*.ts"]
       }
     }
   },

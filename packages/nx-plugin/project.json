@@ -12,9 +12,7 @@
           "projects": "dependencies"
         }
       ],
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-plugin",
         "main": "packages/nx-plugin/src/index.ts",
@@ -45,7 +43,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
@@ -59,14 +57,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/nx-plugin/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "packages/nx-plugin/jest.config.ts"
       }
     },
     "version": {
@@ -77,10 +68,7 @@
         }
       ],
       "options": {
-        "postTargets": [
-          "nx-plugin:npm",
-          "nx-plugin:github"
-        ],
+        "postTargets": ["nx-plugin:npm", "nx-plugin:github"],
         "commitMessageFormat": "release(${projectName}): ${version}",
         "noVerify": true,
         "push": true
@@ -101,9 +89,7 @@
     },
     "link": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "commands": [
           {

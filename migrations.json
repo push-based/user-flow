@@ -1,28 +1,20 @@
 {
   "migrations": [
     {
-      "version": "15.7.0-beta.0",
-      "description": "Split global configuration files into individual project.json files. This migration has been added automatically to the beginning of your migration set to retroactively make them work with the new version of Nx.",
       "cli": "nx",
-      "implementation": "./src/migrations/update-15-7-0/split-configuration-into-project-json-files",
-      "package": "@nx/workspace",
-      "name": "15-7-0-split-configuration-into-project-json-files"
+      "version": "16.6.0-beta.6",
+      "description": "Prefix outputs with {workspaceRoot}/{projectRoot} if needed",
+      "implementation": "./src/migrations/update-15-0-0/prefix-outputs",
+      "package": "nx",
+      "name": "16.6.0-prefix-outputs"
     },
     {
       "cli": "nx",
-      "version": "15.8.2-beta.0",
-      "description": "Updates the nx wrapper.",
-      "implementation": "./src/migrations/update-15-8-2/update-nxw",
+      "version": "16.8.0-beta.3",
+      "description": "Escape $ in env variables",
+      "implementation": "./src/migrations/update-16-8-0/escape-dollar-sign-env-variables",
       "package": "nx",
-      "name": "15.8.2-update-nx-wrapper"
-    },
-    {
-      "cli": "nx",
-      "version": "16.0.0-beta.0",
-      "description": "Remove @nrwl/cli.",
-      "implementation": "./src/migrations/update-16-0-0/remove-nrwl-cli",
-      "package": "nx",
-      "name": "16.0.0-remove-nrwl-cli"
+      "name": "16.8.0-escape-dollar-sign-env"
     },
     {
       "cli": "nx",
