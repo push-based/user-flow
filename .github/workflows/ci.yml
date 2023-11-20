@@ -11,17 +11,20 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    name: Node ${{ matrix.node }}
 
     steps:
       - uses: actions/checkout@v4
-      - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        with:
+          fetch-depth: 0
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm ci
       - name: build
-        run: npm run nx -- affected:build
+        run: npm run nx -- affected:build --base=origin/main --head=HEAD
       - name: test
-        run: npm run nx -- affected:test --parallel=1
+        run: npm run nx -- affected:test --parallel=1 --base=origin/main --head=HEAD
