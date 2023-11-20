@@ -10,18 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18]
+    name: Node ${{ matrix.node }}
 
     steps:
       - uses: actions/checkout@v4
-      - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-          node-version: ${{ matrix.node-version }}
-      - name: install
-        run: npm ci
-      - name: build
-        run: npm run nx -- affected:build
-      - name: test
-        run: npm run nx -- affected:test --parallel=1
+          node-version: ${{ matrix.node }}
+      - run: npm ci
+      - run: npm run nx -- affected:build
+      - run: npm run nx -- affected:test --parallel=1
