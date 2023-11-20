@@ -15,10 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
       - run: npm ci
-      - run: npm run nx -- affected:build
-      - run: npm run nx -- affected:test --parallel=1
+      - run: npm run nx -- affected:build --base=origin/main --head=HEAD
+      - run: npm run nx -- affected:test --parallel=1 --base=origin/main --head=HEAD
