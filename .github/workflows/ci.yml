@@ -22,6 +22,6 @@ jobs:
       - name: install
         run: npm ci
       - name: build
-        run: npm run affected:build
+        run: nx affected:build
       - name: test
         run: nx affected:test --parallel=1
