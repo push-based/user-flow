@@ -18,8 +18,7 @@
         "tsConfig": "packages/nx-plugin-integration/tsconfig.app.json",
         "webpackConfig": "packages/nx-plugin-integration/webpack.config.js",
         "assets": [
-          "packages/nx-plugin-integration/src/favicon.ico",
-          "packages/nx-plugin-integration/src/assets"
+          "packages/nx-plugin-integration/src/favicon.ico"
         ],
         "index": "packages/nx-plugin-integration/src/index.html",
         "baseHref": "/",
