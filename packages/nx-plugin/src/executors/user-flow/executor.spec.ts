@@ -1,3 +1,5 @@
+import {describe, beforeEach, it, expect} from 'vitest';
+
 import executor from './executor';
 import {createTreeWithEmptyWorkspace} from "@nx/devkit/testing";
 import {normalizeOptions} from "../../generators/target/utils";

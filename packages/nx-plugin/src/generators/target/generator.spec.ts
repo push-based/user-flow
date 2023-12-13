@@ -1,3 +1,5 @@
+import {describe, beforeEach, it, expect} from 'vitest';
+
 import {createTreeWithEmptyWorkspace} from '@nx/devkit/testing';
 import {
   joinPathFragments,
