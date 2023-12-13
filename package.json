@@ -40,10 +40,12 @@
     "@jscutlery/semver": "^4.0.0",
     "@nx/cypress": "17.1.1",
     "@nx/devkit": "17.1.1",
+    "@nx/eslint": "17.1.1",
     "@nx/eslint-plugin": "17.1.1",
     "@nx/jest": "17.1.1",
     "@nx/js": "17.1.1",
     "@nx/plugin": "17.1.1",
+    "@nx/vite": "^17.2.3",
     "@nx/web": "17.1.1",
     "@nx/webpack": "17.1.1",
     "@nx/workspace": "17.1.1",
@@ -72,7 +74,6 @@
     "nx": "17.1.1",
     "rimraf": "^3.0.2",
     "ts-jest": "29.1.0",
-    "typescript": "^4.9.3",
-    "@nx/eslint": "17.1.1"
+    "typescript": "^4.9.3"
   }
 }
