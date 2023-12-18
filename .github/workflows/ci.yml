@@ -1,27 +1,31 @@
-name: ci
+name: User-Flow CI
 
 on:
   pull_request:
     paths-ignore:
       - '*.md'
-
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x]
+    name: Node ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@v4
-      - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
       - name: install
         run: npm ci
       - name: build
-        run: npm run nx -- affected:build
+        run: npx nx run-many -t build --skip-nx-cache --parallel=false
       - name: test
-        run: npm run nx -- affected:test --parallel=1
+        run: npx nx run-many -t test --skip-nx-cache --parallel=false
+      - name: lint
+        run: npx nx run-many -t lint --skip-nx-cache --parallel=false
