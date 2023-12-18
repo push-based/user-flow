@@ -24,14 +24,16 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.ts"
+        "jestConfig": "packages/cli/jest.config.ts",
+        "passWithNoTests": true
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.ts"
+        "jestConfig": "packages/cli/jest.config.ts",
+        "passWithNoTests": true
       }
     },
     "version": {
@@ -63,7 +65,9 @@
     },
     "link": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "commands": [
           {
