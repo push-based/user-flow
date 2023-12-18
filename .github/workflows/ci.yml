@@ -2,8 +2,7 @@ name: User-Flow CI
 
 on:
   pull_request:
-    paths-ignore:
-      - '*.md'
+
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
