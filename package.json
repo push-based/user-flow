@@ -37,7 +37,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
     "@commitlint/config-angular": "^17.2.0",
-    "@jscutlery/semver": "^4.0.0",
+    "@jscutlery/semver": "^3.0.0",
     "@nx/cypress": "17.1.1",
     "@nx/devkit": "17.1.1",
     "@nx/eslint-plugin": "17.1.1",
@@ -68,7 +68,7 @@
     "jest": "29.4.3",
     "jest-environment-jsdom": "29.4.3",
     "kill-port": "^2.0.1",
-    "ngx-deploy-npm": "^7.1.0",
+    "ngx-deploy-npm": "^6.0.0",
     "nx": "17.1.1",
     "rimraf": "^3.0.2",
     "ts-jest": "29.1.0",
