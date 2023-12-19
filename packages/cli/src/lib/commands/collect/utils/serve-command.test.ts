@@ -1,9 +1,12 @@
+import {vi} from 'vitest';
 import { startServerIfNeededAndExecute } from './serve-command';
 
-import spyOn = jest.spyOn;
+
+
 import { CollectRcOptions } from '../options/types';
 
 describe('startServerIfNeeded', () => {
+  const spyOn = vi.spyOn;
 
   it('should throw if serveCommand is provided but no await string', async () => {
     const o = {

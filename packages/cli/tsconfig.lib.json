@@ -7,7 +7,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
-    "module": "commonjs",
     "paths": {
       "@packageName": [
         "../../asva/wgra/af",

@@ -1,12 +1,13 @@
-import { RcJson } from '../../../types';
 import { join } from 'path';
-import { readFile, writeFile } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
 import { existsSync, mkdirSync } from 'fs';
-import { BudgetsExampleMap } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
-import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr';
+
+import { RcJson } from '../../../types.js';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { log, logVerbose } from '../../../core/loggin/index.js';
+import { BudgetsExampleMap } from '../constants.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { CLIProcess } from '../../../core/processing/types.js';
+import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr.js';
 
 export async function generateLgBudgets(cliCfg: RcJson & { lhr?: string }): Promise<RcJson> {
   const destPath = process.cwd();

@@ -1,12 +1,11 @@
-import {FractionResults, GatherMode, ReducedFlowStep, ReducedReport} from '../../collect/utils/report/types';
-import {enrichReducedReportWithBaseline} from '../../collect/utils/report/utils';
-import {Alignment, table} from '../../../core/md/table';
-import {style} from '../../../core/md/font-style';
-import {headline, Hierarchy} from '../../../core/md/headline';
-import {NEW_LINE} from '../../../core/md/constants';
-import {details} from '../../../core/md/details';
-import Budget from "lighthouse/types/lhr/budget";
-import TimingBudget = Budget.TimingBudget;
+import {FractionResults, GatherMode, ReducedFlowStep, ReducedReport} from '../../collect/utils/report/types.js';
+import {enrichReducedReportWithBaseline} from '../../collect/utils/report/utils.js';
+import {Alignment, table} from '../../../core/md/table.js';
+import {style} from '../../../core/md/font-style.js';
+import {headline, Hierarchy} from '../../../core/md/headline.js';
+import {NEW_LINE} from '../../../core/md/constants.js';
+import {details} from '../../../core/md/details.js';
+// @ts-ignore
 import Details from "lighthouse/types/lhr/audit-details";
 import Table = Details.Table;
 
@@ -99,7 +98,7 @@ function getTimings(resultsTimingBudget: Table | undefined): undefined | string[
       })
     ]
   }
-};
+}
 
 function getResourceSizes(resourceSizesBudget: Table | undefined): undefined | string[][] {
   if (resourceSizesBudget === undefined) {
@@ -161,7 +160,7 @@ export function getStepsTable(reducedReport: ReducedReport, baselineResults?: an
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
   if (baselineResults) {
     const enrichedReducedReport = enrichReducedReportWithBaseline(reducedReport, baselineResults);
-    return enrichedReducedReport.steps.map((step) => {
+    return enrichedReducedReport.steps.map((step: { name: any; gatherMode: any; }) => {
       const results = reportCategories.map(category => extractEnrichedResults(step, category));
       return [step.name, step.gatherMode].concat(results);
     });

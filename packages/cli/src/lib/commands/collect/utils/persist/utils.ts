@@ -1,5 +1,5 @@
-import { ReducedReport } from '../report/types';
-import { getStepsTable } from '../../../assert/utils/md-report';
+import { ReducedReport } from '../report/types.js';
+import { getStepsTable } from '../../../assert/utils/md-report.js';
 
 export function generateStdoutReport(flowResult: ReducedReport): string {
   const dateTime = new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3);

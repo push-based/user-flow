@@ -1,12 +1,12 @@
-import { setupUrl } from '../options/url.setup';
-import { setupUfPath } from '../options/ufPath.setup';
-import { setupFormat } from '../options/format.setup';
-import { setupOutPath } from '../options/outPath.setup';
-import { RcJson } from '../../../types';
+import { setupUrl } from '../options/url.setup.js';
+import { setupUfPath } from '../options/ufPath.setup.js';
+import { setupFormat } from '../options/format.setup.js';
+import { setupOutPath } from '../options/outPath.setup.js';
+import { RcJson } from '../../../types.js';
 
 export async function collectRcJson(cliCfg: RcJson): Promise<RcJson> {
 
-   const config = {
+  return {
     ...cliCfg,
     ...(await setupUrl(cliCfg)
         .then(setupUfPath)
@@ -15,5 +15,4 @@ export async function collectRcJson(cliCfg: RcJson): Promise<RcJson> {
       // initial static defaults should be last as it takes user settings
     )
   };
-  return config;
 }

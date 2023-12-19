@@ -1,6 +1,6 @@
-import { UserFlowRecordingStep, UserFlowReportJson } from './types';
+import { UserFlowRecordingStep, UserFlowReportJson } from './types.js';
 import { parse as puppeteerReplayParse, StepType } from '@puppeteer/replay';
-import { isMeasureType } from './utils';
+import { isMeasureType } from './utils.js';
 
 export function parse(recordingJson: any): UserFlowReportJson {
   // custom events to exclude from the default parser
@@ -25,7 +25,8 @@ export function parse(recordingJson: any): UserFlowReportJson {
   });
 
   // parse customEvents from our stringify function
-  parsed.steps = parsed.steps.map((step) => {
+  // @ts-ignore
+  parsed.steps = parsed.steps.map((step: { type: StepType; name: string; }) => {
     if (step.type === StepType.CustomStep && isMeasureType(step.name)) {
       const { name: type, parameters } = step as any;
       return { type, parameters } as UserFlowRecordingStep;

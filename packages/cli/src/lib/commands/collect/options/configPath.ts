@@ -1,6 +1,9 @@
-import { argv } from 'yargs';
-import { Param } from './configPath.model';
-import { ArgvOption } from '../../../core/yargs/types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { Param } from './configPath.model.js';
+import { ArgvOption } from '../../../core/yargs/types.js';
+
+const yargs = _yargs(hideBin(process.argv));
 
 export const param: Param = {
   configPath: {
@@ -11,6 +14,6 @@ export const param: Param = {
 };
 
 export function get(): string {
-  const { configPath } = argv as any as ArgvOption<Param>;
+  const { configPath } = yargs.argv as any as ArgvOption<Param>;
   return configPath;
 }

@@ -1,15 +1,15 @@
-import { CollectYargsOptions, PersistYargsOptions } from './types';
-import { AssertYargsOptions } from '../../assert/options/types';
-import { param as openReport } from './openReport';
-import { param as ufPath } from './ufPath';
-import { param as configPath } from './configPath';
-import { param as outPath } from './outPath';
-import { param as url } from './url';
-import { param as format } from './format';
-import { param as serveCommand } from './serveCommand';
-import { param as awaitServeStdout } from './awaitServeStdout';
-import { param as dryRun } from './dryRun';
-import { ASSERT_OPTIONS } from '../../assert/options';
+import { CollectYargsOptions, PersistYargsOptions } from './types.js';
+import { AssertYargsOptions } from '../../assert/options/types.js';
+import { param as openReport } from './openReport.js';
+import { param as ufPath } from './ufPath.js';
+import { param as configPath } from './configPath.js';
+import { param as outPath } from './outPath.js';
+import { param as url } from './url.js';
+import { param as format } from './format.js';
+import { param as serveCommand } from './serveCommand.js';
+import { param as awaitServeStdout } from './awaitServeStdout.js';
+import { param as dryRun } from './dryRun.js';
+import { ASSERT_OPTIONS } from '../../assert/options/index.js';
 
 export const PERSIST_OPTIONS: PersistYargsOptions = {
   ...outPath,

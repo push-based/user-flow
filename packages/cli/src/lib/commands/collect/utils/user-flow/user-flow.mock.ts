@@ -1,7 +1,8 @@
 import { Page } from 'puppeteer';
-import { logVerbose } from '../../../../core/loggin';
+import { logVerbose } from '../../../../core/loggin/index.js';
+// @ts-ignore
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { StepOptions, UserFlowOptions } from './types';
+import { StepOptions, UserFlowOptions } from './types.js';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {
   const config = cfg?.config || {};

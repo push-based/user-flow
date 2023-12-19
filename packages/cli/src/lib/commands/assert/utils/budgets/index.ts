@@ -1,11 +1,11 @@
-import { readFile, writeFile } from '../../../../core/file';
-import { logVerbose } from '../../../../core/loggin';
+import { readFile, writeFile } from '../../../../core/file/index.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
+// @ts-ignore
 import Budget from 'lighthouse/types/lhr/budget';
-import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant';
+import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant.js';
 
 export function readBudgets(budgetPath: string = DEFAULT_ASSERT_BUDGET_PATH): Budget[] {
-  const budgetsJson = JSON.parse(readFile(budgetPath, {fail: true}) || '{}');
-  return budgetsJson;
+  return JSON.parse(readFile(budgetPath, { fail: true }) || '{}');
 }
 
 export function writeBudgets(config: Budget[], budgetPath: string = DEFAULT_ASSERT_BUDGET_PATH): void {

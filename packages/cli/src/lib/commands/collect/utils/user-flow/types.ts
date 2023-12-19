@@ -7,8 +7,10 @@ import {
   Product
 } from 'puppeteer';
 
+// @ts-ignore
 import * as Config from 'lighthouse/types/config';
-import { UserFlow } from '../../../../hacky-things/lighthouse';
+import { UserFlow } from '../../../../hacky-things/lighthouse.js';
+// @ts-ignore
 import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 
 

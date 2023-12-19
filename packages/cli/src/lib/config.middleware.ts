@@ -1,9 +1,11 @@
-import * as yargs from 'yargs';
-import { GlobalOptionsArgv } from './global/options/types';
-import { logVerbose } from './core/loggin';
-import { detectCliMode } from './global/cli-mode/cli-mode';
-import { RcJson, RcJsonAsArgv } from './types';
+import _yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { GlobalOptionsArgv } from './global/options/types.js';
+import { logVerbose } from './core/loggin/index.js';
+import { detectCliMode } from './global/cli-mode/cli-mode.js';
 import { Options } from 'yargs';
+
+const yargs = _yargs(hideBin(process.argv));
 
 export function applyConfigMiddleware(handler: (...args: any) => void, configParser: Options['configParser']) {
   return (...args: any) => {

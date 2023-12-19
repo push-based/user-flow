@@ -1,4 +1,4 @@
-import { CLI_MODES } from './types';
+import { CLI_MODES } from './types.js';
 
 /**
  * Motivation and Concepts of CLI Modes

@@ -1,15 +1,15 @@
-import { readFile, writeFile } from '../../../../core/file';
-import { logVerbose } from '../../../../core/loggin';
-import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
-import { LhConfigJson } from '../../../../hacky-things/lighthouse';
-import { CollectCommandArgv } from '../../options/types';
-import { readBudgets } from '../../../assert/utils/budgets';
+import { readFile, writeFile } from '../../../../core/file/index.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant.js';
+import { LhConfigJson } from '../../../../hacky-things/lighthouse.js';
+import { CollectCommandArgv } from '../../options/types.js';
+import { readBudgets } from '../../../assert/utils/budgets/index.js';
+// @ts-ignore
 import Budget from 'lighthouse/types/lhr/budget';
 
 
 export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): LhConfigJson {
-  const configJson = JSON.parse(readFile(configPath, { fail: true }));
-  return configJson;
+  return JSON.parse(readFile(configPath, { fail: true }));
 }
 
 export function writeConfig(config: LhConfigJson, configPath: string = DEFAULT_COLLECT_CONFIG_PATH): void {

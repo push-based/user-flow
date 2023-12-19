@@ -1,15 +1,15 @@
-import {RcJsonAsArgv} from "../../types";
+import {RcJsonAsArgv} from "../../types.js";
 
-import {log, logVerbose} from "../../core/loggin";
-import {run} from "../../core/processing/behaviors";
-import {collectRcJson} from "../init/processes/collect-rc-json";
-import {getGlobalOptionsFromArgv} from "../../global/utils";
-import {getInitCommandOptionsFromArgv} from "./utils";
-import {updateRcJson} from "./processes/update-rc-json";
-import {handleFlowGeneration} from "./processes/generate-userflow";
-import {handleGhWorkflowGeneration} from "./processes/generate-workflow";
-import {handleBudgetsGeneration} from "./processes/generate-lh-budgets";
-import {SETUP_CONFIRM_MESSAGE} from "./constants";
+import {log, logVerbose} from "../../core/loggin/index.js";
+import {run} from "../../core/processing/behaviors.js";
+import {collectRcJson} from './processes/collect-rc-json.js';
+import {getGlobalOptionsFromArgv} from "../../global/utils.js";
+import {getInitCommandOptionsFromArgv} from "./utils.js";
+import {updateRcJson} from "./processes/update-rc-json.js";
+import {handleFlowGeneration} from "./processes/generate-userflow.js";
+import {handleGhWorkflowGeneration} from "./processes/generate-workflow.js";
+import {handleBudgetsGeneration} from "./processes/generate-lh-budgets.js";
+import {SETUP_CONFIRM_MESSAGE} from "./constants.js";
 
 export async function runInitCommand(argv: RcJsonAsArgv) {
   const { interactive } = getGlobalOptionsFromArgv(argv);

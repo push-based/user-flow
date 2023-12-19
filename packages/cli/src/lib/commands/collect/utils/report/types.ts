@@ -1,8 +1,12 @@
+// @ts-ignore
 import Budget from 'lighthouse/types/lhr/budget';
+// @ts-ignore
 import Config from 'lighthouse/types/config';
-import { CLI_MODES } from '../../../../global/cli-mode';
-import { PickOne } from '../../../../core/types';
+import { CLI_MODES } from '../../../../global/cli-mode/index.js';
+import { PickOne } from '../../../../core/types.js';
+// @ts-ignore
 import FlowResult from 'lighthouse/types/lhr/flow';
+// @ts-ignore
 import Details from 'lighthouse/types/lhr/audit-details';
 
 type OverBudget = { overBudget: number };
@@ -21,8 +25,6 @@ export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
  * const f2: GatherModeSlice = {gatherMode: 'snapshot'};
  */
 type LhrGatherModeSlice = LhrSlice & { gatherMode: GatherMode };
-type UfrNameSlice = UfrSlice & { name: string };
-
 
 /**
  * This type is the result of `calculateCategoryFraction` https://github.com/GoogleChrome/lighthouse/blob/master/core/util.cjs#L540.

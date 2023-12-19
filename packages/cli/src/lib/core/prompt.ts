@@ -1,9 +1,9 @@
 import { prompt } from 'enquirer';
-import { CLIProcess } from './processing/types';
-import { RcJson } from '../types';
+import { CLIProcess } from './processing/types.js';
+import { RcJson } from '../types.js';
 
 export async function promptParam<T>(cfg: {initial?: T, skip?: boolean, message: string, type?: any, [key: string]: any}): Promise<T> {
-  let {type, initial,  message,skip,choices,result   } = cfg;
+  let {type, initial,  message,skip, result   } = cfg;
   type = type || 'input';
 
   const { param } = await prompt<{ param: T }>([
@@ -19,15 +19,13 @@ export async function promptParam<T>(cfg: {initial?: T, skip?: boolean, message:
 
 async function shouldProceed(question: string): Promise<boolean> {
 
-  const proceed: boolean = await promptParam(
+  return await promptParam(
     {
       type: 'confirm',
       message: question,
       initial: true,
     }
   );
-
-  return proceed;
 }
 
 export function askToSkip(

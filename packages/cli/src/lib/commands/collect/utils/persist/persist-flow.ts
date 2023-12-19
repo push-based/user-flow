@@ -1,15 +1,16 @@
-import { UserFlow } from '../../../../hacky-things/lighthouse';
+import { UserFlow } from '../../../../hacky-things/lighthouse.js';
+// @ts-ignore
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { log, logVerbose } from '../../../../core/loggin';
+import { log, logVerbose } from '../../../../core/loggin/index.js';
 import { join } from 'path';
-import { writeFile } from '../../../../core/file';
+import { writeFile } from '../../../../core/file/index.js';
 import { existsSync, mkdirSync } from 'fs';
-import { PersistFlowOptions } from './types';
-import { createReducedReport } from '../../../..';
-import { generateStdoutReport } from '../persist/utils';
-import { toReportName } from '../report/utils';
-import { ReducedReport } from '../report/types';
-import { generateMdReport } from '../../../assert/utils/md-report';
+import { PersistFlowOptions } from './types.js';
+import { createReducedReport } from '../../../../index.js';
+import { generateStdoutReport } from './utils.js';
+import { toReportName } from '../report/utils.js';
+import { ReducedReport } from '../report/types.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -55,11 +56,10 @@ export async function persistFlow(
   }
 
   const fileName = toReportName(url, flow.name, reducedReport);
-  const fileNames = results.map((result) => {
+  return results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);
     logVerbose(`Report path: ${filePath}.`);
     return filePath;
   });
-  return fileNames;
 }

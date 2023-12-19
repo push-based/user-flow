@@ -1,6 +1,6 @@
-import { Param as BudgetPath } from '../../assert/options/budgetPath.model';
-import { Param as Budgets } from '../../assert/options/budgets.model';
-import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import { Param as BudgetPath } from '../../assert/options/budgetPath.model.js';
+import { Param as Budgets } from '../../assert/options/budgets.model.js';
+import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings.js';
 
 export type AssertYargsOptions = BudgetPath & Budgets;
 

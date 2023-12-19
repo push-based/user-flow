@@ -1,14 +1,5 @@
-import { AssertRcOptions, AssertYargsOptions } from '../../assert/options/types';
-import {
-  CollectCliOnlyOptions,
-  CollectRcOptions,
-  CollectYargsOptions, PersistCliOnlyOptions, PersistRcOptions,
-  PersistYargsOptions
-} from '../../collect/options/types';
-import { YargsArgvOptionFromParamsOptions } from '../../../core/yargs/types';
-
-export type InitYargsOptions = CollectYargsOptions & PersistYargsOptions & AssertYargsOptions;
-
+import { AssertRcOptions } from '../../assert/options/types.js';
+import { CollectRcOptions, PersistRcOptions } from '../../collect/options/types.js';
 
 export type InitCliOnlyOptions = {
   generateFlow?: boolean;
@@ -18,11 +9,5 @@ export type InitCliOnlyOptions = {
 }
 
 export type InitArgvOptions = CollectRcOptions & PersistRcOptions & AssertRcOptions & InitCliOnlyOptions;
-
-export type InitCommandCfg = {
-  collect: CollectRcOptions,
-  persist: PersistRcOptions,
-  assert?: AssertRcOptions;
-} & InitCliOnlyOptions
 
 export type InitCommandArgv = InitArgvOptions;

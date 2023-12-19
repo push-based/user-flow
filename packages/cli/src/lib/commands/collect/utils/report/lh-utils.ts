@@ -2,9 +2,11 @@
  * THIS CODE IS MOSTLY COPIED FORM:
  * https://github.com/GoogleChrome/lighthouse
  */
+// @ts-ignore
 import { default as LHR } from 'lighthouse/types/lhr/lhr';
+// @ts-ignore
 import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedFlowStep, ReducedFlowStepResult } from './types';
+import { ReducedFlowStep, ReducedFlowStepResult } from './types.js';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
   return steps.map((step) => {
@@ -167,8 +169,7 @@ function prepareReportResult(result: any) {
     });
 
     category.auditRefs.forEach((auditRef: any) => {
-      const result = clone.audits[auditRef.id];
-      auditRef.result = result;
+      auditRef.result = clone.audits[auditRef.id];
 
       // Attach any relevantMetric auditRefs
       if (relevantAuditToMetricsMap.has(auditRef.id)) {

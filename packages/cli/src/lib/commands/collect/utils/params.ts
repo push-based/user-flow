@@ -4,9 +4,9 @@ import {
   CollectRcOptions,
   PersistArgvOptions,
   PersistRcOptions
-} from '../options/types';
-import { AssertArgvOptions } from '../../assert/options/types';
-import { RcJsonAsArgv } from '../../../types';
+} from '../options/types.js';
+import { AssertArgvOptions } from '../../assert/options/types.js';
+import { RcJsonAsArgv } from '../../../types.js';
 
 export function getArgvOptionsFromRc(cfg: CollectCommandCfg): RcJsonAsArgv {
   const { collect, persist, assert } = cfg;

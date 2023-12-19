@@ -1,4 +1,4 @@
-import { get as verbose } from '../../global/options/verbose';
+import { get as verbose } from '../../global/options/verbose.js';
 
 /**
  * logs messages only if the CLI parameter -v or --verbose is passed as true
