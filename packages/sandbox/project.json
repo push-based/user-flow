@@ -11,7 +11,7 @@
         "lintFilePatterns": ["packages/sandbox/**/*.ts"]
       }
     },
-    "test": {
+    "test-deprecated": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
