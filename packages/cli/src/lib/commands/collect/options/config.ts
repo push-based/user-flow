@@ -1,7 +1,7 @@
 import _yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { Param } from './config.model.js';
-import { LhConfigJson } from '../../../hacky-things/lighthouse.js';
+import { Config } from 'lighthouse';
 
 const yargs = _yargs(hideBin(process.argv));
 
@@ -14,6 +14,6 @@ export const param: Param = {
 };
 
 export function get(): string[] {
-  const { config } = yargs.argv as any as { config: LhConfigJson };
+  const { config } = yargs.argv as any as { config: Config };
   return config as string[];
 }

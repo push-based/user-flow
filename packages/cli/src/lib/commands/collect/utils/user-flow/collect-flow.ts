@@ -1,10 +1,9 @@
 import { UserFlowProvider } from './types.js';
 import { logVerbose } from '../../../../core/loggin/index.js';
-import * as puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer';
 import { Browser, LaunchOptions, Page } from 'puppeteer';
 import { normalize } from 'path';
-// @ts-ignore
-import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
+import { startFlow, UserFlow } from 'lighthouse';
 import { get as dryRun } from '../../../../commands/collect/options/dryRun.js';
 import { UserFlowMock } from './user-flow.mock.js';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode.js';
@@ -37,7 +36,7 @@ export async function collectFlow(
   logVerbose(`User-flow path: ${normalize(path)}`);
   let start = Date.now();
 
-  const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
+  const flow: UserFlow = !dryRun() ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions) as any as UserFlow;
 
   // run custom interactions
   await interactions({ flow, page, browser, collectOptions: cliOption });

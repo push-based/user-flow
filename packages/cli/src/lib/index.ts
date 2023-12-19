@@ -18,7 +18,6 @@ export { MeasureModes } from './commands/collect/utils/replay/types.js';
 export { RcJson } from './types.js';
 export { CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode/cli-mode.js';
 export { CLI_MODES } from './global/cli-mode/types.js';
-export { LhConfigJson } from './hacky-things/lighthouse.js';
 export { getEnvPreset, SANDBOX_PRESET, CI_PRESET, DEFAULT_PRESET } from './pre-set.js';
 export { InitCommandArgv } from './commands/init/options/types.js';
 export { GlobalOptionsArgv } from './global/options/types.js';

@@ -1,18 +1,16 @@
+import { Budget, Config } from 'lighthouse';
+
 import { readFile, writeFile } from '../../../../core/file/index.js';
 import { logVerbose } from '../../../../core/loggin/index.js';
 import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant.js';
-import { LhConfigJson } from '../../../../hacky-things/lighthouse.js';
 import { CollectCommandArgv } from '../../options/types.js';
 import { readBudgets } from '../../../assert/utils/budgets/index.js';
-// @ts-ignore
-import Budget from 'lighthouse/types/lhr/budget';
 
-
-export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): LhConfigJson {
+export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): Config {
   return JSON.parse(readFile(configPath, { fail: true }));
 }
 
-export function writeConfig(config: LhConfigJson, configPath: string = DEFAULT_COLLECT_CONFIG_PATH): void {
+export function writeConfig(config: Config, configPath: string = DEFAULT_COLLECT_CONFIG_PATH): void {
   logVerbose(`Update config under ${configPath}`);
 
   if (JSON.stringify(readConfig()) !== JSON.stringify(config)) {
@@ -23,8 +21,8 @@ export function writeConfig(config: LhConfigJson, configPath: string = DEFAULT_C
   }
 }
 
-export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'configPath' | 'config' | 'budgets' | 'budgetPath'>>): LhConfigJson {
-  let cfg: LhConfigJson = {};
+export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'configPath' | 'config' | 'budgets' | 'budgetPath'>>): Config {
+  let cfg: Config = {};
   if (!!rc?.configPath && !!rc?.config) {
     throw new Error('configPath and config can\'t be used together');
   }
@@ -62,7 +60,7 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   return cfg;
 }
 
-export function mergeLhConfig(globalCfg: LhConfigJson = {}, localCfg: LhConfigJson = {}): LhConfigJson {
+export function mergeLhConfig(globalCfg: Config = {}, localCfg: Config = {}): Config {
   let cfg = { ...globalCfg };
 
   if (localCfg) {

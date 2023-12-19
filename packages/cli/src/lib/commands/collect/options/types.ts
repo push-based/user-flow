@@ -1,3 +1,5 @@
+import { Config } from 'lighthouse';
+
 import { Param as OpenReport } from './openReport.model.js';
 import { Param as UfPath } from './ufPath.model.js';
 import { Param as Url } from './url.model.js';
@@ -6,7 +8,6 @@ import { Param as AwaitServeStdout } from './awaitServeStdout.model.js';
 import { Param as OutPath } from './outPath.model.js';
 import { Param as Format } from './format.model.js';
 import { AssertArgvOptions } from '../../assert/options/types.js';
-import { LhConfigJson } from '../../../hacky-things/lighthouse.js';
 
 export type PersistYargsOptions = OpenReport & OutPath & Format;
 export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
@@ -15,7 +16,7 @@ export type CollectRcOptions = {
   url: string,
   ufPath: string,
   configPath?: string;
-  config?: LhConfigJson,
+  config?: Config,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;

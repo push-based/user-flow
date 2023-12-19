@@ -1,5 +1,5 @@
 import { INITIATED_PRJ_CFG, INITIATED_RC_JSON, EMPTY_PRJ_CFG } from 'test-data';
-import { handleFlowGeneration } from './generate-userflow';
+import { handleFlowGeneration } from './generate-userflow.js';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { withUserFlowProject } from '@push-based/user-flow-cli-testing';

@@ -1,11 +1,10 @@
-import { UserFlow } from '../../../../hacky-things/lighthouse.js';
-
-// @ts-ignore
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { log, logVerbose } from '../../../../core/loggin/index.js';
 import { join } from 'path';
-import { writeFile } from '../../../../core/file/index.js';
 import { existsSync, mkdirSync } from 'fs';
+
+import { UserFlow, FlowResult } from 'lighthouse';
+
+import { log, logVerbose } from '../../../../core/loggin/index.js';
+import { writeFile } from '../../../../core/file/index.js';
 import { PersistFlowOptions } from './types.js';
 import { createReducedReport } from '../../../../index.js';
 import { generateStdoutReport } from './utils.js';
@@ -14,7 +13,7 @@ import { ReducedReport } from '../report/types.js';
 import { generateMdReport } from '../../../assert/utils/md-report.js';
 
 export async function persistFlow(
-  flow: any,
+  flow: UserFlow,
   { outPath, format, url }: PersistFlowOptions
 ): Promise<string[]> {
   if (!format.length) {
@@ -56,7 +55,8 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport);
+  // @TODO Define correct fallback for missing name!
+  const fileName = toReportName(url, flow._options?.name ?? 'flow-results', reducedReport);
   return results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);
