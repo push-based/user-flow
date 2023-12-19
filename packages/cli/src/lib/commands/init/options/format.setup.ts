@@ -1,4 +1,5 @@
-import { prompt } from 'enquirer';
+import pkg from 'enquirer';
+
 import { get as interactive } from '../../../global/options/interactive.js';
 import {
   ERROR_PERSIST_FORMAT_REQUIRED,
@@ -10,6 +11,8 @@ import { REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from
 import { RcJson } from '../../../types.js';
 import { ReportFormat } from '../../collect/options/types.js';
 import { getEnvPreset } from '../../../pre-set.js';
+
+const { prompt } = pkg;
 
 export async function setupFormat(
   config: RcJson

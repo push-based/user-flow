@@ -22,6 +22,6 @@
     "**/*.test.ts",
     "**/static/**",
     "**/test-data/**",
-    "jest.config.ts"
+    "vite.config.ts"
   ]
 }
