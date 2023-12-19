@@ -4,7 +4,7 @@ import Budget from 'lighthouse/types/lhr/budget';
 import { RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets } from './constants.js';
 import { logVerbose } from '../../core/loggin/index.js';
 
-export function deriveBudgetsFromLhr(flow: UserFlow): Budget[] {
+export function deriveBudgetsFromLhr(flow: any): Budget[] {
   const budgetObject: Budget = {};
   if (flow?.steps[0].lhr?.audits) {
     if (flow.steps[0].lhr.audits['resource-summary']) {

@@ -17,7 +17,7 @@ import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
 export type UserFlowContext = {
   browser: Browser;
   page: Page;
-  flow: UserFlow;
+  flow: any;
   collectOptions: { url: string };
 };
 
