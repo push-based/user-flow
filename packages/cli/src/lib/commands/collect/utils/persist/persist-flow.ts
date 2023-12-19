@@ -1,4 +1,5 @@
 import { UserFlow } from '../../../../hacky-things/lighthouse.js';
+
 // @ts-ignore
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { log, logVerbose } from '../../../../core/loggin/index.js';

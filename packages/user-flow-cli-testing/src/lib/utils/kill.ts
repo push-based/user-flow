@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as killPort from 'kill-port';
+import killPort from 'kill-port';
 
 export function kill(args: { port: string | string[], method?: string, verbose?: boolean }): Promise<void[]> {
   let { verbose, port, method } = args;
@@ -12,6 +11,7 @@ export function kill(args: { port: string | string[], method?: string, verbose?:
   }
 
   return Promise.all(port.map(current => {
+    // @ts-ignore
     return killPort(current, method)
       .then((result: any) => {
         logVerbose(`Process on port ${current} killed`, result);
