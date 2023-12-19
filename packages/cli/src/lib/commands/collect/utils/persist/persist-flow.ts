@@ -14,7 +14,7 @@ import { ReducedReport } from '../report/types.js';
 import { generateMdReport } from '../../../assert/utils/md-report.js';
 
 export async function persistFlow(
-  flow: UserFlow,
+  flow: any,
   { outPath, format, url }: PersistFlowOptions
 ): Promise<string[]> {
   if (!format.length) {
