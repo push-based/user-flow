@@ -1,10 +1,11 @@
-import { existsSync, readFileSync, rmSync } from 'fs';
-import { join } from 'path';
-import { handleGhWorkflowGeneration } from './generate-workflow';
-import { handleBudgetsGeneration } from './generate-lh-budgets';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
+
+import { handleBudgetsGeneration } from './generate-lh-budgets.js';
 
 const _cwd = process.cwd();
-const packagesRoot = join(__dirname, '..', '..', '..', '..', '..', '..');
+const packagesRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', '..', '..');
 const sandboxRoot = join(packagesRoot, 'sandbox', 'src', 'lib');
 const expectedFilePath = join(sandboxRoot, 'budget.json');
 const expectedBudgets = [

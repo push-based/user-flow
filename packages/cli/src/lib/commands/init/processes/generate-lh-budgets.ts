@@ -1,5 +1,6 @@
-import { join } from 'path';
-import { existsSync, mkdirSync } from 'fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { existsSync, mkdirSync } from 'node:fs';
 
 import { RcJson } from '../../../types.js';
 import { readFile, writeFile } from '../../../core/file/index.js';
@@ -21,7 +22,7 @@ export async function generateLgBudgets(cliCfg: RcJson & { lhr?: string }): Prom
 
   if (!cliCfg.lhr) {
     const tplFileName = BudgetsExampleMap['budgets'];
-    const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+    const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)), '..', 'static', tplFileName);
     fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
     logVerbose('New budgets used');
   } else {

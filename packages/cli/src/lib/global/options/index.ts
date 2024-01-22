@@ -8,6 +8,7 @@ export const GLOBAL_OPTIONS_YARGS_CFG: CoreOptions = {
   ...rc,
   ...interactive
 };
+export type GlobalCliOptions = InferredOptionTypes<typeof GLOBAL_OPTIONS_YARGS_CFG>;
 
 export const globalOptions = {
   getVerbose,

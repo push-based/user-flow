@@ -1,3 +1,5 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import pkg, { Options } from 'prettier';
 
 import { SupportedExtname, SupportedParser } from './types.js';
@@ -20,19 +22,10 @@ export function getParserFromExtname(extname: SupportedExtname | string): Suppor
   } as any)[extname] : extname) as any as SupportedParser;
 }
 
-/**
- * Code formatter that uses prettier under the hood
- *
- * @param code
- * @param parser
- */
 export function formatCode(
   code: string,
   parser: Options['parser'] = 'typescript'
-) {
-  const prettierConfig = resolveConfig.sync(__dirname);
-  return prettier(code, {
-    parser,
-    ...prettierConfig
-  }).trim();
+): string {
+  const prettierConfig = resolveConfig.sync(dirname(fileURLToPath(import.meta.url)));
+  return prettier(code, { parser, ...prettierConfig }).trim();
 }

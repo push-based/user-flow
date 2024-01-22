@@ -1,5 +1,7 @@
-import { join } from 'path';
-import { mkdirSync, readdirSync } from 'fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { mkdirSync, readdirSync } from 'node:fs';
+
 import { RcJson } from '../../../types.js';
 import { readFile, writeFile } from '../../../core/file/index.js';
 import { log } from '../../../core/loggin/index.js';
@@ -29,7 +31,7 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
     mkdirSync(ufPath, { recursive: true });
   }
   const tplFileName = FlowExampleMap[exampleName];
-  const exampleSourceLocation = join(__dirname,'..', 'static', tplFileName);
+  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)),'..', 'static', tplFileName);
   const exampleDestination = join(ufPath, tplFileName);
 
   if (readFile(exampleDestination) !== '') {

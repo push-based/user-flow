@@ -16,7 +16,6 @@ export function concat(processes: CLIProcess[]): CLIProcess {
   };
 }
 
-
 export function ifThenElse(condition: (r: RcJson) => boolean, thenProcess: CLIProcess, elseProcess: CLIProcess = (_: RcJson) => Promise.resolve(_)): CLIProcess {
   return async function(r: RcJson): Promise<RcJson> {
     const conditionResult = await condition(r);

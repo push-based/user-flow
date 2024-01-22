@@ -17,8 +17,7 @@ export function readRcConfig(rcPath: string = '', options?: {
   return repoConfigJson;
 }
 
-export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
-  rcPath = rcPath || globalOptions.getRcPath();
+export function updateRcConfig(config: RcJson, rcPath: string): void {
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
