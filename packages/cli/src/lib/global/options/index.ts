@@ -1,3 +1,5 @@
+import { InferredOptionTypes } from 'yargs';
+
 import { param as verbose, get as getVerbose } from './verbose.js';
 import { param as rc, get as getRcPath } from '../rc-json/options/rc.js';
 import { param as interactive, get as getInteractive } from './interactive.js';
