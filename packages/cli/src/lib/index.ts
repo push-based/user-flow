@@ -29,6 +29,5 @@ export { DEFAULT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.con
 export { ReportFormat } from './commands/collect/options/types.js';
 export { createReducedReport } from './commands/collect/utils/report/utils.js';
 export {enrichReducedReportWithBaseline} from './commands/collect/utils/report/utils.js';
-export {runInitCommand} from './commands/init/command-impl.js';
 export {runCollectCommand} from './commands/collect/command-impl.js';
 export {runAssertCommand} from './commands/assert/command-impl.js';
