@@ -10,6 +10,7 @@ import { param as serveCommand } from './serveCommand.js';
 import { param as awaitServeStdout } from './awaitServeStdout.js';
 import { param as dryRun } from './dryRun.js';
 import { ASSERT_OPTIONS } from '../../assert/options/index.js';
+import { InferredOptionTypes } from 'yargs';
 
 export const PERSIST_OPTIONS: PersistYargsOptions = {
   ...outPath,
@@ -27,3 +28,5 @@ export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...PERSIST_OPTIONS,
   ...ASSERT_OPTIONS
 };
+
+export type CollectOptions = InferredOptionTypes<typeof COLLECT_OPTIONS>;

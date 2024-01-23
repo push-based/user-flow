@@ -1,16 +1,33 @@
-import {YargsCommandObject} from '../../core/yargs/types.js';
-import {logVerbose} from '../../core/loggin/index.js';
-import {COLLECT_OPTIONS} from './options/index.js';
-import {runCollectCommand} from "./command-impl.js";
+import { ArgumentsCamelCase, Argv, CommandModule } from 'yargs';
 
-export const collectUserFlowsCommand: YargsCommandObject = {
+import {logVerbose} from '../../core/loggin/index.js';
+import { COLLECT_OPTIONS, CollectOptions } from './options/index.js';
+import { GlobalCliOptions } from '../../global/options/index.js';
+import { getCollectCommandOptionsFromArgv } from './utils/params.js';
+import { run } from '../../core/processing/behaviors.js';
+import { collectRcJson } from '../init/processes/collect-rc-json.js';
+import { RcJson } from '../../types.js';
+import { startServerIfNeededAndExecute } from './utils/serve-command.js';
+import { collectReports } from './processes/collect-reports.js';
+
+type CollectCommandOptions = GlobalCliOptions & CollectOptions;
+
+async function runCollect(argv: ArgumentsCamelCase<CollectCommandOptions>): Promise<void> {
+  // @ts-ignore
+  const cfg = getCollectCommandOptionsFromArgv(argv);
+  logVerbose('Collect options: ', cfg);
+  await run([
+    collectRcJson,
+    (cfg: RcJson) =>
+      startServerIfNeededAndExecute(() => collectReports(cfg)
+          .then()
+        , cfg.collect)
+  ])(cfg);
+}
+
+export const collectCommand: CommandModule<GlobalCliOptions, CollectCommandOptions> = {
   command: 'collect',
-  description: 'Run a set of user flows and save the result',
-  builder: (y) => y.options(COLLECT_OPTIONS),
-  module: {
-    handler: async (argv: any) => {
-      logVerbose(`run "collect" as a yargs command with args:`);
-      await runCollectCommand(argv);
-    }
-  }
-};
+  describe: 'Run a set of user flows and save the result',
+  builder: (argv: Argv<GlobalCliOptions>) => argv.options(COLLECT_OPTIONS),
+  handler: runCollect
+}

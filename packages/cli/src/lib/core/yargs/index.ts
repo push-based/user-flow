@@ -5,6 +5,7 @@ import { YargsCommandObject } from './types.js';
 import { applyConfigMiddleware } from '../../config.middleware.js';
 import { initCommand } from '../../commands/init/index.js';
 import { GLOBAL_OPTIONS_YARGS_CFG } from '../../global/options/index.js';
+import { collectCommand } from '../../commands/collect/index.js';
 
 export function setupYargs(
   commands: YargsCommandObject[],
@@ -14,7 +15,7 @@ export function setupYargs(
 
   yargs
     .options(GLOBAL_OPTIONS_YARGS_CFG)
-    .command([initCommand])
+    .command([ initCommand, collectCommand ])
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
     .example([['init', 'Setup user-flows over prompts']])
