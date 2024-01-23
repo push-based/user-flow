@@ -1,32 +1,31 @@
-import { CollectYargsOptions, PersistYargsOptions } from './types.js';
-import { AssertYargsOptions } from '../../assert/options/types.js';
-import { param as openReport } from './openReport.js';
-import { param as ufPath } from './ufPath.js';
-import { param as configPath } from './configPath.js';
-import { param as outPath } from './outPath.js';
-import { param as url } from './url.js';
-import { param as format } from './format.js';
-import { param as serveCommand } from './serveCommand.js';
-import { param as awaitServeStdout } from './awaitServeStdout.js';
-import { param as dryRun } from './dryRun.js';
-import { ASSERT_OPTIONS } from '../../assert/options/index.js';
-import { InferredOptionTypes } from 'yargs';
+import { InferredOptionTypes, Options } from 'yargs';
 
-export const PERSIST_OPTIONS: PersistYargsOptions = {
-  ...outPath,
-  ...format,
-  ...openReport
-};
+import { openReport } from './openReport.js';
+import { ufPath } from './ufPath.js';
+import { configPath } from './configPath.js';
+import { outPath } from './outPath.js';
+import { url } from './url.js';
+import { format } from './format.js';
+import { serveCommand } from './serveCommand.js';
+import { awaitServeStdout } from './awaitServeStdout.js';
+import { dryRun } from './dryRun.js';
+import { assertOptions } from '../../assert/options.js';
 
-export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
-  ...url,
-  ...ufPath,
-  ...configPath,
-  ...serveCommand,
-  ...awaitServeStdout,
-  ...dryRun,
-  ...PERSIST_OPTIONS,
-  ...ASSERT_OPTIONS
-};
+export const persistOptions = {
+  outPath,
+  format,
+  openReport
+} as const satisfies Record<string, Options>;
 
-export type CollectOptions = InferredOptionTypes<typeof COLLECT_OPTIONS>;
+export const collectOptions = {
+  url,
+  ufPath,
+  configPath,
+  serveCommand,
+  awaitServeStdout,
+  dryRun,
+  ...persistOptions,
+  ...assertOptions
+} satisfies Record<string, Options>;
+
+export type CollectOptions = InferredOptionTypes<typeof collectOptions>;

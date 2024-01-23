@@ -1,7 +1,7 @@
 import { ArgumentsCamelCase, Argv, CommandModule } from 'yargs';
 
 import {logVerbose} from '../../core/loggin/index.js';
-import { COLLECT_OPTIONS, CollectOptions } from './options/index.js';
+import { collectOptions, CollectOptions } from './options/index.js';
 import { GlobalCliOptions } from '../../global/options/index.js';
 import { getCollectCommandOptionsFromArgv } from './utils/params.js';
 import { run } from '../../core/processing/behaviors.js';
@@ -28,6 +28,6 @@ async function runCollect(argv: ArgumentsCamelCase<CollectCommandOptions>): Prom
 export const collectCommand: CommandModule<GlobalCliOptions, CollectCommandOptions> = {
   command: 'collect',
   describe: 'Run a set of user flows and save the result',
-  builder: (argv: Argv<GlobalCliOptions>) => argv.options(COLLECT_OPTIONS),
+  builder: (argv: Argv<GlobalCliOptions>) => argv.options(collectOptions),
   handler: runCollect
 }

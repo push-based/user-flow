@@ -1,12 +1,10 @@
-import { InferredOptionTypes } from 'yargs';
+import { InferredOptionTypes, Options } from 'yargs';
 
-import { AssertYargsOptions } from '../../assert/options/types.js';
-import { ASSERT_OPTIONS } from '../../assert/options/index.js';
-import { COLLECT_OPTIONS } from '../../collect/options/index.js';
-import { CollectYargsOptions } from '../../collect/options/types.js';
+import { collectOptions } from '../../collect/options/index.js';
+import { assertOptions } from '../../assert/options.js';
 
-export const INIT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
-  ...COLLECT_OPTIONS,
-  ...ASSERT_OPTIONS
-};
+export const INIT_OPTIONS = {
+  ...collectOptions,
+  ...assertOptions
+} satisfies Record<string, Options>;
 export type InitOptions = InferredOptionTypes<typeof INIT_OPTIONS>;
