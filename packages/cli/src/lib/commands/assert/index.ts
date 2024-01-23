@@ -1,21 +1,21 @@
-import { YargsCommandObject } from '../../core/yargs/types.js';
+import { ArgumentsCamelCase, Argv, CommandModule } from 'yargs';
+
 import { logVerbose } from '../../core/loggin/index.js';
-import { readFile } from '../../core/file/index.js';
-import { getCollectCommandOptionsFromArgv } from '../collect/utils/params.js';
-import { generateMdReport } from './utils/md-report.js';
+import { GlobalCliOptions } from '../../global/options/index.js';
+import { ASSERT_OPTIONS, AssertOptions } from './options/index.js';
 
-export const assertCommand: YargsCommandObject = {
+
+type AssertCommandOptions = GlobalCliOptions & AssertOptions;
+// TODO Create Assert command!
+async function runAssert(argv: ArgumentsCamelCase<AssertCommandOptions>): Promise<void> {
+  logVerbose(`run "assert" as a yargs command`);
+  console.log('Assert Options: ', argv);
+  return Promise.resolve();
+}
+
+export const assertCommand: CommandModule<GlobalCliOptions, AssertCommandOptions> = {
   command: 'assert',
-  description: 'Setup .user-flowrc.json',
-  module: {
-    handler: async (argv: any) => {
-      logVerbose(`run "assert" as a yargs command`);
-      const cfg = getCollectCommandOptionsFromArgv(argv);
-      const json = JSON.parse(readFile('./packages/cli/docs/raw/order-coffee.uf.json').toString());
-      const mdReport = generateMdReport(json);
-      console.log('md report', mdReport);
-      //  await run(cfg);
-    }
-  }
-};
-
+  describe: 'Assertion Command',
+  builder: (argv: Argv<GlobalCliOptions>) => argv.options(ASSERT_OPTIONS),
+  handler: runAssert
+}

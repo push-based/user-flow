@@ -30,4 +30,3 @@ export { ReportFormat } from './commands/collect/options/types.js';
 export { createReducedReport } from './commands/collect/utils/report/utils.js';
 export {enrichReducedReportWithBaseline} from './commands/collect/utils/report/utils.js';
 export {runCollectCommand} from './commands/collect/command-impl.js';
-export {runAssertCommand} from './commands/assert/command-impl.js';

@@ -1,9 +1,4 @@
-import _yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
 import { Param } from './budgets.model.js';
-import { ArgvOption } from '../../../core/yargs/types.js';
-
-const yargs = _yargs(hideBin(process.argv));
 
 export const param: Param = {
   budgets: {
@@ -13,8 +8,3 @@ export const param: Param = {
     description: 'Performance budgets (RC file only)'
   }
 };
-
-export function get(): string[] {
-  const { budgets } = yargs.argv as any as ArgvOption<Param>;
-  return budgets as string[];
-}

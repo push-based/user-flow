@@ -1,41 +1,25 @@
-import _yargs, { Options } from 'yargs';
+import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { YargsCommandObject } from './types.js';
-import { applyConfigMiddleware } from '../../config.middleware.js';
-import { initCommand } from '../../commands/init/index.js';
 import { GLOBAL_OPTIONS_YARGS_CFG } from '../../global/options/index.js';
+import { initCommand } from '../../commands/init/index.js';
 import { collectCommand } from '../../commands/collect/index.js';
+import { assertCommand } from '../../commands/assert/index.js';
 
-export function setupYargs(
-  commands: YargsCommandObject[],
-  configParser: Options['configParser']
-) {
-  const yargs = _yargs(hideBin(process.argv));
-
-  yargs
+export function setupYargs() {
+  return yargs(hideBin(process.argv))
     .options(GLOBAL_OPTIONS_YARGS_CFG)
-    .command([ initCommand, collectCommand ])
+    .command(initCommand)
+    .command(collectCommand)
+    .command(assertCommand)
     .parserConfiguration({ 'boolean-negation': true })
     .recommendCommands()
     .example([['init', 'Setup user-flows over prompts']])
     .help()
     .alias('h', 'help');
-
-  commands.forEach((command) => yargs.command(
-    command.command,
-    command.description,
-    command?.builder || (() => {
-    }),
-    applyConfigMiddleware(command.module.handler, configParser)
-  ));
-  return yargs;
 }
 
-export function runCli(cliCfg: {
-  commands: YargsCommandObject[];
-  configParser: Options['configParser'];
-}) {
-  return setupYargs(cliCfg.commands, cliCfg.configParser).argv;
+export async function runCli() {
+  return setupYargs().argv;
 }
 
