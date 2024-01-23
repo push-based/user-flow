@@ -1,9 +1,13 @@
-import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
+import { dirname } from 'node:path';
+import {  pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs';
+import * as tsNode from 'ts-node';
 import { logVerbose } from '../loggin/index.js';
 import { getParserFromExtname, formatCode } from '../prettier/index.js';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
 import { ExtToOutPut, ResolveFileResult } from './types.js';
+import { register } from 'ts-node';
 
 export {toFileName} from './to-file-name.js';
 
@@ -74,30 +78,47 @@ export function writeFile(filePath: string, data: string) {
   return writeFileSync(filePath, formattedData);
 }
 
+// export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
+//   // 🔥 Live compilation of TypeScript files
+//   if (path.endsWith('.ts')) {
+//     // Register TS compiler lazily
+//     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
+//     // so that imports in the `*.uf.ts` files work.
+//     // eslint-disable-next-line @typescript-eslint/no-var-requires
+//     require('ts-node').register({
+//       transpileOnly: true,
+//       compilerOptions: {
+//         module: 'commonjs',
+//         strict: false
+//       }
+//     });
+//   }
+//   // eslint-disable-next-line @typescript-eslint/no-var-requires
+//   const file = require(path);
+//
+//   // If the user provides a configuration in TS file
+//   // then there are 2 cases for exporting an object. The first one is:
+//   // `module.exports = { ... }`. And the second one is:
+//   // `export default { ... }`. The ESM format is compiled into:
+//   // `{ default: { ... } }`
+//   const exports = file.default || file;
+//   return { exports, path };
+// }
+
+
 export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
-  // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
-    // Register TS compiler lazily
-    // tsNode needs the compilerOptions.module resolution to be 'commonjs',
-    // so that imports in the `*.uf.ts` files work.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('ts-node').register({
+    register({
+      esm: true,
       transpileOnly: true,
       compilerOptions: {
-        module: 'commonjs',
+        target: 'esnext',
+        module: 'nodenext',
         strict: false
       }
     });
   }
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = require(path);
-
-  // If the user provides a configuration in TS file
-  // then there are 2 cases for exporting an object. The first one is:
-  // `module.exports = { ... }`. And the second one is:
-  // `export default { ... }`. The ESM format is compiled into:
-  // `{ default: { ... } }`
+  const file = createRequire(import.meta.url)(path);
   const exports = file.default || file;
   return { exports, path };
 }
-

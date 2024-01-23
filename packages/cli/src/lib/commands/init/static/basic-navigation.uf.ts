@@ -2,7 +2,7 @@
 // Your custom interactions with the page
 import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
 
-const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
+const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<void> => {
   const { flow, collectOptions } = ctx;
   const { url } = collectOptions;
 
@@ -21,4 +21,4 @@ const userFlowProvider: UserFlowProvider = {
   interactions
 };
 
-module.exports = userFlowProvider;
+export default userFlowProvider;

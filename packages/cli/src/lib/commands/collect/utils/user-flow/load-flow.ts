@@ -18,6 +18,7 @@ export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports:
     files = [path];
   }
 
+  console.log(files);
   const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
     .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
 

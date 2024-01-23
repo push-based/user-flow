@@ -5,7 +5,6 @@ import { setupOutPath } from '../options/outPath.setup.js';
 import { RcJson } from '../../../types.js';
 
 export async function collectRcJson(cliCfg: RcJson): Promise<RcJson> {
-
   return {
     ...cliCfg,
     ...(await setupUrl(cliCfg)
