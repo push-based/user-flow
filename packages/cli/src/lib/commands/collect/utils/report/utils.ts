@@ -1,5 +1,5 @@
-// @ts-ignore
-import FlowResult from 'lighthouse/types/lhr/flow';
+import { FlowResult } from 'lighthouse';
+
 import { ReducedReport } from './types.js';
 import { parseSteps } from './lh-utils.js';
 import { toFileName } from '../../../../core/file/index.js';

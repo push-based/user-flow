@@ -7,7 +7,6 @@ import {NEW_LINE} from '../../../core/md/constants.js';
 import {details} from '../../../core/md/details.js';
 
 import Details from "lighthouse/types/lhr/audit-details.d.js";
-// @ts-ignore
 import Table = Details.Table;
 
 const budgetsSymbol = '🔒'
@@ -161,7 +160,7 @@ export function getStepsTable(reducedReport: ReducedReport, baselineResults?: an
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
   if (baselineResults) {
     const enrichedReducedReport = enrichReducedReportWithBaseline(reducedReport, baselineResults);
-    return enrichedReducedReport.steps.map((step: { name: any; gatherMode: any; }) => {
+    return enrichedReducedReport.steps.map((step) => {
       const results = reportCategories.map(category => extractEnrichedResults(step, category));
       return [step.name, step.gatherMode].concat(results);
     });

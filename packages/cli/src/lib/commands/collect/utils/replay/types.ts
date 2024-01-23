@@ -1,3 +1,4 @@
+import UserFlowI from 'lighthouse/types/user-flow.d.js'
 import { UserFlow, Step } from '@puppeteer/replay';
 import { Modify } from '../../../../core/types.js';
 
@@ -13,7 +14,7 @@ export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimesp
 }>;*/
 export type MeasurementStep = {
   type: MeasureModes;
-  stepOptions?: { stepName?: string; }
+  stepOptions?: { name?: string; }
   url?: string;
 }
 

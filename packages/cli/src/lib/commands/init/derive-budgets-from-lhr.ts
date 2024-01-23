@@ -1,4 +1,4 @@
-import type { Budget, FlowResult} from 'lighthouse';
+import type { Budget, FlowResult } from 'lighthouse';
 
 import { RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets } from './constants.js';
 import { logVerbose } from '../../core/loggin/index.js';

@@ -1,18 +1,14 @@
-// @ts-ignore
-import Budget from 'lighthouse/types/lhr/budget';
-// @ts-ignore
-import Config from 'lighthouse/types/config';
+import { Budget, Config, FlowResult } from 'lighthouse';
+
 import { CLI_MODES } from '../../../../global/cli-mode/index.js';
 import { PickOne } from '../../../../core/types.js';
-// @ts-ignore
-import FlowResult from 'lighthouse/types/lhr/flow';
-// @ts-ignore
-import Details from 'lighthouse/types/lhr/audit-details';
+
+import Details from "lighthouse/types/lhr/audit-details.d.js";
+import Table = Details.Table;
 
 type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
 
-type UfrSlice = PickOne<FlowResult>;
 type LhrSlice = PickOne<FlowResult.Step['lhr']>;
 
 export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
@@ -44,9 +40,9 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resourceCountsBudget?: Details.Table,
-    resourceSizesBudget?: Details.Table,
-    timingsBudget?: Details.Table,
+    resourceCountsBudget?: Table,
+    resourceSizesBudget?: Table,
+    timingsBudget?: Table,
     baseline?: ReducedFlowStepResult;
   };
 
@@ -61,7 +57,7 @@ export type ReducedReport = {
     lhBudgetAssertion: BudgetAssertion,
     baselineAssertion: BudgetAssertion,
   }
-  config?: Config.Json & { baseline?: any };
+  config?: Config & { baseline?: any };
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

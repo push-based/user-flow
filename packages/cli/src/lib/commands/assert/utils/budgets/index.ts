@@ -1,7 +1,7 @@
+import { Budget } from 'lighthouse';
+
 import { readFile, writeFile } from '../../../../core/file/index.js';
 import { logVerbose } from '../../../../core/loggin/index.js';
-// @ts-ignore
-import Budget from 'lighthouse/types/lhr/budget';
 import { DEFAULT_ASSERT_BUDGET_PATH } from '../../options/budgetPath.constant.js';
 
 export function readBudgets(budgetPath: string = DEFAULT_ASSERT_BUDGET_PATH): Budget[] {
