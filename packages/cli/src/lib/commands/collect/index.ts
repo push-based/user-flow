@@ -5,7 +5,6 @@ import { collectOptions, CollectOptions } from './options/index.js';
 import { GlobalCliOptions } from '../../global/options/index.js';
 import { getCollectCommandOptionsFromArgv } from './utils/params.js';
 import { run } from '../../core/processing/behaviors.js';
-import { collectRcJson } from '../init/processes/collect-rc-json.js';
 import { RcJson } from '../../types.js';
 import { startServerIfNeededAndExecute } from './utils/serve-command.js';
 import { collectReports } from './processes/collect-reports.js';
@@ -17,7 +16,6 @@ async function runCollect(argv: ArgumentsCamelCase<CollectCommandOptions>): Prom
   const cfg = getCollectCommandOptionsFromArgv(argv);
   logVerbose('Collect options: ', cfg);
   await run([
-    collectRcJson,
     (cfg: RcJson) =>
       startServerIfNeededAndExecute(() => collectReports(cfg)
           .then()

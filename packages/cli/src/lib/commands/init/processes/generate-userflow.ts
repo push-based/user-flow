@@ -8,7 +8,7 @@ import { log } from '../../../core/loggin/index.js';
 import { FlowExampleMap } from '../constants.js';
 import { FlowExamples } from '../types.js';
 import { ifThenElse } from '../../../core/processing/behaviors.js';
-import { askToSkip } from '../../../core/prompt.js';
+import { promptTo } from '../../../core/prompt.js';
 import { CLIProcess } from '../../../core/processing/types.js';
 import { logVerbose } from '../../../core/loggin/index.js';
 import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants.js';
@@ -24,7 +24,6 @@ export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? read
 
 export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   const ufPath = cliCfg.collect.ufPath;
-  // DX create directory if it does ot exist
   try {
     readdirSync(ufPath);
   } catch (e) {
@@ -48,16 +47,9 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
 
 export function handleFlowGeneration({ generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean}): CLIProcess {
   return ifThenElse(
-    // if `withFlow` is not used in the CLI is in interactive mode
-    () => interactive == true && generateFlow === undefined,
-    // Prompt for flow generation
-    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
-      // if the flow is not created already, otherwise skip creation
-      { precondition: userflowIsNotCreated }),
-    // else `withFlow` is used and true
-    ifThenElse(() => !!generateFlow,
-      // generate the file => else do nothing
-      generateUserFlow)
+    () => interactive && generateFlow === undefined,
+    promptTo(PROMPT_INIT_GENERATE_FLOW, generateUserFlow, { precondition: userflowIsNotCreated }),
+    ifThenElse(() => Boolean(generateFlow), generateUserFlow)
   )
 }
 

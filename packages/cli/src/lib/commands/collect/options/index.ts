@@ -26,6 +26,6 @@ export const collectOptions = {
   dryRun,
   ...persistOptions,
   ...assertOptions
-} satisfies Record<string, Options>;
+} as const satisfies Record<string, Options>;
 
 export type CollectOptions = InferredOptionTypes<typeof collectOptions>;

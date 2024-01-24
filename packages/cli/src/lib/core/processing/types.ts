@@ -1,9 +1,7 @@
 import { RcJson } from '../../types.js';
 
-export interface CLIProcess {
-  (cfg: RcJson): Promise<RcJson>;
-}
+export type CLIProcess = (cfg: RcJson) => Promise<RcJson> | RcJson;
 
-export interface Process {
-  (_?: any): Promise<any>;
-}
+export type TapProcess = (cfg: RcJson) => any | Promise<any>;
+
+export type Condition = ((r: RcJson) => boolean) | ((r: RcJson) => Promise<boolean>);

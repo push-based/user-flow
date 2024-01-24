@@ -1,7 +1,5 @@
 import _yargs, { Options } from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { Param } from './openReport.model.js';
-import { ArgvOption } from '../../../core/yargs/types.js';
 import { getEnvPreset } from '../../../pre-set.js';
 
 const yargs = _yargs(hideBin(process.argv));
@@ -16,6 +14,6 @@ export const openReport = {
 
 // TODO this should be removed, currently does not work!
 export function get(): boolean {
-  const { openReport } = yargs.argv as any as ArgvOption<Param>;
+  const { openReport } = yargs.argv as any as { openReport: boolean };
   return openReport;
 }

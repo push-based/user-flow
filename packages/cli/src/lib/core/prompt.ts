@@ -21,17 +21,10 @@ export async function promptParam<T>(cfg: {initial?: T, skip?: boolean, message:
 }
 
 async function shouldProceed(question: string): Promise<boolean> {
-
-  return await promptParam(
-    {
-      type: 'confirm',
-      message: question,
-      initial: true,
-    }
-  );
+  return await promptParam({ type: 'confirm', message: question, initial: true });
 }
 
-export function askToSkip(
+export function promptTo(
   question: string,
   cliProcess: CLIProcess,
   options: {
@@ -40,18 +33,18 @@ export function askToSkip(
     precondition: async () => true,
   }
 ): CLIProcess {
-  return async function (d: RcJson): Promise<RcJson> {
-    const isPreconditionMet = await (options?.precondition ? options?.precondition(d) : Promise.resolve(false));
+  return async function (rc: RcJson): Promise<RcJson> {
+    const isPreconditionMet = await (options?.precondition ? options?.precondition(rc) : Promise.resolve(false));
 
     if (!isPreconditionMet) {
-      return d;
+      return rc;
     }
 
     if (await shouldProceed(question)) {
-      return await cliProcess(d);
+      return cliProcess(rc);
     }
 
-    return d;
+    return rc;
   };
 }
 

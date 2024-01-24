@@ -9,9 +9,7 @@ import {
   PROMPT_PERSIST_OUT_PATH
 } from '../../collect/options/outPath.constant.js';
 
-export async function setupOutPath(
-  config: RcJson
-): Promise<RcJson> {
+export async function setupOutPath(config: RcJson): Promise<RcJson> {
 
   let outPath = config?.persist?.outPath;
 
