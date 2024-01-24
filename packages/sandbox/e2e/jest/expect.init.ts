@@ -4,7 +4,7 @@ import {
   PROMPT_PERSIST_FORMAT,
   PROMPT_PERSIST_OUT_PATH
 } from '@push-based/user-flow';
-import { PROMPT_INIT_GENERATE_FLOW } from '../../../cli/src/lib/commands/init/options/generateFlow.constants';
+import { PROMPT_INIT_GENERATE_FLOW } from '../../../cli/src/lib/commands/init/constants/generateFlow.constants';
 
 export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Init options:`);

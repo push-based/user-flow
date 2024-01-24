@@ -11,7 +11,7 @@ import { ifThenElse } from '../../../core/processing/behaviors.js';
 import { promptTo } from '../../../core/prompt.js';
 import { CLIProcess } from '../../../core/processing/types.js';
 import { logVerbose } from '../../../core/loggin/index.js';
-import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants.js';
+import { PROMPT_INIT_GENERATE_FLOW } from '../constants/generateFlow.constants.js';
 
 const exampleName = 'basic-navigation';
 
