@@ -11,7 +11,7 @@ import { handleRcGeneration } from './processes/generate-rc-config.js';
 
 export const initCommand: CommandModule<GlobalCliOptions, GlobalCliOptions & InitOptions> = {
   command: 'init',
-  describe: 'Setup .user-flowrc.json',
+  describe: 'Setup user-flows',
   builder: (argv: Argv<GlobalCliOptions>) => argv.options(INIT_OPTIONS),
   handler: async (argv: ArgumentsCamelCase<GlobalCliOptions & InitOptions>) => {
     await run([

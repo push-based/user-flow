@@ -4,7 +4,7 @@ import { promptTo } from '../../../core/prompt.js';
 import { concat, ifThenElse, tap } from '../../../core/processing/behaviors.js';
 import { RcJson } from '../../../types.js';
 import { logVerbose } from '../../../core/loggin/index.js';
-import { updateRcConfig } from '../../../global/rc-json/index.js';
+import { readRcConfig, updateRcConfig } from '../../../global/rc-json/index.js';
 import { setupUrl } from './url.setup.js';
 import { setupUfPath } from './ufPath.setup.js';
 import { setupFormat } from './format.setup.js';
@@ -33,7 +33,11 @@ function generateRcJson(rcPath: string) {
 export function handleRcGeneration(rcPath: string) {
   return ifThenElse(
     () => doesRcJsonAlreadyExist(rcPath),
-    promptTo(OVERRIDE_RC_JSON_PROMPT, generateRcJson(rcPath)),
+    promptTo({
+      question: OVERRIDE_RC_JSON_PROMPT,
+      acceptedCliProcess: generateRcJson(rcPath),
+      deniedCliProcess: (rc) => ({ ...rc, ...readRcConfig(rcPath) })
+    }),
     generateRcJson(rcPath)
   );
 }

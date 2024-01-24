@@ -26,10 +26,4 @@ export type PersistCliOnlyOptions = {
 
 export type PersistArgvOptions = PersistRcOptions & PersistCliOnlyOptions;
 
-export type CollectCommandCfg = {
-  collect: CollectArgvOptions,
-  persist: PersistArgvOptions,
-  assert?: AssertArgvOptions;
-}
-
 export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions;

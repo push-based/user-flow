@@ -9,13 +9,7 @@ export async function promptParam<T>(cfg: {initial?: T, skip?: boolean, message:
   let {type, initial,  message,skip, result   } = cfg;
   type = type || 'input';
 
-  const { param } = await prompt<{ param: T }>([
-    {
-      name: 'param',
-      type,
-      initial, message, skip, result
-    }
-  ]);
+  const { param } = await prompt<{ param: T }>([{ name: 'param', type, initial, message, skip, result }]);
 
   return param;
 }
@@ -24,26 +18,20 @@ async function shouldProceed(question: string): Promise<boolean> {
   return await promptParam({ type: 'confirm', message: question, initial: true });
 }
 
-export function promptTo(
+export type PromptToParams = {
   question: string,
-  cliProcess: CLIProcess,
-  options: {
-    precondition?: (r?: RcJson) => Promise<boolean>;
-  } = {
-    precondition: async () => true,
-  }
-): CLIProcess {
+  acceptedCliProcess: CLIProcess,
+  deniedCliProcess?: CLIProcess,
+};
+
+export function promptTo({ question, acceptedCliProcess, deniedCliProcess }: PromptToParams): CLIProcess {
   return async function (rc: RcJson): Promise<RcJson> {
-    const isPreconditionMet = await (options?.precondition ? options?.precondition(rc) : Promise.resolve(false));
-
-    if (!isPreconditionMet) {
-      return rc;
-    }
-
     if (await shouldProceed(question)) {
-      return cliProcess(rc);
+      return acceptedCliProcess(rc);
     }
-
+    else if (deniedCliProcess) {
+      return deniedCliProcess(rc);
+    }
     return rc;
   };
 }

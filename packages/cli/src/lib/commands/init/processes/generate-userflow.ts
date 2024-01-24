@@ -9,7 +9,7 @@ import { FlowExampleMap } from '../constants.js';
 import { FlowExamples } from '../types.js';
 import { ifThenElse } from '../../../core/processing/behaviors.js';
 import { promptTo } from '../../../core/prompt.js';
-import { CLIProcess } from '../../../core/processing/types.js';
+import { CLIProcess, Condition } from '../../../core/processing/types.js';
 import { logVerbose } from '../../../core/loggin/index.js';
 import { PROMPT_INIT_GENERATE_FLOW } from '../constants/generateFlow.constants.js';
 
@@ -20,7 +20,9 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
   return join(folder, fileName);
 }
 
-export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+export const userflowIsNotCreated: Condition = (cfg?: RcJson) => {
+  return Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+};
 
 export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   const ufPath = cliCfg.collect.ufPath;
@@ -48,7 +50,13 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
 export function handleFlowGeneration({ generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean}): CLIProcess {
   return ifThenElse(
     () => interactive && generateFlow === undefined,
-    promptTo(PROMPT_INIT_GENERATE_FLOW, generateUserFlow, { precondition: userflowIsNotCreated }),
+    ifThenElse(
+      userflowIsNotCreated,
+      promptTo({
+        question: PROMPT_INIT_GENERATE_FLOW,
+        acceptedCliProcess: generateUserFlow,
+      })
+    ),
     ifThenElse(() => Boolean(generateFlow), generateUserFlow)
   )
 }
