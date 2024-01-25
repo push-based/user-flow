@@ -21,7 +21,7 @@ jobs:
       - name: install
         run: npm i
       - name: build
-        run: npm run nx -- affected:build
+        run: npm run nx run-many -t build
       - name: run
         run: npm run md-report-test
       - name: Add reduced report as comment to the PR
