@@ -22,6 +22,6 @@ jobs:
       - name: install
         run: npm ci
       - name: build
-        run: npm run nx -- affected:build
+        run: npm run nx run-many -t build
       - name: test
-        run: npm run nx -- affected:test --parallel=1
+        run: npm run nx run-many -t test
