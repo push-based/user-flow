@@ -9,6 +9,8 @@
   "scripts": {
     "nx": "nx",
     "build": "nx build cli",
+    "build-all": "nx run-many -t build --skip-nx-cache",
+    "test-all": "nx run-many -t test --skip-nx-cache",
     "import-graph": "npx @rx-angular/import-graph-visualizer -t packages/cli/tsconfig.lib.json",
     "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
     "@push-based/user-flow": "npm run build && npx ./dist/packages/cli",

@@ -22,6 +22,6 @@ jobs:
       - name: install
         run: npm ci
       - name: build
-        run: npm run nx run-many -t build --skip-nx-cache
+        run: npm run build-all
       - name: test
-        run: npm run nx run-many -t test --skip-nx-cache
+        run: npm run test-all
