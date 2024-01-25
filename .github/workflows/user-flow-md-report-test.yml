@@ -11,11 +11,14 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    name: Node ${{ matrix.node }}
 
     steps:
-      - uses: actions/checkout@v1
-      - name: use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
