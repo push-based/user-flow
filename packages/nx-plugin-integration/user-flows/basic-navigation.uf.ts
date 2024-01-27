@@ -4,6 +4,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const {page, flow, browser, collectOptions} = ctx;
   const {url} = collectOptions;
 
+  // Navigate to coffee order site
   await flow.navigate(url, {
     stepName: '🧭 Navigate to Home',
   });
@@ -11,7 +12,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 };
 
 const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'nx-plugin integration test'},
+  flowOptions: {name: 'Basic navigation to test nx-plugin integration'},
   interactions
 };
 
