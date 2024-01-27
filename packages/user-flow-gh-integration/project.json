@@ -5,10 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["packages/user-flow-gh-integration/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/user-flow-gh-integration/**/*.ts"
+        ]
       }
     }
   },
