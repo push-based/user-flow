@@ -107,6 +107,9 @@
       "options": {
         "commands": [
           {
+            "command": "cd ./dist/packages/nx-plugin"
+          },
+          {
             "command": "npx cpx \"./dist/packages/nx-plugin/**\" ./node_modules/@push-based/user-flow-nx-plugin"
           }
         ]
