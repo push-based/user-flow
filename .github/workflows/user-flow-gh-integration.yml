@@ -1,4 +1,4 @@
-name: user-flow-gh-integration
+name: user-flow-gh-action-demo
 on:
   pull_request:
 jobs:
