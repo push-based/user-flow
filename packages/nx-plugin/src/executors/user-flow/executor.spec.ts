@@ -1,7 +1,7 @@
 import executor from './executor';
 import {createTreeWithEmptyWorkspace} from "@nrwl/devkit/testing";
 import {normalizeOptions} from "../../generators/target/utils";
-import {addProjectConfiguration, Tree, writeJson} from "@nrwl/devkit";
+import {addProjectConfiguration, Tree, writeJson} from "@nx/devkit";
 import {join} from "path";
 
 const NPM_NAME = '@push-based/user-flow';

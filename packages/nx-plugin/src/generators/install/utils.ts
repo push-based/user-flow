@@ -1,4 +1,4 @@
-import {getWorkspaceLayout, Tree, updateJson} from "@nrwl/devkit";
+import {getWorkspaceLayout, Tree, updateJson} from "@nx/devkit";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
 import {InstallGeneratorSchema} from "./schema";
