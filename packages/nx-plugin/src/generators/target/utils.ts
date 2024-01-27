@@ -2,7 +2,7 @@ import {getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson} from 
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
-import {DEFAULT_TARGET_NAME} from "../target/constants";
+import {DEFAULT_TARGET_NAME} from "../constants";
 
 export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): NormalizedSchema {
 
