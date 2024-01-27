@@ -1,10 +1,4 @@
-import {
-  addDependenciesToPackageJson,
-  joinPathFragments,
-  readProjectConfiguration,
-  Tree,
-  updateJson
-} from '@nx/devkit';
+import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nx/devkit';
 import {NormalizedSchema} from "./types";
 import {InitGeneratorSchema} from "./schema";
 import {PLUGIN_NAME} from "../constants";
@@ -23,12 +17,15 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
 }
 
 export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
-  const devDeps = {
-    '@push-based/user-flow': '^0.19.0',
-    PLUGIN_NAME: '^0.0.0',
-    '@nx/devkit': '^16.0.0'
-  };
-  addDependenciesToPackageJson(tree, {}, devDeps);
+  updateJson(tree, joinPathFragments('package.json'), (json) => {
+    if (!json.devDependencies) {
+      json.devDependencies = {};
+    }
+    json.devDependencies['@push-based/user-flow'] = '^0.19.0';
+    json.devDependencies[PLUGIN_NAME] = '^0.0.0';
+    json.devDependencies['@nx/devkit'] = '^16.0.0';
+    return json;
+  });
 }
 
 export function updateNxJson(tree: Tree, options?: NormalizedSchema) {

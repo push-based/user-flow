@@ -76,7 +76,7 @@ describe('init generator', () => {
 
   it('should update user-flow dependencies if existing', async () => {
     updateJson(appTree, 'package.json', (json) => {
-      json.devDependencies[NPM_NAME] = '^0.10.0';
+      json.devDependencies[NPM_NAME] = '^1.0.0';
       json.devDependencies[PLUGIN_NAME] = '^0.0.0-alpha';
       json.devDependencies['@nx/devkit'] = '^15.0.0';
       return json;
@@ -84,7 +84,7 @@ describe('init generator', () => {
     await generator(appTree, baseOptions);
     const packageJson = readJson(appTree, 'package.json');
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
-    //expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0'); // TODO implement version test
+    expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
     expect(packageJson.devDependencies['@nx/devkit']).toBe('^16.0.0');
   });
 
