@@ -1,12 +1,4 @@
-import {
-  joinPathFragments,
-  logger,
-  readJson,
-  readProjectConfiguration,
-  Tree,
-  updateJson,
-  writeJson
-} from '@nrwl/devkit';
+import {logger, readJson, readProjectConfiguration, Tree, updateJson, writeJson} from '@nrwl/devkit';
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
@@ -56,9 +48,9 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
       "outputs": ["{options.outputPath}"],
       "options": {
         "url": url,
-        "rcPath": joinPathFragments(projectRoot, './.user-flowrc.json'),
-        "ufPath": joinPathFragments(projectRoot, '/user-flows'),
-        "outputPath": joinPathFragments('dist', '/user-flow', projectRoot),
+        "rcPath": join(projectRoot, './.user-flowrc.json'),
+        "ufPath": join(projectRoot, '/user-flows'),
+        "outputPath": join('dist', '/user-flow', projectRoot),
         "format": ["md"]
       }
     };
