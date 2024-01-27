@@ -36,13 +36,8 @@ jobs:
         run: npm run nx -- affected:build
       - name: test
         run: npm run nx -- affected:test
-      - name: release CLI
+      - name: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run nx -- run cli:version
-      - name: release Nx plugin
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run nx -- run nx-plugin:version
+        run: npm run nx -- affected:version
