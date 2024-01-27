@@ -28,11 +28,10 @@ describe('target generator', () => {
   let normalizedOptions;
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace({layout: 'apps-libs'});
-
     const projectRoot = `${getWorkspaceLayout(appTree).libsDir}/${PROJECT_NAME}`;
     addProjectConfiguration(
       appTree,
-      PROJECT_NAME,
+      'generator-test',
       {
         root: projectRoot,
         projectType: 'library',
@@ -48,8 +47,8 @@ describe('target generator', () => {
   });
 
   it('should run successfully', async () => {
-    const config = readProjectConfiguration(appTree, PROJECT_NAME);
-    normalizedOptions = normalizeOptions(appTree, baseOptions);
+    const config = readProjectConfiguration(appTree, 'generator-test');
+
     let projectJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(projectJson?.targets['user-flow']).toBeUndefined();
     await generator(appTree, baseOptions);

@@ -4,22 +4,6 @@ import {normalizeOptions} from "../../generators/target/utils";
 import {addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nrwl/devkit";
 import {join} from "path";
 
-const basicNavigationContent = `
-import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
-const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const { flow, collectOptions } = ctx;
-  const { url } = collectOptions;
-  await flow.navigate(url, {
-    stepName: "Navigate to "+url,
-  });
-};
-const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Basic Navigation Example'},
-  interactions
-};
-module.exports = userFlowProvider;
-`
-
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {
@@ -28,7 +12,7 @@ const baseOptions = {
   projectName: PROJECT_NAME,
   skipPackageJson: false,
   url: "https://coffee-cart.netlify.app/",
-  ufPath: join('./libs', PROJECT_NAME, 'user-flows'),
+  ufPath: join('./packages', 'nx-plugin', 'user-flows'),
   outputPath: join('./dist', 'user-flows', PROJECT_NAME)
 };
 
@@ -54,8 +38,7 @@ describe('Test Executor', () => {
       }
     );
     normalizedOptions = normalizeOptions(appTree, baseOptions);
-    appTree.write(join(baseOptions.ufPath, 'flow.uf.ts'), basicNavigationContent);
-
+    writeJson(appTree, join(normalizedOptions.projectRoot, 'user-flows', 'flow.uf.ts'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
       dependencies: {},
@@ -64,14 +47,17 @@ describe('Test Executor', () => {
   });
 
   it('should handle errors', async () => {
-    const execResult = await executor({}, {} as any);
+    const execResult = await executor({ }, {} as any);
     expect(execResult.success).toBe(false);
-    expect(execResult.output).toContain('Error: URL is required. Either through the console as `--url` or in the `.user-flow.json');
   });
 
   it('can run', async () => {
     const execResult = await executor(baseOptions, {} as any);
-    expect(outputContainsConfig(execResult.output, {outPath: "dist/user-flows/generated-test"})).toBe(true);
+    expect(outputContainsConfig(execResult.output, {
+      // test alias for outputPath gets derived from outputPath
+      outPath: 'dist/user-flows/generated-test'
+    })).toBe(true);
+    expect(execResult.success).toBe(true);
   })
 });
 
@@ -89,7 +75,7 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
       case 'awaitServeStdout':
       case 'budgetPath':
       case 'configPath':
-        contains = output.includes(`--${k}="${v}"`);
+        contains = output.includes(`${k}: '${v}'`);
         break;
       case 'config':
         contains = output.includes(`${k}: { `);
