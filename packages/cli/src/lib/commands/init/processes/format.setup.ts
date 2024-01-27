@@ -32,7 +32,7 @@ export async function setupFormat(
           const values = value as any as string[];
           return values.map((name: string) => REPORT_FORMAT_VALUES[REPORT_FORMAT_NAMES.indexOf(name)]) as any as string;
         },
-        muliple: true
+        multiple: true
       }
     ]);
 

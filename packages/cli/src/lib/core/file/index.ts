@@ -65,7 +65,7 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
 /**
  * Ensures the folder exists before writing it
  */
-export function writeFile(filePath: string, data: string) {
+export async function writeFile(filePath: string, data: string) {
   const dir = dirname(filePath);
   if (!existsSync(dir)) {
     logVerbose(`Created dir ${dir} to save ${filePath}`);
@@ -75,7 +75,7 @@ export function writeFile(filePath: string, data: string) {
   const ext = filePath.split('.').pop() || '';
   const formattedData = formatCode(data, getParserFromExtname(ext));
   // @TODO implement a check that saves the file only if the content is different => git noise
-  return writeFileSync(filePath, formattedData);
+  return writeFileSync(filePath, await formattedData);
 }
 
 export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {

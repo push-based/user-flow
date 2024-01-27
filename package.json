@@ -29,7 +29,7 @@
     "enquirer": "^2.3.6",
     "lighthouse": "^11.4.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.6.2",
+    "prettier": "3.2.4",
     "puppeteer": "^21.7.0",
     "rxjs": "^7.8.1",
     "ts-node": "10.9.2",

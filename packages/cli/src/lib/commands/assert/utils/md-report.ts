@@ -149,12 +149,12 @@ function getResourceCounts(resourceCountsBudget: Table | undefined): undefined |
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): string {
+export async function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): Promise<string> {
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
   const tableArr = extractTableArr(reportCategories, tableStepsArr);
-  return table(tableArr, alignOptions);
+  return await table(tableArr, alignOptions);
 }
 
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
