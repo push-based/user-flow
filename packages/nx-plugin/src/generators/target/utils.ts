@@ -1,4 +1,4 @@
-import { getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson } from '@nrwl/devkit';
+import { getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson } from '@nx/devkit';
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {existsSync} from "fs";

@@ -1,4 +1,4 @@
-import {formatFiles, logger, Tree} from '@nrwl/devkit';
+import {formatFiles, logger, Tree} from '@nx/devkit';
 
 import {InstallGeneratorSchema} from './schema';
 import {normalizeOptions, updateDependencies, updateNxJson} from "./utils";
