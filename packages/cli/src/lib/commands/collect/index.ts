@@ -1,12 +1,12 @@
-import {YargsCommandObject} from '../../core/yargs/types';
-import {logVerbose} from '../../core/loggin/index';
-import {COLLECT_OPTIONS} from './options';
-import {startServerIfNeededAndExecute} from './utils/serve-command';
-import {collectRcJson} from '../init/processes/collect-rc-json';
-import {run} from '../../core/processing/behaviors';
-import {collectReports} from './processes/collect-reports';
-import {RcJson, RcJsonAsArgv} from '../../types';
-import {getCollectCommandOptionsFromArgv} from './utils/params';
+import { YargsCommandObject } from '../../core/yargs/types';
+import { logVerbose } from '../../core/loggin/index';
+import { COLLECT_OPTIONS } from './options';
+import { startServerIfNeededAndExecute } from './utils/serve-command';
+import { collectRcJson } from '../init/processes/collect-rc-json';
+import { run } from '../../core/processing/behaviors';
+import { collectReports } from './processes/collect-reports';
+import { RcJson } from '../../types';
+import { getCollectCommandOptionsFromArgv } from './utils/params';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
@@ -15,19 +15,15 @@ export const collectUserFlowsCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "collect" as a yargs command with args:`);
-      await runCollectCommand(argv);
+      const cfg = getCollectCommandOptionsFromArgv(argv);
+      logVerbose('Collect options: ', cfg);
+      await run([
+        collectRcJson,
+        (cfg: RcJson) =>
+          startServerIfNeededAndExecute(() => collectReports(cfg)
+              .then()
+            , cfg.collect)
+      ])(cfg);
     }
   }
 };
-
-export async function runCollectCommand(argv: RcJsonAsArgv) {
-  const cfg = getCollectCommandOptionsFromArgv(argv);
-  logVerbose('Collect options: ', cfg);
-  await run([
-    collectRcJson,
-    (cfg: RcJson) =>
-      startServerIfNeededAndExecute(() => collectReports(cfg)
-          .then()
-        , cfg.collect)
-  ])(cfg);
-}
