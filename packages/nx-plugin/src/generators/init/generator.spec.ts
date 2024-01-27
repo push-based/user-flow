@@ -64,6 +64,8 @@ describe('init generator', () => {
   });
 
   it('should run successfully', async () => {
+    expect(appTree.children('nx.json')).toBe('')
+
     await generator(appTree, baseOptions);
     const config = readProjectConfiguration(appTree, PROJECT_NAME);
     expect(config).toBeDefined();
