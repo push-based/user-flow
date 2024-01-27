@@ -5,7 +5,6 @@ import generator from './generator';
 import {normalizeOptions} from "../target/utils";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
-import {PLUGIN_NAME} from "../constants";
 
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
@@ -69,28 +68,23 @@ describe('init generator', () => {
   it('should update user-flow dependency if existing', async () => {
     updateJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), (json) => {
       json.devDependencies[NPM_NAME] = '^1.0.0';
-      json.devDependencies[PLUGIN_NAME] = '^0.0.0-alpha';
       return json;
     });
     await generator(appTree, baseOptions);
     const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'package.json'),);
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
-    expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
   });
 
   it('should not change dep version if skip option is turned on', async () => {
     updateJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), (json) => {
       json.devDependencies[NPM_NAME] = '^1.0.0';
-      json.devDependencies[PLUGIN_NAME] = '^0.0.0';
       return json;
     });
     const oldPackageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'package.json'),);
     expect(oldPackageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
-    expect(oldPackageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
     await generator(appTree, {...baseOptions, skipPackageJson: true});
     const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'package.json'),);
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^1.0.0');
-    expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0');
   });
 
   it('should update nx.json cacheableOperations if tasksRunnerOptions exists', async () => {
