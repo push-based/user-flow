@@ -1,11 +1,12 @@
-import { join } from 'path';
-import { readdirSync } from 'fs';
+import { join } from 'node:path';
+import { readdirSync } from 'node:fs';
 import { UserFlowCliProject, UserFlowCliProjectFactory } from '@push-based/user-flow-cli-testing';
 import { getReportContent, INITIATED_PRJ_CFG } from 'test-data';
 import { persistFlow } from './persist-flow.js';
 import { ReportFormat } from '../../options/types.js';
 import { PersistFlowOptions } from './types.js';
 import { createReducedReport, toReportName } from '../report/utils.js';
+import { UserFlow } from 'lighthouse';
 
 const jsonReport = getReportContent('lhr-9.json') as unknown as any;
 const htmlReport = getReportContent('lhr-9.html') as string;
@@ -32,7 +33,7 @@ export class UserFlowReportMock {
  * use expectPersistedReports from expect.ts instead
  * To do so we have to bootstrap the cli within it block with different formats
  * @param persistedReportPaths
- * @param path
+ * @param outPath
  * @param name
  * @param formats
  */
@@ -54,7 +55,7 @@ const url = 'test.url';
 const flowName = `flow-example-name`;
 const flowFileName = toReportName(url, flowName, createReducedReport(jsonReport));
 const persistFlowOptions: PersistFlowOptions = { outPath: '', format: [], url };
-const flow = new UserFlowReportMock({ name: flowName });
+const flow = new UserFlowReportMock({ name: flowName }) as any as UserFlow;
 
 let originalCwd = process.cwd();
 const consoleLog = console.log;

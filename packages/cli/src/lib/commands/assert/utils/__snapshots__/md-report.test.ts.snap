@@ -1,0 +1,230 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`md-table > should generate reduced JSON format for v9 raw JSON result if createReducedReport is called 1`] = `
+{
+  "fetchTime": "2022-04-21T21:47:59.033Z",
+  "name": "Sandbox Setup StaticDist",
+  "steps": [
+    {
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "navigation",
+      "name": "Navigation report (127.0.0.1/)",
+      "resourceCountsBudget": undefined,
+      "resourceSizesBudget": undefined,
+      "results": {
+        "accessibility": 1,
+        "best-practices": 0.92,
+        "performance": null,
+        "pwa": 0.3,
+        "seo": 1,
+      },
+      "timingsBudget": undefined,
+    },
+    {
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "timespan",
+      "name": "Timespan report (127.0.0.1/)",
+      "results": {
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 7,
+          "numPassed": 5,
+          "totalWeight": 6,
+        },
+        "performance": {
+          "numInformative": 1,
+          "numPassableAudits": 11,
+          "numPassed": 10,
+          "totalWeight": 45,
+        },
+      },
+    },
+    {
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "snapshot",
+      "name": "Snapshot report (127.0.0.1/)",
+      "results": {
+        "accessibility": {
+          "numInformative": 0,
+          "numPassableAudits": 10,
+          "numPassed": 10,
+          "totalWeight": 57,
+        },
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 5,
+          "numPassed": 4,
+          "totalWeight": 5,
+        },
+        "performance": {
+          "numInformative": 0,
+          "numPassableAudits": 4,
+          "numPassed": 3,
+          "totalWeight": 0,
+        },
+        "seo": {
+          "numInformative": 0,
+          "numPassableAudits": 9,
+          "numPassed": 9,
+          "totalWeight": 9,
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`md-table > should generate reduced JSON with baseline results if enrichReducedReportWithBaseline is called 1`] = `
+{
+  "fetchTime": "2022-04-21T21:47:59.033Z",
+  "name": "Sandbox Setup StaticDist",
+  "steps": [
+    {
+      "baseline": {
+        "accessibility": 1,
+        "best-practices": 0.85,
+        "performance": null,
+        "pwa": 0.62,
+        "seo": 1,
+      },
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "navigation",
+      "name": "Navigation report (127.0.0.1/)",
+      "resourceCountsBudget": undefined,
+      "resourceSizesBudget": undefined,
+      "results": {
+        "accessibility": 1,
+        "best-practices": 0.92,
+        "performance": null,
+        "pwa": 0.3,
+        "seo": 1,
+      },
+      "timingsBudget": undefined,
+    },
+    {
+      "baseline": {
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 7,
+          "numPassed": 5,
+          "totalWeight": 6,
+        },
+        "performance": {
+          "numInformative": 1,
+          "numPassableAudits": 11,
+          "numPassed": 10,
+          "totalWeight": 45,
+        },
+      },
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "timespan",
+      "name": "Timespan report (127.0.0.1/)",
+      "results": {
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 7,
+          "numPassed": 5,
+          "totalWeight": 6,
+        },
+        "performance": {
+          "numInformative": 1,
+          "numPassableAudits": 11,
+          "numPassed": 10,
+          "totalWeight": 45,
+        },
+      },
+    },
+    {
+      "baseline": {
+        "accessibility": {
+          "numInformative": 0,
+          "numPassableAudits": 10,
+          "numPassed": 9,
+          "totalWeight": 57,
+        },
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 5,
+          "numPassed": 4,
+          "totalWeight": 5,
+        },
+        "performance": {
+          "numInformative": 0,
+          "numPassableAudits": 4,
+          "numPassed": 3,
+          "totalWeight": 0,
+        },
+        "seo": {
+          "numInformative": 0,
+          "numPassableAudits": 9,
+          "numPassed": 8,
+          "totalWeight": 9,
+        },
+      },
+      "fetchTime": "2022-04-21T21:47:59.033Z",
+      "gatherMode": "snapshot",
+      "name": "Snapshot report (127.0.0.1/)",
+      "results": {
+        "accessibility": {
+          "numInformative": 0,
+          "numPassableAudits": 10,
+          "numPassed": 10,
+          "totalWeight": 57,
+        },
+        "best-practices": {
+          "numInformative": 0,
+          "numPassableAudits": 5,
+          "numPassed": 4,
+          "totalWeight": 5,
+        },
+        "performance": {
+          "numInformative": 0,
+          "numPassableAudits": 4,
+          "numPassed": 3,
+          "totalWeight": 0,
+        },
+        "seo": {
+          "numInformative": 0,
+          "numPassableAudits": 9,
+          "numPassed": 9,
+          "totalWeight": 9,
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`md-table > should print MD table if getStepsTable is called with a reduced result 1`] = `
+"| Step Name                      | Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |
+| :----------------------------- | :---------: | :---------: | :-----------: | :------------: | :-: | :-: |
+| Navigation report (127.0.0.1/) | navigation  |      -      |      100      |       92       | 100 | 30  |
+| Timespan report (127.0.0.1/)   |  timespan   |    10/11    |       -       |      5/7       |  -  |  -  |
+| Snapshot report (127.0.0.1/)   |  snapshot   |    Ø 3/4    |     10/10     |      4/5       | 9/9 |  -  |"
+`;
+
+exports[`md-table > should return a Md table comparing to reports if getStepsTable is passed a baseline report 1`] = `
+"| Step Name                      | Gather Mode | Performance | Accessibility | Best Practices |   Seo    |   Pwa    |
+| :----------------------------- | :---------: | :---------: | :-----------: | :------------: | :------: | :------: |
+| Navigation report (127.0.0.1/) | navigation  |      -      |      100      |    92 (-7)     |   100    | 30 (+32) |
+| Timespan report (127.0.0.1/)   |  timespan   |    10/11    |       -       |      5/7       |    -     |    -     |
+| Snapshot report (127.0.0.1/)   |  snapshot   |    Ø 3/4    |  10/10 (-1)   |      4/5       | 9/9 (-1) |    -     |"
+`;
+
+exports[`md-table > should return a Md table if getBudgetTable is passed a baseline report 1`] = `
+"### Navigation report (127.0.0.1/)
+
+**Resource Size Budget**
+
+[object Promise]
+
+**Resource Count Budget**
+
+[object Promise]
+
+**Timing Budget**
+
+[object Promise]
+
+"
+`;

@@ -1,7 +1,8 @@
-import { readFile, writeFile } from '../../core/file/index.js';
+import { readFile } from '../../core/file/index.js';
 import { logVerbose } from '../../core/loggin/index.js';
 import { RcJson } from '../../types.js';
 import { globalOptions } from '../options/index.js';
+import { writeFileSync } from 'node:fs';
 
 export function readRcConfig(rcPath: string = '', options?: {
   fail?: boolean,
@@ -21,7 +22,7 @@ export function updateRcConfig(config: RcJson, rcPath: string): void {
   // NOTICE: this is needed for better git flow.
   // Touch a file only if needed
   if (JSON.stringify(readRcConfig()) !== JSON.stringify(config)) {
-    writeFile(rcPath, JSON.stringify(config));
+    writeFileSync(rcPath, JSON.stringify(config));
     logVerbose(`Update config under ${rcPath} to`, config);
   }
 }

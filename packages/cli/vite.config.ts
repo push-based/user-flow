@@ -9,12 +9,8 @@ export default defineConfig({
 
   plugins: [nxViteTsPaths()],
 
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [ nxViteTsPaths() ],
-  // },
-
   test: {
+    silent: false,
     globals: true,
     cache: {
       dir: '../../node_modules/.vitest',

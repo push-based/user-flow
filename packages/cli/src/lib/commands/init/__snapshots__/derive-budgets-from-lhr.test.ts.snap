@@ -1,0 +1,50 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`deriveBudgetsFromLhr > should create budgets array if a valid lhr is given 1`] = `
+[
+  {
+    "resourceCounts": [
+      {
+        "budget": 0,
+        "resourceType": "stylesheet",
+      },
+      {
+        "budget": 0,
+        "resourceType": "script",
+      },
+    ],
+    "resourceSizes": [
+      {
+        "budget": 941,
+        "resourceType": "document",
+      },
+      {
+        "budget": 0,
+        "resourceType": "stylesheet",
+      },
+      {
+        "budget": 0,
+        "resourceType": "font",
+      },
+      {
+        "budget": 0,
+        "resourceType": "script",
+      },
+      {
+        "budget": 0,
+        "resourceType": "third-party",
+      },
+    ],
+    "timings": [
+      {
+        "budget": 0,
+        "metric": "cumulative-layout-shift",
+      },
+      {
+        "budget": 724,
+        "metric": "largest-contentful-paint",
+      },
+    ],
+  },
+]
+`;

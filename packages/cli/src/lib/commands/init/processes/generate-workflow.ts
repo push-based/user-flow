@@ -39,13 +39,13 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
     logVerbose(`setup workflow folder ${destPath}`);
   }
 
-  writeFile(exampleDestination, fileContent);
+  await writeFile(exampleDestination, fileContent);
 
   log(`setup workflow for user-flow integration in the CI in ${exampleDestination} successfully`);
   return Promise.resolve(cliCfg);
 }
 
-export function handleGhWorkflowGeneration({ generateGhWorkflow }: { generateGhWorkflow?: boolean }): CLIProcess {
+export function handleGhWorkflowGeneration({ generateGhWorkflow }: { generateGhWorkflow: boolean }): CLIProcess {
   return ifThenElse(
     // if `withFlow` is not used in the CLI is in interactive mode
     () => generateGhWorkflow === true,
