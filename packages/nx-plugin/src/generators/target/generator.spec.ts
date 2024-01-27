@@ -1,13 +1,5 @@
 import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
-import {
-  addProjectConfiguration,
-  getWorkspaceLayout,
-  readJson,
-  readProjectConfiguration,
-  Tree,
-  updateJson,
-  writeJson
-} from '@nrwl/devkit';
+import {addProjectConfiguration, readJson, readProjectConfiguration, Tree, updateJson, writeJson} from '@nrwl/devkit';
 
 import generator from './generator';
 import {normalizeOptions} from "./utils";
@@ -28,14 +20,14 @@ describe('target generator', () => {
   let normalizedOptions;
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace({layout: 'apps-libs'});
-    const projectRoot = `${getWorkspaceLayout(appTree).libsDir}/${PROJECT_NAME}`;
+    normalizedOptions = normalizeOptions(appTree, baseOptions);
     addProjectConfiguration(
       appTree,
       'generator-test',
       {
-        root: projectRoot,
+        root: normalizedOptions.projectRoot,
         projectType: 'library',
-        sourceRoot: `${projectRoot}/src`,
+        sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
           build: {
             executor: "@push-based/user-flow-nx-plugin:build",
@@ -43,7 +35,6 @@ describe('target generator', () => {
         },
       }
     );
-    normalizedOptions = normalizeOptions(appTree, baseOptions);
   });
 
   it('should run successfully', async () => {
