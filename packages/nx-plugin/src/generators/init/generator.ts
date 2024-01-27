@@ -1,9 +1,9 @@
 import {formatFiles, logger, Tree} from '@nrwl/devkit';
 
-import {InitGeneratorSchema} from './schema';
+import {InstallGeneratorSchema} from './schema';
 import {normalizeOptions, updateDependencies, updateNxJson} from "./utils";
 
-export default async function userFlowInitGenerator(tree: Tree, options: InitGeneratorSchema) {
+export default async function userFlowInitGenerator(tree: Tree, options: InstallGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
   if (options.skipPackageJson === false) {

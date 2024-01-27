@@ -1,4 +1,4 @@
-export type InitGeneratorSchema = {
+export type InstallGeneratorSchema = {
   projectName: string;
   skipPackageJson?: boolean;
 }

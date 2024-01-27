@@ -1,11 +1,11 @@
 import {getWorkspaceLayout, Tree, updateJson} from "@nrwl/devkit";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
-import {InitGeneratorSchema} from "./schema";
+import {InstallGeneratorSchema} from "./schema";
 import {PLUGIN_NAME} from "../constants";
 import {DEFAULT_TARGET_NAME} from "../target/constants";
 
-export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): NormalizedSchema {
+export function normalizeOptions(tree: Tree, options?: InstallGeneratorSchema): NormalizedSchema {
 
   const projectName = options.projectName;
   const projectRoot = `${getWorkspaceLayout(tree).libsDir}/${projectName}`;

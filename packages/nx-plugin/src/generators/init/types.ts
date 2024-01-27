@@ -1,6 +1,6 @@
-import {InitGeneratorSchema} from "./schema";
+import {InstallGeneratorSchema} from "./schema";
 
-export interface NormalizedSchema extends InitGeneratorSchema {
+export interface NormalizedSchema extends InstallGeneratorSchema {
   projectName: string;
   projectRoot: string;
 }
