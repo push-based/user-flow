@@ -3,8 +3,5 @@
   "version": "0.1.1",
   "type": "commonjs",
   "executors": "./executors.json",
-  "generators": "./generators.json",
-  "peerDependencies": {
-    "@nx/devkit": "^16.3.2"
-  }
+  "generators": "./generators.json"
 }
