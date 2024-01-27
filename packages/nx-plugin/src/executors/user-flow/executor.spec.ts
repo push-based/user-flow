@@ -1,7 +1,7 @@
 import executor from './executor';
 import {createTreeWithEmptyWorkspace} from "@nrwl/devkit/testing";
 import {normalizeOptions} from "../../generators/target/utils";
-import {addProjectConfiguration, getWorkspaceLayout, Tree, writeJson} from "@nrwl/devkit";
+import {addProjectConfiguration, Tree, writeJson} from "@nrwl/devkit";
 import {join} from "path";
 
 const NPM_NAME = '@push-based/user-flow';
@@ -21,15 +21,14 @@ describe('Test Executor', () => {
   let normalizedOptions;
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace({layout: 'apps-libs'});
-
-    const projectRoot = `${getWorkspaceLayout(appTree).libsDir}/${PROJECT_NAME}`;
+    normalizedOptions = normalizeOptions(appTree, baseOptions);
     addProjectConfiguration(
       appTree,
       PROJECT_NAME,
       {
-        root: projectRoot,
+        root: normalizedOptions.projectRoot,
         projectType: 'library',
-        sourceRoot: join(projectRoot, '/src'),
+        sourceRoot: join(normalizedOptions.projectRoot, '/src'),
         targets: {
           build: {
             executor: "@push-based/user-flow-nx-plugin:build",
@@ -37,7 +36,7 @@ describe('Test Executor', () => {
         },
       }
     );
-    normalizedOptions = normalizeOptions(appTree, baseOptions);
+
     writeJson(appTree, join(normalizedOptions.projectRoot, 'user-flows', 'flow.uf.ts'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, '.user-flowrc.json'), {});
     writeJson(appTree, join(normalizedOptions.projectRoot, 'package.json'), {
