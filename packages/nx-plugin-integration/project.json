@@ -64,7 +64,6 @@
       ],
       "options": {
         "verbose": true,
-        "dryRun": true,
         "url": "http://localhost:4010",
         "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
         "ufPath": "packages/nx-plugin-integration/user-flows",
@@ -72,7 +71,7 @@
         "format": [
           "md"
         ],
-        "serveCommand": "npm run nx -- serve nx-plugin-integration",
+        "serveCommand": "npx run nx -- serve nx-plugin-integration",
         "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
       }
     }
