@@ -8,7 +8,7 @@
     }
   },
   "extends": "nx/presets/core.json",
-  "npmScope": "@push-based",
+  "npmScope": "user-flow",
   "affected": {
     "defaultBase": "origin/main"
   },

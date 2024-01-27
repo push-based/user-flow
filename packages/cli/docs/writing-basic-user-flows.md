@@ -56,9 +56,9 @@ This results in the following file:
 }
 ```
 
-2. Create a `basic-navigation.uf.ts` file.
+2. Create a `order-coffee.uf.ts` file.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/order-coffee.uf.ts**
 ```typescript
 import {
   UserFlowInteractionsFn,
@@ -113,7 +113,7 @@ Let's start by filling in our interaction logic:
 
 1. Copy and paste the new lines into your flow.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/order-coffee.uf.ts**
 ```typescript
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   // ... 
@@ -150,7 +150,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/order-coffee.uf.ts**
 ```typescript
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   // ...
@@ -182,7 +182,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 2. Wrap the sections interesting for a snapshot measure with `await flow.snapshot({ stepName: 'step name' });`.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/order-coffee.uf.ts**
 ```typescript
 // Your custom interactions with the page 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {

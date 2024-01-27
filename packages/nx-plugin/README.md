@@ -4,24 +4,23 @@ Run generators, executors and helper code to seamlessly integrate user flow into
 
 ## Quick Start
 
-1. Add `@push-based/user-flow-nx-plugin` to your project. It will unlock generators, executors and migrations for a
-   seamless DX:
+1. Add `user-flow-nx-plugin` to your project. It will unlock generators, executors and migrations for a seamless DX:
 
     ```bash
-    npm install --save-dev @push-based/user-flow-nx-plugin
-    nx generate @push-based/user-flow-nx-plugin:install
+    npm install --save-dev user-flow-nx-plugin
+    nx generate user-flow-nx-plugin:install
     ```
 
 2. Add a target to your project and configure it.
 
  ```sh
-  nx generate @push-based/user-flow-nx-plugin:target
+  nx generate user-flow-nx-plugin:target
  ```
 
 optionally provide a different target name
 
 ```sh
-   nx generate @push-based/user-flow-nx-plugin:target --targetName=xyz
+   nx generate user-flow-nx-plugin:target --targetName=xyz
 ```
 
 2.1 To test out the result before changing your code add `--dry-run` to the options
@@ -31,7 +30,7 @@ optionally provide a different target name
 You can easily use the generators to setup user flows in the workspace.
 
 run:
-`nx generate @push-based/user-flow-nx-plugin:install`
+`nx generate user-flow-nx-plugin:install`
 
 This should add the necessary dependencies your `package.json`.
 
@@ -50,7 +49,7 @@ Now you can go and setup user-flows under a target or generate tests over the CL
 You have to add a target over the generator to be able to execute user-flows.
 
 run:  
-`nx generate @push-based/user-flow-nx-plugin:target e2e`
+`nx generate user-flow-nx-plugin:target e2e`
 
 This should add the new target to your `project.json`.
 

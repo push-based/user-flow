@@ -1,6 +1,7 @@
-import {getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson} from '@nrwl/devkit';
+import { getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson } from '@nrwl/devkit';
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
+import {existsSync} from "fs";
 import {NormalizedSchema} from "./types";
 import {DEFAULT_TARGET_NAME} from "../constants";
 
@@ -48,7 +49,7 @@ export function addTarget(tree: Tree, cfg: NormalizedSchema) {
       "outputs": ["{options.outputPath}"],
       "options": {
         "url": url,
-        "rcPath": join(projectRoot, './.user-flowrc.json'),
+        "rcPath": join(projectRoot, './user-flowrc.json'),
         "ufPath": join(projectRoot, '/user-flows'),
         "outputPath": join('dist', '/user-flow', projectRoot),
         "format": ["md"]
