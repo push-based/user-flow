@@ -3,10 +3,7 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "user-flow"
-        ]
+        "accessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
       }
     }
   },
