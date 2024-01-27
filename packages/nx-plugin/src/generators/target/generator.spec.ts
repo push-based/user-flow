@@ -1,6 +1,5 @@
 import {createTreeWithEmptyWorkspace} from '@nrwl/devkit/testing';
 import {
-  joinPathFragments,
   addProjectConfiguration,
   getWorkspaceLayout,
   readJson,
@@ -12,6 +11,7 @@ import {
 
 import generator from './generator';
 import {normalizeOptions} from "./utils";
+import {join} from "path";
 
 
 const NPM_NAME = '@push-based/user-flow';
@@ -50,10 +50,10 @@ describe('target generator', () => {
   it('should run successfully', async () => {
     const config = readProjectConfiguration(appTree, PROJECT_NAME);
     normalizedOptions = normalizeOptions(appTree, baseOptions);
-    let projectJson = readJson(appTree,  joinPathFragments(normalizedOptions.projectRoot, 'project.json'));
+    let projectJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(projectJson?.targets['user-flow']).toBeUndefined();
     await generator(appTree, baseOptions);
-    projectJson = readJson(appTree,  joinPathFragments(normalizedOptions.projectRoot, 'project.json'));
+    projectJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(config).toBeDefined();
     expect(projectJson?.targets['user-flow']).toBeDefined();
   });
@@ -61,14 +61,14 @@ describe('target generator', () => {
   it('should add user-flow target to project.json', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     await generator(appTree, options);
-    const packageJson = readJson(appTree,  joinPathFragments(normalizedOptions.projectRoot, 'project.json'));
+    const packageJson = readJson(appTree, join(normalizedOptions.projectRoot, 'project.json'));
     expect(packageJson.targets[options.targetName].executor).toBe('@push-based/user-flow-nx-plugin:user-flow');
   });
 
   it('should throw if user-flow target already exists in project.json', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     const opt = normalizeOptions(appTree, options);
-    updateJson(appTree,  joinPathFragments(opt.projectRoot, 'project.json'), (json) => {
+    updateJson(appTree, join(opt.projectRoot, 'project.json'), (json) => {
       json.targets[opt.targetName] = '@push-based/user-flow-nx-plugin:user-flow';
       return json;
     });
@@ -79,7 +79,7 @@ describe('target generator', () => {
   it('should throw if user-flowrc.json already exists in project root', async () => {
     const options = {...baseOptions, targetName: 'e2e-test'};
     const opt = normalizeOptions(appTree, options);
-    writeJson(appTree,  joinPathFragments(opt.projectRoot, '.user-flowrc.json'), {});
+    writeJson(appTree, join(opt.projectRoot, '.user-flowrc.json'), {});
     await expect(() => generator(appTree, options))
       .rejects.toThrowError(`.user-flowrc.json already exists in ${opt.projectRoot}`);
   });
