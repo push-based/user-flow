@@ -7,24 +7,20 @@ on:
 
 jobs:
   build_and_test:
+
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [18.x]
-    name: Node ${{ matrix.node }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
-      - name: Setup node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          cache: 'npm'
           node-version: ${{ matrix.node-version }}
-      - name: install
-        run: npm ci
-      - name: build
-        run: npm run nx -- affected:build --base=origin/main --head=HEAD
-      - name: test
-        run: npm run nx -- affected:test --parallel=1 --base=origin/main --head=HEAD
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build-all
+      - run: npm run test-all
