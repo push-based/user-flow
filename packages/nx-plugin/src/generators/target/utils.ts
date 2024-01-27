@@ -1,4 +1,4 @@
-import {logger, readJson, readProjectConfiguration, Tree, updateJson, writeJson} from '@nrwl/devkit';
+import {getWorkspaceLayout, logger, readJson, Tree, updateJson, writeJson} from '@nrwl/devkit';
 import {TargetGeneratorSchema} from "./schema";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
@@ -7,7 +7,7 @@ import {DEFAULT_TARGET_NAME} from "../target/constants";
 export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): NormalizedSchema {
 
   const projectName = options.projectName;
-  const projectRoot = readProjectConfiguration(tree, options.projectName).root;
+  const projectRoot = join(getWorkspaceLayout(tree).libsDir, projectName);
 
   return {
     ...options,
