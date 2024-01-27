@@ -2,8 +2,7 @@ import {getWorkspaceLayout, Tree, updateJson} from "@nrwl/devkit";
 import {join} from "path";
 import {NormalizedSchema} from "./types";
 import {InstallGeneratorSchema} from "./schema";
-import {PLUGIN_NAME} from "../constants";
-import {DEFAULT_TARGET_NAME} from "../target/constants";
+import {DEFAULT_TARGET_NAME} from "../constants";
 
 export function normalizeOptions(tree: Tree, options?: InstallGeneratorSchema): NormalizedSchema {
 
@@ -32,14 +31,6 @@ export function updateNxJson(tree: Tree, options: NormalizedSchema) {
     if (json.tasksRunnerOptions) {
       json.tasksRunnerOptions.default.options.cacheableOperations.push(DEFAULT_TARGET_NAME);
     }
-
-    if (json.generators === undefined) {
-      json.generators = {};
-    }
-    json.generators[PLUGIN_NAME + ":target"] = {
-      "targetName": DEFAULT_TARGET_NAME
-    }
-
     return json;
   });
 }

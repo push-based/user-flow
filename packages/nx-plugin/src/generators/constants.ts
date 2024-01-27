@@ -1,1 +1,1 @@
-export const PLUGIN_NAME = "@push-based/user-flow-nx-plugin";
+export const DEFAULT_TARGET_NAME = "user-flow";
