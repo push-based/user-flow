@@ -18,7 +18,7 @@ const userFlowProvider: UserFlowProvider = {
   interactions
 };
 module.exports = userFlowProvider;
-`;
+`
 
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
