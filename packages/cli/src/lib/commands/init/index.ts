@@ -10,7 +10,6 @@ import { handleFlowGeneration } from './processes/generate-userflow';
 import { getGlobalOptionsFromArgv } from '../../global/utils';
 import { handleGhWorkflowGeneration } from './processes/generate-workflow';
 import { handleBudgetsGeneration } from './processes/generate-lh-budgets';
-import {runInitCommand} from "./command-impl";
 
 export const initCommand: YargsCommandObject = {
   command: 'init',
@@ -19,7 +18,20 @@ export const initCommand: YargsCommandObject = {
   module: {
     handler: async (argv: any) => {
       logVerbose(`run "init" as a yargs command`);
-      await runInitCommand(argv);
+      const { interactive } = getGlobalOptionsFromArgv(argv);
+      const { generateFlow, generateGhWorkflow, generateBudgets, lhr, ...cfg } = getInitCommandOptionsFromArgv(argv);
+      logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, generateBudgets,lhr, ...cfg });
+
+      await run([
+        collectRcJson,
+        updateRcJson,
+        handleFlowGeneration({ interactive: !!interactive, generateFlow }),
+        handleGhWorkflowGeneration({ generateGhWorkflow }),
+        handleBudgetsGeneration({ generateBudgets, lhr }),
+      ])(cfg );
+      log(SETUP_CONFIRM_MESSAGE);
+      // @TODO move to constants
+      log('To execute a user flow run `npx user-flow` or `npx user-flow collect`');
     }
   }
 };

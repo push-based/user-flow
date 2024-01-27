@@ -1,7 +1,12 @@
 import {YargsCommandObject} from '../../core/yargs/types';
 import {logVerbose} from '../../core/loggin/index';
 import {COLLECT_OPTIONS} from './options';
-import {runCollectCommand} from "./command-impl";
+import {startServerIfNeededAndExecute} from './utils/serve-command';
+import {collectRcJson} from '../init/processes/collect-rc-json';
+import {run} from '../../core/processing/behaviors';
+import {collectReports} from './processes/collect-reports';
+import {RcJson, RcJsonAsArgv} from '../../types';
+import {getCollectCommandOptionsFromArgv} from './utils/params';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',
@@ -14,3 +19,15 @@ export const collectUserFlowsCommand: YargsCommandObject = {
     }
   }
 };
+
+export async function runCollectCommand(argv: RcJsonAsArgv) {
+  const cfg = getCollectCommandOptionsFromArgv(argv);
+  logVerbose('Collect options: ', cfg);
+  await run([
+    collectRcJson,
+    (cfg: RcJson) =>
+      startServerIfNeededAndExecute(() => collectReports(cfg)
+          .then()
+        , cfg.collect)
+  ])(cfg);
+}
