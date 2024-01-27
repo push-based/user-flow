@@ -1,4 +1,4 @@
-import {Error, ValidatorFn} from './types';
+import { Error, ValidatorFn } from './types';
 
 export function applyValidations<T>(value: T, validators: ValidatorFn[]): Error {
   return validators.reduce((errors, validator) => {
@@ -23,7 +23,8 @@ export const VALIDATORS = {
   oneOf,
   allOf: (set: string[]) => (values: string[]) => {
     const _oneOf = oneOf(set);
-    let errors: { allOf: { value: string } } | null = null
+    let errors = null
+    // @ts-ignore
     values.forEach((value: string) => {
       const e = _oneOf(value);
       if (e) {
