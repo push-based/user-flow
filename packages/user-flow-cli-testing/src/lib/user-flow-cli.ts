@@ -8,7 +8,6 @@ import {
   getEnvPreset,
   GlobalOptionsArgv,
   InitCommandArgv,
-  LhConfigJson,
   RcJson,
   ReportFormat
 } from '@push-based/user-flow';
@@ -102,7 +101,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     return join(this.root, budgetName);
   }
 
-  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): LhConfigJson {
+  readConfig(configName: string = LH_CONFIG_NAME_DEFAULT): any {
     return JSON.parse(readFileSync(this.configPath(configName)) as any);
   }
 
