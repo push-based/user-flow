@@ -2,7 +2,7 @@ import {readdirSync, readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 
 console.log(`Reame results for comment action`);
-const path = 'dist/user-flow/user-flow-gh-integration';
+const path = 'dist/user-flow/user-flow-ci-integration';
 const reportPath = readdirSync(path)[0];
 if (!reportPath) {
   throw new Error('Report file not found');
