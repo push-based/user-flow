@@ -1,4 +1,4 @@
-import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nx/devkit';
+import { joinPathFragments, readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit';
 import {NormalizedSchema} from "./types";
 import {InitGeneratorSchema} from "./schema";
 import {PLUGIN_NAME} from "../constants";
@@ -23,7 +23,6 @@ export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
     }
     json.devDependencies['@push-based/user-flow'] = '^0.19.0';
     json.devDependencies[PLUGIN_NAME] = '^0.0.0';
-    json.devDependencies['@nx/devkit'] = '^16.0.0';
     return json;
   });
 }

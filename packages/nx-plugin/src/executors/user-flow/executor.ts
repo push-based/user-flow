@@ -3,7 +3,7 @@ import {execSync} from 'child_process';
 import {ExecutorContext} from "nx/src/config/misc-interfaces";
 import * as process from "process";
 import {CLI_MODES} from "@push-based/user-flow";
-import {logger} from "@nx/devkit";
+import {logger} from "@nrwl/devkit";
 
 
 export default async function runExecutor(
