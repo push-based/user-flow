@@ -1,5 +1,13 @@
 import { FlowExamples, GhWorkflowExamples, BudgetsExamples } from './types.js';
 
+export const REPORT_FORMAT = {
+  Stdout: 'stdout',
+  HTML: 'html',
+  Markdown: 'md',
+  JSON: 'json',
+} as const;
+
+
 export const SETUP_CONFIRM_MESSAGE = 'user-flow CLI is set up now! 🎉';
 export const FlowExampleMap: Record<FlowExamples, string> = {
   'basic-navigation': 'basic-navigation.uf.ts'

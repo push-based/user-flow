@@ -50,6 +50,9 @@ function shouldGenerateGitHubWorkflow(generateGhWorkflow: boolean | undefined): 
 }
 
 export function handleGhWorkflowGeneration({ generateGhWorkflow }: { generateGhWorkflow?: boolean }): CLIProcess {
-  return ifThenElse(() => shouldGenerateGitHubWorkflow(generateGhWorkflow), generateGhWorkflowFile);
+  return ifThenElse(
+    () => shouldGenerateGitHubWorkflow(generateGhWorkflow),
+    generateGhWorkflowFile
+  );
 }
 

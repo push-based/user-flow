@@ -1,5 +1,6 @@
 import { Config } from 'lighthouse';
 import { AssertArgvOptions } from '../../assert/options/types.js';
+import { REPORT_FORMAT } from '../../init/constants.js';
 
 export type CollectRcOptions = {
   url: string,
@@ -15,7 +16,8 @@ export type CollectCliOnlyOptions = {
 }
 export type CollectArgvOptions = CollectRcOptions & CollectCliOnlyOptions;
 
-export type ReportFormat = 'html' | 'md' | 'json'  | 'stdout';
+type ReportFormatKeys = keyof typeof REPORT_FORMAT;
+export type ReportFormat = typeof REPORT_FORMAT[ReportFormatKeys];
 export type PersistRcOptions = {
   outPath: string,
   format: ReportFormat[]
