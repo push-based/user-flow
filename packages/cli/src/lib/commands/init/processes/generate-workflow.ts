@@ -45,12 +45,11 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   return Promise.resolve(cliCfg);
 }
 
-export function handleGhWorkflowGeneration({ generateGhWorkflow }: { generateGhWorkflow: boolean }): CLIProcess {
-  return ifThenElse(
-    // if `withFlow` is not used in the CLI is in interactive mode
-    () => generateGhWorkflow === true,
-    // generate the file => else do nothing
-    generateGhWorkflowFile
-  );
+function shouldGenerateGitHubWorkflow(generateGhWorkflow: boolean | undefined): boolean {
+  return Boolean(generateGhWorkflow);
+}
+
+export function handleGhWorkflowGeneration({ generateGhWorkflow }: { generateGhWorkflow?: boolean }): CLIProcess {
+  return ifThenElse(() => shouldGenerateGitHubWorkflow(generateGhWorkflow), generateGhWorkflowFile);
 }
 
