@@ -110,7 +110,8 @@ describe('persist flow reports in specified format', () => {
     expect(report.at(0)?.endsWith(REPORT_FORMAT.Markdown)).toBe(true);
     const reportPath = join(pathToRepoRoot, report.at(0)!);
     expect(existsSync(reportPath)).toBe(true);
-    expect(readFileSync(reportPath,{encoding: 'utf-8'})).toMatchSnapshot();
+    const reportData = readFileSync(reportPath,{encoding: 'utf-8'})
+    expect(reportData.replace(/\*\*.*?\*\*/g, '**DATE_PLACEHOLDER**')).toMatchSnapshot();
   });
 
   it('saves the report in the format given excluding stdout', async () => {
@@ -123,7 +124,8 @@ describe('persist flow reports in specified format', () => {
     expect(report.at(0)?.endsWith(REPORT_FORMAT.Markdown)).toBe(true);
     const reportPath = join(pathToRepoRoot, report.at(0)!);
     expect(existsSync(reportPath)).toBe(true);
-    expect(readFileSync(reportPath,{encoding: 'utf-8'})).toMatchSnapshot();
+    const reportData = readFileSync(reportPath,{encoding: 'utf-8'})
+    expect(reportData.replace(/\*\*.*?\*\*/g, '**DATE_PLACEHOLDER**')).toMatchSnapshot();
   });
 
   it('saves the report in json, md and html', async () => {

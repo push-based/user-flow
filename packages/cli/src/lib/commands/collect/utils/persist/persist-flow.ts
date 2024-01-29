@@ -31,7 +31,7 @@ export async function persistFlow(
   let mdReport: string | undefined = undefined;
 
   if (format.includes(REPORT_FORMAT.Markdown)) {
-    mdReport = generateMdReport(reducedReport);
+    mdReport = await generateMdReport(reducedReport);
     results.push({ format: REPORT_FORMAT.Markdown, out: mdReport });
   }
 

@@ -11,10 +11,10 @@ import Table = Details.Table;
 
 const budgetsSymbol = '🔒'
 
-export function generateMdReport(flowResult: ReducedReport): string {
+export async function generateMdReport(flowResult: ReducedReport): Promise<string> {
   const name = flowResult.name;
   const dateTime = `Date/Time: ${style(new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3))}  `;
-  const stepsTable = getStepsTable(flowResult);
+  const stepsTable = await getStepsTable(flowResult);
 
   let md = `${headline(name)}${NEW_LINE}
 ${dateTime}${NEW_LINE}
