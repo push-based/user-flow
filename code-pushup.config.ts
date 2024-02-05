@@ -1,11 +1,16 @@
-import eslintPlugin from '@code-pushup/eslint-plugin';
+import eslintPlugin, { eslintConfigFromNxProjects } from '@code-pushup/eslint-plugin';
 import type { CoreConfig } from '@code-pushup/models';
+import 'dotenv/config';
 
 const config: CoreConfig = {
-  // ...
+  upload: {
+    server: process.env.CP_SERVER,
+    apiKey: process.env.CP_API_KEY,
+    organization: process.env.CP_ORGANIZATION,
+    project: process.env.CP_PROJECT,
+  },
   plugins: [
-    // ...
-    await eslintPlugin({ eslintrc: '.eslintrc.json', patterns: ['src/**/*.js'] }),
+    await eslintPlugin(await eslintConfigFromNxProjects()),
   ],
   categories: [
     {

@@ -1,8 +1,8 @@
 {
   "packageName": "@code-pushup/core",
   "version": "0.14.1",
-  "date": "2024-02-05T17:11:09.460Z",
-  "duration": 2092,
+  "date": "2024-02-05T18:04:48.136Z",
+  "duration": 3990,
   "categories": [
     {
       "slug": "bug-prevention",
@@ -36,16 +36,43 @@
       "title": "ESLint",
       "slug": "eslint",
       "icon": "eslint",
-      "duration": 2077,
-      "date": "2024-02-05T17:11:09.470Z",
+      "duration": 3973,
+      "date": "2024-02-05T18:04:48.146Z",
       "audits": [
         {
           "slug": "typescript-eslint-ban-ts-comment",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "2 errors",
+          "value": 2,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Use \"@ts-expect-error\" instead of \"@ts-ignore\", as \"@ts-ignore\" will do nothing if the following line is error-free.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 25,
+                    "startColumn": 5,
+                    "endLine": 25,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "Use \"@ts-expect-error\" instead of \"@ts-ignore\", as \"@ts-ignore\" will do nothing if the following line is error-free.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 14
+                  }
+                }
+              }
+            ]
           },
           "title": "Disallow `@ts-<directive>` comments or require descriptions after directives",
           "description": "ESLint rule **ban-ts-comment**, from _@typescript-eslint_ plugin.",
@@ -53,11 +80,90 @@
         },
         {
           "slug": "typescript-eslint-ban-types",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "6 errors",
+          "value": 6,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Don't use `{}` as a type. `{}` actually means \"any non-nullish value\".\n- If you want a type meaning \"any object\", you probably want `object` instead.\n- If you want a type meaning \"any value\", you probably want `unknown` instead.\n- If you want a type meaning \"empty object\", you probably want `Record<string, never>` instead.\n- If you really want a type meaning \"any non-nullish value\", you probably want `NonNullable<unknown>` instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.ts",
+                  "position": {
+                    "startLine": 22,
+                    "startColumn": 70,
+                    "endLine": 22,
+                    "endColumn": 72
+                  }
+                }
+              },
+              {
+                "message": "Don't use `{}` as a type. `{}` actually means \"any non-nullish value\".\n- If you want a type meaning \"any object\", you probably want `object` instead.\n- If you want a type meaning \"any value\", you probably want `unknown` instead.\n- If you want a type meaning \"empty object\", you probably want `Record<string, never>` instead.\n- If you really want a type meaning \"any non-nullish value\", you probably want `NonNullable<unknown>` instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.init.ts",
+                  "position": {
+                    "startLine": 9,
+                    "startColumn": 83,
+                    "endLine": 9,
+                    "endColumn": 85
+                  }
+                }
+              },
+              {
+                "message": "Don't use `{}` as a type. `{}` actually means \"any non-nullish value\".\n- If you want a type meaning \"any object\", you probably want `object` instead.\n- If you want a type meaning \"any value\", you probably want `unknown` instead.\n- If you want a type meaning \"empty object\", you probably want `Record<string, never>` instead.\n- If you really want a type meaning \"any non-nullish value\", you probably want `NonNullable<unknown>` instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 31,
+                    "startColumn": 21,
+                    "endLine": 31,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Don't use `{}` as a type. `{}` actually means \"any non-nullish value\".\n- If you want a type meaning \"any object\", you probably want `object` instead.\n- If you want a type meaning \"any value\", you probably want `unknown` instead.\n- If you want a type meaning \"empty object\", you probably want `Record<string, never>` instead.\n- If you really want a type meaning \"any non-nullish value\", you probably want `NonNullable<unknown>` instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 148,
+                    "startColumn": 47,
+                    "endLine": 148,
+                    "endColumn": 49
+                  }
+                }
+              },
+              {
+                "message": "Don't use `Symbol` as a type. Use symbol instead",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 37,
+                    "startColumn": 47,
+                    "endLine": 37,
+                    "endColumn": 53
+                  }
+                }
+              },
+              {
+                "message": "Don't use `Object` as a type. The `Object` type actually means \"any non-nullish value\", so it is marginally better than `unknown`.\n- If you want a type meaning \"any object\", you probably want `object` instead.\n- If you want a type meaning \"any value\", you probably want `unknown` instead.\n- If you really want a type meaning \"any non-nullish value\", you probably want `NonNullable<unknown>` instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 37,
+                    "startColumn": 56,
+                    "endLine": 37,
+                    "endColumn": 62
+                  }
+                }
+              }
+            ]
           },
           "title": "Disallow certain types",
           "description": "ESLint rule **ban-types**, from _@typescript-eslint_ plugin.",
@@ -89,11 +195,519 @@
         },
         {
           "slug": "typescript-eslint-no-explicit-any",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "39 errors",
+          "value": 39,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.spec.ts",
+                  "position": {
+                    "startLine": 66,
+                    "startColumn": 49,
+                    "endLine": 66,
+                    "endColumn": 52
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.spec.ts",
+                  "position": {
+                    "startLine": 72,
+                    "startColumn": 58,
+                    "endLine": 72,
+                    "endColumn": 61
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.spec.ts",
+                  "position": {
+                    "startLine": 98,
+                    "startColumn": 28,
+                    "endLine": 98,
+                    "endColumn": 31
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.ts",
+                  "position": {
+                    "startLine": 18,
+                    "startColumn": 102,
+                    "endLine": 18,
+                    "endColumn": 105
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/init/generator.spec.ts",
+                  "position": {
+                    "startLine": 22,
+                    "startColumn": 51,
+                    "endLine": 22,
+                    "endColumn": 54
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/cli/configuration.test.ts",
+                  "position": {
+                    "startLine": 33,
+                    "startColumn": 24,
+                    "endLine": 33,
+                    "endColumn": 27
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/cli/configuration.test.ts",
+                  "position": {
+                    "startLine": 61,
+                    "startColumn": 24,
+                    "endLine": 61,
+                    "endColumn": 27
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 37,
+                    "startColumn": 20,
+                    "endLine": 37,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 38,
+                    "startColumn": 20,
+                    "endLine": 38,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect.budgets.test.ts",
+                  "position": {
+                    "startLine": 28,
+                    "startColumn": 67,
+                    "endLine": 28,
+                    "endColumn": 70
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 26,
+                    "startColumn": 68,
+                    "endLine": 26,
+                    "endColumn": 71
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 53,
+                    "startColumn": 20,
+                    "endLine": 53,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 55,
+                    "startColumn": 20,
+                    "endLine": 55,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 71,
+                    "startColumn": 20,
+                    "endLine": 71,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 76,
+                    "startColumn": 19,
+                    "endLine": 76,
+                    "endColumn": 22
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/rc-config.test.ts",
+                  "position": {
+                    "startLine": 145,
+                    "startColumn": 31,
+                    "endLine": 145,
+                    "endColumn": 34
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.budget.ts",
+                  "position": {
+                    "startLine": 11,
+                    "startColumn": 59,
+                    "endLine": 11,
+                    "endColumn": 62
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.format.ts",
+                  "position": {
+                    "startLine": 20,
+                    "startColumn": 78,
+                    "endLine": 20,
+                    "endColumn": 81
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.format.ts",
+                  "position": {
+                    "startLine": 48,
+                    "startColumn": 15,
+                    "endLine": 48,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.ts",
+                  "position": {
+                    "startLine": 40,
+                    "startColumn": 28,
+                    "endLine": 40,
+                    "endColumn": 31
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.init.ts",
+                  "position": {
+                    "startLine": 23,
+                    "startColumn": 28,
+                    "endLine": 23,
+                    "endColumn": 31
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.ts",
+                  "position": {
+                    "startLine": 49,
+                    "startColumn": 67,
+                    "endLine": 49,
+                    "endColumn": 70
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 52,
+                    "startColumn": 10,
+                    "endLine": 52,
+                    "endColumn": 13
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 90,
+                    "startColumn": 68,
+                    "endLine": 90,
+                    "endColumn": 71
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 98,
+                    "startColumn": 68,
+                    "endLine": 98,
+                    "endColumn": 71
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 106,
+                    "startColumn": 68,
+                    "endLine": 106,
+                    "endColumn": 71
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 152,
+                    "startColumn": 36,
+                    "endLine": 152,
+                    "endColumn": 39
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 152,
+                    "startColumn": 77,
+                    "endLine": 152,
+                    "endColumn": 80
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 16,
+                    "startColumn": 22,
+                    "endLine": 16,
+                    "endColumn": 25
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 19,
+                    "startColumn": 22,
+                    "endLine": 19,
+                    "endColumn": 25
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 37,
+                    "startColumn": 71,
+                    "endLine": 37,
+                    "endColumn": 74
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/replay-examples/order-coffee-1-replay.uf.ts",
+                  "position": {
+                    "startLine": 7,
+                    "startColumn": 12,
+                    "endLine": 7,
+                    "endColumn": 15
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/replay-examples/order-coffee-2-replay.uf.ts",
+                  "position": {
+                    "startLine": 6,
+                    "startColumn": 12,
+                    "endLine": 6,
+                    "endColumn": 15
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-1.uf.ts",
+                  "position": {
+                    "startLine": 8,
+                    "startColumn": 84,
+                    "endLine": 8,
+                    "endColumn": 87
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-2.uf.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 84,
+                    "endLine": 4,
+                    "endColumn": 87
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-3.uf.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 84,
+                    "endLine": 4,
+                    "endColumn": 87
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-4.uf.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 84,
+                    "endLine": 4,
+                    "endColumn": 87
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-5.uf.ts",
+                  "position": {
+                    "startLine": 11,
+                    "startColumn": 84,
+                    "endLine": 11,
+                    "endColumn": 87
+                  }
+                }
+              },
+              {
+                "message": "Unexpected any. Specify a different type.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-gh-integration/user-flows/order-coffee.uf.ts",
+                  "position": {
+                    "startLine": 3,
+                    "startColumn": 84,
+                    "endLine": 3,
+                    "endColumn": 87
+                  }
+                }
+              }
+            ]
           },
           "title": "Disallow the `any` type",
           "description": "ESLint rule **no-explicit-any**, from _@typescript-eslint_ plugin.",
@@ -197,15 +811,431 @@
         },
         {
           "slug": "typescript-eslint-no-unused-vars",
+          "displayValue": "31 errors",
+          "value": 31,
+          "score": 0,
+          "details": {
+            "issues": [
+              {
+                "message": "'NPM_NAME' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.spec.ts",
+                  "position": {
+                    "startLine": 22,
+                    "startColumn": 7,
+                    "endLine": 22,
+                    "endColumn": 15
+                  }
+                }
+              },
+              {
+                "message": "'context' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/executors/user-flow/executor.ts",
+                  "position": {
+                    "startLine": 11,
+                    "startColumn": 3,
+                    "endLine": 11,
+                    "endColumn": 53
+                  }
+                }
+              },
+              {
+                "message": "'normalizeOptions' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/init/generator.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 9,
+                    "endLine": 4,
+                    "endColumn": 25
+                  }
+                }
+              },
+              {
+                "message": "'options' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/init/utils.ts",
+                  "position": {
+                    "startLine": 25,
+                    "startColumn": 48,
+                    "endLine": 25,
+                    "endColumn": 74
+                  }
+                }
+              },
+              {
+                "message": "'options' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/init/utils.ts",
+                  "position": {
+                    "startLine": 34,
+                    "startColumn": 42,
+                    "endLine": 34,
+                    "endColumn": 68
+                  }
+                }
+              },
+              {
+                "message": "'NPM_NAME' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/target/generator.spec.ts",
+                  "position": {
+                    "startLine": 17,
+                    "startColumn": 7,
+                    "endLine": 17,
+                    "endColumn": 15
+                  }
+                }
+              },
+              {
+                "message": "'projectName' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/target/utils.ts",
+                  "position": {
+                    "startLine": 27,
+                    "startColumn": 10,
+                    "endLine": 27,
+                    "endColumn": 21
+                  }
+                }
+              },
+              {
+                "message": "'targetName' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/target/utils.ts",
+                  "position": {
+                    "startLine": 27,
+                    "startColumn": 23,
+                    "endLine": 27,
+                    "endColumn": 33
+                  }
+                }
+              },
+              {
+                "message": "'verbose' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/nx-plugin/src/generators/target/utils.ts",
+                  "position": {
+                    "startLine": 27,
+                    "startColumn": 48,
+                    "endLine": 27,
+                    "endColumn": 55
+                  }
+                }
+              },
+              {
+                "message": "'rcPath' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 23,
+                    "startColumn": 13,
+                    "endLine": 23,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'interactive' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 23,
+                    "startColumn": 21,
+                    "endLine": 23,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "'verbose' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 23,
+                    "startColumn": 34,
+                    "endLine": 23,
+                    "endColumn": 41
+                  }
+                }
+              },
+              {
+                "message": "'budgetPath' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 51,
+                    "startColumn": 9,
+                    "endLine": 51,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'rcPath' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 25,
+                    "startColumn": 13,
+                    "endLine": 25,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'interactive' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 25,
+                    "startColumn": 21,
+                    "endLine": 25,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "'verbose' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 25,
+                    "startColumn": 34,
+                    "endLine": 25,
+                    "endColumn": 41
+                  }
+                }
+              },
+              {
+                "message": "'dryRun' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 26,
+                    "startColumn": 13,
+                    "endLine": 26,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'openReport' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 26,
+                    "startColumn": 21,
+                    "endLine": 26,
+                    "endColumn": 31
+                  }
+                }
+              },
+              {
+                "message": "'format' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 26,
+                    "startColumn": 33,
+                    "endLine": 26,
+                    "endColumn": 39
+                  }
+                }
+              },
+              {
+                "message": "'stdout' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init.test.ts",
+                  "position": {
+                    "startLine": 53,
+                    "startColumn": 23,
+                    "endLine": 53,
+                    "endColumn": 29
+                  }
+                }
+              },
+              {
+                "message": "'stdout' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/rc-config.test.ts",
+                  "position": {
+                    "startLine": 143,
+                    "startColumn": 23,
+                    "endLine": 143,
+                    "endColumn": 29
+                  }
+                }
+              },
+              {
+                "message": "'budgets' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.budget.ts",
+                  "position": {
+                    "startLine": 19,
+                    "startColumn": 55,
+                    "endLine": 19,
+                    "endColumn": 72
+                  }
+                }
+              },
+              {
+                "message": "'BASIC_NAVIGATION_USERFLOW_CONTENT' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/empty/cfg.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 10,
+                    "endLine": 5,
+                    "endColumn": 43
+                  }
+                }
+              },
+              {
+                "message": "'BASIC_NAVIGATION_USERFLOW_NAME' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/empty/cfg.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 45,
+                    "endLine": 5,
+                    "endColumn": 75
+                  }
+                }
+              },
+              {
+                "message": "'_' is defined but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 58,
+                    "startColumn": 44,
+                    "endLine": 58,
+                    "endColumn": 45
+                  }
+                }
+              },
+              {
+                "message": "'page' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-1.uf.ts",
+                  "position": {
+                    "startLine": 9,
+                    "startColumn": 11,
+                    "endLine": 9,
+                    "endColumn": 15
+                  }
+                }
+              },
+              {
+                "message": "'browser' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-1.uf.ts",
+                  "position": {
+                    "startLine": 9,
+                    "startColumn": 23,
+                    "endLine": 9,
+                    "endColumn": 30
+                  }
+                }
+              },
+              {
+                "message": "'browser' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-2.uf.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 23,
+                    "endLine": 5,
+                    "endColumn": 30
+                  }
+                }
+              },
+              {
+                "message": "'browser' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-3.uf.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 23,
+                    "endLine": 5,
+                    "endColumn": 30
+                  }
+                }
+              },
+              {
+                "message": "'browser' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/user-flows/order-coffee-4.uf.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 23,
+                    "endLine": 5,
+                    "endColumn": 30
+                  }
+                }
+              },
+              {
+                "message": "'browser' is assigned a value but never used.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-gh-integration/user-flows/order-coffee.uf.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 23,
+                    "endLine": 4,
+                    "endColumn": 30
+                  }
+                }
+              }
+            ]
+          },
+          "title": "Disallow unused variables",
+          "description": "ESLint rule **no-unused-vars**, from _@typescript-eslint_ plugin.",
+          "docsUrl": "https://typescript-eslint.io/rules/no-unused-vars"
+        },
+        {
+          "slug": "typescript-eslint-no-var-requires",
           "displayValue": "passed",
           "value": 0,
           "score": 1,
           "details": {
             "issues": []
           },
-          "title": "Disallow unused variables",
-          "description": "ESLint rule **no-unused-vars**, from _@typescript-eslint_ plugin.",
-          "docsUrl": "https://typescript-eslint.io/rules/no-unused-vars"
+          "title": "Disallow `require` statements except in import statements",
+          "description": "ESLint rule **no-var-requires**, from _@typescript-eslint_ plugin.",
+          "docsUrl": "https://typescript-eslint.io/rules/no-var-requires"
         },
         {
           "slug": "typescript-eslint-prefer-as-const",
@@ -232,16 +1262,261 @@
           "docsUrl": "https://typescript-eslint.io/rules/triple-slash-reference"
         },
         {
-          "slug": "constructor-super",
+          "slug": "no-var",
           "displayValue": "passed",
           "value": 0,
           "score": 1,
           "details": {
             "issues": []
           },
-          "title": "Require `super()` calls in constructors",
-          "description": "ESLint rule **constructor-super**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/constructor-super"
+          "title": "Require `let` or `const` instead of `var`",
+          "description": "ESLint rule **no-var**.",
+          "docsUrl": "https://eslint.org/docs/latest/rules/no-var"
+        },
+        {
+          "slug": "prefer-const",
+          "displayValue": "16 errors",
+          "value": 16,
+          "score": 0,
+          "details": {
+            "issues": [
+              {
+                "message": "'collect' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 47,
+                    "startColumn": 11,
+                    "endLine": 47,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "'persist' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 47,
+                    "startColumn": 20,
+                    "endLine": 47,
+                    "endColumn": 27
+                  }
+                }
+              },
+              {
+                "message": "'assert' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 47,
+                    "startColumn": 29,
+                    "endLine": 47,
+                    "endColumn": 35
+                  }
+                }
+              },
+              {
+                "message": "'outPath' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 50,
+                    "startColumn": 11,
+                    "endLine": 50,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "'budgetPath' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect-configuration.test.ts",
+                  "position": {
+                    "startLine": 51,
+                    "startColumn": 9,
+                    "endLine": 51,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'staticWRcBudgetPrjCfg' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect.budgets.test.ts",
+                  "position": {
+                    "startLine": 63,
+                    "startColumn": 5,
+                    "endLine": 63,
+                    "endColumn": 49
+                  }
+                }
+              },
+              {
+                "message": "'staticWBudgetPathPrjCfg' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect.budgets.test.ts",
+                  "position": {
+                    "startLine": 98,
+                    "startColumn": 5,
+                    "endLine": 98,
+                    "endColumn": 51
+                  }
+                }
+              },
+              {
+                "message": "'staticWConfigPathPrjCfg' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect.config.test.ts",
+                  "position": {
+                    "startLine": 39,
+                    "startColumn": 5,
+                    "endLine": 39,
+                    "endColumn": 51
+                  }
+                }
+              },
+              {
+                "message": "'staticWConfigPrjCfg' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/collect/collect.config.test.ts",
+                  "position": {
+                    "startLine": 81,
+                    "startColumn": 5,
+                    "endLine": 81,
+                    "endColumn": 47
+                  }
+                }
+              },
+              {
+                "message": "'outPath' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 81,
+                    "startColumn": 11,
+                    "endLine": 81,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "'format' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 81,
+                    "startColumn": 20,
+                    "endLine": 81,
+                    "endColumn": 26
+                  }
+                }
+              },
+              {
+                "message": "'budgetPath' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/init-configuration.test.ts",
+                  "position": {
+                    "startLine": 82,
+                    "startColumn": 11,
+                    "endLine": 82,
+                    "endColumn": 21
+                  }
+                }
+              },
+              {
+                "message": "'outPath' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/rc-config.test.ts",
+                  "position": {
+                    "startLine": 167,
+                    "startColumn": 11,
+                    "endLine": 167,
+                    "endColumn": 18
+                  }
+                }
+              },
+              {
+                "message": "'format' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/rc-config.test.ts",
+                  "position": {
+                    "startLine": 167,
+                    "startColumn": 20,
+                    "endLine": 167,
+                    "endColumn": 26
+                  }
+                }
+              },
+              {
+                "message": "'htmlFormat' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/commands/init/rc-config.test.ts",
+                  "position": {
+                    "startLine": 168,
+                    "startColumn": 9,
+                    "endLine": 168,
+                    "endColumn": 19
+                  }
+                }
+              },
+              {
+                "message": "'verbose' is never reassigned. Use 'const' instead.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/kill.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 9,
+                    "endLine": 5,
+                    "endColumn": 16
+                  }
+                }
+              }
+            ]
+          },
+          "title": "Require `const` declarations for variables that are never reassigned after declared",
+          "description": "ESLint rule **prefer-const**.",
+          "docsUrl": "https://eslint.org/docs/latest/rules/prefer-const"
+        },
+        {
+          "slug": "prefer-rest-params",
+          "displayValue": "passed",
+          "value": 0,
+          "score": 1,
+          "details": {
+            "issues": []
+          },
+          "title": "Require rest parameters instead of `arguments`",
+          "description": "ESLint rule **prefer-rest-params**.",
+          "docsUrl": "https://eslint.org/docs/latest/rules/prefer-rest-params"
+        },
+        {
+          "slug": "prefer-spread",
+          "displayValue": "passed",
+          "value": 0,
+          "score": 1,
+          "details": {
+            "issues": []
+          },
+          "title": "Require spread operators instead of `.apply()`",
+          "description": "ESLint rule **prefer-spread**.",
+          "docsUrl": "https://eslint.org/docs/latest/rules/prefer-spread"
         },
         {
           "slug": "for-direction",
@@ -254,18 +1529,6 @@
           "title": "Enforce \"for\" loop update clause moving the counter in the right direction",
           "description": "ESLint rule **for-direction**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/for-direction"
-        },
-        {
-          "slug": "getter-return",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Enforce `return` statements in getters",
-          "description": "ESLint rule **getter-return**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/getter-return"
         },
         {
           "slug": "no-async-promise-executor",
@@ -281,11 +1544,38 @@
         },
         {
           "slug": "no-case-declarations",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "2 errors",
+          "value": 2,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Unexpected lexical declaration in case block.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.collect.ts",
+                  "position": {
+                    "startLine": 40,
+                    "startColumn": 9,
+                    "endLine": 40,
+                    "endColumn": 72
+                  }
+                }
+              },
+              {
+                "message": "Unexpected lexical declaration in case block.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.init.ts",
+                  "position": {
+                    "startLine": 23,
+                    "startColumn": 9,
+                    "endLine": 23,
+                    "endColumn": 72
+                  }
+                }
+              }
+            ]
           },
           "title": "Disallow lexical declarations in case clauses",
           "description": "ESLint rule **no-case-declarations**.",
@@ -326,18 +1616,6 @@
           "title": "Disallow assignment operators in conditional expressions",
           "description": "ESLint rule **no-cond-assign**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-cond-assign"
-        },
-        {
-          "slug": "no-const-assign",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow reassigning `const` variables",
-          "description": "ESLint rule **no-const-assign**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-const-assign"
         },
         {
           "slug": "no-constant-condition",
@@ -388,30 +1666,6 @@
           "docsUrl": "https://eslint.org/docs/latest/rules/no-delete-var"
         },
         {
-          "slug": "no-dupe-args",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow duplicate arguments in `function` definitions",
-          "description": "ESLint rule **no-dupe-args**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-dupe-args"
-        },
-        {
-          "slug": "no-dupe-class-members",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow duplicate class members",
-          "description": "ESLint rule **no-dupe-class-members**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-dupe-class-members"
-        },
-        {
           "slug": "no-dupe-else-if",
           "displayValue": "passed",
           "value": 0,
@@ -422,18 +1676,6 @@
           "title": "Disallow duplicate conditions in if-else-if chains",
           "description": "ESLint rule **no-dupe-else-if**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-dupe-else-if"
-        },
-        {
-          "slug": "no-dupe-keys",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow duplicate keys in object literals",
-          "description": "ESLint rule **no-dupe-keys**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-dupe-keys"
         },
         {
           "slug": "no-duplicate-case",
@@ -520,18 +1762,6 @@
           "docsUrl": "https://eslint.org/docs/latest/rules/no-fallthrough"
         },
         {
-          "slug": "no-func-assign",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow reassigning `function` declarations",
-          "description": "ESLint rule **no-func-assign**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-func-assign"
-        },
-        {
           "slug": "no-global-assign",
           "displayValue": "passed",
           "value": 0,
@@ -542,18 +1772,6 @@
           "title": "Disallow assignments to native objects or read-only global variables",
           "description": "ESLint rule **no-global-assign**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-global-assign"
-        },
-        {
-          "slug": "no-import-assign",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow assigning to imported bindings",
-          "description": "ESLint rule **no-import-assign**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-import-assign"
         },
         {
           "slug": "no-inner-declarations",
@@ -604,18 +1822,6 @@
           "docsUrl": "https://eslint.org/docs/latest/rules/no-misleading-character-class"
         },
         {
-          "slug": "no-new-symbol",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow `new` operators with the `Symbol` object",
-          "description": "ESLint rule **no-new-symbol**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-new-symbol"
-        },
-        {
           "slug": "no-nonoctal-decimal-escape",
           "displayValue": "passed",
           "value": 0,
@@ -626,18 +1832,6 @@
           "title": "Disallow `\\8` and `\\9` escape sequences in string literals",
           "description": "ESLint rule **no-nonoctal-decimal-escape**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape"
-        },
-        {
-          "slug": "no-obj-calls",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow calling global object properties as functions",
-          "description": "ESLint rule **no-obj-calls**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-obj-calls"
         },
         {
           "slug": "no-octal",
@@ -664,18 +1858,6 @@
           "docsUrl": "https://eslint.org/docs/latest/rules/no-prototype-builtins"
         },
         {
-          "slug": "no-redeclare",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow variable redeclaration",
-          "description": "ESLint rule **no-redeclare**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-redeclare"
-        },
-        {
           "slug": "no-regex-spaces",
           "displayValue": "passed",
           "value": 0,
@@ -698,18 +1880,6 @@
           "title": "Disallow assignments where both sides are exactly the same",
           "description": "ESLint rule **no-self-assign**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-self-assign"
-        },
-        {
-          "slug": "no-setter-return",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow returning values from setters",
-          "description": "ESLint rule **no-setter-return**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-setter-return"
         },
         {
           "slug": "no-shadow-restricted-names",
@@ -736,42 +1906,6 @@
           "docsUrl": "https://eslint.org/docs/latest/rules/no-sparse-arrays"
         },
         {
-          "slug": "no-this-before-super",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow `this`/`super` before calling `super()` in constructors",
-          "description": "ESLint rule **no-this-before-super**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-this-before-super"
-        },
-        {
-          "slug": "no-undef",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow the use of undeclared variables unless mentioned in `/*global */` comments",
-          "description": "ESLint rule **no-undef**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-undef"
-        },
-        {
-          "slug": "no-unreachable",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow unreachable code after `return`, `throw`, `continue`, and `break` statements",
-          "description": "ESLint rule **no-unreachable**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-unreachable"
-        },
-        {
           "slug": "no-unsafe-finally",
           "displayValue": "passed",
           "value": 0,
@@ -782,18 +1916,6 @@
           "title": "Disallow control flow statements in `finally` blocks",
           "description": "ESLint rule **no-unsafe-finally**.",
           "docsUrl": "https://eslint.org/docs/latest/rules/no-unsafe-finally"
-        },
-        {
-          "slug": "no-unsafe-negation",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
-          "details": {
-            "issues": []
-          },
-          "title": "Disallow negating the left operand of relational operators",
-          "description": "ESLint rule **no-unsafe-negation**.",
-          "docsUrl": "https://eslint.org/docs/latest/rules/no-unsafe-negation"
         },
         {
           "slug": "no-unsafe-optional-chaining",
@@ -845,11 +1967,38 @@
         },
         {
           "slug": "no-useless-escape",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "2 errors",
+          "value": 2,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Unnecessary escape character: \\'.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/remote/flow1.uf.ts",
+                  "position": {
+                    "startLine": 11,
+                    "startColumn": 22,
+                    "endLine": 11,
+                    "endColumn": 23
+                  }
+                }
+              },
+              {
+                "message": "Unnecessary escape character: \\'.",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/remote/flow1.uf.ts",
+                  "position": {
+                    "startLine": 11,
+                    "startColumn": 30,
+                    "endLine": 11,
+                    "endColumn": 31
+                  }
+                }
+              }
+            ]
           },
           "title": "Disallow unnecessary escape characters",
           "description": "ESLint rule **no-useless-escape**.",
@@ -905,11 +2054,233 @@
         },
         {
           "slug": "nx-enforce-module-boundaries-9dba9763586d15c6",
-          "displayValue": "passed",
-          "value": 0,
-          "score": 1,
+          "displayValue": "17 errors",
+          "value": 17,
+          "score": 0,
           "details": {
-            "issues": []
+            "issues": [
+              {
+                "message": "Projects cannot be imported by a relative or absolute path, and must begin with a npm scope",
+                "severity": "error",
+                "source": {
+                  "file": "packages/sandbox/e2e/jest/expect.init.ts",
+                  "position": {
+                    "startLine": 7,
+                    "startColumn": 1,
+                    "endLine": 7,
+                    "endColumn": 111
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/config/lh-config.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/config/lh-config.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 66
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/empty/cfg.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/empty/cfg.ts",
+                  "position": {
+                    "startLine": 2,
+                    "startColumn": 1,
+                    "endLine": 2,
+                    "endColumn": 75
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/initialized/cfg.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/initialized/cfg.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 75
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/remote/cfg.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/remote/cfg.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 92
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/remote/rc.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/remote/rc.ts",
+                  "position": {
+                    "startLine": 2,
+                    "startColumn": 1,
+                    "endLine": 2,
+                    "endColumn": 82
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/static/cfg.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/static/cfg.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 91
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/static/rc.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/static/rc.ts",
+                  "position": {
+                    "startLine": 2,
+                    "startColumn": 1,
+                    "endLine": 2,
+                    "endColumn": 102
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"test-data\" and \"user-flow-cli-testing\" detected: test-data -> user-flow-cli-testing -> cli -> test-data\n\nCircular file chain:\n- packages/test-data/src/lib/sandboxes/user-flowrc.base.ts\n- [\n    packages/user-flow-cli-testing/src/index.ts,\n    packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts,\n    packages/user-flow-cli-testing/src/lib/types.ts,\n    packages/user-flow-cli-testing/src/lib/user-flow-cli.ts,\n    packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n  ]\n- [\n    packages/cli/src/lib/commands/assert/utils/md-report.test.ts,\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/replay/parse.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/derive-budgets-from-lhr.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/test-data/src/lib/sandboxes/user-flowrc.base.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 8,
+                    "endColumn": 44
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/index.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/index.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 6,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/data/user-flowrc.base.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 8,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/lib/types.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/types.ts",
+                  "position": {
+                    "startLine": 2,
+                    "startColumn": 1,
+                    "endLine": 2,
+                    "endColumn": 115
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/lib/types.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/types.ts",
+                  "position": {
+                    "startLine": 4,
+                    "startColumn": 1,
+                    "endLine": 11,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/lib/user-flow-cli.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/user-flow-cli.ts",
+                  "position": {
+                    "startLine": 5,
+                    "startColumn": 1,
+                    "endLine": 14,
+                    "endColumn": 32
+                  }
+                }
+              },
+              {
+                "message": "Circular dependency between \"user-flow-cli-testing\" and \"cli\" detected: user-flow-cli-testing -> cli -> user-flow-cli-testing\n\nCircular file chain:\n- packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts\n- [\n    packages/cli/src/lib/commands/collect/utils/persist/persist-flow.test.ts,\n    packages/cli/src/lib/commands/collect/utils/user-flow/load-flow.test.ts,\n    packages/cli/src/lib/commands/init/processes/generate-userflow.test.ts,\n    packages/cli/src/lib/global/cli-mode/cli.mode.test.ts,\n    packages/cli/src/lib/pre-set.test.ts\n  ]",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-cli-testing/src/lib/utils/cli-mode.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 83
+                  }
+                }
+              },
+              {
+                "message": "Projects cannot be imported by a relative or absolute path, and must begin with a npm scope",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/ufo/checkout.form.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 43
+                  }
+                }
+              },
+              {
+                "message": "Projects cannot be imported by a relative or absolute path, and must begin with a npm scope",
+                "severity": "error",
+                "source": {
+                  "file": "packages/user-flow-example/ufo/coffee.ufo.ts",
+                  "position": {
+                    "startLine": 1,
+                    "startColumn": 1,
+                    "endLine": 1,
+                    "endColumn": 43
+                  }
+                }
+              }
+            ]
           },
           "title": "Ensure that module boundaries are respected within the monorepo",
           "description": "ESLint rule **enforce-module-boundaries**, from _@nx_ plugin.\n\nCustom options:\n\n```json\n{\n  \"enforceBuildableLibDependency\": true,\n  \"allow\": [],\n  \"depConstraints\": [\n    {\n      \"sourceTag\": \"*\",\n      \"onlyDependOnLibsWithTags\": [\n        \"*\"\n      ]\n    }\n  ]\n}\n```"
@@ -954,15 +2325,11 @@
               "weight": 1
             },
             {
-              "slug": "constructor-super",
+              "slug": "typescript-eslint-no-var-requires",
               "weight": 1
             },
             {
               "slug": "for-direction",
-              "weight": 1
-            },
-            {
-              "slug": "getter-return",
               "weight": 1
             },
             {
@@ -982,10 +2349,6 @@
               "weight": 1
             },
             {
-              "slug": "no-const-assign",
-              "weight": 1
-            },
-            {
               "slug": "no-constant-condition",
               "weight": 1
             },
@@ -998,19 +2361,7 @@
               "weight": 1
             },
             {
-              "slug": "no-dupe-args",
-              "weight": 1
-            },
-            {
-              "slug": "no-dupe-class-members",
-              "weight": 1
-            },
-            {
               "slug": "no-dupe-else-if",
-              "weight": 1
-            },
-            {
-              "slug": "no-dupe-keys",
               "weight": 1
             },
             {
@@ -1034,14 +2385,6 @@
               "weight": 1
             },
             {
-              "slug": "no-func-assign",
-              "weight": 1
-            },
-            {
-              "slug": "no-import-assign",
-              "weight": 1
-            },
-            {
               "slug": "no-inner-declarations",
               "weight": 1
             },
@@ -1058,14 +2401,6 @@
               "weight": 1
             },
             {
-              "slug": "no-new-symbol",
-              "weight": 1
-            },
-            {
-              "slug": "no-obj-calls",
-              "weight": 1
-            },
-            {
               "slug": "no-prototype-builtins",
               "weight": 1
             },
@@ -1074,31 +2409,11 @@
               "weight": 1
             },
             {
-              "slug": "no-setter-return",
-              "weight": 1
-            },
-            {
               "slug": "no-sparse-arrays",
               "weight": 1
             },
             {
-              "slug": "no-this-before-super",
-              "weight": 1
-            },
-            {
-              "slug": "no-undef",
-              "weight": 1
-            },
-            {
-              "slug": "no-unreachable",
-              "weight": 1
-            },
-            {
               "slug": "no-unsafe-finally",
-              "weight": 1
-            },
-            {
-              "slug": "no-unsafe-negation",
               "weight": 1
             },
             {
@@ -1157,6 +2472,22 @@
               "weight": 1
             },
             {
+              "slug": "no-var",
+              "weight": 1
+            },
+            {
+              "slug": "prefer-const",
+              "weight": 1
+            },
+            {
+              "slug": "prefer-rest-params",
+              "weight": 1
+            },
+            {
+              "slug": "prefer-spread",
+              "weight": 1
+            },
+            {
               "slug": "no-case-declarations",
               "weight": 1
             },
@@ -1182,10 +2513,6 @@
             },
             {
               "slug": "no-octal",
-              "weight": 1
-            },
-            {
-              "slug": "no-redeclare",
               "weight": 1
             },
             {

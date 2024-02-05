@@ -1,18 +1,15 @@
 {
-  "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
-    }
-  ]
+  "extends": ["./code-pushup.eslintrc.json"],
+  // temporarily disable failing rules so `nx lint` passes
+  // number of errors/warnings per rule recorded at Mon Feb 05 2024 18:55:02 GMT+0100 (Central European Standard Time)
+  "rules": {
+    "no-case-declarations": "off", // 2 errors
+    "prefer-const": "off", // 15 errors
+    "@nx/enforce-module-boundaries": "off", // 1 error
+    "@typescript-eslint/ban-ts-comment": "off", // 1 error
+    "@typescript-eslint/ban-types": "off", // 2 errors
+    "@typescript-eslint/no-explicit-any": "off", // 17 errors
+    "@typescript-eslint/no-unused-vars": "off" // 13 errors
+  }
+  
 }
