@@ -10,6 +10,7 @@ import {handleFlowGeneration} from "./processes/generate-userflow";
 import {handleGhWorkflowGeneration} from "./processes/generate-workflow";
 import {handleBudgetsGeneration} from "./processes/generate-lh-budgets";
 import {SETUP_CONFIRM_MESSAGE} from "./constants";
+import { fileSystemManager } from '../../core/file';
 
 export async function runInitCommand(argv: RcJsonAsArgv) {
   const { interactive } = getGlobalOptionsFromArgv(argv);
@@ -19,7 +20,7 @@ export async function runInitCommand(argv: RcJsonAsArgv) {
   await run([
     collectRcJson,
     updateRcJson,
-    handleFlowGeneration({ interactive: !!interactive, generateFlow }),
+    handleFlowGeneration({ interactive: !!interactive, generateFlow }, fileSystemManager),
     handleGhWorkflowGeneration({ generateGhWorkflow }),
     handleBudgetsGeneration({ generateBudgets, lhr }),
   ])(cfg );
