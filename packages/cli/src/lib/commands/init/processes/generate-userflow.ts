@@ -1,8 +1,8 @@
 import { RcJson } from '../../../types';
-import { join } from 'path';
+import { join } from 'node:path';
 import { readFile, writeFile } from '../../../core/file';
 import { log } from '../../../core/loggin';
-import { mkdirSync, readdirSync } from 'fs';
+import { mkdirSync, readdirSync } from 'node:fs';
 import { FlowExampleMap } from '../constants';
 import { FlowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';

@@ -1,5 +1,5 @@
-import { dirname } from 'path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
+import { dirname } from 'node:path';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs';
 import { logVerbose } from '../loggin';
 import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
