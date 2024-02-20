@@ -1,9 +1,13 @@
+import { Buffer } from 'node:buffer';
+import { prompt } from 'enquirer';
 import { INITIATED_RC_JSON } from 'test-data';
 import { handleFlowGeneration } from './generate-userflow';
-import { Buffer } from 'node:buffer';
 import fs = require('node:fs');
 
 jest.mock('node:fs');
+jest.mock('enquirer', () => ({
+  prompt: jest.fn().mockResolvedValue(false),
+}));
 
 describe('generate userflow', () => {
 
@@ -32,19 +36,13 @@ describe('generate userflow', () => {
    *
    */
 
-  /*
-  @TODO create a test helper for functions with prompt side effects
   // [nf] init --interactive => [P]: "Setup user flow" -> Y:[F]/n[nF]
-  it('should prompt with --interactive', withUserFlowProject(EMPTY_PRJ_CFG, async (_) => {
-    const expectedFilePath = join(INITIATED_PRJ_CFG.root, INITIATED_RC_JSON.collect.ufPath,'basic-navigation.uf.ts');
-    expect(existsSync(expectedFilePath)).toBeFalsy();
-    let o = '';
-    (console as any).log = (...v) => o += v.join(', ')
+  it('should prompt with --interactive if file does not exists', async () => {
+    const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false);
     await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
-    expect(o).toContain('Setup user flow')
-    expect(existsSync(expectedFilePath)).toBeTruthy();
-    })
-  );*/
+    expect(existsSyncSpy).toHaveBeenCalled();
+    expect(prompt).toHaveBeenCalled();
+  });
 
   // [f] init --interactive => [L]: "File already here"; [nF]
   it('should not prompt with --interactive if file exists',async () => {
