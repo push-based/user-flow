@@ -47,14 +47,13 @@ describe('generate userflow', () => {
   // [f] init --interactive => [L]: "File already here"; [nF]
   it('should not prompt with --interactive if file exists',async () => {
     const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(true);
-    const isDirectorySpy = jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as any);
+    const isDirectorySpy = jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     const readFileSyncSpy = jest.spyOn(fs, 'readFileSync').mockReturnValue('Dummy Flow');
-    const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync');
     await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
     expect(existsSyncSpy).toHaveBeenCalled();
     expect(isDirectorySpy).toHaveBeenCalled();
     expect(readFileSyncSpy).toHaveBeenCalled();
-    expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
+    expect(prompt).toHaveBeenCalledTimes(0);
   });
 
   // [f] init --no-interactive => [N]
@@ -64,6 +63,7 @@ describe('generate userflow', () => {
     await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
     expect(existsSyncSpy).toHaveBeenCalledTimes(0);
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
+    expect(prompt).toHaveBeenCalledTimes(0);
   });
 
   // [nf] init --no-interactive => [N]
@@ -73,13 +73,14 @@ describe('generate userflow', () => {
     await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
     expect(existsSyncSpy).toHaveBeenCalledTimes(0);
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
+    expect(prompt).toHaveBeenCalledTimes(0);
   });
 
   // [nf] init --interactive --generateFlow => [L]: "File already here"; [nF]
   it('should create flow when --generateFlow is used', async () => {
     jest.spyOn(fs, 'readdirSync').mockReturnValue([]);
     jest.spyOn(fs, 'existsSync').mockReturnValueOnce(false).mockReturnValue(true);
-    jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as any);
+    jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     jest.spyOn(fs, 'readFileSync').mockReturnValueOnce(Buffer.from(''));
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync');
     await handleFlowGeneration({interactive: true, generateFlow: true})(INITIATED_RC_JSON);
