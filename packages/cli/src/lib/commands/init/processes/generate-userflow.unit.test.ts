@@ -15,14 +15,14 @@ describe('generate userflow', () => {
     jest.resetAllMocks();
   })
 
-  it('should prompt if not passed generateFlow and is interactive and file does not already exist', async () => {
+  it('should prompt if not passed generateFlow and has interactive true and file does not already exist', async () => {
     const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false);
     await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
     expect(existsSyncSpy).toHaveBeenCalled();
     expect(prompt).toHaveBeenCalled();
   });
 
-  it('should not prompt with --interactive if file already exists',async () => {
+  it('should not prompt if interactive is true and if file already exists',async () => {
     const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const isDirectorySpy = jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     const readFileSyncSpy = jest.spyOn(fs, 'readFileSync').mockReturnValue('Dummy Flow');
@@ -33,18 +33,18 @@ describe('generate userflow', () => {
     expect(prompt).not.toHaveBeenCalled();
   });
 
-  it('should not prompt with --no-interactive',async () => {
+  it('should not prompt if interactive is false',async () => {
     await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
     expect(prompt).not.toHaveBeenCalled();
   });
 
-  it('should not check if file exist with --no-interactive', async () => {
+  it('should not check if file exist if interactive is false', async () => {
     const existsSyncSpy = jest.spyOn(fs, 'existsSync');
     await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
     expect(existsSyncSpy).not.toHaveBeenCalled();
   });
 
-  it('should create flow when --generateFlow is used', async () => {
+  it('should create flow if generateFlow is true', async () => {
     jest.spyOn(fs, 'readdirSync').mockReturnValue([]);
     jest.spyOn(fs, 'existsSync').mockReturnValueOnce(false).mockReturnValue(true);
     jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
@@ -54,7 +54,7 @@ describe('generate userflow', () => {
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should not create flow when --no-generateFlow is used', async () => {
+  it('should not create flow if generateFlow is true', async () => {
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync');
     await handleFlowGeneration({interactive: true, generateFlow: false})(INITIATED_RC_JSON);
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
