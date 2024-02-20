@@ -1,7 +1,7 @@
 import { dirname } from 'path';
-import { existsSync, lstatSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'fs';
 import { logVerbose } from '../loggin';
-import { formatCode, getParserFromExtname } from '../prettier';
+import { getParserFromExtname, formatCode } from '../prettier';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
 import { ExtToOutPut, ResolveFileResult } from './types';
 
@@ -61,7 +61,7 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
 /**
  * Ensures the folder exists before writing it
  */
-export function writeFile(filePath: string, data: string): void {
+export function writeFile(filePath: string, data: string) {
   const dir = dirname(filePath);
   if (!existsSync(dir)) {
     logVerbose(`Created dir ${dir} to save ${filePath}`);
@@ -101,12 +101,3 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   return { exports, path };
 }
 
-export const fileSystemManager = {
-  writeFile: writeFile,
-  readFile: readFile,
-  existSync: existsSync,
-  readdirSync: readdirSync,
-  mkdirSync: mkdirSync,
-}
-
-export type FileSystemManager = typeof fileSystemManager;

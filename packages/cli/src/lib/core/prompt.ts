@@ -34,7 +34,7 @@ export function askToSkip(
   question: string,
   cliProcess: CLIProcess,
   options: {
-    precondition?: (r: RcJson) => Promise<boolean>;
+    precondition?: (r?: RcJson) => Promise<boolean>;
   } = {
     precondition: async () => true,
   }

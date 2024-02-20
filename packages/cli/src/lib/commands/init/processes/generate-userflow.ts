@@ -1,12 +1,14 @@
 import { RcJson } from '../../../types';
 import { join } from 'path';
-import { FileSystemManager } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
+import { readFile, writeFile } from '../../../core/file';
+import { log } from '../../../core/loggin';
+import { mkdirSync, readdirSync } from 'fs';
 import { FlowExampleMap } from '../constants';
 import { FlowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
+import { logVerbose } from '../../../core/loggin';
 import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 
 const exampleName = 'basic-navigation';
@@ -16,53 +18,44 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
   return join(folder, fileName);
 }
 
-export const userflowIsNotCreated = (fSM: FileSystemManager) => {
-  return (cfg: RcJson): Promise<boolean> => {
-    const path = getExamplePathDest(exampleName, cfg.collect.ufPath);
-    return Promise.resolve(!fSM.existSync(path));
+export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+
+export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
+  const ufPath = cliCfg.collect.ufPath;
+  // DX create directory if it does ot exist
+  try {
+    readdirSync(ufPath);
+  } catch (e) {
+    mkdirSync(ufPath, { recursive: true });
   }
-};
+  const tplFileName = FlowExampleMap[exampleName];
+  const exampleSourceLocation = join(__dirname,'..', 'static', tplFileName);
+  const exampleDestination = join(ufPath, tplFileName);
 
-export const generateUserFlow = (fSM: FileSystemManager): CLIProcess => {
-  return (cfg: RcJson): Promise<RcJson> => {
-    const ufPath = cfg.collect.ufPath;
-    // DX create directory if it does ot exist
-    try {
-      fSM.readdirSync(ufPath);
-    } catch (e) {
-      fSM.mkdirSync(ufPath, { recursive: true });
-    }
-    const tplFileName = FlowExampleMap[exampleName];
-    const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
-    const exampleDestination = join(ufPath, tplFileName);
-
-    if (fSM.readFile(exampleDestination) !== '') {
-      logVerbose(`User flow ${exampleName} already generated under ${exampleDestination}.`);
-      return Promise.resolve(cfg);
-    }
-    const fileContent = fSM.readFile(exampleSourceLocation, { fail: true }).toString();
-    fSM.writeFile(exampleDestination, fileContent);
-
-    log(`setup user-flow for basic navigation in ${ufPath} successfully`);
-    return Promise.resolve(cfg);
+  if (readFile(exampleDestination) !== '') {
+    logVerbose(`User flow ${exampleName} already generated under ${exampleDestination}.`);
+    return Promise.resolve(cliCfg);
   }
-};
 
-export function handleFlowGeneration(
-  { generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean},
-  fSM: FileSystemManager
-): CLIProcess {
+  const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
+  writeFile(exampleDestination, fileContent);
+
+  log(`setup user-flow for basic navigation in ${ufPath} successfully`);
+  return Promise.resolve(cliCfg);
+}
+
+export function handleFlowGeneration({ generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean}): CLIProcess {
   return ifThenElse(
     // if `withFlow` is not used in the CLI is in interactive mode
-    () => interactive && generateFlow === undefined,
+    () => interactive == true && generateFlow === undefined,
     // Prompt for flow generation
-    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow(fSM),
+    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
       // if the flow is not created already, otherwise skip creation
-      { precondition: userflowIsNotCreated(fSM) }),
+      { precondition: userflowIsNotCreated }),
     // else `withFlow` is used and true
     ifThenElse(() => !!generateFlow,
       // generate the file => else do nothing
-      generateUserFlow(fSM))
+      generateUserFlow)
   )
 }
 
