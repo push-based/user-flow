@@ -54,9 +54,9 @@ describe('generate userflow', () => {
     expect(writeFileSyncSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should not create flow if generateFlow is true', async () => {
+  it('should not create flow if generateFlow is false', async () => {
     const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync');
     await handleFlowGeneration({interactive: true, generateFlow: false})(INITIATED_RC_JSON);
-    expect(writeFileSyncSpy).toHaveBeenCalledTimes(0);
+    expect(writeFileSyncSpy).not.toHaveBeenCalled();
   });
 });
