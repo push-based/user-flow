@@ -39,9 +39,11 @@ describe('loading user-flow scripts for execution', () => {
     jest.spyOn(fileHelpers, 'resolveAnyFile').mockReturnValue('Flow Dummy' as any);
     const isDirectorySpy = jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => true } as fs.Stats);
     const readdirSyncSpy = jest.spyOn(fs, 'readdirSync').mockReturnValue(['file.ts' as unknown as fs.Dirent])
-    loadFlow({ ufPath: './path' });
+    loadFlow({ ufPath: './user-flow-dir-path' });
     expect(isDirectorySpy).toHaveBeenCalled();
-    expect(readdirSyncSpy).toHaveBeenCalled();
+    expect(readdirSyncSpy).toHaveBeenCalledWith(
+      expect.stringContaining('user-flow-dir-path')
+    );
   });
 
   it('should only resolve files ending in ts or js', () => {
