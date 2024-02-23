@@ -21,7 +21,7 @@ describe('loading user-flow scripts for execution', () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     const resolveAnyFileSpy = jest.spyOn(fileHelpers, 'resolveAnyFile');
-    expect(() => loadFlow({ ufPath: './path' })).toThrow();
+    expect(() => loadFlow({ ufPath: './path/file.json' })).toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 
