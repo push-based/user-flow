@@ -1,6 +1,6 @@
+import { join } from 'node:path';
+import { existsSync, lstatSync, readdirSync } from 'node:fs';
 import { UserFlowProvider } from './types';
-import { join } from 'path';
-import { existsSync, lstatSync, readdirSync } from 'fs';
 import { resolveAnyFile } from '../../../../core/file';
 import { CollectRcOptions } from '../../options/types';
 
@@ -8,7 +8,7 @@ export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports:
   const { ufPath } = collect;
   const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {
-    throw new Error(`ufPath: ${path} is no directory`);
+    throw new Error(`ufPath: ${path} is not file or directory`);
   }
 
   let files: string[];
