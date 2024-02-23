@@ -18,7 +18,7 @@ export const defaultBudgets = () => {
   logVerbose('New budgets used');
   const tplFileName = BudgetsExampleMap['budgets'];
   const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
-  return  readFile(exampleSourceLocation, { fail: true }).toString();
+  return readFile(exampleSourceLocation, { fail: true }).toString();
 }
 
 export const derivedBudgets = (lhr: string) => {
@@ -43,7 +43,7 @@ export function writeBudgetsFile(path: string, name: string, budgets: string): v
   writeFile(join(path, name), budgets);
 }
 
-export async function generateLgBudgets(cfg: RcJson & { lhr?: string }): Promise<RcJson> {
+export async function generateLhBudgets(cfg: RcJson & { lhr?: string }): Promise<RcJson> {
   const BUDGETS_FILE_NAME = 'budget.json';
 
   if (!budgetsFileExist(BUDGETS_FILE_NAME)) {
@@ -55,17 +55,17 @@ export async function generateLgBudgets(cfg: RcJson & { lhr?: string }): Promise
   return Promise.resolve(cfg);
 }
 
-function shouldSkipCondition(generateBudgets?: boolean) {
+function hasGenerateBudgetsInput(generateBudgets?: boolean) {
   return () => !!generateBudgets;
 }
 
 export function generateLightHouseBudgetProcess(lhr?: string): CLIProcess {
-  return (cfg: RcJson) => generateLgBudgets({ ...cfg, lhr });
+  return (cfg: RcJson) => generateLhBudgets({ ...cfg, lhr });
 }
 
 export function handleBudgetsGeneration({ generateBudgets, lhr }: { generateBudgets?: boolean, lhr?: string }): CLIProcess {
   return ifThenElse(
-    shouldSkipCondition(generateBudgets),
+    hasGenerateBudgetsInput(generateBudgets),
     generateLightHouseBudgetProcess(lhr),
   );
 }
