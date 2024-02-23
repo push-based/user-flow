@@ -55,6 +55,14 @@ describe('loading user-flow scripts for execution', () => {
     const resolveAnyFileSpy = jest.spyOn(fileHelpers, 'resolveAnyFile');
     loadFlow({ ufPath: './path' });
     expect(resolveAnyFileSpy).toHaveBeenCalledTimes(2);
+    expect(resolveAnyFileSpy).toHaveBeenNthCalledWith(
+      1,
+      expect.stringContaining('file.ts')
+    );
+    expect(resolveAnyFileSpy).toHaveBeenNthCalledWith(
+      2,
+      expect.stringContaining('file.js')
+    );
   })
 });
 
