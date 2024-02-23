@@ -8,7 +8,7 @@ jest.mock('../../../../core/file');
 describe('loading user-flow scripts for execution', () => {
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   })
 
   it('should throw if ufPath does not exist', () => {
