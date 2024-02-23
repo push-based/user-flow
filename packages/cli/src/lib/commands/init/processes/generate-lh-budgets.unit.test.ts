@@ -9,7 +9,7 @@ jest.mock('../../../core/file');
 describe('generate LH budgets', () => {
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   })
 
   it('should not check if file exist if generateBudgets is false', async () => {
