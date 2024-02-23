@@ -38,7 +38,6 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
  * Ensures the file exists before reading it
  */
 export function readFile<R extends any = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T) {
-  console.log('Test')
   const {fail, ext} = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
 
