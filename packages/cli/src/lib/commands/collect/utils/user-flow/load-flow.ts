@@ -8,7 +8,7 @@ export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports:
   const { ufPath } = collect;
   const path = join(process.cwd(), ufPath);
   if (!existsSync(path)) {
-    throw new Error(`ufPath: ${path} is not file or directory`);
+    throw new Error(`ufPath: ${path} is neither a file nor a directory`);
   }
 
   let files: string[];
