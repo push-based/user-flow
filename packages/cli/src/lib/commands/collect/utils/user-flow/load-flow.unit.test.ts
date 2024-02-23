@@ -13,8 +13,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should throw if ufPath does not exist', () => {
     const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false);
-    const loadFlowFn = () => loadFlow({ ufPath: './path' });
-    expect(loadFlowFn).toThrow();
+    expect(() => loadFlow({ ufPath: './path' })).toThrow();
     expect(existsSyncSpy).toHaveBeenCalled();
   });
 
@@ -31,8 +30,7 @@ describe('loading user-flow scripts for execution', () => {
     jest.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => true } as fs.Stats);
     jest.spyOn(fs, 'readdirSync').mockReturnValue(['file.json' as unknown as fs.Dirent])
     const resolveAnyFileSpy = jest.spyOn(fileHelpers, 'resolveAnyFile');
-    const loadFlowFn = () => loadFlow({ ufPath: './path' });
-    expect(loadFlowFn).toThrow();
+    expect(() => loadFlow({ ufPath: './path' })).toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 
