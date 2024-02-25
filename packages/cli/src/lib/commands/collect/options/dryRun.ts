@@ -1,6 +1,4 @@
 import { argv, Options } from 'yargs';
-import { Param } from './dryRun.model';
-import { ArgvOption } from '../../../core/yargs/types';
 import { getEnvPreset } from '../../../pre-set';
 
 export const dryRun = {
@@ -11,6 +9,6 @@ export const dryRun = {
 } satisfies Options;
 
 export function get(): boolean {
-  const { dryRun } = argv as any as ArgvOption<Param>;
+  const { dryRun } = argv as any as { dryRun: boolean };
   return dryRun;
 }

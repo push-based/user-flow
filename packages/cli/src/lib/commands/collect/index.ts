@@ -1,5 +1,5 @@
 import { YargsCommandObject } from '../../core/yargs/types';
-import { logVerbose } from '../../core/loggin/index';
+import { logVerbose } from '../../core/loggin';
 import { collectOptions } from './options';
 import { runCollectCommand } from './command-impl';
 

@@ -1,6 +1,4 @@
 import { argv, Options } from 'yargs';
-import { Param } from './openReport.model';
-import { ArgvOption } from '../../../core/yargs/types';
 import { getEnvPreset } from '../../../pre-set';
 
 export const openReport = {
@@ -12,6 +10,6 @@ export const openReport = {
 } satisfies Options;
 
 export function get(): boolean {
-  const { openReport } = argv as any as ArgvOption<Param>;
+  const { openReport } = argv as any as { openReport: boolean };
   return openReport;
 }

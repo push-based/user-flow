@@ -30,10 +30,9 @@ export function setupYargs(
 export function runCli(cliCfg: {
   commands: YargsCommandObject[];
   options: { [key: string]: Options };
-  configParser: Options['configParser']; //RcArgvOptions & GlobalOptionsArgv
+  configParser: Options['configParser'];
 }) {
   // apply `.argv` to get args as plain obj available
   setupYargs(cliCfg.commands, cliCfg.options, cliCfg.configParser).argv;
-
 }
 

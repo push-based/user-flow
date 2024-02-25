@@ -1,5 +1,4 @@
-import { RcJsonAsArgv } from '../../types';
-
+import { InitOptions } from './options';
 import { log, logVerbose } from '../../core/loggin';
 import { run } from '../../core/processing/behaviors';
 import { collectRcJson } from './processes/collect-rc-json';
@@ -10,7 +9,6 @@ import { handleFlowGeneration } from './processes/generate-userflow';
 import { handleGhWorkflowGeneration } from './processes/generate-workflow';
 import { handleBudgetsGeneration } from './processes/generate-lh-budgets';
 import { SETUP_CONFIRM_MESSAGE } from './constants';
-import { InitOptions } from './options';
 
 export async function runInitCommand(argv: InitOptions): Promise<void> {
   const { interactive } = getGlobalOptionsFromArgv(argv);
