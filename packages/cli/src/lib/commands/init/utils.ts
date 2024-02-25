@@ -1,13 +1,13 @@
-import { InitArgvOptions } from './options/types';
 import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
 import { AssertRcOptions } from '../assert/options/types';
+import { InitOptions } from './options';
 
-export function getInitCommandOptionsFromArgv(argv: any) {
+export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   let {
     generateFlow, generateGhWorkflow, generateBudgets, lhr,
     url, ufPath, serveCommand, awaitServeStdout,
     outPath, format, budgetPath, budgets
-  } = argv as unknown as InitArgvOptions;
+  } = argv;
 
   let collect = {} as CollectRcOptions;
   url && (collect.url = url);
@@ -22,7 +22,7 @@ export function getInitCommandOptionsFromArgv(argv: any) {
 
   let assert = {} as AssertRcOptions;
   budgetPath && (assert.budgetPath = budgetPath);
-  budgets && (assert.budgets = budgets);
+  budgets && (assert.budgets = budgets as any);
 
   return { collect, persist, assert,
     generateFlow, generateGhWorkflow, generateBudgets, lhr

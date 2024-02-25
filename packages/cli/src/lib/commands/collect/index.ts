@@ -1,7 +1,7 @@
-import {YargsCommandObject} from '../../core/yargs/types';
-import {logVerbose} from '../../core/loggin/index';
-import {collectOptions} from './options';
-import {runCollectCommand} from "./command-impl";
+import { YargsCommandObject } from '../../core/yargs/types';
+import { logVerbose } from '../../core/loggin/index';
+import { collectOptions } from './options';
+import { runCollectCommand } from './command-impl';
 
 export const collectUserFlowsCommand: YargsCommandObject = {
   command: 'collect',

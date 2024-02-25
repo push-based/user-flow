@@ -8,9 +8,6 @@ import { Param as Format } from './format.model';
 import { AssertArgvOptions } from '../../assert/options/types';
 import { LhConfigJson } from '../../../hacky-things/lighthouse';
 
-export type PersistYargsOptions = OpenReport & OutPath & Format;
-export type CollectYargsOptions = UfPath & OutPath & Url & ServeCommand & AwaitServeStdout;
-
 export type CollectRcOptions = {
   url: string,
   ufPath: string,

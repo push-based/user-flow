@@ -2,29 +2,26 @@ import { RcJson } from '../../../types';
 import { join } from 'path';
 import { readFile, writeFile } from '../../../core/file';
 import { log, logVerbose } from '../../../core/loggin';
-import { mkdirSync, existsSync } from 'fs';
+import { existsSync, mkdirSync } from 'fs';
 import { GhWorkflowExampleMap } from '../constants';
-import { GhWorkflowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { CLIProcess } from '../../../core/processing/types';
 
 const exampleName = 'basic-workflow';
 
 const destPath =   join('.github', 'workflows');
-export function getExamplePathDest(workflowExample: GhWorkflowExamples): string {
-  const fileName = GhWorkflowExampleMap[workflowExample];
+export function getExamplePathDest(): string {
+  const fileName = GhWorkflowExampleMap[exampleName];
   if(!fileName) {
-    throw new Error(`workflowExample ${workflowExample} is not registered`);
+    throw new Error(`workflowExample ${exampleName} is not registered`);
   }
   return join(destPath, fileName);
 }
 
-export const workflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName)) === '' : false);
-
 export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   const tplFileName = GhWorkflowExampleMap[exampleName];
   const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
-  const exampleDestination = getExamplePathDest(exampleName as any);
+  const exampleDestination = getExamplePathDest();
 
   if (readFile(exampleDestination) !== '') {
     logVerbose(`User flow ${exampleName} already generated under ${exampleDestination}.`);

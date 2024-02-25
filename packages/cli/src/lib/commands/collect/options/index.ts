@@ -1,4 +1,4 @@
-import { Options } from 'yargs';
+import { InferredOptionTypes, Options } from 'yargs';
 import { openReport } from './openReport';
 import { ufPath } from './ufPath';
 import { configPath } from './configPath';
@@ -26,3 +26,4 @@ export const collectOptions = {
   ...persistOptions,
   ...assertOptions
 } satisfies Record<string, Options>;
+export type CollectOptions = InferredOptionTypes<typeof collectOptions>;
