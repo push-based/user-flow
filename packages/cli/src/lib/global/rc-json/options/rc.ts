@@ -1,19 +1,15 @@
-import { argv } from 'yargs';
-import { Param } from './rc.model';
+import { argv, Options } from 'yargs';
 import { getEnvPreset } from '../../../pre-set';
-import { GlobalOptionsArgv } from '../../options/types';
 
-export const param: Param = {
-  rcPath: {
-    alias: 'p',
-    type: 'string',
-    description: 'Path to user-flow.config.json. e.g. `./user-flowrc.json`',
-    default: getEnvPreset().rcPath
-  }
-};
+export const rcPath = {
+  alias: 'p',
+  type: 'string',
+  description: 'Path to user-flow.config.json. e.g. `./user-flowrc.json`',
+  default: getEnvPreset().rcPath
+} satisfies Options;
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): string {
-  const { rcPath } = argv as unknown as GlobalOptionsArgv;
+  const { rcPath } = argv as unknown as { rcPath: string };
   return rcPath as string
 }
