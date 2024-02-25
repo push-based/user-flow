@@ -143,7 +143,7 @@ describe('.rc.json in initialized sandbox', () => {
     const { exitCode, stdout, stderr } = await initializedPrj.$init({
       interactive: false,
       format: [wrongFormat as any]
-    });
+    } as any);
 
     // Assertions
 

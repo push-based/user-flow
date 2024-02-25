@@ -53,7 +53,7 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await emptyPrj.$init({
       interactive: false,
       url: ''
-    });
+    } as any);
 
     expect(stderr).toContain('URL is required');
     expect(exitCode).toBe(1);

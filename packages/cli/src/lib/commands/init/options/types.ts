@@ -10,4 +10,3 @@ export type InitCliOnlyOptions = {
 
 export type InitArgvOptions = CollectRcOptions & PersistRcOptions & AssertRcOptions & InitCliOnlyOptions;
 
-export type InitCommandArgv = InitArgvOptions;
