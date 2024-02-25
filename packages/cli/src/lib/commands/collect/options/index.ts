@@ -9,7 +9,7 @@ import { param as format } from './format';
 import { param as serveCommand } from './serveCommand';
 import { param as awaitServeStdout } from './awaitServeStdout';
 import { param as dryRun } from './dryRun';
-import { ASSERT_OPTIONS } from '../../assert/options';
+import { assertOptions } from '../../assert/options';
 
 export const PERSIST_OPTIONS: PersistYargsOptions = {
   ...outPath,
@@ -25,5 +25,5 @@ export const COLLECT_OPTIONS: CollectYargsOptions & AssertYargsOptions = {
   ...awaitServeStdout,
   ...dryRun,
   ...PERSIST_OPTIONS,
-  ...ASSERT_OPTIONS
+  ...assertOptions
 };
