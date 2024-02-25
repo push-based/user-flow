@@ -9,10 +9,10 @@ jest.mock('enquirer', () => ({
   prompt: jest.fn().mockResolvedValue(false),
 }));
 
-describe('generate userflow', () => {
+describe('handleFlowGeneration', () => {
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   })
 
   it('should prompt if not passed generateFlow and has interactive true and file does not already exist', async () => {

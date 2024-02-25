@@ -1,15 +1,14 @@
 import { RcJson } from '../../../types';
 import { join } from 'node:path';
 import { readFile, writeFile } from '../../../core/file';
-import { log } from '../../../core/loggin';
+import { log, logVerbose } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'node:fs';
 import { FlowExampleMap } from '../constants';
 import { FlowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
-import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
-import { logVerbose } from '../../../core/loggin';
 import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
+import { confirmToProcess } from '../../../core/prompt/confirm-to-process';
 
 const exampleName = 'basic-navigation';
 
@@ -18,9 +17,11 @@ export function getExamplePathDest(flowExample: FlowExamples, folder: string): s
   return join(folder, fileName);
 }
 
-export const userflowIsNotCreated = (cfg?: RcJson) => Promise.resolve(cfg ? readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '' : false);
+export const userflowIsNotCreated = (cfg: RcJson) => {
+  return readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '';
+};
 
-export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
+async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   const ufPath = cliCfg.collect.ufPath;
   // DX create directory if it does ot exist
   try {
@@ -44,14 +45,18 @@ export async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   return Promise.resolve(cliCfg);
 }
 
+const interactiveAndGenerateFlowNotPassed = (interactive: boolean, generateFlow?: boolean) => {
+  return () => interactive && generateFlow === undefined;
+}
+
 export function handleFlowGeneration({ generateFlow, interactive }: {interactive: boolean, generateFlow?: boolean}): CLIProcess {
   return ifThenElse(
-    // if `withFlow` is not used in the CLI is in interactive mode
-    () => interactive == true && generateFlow === undefined,
-    // Prompt for flow generation
-    askToSkip(PROMPT_INIT_GENERATE_FLOW, generateUserFlow,
-      // if the flow is not created already, otherwise skip creation
-      { precondition: userflowIsNotCreated }),
+    interactiveAndGenerateFlowNotPassed(interactive, generateFlow),
+    confirmToProcess({
+      prompt: PROMPT_INIT_GENERATE_FLOW,
+      process: generateUserFlow,
+      precondition: userflowIsNotCreated
+    }),
     // else `withFlow` is used and true
     ifThenElse(() => !!generateFlow,
       // generate the file => else do nothing
