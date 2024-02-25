@@ -176,7 +176,7 @@ describe('.rc.json in initialized sandbox', () => {
         // persist
         outPath,
         format: [htmlFormat]
-      },
+      } as any,
       ['n']);
 
     // Assertions
