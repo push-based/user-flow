@@ -10,6 +10,6 @@ export const verbose = {
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): boolean  {
-  const {verbose} = argv as unknown as {verbose?: boolean};
-  return !!verbose;
+  const {verbose} = argv as unknown as {verbose: boolean};
+  return verbose;
 }

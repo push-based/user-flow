@@ -28,7 +28,7 @@ describe('the CLI configuration in default mode', () => {
 
   it('should have sandbox preset of global options in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await emptyPrjSandbox.$init();
-    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
+    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET as any);
     // @NOTICE: format is not part of yargs params default values
     delete (persist as any).format;
     expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
@@ -54,7 +54,7 @@ describe('the CLI configuration in default mode', () => {
 
   it('should have default preset in a fresh environment', async () => {
     const { exitCode, stdout, stderr } = await emptyPrjDefault.$init({ verbose: true });
-    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET);
+    const { collect, persist, assert } = getInitCommandOptionsFromArgv(SANDBOX_PRESET as any);
 
     expectGlobalOptionsToBeContainedInStdout(stdout, getGlobalOptionsFromArgv(SANDBOX_PRESET));
     // @NOTICE: format is not part of yargs params default values

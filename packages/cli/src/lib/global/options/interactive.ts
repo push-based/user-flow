@@ -11,8 +11,10 @@ export const interactive = {
   default: getDefaultByCliMode()
 } satisfies Options;
 
+const defaultValue = interactive.default;
+
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): boolean {
   const { interactive, i } = argv as any as {interactive?: boolean, i?: boolean};
-  return interactive !== undefined ? Boolean(interactive) : i !== undefined ? Boolean(i) : getDefaultByCliMode();
+  return interactive !== undefined ? Boolean(interactive) : i !== undefined ? Boolean(i) : defaultValue;
 }
