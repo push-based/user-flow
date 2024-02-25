@@ -23,3 +23,4 @@ export const RequestCountResourceTypeBudgets: string[] = [
   'script',
   'stylesheet'
 ];
+export const PROMPT_INIT_GENERATE_FLOW = 'Setup user flow';

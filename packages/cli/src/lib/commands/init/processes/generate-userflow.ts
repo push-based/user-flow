@@ -3,13 +3,12 @@ import { join } from 'node:path';
 import { readFile, writeFile } from '../../../core/file';
 import { log } from '../../../core/loggin';
 import { mkdirSync, readdirSync } from 'node:fs';
-import { FlowExampleMap } from '../constants';
+import { FlowExampleMap, PROMPT_INIT_GENERATE_FLOW } from '../constants';
 import { FlowExamples } from '../types';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { askToSkip } from '../../../core/prompt';
 import { CLIProcess } from '../../../core/processing/types';
 import { logVerbose } from '../../../core/loggin';
-import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 
 const exampleName = 'basic-navigation';
 
