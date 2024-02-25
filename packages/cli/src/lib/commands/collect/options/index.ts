@@ -9,6 +9,7 @@ import { serveCommand } from './serveCommand';
 import { awaitServeStdout } from './awaitServeStdout';
 import { dryRun } from './dryRun';
 import { assertOptions } from '../../assert/options';
+import { config } from './config';
 
 export const persistOptions = {
   outPath,
@@ -19,6 +20,7 @@ export const persistOptions = {
 export const collectOptions = {
   url,
   ufPath,
+  config,
   configPath,
   serveCommand,
   awaitServeStdout,
