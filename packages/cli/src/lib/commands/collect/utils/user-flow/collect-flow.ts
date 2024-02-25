@@ -11,7 +11,7 @@ import { detectCliMode } from '../../../../global/cli-mode/cli-mode';
 import { CollectArgvOptions } from '../../options/types';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config';
 import { PersistArgvOptions } from '../../options/types';
-import { AssertRcOptions } from '../../../assert/options/types';
+import { AssertRcOptions } from '../../../assert/options';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,

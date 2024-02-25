@@ -5,7 +5,7 @@ import {
   PersistArgvOptions,
   PersistRcOptions
 } from '../options/types';
-import { AssertArgvOptions } from '../../assert/options/types';
+import { AssertArgvOptions } from '../../assert/options';
 import { CollectOptions } from '../options';
 
 

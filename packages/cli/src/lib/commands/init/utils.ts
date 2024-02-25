@@ -1,6 +1,6 @@
 import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
-import { AssertRcOptions } from '../assert/options/types';
 import { InitOptions } from './options';
+import { AssertRcOptions } from '../assert/options';
 
 export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   let {
