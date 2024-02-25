@@ -107,7 +107,7 @@ describe('init command in setup sandbox', () => {
 
     const workflowPath = join(process.cwd(),expectedFilePath);
     expect(existsSync(workflowPath)).toBeFalsy();
-    const { exitCode, stderr } = await prj.$init({ generateGhWorkflow: true });
+    const { exitCode, stderr } = await prj.$init({ generateGhWorkflow: true } as any);
     expect(existsSync(workflowPath)).toBeTruthy();
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);

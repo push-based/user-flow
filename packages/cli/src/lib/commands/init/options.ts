@@ -1,12 +1,8 @@
-import { CollectYargsOptions } from '../collect/options/types';
-import { AssertYargsOptions } from '../assert/options/types';
+import { Options } from 'yargs';
 import { collectOptions } from '../collect/options';
 import { assertOptions } from '../assert/options';
-import { InferredOptionTypes } from 'yargs';
 
-export const initOptions: CollectYargsOptions & AssertYargsOptions = {
+export const initOptions = {
   ...collectOptions,
   ...assertOptions
-};
-
-export type InitOptions = InferredOptionTypes<typeof initOptions>;
+} satisfies Record<string, Options>;
