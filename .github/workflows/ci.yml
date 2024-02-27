@@ -25,6 +25,6 @@ jobs:
       - name: install
         run: npm ci
       - name: build
-        run: npm run nx -- affected:build --base=origin/main --head=HEAD
+        run: npm run nx -- run-many -t build --skip-nx-cache --parallel=false
       - name: test
-        run: npm run nx -- affected:test --parallel=1 --base=origin/main --head=HEAD
+        run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
