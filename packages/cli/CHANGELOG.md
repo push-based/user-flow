@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.20.3](https://github.com/push-based/user-flow/compare/cli-0.20.2...cli-0.20.3) (2024-02-27)
+
+
+### Reverts
+
+* Revert "test: remove test reliance on file system" ([d4214ef](https://github.com/push-based/user-flow/commit/d4214ef8c2d56f4737a6c0382d7f3879dcd7c0c1))
+
+
+
 ## [0.20.2](https://github.com/push-based/user-flow/compare/cli-0.20.1...cli-0.20.2) (2023-11-12)
 
 
