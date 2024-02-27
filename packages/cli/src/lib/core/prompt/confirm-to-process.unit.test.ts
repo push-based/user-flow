@@ -5,7 +5,7 @@ import prompt = require('./prompt');
 jest.mock('./prompt');
 
 describe('confirmToProcess', () => {
-  const CONTEXT = {} as RcJson;
+  const EMPTY_CONTEXT = {} as RcJson;
   const mockPrompt = 'Confirm should process?';
   const promptParamSpy = jest.spyOn(prompt, 'promptParam');
   const mockProcess = jest.fn();
