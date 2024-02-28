@@ -1,7 +1,7 @@
 {
   "extends": ["./code-pushup.eslintrc.json"],
   // temporarily disable failing rules so `nx lint` passes
-  // number of errors/warnings per rule recorded at Mon Feb 05 2024 18:55:02 GMT+0100 (Central European Standard Time)
+  // number of errors/warnings per rule recorded at Wed Feb 28 2024 20:49:07 GMT+0100 (Central European Standard Time)
   "rules": {
     "@typescript-eslint/no-explicit-any": "off", // 5 errors
     "@typescript-eslint/no-unused-vars": "off" // 9 errors

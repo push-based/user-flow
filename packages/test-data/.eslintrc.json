@@ -1,11 +1,4 @@
 {
-  "extends": ["./code-pushup.eslintrc.json"],
-  // temporarily disable failing rules so `nx lint` passes
-  // number of errors/warnings per rule recorded at Mon Feb 05 2024 18:55:02 GMT+0100 (Central European Standard Time)
-  "rules": {
-    "no-useless-escape": "off", // 2 errors
-    "@nx/enforce-module-boundaries": "off", // 8 errors
-    "@typescript-eslint/no-unused-vars": "off" // 2 errors
-  }
-  
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"]
 }
