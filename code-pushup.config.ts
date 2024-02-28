@@ -4,10 +4,10 @@ import 'dotenv/config';
 
 const config: CoreConfig = {
   upload: {
-    server: process.env.CP_SERVER,
+    server: 'https://portal-api-r6nh2xm7mq-ez.a.run.app/graphql',
     apiKey: process.env.CP_API_KEY,
-    organization: process.env.CP_ORGANIZATION,
-    project: process.env.CP_PROJECT,
+    organization: 'push-based',
+    project: 'user-flow',
   },
   plugins: [
     await eslintPlugin(await eslintConfigFromNxProjects()),
