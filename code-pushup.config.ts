@@ -1,4 +1,4 @@
-import eslintPlugin, { eslintConfigFromNxProjects } from '@code-pushup/eslint-plugin';
+import eslintPlugin, { eslintConfigFromNxProject } from '@code-pushup/eslint-plugin';
 import type { CoreConfig } from '@code-pushup/models';
 import 'dotenv/config';
 
@@ -10,7 +10,7 @@ const config: CoreConfig = {
     project: 'user-flow',
   },
   plugins: [
-    await eslintPlugin(await eslintConfigFromNxProjects()),
+    await eslintPlugin(await eslintConfigFromNxProject('cli')),
   ],
   categories: [
     {
