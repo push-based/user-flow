@@ -37,6 +37,15 @@ describe('confirmToProcess', () => {
     await confirmToProcess({
       prompt: mockPrompt,
       process: mockProcess,
+      precondition: () => true,
+    })(EMPTY_CONTEXT);
+    expect(promptParamSpy).toHaveBeenCalled();
+  });
+
+  it('should prompt if no precondition is passed', async () => {
+    await confirmToProcess({
+      prompt: mockPrompt,
+      process: mockProcess,
     })(EMPTY_CONTEXT);
     expect(promptParamSpy).toHaveBeenCalled();
   });
@@ -51,11 +60,11 @@ describe('confirmToProcess', () => {
   });
 
   it('should process if prompt is accepted', async () => {
-    promptParamSpy.mockResolvedValue(false);
+    promptParamSpy.mockResolvedValue(true);
     await confirmToProcess({
       prompt: mockPrompt,
       process: mockProcess,
     })(EMPTY_CONTEXT);
-    expect(mockProcess).not.toHaveBeenCalled();
+    expect(mockProcess).toHaveBeenCalled();
   });
 })
