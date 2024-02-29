@@ -81,8 +81,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/nx-plugin-integration/**/*.ts",
-          "packages/nx-plugin-integration/package.json"
+          "packages/nx-plugin-integration/**/*"
         ]
       }
     }
