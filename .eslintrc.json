@@ -10,10 +10,5 @@
       }
     }
   },
-  "overrides": [
-    {
-      "files": ["*.ts"],
-      "extends": ["@code-pushup"]
-    }
-  ]
+  "extends": ["@code-pushup"]
 }
