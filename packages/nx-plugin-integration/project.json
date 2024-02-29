@@ -75,6 +75,16 @@
         "serveCommand": "npm run nx -- serve nx-plugin-integration",
         "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
       }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/nx-plugin-integration/**/*.ts",
+          "packages/nx-plugin-integration/package.json"
+        ]
+      }
     }
   }
 }
