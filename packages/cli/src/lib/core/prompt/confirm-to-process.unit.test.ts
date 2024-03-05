@@ -5,8 +5,6 @@ import prompt = require('./prompt');
 jest.mock('./prompt');
 
 describe('confirmToProcess', () => {
-  const EMPTY_CONTEXT = {} as RcJson;
-  const MOCK_PROMPT = 'Confirm should process?';
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -15,39 +13,39 @@ describe('confirmToProcess', () => {
   it('should check if precondition is met if one is given', async () => {
     const mockPrecondition = jest.fn();
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: jest.fn(),
       precondition: mockPrecondition,
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(mockPrecondition).toHaveBeenCalled();
   });
 
   it('should not prompt if precondition is not met', async () => {
     const promptParamSpy = jest.spyOn(prompt, 'promptParam');
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: jest.fn(),
       precondition: () => false,
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(promptParamSpy).not.toHaveBeenCalled();
   });
 
   it('should prompt if precondition is met', async () => {
     const promptParamSpy = jest.spyOn(prompt, 'promptParam');
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: jest.fn(),
       precondition: () => true,
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(promptParamSpy).toHaveBeenCalled();
   });
 
   it('should prompt if no precondition is passed', async () => {
     const promptParamSpy = jest.spyOn(prompt, 'promptParam');
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: jest.fn(),
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(promptParamSpy).toHaveBeenCalled();
   });
 
@@ -55,9 +53,9 @@ describe('confirmToProcess', () => {
     jest.spyOn(prompt, 'promptParam').mockResolvedValue(false);
     const processSpy = jest.fn();
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: processSpy,
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(processSpy).not.toHaveBeenCalled();
   });
 
@@ -65,9 +63,9 @@ describe('confirmToProcess', () => {
     jest.spyOn(prompt, 'promptParam').mockResolvedValue(true);
     const processSpy = jest.fn();
     await confirmToProcess({
-      prompt: MOCK_PROMPT,
+      prompt: 'Confirm should process?',
       process: processSpy,
-    })(EMPTY_CONTEXT);
+    })({} as RcJson);
     expect(processSpy).toHaveBeenCalled();
   });
 })
