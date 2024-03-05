@@ -17,14 +17,42 @@ const config: CoreConfig = {
       slug: 'bug-prevention',
       title: 'Bug prevention',
       refs: [
-        { type: 'group', plugin: 'eslint', slug: 'problems', weight: 1 },
+        {
+          type: 'audit',
+          plugin: 'eslint',
+          slug: 'no-var',
+          weight: 1,
+        },
+        {
+          type: 'audit',
+          plugin: 'eslint',
+          slug: 'prefer-const',
+          weight: 1,
+        },
+        {
+          type: 'group',
+          plugin: 'eslint',
+          slug: 'problems',
+          weight: 100
+        },
       ],
     },
     {
       slug: 'code-style',
       title: 'Code style',
       refs: [
-        { type: 'group', plugin: 'eslint', slug: 'suggestions', weight: 1 },
+        {
+          type: 'group',
+          plugin: 'eslint',
+          slug: 'suggestions',
+          weight: 75
+        },
+        {
+          type: 'group',
+          plugin: 'eslint',
+          slug: 'formatting',
+          weight: 25
+        },
       ],
     },
   ],
