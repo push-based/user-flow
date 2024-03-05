@@ -2,6 +2,7 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
+  "extends": ["@code-pushup"],
   "settings": {
     "import/resolver": {
       "typescript": {
@@ -9,6 +10,5 @@
         "project": "tsconfig.base.json"
       }
     }
-  },
-  "extends": ["@code-pushup"]
+  }
 }
