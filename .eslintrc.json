@@ -2,7 +2,12 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
-  "extends": ["@code-pushup"],
+  "extends": [
+    "@code-pushup",
+    "@code-pushup/eslint-config/typescript",
+    "@code-pushup/eslint-config/node",
+    "@code-pushup/eslint-config/jest"
+  ],
   "settings": {
     "import/resolver": {
       "typescript": {
