@@ -28,7 +28,7 @@ describe('persist flow reports in specified format', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
   it('should not save any reports if no format is given', async () => {
     await persistFlow(flow, { outPath: '', format: [], url: 'mock.com' });
