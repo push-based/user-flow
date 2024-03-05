@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.20.4](https://github.com/push-based/user-flow/compare/cli-0.20.3...cli-0.20.4) (2024-03-05)
+
+
+### Bug Fixes
+
+* add test for confirm to process  ([d54c355](https://github.com/push-based/user-flow/commit/d54c35517da07ab9908f6e41e446c457ed87495b))
+* correct test structure ([7d9b7a6](https://github.com/push-based/user-flow/commit/7d9b7a64a3552d5ef6fb921a2b19d1fdf8700d68))
+* inline unnecessary const ([9ab7c09](https://github.com/push-based/user-flow/commit/9ab7c09a646afb32d6e72966fc856b40f8e62431))
+* reduce global test setup and move to cases ([a7c28db](https://github.com/push-based/user-flow/commit/a7c28dbd9c414fd1ec6bc5e9d7bf20dd867e5da1))
+* remove mutation ([73ac637](https://github.com/push-based/user-flow/commit/73ac637df746cdaa6d4ab9bab123d2459e996df1))
+* remove redundant checks in test ([88aab18](https://github.com/push-based/user-flow/commit/88aab18af5de3db39b28ae882e4f8a2fef45f5f0))
+* rename const for clarity ([db8b63e](https://github.com/push-based/user-flow/commit/db8b63ede35dcc31c7c1324679fcb6504859d6a4))
+
+
+
 ## [0.20.3](https://github.com/push-based/user-flow/compare/cli-0.20.2...cli-0.20.3) (2024-02-27)
 
 
