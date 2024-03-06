@@ -109,7 +109,7 @@ describe('persist flow reports in specified format', () => {
     expect(writeFile).toHaveBeenCalledWith(join('Flow', 'MockName.md'), 'Mock Md Report');
   });
 
-  it('should return the path to the html report if html is given as format', async () => {
+  it('should return the path to the markdown report if md is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const reports = await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
     expect(reports.at(0)).toContain('.md');
