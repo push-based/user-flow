@@ -13,8 +13,9 @@ export async function runCollectCommand(argv: CollectOptions): Promise<void> {
   await run([
     collectRcJson,
     (cfg: RcJson) =>
-      startServerIfNeededAndExecute(() => collectReports(cfg)
-          .then()
-        , cfg.collect)
+      startServerIfNeededAndExecute(
+        () => collectReports(cfg, argv.openReport),
+        cfg.collect
+      )
   ])(cfg);
 }
