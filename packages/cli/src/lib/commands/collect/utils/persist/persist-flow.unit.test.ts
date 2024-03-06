@@ -69,7 +69,7 @@ describe('persist flow reports in specified format', () => {
   it('should return the path to the json report if json is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const reports = await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
-    expect(reports.at(0)).toContain('json');
+    expect(reports).toStrictEqual([expect.stringContaining('.json')]);
   });
 
   it('should extract an html report from UserFlow if html is given as format', async () => {
