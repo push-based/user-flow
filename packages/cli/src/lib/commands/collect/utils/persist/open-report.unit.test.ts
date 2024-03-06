@@ -1,41 +1,50 @@
+import * as openReport from 'open';
 import { handleOpenFlowReports, openFlowReports } from './open-report';
 import { logVerbose } from '../../../../core/loggin';
-import * as openReport from 'open';
-
-import * as dryRun from '../../../../commands/collect/options/dryRun';
-import * as interactive from '../../../../global/options/interactive';
-
-jest.mock('../../../../commands/collect/options/dryRun');
-jest.mock('../../../../global/options/interactive');
+import { CollectCommandOptions } from '../../options';
 
 describe('handleOpenFlowReport', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   })
 
+  it('should return the openFlowReport function if openReport, interactive and not dryRun', async () => {
+    const openReportsProcess = handleOpenFlowReports({
+      openReport: true,
+      interactive: true,
+      dryRun: false,
+    } as CollectCommandOptions);
+    expect(typeof openReportsProcess).toEqual("function");
+  });
+
   it('should return undefined if openReport is false', () => {
-    const openReportsProcess = handleOpenFlowReports(false);
+    const openReportsProcess = handleOpenFlowReports({
+      openReport: false,
+      interactive: true,
+      dryRun: false,
+    } as CollectCommandOptions);
     expect(openReportsProcess).toEqual(undefined);
   });
 
   it('should return undefined if dryRun is true', () => {
-    jest.spyOn(dryRun, 'get').mockReturnValue(true);
-    const openReportsProcess = handleOpenFlowReports(true);
+    const openReportsProcess = handleOpenFlowReports({
+      openReport: true,
+      interactive: true,
+      dryRun: true,
+    } as CollectCommandOptions);
     expect(openReportsProcess).toEqual(undefined);
   });
 
   it('should return undefined if interactive is false', () => {
-    jest.spyOn(interactive, 'get').mockReturnValue(false);
-    const openReportsProcess = handleOpenFlowReports(true);
+    const openReportsProcess = handleOpenFlowReports({
+      openReport: true,
+      interactive: false,
+      dryRun: false,
+    } as CollectCommandOptions);
     expect(openReportsProcess).toEqual(undefined);
   });
 
-  it('should return the openFlowReport function if openReport, interactive and not dryRun', async () => {
-    jest.spyOn(interactive, 'get').mockReturnValue(true);
-    jest.spyOn(dryRun, 'get').mockReturnValue(false);
-    const openReportsProcess = handleOpenFlowReports(true);
-    expect(typeof openReportsProcess).toEqual("function");
-  });
+
 });
 
 jest.mock('open');

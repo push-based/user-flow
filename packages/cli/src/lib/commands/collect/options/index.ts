@@ -10,6 +10,7 @@ import { awaitServeStdout } from './awaitServeStdout';
 import { dryRun } from './dryRun';
 import { assertOptions } from '../../assert/options';
 import { config } from './config';
+import { GlobalCliOptions } from '../../../global/options';
 
 export const persistOptions = {
   outPath,
@@ -29,3 +30,4 @@ export const collectOptions = {
   ...assertOptions
 } satisfies Record<string, Options>;
 export type CollectOptions = InferredOptionTypes<typeof collectOptions>;
+export type CollectCommandOptions = CollectOptions & GlobalCliOptions;

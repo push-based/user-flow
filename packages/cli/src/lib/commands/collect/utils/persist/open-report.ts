@@ -1,7 +1,6 @@
 import * as openReport from 'open';
-import { get as dryRun } from '../../../../commands/collect/options/dryRun';
-import { get as interactive } from '../../../../global/options/interactive';
 import { logVerbose } from '../../../../core/loggin';
+import { CollectCommandOptions } from '../../options';
 
 export async function openFlowReports(fileNames: string[]): Promise<void> {
   const htmlReport = fileNames.find(i => i.includes('.html'));
@@ -27,8 +26,8 @@ export async function openFlowReports(fileNames: string[]): Promise<void> {
   return Promise.resolve(void 0);
 }
 
-export function handleOpenFlowReports(openReport?: boolean): typeof openFlowReports | undefined {
-  if (dryRun() || !openReport || !interactive()) {
+export function handleOpenFlowReports({ dryRun, openReport, interactive}: CollectCommandOptions) {
+  if (dryRun || !openReport || !interactive) {
     return;
   }
   return openFlowReports;
