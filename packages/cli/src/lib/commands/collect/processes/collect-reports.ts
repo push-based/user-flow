@@ -5,7 +5,7 @@ import { persistFlow } from '../utils/persist/persist-flow';
 import { handleOpenFlowReports } from '../utils/persist/open-report';
 import { RcJson } from '../../../types';
 
-export async function collectReports(cfg: RcJson, openReport: boolean): Promise<RcJson> {
+export async function collectReports(cfg: RcJson, openReport?: boolean): Promise<RcJson> {
 
   const { collect, persist, assert } = cfg;
 

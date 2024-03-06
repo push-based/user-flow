@@ -27,7 +27,7 @@ export async function openFlowReports(fileNames: string[]): Promise<void> {
   return Promise.resolve(void 0);
 }
 
-export function handleOpenFlowReports(openReport: boolean): typeof openFlowReports | undefined {
+export function handleOpenFlowReports(openReport?: boolean): typeof openFlowReports | undefined {
   if (dryRun() || !openReport || !interactive()) {
     return;
   }

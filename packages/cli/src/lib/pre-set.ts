@@ -1,5 +1,5 @@
 import { ArgvPreset } from './types';
-import { detectCliMode } from './global/cli-mode/cli-mode';
+import { detectCliMode } from './global/cli-mode';
 import { DEFAULT_FULL_RC_PATH } from './constants';
 
 export const DEFAULT_PRESET: ArgvPreset = {
