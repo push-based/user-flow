@@ -1,5 +1,4 @@
 import { concat } from '../../../core/processing/behaviors';
-import { get as dryRun } from '../../../commands/collect/options/dryRun';
 import { collectFlow, loadFlow } from '../utils/user-flow';
 import { persistFlow } from '../utils/persist/persist-flow';
 import { handleOpenFlowReports } from '../utils/persist/open-report';
@@ -13,9 +12,7 @@ export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): 
   const userFlows = loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
-      return collectFlow({
-        ...collect, ...persist, ...assert, dryRun: dryRun()
-      }, { ...provider, path })
+      return collectFlow({ ...collect, ...persist, ...assert }, { ...provider, path }, argv)
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(handleOpenFlowReports(argv))
         .then(_ => cfg);
