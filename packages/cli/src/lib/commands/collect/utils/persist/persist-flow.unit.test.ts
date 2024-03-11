@@ -1,4 +1,3 @@
-import { join } from 'node:path';
 import * as fs from 'node:fs';
 import * as utils from './utils';
 import * as reportUtils from '../report/utils';
