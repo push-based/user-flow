@@ -2,6 +2,18 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.20.5](https://github.com/push-based/user-flow/compare/cli-0.20.4...cli-0.20.5) (2024-03-11)
+
+
+### Bug Fixes
+
+* add eslint-plugin-jest ([3ab8b69](https://github.com/push-based/user-flow/commit/3ab8b690d500944c1ba39b00f7087b23ed9be39a))
+* add extends [@code-pushup](https://github.com/code-pushup) ([5c41032](https://github.com/push-based/user-flow/commit/5c410320bc4148dcfcee6cbb4d7f6278f32cc88e))
+* fix baseline configs ([f2fa0b1](https://github.com/push-based/user-flow/commit/f2fa0b1f0ffca14a0487bd646d7d88b24ffb40be))
+* reduce noise ([4f942bf](https://github.com/push-based/user-flow/commit/4f942bf470151e55c3abfaf5ea699142ae150ea6))
+
+
+
 ## [0.20.4](https://github.com/push-based/user-flow/compare/cli-0.20.3...cli-0.20.4) (2024-03-05)
 
 
