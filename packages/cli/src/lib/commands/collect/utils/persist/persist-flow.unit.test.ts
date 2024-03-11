@@ -45,7 +45,7 @@ describe('persist flow reports in specified format', () => {
 
   it('should return an empty list if format is only stdout', async () => {
     const reports = await persistFlow(flow, { outPath: '', format: ['stdout'], url: 'mock.com' });
-    expect(reports).toEqual([]);
+    expect(reports).toStrictEqual([]);
   });
 
   it('should log a report if stdout is passed as format', async () => {
@@ -71,7 +71,7 @@ describe('persist flow reports in specified format', () => {
   it('should return the path to the json report if json is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const reports = await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
-    expect(reports).toStrictEqual([expect.stringContaining('.json')]);
+    expect(reports).toStrictEqual(['report.json']);
   });
 
   it('should extract an html report from UserFlow if html is given as format', async () => {
@@ -83,14 +83,14 @@ describe('persist flow reports in specified format', () => {
   it('should save the report in html if html is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     jest.spyOn(flow, 'generateReport').mockResolvedValue('Mock HTML Report');
-    await persistFlow(flow, { outPath: 'Flow', format: ['html'], url: 'mock.com' });
-    expect(writeFile).toHaveBeenCalledWith(join('Flow', 'report.html'), 'Mock HTML Report');
+    await persistFlow(flow, { outPath: '', format: ['html'], url: 'mock.com' });
+    expect(writeFile).toHaveBeenCalledWith('report.html', 'Mock HTML Report');
   });
 
   it('should return the path to the html report if html is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const reports = await persistFlow(flow, { outPath: '', format: ['html'], url: 'mock.com' });
-    expect(reports.at(0)).toContain('.html');
+    expect(reports).toStrictEqual(['report.html']);
   });
 
   it('should extract an md report from the json report if md is given as format', async () => {
@@ -105,14 +105,14 @@ describe('persist flow reports in specified format', () => {
   it('should save the report in md if md is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     jest.spyOn(mdReportUtils, 'generateMdReport').mockReturnValue('Mock Md Report')
-    await persistFlow(flow, { outPath: 'Flow', format: ['md'], url: 'mock.com' });
-    expect(writeFile).toHaveBeenCalledWith(join('Flow', 'report.md'), 'Mock Md Report');
+    await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
+    expect(writeFile).toHaveBeenCalledWith('report.md', 'Mock Md Report');
   });
 
   it('should return the path to the markdown report if md is given as format', async () => {
     jest.spyOn(fs, 'existsSync').mockReturnValue(true);
     const reports = await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
-    expect(reports.at(0)).toContain('.md');
+    expect(reports).toStrictEqual(['report.md']);
   });
 
   it('should save the report in multiple formats if multiple formats are given', async () => {
