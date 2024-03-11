@@ -28,3 +28,15 @@ jobs:
         run: npm run nx -- run-many -t build --skip-nx-cache --parallel=false
       - name: test
         run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
+
+      # Code PushUp command
+      - name: Collect and upload Code PushUp report
+        run: npx code-pushup autorun
+        env:
+          CP_API_KEY: ${{ secrets.CP_API_KEY }}
+          NODE_OPTIONS: --max-old-space-size=8192
+      - name: Save report files as workflow artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-pushup-report
+          path: .code-pushup/
