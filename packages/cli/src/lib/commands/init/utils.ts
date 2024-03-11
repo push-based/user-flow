@@ -5,7 +5,7 @@ import { REPORT_FORMAT_VALUES } from '../collect/constants';
 
 const isValidFormat = (value: any): value is ReportFormat => REPORT_FORMAT_VALUES.includes(value);
 
-function sanitizedFormats(formats: string[]): ReportFormat[] {
+function sanitizedFormats(formats: string[]) {
   const validatedFormats: ReportFormat[] = formats.filter(isValidFormat);
   if (validatedFormats.length !== formats.length) {
     throw new Error(`${formats} contains invalid format options`);
