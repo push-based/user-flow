@@ -1,13 +1,12 @@
+import { join } from 'node:path';
+import { existsSync, mkdirSync } from 'node:fs';
 import { UserFlow } from '../../../../hacky-things/lighthouse';
 import FlowResult from 'lighthouse/types/lhr/flow';
 import { log, logVerbose } from '../../../../core/loggin';
-import { join } from 'path';
 import { writeFile } from '../../../../core/file';
-import { existsSync, mkdirSync } from 'fs';
 import { PersistFlowOptions } from './types';
-import { createReducedReport } from '../../../..';
-import { generateStdoutReport } from '../persist/utils';
-import { toReportName } from '../report/utils';
+import { generateStdoutReport } from './utils';
+import { createReducedReport, toReportName } from '../report/utils';
 import { ReducedReport } from '../report/types';
 import { generateMdReport } from '../../../assert/utils/md-report';
 
