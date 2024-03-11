@@ -3,7 +3,6 @@
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
   "extends": [
-    "@code-pushup",
     "@code-pushup/eslint-config/typescript",
     "@code-pushup/eslint-config/node",
     "@code-pushup/eslint-config/jest"
@@ -15,5 +14,27 @@
         "project": "tsconfig.base.json"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
