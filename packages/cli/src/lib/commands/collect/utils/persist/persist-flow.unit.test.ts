@@ -1,12 +1,12 @@
-import * as utils from './utils';
-import * as reportUtils from '../report/utils';
-import * as mdReportUtils from '../../../assert/utils/md-report';
+import { generateStdoutReport } from './utils';
+import { createReducedReport } from '../report/utils';
+import { generateMdReport } from '../../../assert/utils/md-report';
 import { persistFlow } from './persist-flow';
 import { writeFile } from '../../../../core/file';
 import { log } from '../../../../core/loggin';
-import { ReducedReport } from '../report/types';
 
-import { UserFlow } from '../../../../hacky-things/lighthouse';
+import type { ReducedReport } from '../report/types';
+import type { UserFlow } from '../../../../hacky-things/lighthouse';
 
 jest.mock('node:fs', () => ({
   existsSync: jest.fn().mockReturnValue(true)
@@ -15,7 +15,9 @@ jest.mock('../../../../hacky-things/lighthouse')
 jest.mock('../../../../core/file');
 jest.mock('../../../../core/loggin');
 jest.mock('./utils');
-jest.mock('../../../assert/utils/md-report');
+jest.mock('../../../assert/utils/md-report', () => ({
+  generateMdReport: jest.fn().mockReturnValue('Mock Md Report')
+}));
 jest.mock('../report/utils', () => ({
   createReducedReport: jest.fn(),
   toReportName: jest.fn().mockReturnValue('report'),
@@ -49,7 +51,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should log a report if stdout is passed as format', async () => {
-    const generateStdoutReportSpy = jest.spyOn(utils, 'generateStdoutReport').mockReturnValue('Mock stdout report')
+    const generateStdoutReportSpy = jest.mocked(generateStdoutReport).mockReturnValue('Mock stdout report')
     await persistFlow(flow, { outPath: '', format: ['stdout'], url: 'mock.com' });
     expect(generateStdoutReportSpy).toHaveBeenCalled();
     expect(log).toHaveBeenCalledWith('Mock stdout report');
@@ -91,15 +93,14 @@ describe('persist flow reports in specified format', () => {
 
   it('should extract an md report from the json report if md is given as format', async () => {
     jest.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'});
-    const createReducedReportSpy = jest.spyOn(reportUtils, 'createReducedReport').mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
-    const generateMdReportSpy = jest.spyOn(mdReportUtils, 'generateMdReport');
+    const createReducedReportSpy = jest.mocked(createReducedReport).mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
+    const generateMdReportMock = jest.mocked(generateMdReport);
     await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
     expect(createReducedReportSpy).toHaveBeenCalledWith({mock: 'base for md report'})
-    expect(generateMdReportSpy).toHaveBeenCalledWith({mock: 'reduced report'});
+    expect(generateMdReportMock).toHaveBeenCalledWith({mock: 'reduced report'});
   });
 
   it('should save the report in md if md is given as format', async () => {
-    jest.spyOn(mdReportUtils, 'generateMdReport').mockReturnValue('Mock Md Report')
     await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
     expect(writeFile).toHaveBeenCalledWith('report.md', 'Mock Md Report');
   });
