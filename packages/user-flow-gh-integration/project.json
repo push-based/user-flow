@@ -8,7 +8,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/user-flow-gh-integration/**/*.ts"]
+        "lintFilePatterns": ["packages/user-flow-gh-integration/**/*"]
       }
     }
   },
