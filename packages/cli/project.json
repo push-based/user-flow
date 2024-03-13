@@ -8,9 +8,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "packages/cli/**/*"
-        ]
+        "lintFilePatterns": ["packages/cli/**/*"]
       }
     },
     "build": {
@@ -37,10 +35,10 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "jestConfig": "packages/cli/jest.config.ts"
+        "config": "{workspaceRoot}/packages/cli/vite.config.ts"
       }
     },
     "version": {

@@ -5,9 +5,7 @@ import {style} from '../../../core/md/font-style';
 import {headline, Hierarchy} from '../../../core/md/headline';
 import {NEW_LINE} from '../../../core/md/constants';
 import {details} from '../../../core/md/details';
-import Budget from "lighthouse/types/lhr/budget";
-import TimingBudget = Budget.TimingBudget;
-import Details from "lighthouse/types/lhr/audit-details";
+import Details from "lighthouse/types/lhr/audit-details.d";
 import Table = Details.Table;
 
 const budgetsSymbol = '🔒'

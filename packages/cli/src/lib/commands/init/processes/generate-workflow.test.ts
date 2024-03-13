@@ -2,6 +2,8 @@ import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { handleGhWorkflowGeneration } from './generate-workflow';
 
+vi.mock('../../../core/loggin');
+
 const expectedFilePath = join('.github', 'workflows','user-flow-ci.yml');
 describe('generate GH workflow', () => {
 
@@ -17,5 +19,4 @@ describe('generate GH workflow', () => {
     await handleGhWorkflowGeneration({generateGhWorkflow: false})({} as any);
     expect(existsSync(expectedFilePath)).toBeFalsy();
   });
-
 });
