@@ -27,13 +27,6 @@
         ]
       }
     },
-    "sandbox": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/cli"],
-      "options": {
-        "jestConfig": "packages/cli/jest.config.ts"
-      }
-    },
     "test": {
       "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
