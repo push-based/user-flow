@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from 'vitest';
 import { existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { handleGhWorkflowGeneration } from './generate-workflow';

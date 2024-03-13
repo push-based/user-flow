@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { getBudgetTable, getStepsTable } from './md-report';
 import FlowResult from 'lighthouse/types/lhr/flow.d';
 import { getReportContent } from 'test-data';
