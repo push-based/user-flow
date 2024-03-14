@@ -14,5 +14,4 @@ export default {
   transformIgnorePatterns: ['/node_modules/(?!markdown-table/.*)'],
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/cli',
-  testTimeout: 40_000,
 };

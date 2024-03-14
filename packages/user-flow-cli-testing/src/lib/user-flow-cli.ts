@@ -7,7 +7,6 @@ import {
   DEFAULT_PERSIST_OUT_PATH,
   getEnvPreset,
   GlobalOptionsArgv,
-  InitCommandArgv,
   LhConfigJson,
   RcJson,
   ReportFormat
@@ -73,7 +72,7 @@ export class UserFlowCliProject extends CliProject<RcJson> {
     await kill({ port: this.serveCommandPort });
   }
 
-  $init(processParams?: Partial<InitCommandArgv & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
+  $init(processParams?: Partial<{} & GlobalOptionsArgv>, userInput?: string[]): Promise<TestResult> {
     const prcParams: ProcessParams = { _: 'init', ...processParams } as unknown as ProcessParams;
     // If a rcFile is created delete it on teardown
     this.deleteFiles.push(prcParams['rcPath'] || this.envPreset?.rcPath);

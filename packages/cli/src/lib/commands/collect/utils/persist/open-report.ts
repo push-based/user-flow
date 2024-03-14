@@ -1,33 +1,34 @@
-import { get as dryRun } from '../../../../commands/collect/options/dryRun';
-import { get as openReport } from '../../options/openReport';
-import { get as interactive } from '../../../../global/options/interactive';
+import * as openReport from 'open';
 import { logVerbose } from '../../../../core/loggin';
-import * as openFileInBrowser from 'open';
+import { CollectCommandOptions } from '../../options';
 
-export async function openFlowReport(fileNames: string[]): Promise<void> {
-  // open report if requested and not in executed in CI
-  if (!dryRun() && openReport() && interactive()) {
+export async function openFlowReports(fileNames: string[]): Promise<void> {
+  const htmlReport = fileNames.find(i => i.includes('.html'));
+  if (htmlReport) {
+    logVerbose('open HTML report in browser');
+    await openReport(htmlReport, { wait: false });
+    return Promise.resolve(void 0);
+  }
 
-    const htmlReport = fileNames.find(i => i.includes('.html'));
-    if (htmlReport) {
-      logVerbose('open HTML report in browser');
-      await openFileInBrowser(htmlReport, { wait: false });
-      return Promise.resolve(void 0);
-    }
+  const mdReport = fileNames.find(i => i.includes('.md'));
+  if (mdReport) {
+    logVerbose('open Markdown report in browser');
+    await openReport(mdReport, { wait: false });
+    return Promise.resolve(void 0);
+  }
 
-    const mdReport = fileNames.find(i => i.includes('.md'));
-    if (mdReport) {
-      logVerbose('open Markdown report in browser');
-      await openFileInBrowser(mdReport, { wait: false });
-      return Promise.resolve(void 0);
-    }
-
-    const jsonReport = fileNames.find(i => i.includes('.json'));
-    if (jsonReport) {
-      logVerbose('open JSON report in browser');
-      // @TODO if JSON is given open the file in https://googlechrome.github.io/lighthouse/viewer/
-      await openFileInBrowser(jsonReport, { wait: false });
-    }
+  const jsonReport = fileNames.find(i => i.includes('.json'));
+  if (jsonReport) {
+    logVerbose('open JSON report in browser');
+    // @TODO if JSON is given open the file in https://googlechrome.github.io/lighthouse/viewer/
+    await openReport(jsonReport, { wait: false });
   }
   return Promise.resolve(void 0);
+}
+
+export function handleOpenFlowReports({ dryRun, openReport, interactive}: CollectCommandOptions) {
+  if (dryRun || !openReport || !interactive) {
+    return;
+  }
+  return openFlowReports;
 }

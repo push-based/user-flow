@@ -1,15 +1,13 @@
-import { FlowExamples, GhWorkflowExamples, BudgetsExamples } from './types';
-
 export const SETUP_CONFIRM_MESSAGE = 'user-flow CLI is set up now! 🎉';
-export const FlowExampleMap: Record<FlowExamples, string> = {
+export const FlowExampleMap = {
   'basic-navigation': 'basic-navigation.uf.ts'
-};
-export const GhWorkflowExampleMap: Record<GhWorkflowExamples, string> = {
+} as const;
+export const GhWorkflowExampleMap = {
   'basic-workflow': 'user-flow-ci.yml'
-};
-export const BudgetsExampleMap: Record<BudgetsExamples, string> = {
+} as const;
+export const BudgetsExampleMap = {
   'budgets': 'lh-budgets.json'
-};
+} as const;
 export const TransferSizeResourceTypeBudgets: string[] = [
   'xhr',
   'script',
@@ -23,3 +21,4 @@ export const RequestCountResourceTypeBudgets: string[] = [
   'script',
   'stylesheet'
 ];
+export const PROMPT_INIT_GENERATE_FLOW = 'Setup user flow';

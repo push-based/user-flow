@@ -1,21 +1,15 @@
-import { argv } from 'yargs';
-import { Param } from './verbose.model';
-import { ArgvOption } from '../../core/yargs/types';
-import { GlobalOptionsArgv } from './types';
+import { argv, Options } from 'yargs';
 import { getEnvPreset } from '../../pre-set';
 
-
-export const param: Param = {
-  verbose: {
-    alias: 'v',
-    type: 'boolean',
-    description: 'Run with verbose logging',
-    default: getEnvPreset().verbose
-  }
-};
+export const verbose = {
+  alias: 'v',
+  type: 'boolean',
+  description: 'Run with verbose logging',
+  default: getEnvPreset().verbose
+} satisfies Options;
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): boolean  {
-  const {verbose} = argv as unknown as GlobalOptionsArgv;
+  const {verbose} = argv as unknown as {verbose: boolean};
   return verbose;
 }

@@ -7,7 +7,6 @@ export interface YargsCommandObject {
   module: CommandModule;
 }
 
-export type ArgvOption<T extends { [key: string]: Options }> = {[K in keyof T]: YargsOptionTypeToTsType<T[K]['type']>};
 export type YargsOptionTypeToTsType<T> = T extends 'array' ? Array<unknown> :
   T extends 'count' | 'number' ? number :
     T extends 'string' ? string :

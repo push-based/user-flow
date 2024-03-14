@@ -1,24 +1,22 @@
-import { RcJson } from '../../../types';
 import { join } from 'node:path';
+import { mkdirSync, readdirSync } from 'node:fs';
+import { RcJson } from '../../../types';
 import { readFile, writeFile } from '../../../core/file';
 import { log, logVerbose } from '../../../core/loggin';
-import { mkdirSync, readdirSync } from 'node:fs';
-import { FlowExampleMap } from '../constants';
-import { FlowExamples } from '../types';
+import { FlowExampleMap, PROMPT_INIT_GENERATE_FLOW } from '../constants';
 import { ifThenElse } from '../../../core/processing/behaviors';
 import { CLIProcess } from '../../../core/processing/types';
-import { PROMPT_INIT_GENERATE_FLOW } from '../options/generateFlow.constants';
 import { confirmToProcess } from '../../../core/prompt/confirm-to-process';
 
 const exampleName = 'basic-navigation';
 
-export function getExamplePathDest(flowExample: FlowExamples, folder: string): string {
-  const fileName = FlowExampleMap[flowExample];
+export function getExamplePathDest(folder: string): string {
+  const fileName = FlowExampleMap[exampleName];
   return join(folder, fileName);
 }
 
 export const userflowIsNotCreated = (cfg: RcJson) => {
-  return readFile(getExamplePathDest(exampleName, cfg.collect.ufPath)) === '';
+  return readFile(getExamplePathDest(cfg.collect.ufPath)) === '';
 };
 
 async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {

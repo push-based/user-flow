@@ -1,25 +1,20 @@
-import { UserFlowProvider } from '../utils/user-flow/types';
 import { concat } from '../../../core/processing/behaviors';
-import { get as dryRun } from '../../../commands/collect/options/dryRun';
 import { collectFlow, loadFlow } from '../utils/user-flow';
 import { persistFlow } from '../utils/persist/persist-flow';
-import { openFlowReport } from '../utils/persist/open-report';
+import { handleOpenFlowReports } from '../utils/persist/open-report';
 import { RcJson } from '../../../types';
+import { CollectCommandOptions } from '../options';
 
-export async function collectReports(cfg: RcJson): Promise<RcJson> {
+export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): Promise<RcJson> {
 
   const { collect, persist, assert } = cfg;
 
-  let userFlows = [] as ({ exports: UserFlowProvider, path: string })[];
-  // Load and run user-flows in sequential
-  userFlows = loadFlow(collect);
+  const userFlows = loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
-      return collectFlow({
-        ...collect, ...persist, ...assert, dryRun: dryRun()
-      }, { ...provider, path })
+      return collectFlow({ ...collect, ...persist, ...assert }, { ...provider, path }, argv)
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
-        .then(openFlowReport)
+        .then(handleOpenFlowReports(argv))
         .then(_ => cfg);
     })
   )(cfg);

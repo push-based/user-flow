@@ -92,7 +92,7 @@ describe('init command configuration in setup sandbox', () => {
         format,
         // -- assert
         budgetPath
-      },
+      } as any,
       ['n']
     );
 
