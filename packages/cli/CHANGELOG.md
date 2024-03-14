@@ -2,6 +2,34 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.20.7](https://github.com/push-based/user-flow/compare/cli-0.20.6...cli-0.20.7) (2024-03-14)
+
+
+### Bug Fixes
+
+* do not export internals ([1b3c641](https://github.com/push-based/user-flow/commit/1b3c6415fbd275b94a66c3d210cb6f2694c6f199))
+* fix typing issues ([9bc03fe](https://github.com/push-based/user-flow/commit/9bc03fe46aa8cc887de4d79cb2aefd880578f3be))
+* fix typo ([e0ad19f](https://github.com/push-based/user-flow/commit/e0ad19f873fdfdbae92f4f0fec32f223fceed8df))
+* implement assert options properly ([96076f3](https://github.com/push-based/user-flow/commit/96076f3ac7eeb5459cd86aa9ab60bb0c7b46f9b1))
+* migrate to latest yargs ([b8cbb79](https://github.com/push-based/user-flow/commit/b8cbb79d8c2ac46224b268c7b9f9829f7efe9cad))
+* remove dry run option getter ([dc26a99](https://github.com/push-based/user-flow/commit/dc26a9998f3e23226495f64baa263e378ce9492a))
+* remove openReport options getter ([91b77ea](https://github.com/push-based/user-flow/commit/91b77ead60146155711fa673b1a3068041b8d2ef))
+* remove test warning ([3d8fc9a](https://github.com/push-based/user-flow/commit/3d8fc9a512fb0a3d4cc889ffb63dfa4798e58c66))
+* remove unnecessary code ([2db3fec](https://github.com/push-based/user-flow/commit/2db3fecef8f2f2a45662863fe3dc9609a1244d5d))
+* remove unnecessary patch type errors ([0df4469](https://github.com/push-based/user-flow/commit/0df44691cb3c735ec7c17f35d603e53c5ddeccd9))
+* remove unnecessary patch type errors ([526592a](https://github.com/push-based/user-flow/commit/526592a3c256ed63e0e1b7a4edd45544a8108683))
+* remove unnecessary patch type errors ([8145193](https://github.com/push-based/user-flow/commit/8145193a674ae676a3248fcc3c741cd5ef6da103))
+* remove unnecessary patch type errors ([de37ac6](https://github.com/push-based/user-flow/commit/de37ac660e230adf0975f1a36c8950250633a31b))
+* remove unnecessary patch type errors ([ff5ca9e](https://github.com/push-based/user-flow/commit/ff5ca9e251090da8d9802ed7c73407d119a8d572))
+* remove unnecessary patch type errors ([dc45f93](https://github.com/push-based/user-flow/commit/dc45f93ca9fdf380cfb464aa940fcea27b7e6c8c))
+* remove unnecessary patch type errors ([4753320](https://github.com/push-based/user-flow/commit/47533207687024d2a8a94af05f29111fbeef51b3))
+* remove unnecessary patch type errors ([5909e2b](https://github.com/push-based/user-flow/commit/5909e2b403f376568247db96747582f8c5952be9))
+* remove unnecessary patch type errors ([99a934e](https://github.com/push-based/user-flow/commit/99a934ead317fbb21872f70b000c75c2725943c6))
+* remove unused ([0595ba8](https://github.com/push-based/user-flow/commit/0595ba8b2c7db68288626efa90eccfd6a379e39a))
+* use command value instead of getters for dryRun and interactive ([5d75b2a](https://github.com/push-based/user-flow/commit/5d75b2a0a37632929e37674a1afd421dcc408416))
+
+
+
 ## [0.20.6](https://github.com/push-based/user-flow/compare/cli-0.20.5...cli-0.20.6) (2024-03-11)
 
 
