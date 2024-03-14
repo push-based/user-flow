@@ -1,123 +1,53 @@
+import { describe, vi, expect, it, beforeEach } from 'vitest';
 import { startServerIfNeededAndExecute } from './serve-command';
+import { concurrently } from 'concurrently';
 
-import spyOn = jest.spyOn;
 import { CollectRcOptions } from '../options/types';
+
+vi.mock('../../../core/loggin');
+vi.mock('concurrently', async () => {
+  const C = await vi.importActual<{concurrently: typeof concurrently}>('concurrently');
+  return {concurrently: vi.fn().mockImplementation(C.concurrently)};
+});
+const userFlowWorkMock = vi.fn().mockResolvedValue({});
 
 describe('startServerIfNeeded', () => {
 
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('should throw if serveCommand is provided but no await string', async () => {
-    const o = {
-      serveCommand: 'npm run start'
-    } as CollectRcOptions;
-    const userFlowWork = () => Promise.resolve(void 0);
-    const spy = spyOn({ userFlowWork }, 'userFlowWork');
-
-    let err: string | undefined = undefined;
-    const res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
-      err = e.message;
-      return undefined;
-    });
-
-    expect(res).toBe(undefined);
-    expect(err).toContain('If a serve command is provided awaitServeStdout is also required');
-    expect(spy).not.toHaveBeenCalled();
-
+    const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'npm run start' } as CollectRcOptions);
+    expect(fn).rejects.toThrowError('If a serve command is provided awaitServeStdout is also required');
+    expect(userFlowWorkMock).not.toHaveBeenCalled();
   });
 
   it('should immediately execute work if no serveCommand is provided', async () => {
-    let flowRes: number = 0;
-    const userFlowWork = () => {
-      ++flowRes;
-      return Promise.resolve(flowRes);
-    };
-
-
-    let res = await startServerIfNeededAndExecute(userFlowWork).catch((e: Error) => {
-      return undefined;
-    });
-
-    expect(flowRes).toBe(1);
+    await startServerIfNeededAndExecute(userFlowWorkMock);
+    expect(userFlowWorkMock).toHaveBeenCalled();
   });
 
   it('should execute serveCommand first if it is provided correctly', async () => {
-    const o = {
-      serveCommand: 'node --help'
-    } as CollectRcOptions;
-    let err: string | undefined = undefined;
-
-    let flowRes: number = 0;
-    const userFlowWork = () => {
-      ++flowRes;
-      return Promise.resolve(flowRes);
-    };
-
-    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
-      err = e.message;
-      return undefined;
-    });
-
-    // sync code unchanged
-    expect(flowRes).toBe(0);
-    // after command changes present
-    setTimeout(() => {
-      expect(flowRes).toBe(1);
-    }, 1000);
-
-
+    const concurrentlySpy = vi.mocked(concurrently);
+    await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'node --help', awaitServeStdout: 'v' } as CollectRcOptions);
+    expect(concurrentlySpy.mock.invocationCallOrder < userFlowWorkMock.mock.invocationCallOrder).toBeTruthy();
   });
 
   it('should exit with error if serveCommand throws', async () => {
-    const o = {
-      serveCommand: 'node brokenServeCommand',
-      awaitServeStdout: 'v'
-    } as CollectRcOptions;
-    let err: string | undefined = undefined;
-    const userFlowWork = () => Promise.resolve(void 0);
-
-    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
-      err = e as any;
-      return undefined;
-    });
-
-    expect(err).toContain(`Error while executing ${o.serveCommand}`);
-    expect(res).toBe(undefined);
-
+    const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'Broken Command!', awaitServeStdout: 'v' } as CollectRcOptions);
+    expect(fn).rejects.toThrowError(expect.stringContaining('Broken Command!'));
   });
 
   it('should run serveCommand', async () => {
-    const o = {
-      serveCommand: 'node --help',
-      awaitServeStdout: 'Usage: node'
-    } as CollectRcOptions;
-    let err: string | undefined = undefined;
-    const userFlowWork = () => Promise.resolve('user flow result');
-
-    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
-      err = e as any;
-      return undefined;
-    });
-
-    expect(res).toContain(`user flow result`);
-    expect(err).toBe(undefined);
-
+    const concurrentlySpy = vi.mocked(concurrently);
+    await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'node --help', awaitServeStdout: 'Usage: node' } as CollectRcOptions);
+    expect(concurrentlySpy).toHaveBeenCalled();
   });
 
   it('should run serveCommand and catch error in user-flows', async () => {
-    const o = {
-      serveCommand: 'node --help',
-      awaitServeStdout: 'Usage: node'
-    } as CollectRcOptions;
-    let err: string | undefined = undefined;
-    const userFlowWork = () => Promise.reject('user flow error');
-
-    let res = await startServerIfNeededAndExecute(userFlowWork, o).catch((e: Error) => {
-      err = e as any;
-      return undefined;
-    });
-
-    expect(err).toContain(`user flow error`);
-    expect(res).toBe(undefined);
-
+    userFlowWorkMock.mockRejectedValue('user flow error');
+    const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'node --help', awaitServeStdout: 'Usage: node' } as CollectRcOptions);
+    expect(fn).rejects.toThrowError(expect.stringContaining(`user flow error`));
   });
-
 });

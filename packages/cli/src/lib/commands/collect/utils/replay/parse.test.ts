@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { parse } from './parse';
 import { getReportContent } from 'test-data';
 
@@ -17,5 +18,4 @@ describe('replay', () => {
 
     expect(parse(userFlowReplay)).toEqual(userFlowReplay);
   });
-
 });

@@ -6,6 +6,6 @@
 * */
 
 // @ts-ignore
-import { default as LhConfig } from 'lighthouse/types/config';
+import { default as LhConfig } from 'lighthouse/types/config.d';
 export type LhConfigJson = LhConfig.Json;
-export { default as UserFlow } from 'lighthouse/types/user-flow';
+export { default as UserFlow } from 'lighthouse/types/user-flow.d';

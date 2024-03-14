@@ -1,9 +1,5 @@
-import {
-  CLI_MODE_PROPERTY,
-  detectCliMode,
-  isEnvCi,
-  isEnvSandbox
-} from './cli-mode';
+import { afterEach, describe, expect, it } from 'vitest';
+import { CLI_MODE_PROPERTY, detectCliMode, isEnvCi, isEnvSandbox } from './cli-mode';
 import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
 
 describe('isEnvCi', () => {
@@ -83,5 +79,4 @@ describe('detectCliMode', () => {
     teardownEnvVars();
     expect(detectCliMode()).toBe('DEFAULT');
   });
-
 });

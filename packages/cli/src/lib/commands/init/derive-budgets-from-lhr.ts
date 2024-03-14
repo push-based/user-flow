@@ -1,5 +1,5 @@
 import { UserFlow } from '../../hacky-things/lighthouse';
-import Budget from 'lighthouse/types/lhr/budget';
+import Budget from 'lighthouse/types/lhr/budget.d';
 import { RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets } from './constants';
 import { logVerbose } from '../../core/loggin';
 

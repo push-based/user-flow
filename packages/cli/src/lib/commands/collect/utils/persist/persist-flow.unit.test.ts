@@ -1,3 +1,4 @@
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { generateStdoutReport } from './utils';
 import { createReducedReport } from '../report/utils';
 import { generateMdReport } from '../../../assert/utils/md-report';
@@ -8,31 +9,31 @@ import { log } from '../../../../core/loggin';
 import type { ReducedReport } from '../report/types';
 import type { UserFlow } from '../../../../hacky-things/lighthouse';
 
-jest.mock('node:fs', () => ({
-  existsSync: jest.fn().mockReturnValue(true)
+vi.mock('node:fs', () => ({
+  existsSync: vi.fn().mockReturnValue(true)
 }));
-jest.mock('../../../../hacky-things/lighthouse')
-jest.mock('../../../../core/file');
-jest.mock('../../../../core/loggin');
-jest.mock('./utils');
-jest.mock('../../../assert/utils/md-report', () => ({
-  generateMdReport: jest.fn().mockReturnValue('Mock Md Report')
+vi.mock('../../../../hacky-things/lighthouse')
+vi.mock('../../../../core/file');
+vi.mock('../../../../core/loggin');
+vi.mock('./utils');
+vi.mock('../../../assert/utils/md-report', () => ({
+  generateMdReport: vi.fn().mockReturnValue('Mock Md Report')
 }));
-jest.mock('../report/utils', () => ({
-  createReducedReport: jest.fn(),
-  toReportName: jest.fn().mockReturnValue('report'),
+vi.mock('../report/utils', () => ({
+  createReducedReport: vi.fn(),
+  toReportName: vi.fn().mockReturnValue('report'),
 }));
 
 const flow = {
   name: 'flow-name',
-  createFlowResult: jest.fn(),
-  generateReport: jest.fn()
+  createFlowResult: vi.fn(),
+  generateReport: vi.fn()
 } satisfies UserFlow;
 
 describe('persist flow reports in specified format', () => {
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should not save any reports if no format is given', async () => {
@@ -51,20 +52,20 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should log a report if stdout is passed as format', async () => {
-    const generateStdoutReportSpy = jest.mocked(generateStdoutReport).mockReturnValue('Mock stdout report')
+    const generateStdoutReportSpy = vi.mocked(generateStdoutReport).mockReturnValue('Mock stdout report')
     await persistFlow(flow, { outPath: '', format: ['stdout'], url: 'mock.com' });
     expect(generateStdoutReportSpy).toHaveBeenCalled();
     expect(log).toHaveBeenCalledWith('Mock stdout report');
   });
 
   it('should extract a json report from UserFlow if json is given as format', async () => {
-    const createFlowResultSpy = jest.spyOn(flow, 'createFlowResult');
+    const createFlowResultSpy = vi.spyOn(flow, 'createFlowResult');
     await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
     expect(createFlowResultSpy).toHaveBeenCalled();
   });
 
   it('should save the report in json if json is given as format', async () => {
-    jest.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'});
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'});
     await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
     expect(writeFile).toHaveBeenCalledWith('report.json', JSON.stringify({mock: 'jsonResult'}));
   });
@@ -75,13 +76,13 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should extract an html report from UserFlow if html is given as format', async () => {
-    const generateReportSpy = jest.spyOn(flow, 'generateReport');
+    const generateReportSpy = vi.spyOn(flow, 'generateReport');
     await persistFlow(flow, { outPath: '', format: ['html'], url: 'mock.com' });
     expect(generateReportSpy).toHaveBeenCalled();
   });
 
   it('should save the report in html if html is given as format', async () => {
-    jest.spyOn(flow, 'generateReport').mockResolvedValue('Mock HTML Report');
+    vi.spyOn(flow, 'generateReport').mockResolvedValue('Mock HTML Report');
     await persistFlow(flow, { outPath: '', format: ['html'], url: 'mock.com' });
     expect(writeFile).toHaveBeenCalledWith('report.html', 'Mock HTML Report');
   });
@@ -92,9 +93,9 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should extract an md report from the json report if md is given as format', async () => {
-    jest.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'});
-    const createReducedReportSpy = jest.mocked(createReducedReport).mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
-    const generateMdReportMock = jest.mocked(generateMdReport);
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'});
+    const createReducedReportSpy = vi.mocked(createReducedReport).mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
+    const generateMdReportMock = vi.mocked(generateMdReport);
     await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
     expect(createReducedReportSpy).toHaveBeenCalledWith({mock: 'base for md report'})
     expect(generateMdReportMock).toHaveBeenCalledWith({mock: 'reduced report'});
