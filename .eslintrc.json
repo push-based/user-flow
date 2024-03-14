@@ -5,7 +5,8 @@
   "extends": [
     "@code-pushup/eslint-config/typescript",
     "@code-pushup/eslint-config/node",
-    "@code-pushup/eslint-config/jest"
+    "@code-pushup/eslint-config/jest",
+    "@code-pushup/eslint-config/vitest"
   ],
   "settings": {
     "import/resolver": {
