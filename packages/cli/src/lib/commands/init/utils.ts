@@ -1,6 +1,17 @@
-import { CollectRcOptions, PersistRcOptions } from '../collect/options/types';
+import { CollectRcOptions, PersistRcOptions, ReportFormat } from '../collect/options/types';
 import { InitOptions } from './options';
 import { AssertRcOptions } from '../assert/options';
+import { REPORT_FORMAT_VALUES } from '../collect/constants';
+
+const isValidFormat = (value: any): value is ReportFormat => REPORT_FORMAT_VALUES.includes(value);
+
+function sanitizedFormats(formats: string[]) {
+  const validatedFormats: ReportFormat[] = formats.filter(isValidFormat);
+  if (validatedFormats.length !== formats.length) {
+    throw new Error(`${formats} contains invalid format options`);
+  }
+  return validatedFormats;
+}
 
 export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   let {
@@ -18,7 +29,7 @@ export function getInitCommandOptionsFromArgv(argv: InitOptions) {
 
   let persist = {} as PersistRcOptions;
   outPath && (persist.outPath = outPath);
-  format && (persist.format = format);
+  format && (persist.format = sanitizedFormats(format));
 
   let assert = {} as AssertRcOptions;
   budgetPath && (assert.budgetPath = budgetPath);

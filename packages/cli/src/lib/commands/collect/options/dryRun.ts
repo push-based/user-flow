@@ -8,7 +8,3 @@ export const dryRun = {
   default: getEnvPreset().dryRun as boolean
 } satisfies Options;
 
-export function get(): boolean {
-  const { dryRun } = argv as any as { dryRun: boolean };
-  return dryRun;
-}
