@@ -53,7 +53,7 @@ describe('init command in empty sandbox', () => {
     const { exitCode, stdout, stderr } = await emptyPrj.$init({
       interactive: false,
       url: ''
-    });
+    } as any);
 
     expect(stderr).toContain('URL is required');
     expect(exitCode).toBe(1);
@@ -107,7 +107,7 @@ describe('init command in setup sandbox', () => {
 
     const workflowPath = join(process.cwd(),expectedFilePath);
     expect(existsSync(workflowPath)).toBeFalsy();
-    const { exitCode, stderr } = await prj.$init({ generateGhWorkflow: true });
+    const { exitCode, stderr } = await prj.$init({ generateGhWorkflow: true } as any);
     expect(existsSync(workflowPath)).toBeTruthy();
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);

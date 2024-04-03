@@ -1,15 +1,12 @@
-import { argv } from 'yargs';
-import { Param } from './verbose.model';
+import { argv, Options } from 'yargs';
 import { getEnvPreset } from '../../pre-set';
 
-export const param: Param = {
-  verbose: {
-    alias: 'v',
-    type: 'boolean',
-    description: 'Run with verbose logging',
-    default: getEnvPreset().verbose
-  }
-};
+export const verbose = {
+  alias: 'v',
+  type: 'boolean',
+  description: 'Run with verbose logging',
+  default: getEnvPreset().verbose
+} satisfies Options;
 
 // We are in the process of removing this getter
 export function get(): boolean  {

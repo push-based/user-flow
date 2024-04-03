@@ -19,7 +19,6 @@ export { RcJson } from './types';
 export { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode';
 export { LhConfigJson } from './hacky-things/lighthouse';
 export { getEnvPreset, SANDBOX_PRESET, CI_PRESET, DEFAULT_PRESET } from './pre-set';
-export { InitCommandArgv } from './commands/init/options/types';
 export { GlobalOptionsArgv } from './global/options/types';
 export { CollectCommandArgv, CollectArgvOptions } from './commands/collect/options/types';
 export { DEFAULT_RC_NAME } from './constants';
