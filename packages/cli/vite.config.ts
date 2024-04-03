@@ -17,7 +17,7 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/*.test.ts'],
 
-    reporters: ['default'],
+    reporters: ['basic'],
     coverage: {
       reportsDirectory: '../../coverage/packages/cli',
       provider: 'v8',
