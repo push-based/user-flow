@@ -2,6 +2,21 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.20.8](https://github.com/push-based/user-flow/compare/cli-0.20.7...cli-0.20.8) (2024-04-22)
+
+
+### Bug Fixes
+
+* adjust test config ([7641296](https://github.com/push-based/user-flow/commit/764129602ce0a2a027323a9b44255f2188dc0cac))
+* adjust test config ([58846c6](https://github.com/push-based/user-flow/commit/58846c6b9264b8616974c67c9d03d9be5cc8412f))
+* cleanup snapshot ([d26f18a](https://github.com/push-based/user-flow/commit/d26f18a7afc12d1f7f5dd414a6dcf7f508954921))
+* delete unused config ([c876019](https://github.com/push-based/user-flow/commit/c876019ea01087037665a3e9328cac6ac39ed877))
+* delete unused target ([b75a50d](https://github.com/push-based/user-flow/commit/b75a50d37a7487c65a43751518ca1e6978a3c9b4))
+* import deps from vitest ([4924287](https://github.com/push-based/user-flow/commit/4924287c178c11b4bf02d2f33a9ce531351642b9))
+* init migration to vitest ([f0de916](https://github.com/push-based/user-flow/commit/f0de916eb08ee791c77814605d743577464fca3c))
+
+
+
 ## [0.20.7](https://github.com/push-based/user-flow/compare/cli-0.20.6...cli-0.20.7) (2024-03-14)
 
 
