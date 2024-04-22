@@ -8,8 +8,11 @@ export const verbose = {
   default: getEnvPreset().verbose
 } satisfies Options;
 
-// We don't rely on yargs option normalization features as this can happen before cli bootstrap
+// We are in the process of removing this getter
 export function get(): boolean  {
-  const {verbose} = argv as unknown as {verbose: boolean};
-  return verbose;
+  const {verbose} = argv as any as { verbose?: boolean };
+  if (verbose === undefined) {
+    throw new Error('Error extracting verbose cli argument');
+  }
+  return verbose as boolean;
 }
