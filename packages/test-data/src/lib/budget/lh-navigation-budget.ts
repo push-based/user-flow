@@ -1,4 +1,4 @@
-import Budget from 'lighthouse/types/lhr/budget';
+import { Budget } from 'lighthouse';
 import { LH_NAVIGATION_BUDGETS_NAME_DEFAULT } from './constants';
 
 export const LH_NAVIGATION_BUDGETS_NAME = LH_NAVIGATION_BUDGETS_NAME_DEFAULT;

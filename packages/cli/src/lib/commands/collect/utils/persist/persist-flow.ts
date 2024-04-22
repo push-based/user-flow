@@ -1,7 +1,6 @@
 import { join } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import { UserFlow, FlowResult } from 'lighthouse';
 import { log, logVerbose } from '../../../../core/loggin';
 import { writeFile } from '../../../../core/file';
 import { PersistFlowOptions } from './types';
@@ -53,7 +52,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport);
+  const fileName = toReportName(url, flow._options?.name || '', reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

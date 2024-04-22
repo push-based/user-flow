@@ -1,7 +1,4 @@
-import { createRunner, Runner } from '@puppeteer/replay';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import { createRunner, Runner, UserFlow as PRUserFlow } from '@puppeteer/replay';
 import { UserFlowContext } from '../../../..';
 import { readFile } from '../../../../core/file';
 import { UserFlowReportJson } from './types';
@@ -13,5 +10,5 @@ export async function createUserFlowRunner(path: string, ctx: UserFlowContext): 
     const runnerExtension = new UserFlowRunnerExtension(browser, page, flow);
     const jsonRecording = readFile<UserFlowReportJson>(path, {ext: 'json'});
     const recording = parse(jsonRecording);
-    return await createRunner(recording as UserFlow, runnerExtension);
+    return await createRunner(recording as PRUserFlow, runnerExtension);
 }

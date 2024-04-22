@@ -3,7 +3,7 @@ import {Browser, Page} from "puppeteer";
 import { MeasurementStep, UserFlowRecordingStep } from './types';
 import {isMeasureType} from "./utils";
 // @ts-ignore
-import {UserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
+import {UserFlow} from 'lighthouse';
 
 export class UserFlowRunnerExtension extends PuppeteerRunnerExtension {
 

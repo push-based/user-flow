@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer';
 import { logVerbose } from '../../../../core/loggin';
-import FlowResult from 'lighthouse/types/lhr/flow';
+import { FlowResult } from 'lighthouse';
 import { StepOptions, UserFlowOptions } from './types';
 
 const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOptions): FlowResult => {

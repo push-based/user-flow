@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
-import Budget from 'lighthouse/types/lhr/budget';
+import { Budget } from 'lighthouse';
 import { CliProject, getFolderContent, ProcessParams, TestResult, withProject, ProjectConfig } from '@push-based/node-cli-testing';
 import {
   CollectCommandArgv,

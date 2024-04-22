@@ -1,5 +1,5 @@
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedReport } from '../report/types';
+import { FlowResult } from 'lighthouse';
+import { ReducedReport } from './types';
 import { parseSteps } from './lh-utils';
 import { toFileName } from '../../../../core/file';
 import { isoDateStringToIsoLikeString } from '../persist/utils';
