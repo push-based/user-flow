@@ -1,15 +1,16 @@
-import * as openReport from 'open';
+import {vi, describe, expect, beforeEach, it } from 'vitest';
+import openReport from 'open';
 import { handleOpenFlowReports, openFlowReports } from './open-report';
 import { logVerbose } from '../../../../core/loggin';
 import { CollectCommandOptions } from '../../options';
 
-jest.mock('open');
-jest.mock('../../../../core/loggin');
+vi.mock('open');
+vi.mock('../../../../core/loggin');
 
 describe('handleOpenFlowReport', () => {
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   })
 
   it('should return the openFlowReport function if openReport, interactive and not dryRun', async () => {
@@ -52,7 +53,7 @@ describe('handleOpenFlowReport', () => {
 describe('openReports', () => {
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should not open the report if no file name is passed', async () => {

@@ -1,4 +1,4 @@
-import * as openReport from 'open';
+import openReport from 'open';
 import { logVerbose } from '../../../../core/loggin';
 import { CollectCommandOptions } from '../../options';
 
