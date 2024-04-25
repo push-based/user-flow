@@ -9,7 +9,7 @@ export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): 
 
   const { collect, persist, assert } = cfg;
 
-  const userFlows = loadFlow(collect);
+  const userFlows = await loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
       return collectFlow({ ...collect, ...persist, ...assert }, { ...provider, path }, argv)

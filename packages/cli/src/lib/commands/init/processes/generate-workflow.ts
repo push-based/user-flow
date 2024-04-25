@@ -1,8 +1,9 @@
+import { existsSync, mkdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { RcJson } from '../../../types.js';
-import { join } from 'path';
 import { readFile, writeFile } from '../../../core/file/index.js';
 import { log, logVerbose } from '../../../core/loggin/index.js';
-import { existsSync, mkdirSync } from 'fs';
 import { GhWorkflowExampleMap } from '../constants.js';
 import { ifThenElse } from '../../../core/processing/behaviors.js';
 import { CLIProcess } from '../../../core/processing/types.js';
@@ -20,7 +21,7 @@ export function getExamplePathDest(): string {
 
 export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   const tplFileName = GhWorkflowExampleMap[exampleName];
-  const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)), '..', 'static', tplFileName);
   const exampleDestination = getExamplePathDest();
 
   if (readFile(exampleDestination) !== '') {

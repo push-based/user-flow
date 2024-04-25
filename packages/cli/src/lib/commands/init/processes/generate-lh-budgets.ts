@@ -1,6 +1,7 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
 import { cwd } from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 import { RcJson } from '../../../types.js';
 import { readFile, writeFile } from '../../../core/file/index.js';
@@ -17,7 +18,7 @@ export const budgetsFileExist = (path: string) => {
 export const defaultBudgets = () => {
   logVerbose('New budgets used');
   const tplFileName = BudgetsExampleMap['budgets'];
-  const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)), '..', 'static', tplFileName);
   return readFile(exampleSourceLocation, { fail: true }).toString();
 }
 

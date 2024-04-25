@@ -1,9 +1,14 @@
+import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname } from 'node:path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs';
+import { build } from 'esbuild';
+import { register } from 'ts-node';
 import { logVerbose } from '../loggin/index.js';
-import { getParserFromExtname, formatCode } from '../prettier/index.js';
+import { formatCode, getParserFromExtname } from '../prettier/index.js';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
 import { ExtToOutPut, ResolveFileResult } from './types.js';
+import { UserFlowProvider } from '../../commands/collect/utils/user-flow/types.js';
+import { Buffer } from 'node:buffer';
 
 export {toFileName} from './to-file-name.js';
 
@@ -74,14 +79,20 @@ export function writeFile(filePath: string, data: string) {
   return writeFileSync(filePath, formattedData);
 }
 
-export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
+// export async function resolveUserFlow(path: string): Promise<{ exports: UserFlowProvider, path: string }> {
+//   const buildResults = await build({ entryPoints: [path], write: false });
+//   const output = Buffer.from(buildResults.outputFiles[0].contents).toString();
+//   const file = await import('data:text/javascript'+output);
+//   return { exports: file.default, path };
+// }
+
+export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult<T>> {
   // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.ts')) {
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
     // so that imports in the `*.uf.ts` files work.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('ts-node').register({
+    register({
       transpileOnly: true,
       compilerOptions: {
         module: 'commonjs',
@@ -90,7 +101,7 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = require(path);
+  const file = createRequire(import.meta.url)(path);
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporting an object. The first one is:

@@ -1,3 +1,5 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import Prettier, { Options as PrettierOptions } from 'prettier';
 import { SupportedExtname, SupportedParser } from './types.js';
 import { supportedExtname } from './constants.js';
@@ -27,7 +29,7 @@ export function formatCode(
   code: string,
   parser: PrettierOptions['parser'] = 'typescript'
 ) {
-  const prettierConfig = Prettier.resolveConfig.sync(__dirname);
+  const prettierConfig = Prettier.resolveConfig.sync(dirname(fileURLToPath(import.meta.url)));
   return Prettier.format(code, {
     parser,
     ...prettierConfig
