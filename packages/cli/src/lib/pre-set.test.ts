@@ -1,5 +1,5 @@
 import {describe, afterEach, it, expect} from 'vitest';
-import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
+import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set.js';
 import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
 
 describe('getEnvPreset', () => {

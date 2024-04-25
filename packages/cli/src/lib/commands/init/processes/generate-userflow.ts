@@ -1,12 +1,12 @@
 import { join } from 'node:path';
 import { mkdirSync, readdirSync } from 'node:fs';
-import { RcJson } from '../../../types';
-import { readFile, writeFile } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
-import { FlowExampleMap, PROMPT_INIT_GENERATE_FLOW } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
-import { confirmToProcess } from '../../../core/prompt/confirm-to-process';
+import { RcJson } from '../../../types.js';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { log, logVerbose } from '../../../core/loggin/index.js';
+import { FlowExampleMap, PROMPT_INIT_GENERATE_FLOW } from '../constants.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { CLIProcess } from '../../../core/processing/types.js';
+import { confirmToProcess } from '../../../core/prompt/confirm-to-process.js';
 
 const exampleName = 'basic-navigation';
 

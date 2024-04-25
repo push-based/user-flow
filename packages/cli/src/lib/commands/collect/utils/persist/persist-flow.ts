@@ -1,13 +1,13 @@
 import { join } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
 import { UserFlow, FlowResult } from 'lighthouse';
-import { log, logVerbose } from '../../../../core/loggin';
-import { writeFile } from '../../../../core/file';
-import { PersistFlowOptions } from './types';
-import { generateStdoutReport } from './utils';
-import { createReducedReport, toReportName } from '../report/utils';
-import { ReducedReport } from '../report/types';
-import { generateMdReport } from '../../../assert/utils/md-report';
+import { log, logVerbose } from '../../../../core/loggin/index.js';
+import { writeFile } from '../../../../core/file/index.js';
+import { PersistFlowOptions } from './types.js';
+import { generateStdoutReport } from './utils.js';
+import { createReducedReport, toReportName } from '../report/utils.js';
+import { ReducedReport } from '../report/types.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
 
 export async function persistFlow(
   flow: UserFlow,

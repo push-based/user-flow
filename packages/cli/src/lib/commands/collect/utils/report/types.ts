@@ -1,7 +1,7 @@
 import { Budget, Config, FlowResult } from 'lighthouse';
-import Details from 'lighthouse/types/lhr/audit-details';
-import { CLI_MODES } from '../../../../global/cli-mode';
-import { PickOne } from '../../../../core/types';
+import Details from 'lighthouse/types/lhr/audit-details.js';
+import { CLI_MODES } from '../../../../global/cli-mode/index.js';
+import { PickOne } from '../../../../core/types.js';
 
 type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);

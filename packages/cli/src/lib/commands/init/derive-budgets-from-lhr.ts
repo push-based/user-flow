@@ -1,6 +1,6 @@
 import { FlowResult, Budget } from 'lighthouse';
-import { RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets } from './constants';
-import { logVerbose } from '../../core/loggin';
+import { RequestCountResourceTypeBudgets, TransferSizeResourceTypeBudgets } from './constants.js';
+import { logVerbose } from '../../core/loggin/index.js';
 
 export function deriveBudgetsFromLhr(flow: FlowResult): Budget[] {
   const budgetObject: Budget = {};

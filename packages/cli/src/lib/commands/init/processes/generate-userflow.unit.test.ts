@@ -3,7 +3,7 @@ import { Buffer } from 'node:buffer';
 import * as fs from 'node:fs';
 import { prompt } from 'enquirer';
 import { INITIATED_RC_JSON } from 'test-data';
-import { handleFlowGeneration } from './generate-userflow';
+import { handleFlowGeneration } from './generate-userflow.js';
 
 vi.mock('node:fs');
 vi.mock('enquirer', () => ({

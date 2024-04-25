@@ -1,8 +1,8 @@
 import { join } from 'node:path';
 import { existsSync, lstatSync, readdirSync } from 'node:fs';
-import { UserFlowProvider } from './types';
-import { resolveAnyFile } from '../../../../core/file';
-import { CollectRcOptions } from '../../options/types';
+import { UserFlowProvider } from './types.js';
+import { resolveAnyFile } from '../../../../core/file/index.js';
+import { CollectRcOptions } from '../../options/types.js';
 
 export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports: UserFlowProvider, path: string })[] {
   const { ufPath } = collect;

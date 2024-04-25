@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parse } from './parse';
+import { parse } from './parse.js';
 import { getReportContent } from 'test-data';
 
 const pupeteerReplay = getReportContent('pupeteer-replay.json');

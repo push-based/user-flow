@@ -1,11 +1,11 @@
-import { RcJson } from '../../../types';
+import { RcJson } from '../../../types.js';
 import { join } from 'path';
-import { readFile, writeFile } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { log, logVerbose } from '../../../core/loggin/index.js';
 import { existsSync, mkdirSync } from 'fs';
-import { GhWorkflowExampleMap } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
+import { GhWorkflowExampleMap } from '../constants.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { CLIProcess } from '../../../core/processing/types.js';
 
 const exampleName = 'basic-workflow';
 

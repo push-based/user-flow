@@ -1,6 +1,6 @@
-import { promptParam } from './prompt';
-import { CLIProcess } from '../processing/types';
-import { RcJson } from '../../types';
+import { promptParam } from './prompt.js';
+import { CLIProcess } from '../processing/types.js';
+import { RcJson } from '../../types.js';
 
 type Precondition = (context: RcJson) => Promise<boolean> | boolean;
 

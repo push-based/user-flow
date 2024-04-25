@@ -1,4 +1,4 @@
-import { AssertArgvOptions } from '../../assert/options';
+import { AssertArgvOptions } from '../../assert/options.js';
 import { Config } from 'lighthouse';
 
 export type CollectRcOptions = {

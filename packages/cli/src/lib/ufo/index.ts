@@ -1,1 +1,1 @@
-export {Ufo} from './ufo';
+export {Ufo} from './ufo.js';

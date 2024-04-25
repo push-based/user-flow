@@ -1,7 +1,7 @@
-import { YargsCommandObject } from '../../core/yargs/types';
-import { logVerbose } from '../../core/loggin';
-import { readFile } from '../../core/file';
-import { generateMdReport } from './utils/md-report';
+import { YargsCommandObject } from '../../core/yargs/types.js';
+import { logVerbose } from '../../core/loggin/index.js';
+import { readFile } from '../../core/file/index.js';
+import { generateMdReport } from './utils/md-report.js';
 
 export const assertCommand: YargsCommandObject = {
   command: 'assert',

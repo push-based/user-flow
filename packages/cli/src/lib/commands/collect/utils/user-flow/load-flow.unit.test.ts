@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { loadFlow } from './load-flow';
-import * as fileHelpers from '../../../../core/file';
+import { loadFlow } from './load-flow.js';
+import * as fileHelpers from '../../../../core/file/index.js';
 import * as fs from 'node:fs';
 
 vi.mock('node:fs');

@@ -1,13 +1,13 @@
 import {mkdirSync, readdirSync} from 'fs';
-import {RcJson} from '../../../types';
-import {get as interactive} from '../../../global/options/interactive';
-import {promptParam} from '../../../core/prompt/prompt';
-import {applyValidations, hasError, VALIDATORS} from '../../../core/validation';
+import {RcJson} from '../../../types.js';
+import {get as interactive} from '../../../global/options/interactive.js';
+import {promptParam} from '../../../core/prompt/prompt.js';
+import {applyValidations, hasError, VALIDATORS} from '../../../core/validation/index.js';
 import {
   DEFAULT_PERSIST_OUT_PATH,
   ERROR_PERSIST_OUT_PATH_REQUIRED,
   PROMPT_PERSIST_OUT_PATH
-} from '../../collect/options/outPath.constant';
+} from '../../collect/options/outPath.constant.js';
 
 export async function setupOutPath(
   config: RcJson

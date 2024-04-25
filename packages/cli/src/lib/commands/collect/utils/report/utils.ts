@@ -1,8 +1,8 @@
 import { FlowResult } from 'lighthouse';
-import { ReducedReport } from './types';
-import { parseSteps } from './lh-utils';
-import { toFileName } from '../../../../core/file';
-import { isoDateStringToIsoLikeString } from '../persist/utils';
+import { ReducedReport } from './types.js';
+import { parseSteps } from './lh-utils.js';
+import { toFileName } from '../../../../core/file/index.js';
+import { isoDateStringToIsoLikeString } from '../persist/utils.js';
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = parseSteps(flowResult.steps);

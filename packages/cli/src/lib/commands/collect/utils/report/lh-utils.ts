@@ -3,7 +3,7 @@
  * https://github.com/GoogleChrome/lighthouse
  */
 import { FlowResult, Result } from 'lighthouse';
-import { ReducedFlowStep, ReducedFlowStepResult } from './types';
+import { ReducedFlowStep, ReducedFlowStepResult } from './types.js';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
   return steps.map((step) => {

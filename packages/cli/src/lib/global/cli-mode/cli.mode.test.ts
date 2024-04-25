@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { CLI_MODE_PROPERTY, detectCliMode, isEnvCi, isEnvSandbox } from './cli-mode';
+import { CLI_MODE_PROPERTY, detectCliMode, isEnvCi, isEnvSandbox } from './cli-mode.js';
 import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
 
 describe('isEnvCi', () => {

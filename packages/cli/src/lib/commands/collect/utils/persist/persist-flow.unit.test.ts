@@ -1,13 +1,13 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { generateStdoutReport } from './utils';
-import { createReducedReport } from '../report/utils';
-import { generateMdReport } from '../../../assert/utils/md-report';
-import { persistFlow } from './persist-flow';
-import { writeFile } from '../../../../core/file';
-import { log } from '../../../../core/loggin';
+import { generateStdoutReport } from './utils.js';
+import { createReducedReport } from '../report/utils.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
+import { persistFlow } from './persist-flow.js';
+import { writeFile } from '../../../../core/file/index.js';
+import { log } from '../../../../core/loggin/index.js';
 
-import type { ReducedReport } from '../report/types';
-import type { UserFlow } from '../../../../hacky-things/lighthouse';
+import type { ReducedReport } from '../report/types.js';
+import type { UserFlow } from 'lighthouse';
 
 vi.mock('node:fs', () => ({
   existsSync: vi.fn().mockReturnValue(true)
@@ -25,10 +25,10 @@ vi.mock('../report/utils', () => ({
 }));
 
 const flow = {
-  name: 'flow-name',
+  _options: { name: 'flow-name' },
   createFlowResult: vi.fn(),
   generateReport: vi.fn()
-} satisfies UserFlow;
+} as any as UserFlow;
 
 describe('persist flow reports in specified format', () => {
 

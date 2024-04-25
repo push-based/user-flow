@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { getBudgetTable, getStepsTable } from './md-report';
+import { getBudgetTable, getStepsTable } from './md-report.js';
 import { FlowResult } from 'lighthouse';
 import { getReportContent } from 'test-data';
-import { ReducedReport } from '../../collect/utils/report/types';
-import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
+import { ReducedReport } from '../../collect/utils/report/types.js';
+import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils.js';
 
 const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');

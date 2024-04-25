@@ -1,9 +1,9 @@
-import { readFile, writeFile } from '../../../../core/file';
-import { logVerbose } from '../../../../core/loggin';
-import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant';
+import { readFile, writeFile } from '../../../../core/file/index.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import { DEFAULT_COLLECT_CONFIG_PATH } from '../../options/configPath.constant.js';
 import { Config, Budget } from 'lighthouse';
-import { CollectCommandArgv } from '../../options/types';
-import { readBudgets } from '../../../assert/utils/budgets';
+import { CollectCommandArgv } from '../../options/types.js';
+import { readBudgets } from '../../../assert/utils/budgets/index.js';
 
 export function readConfig(configPath: string = DEFAULT_COLLECT_CONFIG_PATH): Config {
   const configJson = JSON.parse(readFile(configPath, { fail: true }));
