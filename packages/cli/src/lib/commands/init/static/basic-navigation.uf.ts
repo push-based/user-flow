@@ -16,9 +16,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Basic Navigation Example'},
   interactions
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

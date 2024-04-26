@@ -65,7 +65,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should save the report in json if json is given as format', async () => {
-    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'});
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'} as any);
     await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
     expect(writeFile).toHaveBeenCalledWith('report.json', JSON.stringify({mock: 'jsonResult'}));
   });
@@ -93,7 +93,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should extract an md report from the json report if md is given as format', async () => {
-    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'});
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'} as any);
     const createReducedReportSpy = vi.mocked(createReducedReport).mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
     const generateMdReportMock = vi.mocked(generateMdReport);
     await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });
