@@ -10,7 +10,7 @@ export const assertCommand: YargsCommandObject = {
     handler: async () => {
       logVerbose(`run "assert" as a yargs command`);
       const json = JSON.parse(readFile('./packages/cli/docs/raw/order-coffee.uf.json').toString());
-      const mdReport = generateMdReport(json);
+      const mdReport = await generateMdReport(json);
       console.log('md report', mdReport);
     }
   }

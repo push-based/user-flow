@@ -11,17 +11,17 @@ import Table = Details.Table;
 
 const budgetsSymbol = '🔒'
 
-export function generateMdReport(flowResult: ReducedReport): string {
+export async function generateMdReport(flowResult: ReducedReport): Promise<string> {
   const name = flowResult.name;
   const dateTime = `Date/Time: ${style(new Date().toISOString().replace('T', ' ').split('.')[0].slice(0, -3))}  `;
-  const stepsTable = getStepsTable(flowResult);
+  const stepsTable = await getStepsTable(flowResult);
 
   let md = `${headline(name)}${NEW_LINE}
 ${dateTime}${NEW_LINE}
 ${stepsTable}${NEW_LINE}
 `;
 
-  const budgetsTable = getBudgetTable(flowResult);
+  const budgetsTable = await getBudgetTable(flowResult);
   if (budgetsTable !== '') {
     md += details(`${budgetsSymbol} Budgets`, budgetsTable) + NEW_LINE;
   }
@@ -46,32 +46,38 @@ ${stepsTable}${NEW_LINE}
  *
  */
 
-export function getBudgetTable(reducedReport: ReducedReport, options: { heading: Hierarchy } = {heading: 3}): string {
+export async function getBudgetTable(reducedReport: ReducedReport, options: {
+  heading: Hierarchy
+} = { heading: 3 }): Promise<string> {
   const performanceBudgets = reducedReport.steps
-    .filter(({resourceCountsBudget, resourceSizesBudget, timingsBudget}) => resourceCountsBudget || resourceSizesBudget || timingsBudget)
-    .map(({name, resourceCountsBudget, resourceSizesBudget, timingsBudget}) => ({
+    .filter(({
+               resourceCountsBudget,
+               resourceSizesBudget,
+               timingsBudget
+             }) => resourceCountsBudget || resourceSizesBudget || timingsBudget)
+    .map(({ name, resourceCountsBudget, resourceSizesBudget, timingsBudget }) => ({
         name,
         resultsSizeBudget: getResourceSizes(resourceSizesBudget),
         resultsCountBudget: getResourceCounts(resourceCountsBudget),
         resultsTimingBudget: getTimings(timingsBudget)
       })
     );
-  return performanceBudgets.length ? performanceBudgets.map(b => {
+  return performanceBudgets.length ? (await Promise.all(performanceBudgets.map(async b => {
     let md = headline(b.name, options.heading) + NEW_LINE + NEW_LINE;
     if (b.resultsSizeBudget !== undefined) {
       md += style('Resource Size Budget') + NEW_LINE + NEW_LINE;
-      md += table(b.resultsSizeBudget) + NEW_LINE + NEW_LINE
+      md += await table(b.resultsSizeBudget) + NEW_LINE + NEW_LINE
     }
     if (b.resultsCountBudget !== undefined) {
       md += style('Resource Count Budget') + NEW_LINE + NEW_LINE;
-      md += table(b.resultsCountBudget) + NEW_LINE + NEW_LINE
+      md += await table(b.resultsCountBudget) + NEW_LINE + NEW_LINE
     }
     if (b.resultsTimingBudget !== undefined) {
       md += style('Timing Budget') + NEW_LINE + NEW_LINE;
-      md += table(b.resultsTimingBudget) + NEW_LINE + NEW_LINE
+      md += await table(b.resultsTimingBudget) + NEW_LINE + NEW_LINE
     }
     return md;
-  }).join(NEW_LINE) : '';
+  }))).join(NEW_LINE) : '';
 }
 
 
@@ -149,12 +155,12 @@ function getResourceCounts(resourceCountsBudget: Table | undefined): undefined |
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): string {
+export async function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): Promise<string> {
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
   const tableArr = extractTableArr(reportCategories, tableStepsArr);
-  return table(tableArr, alignOptions);
+  return await table(tableArr, alignOptions);
 }
 
 function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {

@@ -25,13 +25,11 @@ export function getParserFromExtname(extname: SupportedExtname | string): Suppor
  * @param code
  * @param parser
  */
-export function formatCode(
+export async function formatCode(
   code: string,
   parser: PrettierOptions['parser'] = 'typescript'
 ) {
-  const prettierConfig = Prettier.resolveConfig.sync(dirname(fileURLToPath(import.meta.url)));
-  return Prettier.format(code, {
-    parser,
-    ...prettierConfig
-  }).trim();
+  const prettierConfig = await Prettier.resolveConfig(dirname(fileURLToPath(import.meta.url)));
+  const content = await Prettier.format(code, { parser, ...prettierConfig })
+  return content.trim();
 }

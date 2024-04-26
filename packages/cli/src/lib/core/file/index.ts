@@ -1,11 +1,12 @@
 import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { createRequire } from 'node:module';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 import { register } from 'ts-node';
 import { logVerbose } from '../loggin/index.js';
 import { formatCode, getParserFromExtname } from '../prettier/index.js';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
 import { ExtToOutPut, ResolveFileResult } from './types.js';
+import { cwd } from 'node:process';
 
 export {toFileName} from './to-file-name.js';
 
@@ -63,7 +64,7 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
 /**
  * Ensures the folder exists before writing it
  */
-export function writeFile(filePath: string, data: string) {
+export async function writeFile(filePath: string, data: string) {
   const dir = dirname(filePath);
   if (!existsSync(dir)) {
     logVerbose(`Created dir ${dir} to save ${filePath}`);
@@ -71,17 +72,10 @@ export function writeFile(filePath: string, data: string) {
   }
 
   const ext = filePath.split('.').pop() || '';
-  const formattedData = formatCode(data, getParserFromExtname(ext));
+  const formattedData = await formatCode(data, getParserFromExtname(ext));
   // @TODO implement a check that saves the file only if the content is different => git noise
   return writeFileSync(filePath, formattedData);
 }
-
-// export async function resolveUserFlow(path: string): Promise<{ exports: UserFlowProvider, path: string }> {
-//   const buildResults = await build({ entryPoints: [path], write: false });
-//   const output = Buffer.from(buildResults.outputFiles[0].contents).toString();
-//   const file = await import('data:text/javascript'+output);
-//   return { exports: file.default, path };
-// }
 
 export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult<T>> {
   // 🔥 Live compilation of TypeScript files
@@ -98,7 +92,7 @@ export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = createRequire(import.meta.url)(path);
+  const file = createRequire(import.meta.url)(join(cwd(), path));
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporting an object. The first one is:

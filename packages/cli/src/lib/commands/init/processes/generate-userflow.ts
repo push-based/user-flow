@@ -8,6 +8,7 @@ import { FlowExampleMap, PROMPT_INIT_GENERATE_FLOW } from '../constants.js';
 import { ifThenElse } from '../../../core/processing/behaviors.js';
 import { CLIProcess } from '../../../core/processing/types.js';
 import { confirmToProcess } from '../../../core/prompt/confirm-to-process.js';
+import { exampleFlow } from '../static/basic-navigation.uf.js';
 
 const exampleName = 'basic-navigation';
 
@@ -29,7 +30,6 @@ async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
     mkdirSync(ufPath, { recursive: true });
   }
   const tplFileName = FlowExampleMap[exampleName];
-  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)),'..', 'static', tplFileName);
   const exampleDestination = join(ufPath, tplFileName);
 
   if (readFile(exampleDestination) !== '') {
@@ -37,8 +37,7 @@ async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
     return Promise.resolve(cliCfg);
   }
 
-  const fileContent = readFile(exampleSourceLocation, { fail: true }).toString();
-  writeFile(exampleDestination, fileContent);
+  await writeFile(exampleDestination, exampleFlow);
 
   log(`setup user-flow for basic navigation in ${ufPath} successfully`);
   return Promise.resolve(cliCfg);

@@ -1,7 +1,7 @@
 export const STATIC_USERFLOW_NAME = 'static.uf.ts';
 export const STATIC_USERFLOW_TITLE = STATIC_USERFLOW_NAME.slice(0, -3);
 export const STATIC_USERFLOW_CONTENT = `
-module.exports = {
+export default {
   flowOptions: {
     name: '${STATIC_USERFLOW_TITLE}'
   },
