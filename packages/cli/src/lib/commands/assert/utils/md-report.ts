@@ -5,7 +5,8 @@ import {style} from '../../../core/md/font-style.js';
 import {headline, Hierarchy} from '../../../core/md/headline.js';
 import {NEW_LINE} from '../../../core/md/constants.js';
 import {details} from '../../../core/md/details.js';
-import Details from "lighthouse/types/lhr/audit-details.js";
+// @ts-ignore
+import Details from "lighthouse/types/lhr/audit-details.d.ts";
 import Table = Details.Table;
 
 const budgetsSymbol = '🔒'

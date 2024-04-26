@@ -1,14 +1,14 @@
 import { describe, afterEach, it, expect, vi } from 'vitest';
 import { Buffer } from 'node:buffer';
 import * as fs from 'node:fs';
-import { prompt } from 'enquirer';
+import Enquirer from 'enquirer';
 import { INITIATED_RC_JSON } from 'test-data';
 import { handleFlowGeneration } from './generate-userflow.js';
 
 vi.mock('node:fs');
-vi.mock('enquirer', () => ({
-  prompt: vi.fn().mockResolvedValue(false),
-}));
+vi.mock('enquirer', () => (
+  { default: { prompt: vi.fn().mockResolvedValue(false) } }
+));
 vi.mock('../../../core/loggin');
 
 describe('handleFlowGeneration', () => {
@@ -21,7 +21,7 @@ describe('handleFlowGeneration', () => {
     const existsSyncSpy = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
     await handleFlowGeneration({interactive: true})(INITIATED_RC_JSON);
     expect(existsSyncSpy).toHaveBeenCalled();
-    expect(prompt).toHaveBeenCalled();
+    expect(Enquirer.prompt).toHaveBeenCalled();
   });
 
   it('should not prompt if interactive is true and if file already exists',async () => {
@@ -32,12 +32,12 @@ describe('handleFlowGeneration', () => {
     expect(existsSyncSpy).toHaveBeenCalled();
     expect(isDirectorySpy).toHaveBeenCalled();
     expect(readFileSyncSpy).toHaveBeenCalled();
-    expect(prompt).not.toHaveBeenCalled();
+    expect(Enquirer.prompt).not.toHaveBeenCalled();
   });
 
   it('should not prompt if interactive is false',async () => {
     await handleFlowGeneration({interactive: false})(INITIATED_RC_JSON);
-    expect(prompt).not.toHaveBeenCalled();
+    expect(Enquirer.prompt).not.toHaveBeenCalled();
   });
 
   it('should not check if file exist if interactive is false', async () => {

@@ -9,7 +9,7 @@ export async function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): Promi
   path: string
 })[]> {
   const { ufPath } = collect;
-  const path = join(process.cwd(), ufPath);
+  const path = join(ufPath);
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is neither a file nor a directory`);
   }
