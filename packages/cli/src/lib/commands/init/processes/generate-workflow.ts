@@ -35,7 +35,7 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
     logVerbose(`setup workflow folder ${destPath}`);
   }
 
-  writeFile(exampleDestination, fileContent);
+  await writeFile(exampleDestination, fileContent);
 
   log(`setup workflow for user-flow integration in the CI in ${exampleDestination} successfully`);
   return Promise.resolve(cliCfg);

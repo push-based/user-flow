@@ -34,21 +34,21 @@ describe('md-table', () => {
     expect(enrichedReducedLhr9).toEqual(lhr9ReducedBaseline);
   });
 
-  it('should print MD table if getStepsTable is called with a reduced result', () => {
+  it('should print MD table if getStepsTable is called with a reduced result', async () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = getStepsTable(reducedLhr9);
+    const mdTable = await getStepsTable(reducedLhr9);
     expect(mdTable).toMatchSnapshot();
   });
 
-  it('should return a Md table comparing to reports if getStepsTable is passed a baseline report', () => {
+  it('should return a Md table comparing to reports if getStepsTable is passed a baseline report', async () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = getStepsTable(reducedLhr9, lhr9Ex2);
+    const mdTable = await getStepsTable(reducedLhr9, lhr9Ex2);
     expect(mdTable).toMatchSnapshot();
   });
 
-  it('should return a Md table if getBudgetTable is passed a baseline report', () => {
+  it('should return a Md table if getBudgetTable is passed a baseline report', async () => {
     const reducedLhr9 = createReducedReport(lhr9budgets);
-    const mdTable = getBudgetTable(reducedLhr9);
+    const mdTable = await getBudgetTable(reducedLhr9);
     expect(mdTable).toContain('| Resource Type | Transfer Size | Over Budget |');
     expect(mdTable).toContain('| Resource Type | Requests | Over Budget |');
     expect(mdTable).toContain('|         Metric         | Measurement | Over Budget |');
