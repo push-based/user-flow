@@ -1,0 +1,42 @@
+name: quality
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+    name: Node ${{ matrix.node }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clean Install
+        run: npm clean-install
+
+      - name: Collect and upload Code PushUp report
+        run: npx code-pushup autorun
+        env:
+          CP_API_KEY: ${{ secrets.CP_API_KEY }}
+          NODE_OPTIONS: --max-old-space-size=8192
+
+      - name: Save report files as workflow artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-pushup-report
+          path: .code-pushup/
