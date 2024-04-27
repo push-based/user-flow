@@ -3,11 +3,13 @@
   "version": "0.20.8",
   "type": "module",
   "main": "src/index.js",
-  "bin": "src/cli.js",
+  "bin": {
+    "user-flow": "src/cli.js"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/push-based/user-flow.git"
+    "url": "git+https://github.com/push-based/user-flow.git"
   },
   "keywords": [
     "web performance",
