@@ -19,7 +19,6 @@ export default defineConfig({
     },
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],
-    // globalSetup: ['../../global-setup.e2e.ts'],
-    // setupFiles: ['../../testing/test-setup/src/lib/reset.mocks.ts'],
+    globalSetup: ['../../global-setup.e2e.ts'],
   },
 });
