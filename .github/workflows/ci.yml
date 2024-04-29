@@ -28,6 +28,8 @@ jobs:
         run: npm run nx -- run-many -t build --skip-nx-cache --parallel=false
       - name: test
         run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
+      - name: e2e
+        run: npm run nx -- run-many -t e2e --skip-nx-cache --parallel=false
 
       # Code PushUp command
       - name: Collect and upload Code PushUp report
