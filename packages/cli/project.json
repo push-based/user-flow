@@ -74,6 +74,10 @@
           }
         ]
       }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
+      "dependsOn": ["build"]
     }
   },
   "tags": []
