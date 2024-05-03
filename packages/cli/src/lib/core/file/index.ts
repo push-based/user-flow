@@ -78,11 +78,7 @@ export async function writeFile(filePath: string, data: string) {
 }
 
 export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult<T>> {
-  // 🔥 Live compilation of TypeScript files
   if (path.endsWith('.mts')) {
-    // Register TS compiler lazily
-    // tsNode needs the compilerOptions.module resolution to be 'commonjs',
-    // so that imports in the `*.uf.ts` files work.
     register('tsx/esm', {
       parentURL: import.meta.url,
       data: true
