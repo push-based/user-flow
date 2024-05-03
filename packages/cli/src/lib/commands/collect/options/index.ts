@@ -1,16 +1,16 @@
 import { InferredOptionTypes, Options } from 'yargs';
-import { openReport } from './openReport';
-import { ufPath } from './ufPath';
-import { configPath } from './configPath';
-import { outPath } from './outPath';
-import { url } from './url';
-import { format } from './format';
-import { serveCommand } from './serveCommand';
-import { awaitServeStdout } from './awaitServeStdout';
-import { dryRun } from './dryRun';
-import { assertOptions } from '../../assert/options';
-import { config } from './config';
-import { GlobalCliOptions } from '../../../global/options';
+import { openReport } from './openReport.js';
+import { ufPath } from './ufPath.js';
+import { configPath } from './configPath.js';
+import { outPath } from './outPath.js';
+import { url } from './url.js';
+import { format } from './format.js';
+import { serveCommand } from './serveCommand.js';
+import { awaitServeStdout } from './awaitServeStdout.js';
+import { dryRun } from './dryRun.js';
+import { assertOptions } from '../../assert/options.js';
+import { config } from './config.js';
+import { GlobalCliOptions } from '../../../global/options/index.js';
 
 export const persistOptions = {
   outPath,

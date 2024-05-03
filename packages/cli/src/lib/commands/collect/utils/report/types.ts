@@ -1,9 +1,7 @@
-import Budget from 'lighthouse/types/lhr/budget';
-import Config from 'lighthouse/types/config';
-import { CLI_MODES } from '../../../../global/cli-mode';
-import { PickOne } from '../../../../core/types';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import Details from 'lighthouse/types/lhr/audit-details';
+import { Budget, Config, FlowResult } from 'lighthouse';
+import Details from 'lighthouse/types/lhr/audit-details.js';
+import { CLI_MODES } from '../../../../global/cli-mode/index.js';
+import { PickOne } from '../../../../core/types.js';
 
 type OverBudget = { overBudget: number };
 type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
@@ -59,7 +57,7 @@ export type ReducedReport = {
     lhBudgetAssertion: BudgetAssertion,
     baselineAssertion: BudgetAssertion,
   }
-  config?: Config.Json & { baseline?: any };
+  config?: Config & { baseline?: any };
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

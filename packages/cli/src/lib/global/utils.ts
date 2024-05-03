@@ -1,4 +1,4 @@
-import { GlobalOptionsArgv } from './options/types';
+import { GlobalOptionsArgv } from './options/types.js';
 
 export function getGlobalOptionsFromArgv(argv: any): Partial<GlobalOptionsArgv> {
   const { rcPath, interactive, verbose } = argv;

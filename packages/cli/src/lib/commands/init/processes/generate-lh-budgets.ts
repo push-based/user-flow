@@ -1,14 +1,15 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
 import { cwd } from 'node:process';
+import { fileURLToPath } from 'node:url';
 
-import { RcJson } from '../../../types';
-import { readFile, writeFile } from '../../../core/file';
-import { logVerbose } from '../../../core/loggin';
-import { BudgetsExampleMap } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
-import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr';
+import { RcJson } from '../../../types.js';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { logVerbose } from '../../../core/loggin/index.js';
+import { BudgetsExampleMap } from '../constants.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { CLIProcess } from '../../../core/processing/types.js';
+import { deriveBudgetsFromLhr } from '../derive-budgets-from-lhr.js';
 
 export const budgetsFileExist = (path: string) => {
   return readFile(path) !== '';
@@ -17,7 +18,7 @@ export const budgetsFileExist = (path: string) => {
 export const defaultBudgets = () => {
   logVerbose('New budgets used');
   const tplFileName = BudgetsExampleMap['budgets'];
-  const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)), '..', 'static', tplFileName);
   return readFile(exampleSourceLocation, { fail: true }).toString();
 }
 

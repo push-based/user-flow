@@ -1,8 +1,8 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { handleBudgetsGeneration } from './generate-lh-budgets';
+import { handleBudgetsGeneration } from './generate-lh-budgets.js';
 import { RcJson } from '@push-based/user-flow';
-import * as deriveHelpers from '../derive-budgets-from-lhr';
-import * as fileHelpers from '../../../core/file';
+import * as deriveHelpers from '../derive-budgets-from-lhr.js';
+import * as fileHelpers from '../../../core/file/index.js';
 
 vi.mock('../derive-budgets-from-lhr');
 vi.mock('../../../core/file');

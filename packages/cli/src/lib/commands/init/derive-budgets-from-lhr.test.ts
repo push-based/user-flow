@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { deriveBudgetsFromLhr } from './derive-budgets-from-lhr';
+import { deriveBudgetsFromLhr } from './derive-budgets-from-lhr.js';
 import { getReportContent } from 'test-data';
-import LHR from 'lighthouse/types/lhr/lhr';
+import { FlowResult } from 'lighthouse';
 
-const lhr9 = getReportContent<LHR>('lhr-9.json');
+const lhr9 = getReportContent<FlowResult>('lhr-9.json');
 const expectedBudgets = [
   {
     resourceCounts: [

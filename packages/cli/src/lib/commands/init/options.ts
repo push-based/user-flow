@@ -1,6 +1,6 @@
 import { InferredOptionTypes, Options } from 'yargs';
-import { collectOptions } from '../collect/options';
-import { assertOptions } from '../assert/options';
+import { collectOptions } from '../collect/options/index.js';
+import { assertOptions } from '../assert/options.js';
 
 const generateFlow = {
   alias: 'h',

@@ -1,5 +1,5 @@
-import { argv, Options } from 'yargs';
-import { getEnvPreset } from '../../../pre-set';
+import { Options } from 'yargs';
+import { getEnvPreset } from '../../../pre-set.js';
 
 export const dryRun = {
   alias: 'd',

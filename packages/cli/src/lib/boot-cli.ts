@@ -1,8 +1,8 @@
-import { commands } from './commands/commands';
-import { runCli } from './core/yargs';
-import { getCliOptionsFromRcConfig } from './global/rc-json';
-import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options';
-import { getGlobalOptionsFromArgv } from './global/utils';
+import { commands } from './commands/commands.js';
+import { runCli } from './core/yargs/index.js';
+import { getCliOptionsFromRcConfig } from './global/rc-json/index.js';
+import { GLOBAL_OPTIONS_YARGS_CFG } from './global/options/index.js';
+import { getGlobalOptionsFromArgv } from './global/utils.js';
 
 /**
  * Merges CLI params into rc config

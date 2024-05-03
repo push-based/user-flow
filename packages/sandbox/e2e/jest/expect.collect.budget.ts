@@ -1,4 +1,4 @@
-import Budget from 'lighthouse/types/lhr/budget';
+import { Budget } from 'lighthouse';
 import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
 import { LH_NAVIGATION_BUDGETS_NAME } from 'test-data';
 

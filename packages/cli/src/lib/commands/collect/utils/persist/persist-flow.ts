@@ -1,14 +1,13 @@
 import { join } from 'node:path';
 import { existsSync, mkdirSync } from 'node:fs';
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { log, logVerbose } from '../../../../core/loggin';
-import { writeFile } from '../../../../core/file';
-import { PersistFlowOptions } from './types';
-import { generateStdoutReport } from './utils';
-import { createReducedReport, toReportName } from '../report/utils';
-import { ReducedReport } from '../report/types';
-import { generateMdReport } from '../../../assert/utils/md-report';
+import { UserFlow, FlowResult } from 'lighthouse';
+import { log, logVerbose } from '../../../../core/loggin/index.js';
+import { writeFile } from '../../../../core/file/index.js';
+import { PersistFlowOptions } from './types.js';
+import { generateStdoutReport } from './utils.js';
+import { createReducedReport, toReportName } from '../report/utils.js';
+import { ReducedReport } from '../report/types.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
 
 export async function persistFlow(
   flow: UserFlow,
@@ -28,13 +27,13 @@ export async function persistFlow(
   let mdReport: string | undefined = undefined;
 
   if (format.includes('md')) {
-    mdReport = generateMdReport(reducedReport);
+    mdReport = await generateMdReport(reducedReport);
     results.push({ format: 'md', out: mdReport });
   }
 
   if (format.includes('stdout')) {
     if(!mdReport) {
-      mdReport = generateStdoutReport(reducedReport);
+      mdReport = await generateStdoutReport(reducedReport);
     }
 
     log(mdReport + '');
@@ -53,7 +52,7 @@ export async function persistFlow(
     }
   }
 
-  const fileName = toReportName(url, flow.name, reducedReport);
+  const fileName = toReportName(url, flow._options?.name || '', reducedReport);
   const fileNames = results.map((result) => {
     const filePath = join(outPath, `${fileName}.${result.format}`);
     writeFile(filePath, result.out);

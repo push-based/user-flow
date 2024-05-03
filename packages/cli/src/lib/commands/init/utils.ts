@@ -1,7 +1,7 @@
-import { CollectRcOptions, PersistRcOptions, ReportFormat } from '../collect/options/types';
-import { InitOptions } from './options';
-import { AssertRcOptions } from '../assert/options';
-import { REPORT_FORMAT_VALUES } from '../collect/constants';
+import { CollectRcOptions, PersistRcOptions, ReportFormat } from '../collect/options/types.js';
+import { InitOptions } from './options.js';
+import { AssertRcOptions } from '../assert/options.js';
+import { REPORT_FORMAT_VALUES } from '../collect/constants.js';
 
 const isValidFormat = (value: any): value is ReportFormat => REPORT_FORMAT_VALUES.includes(value);
 

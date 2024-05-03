@@ -1,4 +1,4 @@
-import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
+import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
 
 type GetDefinedType<
   T extends {} | undefined,

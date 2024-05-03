@@ -1,4 +1,4 @@
-import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
+import { SharedFlagsSettings } from 'lighthouse';
 import { Options } from 'yargs';
 
 const budgets = {

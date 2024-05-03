@@ -12,7 +12,7 @@ import {
   STATIC_PRJ_CFG,
   STATIC_RC_JSON
 } from 'test-data';
-import Budget from 'lighthouse/types/lhr/budget';
+import { Budget } from 'lighthouse';
 
 export function expectGlobalBudgetsPathUsageLog(stdout: string, budgetPath: string) {
   expect(stdout).toContain(`LH Performance Budget ${budgetPath} is used from CLI param or .user-flowrc.json`);

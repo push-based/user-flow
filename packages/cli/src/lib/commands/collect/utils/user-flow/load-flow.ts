@@ -1,12 +1,15 @@
 import { join } from 'node:path';
 import { existsSync, lstatSync, readdirSync } from 'node:fs';
-import { UserFlowProvider } from './types';
-import { resolveAnyFile } from '../../../../core/file';
-import { CollectRcOptions } from '../../options/types';
+import { UserFlowProvider } from './types.js';
+import { resolveAnyFile } from '../../../../core/file/index.js';
+import { CollectRcOptions } from '../../options/types.js';
 
-export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports: UserFlowProvider, path: string })[] {
+export async function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): Promise<({
+  exports: UserFlowProvider,
+  path: string
+})[]> {
   const { ufPath } = collect;
-  const path = join(process.cwd(), ufPath);
+  const path = join(ufPath);
   if (!existsSync(path)) {
     throw new Error(`ufPath: ${path} is neither a file nor a directory`);
   }
@@ -18,8 +21,8 @@ export function loadFlow(collect: Pick<CollectRcOptions, 'ufPath'>): ({ exports:
     files = [path];
   }
 
-  const flows = files.filter(f => f.endsWith('js') || f.endsWith('ts'))
-    .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file));
+  const flows = await Promise.all(files.filter(f => f.endsWith('js') || f.endsWith('ts'))
+    .map((file) => resolveAnyFile<UserFlowProvider & { path: string }>(file)));
 
   if (flows.length === 0) {
     // @TODO use const for error msg

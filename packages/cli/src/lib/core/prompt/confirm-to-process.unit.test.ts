@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { confirmToProcess } from './confirm-to-process';
-import { RcJson } from '../../types';
-import * as prompt from './prompt';
+import { confirmToProcess } from './confirm-to-process.js';
+import { RcJson } from '../../types.js';
+import * as prompt from './prompt.js';
 
 vi.mock('./prompt');
 

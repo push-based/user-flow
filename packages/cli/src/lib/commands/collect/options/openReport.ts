@@ -1,5 +1,5 @@
 import { Options } from 'yargs';
-import { getEnvPreset } from '../../../pre-set';
+import { getEnvPreset } from '../../../pre-set.js';
 
 export const openReport = {
   alias: 'e',

@@ -1,5 +1,5 @@
-import Budget from 'lighthouse/types/lhr/budget';
-import { readFile } from '../../../../core/file';
+import { Budget } from 'lighthouse';
+import { readFile } from '../../../../core/file/index.js';
 
 const DEFAULT_ASSERT_BUDGET_PATH = './budget.json';
 

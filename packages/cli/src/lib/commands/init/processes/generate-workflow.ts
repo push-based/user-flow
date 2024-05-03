@@ -1,11 +1,12 @@
-import { RcJson } from '../../../types';
-import { join } from 'path';
-import { readFile, writeFile } from '../../../core/file';
-import { log, logVerbose } from '../../../core/loggin';
-import { existsSync, mkdirSync } from 'fs';
-import { GhWorkflowExampleMap } from '../constants';
-import { ifThenElse } from '../../../core/processing/behaviors';
-import { CLIProcess } from '../../../core/processing/types';
+import { existsSync, mkdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { RcJson } from '../../../types.js';
+import { readFile, writeFile } from '../../../core/file/index.js';
+import { log, logVerbose } from '../../../core/loggin/index.js';
+import { GhWorkflowExampleMap } from '../constants.js';
+import { ifThenElse } from '../../../core/processing/behaviors.js';
+import { CLIProcess } from '../../../core/processing/types.js';
 
 const exampleName = 'basic-workflow';
 
@@ -20,7 +21,7 @@ export function getExamplePathDest(): string {
 
 export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
   const tplFileName = GhWorkflowExampleMap[exampleName];
-  const exampleSourceLocation = join(__dirname, '..', 'static', tplFileName);
+  const exampleSourceLocation = join(dirname(fileURLToPath(import.meta.url)), '..', 'static', tplFileName);
   const exampleDestination = getExamplePathDest();
 
   if (readFile(exampleDestination) !== '') {
@@ -34,7 +35,7 @@ export async function generateGhWorkflowFile(cliCfg: RcJson): Promise<RcJson> {
     logVerbose(`setup workflow folder ${destPath}`);
   }
 
-  writeFile(exampleDestination, fileContent);
+  await writeFile(exampleDestination, fileContent);
 
   log(`setup workflow for user-flow integration in the CI in ${exampleDestination} successfully`);
   return Promise.resolve(cliCfg);

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { getBudgetTable, getStepsTable } from './md-report';
-import FlowResult from 'lighthouse/types/lhr/flow.d';
+import { getBudgetTable, getStepsTable } from './md-report.js';
+import { FlowResult } from 'lighthouse';
 import { getReportContent } from 'test-data';
-import { ReducedReport } from '../../collect/utils/report/types';
-import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils';
+import { ReducedReport } from '../../collect/utils/report/types.js';
+import { createReducedReport, enrichReducedReportWithBaseline } from '../../collect/utils/report/utils.js';
 
 const lhr8 = getReportContent<any>('lhr-8.json');
 const lhr9 = getReportContent<FlowResult>('lhr-9.json');
@@ -34,21 +34,21 @@ describe('md-table', () => {
     expect(enrichedReducedLhr9).toEqual(lhr9ReducedBaseline);
   });
 
-  it('should print MD table if getStepsTable is called with a reduced result', () => {
+  it('should print MD table if getStepsTable is called with a reduced result', async () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = getStepsTable(reducedLhr9);
+    const mdTable = await getStepsTable(reducedLhr9);
     expect(mdTable).toMatchSnapshot();
   });
 
-  it('should return a Md table comparing to reports if getStepsTable is passed a baseline report', () => {
+  it('should return a Md table comparing to reports if getStepsTable is passed a baseline report', async () => {
     const reducedLhr9 = createReducedReport(lhr9);
-    const mdTable = getStepsTable(reducedLhr9, lhr9Ex2);
+    const mdTable = await getStepsTable(reducedLhr9, lhr9Ex2);
     expect(mdTable).toMatchSnapshot();
   });
 
-  it('should return a Md table if getBudgetTable is passed a baseline report', () => {
+  it('should return a Md table if getBudgetTable is passed a baseline report', async () => {
     const reducedLhr9 = createReducedReport(lhr9budgets);
-    const mdTable = getBudgetTable(reducedLhr9);
+    const mdTable = await getBudgetTable(reducedLhr9);
     expect(mdTable).toContain('| Resource Type | Transfer Size | Over Budget |');
     expect(mdTable).toContain('| Resource Type | Requests | Over Budget |');
     expect(mdTable).toContain('|         Metric         | Measurement | Over Budget |');

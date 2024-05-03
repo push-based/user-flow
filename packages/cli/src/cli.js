@@ -2,4 +2,4 @@
 'use strict';
 
 /* eslint-disable */
-require('./lib/boot-cli.js');
+import('./lib/boot-cli.js');

@@ -1,8 +1,8 @@
 import {vi, describe, expect, beforeEach, it } from 'vitest';
 import openReport from 'open';
-import { handleOpenFlowReports, openFlowReports } from './open-report';
-import { logVerbose } from '../../../../core/loggin';
-import { CollectCommandOptions } from '../../options';
+import { handleOpenFlowReports, openFlowReports } from './open-report.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import { CollectCommandOptions } from '../../options/index.js';
 
 vi.mock('open');
 vi.mock('../../../../core/loggin');

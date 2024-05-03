@@ -1,5 +1,5 @@
 import { UserFlow, Step } from '@puppeteer/replay';
-import { Modify } from '../../../../core/types';
+import { Modify } from '../../../../core/types.js';
 
 /**
  *  'navigation' is already covered by `@puppeteer/replay`

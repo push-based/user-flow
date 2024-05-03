@@ -1,8 +1,8 @@
-import * as yargs from 'yargs';
 import { Options } from 'yargs';
-import { GlobalOptionsArgv } from './global/options/types';
-import { logVerbose } from './core/loggin';
-import { detectCliMode } from './global/cli-mode';
+import yargs from '../lib/core/yargs/instance.js';
+import { GlobalOptionsArgv } from './global/options/types.js';
+import { logVerbose } from './core/loggin/index.js';
+import { detectCliMode } from './global/cli-mode/index.js';
 
 export function applyConfigMiddleware(handler: (...args: any) => void, configParser: Options['configParser']) {
   return () => {

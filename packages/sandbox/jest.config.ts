@@ -12,7 +12,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/sandbox',
-  maxConcurrency: 1,
   maxWorkers: 1,
 };

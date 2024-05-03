@@ -1,7 +1,7 @@
 export const REMOTE_USERFLOW_NAME = 'remote-sandbox-setup.uf.ts';
 export const REMOTE_USERFLOW_TITLE = REMOTE_USERFLOW_NAME.slice(0, -6);
 export const REMOTE_USERFLOW_CONTENT = `
-  module.exports = {
+export default {
   flowOptions: {
     name: '${REMOTE_USERFLOW_TITLE}'
   },
