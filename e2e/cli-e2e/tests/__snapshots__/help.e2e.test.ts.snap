@@ -13,7 +13,7 @@ Commands:
 
 Options:
       --version           Show version number                          [boolean]
-  -v, --verbose           Run with verbose logging    [boolean] [default: false]
+  -v, --verbose           Run with verbose logging     [boolean] [default: true]
   -p, --rcPath            Path to user-flow.config.json. e.g.
                           \`./user-flowrc.json\`
                                          [string] [default: ".user-flowrc.json"]
@@ -31,12 +31,13 @@ Options:
   -w, --awaitServeStdout  A string in stdout resulting from serving the app, to
                           be awaited before start running the tests. e.g.
                           "server running..."                           [string]
-  -d, --dryRun            Execute commands without effects             [boolean]
+  -d, --dryRun            Execute commands without effects
+                                                       [boolean] [default: true]
   -o, --outPath           output folder for the user-flow reports       [string]
   -f, --format            Report output formats e.g. JSON
                                [array] [choices: "html", "json", "md", "stdout"]
   -e, --openReport        Opens browser automatically after the user-flow is
-                          collected. (true by default) [boolean] [default: true]
+                          collected. (true by default)[boolean] [default: false]
   -k, --budgetPath        Path to budgets.json                          [string]
   -j, --budgets           Performance budgets (RC file only)             [array]
   -h, --help              Show help                                    [boolean]
