@@ -1,7 +1,7 @@
 import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import { register } from 'node:module';
 import { dirname, join } from 'node:path';
-import { register } from 'ts-node';
 import { logVerbose } from '../loggin/index.js';
 import { formatCode, getParserFromExtname } from '../prettier/index.js';
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
@@ -79,20 +79,17 @@ export async function writeFile(filePath: string, data: string) {
 
 export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult<T>> {
   // 🔥 Live compilation of TypeScript files
-  if (path.endsWith('.ts')) {
+  if (path.endsWith('.mts')) {
     // Register TS compiler lazily
     // tsNode needs the compilerOptions.module resolution to be 'commonjs',
     // so that imports in the `*.uf.ts` files work.
-    register({
-      transpileOnly: true,
-      compilerOptions: {
-        module: 'commonjs',
-        strict: false
-      }
-    });
+    register('tsx/esm', {
+      parentURL: import.meta.url,
+      data: true
+    })
   }
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = createRequire(import.meta.url)(join(cwd(), path));
+
+  const file = await import(pathToFileURL(join(cwd(), path)).pathname);
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporting an object. The first one is:
@@ -102,4 +99,3 @@ export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult
   const exports = file.default || file;
   return { exports, path };
 }
-
