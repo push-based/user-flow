@@ -3,13 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/cli/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/cli/**/*"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "@nx/js:tsc",
@@ -79,6 +76,5 @@
       "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
       "dependsOn": ["build"]
     }
-  },
-  "tags": []
+  }
 }

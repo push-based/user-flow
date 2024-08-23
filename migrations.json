@@ -2,126 +2,96 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.6.0-beta.6",
-      "description": "Prefix outputs with {workspaceRoot}/{projectRoot} if needed",
-      "implementation": "./src/migrations/update-15-0-0/prefix-outputs",
+      "version": "17.3.0-beta.6",
+      "description": "Updates the nx wrapper.",
+      "implementation": "./src/migrations/update-17-3-0/update-nxw",
       "package": "nx",
-      "name": "16.6.0-prefix-outputs"
+      "name": "17.3.0-update-nx-wrapper"
     },
     {
       "cli": "nx",
-      "version": "16.8.0-beta.3",
-      "description": "Escape $ in env variables",
-      "implementation": "./src/migrations/update-16-8-0/escape-dollar-sign-env-variables",
+      "version": "18.0.0-beta.2",
+      "description": "Updates nx.json to disabled adding plugins when generating projects in an existing Nx workspace",
+      "implementation": "./src/migrations/update-18-0-0/disable-crystal-for-existing-workspaces",
+      "x-repair-skip": true,
       "package": "nx",
-      "name": "16.8.0-escape-dollar-sign-env"
+      "name": "18.0.0-disable-adding-plugins-for-existing-workspaces"
+    },
+    {
+      "version": "18.1.0-beta.3",
+      "description": "Moves affected.defaultBase to defaultBase in `nx.json`",
+      "implementation": "./src/migrations/update-17-2-0/move-default-base",
+      "package": "nx",
+      "name": "move-default-base-to-nx-json-root"
     },
     {
       "cli": "nx",
-      "version": "17.0.0-beta.1",
-      "description": "Updates the default cache directory to .nx/cache",
-      "implementation": "./src/migrations/update-17-0-0/move-cache-directory",
+      "version": "19.2.0-beta.2",
+      "description": "Updates the default workspace data directory to .nx/workspace-data",
+      "implementation": "./src/migrations/update-19-2-0/move-workspace-data-directory",
       "package": "nx",
-      "name": "17.0.0-move-cache-directory"
+      "name": "19-2-0-move-graph-cache-directory"
     },
     {
       "cli": "nx",
-      "version": "17.0.0-beta.3",
-      "description": "Use minimal config for tasksRunnerOptions",
-      "implementation": "./src/migrations/update-17-0-0/use-minimal-config-for-tasks-runner-options",
+      "version": "19.2.2-beta.0",
+      "description": "Updates the nx wrapper.",
+      "implementation": "./src/migrations/update-17-3-0/update-nxw",
       "package": "nx",
-      "name": "17.0.0-use-minimal-config-for-tasks-runner-options"
+      "name": "19-2-2-update-nx-wrapper"
     },
     {
-      "version": "17.0.0-rc.1",
-      "description": "Migration for v17.0.0-rc.1",
-      "implementation": "./src/migrations/update-17-0-0/rm-default-collection-npm-scope",
+      "version": "19.2.4-beta.0",
+      "description": "Set project name in nx.json explicitly",
+      "implementation": "./src/migrations/update-19-2-4/set-project-name",
+      "x-repair-skip": true,
       "package": "nx",
-      "name": "rm-default-collection-npm-scope"
+      "name": "19-2-4-set-project-name"
     },
     {
-      "cli": "nx",
-      "version": "16.5.0-beta.2",
-      "description": "Add test-setup.ts to ignored files in production input",
-      "implementation": "./src/migrations/update-16-5-0/add-test-setup-to-inputs-ignore",
-      "package": "@nx/jest",
-      "name": "add-test-setup-to-inputs-ignore"
+      "version": "19.6.0-beta.0",
+      "description": "Add dependsOn: [build] to preview targets using preview-server",
+      "implementation": "./src/migrations/update-19-6-0/add-depends-on-for-preview",
+      "package": "@nx/vite",
+      "name": "update-19-6-0-add-depends-on-for-preview-server"
     },
     {
-      "version": "17.1.0-beta.2",
-      "description": "Move jest executor options to nx.json targetDefaults",
-      "implementation": "./src/migrations/update-17-1-0/move-options-to-target-defaults",
-      "package": "@nx/jest",
+      "version": "17.2.0-beta.0",
+      "description": "Simplify eslintFilePatterns",
+      "implementation": "./src/migrations/update-17-2-0/simplify-eslint-patterns",
+      "package": "@nx/eslint",
+      "name": "simplify-eslint-patterns"
+    },
+    {
+      "version": "17.2.9",
+      "description": "Move executor options to target defaults",
+      "implementation": "./src/migrations/update-17-2-9/move-options-to-target-defaults",
+      "package": "@nx/eslint",
       "name": "move-options-to-target-defaults"
     },
     {
       "cli": "nx",
-      "version": "16.4.0-beta.10",
-      "description": "Remove tsconfig.e2e.json and add settings to project tsconfig.json. tsConfigs executor option is now deprecated. The project level tsconfig.json file should be used instead.",
-      "implementation": "./src/migrations/update-16-4-0/tsconfig-sourcemaps",
-      "package": "@nx/cypress",
-      "name": "update-16-3-0-remove-old-tsconfigs"
+      "version": "17.2.6-beta.1",
+      "description": "Rename workspace rules from @nx/workspace/name to @nx/workspace-name",
+      "implementation": "./src/migrations/update-17-2-6-rename-workspace-rules/rename-workspace-rules",
+      "package": "@nx/eslint-plugin",
+      "name": "update-17-2-6-rename-workspace-rules"
     },
     {
       "cli": "nx",
-      "version": "16.8.0-beta.4",
-      "description": "Update to Cypress v13. Most noteable change is video recording is off by default. This migration will only update if the workspace is already on Cypress v12. https://docs.cypress.io/guides/references/migration-guide#Migrating-to-Cypress-130",
-      "implementation": "./src/migrations/update-16-8-0/cypress-13",
-      "package": "@nx/cypress",
-      "name": "update-16-8-0-cypress-13"
+      "version": "19.1.0-beta.6",
+      "description": "Migrate no-extra-semi rules into user config, out of nx extendable configs",
+      "implementation": "./src/migrations/update-19-1-0-migrate-no-extra-semi/migrate-no-extra-semi",
+      "package": "@nx/eslint-plugin",
+      "name": "update-19-1-0-rename-no-extra-semi"
     },
     {
       "cli": "nx",
-      "version": "16.9.0-beta.1",
-      "description": "Replace imports of Module Federation utils frm @nx/devkit to @nx/webpack",
-      "implementation": "./src/migrations/update-16-9-0/migrate-mf-util-usage",
-      "package": "@nx/devkit",
-      "name": "update-16-9-0-migrate-mf-usage-to-webpack"
-    },
-    {
-      "cli": "nx",
-      "version": "16.6.0-beta.0",
-      "description": "Explicitly set 'updateBuildableProjectDepsInPackageJson' to 'true' in targets that rely on that value as the default.",
-      "factory": "./src/migrations/update-16-6-0/explicitly-set-projects-to-update-buildable-deps",
-      "package": "@nx/js",
-      "name": "explicitly-set-projects-to-update-buildable-deps"
-    },
-    {
-      "cli": "nx",
-      "version": "16.8.2-beta.0",
-      "description": "Remove invalid options (strict, noInterop) for ES6 type modules.",
-      "factory": "./src/migrations/update-16-8-2/update-swcrc",
-      "package": "@nx/js",
-      "name": "16-8-2-update-swcrc"
-    },
-    {
-      "cli": "nx",
-      "version": "17.0.2",
-      "description": "Remove deprecated build options",
-      "implementation": "./src/migrations/update-17-0-0/remove-deprecated-build-options",
-      "package": "@nx/js",
-      "name": "update-17-0-0-remove-deprecated-build-options"
-    },
-    {
-      "version": "16.8.0",
-      "description": "update-16-8-0-add-ignored-files",
-      "implementation": "./src/migrations/update-16-8-0-add-ignored-files/update-16-8-0-add-ignored-files",
-      "package": "@nx/eslint",
-      "name": "update-16-8-0-add-ignored-files"
-    },
-    {
-      "version": "17.0.0-beta.7",
-      "description": "update-17-0-0-rename-to-eslint",
-      "implementation": "./src/migrations/update-17-0-0-rename-to-eslint/update-17-0-0-rename-to-eslint",
-      "package": "@nx/eslint",
-      "name": "update-17-0-0-rename-to-eslint"
-    },
-    {
-      "version": "17.1.0-beta.1",
-      "description": "Updates for @typescript-utils/utils v6.9.1+",
-      "implementation": "./src/migrations/update-17-1-0/update-typescript-eslint",
-      "package": "@nx/eslint",
-      "name": "update-typescript-eslint"
+      "version": "17.2.1-beta.0",
+      "description": "Add webpack.config.js file when webpackConfig is not defined",
+      "implementation": "./src/migrations/update-17-2-1/webpack-config-setup",
+      "package": "@nx/webpack",
+      "name": "update-17-2-1-webpack-config-setup"
     }
   ]
 }
