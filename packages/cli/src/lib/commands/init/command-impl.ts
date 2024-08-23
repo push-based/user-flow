@@ -7,7 +7,6 @@ import { getInitCommandOptionsFromArgv } from './utils.js';
 import { updateRcJson } from './processes/update-rc-json.js';
 import { handleFlowGeneration } from './processes/generate-userflow.js';
 import { handleGhWorkflowGeneration } from './processes/generate-workflow.js';
-import { handleBudgetsGeneration } from './processes/generate-lh-budgets.js';
 import { SETUP_CONFIRM_MESSAGE } from './constants.js';
 
 export async function runInitCommand(argv: InitOptions): Promise<void> {
@@ -20,7 +19,6 @@ export async function runInitCommand(argv: InitOptions): Promise<void> {
     updateRcJson,
     handleFlowGeneration({ interactive: !!interactive, generateFlow }),
     handleGhWorkflowGeneration({ generateGhWorkflow }),
-    handleBudgetsGeneration({ generateBudgets, lhr }),
   ])(cfg);
   log(SETUP_CONFIRM_MESSAGE);
   // @TODO move to constants
