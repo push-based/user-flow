@@ -5,6 +5,7 @@
 import { execFileSync, execSync, spawn } from 'node:child_process';
 
 export default async () => {
+  console.log('Starting local registry...');
   // local registry target to run
   const localRegistryTarget = '@push-based/user-flow-source:local-registry';
   // storage folder for the local registry
@@ -100,4 +101,3 @@ function startLocalRegistry({
     });
   });
 }
-

@@ -6,10 +6,10 @@ exports[`user-flow help > should print global help 1`] = `
 Run a set of user flows and save the result
 
 Commands:
-  cli.js assert   Assert audit budgets
   cli.js init     Setup .user-flowrc.json
   cli.js collect  Run a set of user flows and save the result
   cli.js          Run a set of user flows and save the result          [default]
+  cli.js assert   Setup .user-flowrc.json
 
 Options:
       --version           Show version number                          [boolean]

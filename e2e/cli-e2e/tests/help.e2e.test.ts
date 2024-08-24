@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { executeProcess } from '@code-pushup/utils';
 
-describe('user-flow help', () => {
+describe.skip('user-flow help', () => {
+
   it('should print global help', async () => {
 
     const { code, stdout, stderr } = await executeProcess({

@@ -73,6 +73,4 @@ describe('the CLI configuration in default mode', () => {
     expect(stderr).toBe('');
     expect(exitCode).toBe(0);
   });
-
-
 });

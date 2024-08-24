@@ -1,23 +1,3 @@
-import { UserFlowCliProject } from '@push-based/user-flow-cli-testing';
-
-export function expectCollectCommandNotToCreateLogsFromMockInStdout(
-  prj: UserFlowCliProject,
-  userFlowName: string,
-  stdout: string,
-  rcName?: string) {
-  const rcJson = prj.readRcJson(rcName);
-  expect(stdout).not.toContain(`Collect: ${userFlowName} from URL ${rcJson.collect.url}`);
-  expect(stdout).not.toContain(`flow#navigate: ${rcJson.collect.url}`);
-  expect(stdout).not.toContain(`Duration: ${userFlowName}`);
-}
-
-export function expectCollectLogsFromMockInStdout(stdout: string, prj: UserFlowCliProject, reportName: string, rcName?: string) {
-  const rcJson = prj.readRcJson(rcName);
-  const reportTitle = reportName.slice(0, -3);
-  expect(stdout).toContain(`Collect: ${reportTitle} from URL ${rcJson.collect.url}`);
-  expect(stdout).toContain(`flow#navigate: ${rcJson.collect.url}`);
-  expect(stdout).toContain(`Duration: ${reportTitle}`);
-}
 
 export function expectCollectCfgToContain(stdout: string, cliParams: {}) {
   expect(stdout).toContain(`Collect options:`);

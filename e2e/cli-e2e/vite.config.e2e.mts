@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     reporters: ['basic'],
-    testTimeout: 120_000,
+    testTimeout: 30_000,
     // alias: tsconfigPathAliases(),
     pool: 'threads',
     poolOptions: { threads: { singleThread: true } },
@@ -19,6 +19,7 @@ export default defineConfig({
     },
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],
+    setupFiles: ['setup.e2e.ts'],
     globalSetup: ['../../global-setup.e2e.ts'],
   },
 });

@@ -45,12 +45,6 @@ export function expectGlobalOptionsToBeContainedInStdout(stdout: string, globalP
   });
 }
 
-export function expectResultsToIncludeConfig(prj: UserFlowCliProject, reportName: string, config: string = LH_CONFIG_NAME) {
-  const report = prj.readOutput(reportName, 'json')[0].content as any;
-  const resolvedConfig = prj.readConfig(config);
-  expect(report.steps[0].lhr.configSettings).toEqual(resolvedConfig);
-}
-
 export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(`url: '${cfg.collect.url}'`);
   expect(stdout).toContain(`ufPath: '${cfg.collect.ufPath}'`);
@@ -58,4 +52,3 @@ export function expectOutputRcInStdout(stdout: string, cfg: RcJson) {
   expect(stdout).toContain(`format: [ '${cfg.persist.format[0]}' ]`);
   expect(stdout).toContain(SETUP_CONFIRM_MESSAGE);
 }
-

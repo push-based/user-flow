@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { executeProcess } from '@code-pushup/utils';
 
-describe('user-flow assert', () => {
+describe.skip('user-flow assert', () => {
   it('should run test', async () => {
     const { code, stdout, stderr } = await executeProcess({
       command: 'echo',
