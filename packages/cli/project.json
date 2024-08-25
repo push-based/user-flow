@@ -28,7 +28,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "config": "{workspaceRoot}/packages/cli/vite.config.ts"
+        "config": "{workspaceRoot}/packages/cli/vite.config.mts"
       }
     },
     "version": {
