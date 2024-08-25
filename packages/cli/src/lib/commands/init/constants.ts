@@ -5,20 +5,4 @@ export const FlowExampleMap = {
 export const GhWorkflowExampleMap = {
   'basic-workflow': 'user-flow-ci.yml'
 } as const;
-export const BudgetsExampleMap = {
-  'budgets': 'lh-budgets.json'
-} as const;
-export const TransferSizeResourceTypeBudgets: string[] = [
-  'xhr',
-  'script',
-  'stylesheet',
-  'font',
-  'document',
-  'third-party'
-];
-export const RequestCountResourceTypeBudgets: string[] = [
-  'xhr',
-  'script',
-  'stylesheet'
-];
 export const PROMPT_INIT_GENERATE_FLOW = 'Setup user flow';
