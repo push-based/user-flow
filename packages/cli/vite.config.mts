@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
-  cacheDir: '../../.vite/packages/cli',
+  cacheDir: '../../node_modules/.vite/packages/cli',
 
   plugins: [nxViteTsPaths()],
 
