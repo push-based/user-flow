@@ -4,8 +4,7 @@ import { defineConfig } from 'vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
-  // root: __dirname,
-  cacheDir: '../../node_modules/.vite/packages/cli',
+  cacheDir: '../../.vite/packages/cli',
 
   plugins: [nxViteTsPaths()],
 
@@ -13,7 +12,8 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['src/**/*.test.ts'],
-
+    pool: 'threads',
+    poolOptions: { threads: { singleThread: true } },
     reporters: ['basic'],
     coverage: {
       reportsDirectory: '../../coverage/packages/cli',

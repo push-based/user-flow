@@ -11,12 +11,10 @@ export default defineConfig({
     globals: true,
     reporters: ['basic'],
     testTimeout: 30_000,
-    // alias: tsconfigPathAliases(),
+
     pool: 'threads',
     poolOptions: { threads: { singleThread: true } },
-    cache: {
-      dir: '../../node_modules/.vitest',
-    },
+
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],
     setupFiles: ['setup.e2e.ts'],
