@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 import { CliTest, DEFAULT_RC, USER_FLOW_MOCKS } from '../../utils/setup';
 
-const DUMMY_USER_FLOW_NAME = 'DUMMY FLOW';
+const DUMMY_USER_FLOW_NAME = 'Basic Navigation Example';
 
 describe('collect format', () => {
   ['html', 'json', 'md'].forEach((format) => {

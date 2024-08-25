@@ -1,9 +1,9 @@
 import { describe, expect } from 'vitest';
 import { CliTest, DEFAULT_RC, KEYBOARD, USER_FLOW_MOCKS } from '../../utils/setup';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-describe('init command in empty directory', () => {
+describe('init command', () => {
 
   it.concurrent<CliTest>('should generate a user-flow for basic navigation after the CLI is setup', async ({ cli }) => {
     await cli.run('user-flow', ['init'], false);
@@ -51,5 +51,32 @@ describe('init command in empty directory', () => {
     expect(stderr).toBe('');
     expect(code).toBe(0);
     expect(existsSync(join(root, '.github', 'workflows', 'user-flow-ci.yml'))).toBeTruthy();
+  });
+
+  it.concurrent<CliTest>('should override rc with cli params', async ({ root, setupFns, cli }) => {
+    setupFns.setupRcJson(DEFAULT_RC);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
+
+    await cli.run('user-flow', [
+      'init',
+      '--url https://example.com',
+      '--ufPath dummy-uf-path',
+      '--outPath dummy-out-path',
+      '--format md',
+      '--generateFlow false',
+      '--serveCommand "npm run dummy-script"',
+      '--awaitServeStdout "dummy serve log"'
+    ]);
+
+    const rc = JSON.parse(readFileSync(join(root, '.user-flowrc.json'), { encoding: 'utf8' }));
+
+    expect(rc['collect']['url']).toBe('https://example.com');
+    expect(rc['collect']['serveCommand']).toBe('npm run dummy-script');
+    expect(rc['collect']['ufPath']).toBe('dummy-uf-path');
+    expect(rc['persist']['format']).toEqual(['md']);
+    expect(rc['collect']['awaitServeStdout']).toBe('dummy serve log');
+    expect(rc['persist']['outPath']).toBe( 'dummy-out-path');
+
+    expect(rc).not.toEqual(DEFAULT_RC);
   });
 });
