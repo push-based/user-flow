@@ -29,7 +29,11 @@
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
         "config": "{workspaceRoot}/packages/cli/vite.config.mts",
-        "watch": false
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
       }
     },
     "version": {
