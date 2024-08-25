@@ -28,11 +28,11 @@
       "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "config": "{workspaceRoot}/packages/cli/vite.config.mts",
+        "config": "{workspaceRoot}/packages/cli/vite.config.mts"
       },
       "configurations": {
         "watch": {
-          "watch": true
+          "watch": false
         }
       }
     },
