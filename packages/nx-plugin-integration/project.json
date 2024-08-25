@@ -7,25 +7,22 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
+        "target": "web",
         "outputPath": "dist/packages/nx-plugin-integration",
         "compiler": "babel",
         "main": "packages/nx-plugin-integration/src/main.ts",
         "tsConfig": "packages/nx-plugin-integration/tsconfig.app.json",
-        "webpackConfig": "packages/nx-plugin-integration/webpack.config.js",
+        "webpackConfig": "packages/nx-plugin-integration/webpack.config.mts",
         "assets": [
           "packages/nx-plugin-integration/src/favicon.ico",
           "packages/nx-plugin-integration/src/assets"
         ],
         "index": "packages/nx-plugin-integration/src/index.html",
         "baseHref": "/",
-        "styles": [
-          "packages/nx-plugin-integration/src/styles.css"
-        ],
+        "styles": ["packages/nx-plugin-integration/src/styles.css"],
         "scripts": []
       },
       "configurations": {
