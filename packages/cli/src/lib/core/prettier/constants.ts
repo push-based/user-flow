@@ -1,1 +1,1 @@
-export const supportedExtname = ['yml', 'yaml', 'css' , 'html' , 'json' , 'less' , 'scss' , 'md' , 'ts' , 'js'];
+export const supportedExtname = ['yml', 'yaml', 'css' , 'html' , 'json' , 'less' , 'scss' , 'md' , 'ts' , 'mts', 'js'];

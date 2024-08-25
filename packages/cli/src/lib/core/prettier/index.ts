@@ -11,7 +11,7 @@ export function getParserFromExtname(extname: SupportedExtname | string): Suppor
     throw new Error(`Extension name ${extname} is not supported.`);
   }
 
-  return (['md', 'ts', 'js', 'yml'].includes(extname) ? ({
+  return (['md', 'ts', 'mts', 'js', 'yml'].includes(extname) ? ({
     md: 'markdown',
     ts: 'typescript',
     js: 'javascript',

@@ -1,6 +1,6 @@
 export const SETUP_CONFIRM_MESSAGE = 'user-flow CLI is set up now! 🎉';
 export const FlowExampleMap = {
-  'basic-navigation': 'basic-navigation.uf.ts'
+  'basic-navigation': 'basic-navigation.uf.mts'
 } as const;
 export const GhWorkflowExampleMap = {
   'basic-workflow': 'user-flow-ci.yml'
