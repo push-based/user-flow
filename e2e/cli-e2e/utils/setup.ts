@@ -10,19 +10,21 @@ export const USER_FLOW_MOCKS = {
 export const DEFAULT_RC = {
   collect: {
     url: "https://coffee-cart.netlify.app/",
-    ufPath: "user-flows",
+    ufPath: "./user-flows",
   },
   persist: {
-    outPath: "measures",
-    format: ["md"]
-  }
+    outPath: "./measures",
+    format: ["html"]
+  },
+  assert: {}
 };
 
 export const KEYBOARD = {
   ENTER: '\r',
   DOWN: '\u001B[B',
   SPACE: ' ',
-
+  DECLINE_BOOLEAN: 'n',
+  ACCEPT_BOOLEAN: 'y'
 }
 
 export function normalizePath(path: string) {
