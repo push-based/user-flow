@@ -4,7 +4,7 @@ import { ChildProcessWithoutNullStreams } from 'node:child_process';
 export const E2E_DIR = 'tmp/e2e';
 
 export const USER_FLOW_MOCKS = {
-  MINIMAL: 'e2e/cli-e2e/mocks/user-flows/minimal.uf.ts'
+  BASIC: 'e2e/cli-e2e/mocks/user-flows/basic-navigation.uf.mts',
 } as const;
 
 export const DEFAULT_RC = {
@@ -17,6 +17,13 @@ export const DEFAULT_RC = {
     format: ["md"]
   }
 };
+
+export const KEYBOARD = {
+  ENTER: '\r',
+  DOWN: '\u001B[B',
+  SPACE: ' ',
+
+}
 
 export function normalizePath(path: string) {
   return normalize(path.replaceAll(' ', '_'))
@@ -35,8 +42,10 @@ export type CliTest = {
     setupUserFlows: (mockUserFlow: string, userFlowDir?: string) => void;
   }
   cli: {
-    run: (command: string, args?: string[]) => Promise<CliProcessResult>;
+    run: (command: string, args?: string[], waitForClose?: boolean) => Promise<CliProcessResult>;
     waitForStdout: (stdOut: string) => Promise<void>;
+    waitForClose: () => Promise<CliProcessResult>;
+    type: (inputs: string) => void;
     process?: ChildProcessWithoutNullStreams;
     verbose: boolean;
     stdout: string;

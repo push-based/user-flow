@@ -4,7 +4,7 @@ import { mkdirSync } from 'node:fs';
 import { CliTest, DEFAULT_RC } from '../../utils/setup';
 import { join } from 'node:path';
 
-describe.skip('collect ufPath', () => {
+describe('collect ufPath', () => {
 
   it<CliTest>('should throw if no user-flows directory does not exist', async ({ cli, setupFns }) => {
     setupFns.setupRcJson(DEFAULT_RC)

@@ -11,7 +11,7 @@ describe('collect format', () => {
     it<CliTest>(`should save the results as a ${format} file`, async ({root, setupFns, cli}) => {
 
       setupFns.setupRcJson(getRcWithFormat([format]));
-      setupFns.setupUserFlows(USER_FLOW_MOCKS.MINIMAL);
+      setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 
       const { code, stderr } = await cli.run('user-flow', ['collect']);
 
@@ -29,7 +29,7 @@ describe('collect format', () => {
 
   it<CliTest>('should print results to stdout', async ({ setupFns, cli }) => {
     setupFns.setupRcJson(getRcWithFormat(['stdout']));
-    setupFns.setupUserFlows(USER_FLOW_MOCKS.MINIMAL);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect']);
 
@@ -41,7 +41,7 @@ describe('collect format', () => {
 
   it<CliTest>('should save the results as a HTML, JSON and Markdown files and print to stdout', async ({ root, setupFns, cli }) => {
     setupFns.setupRcJson(getRcWithFormat(['html', 'json', 'md', 'stdout']));
-    setupFns.setupUserFlows(USER_FLOW_MOCKS.MINIMAL);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect']);
 

@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest';
 
 import { CliTest, DEFAULT_RC, USER_FLOW_MOCKS } from '../../utils/setup';
 
-describe.skip('collect --dry-run', () => {
+describe('collect --dry-run', () => {
 
   it<CliTest>('should run user-flow', async ({ cli, setupFns }) => {
     setupFns.setupRcJson(DEFAULT_RC);
-    setupFns.setupUserFlows(USER_FLOW_MOCKS.MINIMAL);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect', '--dry-run']);
 
@@ -16,11 +16,11 @@ describe.skip('collect --dry-run', () => {
   });
 });
 
-describe.skip('collect --dry-run --verbose', () => {
+describe('collect --dry-run --verbose', () => {
 
   it<CliTest>('should run user-flow and log', async ({ cli, setupFns }) => {
     setupFns.setupRcJson(DEFAULT_RC);
-    setupFns.setupUserFlows(USER_FLOW_MOCKS.MINIMAL);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect', '--dry-run', '--verbose']);
 

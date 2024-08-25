@@ -35,13 +35,6 @@ export function expectInitOptionsToBeContainedInStdout(stdout: string, cliParams
   });
 }
 
-export function expectNoPromptsOfInitInStdout(stdout: string) {
-  expect(stdout).not.toContain(PROMPT_COLLECT_URL);
-  expect(stdout).not.toContain(PROMPT_COLLECT_UF_PATH);
-  expect(stdout).not.toContain(PROMPT_PERSIST_OUT_PATH);
-  expect(stdout).not.toContain(PROMPT_PERSIST_FORMAT);
-}
-
 export function expectPromptsOfInitInStdout(stdout: string) {
   expect(stdout).toContain(PROMPT_COLLECT_URL);
   expect(stdout).toContain(PROMPT_COLLECT_UF_PATH);
