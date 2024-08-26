@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.21.2](https://github.com/push-based/user-flow/compare/cli-0.21.1...cli-0.21.2) (2024-08-26)
+
+
+### Bug Fixes
+
+* **workspace:** remove budgets ([c13469f](https://github.com/push-based/user-flow/commit/c13469ff600adfbdb7fe728c22e859387c5afe70))
+* **workspace:** upgrade dependencies ([a3c7336](https://github.com/push-based/user-flow/commit/a3c73367e3b36ec941b66a49bf35f4533c2387c0))
+
+
+
 ## [0.21.1](https://github.com/push-based/user-flow/compare/cli-0.21.0...cli-0.21.1) (2024-08-26)
 
 
