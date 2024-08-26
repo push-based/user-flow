@@ -16,12 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
-      "@push-based/user-flow-cli-testing": [
-        "packages/user-flow-cli-testing/src/index.ts"
-      ],
       "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"],
-      "sandbox": ["packages/sandbox/src/index.ts"],
-      "test-data": ["packages/test-data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "code-pushup.config.ts"]

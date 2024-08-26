@@ -3,13 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/cli/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/cli/**/*"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "@nx/js:tsc",
@@ -31,7 +28,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/cli"],
       "options": {
-        "config": "{workspaceRoot}/packages/cli/vite.config.ts"
+        "config": "{workspaceRoot}/packages/cli/vite.config.mts"
       }
     },
     "version": {
@@ -74,7 +71,10 @@
           }
         ]
       }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
+      "dependsOn": ["build"]
     }
-  },
-  "tags": []
+  }
 }

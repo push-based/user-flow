@@ -1,16 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from './parse.js';
-import { getReportContent } from 'test-data';
-
-const pupeteerReplay = getReportContent('pupeteer-replay.json');
-const userFlowReplay = getReportContent('userflow-replay.json');
+import { puppeteerReplay, userFlowReplay } from './replay.mocks.js';
 
 describe('replay', () => {
 
   it('should parse original replay script without changes', () => {
-    expect(pupeteerReplay['steps']).toBeDefined();
+    expect(puppeteerReplay['steps']).toBeDefined();
 
-    expect(parse(pupeteerReplay)).toEqual(pupeteerReplay);
+    expect(parse(puppeteerReplay)).toEqual(puppeteerReplay);
   });
 
   it('should parse user-flow enriched replay script without changes', () => {

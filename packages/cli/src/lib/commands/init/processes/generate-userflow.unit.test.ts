@@ -2,8 +2,24 @@ import { describe, afterEach, it, expect, vi } from 'vitest';
 import { Buffer } from 'node:buffer';
 import * as fs from 'node:fs';
 import Enquirer from 'enquirer';
-import { INITIATED_RC_JSON } from 'test-data';
+import { RcJson } from '../../../types.js'
 import { handleFlowGeneration } from './generate-userflow.js';
+import { getEnvPreset } from '../../../pre-set.js';
+import { ReportFormat } from '../../collect/options/types.js'
+
+
+
+const INITIATED_RC_JSON : RcJson = {
+  'collect': {
+    'url':  "https:// coffee-cart. netlify. app/",
+    'ufPath': './src/lib/user-flows', // DEFAULT_COLLECT_UF_PATH
+  },
+  'persist': {
+    'outPath': './src/lib/measures', //DEFAULT_PERSIST_OUT_PATH,
+    'format': getEnvPreset().format as ReportFormat[]
+  },
+  'assert': {}
+};
 
 vi.mock('node:fs');
 vi.mock('enquirer', () => (

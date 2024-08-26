@@ -59,7 +59,7 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
   if (cliMode !== 'DEFAULT' && launchOptions) {
-    const headlessMode = true;
+    const headlessMode = 'new';
     logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
     (launchOptions as any).headless = headlessMode;
   }

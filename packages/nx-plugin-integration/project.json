@@ -7,11 +7,10 @@
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
+        "target": "web",
         "outputPath": "dist/packages/nx-plugin-integration",
         "compiler": "babel",
         "main": "packages/nx-plugin-integration/src/main.ts",
@@ -23,9 +22,7 @@
         ],
         "index": "packages/nx-plugin-integration/src/index.html",
         "baseHref": "/",
-        "styles": [
-          "packages/nx-plugin-integration/src/styles.css"
-        ],
+        "styles": ["packages/nx-plugin-integration/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -73,7 +70,7 @@
           "md"
         ],
         "serveCommand": "npm run nx -- serve nx-plugin-integration",
-        "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
+        "awaitServeStdout": "Web Development Server is listening at http://localhost:4010/"
       }
     },
     "lint": {
