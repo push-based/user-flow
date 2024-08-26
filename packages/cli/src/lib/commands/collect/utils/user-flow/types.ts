@@ -7,10 +7,7 @@ import {
   Product
 } from 'puppeteer';
 
-import * as Config from 'lighthouse/types/config';
-import { UserFlow } from '../../../../hacky-things/lighthouse';
-import { SharedFlagsSettings } from 'lighthouse/types/lhr/settings';
-
+import { Config, SharedFlagsSettings, UserFlow } from 'lighthouse';
 
 export type UserFlowContext = {
   browser: Browser;
@@ -20,9 +17,9 @@ export type UserFlowContext = {
 };
 
 export type StepOptions = {
-  stepName: string;
+  name: string;
 } & {
-  /*page: Page,*/ config?: Config.default.Json /*configContext?: LH.Config.FRContext*/;
+  /*page: Page,*/ config?: Config /*configContext?: LH.Config.FRContext*/;
 };
 
 export type UserFlowInteractionsFn = (
@@ -33,7 +30,7 @@ export type UserFlowOptions = {
   name: string;
 } & {
   // throttling
-  /*page: Page,*/ config?: Config.default.Json /*configContext?: LH.Config.FRContext*/;
+  /*page: Page,*/ config?: Config /*configContext?: LH.Config.FRContext*/;
 };
 
 // @TODO
@@ -62,4 +59,3 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
-

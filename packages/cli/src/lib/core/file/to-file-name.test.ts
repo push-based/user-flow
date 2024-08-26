@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { toFileName } from './to-file-name';
+import { toFileName } from './to-file-name.js';
 
 describe('toFileName', () => {
 

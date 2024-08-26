@@ -1,11 +1,14 @@
-import { dirname } from 'node:path';
-import { existsSync, readFileSync, writeFileSync, mkdirSync, lstatSync } from 'node:fs';
-import { logVerbose } from '../loggin';
-import { getParserFromExtname, formatCode } from '../prettier';
-import { ReadFileConfig } from '../../commands/collect/utils/replay/types';
-import { ExtToOutPut, ResolveFileResult } from './types';
+import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { pathToFileURL } from 'node:url';
+import { register } from 'node:module';
+import { dirname, join } from 'node:path';
+import { logVerbose } from '../loggin/index.js';
+import { formatCode, getParserFromExtname } from '../prettier/index.js';
+import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
+import { ExtToOutPut, ResolveFileResult } from './types.js';
+import { cwd } from 'node:process';
 
-export {toFileName} from './to-file-name';
+export {toFileName} from './to-file-name.js';
 
 /*
 type _a = Not<undefined, undefined>;
@@ -61,7 +64,7 @@ export function readFile<R extends any = undefined, T extends ReadFileConfig = {
 /**
  * Ensures the folder exists before writing it
  */
-export function writeFile(filePath: string, data: string) {
+export async function writeFile(filePath: string, data: string) {
   const dir = dirname(filePath);
   if (!existsSync(dir)) {
     logVerbose(`Created dir ${dir} to save ${filePath}`);
@@ -69,28 +72,20 @@ export function writeFile(filePath: string, data: string) {
   }
 
   const ext = filePath.split('.').pop() || '';
-  const formattedData = formatCode(data, getParserFromExtname(ext));
+  const formattedData = await formatCode(data, getParserFromExtname(ext));
   // @TODO implement a check that saves the file only if the content is different => git noise
   return writeFileSync(filePath, formattedData);
 }
 
-export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
-  // 🔥 Live compilation of TypeScript files
-  if (path.endsWith('.ts')) {
-    // Register TS compiler lazily
-    // tsNode needs the compilerOptions.module resolution to be 'commonjs',
-    // so that imports in the `*.uf.ts` files work.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('ts-node').register({
-      transpileOnly: true,
-      compilerOptions: {
-        module: 'commonjs',
-        strict: false
-      }
-    });
+export async function resolveAnyFile<T>(path: string): Promise<ResolveFileResult<T>> {
+  if (path.endsWith('.mts')) {
+    register('tsx/esm', {
+      parentURL: import.meta.url,
+      data: true
+    })
   }
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const file = require(path);
+
+  const file = await import(pathToFileURL(join(cwd(), path)).pathname);
 
   // If the user provides a configuration in TS file
   // then there are 2 cases for exporting an object. The first one is:
@@ -100,4 +95,3 @@ export function resolveAnyFile<T>(path: string): ResolveFileResult<T> {
   const exports = file.default || file;
   return { exports, path };
 }
-

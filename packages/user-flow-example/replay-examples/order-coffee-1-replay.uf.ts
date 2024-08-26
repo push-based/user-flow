@@ -1,26 +1,22 @@
 import {createUserFlowRunner, UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
-// @TODO refactor when v10 update lands
-import {UserFlow as LhUserFlow} from 'lighthouse/lighthouse-core/fraggle-rock/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
 
-  const {flow, page, browser} = ctx;
-  const lhFlow: LhUserFlow = flow;
+  const {flow} = ctx;
 
-  await flow.startTimespan({stepName: 'Checkout order'});
+
+  await flow.startTimespan({name: 'Checkout order'});
   // Use the create function to instanciate a the user-flow runner.
   const path = './recordings/order-coffee-1.replay.json';
-  const runner = await createUserFlowRunner( path, { page, browser, lhFlow });
+  const runner = await createUserFlowRunner( path, ctx);
   await runner.run();
   await flow.endTimespan();
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: { name: "Order Coffee 1" },
   interactions,
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

@@ -1,15 +1,15 @@
-import { concat } from '../../../core/processing/behaviors';
-import { collectFlow, loadFlow } from '../utils/user-flow';
-import { persistFlow } from '../utils/persist/persist-flow';
-import { handleOpenFlowReports } from '../utils/persist/open-report';
-import { RcJson } from '../../../types';
-import { CollectCommandOptions } from '../options';
+import { concat } from '../../../core/processing/behaviors.js';
+import { collectFlow, loadFlow } from '../utils/user-flow/index.js';
+import { persistFlow } from '../utils/persist/persist-flow.js';
+import { handleOpenFlowReports } from '../utils/persist/open-report.js';
+import { RcJson } from '../../../types.js';
+import { CollectCommandOptions } from '../options/index.js';
 
 export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): Promise<RcJson> {
 
   const { collect, persist, assert } = cfg;
 
-  const userFlows = loadFlow(collect);
+  const userFlows = await loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
       return collectFlow({ ...collect, ...persist, ...assert }, { ...provider, path }, argv)

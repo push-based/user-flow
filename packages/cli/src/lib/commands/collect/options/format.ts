@@ -1,5 +1,5 @@
 import { Options } from 'yargs';
-import { REPORT_FORMAT_VALUES } from '../constants';
+import { REPORT_FORMAT_VALUES } from '../constants.js';
 
 export const format = {
   alias: 'f',

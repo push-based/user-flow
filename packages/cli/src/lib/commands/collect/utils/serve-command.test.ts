@@ -1,8 +1,8 @@
 import { describe, vi, expect, it, beforeEach } from 'vitest';
-import { startServerIfNeededAndExecute } from './serve-command';
+import { startServerIfNeededAndExecute } from './serve-command.js';
 import { concurrently } from 'concurrently';
 
-import { CollectRcOptions } from '../options/types';
+import { CollectRcOptions } from '../options/types.js';
 
 vi.mock('../../../core/loggin');
 vi.mock('concurrently', async () => {

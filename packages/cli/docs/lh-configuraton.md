@@ -17,7 +17,7 @@ The CLI provides multiple ways of configuration, every one with a different gran
 Places to put configurations:
 - in a `.user-flowrc.json` - used for all flows (**global**)
 - in the console as CLI param - used for all flows, overwrites rc file (**global**)
-- in a `<user-flow-name>.uf.ts` - used for 1 specific flow (**local**)
+- in a `<user-flow-name>.uf.mts` - used for 1 specific flow (**local**)
 
 Local configurations will overwrite global configurations.
 
@@ -28,18 +28,12 @@ It is also possible to provide the configurations directly as `JSON` object in t
 
 The `configPath` property is handy when all parameters should exist as CLI params only.
 
-### Configration option short-hands
+### Configuration option short-hands
 
-As the configuration object can get quite big lighthouse provides a couple of shourt-hands to directly configure specific parts over a flag.  
-The user-flow CLI ports perts of this behavior. 
-
-It provides the following short hands:
- - budgets - performance budgets for lighthouse performance budgets for the navigation mode 
+As the configuration object can get quite big lighthouse provides a couple of short-hands to directly configure specific parts over a flag.  
+The user-flow CLI ports perts of this behavior.
 
 Those options can be used similar to the general configurations globally as well as locally.
-Also the placement of budgets is similar to the general configurations in the `.user-flowrc.json` or as CLI param.
-
-The `budgetPath` property is handy when all parameters should exist as CLI params only.
 
 ## Options
 
@@ -50,9 +44,7 @@ Used in the rc.json file directly.
 |  Option                         |  Type     | Default                | Description                                                                                              |  
 | ------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`collect.configPath`**        | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
-| **`collect.config`**            | `object`  | n/a                    | The lighthouse configuration as `JSON` object                                                                |  
-| **`collect.budgetPath`**        | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
-| **`collect.budget`**            | `object`  | n/a                    | The lighthouse budgets as `JSON` object                                                                |  
+| **`collect.config`**            | `object`  | n/a                    | The lighthouse configuration as `JSON` object                                                            |
 
 **CLI params**  
 
@@ -61,7 +53,6 @@ Used in the console as `user-flow collect <param>`.
 |  Option                         |  Type     | Default                | Description                                                                                              |  
 | ------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-c`**, **`--configPath`**    | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
-| **`-b`**, **`--budgetPath`**    | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
 
 ### Configuration over RC properties 
 
@@ -171,9 +162,6 @@ You can directly use a lighthouse config object in the rc file by placing it und
 
 See [CLI collect command - configPath](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/command-collect.md#configpath)  
 
-### budgetPath  
-
-See [CLI collect command - budgetPath](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/command-collect.md#budgetpath)
 ---
 
 made with ❤ by [push-based.io](https://www.push-based.io)

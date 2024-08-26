@@ -1,8 +1,5 @@
 {
   "extends": "nx/presets/core.json",
-  "affected": {
-    "defaultBase": "origin/main"
-  },
   "pluginsConfig": {
     "@nx/js": {
       "analyzeSourceFiles": true
@@ -47,6 +44,10 @@
     "@nx/vite:test": {
       "cache": true,
       "inputs": ["default", "^production"]
+    },
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     }
   },
   "generators": {
@@ -60,5 +61,7 @@
       "targetName": "user-flow"
     }
   },
-  "nxCloudAccessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false,
+  "defaultBase": "origin/main"
 }

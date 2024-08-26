@@ -4,9 +4,9 @@ import {
   CollectRcOptions,
   PersistArgvOptions,
   PersistRcOptions
-} from '../options/types';
-import { AssertArgvOptions } from '../../assert/options';
-import { CollectOptions } from '../options';
+} from '../options/types.js';
+import { AssertArgvOptions } from '../../assert/options.js';
+import { CollectOptions } from '../options/index.js';
 
 
 export function getCollectCommandOptionsFromArgv(argv: CollectOptions): CollectCommandCfg {

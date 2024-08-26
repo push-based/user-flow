@@ -1,15 +1,15 @@
-import { prompt } from 'enquirer';
-import { get as interactive } from '../../../global/options/interactive';
+import Enquirer from 'enquirer';
+import { get as interactive } from '../../../global/options/interactive.js';
 import {
   ERROR_PERSIST_FORMAT_REQUIRED,
   ERROR_PERSIST_FORMAT_WRONG,
   PROMPT_PERSIST_FORMAT
-} from '../../collect/options/format.constant';
-import { applyValidations, hasError, VALIDATORS } from '../../../core/validation';
-import { REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../collect/constants';
-import { RcJson } from '../../../types';
-import { ReportFormat } from '../../collect/options/types';
-import { getEnvPreset } from '../../../pre-set';
+} from '../../collect/options/format.constant.js';
+import { applyValidations, hasError, VALIDATORS } from '../../../core/validation/index.js';
+import { REPORT_FORMAT_NAMES, REPORT_FORMAT_OPTIONS, REPORT_FORMAT_VALUES } from '../../collect/constants.js';
+import { RcJson } from '../../../types.js';
+import { ReportFormat } from '../../collect/options/types.js';
+import { getEnvPreset } from '../../../pre-set.js';
 
 export async function setupFormat(
   config: RcJson
@@ -17,7 +17,7 @@ export async function setupFormat(
   let format: ReportFormat[] = Array.isArray(config?.persist?.format) ? config.persist.format : [];
 
   if (interactive()) {
-    const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await prompt<{ f: ReportFormat[] }>([
+    const { f }: { f: ReportFormat[] } = format.length ? { f: format } : await Enquirer.prompt<{ f: ReportFormat[] }>([
       {
         type: 'multiselect',
         name: 'f',
@@ -29,7 +29,7 @@ export async function setupFormat(
           const values = value as any as string[];
           return values.map((name: string) => REPORT_FORMAT_VALUES[REPORT_FORMAT_NAMES.indexOf(name)]) as any as string;
         },
-        muliple: true
+        multiple: true
       }
     ]);
 

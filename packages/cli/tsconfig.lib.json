@@ -18,8 +18,8 @@
     "**/tests/*",
     "**/*.spec.ts",
     "**/*.test.ts",
-    "**/static/**",
-    "**/test-data/**",
-    "jest.config.ts"
+    "**/*.mocks.ts",
+    "**/mocks/**",
+    "vite.config.ts"
   ]
 }

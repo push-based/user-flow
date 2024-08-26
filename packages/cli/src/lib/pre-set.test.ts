@@ -1,6 +1,21 @@
 import {describe, afterEach, it, expect} from 'vitest';
-import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set';
-import { setupEnvVars, teardownEnvVars } from '@push-based/user-flow-cli-testing';
+
+import { CI_PRESET, DEFAULT_PRESET, getEnvPreset, SANDBOX_PRESET } from './pre-set.js';
+import { CI_PROPERTY, CLI_MODE_PROPERTY, CLI_MODES } from './global/cli-mode/index.js';
+
+
+function setupEnvVars(env: CLI_MODES): void {
+  if (env === 'DEFAULT') {
+    delete process.env[CI_PROPERTY];
+  } else {
+    process.env[CI_PROPERTY] = (env === 'CI' ? true : 'SANDBOX') as string;
+  }
+}
+
+function teardownEnvVars() {
+  delete process.env[CI_PROPERTY];
+  delete process.env[CLI_MODE_PROPERTY];
+}
 
 describe('getEnvPreset', () => {
 

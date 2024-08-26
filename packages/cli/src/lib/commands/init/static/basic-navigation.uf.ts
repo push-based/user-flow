@@ -1,4 +1,4 @@
-
+export const exampleFlow = `
 // Your custom interactions with the page
 import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
 
@@ -7,7 +7,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url } = collectOptions;
 
   await flow.navigate(url, {
-    stepName: `Navigate to ${url}`,
+    name: \`Navigate to \${url}\`,
   });
 
   // ℹ Tip:
@@ -16,9 +16,8 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Basic Navigation Example'},
   interactions
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;
+`;

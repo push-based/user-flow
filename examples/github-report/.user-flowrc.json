@@ -1,0 +1,10 @@
+{
+  "collect": {
+    "url": "https://coffee-cart.netlify.app/",
+    "ufPath": "./examples/github-report/user-flows"
+  },
+  "persist": {
+    "outPath": "./examples/github-report/measures",
+    "format": [ "md" ]
+  }
+}

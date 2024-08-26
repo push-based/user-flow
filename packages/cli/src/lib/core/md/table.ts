@@ -1,4 +1,4 @@
-import { formatCode } from '../prettier';
+import { formatCode } from '../prettier/index.js';
 
 export type Alignment = 'l' | 'c' | 'r';
 const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r', '--:']]);
@@ -10,9 +10,9 @@ const alignString = new Map<Alignment, string>([['l', ':--'],['c', ':--:'],['r',
  * |  String 1       |  2             |
  * |  String 1       |  3             |
  */
-export function table(data: (string|number)[][], align?: Alignment[]): string {
+export async function table(data: (string | number)[][], align?: Alignment[]): Promise<string> {
   align = align || data[0].map(_ => 'c');
   const _data = data.map((arr) => arr.join('|'));
   const secondRow = align.map((s) => alignString.get(s)).join('|');
-  return formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
+  return await formatCode(_data.shift() + '\n' + secondRow + '\n' + _data.join('\n'), 'markdown');
 }

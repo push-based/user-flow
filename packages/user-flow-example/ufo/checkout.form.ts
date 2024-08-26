@@ -1,4 +1,4 @@
-import {Ufo} from '../../cli/src/lib/ufo';
+import {Ufo} from '@push-based/user-flow';
 import {
   checkoutBtnSelector,
   emailInputSelector,

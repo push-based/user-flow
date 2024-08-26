@@ -1,17 +1,16 @@
-import { UserFlowProvider } from './types';
-import { logVerbose } from '../../../../core/loggin';
+import { UserFlowProvider } from './types.js';
+import { logVerbose } from '../../../../core/loggin/index.js';
 import * as puppeteer from 'puppeteer';
 import { Browser, LaunchOptions, Page } from 'puppeteer';
 import { normalize } from 'path';
-// @ts-ignore
-import { startFlow, UserFlow } from 'lighthouse/lighthouse-core/fraggle-rock/api';
-import { UserFlowMock } from './user-flow.mock';
-import { detectCliMode } from '../../../../global/cli-mode';
-import { CollectArgvOptions } from '../../options/types';
-import { getLhConfigFromArgv, mergeLhConfig } from '../config';
-import { PersistArgvOptions } from '../../options/types';
-import { AssertRcOptions } from '../../../assert/options';
-import { CollectCommandOptions } from '../../options';
+import { startFlow, UserFlow } from 'lighthouse';
+import { UserFlowMock } from './user-flow.mock.js';
+import { detectCliMode } from '../../../../global/cli-mode/cli-mode.js';
+import { CollectArgvOptions } from '../../options/types.js';
+import { getLhConfigFromArgv, mergeLhConfig } from '../config/index.js';
+import { PersistArgvOptions } from '../../options/types.js';
+import { AssertRcOptions } from '../../../assert/options.js';
+import { CollectCommandOptions } from '../../options/index.js';
 
 export async function collectFlow(
   cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,
@@ -38,7 +37,7 @@ export async function collectFlow(
   logVerbose(`User-flow path: ${normalize(path)}`);
   let start = Date.now();
 
-  const flow: UserFlow = !argv.dryRun ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions);
+  const flow: UserFlow = !argv.dryRun ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions) as unknown as UserFlow;
 
   // run custom interactions
   await interactions({ flow, page, browser, collectOptions: cliOption });
@@ -60,7 +59,7 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
   if (cliMode !== 'DEFAULT' && launchOptions) {
-    const headlessMode = true;
+    const headlessMode = 'new';
     logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
     (launchOptions as any).headless = headlessMode;
   }

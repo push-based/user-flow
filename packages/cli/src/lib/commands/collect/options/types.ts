@@ -1,11 +1,11 @@
-import { AssertArgvOptions } from '../../assert/options';
-import { LhConfigJson } from '../../../hacky-things/lighthouse';
+import { AssertArgvOptions } from '../../assert/options.js';
+import { Config } from 'lighthouse';
 
 export type CollectRcOptions = {
   url: string,
   ufPath: string,
   configPath?: string;
-  config?: LhConfigJson,
+  config?: Config,
   // @TODO get better typing for if serveCommand is given await is required
   serveCommand?: string,
   awaitServeStdout?: string;

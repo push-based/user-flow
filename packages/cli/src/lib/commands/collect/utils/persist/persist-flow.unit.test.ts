@@ -1,13 +1,13 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { generateStdoutReport } from './utils';
-import { createReducedReport } from '../report/utils';
-import { generateMdReport } from '../../../assert/utils/md-report';
-import { persistFlow } from './persist-flow';
-import { writeFile } from '../../../../core/file';
-import { log } from '../../../../core/loggin';
+import { generateStdoutReport } from './utils.js';
+import { createReducedReport } from '../report/utils.js';
+import { generateMdReport } from '../../../assert/utils/md-report.js';
+import { persistFlow } from './persist-flow.js';
+import { writeFile } from '../../../../core/file/index.js';
+import { log } from '../../../../core/loggin/index.js';
 
-import type { ReducedReport } from '../report/types';
-import type { UserFlow } from '../../../../hacky-things/lighthouse';
+import type { ReducedReport } from '../report/types.js';
+import type { UserFlow } from 'lighthouse';
 
 vi.mock('node:fs', () => ({
   existsSync: vi.fn().mockReturnValue(true)
@@ -25,10 +25,10 @@ vi.mock('../report/utils', () => ({
 }));
 
 const flow = {
-  name: 'flow-name',
+  _options: { name: 'flow-name' },
   createFlowResult: vi.fn(),
   generateReport: vi.fn()
-} satisfies UserFlow;
+} as any as UserFlow;
 
 describe('persist flow reports in specified format', () => {
 
@@ -65,7 +65,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should save the report in json if json is given as format', async () => {
-    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'});
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'jsonResult'} as any);
     await persistFlow(flow, { outPath: '', format: ['json'], url: 'mock.com' });
     expect(writeFile).toHaveBeenCalledWith('report.json', JSON.stringify({mock: 'jsonResult'}));
   });
@@ -93,7 +93,7 @@ describe('persist flow reports in specified format', () => {
   });
 
   it('should extract an md report from the json report if md is given as format', async () => {
-    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'});
+    vi.spyOn(flow, 'createFlowResult').mockResolvedValue({mock: 'base for md report'} as any);
     const createReducedReportSpy = vi.mocked(createReducedReport).mockReturnValue({mock: 'reduced report'} as any as ReducedReport);
     const generateMdReportMock = vi.mocked(generateMdReport);
     await persistFlow(flow, { outPath: '', format: ['md'], url: 'mock.com' });

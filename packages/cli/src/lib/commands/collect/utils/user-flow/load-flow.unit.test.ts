@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
-import { loadFlow } from './load-flow';
-import * as fileHelpers from '../../../../core/file';
+import { loadFlow } from './load-flow.js';
+import * as fileHelpers from '../../../../core/file/index.js';
 import * as fs from 'node:fs';
 
 vi.mock('node:fs');
@@ -14,7 +14,7 @@ describe('loading user-flow scripts for execution', () => {
 
   it('should throw if ufPath does not exist', () => {
     const existsSyncSpy = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
-    expect(() => loadFlow({ ufPath: './path' })).toThrow();
+    expect(() => loadFlow({ ufPath: './path' })).rejects.toThrow();
     expect(existsSyncSpy).toHaveBeenCalled();
   });
 
@@ -22,7 +22,7 @@ describe('loading user-flow scripts for execution', () => {
     vi.spyOn(fs, 'existsSync').mockReturnValue(true);
     vi.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     const resolveAnyFileSpy = vi.spyOn(fileHelpers, 'resolveAnyFile');
-    expect(() => loadFlow({ ufPath: './path/file.json' })).toThrow();
+    expect(() => loadFlow({ ufPath: './path/file.json' })).rejects.toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 
@@ -31,7 +31,7 @@ describe('loading user-flow scripts for execution', () => {
     vi.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => true } as fs.Stats);
     vi.spyOn(fs, 'readdirSync').mockReturnValue(['file.json' as unknown as fs.Dirent])
     const resolveAnyFileSpy = vi.spyOn(fileHelpers, 'resolveAnyFile');
-    expect(() => loadFlow({ ufPath: './path' })).toThrow();
+    expect(() => loadFlow({ ufPath: './path' })).rejects.toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 

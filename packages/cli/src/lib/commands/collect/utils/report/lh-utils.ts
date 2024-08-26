@@ -2,15 +2,14 @@
  * THIS CODE IS MOSTLY COPIED FORM:
  * https://github.com/GoogleChrome/lighthouse
  */
-import { default as LHR } from 'lighthouse/types/lhr/lhr';
-import FlowResult from 'lighthouse/types/lhr/flow';
-import { ReducedFlowStep, ReducedFlowStepResult } from './types';
+import { FlowResult, Result } from 'lighthouse';
+import { ReducedFlowStep, ReducedFlowStepResult } from './types.js';
 
 export function parseSteps(steps: FlowResult.Step[]): ReducedFlowStep[]  {
   return steps.map((step) => {
     const stepReport = prepareReportResult(step.lhr);
     const { gatherMode } = stepReport;
-    const categoriesEntries: [string, LHR.Category][] = Object.entries(stepReport.categories) as unknown as [string, LHR.Category][];
+    const categoriesEntries: [string, Result.Category][] = Object.entries(stepReport.categories) as unknown as [string, Result.Category][];
     const results: ReducedFlowStepResult = categoriesEntries.reduce((res: any, [categoryName, category]) => {
       res[categoryName] = (shouldDisplayAsFraction(stepReport.gatherMode) ?
         calculateCategoryFraction(category) : (category).score) as any;
@@ -44,14 +43,14 @@ const RATINGS = {
   ERROR: { label: 'error' }
 };
 
-function shouldDisplayAsFraction(gatherMode: LHR.GatherMode) {
+function shouldDisplayAsFraction(gatherMode: Result.GatherMode) {
   return gatherMode === 'timespan' || gatherMode === 'snapshot';
 }
 
 /**
  * @param {LH.ReportResult.Category} category
  */
-function calculateCategoryFraction(category: LHR.Category) {
+function calculateCategoryFraction(category: Result.Category) {
   let numPassableAudits = 0;
   let numPassed = 0;
   let numInformative = 0;

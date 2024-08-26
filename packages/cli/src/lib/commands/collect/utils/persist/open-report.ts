@@ -1,6 +1,6 @@
 import openReport from 'open';
-import { logVerbose } from '../../../../core/loggin';
-import { CollectCommandOptions } from '../../options';
+import { logVerbose } from '../../../../core/loggin/index.js';
+import { CollectCommandOptions } from '../../options/index.js';
 
 export async function openFlowReports(fileNames: string[]): Promise<void> {
   const htmlReport = fileNames.find(i => i.includes('.html'));

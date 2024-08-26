@@ -1,5 +1,5 @@
 import { UserFlow, Step } from '@puppeteer/replay';
-import { Modify } from '../../../../core/types';
+import { Modify } from '../../../../core/types.js';
 
 /**
  *  'navigation' is already covered by `@puppeteer/replay`
@@ -13,7 +13,7 @@ export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimesp
 }>;*/
 export type MeasurementStep = {
   type: MeasureModes;
-  stepOptions?: { stepName?: string; }
+  stepOptions?: { name?: string; }
   url?: string;
 }
 

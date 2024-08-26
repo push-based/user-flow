@@ -1,5 +1,6 @@
-import { argv, Options } from 'yargs';
-import { getEnvPreset } from '../../../pre-set';
+import yargs from '../../../core/yargs/instance.js';
+import { Options } from 'yargs';
+import { getEnvPreset } from '../../../pre-set.js';
 
 export const rcPath = {
   alias: 'p',
@@ -10,6 +11,6 @@ export const rcPath = {
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): string {
-  const { rcPath } = argv as unknown as { rcPath: string };
+  const { rcPath } = yargs.argv as unknown as { rcPath: string };
   return rcPath as string
 }

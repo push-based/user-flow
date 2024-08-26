@@ -1,5 +1,6 @@
-import { argv, Options } from 'yargs';
-import { getEnvPreset } from '../../pre-set';
+import yargs from '../../core/yargs/instance.js';
+import { Options } from 'yargs';
+import { getEnvPreset } from '../../pre-set.js';
 
 export const interactive = {
   alias: 'i',
@@ -9,6 +10,6 @@ export const interactive = {
 } satisfies Options;
 
 export function get(): boolean {
-  const { interactive } = argv as any as { interactive: boolean };
+  const { interactive } = yargs.argv as any as { interactive: boolean };
   return interactive;
 }
