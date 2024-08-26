@@ -11,8 +11,8 @@ import { SETUP_CONFIRM_MESSAGE } from './constants.js';
 
 export async function runInitCommand(argv: InitOptions): Promise<void> {
   const { interactive } = getGlobalOptionsFromArgv(argv);
-  const { generateFlow, generateGhWorkflow, generateBudgets, lhr, ...cfg } = getInitCommandOptionsFromArgv(argv);
-  logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, generateBudgets,lhr, ...cfg });
+  const { generateFlow, generateGhWorkflow, lhr, ...cfg } = getInitCommandOptionsFromArgv(argv);
+  logVerbose('Init options: ', { interactive, generateFlow, generateGhWorkflow, lhr, ...cfg });
 
   await run([
     collectRcJson,

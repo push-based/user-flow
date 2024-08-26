@@ -1,6 +1,5 @@
 import { CollectRcOptions, PersistRcOptions, ReportFormat } from '../collect/options/types.js';
 import { InitOptions } from './options.js';
-import { AssertRcOptions } from '../assert/options.js';
 import { REPORT_FORMAT_VALUES } from '../collect/constants.js';
 
 const isValidFormat = (value: any): value is ReportFormat => REPORT_FORMAT_VALUES.includes(value);
@@ -15,9 +14,9 @@ function sanitizedFormats(formats: string[]) {
 
 export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   let {
-    generateFlow, generateGhWorkflow, generateBudgets, lhr,
+    generateFlow, generateGhWorkflow, lhr,
     url, ufPath, serveCommand, awaitServeStdout,
-    outPath, format, budgetPath, budgets
+    outPath, format
   } = argv;
 
   let collect = {} as CollectRcOptions;
@@ -31,12 +30,5 @@ export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   outPath && (persist.outPath = outPath);
   format && (persist.format = sanitizedFormats(format));
 
-  let assert = {} as AssertRcOptions;
-  budgetPath && (assert.budgetPath = budgetPath);
-  budgets && (assert.budgets = budgets as any);
-
-  return { collect, persist, assert,
-    generateFlow, generateGhWorkflow, generateBudgets, lhr
-  };
+  return { collect, persist, generateFlow, generateGhWorkflow, lhr };
 }
-

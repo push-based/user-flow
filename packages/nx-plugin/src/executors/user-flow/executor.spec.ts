@@ -85,7 +85,6 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
       case 'outputPath':
       case 'serveCommand':
       case 'awaitServeStdout':
-      case 'budgetPath':
       case 'configPath':
         contains = output.includes(`--${k}="${v}"`);
         break;

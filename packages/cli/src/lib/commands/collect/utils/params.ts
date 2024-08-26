@@ -5,7 +5,6 @@ import {
   PersistArgvOptions,
   PersistRcOptions
 } from '../options/types.js';
-import { AssertArgvOptions } from '../../assert/options.js';
 import { CollectOptions } from '../options/index.js';
 
 
@@ -13,8 +12,7 @@ export function getCollectCommandOptionsFromArgv(argv: CollectOptions): CollectC
 
   const {
     url, ufPath, serveCommand, awaitServeStdout, dryRun, openReport,
-    outPath, format,
-    budgetPath, budgets, configPath, config
+    outPath, format, configPath, config
   } = (argv || {}) as any as (keyof CollectRcOptions & keyof PersistRcOptions);
 
   let collect = {} as CollectArgvOptions;
@@ -34,9 +32,5 @@ export function getCollectCommandOptionsFromArgv(argv: CollectOptions): CollectC
   // cli only
   openReport !== undefined && (persist.openReport = Boolean(openReport));
 
-  let assert = {} as AssertArgvOptions;
-  budgetPath && (assert.budgetPath = budgetPath);
-  budgets && (assert.budgets = budgets);
-
-  return { collect, persist, assert };
+  return { collect, persist };
 }

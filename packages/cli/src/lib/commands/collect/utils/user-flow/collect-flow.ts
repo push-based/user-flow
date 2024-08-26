@@ -6,21 +6,17 @@ import { normalize } from 'path';
 import { startFlow, UserFlow } from 'lighthouse';
 import { UserFlowMock } from './user-flow.mock.js';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode.js';
-import { CollectArgvOptions } from '../../options/types.js';
+import { CollectArgvOptions, PersistArgvOptions } from '../../options/types.js';
 import { getLhConfigFromArgv, mergeLhConfig } from '../config/index.js';
-import { PersistArgvOptions } from '../../options/types.js';
-import { AssertRcOptions } from '../../../assert/options.js';
 import { CollectCommandOptions } from '../../options/index.js';
 
 export async function collectFlow(
-  cliOption: CollectArgvOptions & PersistArgvOptions & AssertRcOptions,
+  cliOption: CollectArgvOptions & PersistArgvOptions,
   userFlowProvider: UserFlowProvider & { path: string },
   argv: CollectCommandOptions
 ) {
   let {
     path,
-    // object containing the LH setting for budgets
-    // @TODO refactor typing
     flowOptions,
     interactions,
     launchOptions

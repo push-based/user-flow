@@ -7,12 +7,12 @@ import { CollectCommandOptions } from '../options/index.js';
 
 export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): Promise<RcJson> {
 
-  const { collect, persist, assert } = cfg;
+  const { collect, persist } = cfg;
 
   const userFlows = await loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
     (_: any) => {
-      return collectFlow({ ...collect, ...persist, ...assert }, { ...provider, path }, argv)
+      return collectFlow({ ...collect, ...persist, }, { ...provider, path }, argv)
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(handleOpenFlowReports(argv))
         .then(_ => cfg);

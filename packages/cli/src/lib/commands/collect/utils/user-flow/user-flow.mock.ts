@@ -32,8 +32,6 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
             'credits': { 'axe-core': '4.3.5' }
           },
           audits: {
-            // "performance-budget": {},
-            // "timing-budget": {},
             'is-on-https': {
               'id': 'is-on-https',
               'title': 'Uses HTTPS',
@@ -239,13 +237,6 @@ const dummyFlowResult: (cfg: UserFlowOptions) => FlowResult = (cfg: UserFlowOpti
   };
   if (config) {
     report.steps[0].lhr.configSettings = config;
-  }
-
-  const budgets = config?.settings?.budgets;
-  if (budgets) {
-    report.steps[0].lhr.configSettings.budgets = budgets;
-    report.steps[0].lhr.audits['performance-budget'] = {};
-    report.steps[0].lhr.audits['timing-budget'] = {};
   }
 
   return report;
