@@ -4,7 +4,7 @@
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "user-flow": "src/cli.js"
+    "user-flow": "src/cli.mjs"
   },
   "license": "MIT",
   "repository": {

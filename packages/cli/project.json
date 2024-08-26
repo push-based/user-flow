@@ -18,7 +18,7 @@
         "assets": [
           "README.md",
           "packages/cli/*.md",
-          "packages/cli/src/cli.js",
+          "packages/cli/src/cli.mjs",
           "packages/cli/*.schema.json",
           "packages/cli/**/static/**"
         ]
