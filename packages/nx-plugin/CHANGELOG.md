@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.3](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.2...nx-plugin-0.1.3) (2024-08-26)
+
+
+### Bug Fixes
+
+* **workspace:** migrate nx ([0b063b0](https://github.com/push-based/user-flow/commit/0b063b0d474ae7789299c33d73f393eb5125ed92))
+* **workspace:** update examples and docs ([3ea4393](https://github.com/push-based/user-flow/commit/3ea4393cf8675c143f34a8109b9210637ef86c15))
+
+
+
 ## [0.1.2](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.1...nx-plugin-0.1.2) (2024-03-11)
 
 
