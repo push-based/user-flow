@@ -2,6 +2,45 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [0.21.0](https://github.com/push-based/user-flow/compare/cli-0.20.8...cli-0.21.0) (2024-08-26)
+
+
+### Bug Fixes
+
+* **cli:** convert ts register loader hook ([ccc2b59](https://github.com/push-based/user-flow/commit/ccc2b591507ce8415901ac4d64997e7e84aac07a))
+* **cli:** convert ts register loader hook ([8c31066](https://github.com/push-based/user-flow/commit/8c31066a964b9061ec4d2cfafb63bf5a107ce238))
+* **cli:** esm migration wip ([7e07c7a](https://github.com/push-based/user-flow/commit/7e07c7a9ade3365458e96a5b7107782e1b9edecf))
+* **cli:** esm migration wip ([36a30b0](https://github.com/push-based/user-flow/commit/36a30b0273970972bedb6a92775721b68fa25aaf))
+* **cli:** fix default flow and test ([fd72436](https://github.com/push-based/user-flow/commit/fd724361a3846bafc4584a2d62349239db47fe8c))
+* **cli:** fix package version ([b87b771](https://github.com/push-based/user-flow/commit/b87b771f21561b06896dff9fc13fea53585add13))
+* **cli:** fix test ([60a330f](https://github.com/push-based/user-flow/commit/60a330f599d7a902d9e2ed65b41616b80faa3ccf))
+* **cli:** fix test ([49f2ffd](https://github.com/push-based/user-flow/commit/49f2ffdf69c3c5b441c2015d30e0200ff734059c))
+* **cli:** fix test ([154f30c](https://github.com/push-based/user-flow/commit/154f30c87181fbac4516faa54c52d9b322082fe8))
+* **cli:** ignore replay runner errors ([2cb7ca1](https://github.com/push-based/user-flow/commit/2cb7ca1b6af4a8b6d4790abd84c9d8d30d8ca8bc))
+* **cli:** remove budgets ([468bd1b](https://github.com/push-based/user-flow/commit/468bd1b6e781977a4904241aa848563cf85b1a28))
+* **workspace:** allow mts format ([841b22b](https://github.com/push-based/user-flow/commit/841b22bc96269b79bcf7394cf537dfd06d168e33))
+* **workspace:** fix build issue ([c95cd01](https://github.com/push-based/user-flow/commit/c95cd01ab80558acdb3a128a3c63f50f939ab2b8))
+* **workspace:** fix headless bug ([67e2d76](https://github.com/push-based/user-flow/commit/67e2d769612c0b4b237843f787f501b6f2c54f35))
+* **workspace:** fix test ([88b003a](https://github.com/push-based/user-flow/commit/88b003a1796dc6234d6b9b26b1837de1e62addc0))
+* **workspace:** migrate nx ([0b063b0](https://github.com/push-based/user-flow/commit/0b063b0d474ae7789299c33d73f393eb5125ed92))
+* **workspace:** migrate test ([c39117f](https://github.com/push-based/user-flow/commit/c39117f59c42ae5777a05d427f1d39c26d6f5cf0))
+* **workspace:** migrate test ([a6403c0](https://github.com/push-based/user-flow/commit/a6403c0940748339afd880c6f6a07c9868231851))
+* **workspace:** migrate test ([e6245ca](https://github.com/push-based/user-flow/commit/e6245caec5b54786447220cb8f9d56414b041741))
+* **workspace:** migrate test ([dc1ac39](https://github.com/push-based/user-flow/commit/dc1ac3956fa7b80550a450593fb0a9b9a360fb1b))
+* **workspace:** migrate test ([1a87553](https://github.com/push-based/user-flow/commit/1a87553ce04effa4bc2498bab4ba7d437885117f))
+* **workspace:** remove budgets ([0d41c57](https://github.com/push-based/user-flow/commit/0d41c5703d4bb83c1cf722d27ae3785e6f0d9291))
+* **workspace:** remove unnecessry config ([3502f27](https://github.com/push-based/user-flow/commit/3502f27029f6936a31d07354ba4f57b79deea6b2))
+* **workspace:** remove unused test ([9145527](https://github.com/push-based/user-flow/commit/914552785803e028bbfc9539c3a8b3dc41bb9ee4))
+* **workspace:** update examples and docs ([e3fa1d9](https://github.com/push-based/user-flow/commit/e3fa1d9cadd65990a42a806e373b4513ac97d26c))
+* **workspace:** update examples and docs ([3ea4393](https://github.com/push-based/user-flow/commit/3ea4393cf8675c143f34a8109b9210637ef86c15))
+
+
+### Features
+
+* **cli:** migrate to lh v11 ([075b882](https://github.com/push-based/user-flow/commit/075b882f9502e197dff5f523cd3d1990fe1c1183))
+
+
+
 ## [0.20.8](https://github.com/push-based/user-flow/compare/cli-0.20.7...cli-0.20.8) (2024-04-22)
 
 
