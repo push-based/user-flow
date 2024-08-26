@@ -33,13 +33,13 @@ Let's first think about the folder structure and how we organize the different p
  ┗ 📂my-app-user-flows
    ┣ 📄.user-flowrc.json
    ┣ 📂fixtures
-   ┣ ┗ 📜list-page.ufo.ts
+   ┣ ┗ 📜list-page.ufo.mts
    ┣ 📂ufo
-   ┣ ┣ 📜sidebar.ufo.ts
-   ┣ ┣ 📜list.ufo.ts
-   ┣ ┗ 📜list-page.ufo.ts
+   ┣ ┣ 📜sidebar.ufo.mts
+   ┣ ┣ 📜list.ufo.mts
+   ┣ ┗ 📜list-page.ufo.mts
    ┗ 📂user-flows
-     ┗ 📜my-user-flow.uf.ts
+     ┗ 📜my-user-flow.uf.mts
 ```
 
 ### Setup 
@@ -84,7 +84,7 @@ We extend from the Ufo class to get the page object set up for us and ensure the
 > **ℹ Tip:**
 > To ensure the page object is available in an UFO you can extend from `Ufo` provided in `@push-based/user-flow`.
 
-**./ufo/sidebar.ufo.ts**
+**./ufo/sidebar.ufo.mts**
 ```typescript
 export class Sidebar extends Ufo {
   btnSelector = fixtures.sidebarBtnSelector;
@@ -102,7 +102,7 @@ export class Sidebar extends Ufo {
 }
 ```
 
-**./ufo/list.ufo.ts**
+**./ufo/list.ufo.mts**
 ```typescript
 export class List extends Ufo {
   itemSelector = fixtures.movieListImgSelector;
@@ -119,7 +119,7 @@ export class List extends Ufo {
 }
 ```
 
-**./ufo/list-page.ufo.ts**
+**./ufo/list-page.ufo.mts**
 ```typescript
 //      ensure page is present 👇
 export class ListPage extends Ufo {
@@ -134,7 +134,7 @@ export class ListPage extends Ufo {
 
 ### User Flows
 
-**./user-flows/my-user-flow.uf.ts**
+**./user-flows/my-user-flow.uf.mts**
 ```typescript
 import {
   UserFlowOptions,
@@ -156,7 +156,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const listPage = new ListPage({page});
   
   await flow.startTimespan({
-    stepName: 'Navigate to list page',
+    name: 'Navigate to list page',
   });
   
   // 👇 Interaction logic
@@ -166,12 +166,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   await flow.endTimespan();
 };
 
-const userFlowProvider: UserFlowProvider = {
-  flowOptions,
-  interactions
-};
-
-module.exports = userFlowProvider;
+export default {
+  flowOptions: { name: "Order Coffee" },
+  interactions,
+} satisfies UserFlowProvider;
 ```
 
 ### Usage

@@ -5,13 +5,13 @@
       "type": "navigate",
       "url": "https://coffee-cart.netlify.app/",
       "stepOptions": {
-        "stepName": "Navigate to coffee cart"
+        "name": "Navigate to coffee cart"
       }
     },
     {
       "type": "startTimespan",
       "stepOptions": {
-        "stepName": "Select coffee"
+        "name": "Select coffee"
       }
     },
     {
@@ -32,13 +32,13 @@
     {
       "type": "snapshot",
       "stepOptions": {
-        "stepName": "Coffee selected"
+        "name": "Coffee selected"
       }
     },
     {
       "type": "startTimespan",
       "stepOptions": {
-        "stepName": "Checkout order"
+        "name": "Checkout order"
       }
     },
     {
@@ -90,13 +90,13 @@
     {
       "type": "snapshot",
       "stepOptions": {
-        "stepName": "Order checked out"
+        "name": "Order checked out"
       }
     },
     {
       "type": "startTimespan",
       "stepOptions": {
-        "stepName": "Submit order"
+        "name": "Submit order"
       }
     },
     {
@@ -117,7 +117,7 @@
     {
       "type": "snapshot",
       "stepOptions": {
-        "stepName": "Order submitted"
+        "name": "Order submitted"
       }
     }
   ]

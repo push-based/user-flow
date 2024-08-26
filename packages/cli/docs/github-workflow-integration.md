@@ -15,7 +15,7 @@ In this document we will learn:
 ## Setup user flow for the CI
 
 As pre-condition we assume you have a correct setup of the CLI as descried in [basic setup](writing-basic-user-flows.md).  
-This means you have a `user-flowrc.json` to point to as well as a `flow-name.ts` to execute.
+This means you have a `user-flowrc.json` to point to as well as a `flow-name.mts` to execute.
 
 To test if you flow is working quickly run the CLI in 'dry run' and print it to the console to see the test passes:  
 `user-flow collect --dryRun --format stdout` optionally use `--rcPath /path/to/user-flowrc.json` if the rc file is not located in root.

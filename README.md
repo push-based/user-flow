@@ -28,7 +28,6 @@ In addition, it is always up-to-date with the latest Chrome DevTools features.
 - ⚙ [Run it in your CI  ](https://github.com/push-based/user-flow#github-workflow-integration-of-lighthouse-user-flows-in-your-pr)  
 - ▶ [Execute ChromeDevTools recorder exports](https://github.com/push-based/user-flow#working-with-devtools-recorder-exports)  
 - 🏃‍♀️ Measure Runtime performance
-- 🔒 [Performance budgets](https://github.com/push-based/user-flow#performance-budgets)
 - 🦮 Zero setup cost
 - 🤓 Excellent DX through `--dryRun` and friends
 - ⚙ Nx plugin [user-flow-nx-plugin]() to generate/execute/migrate lighthouse user flows
@@ -103,11 +102,11 @@ _./.user-flowrc.json_
 }
 ```
 
-2. The CLI automatically creates an example user-flow. (`./user-flows/basic-navigation.uf.ts`) 
+2. The CLI automatically creates an example user-flow. (`./user-flows/basic-navigation.uf.mts`) 
 
 It is a simple navigation measurement to start from.
 
-_./basic-navigation.uf.ts_
+_./basic-navigation.uf.mts_
 ```typescript
 import {
   UserFlowInteractionsFn,
@@ -122,17 +121,15 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   // Navigate to URL
   await flow.navigate(url, {
-    stepName: `Navigate to ${url}`,
+    name: `Navigate to ${url}`,
   });
 
 };
 
-const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Order Coffee'},
-  interactions
-};
-
-module.exports = userFlowProvider;
+export default {
+  flowOptions: { name: "Order Coffee" },
+  interactions,
+} satisfies UserFlowProvider;
 ```
 
 3. Run CLI
@@ -147,7 +144,7 @@ This will execute the user flow and opens the HTML report in the browser:
 
 For more information on how to write user-flows read in the [Writing user flows for the CLI](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/writing-basic-user-flows.md) section.
 
-Optionally you can pass params to overwrite the values form `.user-flowrc.ts` in the file directly or over the CLI:
+Optionally you can pass params to overwrite the values form `.user-flowrc.json` in the file directly or over the CLI:
 
 ```bash
 npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=https://localhost:4200
@@ -192,8 +189,6 @@ This command helps you to set up a `.user-flowrc.json` and asks for input over C
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-h`**, **`--generateFlow`**     | `boolean` | n/a                    | Generate basic user-flow file under `ufPath`                                                             |    
 | **`-g`**, **`--generateGhWorkflow`** | `boolean` | n/a                  | Generate `user-flow.yml` file under `.github/workflows`                                                             |    
-| **`-x`**, **`--generateBudgets`**    | `boolean` | n/a                  | Generate `budget.json` file under the current working directury                                          |    
-| **`--lhr`**                          | `string`  | n/a                  | Used together with `--generateBudgets`. Path to lighthouse report for initial budget                     |    
 
 <img width="960" alt="getting-started-resulting-navigation-report" src="https://user-images.githubusercontent.com/10064416/168185483-c6ca499e-a8a6-40b7-b450-448de8784454.PNG">
 
@@ -214,9 +209,8 @@ This command executes a set of user-flow definitions against the target URL and 
 | Option                             | Type      | Default                | Description                                                                                             |  
 |------------------------------------|-----------|------------------------|---------------------------------------------------------------------------------------------------------|  
 | **`-t`**, **`--url`**              | `string`  | n/a                    | URL to analyze                                                                                          |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`)             |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containing user-flow files to run. (`*.uf.mts` or`*.uf.js`)            |  
 | **`-c`**, **`--configPath`**       | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                               |  
-| **`-b`**, **`--budgetPath`**       | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                               |  
 | **`-s`**, **`--serveCommand`**     | `string`  | n/a                    | Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout` |  
 | **`-a`**, **`--awaitServeStdout`** | `string`  | `.user-flowrc` setting | Waits for stdout from the serve command to start collecting user-flows                                  |  
 | **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports ( `html`, `json`, `md`, `stdout`)                                         |  
@@ -278,20 +272,6 @@ This can replace any handwritten code and organizes interactions in a JSON struc
 This library provides a way to replay and enrich those interactions over the CLI.
 
 See [recorder-exports](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/recorder-exports.md) for more details.
-
-## [Performance Budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md)
-
-Implementing performance improvements without breaking something is hard.  
-**Even harder is it, to keep it that way. 🔒**
-
-![img-budgets-mode-support](https://user-images.githubusercontent.com/10064416/164581870-3534f8b0-b7c1-4252-9f44-f07febaa7359.PNG)
-
-Automatically create budgets with:  
-`npx user-flow init --generateBudgets`  
-Automatically create budgets from an existing lhr with:   
-`npx user-flow init --generateBudgets --lhr path/to/lhr.json`   
-
-See [performance-budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) for more details.
 
 ## [GitHub workflow integration of lighthouse user flows in your PR](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
 

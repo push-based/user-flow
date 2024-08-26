@@ -7,10 +7,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   // Navigate to coffee order site
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    name: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({ stepName: 'Select coffee' });
+  await flow.startTimespan({ name: 'Select coffee' });
 
   // Select coffee
   const cappuccinoItem = '.cup:nth-child(1)';
@@ -19,10 +19,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   await flow.endTimespan();
 
-  await flow.snapshot({ stepName: 'Coffee selected' });
+  await flow.snapshot({ name: 'Coffee selected' });
 
 
-  await flow.startTimespan({ stepName: 'Checkout order' });
+  await flow.startTimespan({ name: 'Checkout order' });
 
   // Checkout order
   const checkoutBtn = '[data-test=checkout]';
@@ -39,9 +39,9 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   await flow.endTimespan();
 
-  await flow.snapshot({ stepName: 'Order checked out' });
+  await flow.snapshot({ name: 'Order checked out' });
 
-  await flow.startTimespan({ stepName: 'Submit order' });
+  await flow.startTimespan({ name: 'Submit order' });
 
   // Submit order
   const submitBtn = '#submit-payment';
@@ -52,13 +52,11 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
   await flow.endTimespan();
 
-  await flow.snapshot({ stepName: 'Order submitted' });
+  await flow.snapshot({ name: 'Order submitted' });
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Order Coffee'},
   interactions
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

@@ -1,4 +1,5 @@
-import {Ufo} from '../../cli/src/lib/ufo';
+import {Ufo} from '@push-based/user-flow';
+
 import {cappuccinoSelector} from '../fixtures/coffee.fixture';
 
 export class Coffee extends Ufo {

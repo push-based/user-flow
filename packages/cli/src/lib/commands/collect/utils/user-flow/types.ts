@@ -17,7 +17,7 @@ export type UserFlowContext = {
 };
 
 export type StepOptions = {
-  stepName: string;
+  name: string;
 } & {
   /*page: Page,*/ config?: Config /*configContext?: LH.Config.FRContext*/;
 };
@@ -59,4 +59,3 @@ export type UserFlowProvider = {
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
-

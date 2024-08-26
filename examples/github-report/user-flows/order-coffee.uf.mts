@@ -59,9 +59,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   });
 };
 
-const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: '☕ Order Coffee ☕'},
-  interactions
-};
-
-module.exports = userFlowProvider;
+export default {
+  flowOptions: { name: '☕ Order Coffee ☕' },
+  interactions,
+} satisfies UserFlowProvider;

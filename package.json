@@ -10,7 +10,6 @@
     "nx": "nx",
     "build-cli": "nx build cli",
     "import-graph": "npx @rx-angular/import-graph-visualizer -t packages/cli/tsconfig.lib.json",
-    "lh": "lighthouse https://example.com --budget-path=./budget.json --output=json --output-path=./lh-inc-budget.json",
     "@push-based/user-flow": "npm run build-cli && npx ./dist/packages/cli",
     "@push-based/user-flow:help": "npm run @push-based/user-flow -- --help",
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",

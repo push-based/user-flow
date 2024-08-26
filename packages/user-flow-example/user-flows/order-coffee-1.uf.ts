@@ -10,7 +10,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url } = collectOptions;
 
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    name: 'Navigate to coffee cart',
   });
 
   // Select coffee
@@ -21,9 +21,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Order Coffee'},
   interactions
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

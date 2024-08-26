@@ -1,21 +1,16 @@
 import {createUserFlowRunner, UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
-import {UserFlow as LhUserFlow} from 'lighthouse';
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
 ): Promise<any> => {
-  const {browser, page, flow } = ctx;
-  const lhFlow: LhUserFlow = flow;
 
   const path = './recordings/order-coffee-2.replay.json';
-  const runner = await createUserFlowRunner(path, {browser, page, lhFlow });
+  const runner = await createUserFlowRunner(path, ctx);
   await runner.run();
 
 };
 
-const userFlowProvider: UserFlowProvider = {
-  flowOptions: { name: "Order Coffee 2" },
+export default {
+  flowOptions: { name: "Order Coffee 1" },
   interactions,
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

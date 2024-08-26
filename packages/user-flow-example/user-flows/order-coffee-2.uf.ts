@@ -1,4 +1,4 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/';
+import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
 
 // Your custom interactions with the page
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
@@ -6,7 +6,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url } = collectOptions;
 
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    name: 'Navigate to coffee cart',
   });
 
 
@@ -37,9 +37,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Order Coffee'},
   interactions
-};
-
-module.exports = userFlowProvider;
+} satisfies UserFlowProvider;

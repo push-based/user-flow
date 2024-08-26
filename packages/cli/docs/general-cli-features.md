@@ -88,7 +88,7 @@ A function that logs the passed string only if the CIL options `--verbose` or `-
 
 **Usage**
 
-_./order-coffee.uf.ts_
+_./order-coffee.uf.mts_
 ```typescript
 import { logVerbose } from "@push-based/user-flow";
 // ...
