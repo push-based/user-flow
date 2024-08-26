@@ -4,8 +4,9 @@ import { existsSync, readFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 describe('.rc.json in empty sandbox', () => {
+
   it.concurrent<CliTest>('should take default params from prompt with flow', async ({ root, cli }) => {
-    await cli.run('user-flow', ['init'], false);
+    await cli.run('user-flow', ['init', '--interactive'], false);
 
     await respondToPrompts(cli, [
       ['What is the URL to run the user flows for?', KEYBOARD.ENTER],
@@ -26,7 +27,7 @@ describe('.rc.json in empty sandbox', () => {
   });
 
   it.concurrent<CliTest>('should take params from prompt without flow', async ({ root, cli }) => {
-    await cli.run('user-flow', ['init'], false);
+    await cli.run('user-flow', ['init', '--interactive'], false);
 
     await respondToPrompts(cli, [
       ['What is the URL to run the user flows for?', KEYBOARD.ENTER],
@@ -47,7 +48,7 @@ describe('.rc.json in empty sandbox', () => {
   });
 
   it.concurrent<CliTest>('should take custom params from prompt', async ({ root, cli }) => {
-    await cli.run('user-flow', ['init'], false);
+    await cli.run('user-flow', ['init', '--interactive'], false);
 
     await respondToPrompts(cli, [
       ['What is the URL to run the user flows for?', 'https://example.com' + KEYBOARD.ENTER],
@@ -75,7 +76,7 @@ describe('.rc.json in empty sandbox', () => {
 describe('.rc.json in initialized sandbox', () => {
 
   it.concurrent<CliTest>('should validate params from rc', async ({ cli, setupFns }) => {
-    const { code, stderr } = await cli.run('user-flow', ['init', '--format wrong']);
+    const { code, stderr } = await cli.run('user-flow', ['init', '--interactive', '--format wrong']);
 
     expect(code).toBe(1);
     expect(stderr).toContain('Invalid values:');
@@ -83,7 +84,7 @@ describe('.rc.json in initialized sandbox', () => {
   });
 
   it.concurrent<CliTest>('should log and ask if specified rc file param -p does not exist', async ({ cli, setupFns }) => {
-    await cli.run('user-flow', ['init', '--rcPath wrong/path/to/file.json'], false);
+    await cli.run('user-flow', ['init', '--interactive', '--rcPath wrong/path/to/file.json'], false);
 
     await cli.waitForStdout('What is the URL to run the user flows for?');
     cli.type('\x03');
@@ -96,6 +97,7 @@ describe('.rc.json in initialized sandbox', () => {
   it.concurrent<CliTest>('should take params from cli', async ({ root, cli }) => {
     await cli.run('user-flow', [
       'init',
+      '--interactive',
       '--url https://example.com',
       '--ufPath dummy-uf-path',
       '--outPath dummy-out-path',
@@ -121,6 +123,7 @@ describe('.rc.json in initialized sandbox', () => {
 });
 
 describe('.rc.json in remote sandbox', () => {
+
   it<CliTest>('should load configuration if specified rc file param -p is given', async ({ root, cli, setupFns}) => {
     mkdirSync(join(root, 'remote'));
     setupFns.setupRcJson(DEFAULT_RC, './remote/.rc.json');

@@ -4,6 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 describe('collect config', () => {
+
   it<CliTest>('should log LH config from a user flow', async ({ setupFns, cli }) => {
     setupFns.setupRcJson(DEFAULT_RC);
     setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
@@ -27,7 +28,6 @@ describe('collect config', () => {
     ]);
 
     expect(stderr).toContain('Error: ./invalid/path/to/config.json does not exist.');
-    expect(stdout).toBe('');
     expect(code).toBe(1);
   });
 

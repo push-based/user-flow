@@ -6,7 +6,7 @@ import { join } from 'node:path';
 describe('init command', () => {
 
   it.concurrent<CliTest>('should generate a user-flow for basic navigation after the CLI is setup', async ({ cli }) => {
-    await cli.run('user-flow', ['init'], false);
+    await cli.run('user-flow', ['init', '--interactive'], false);
 
     await cli.waitForStdout('What is the URL to run the user flows for?');
     cli.type(KEYBOARD.ENTER);
