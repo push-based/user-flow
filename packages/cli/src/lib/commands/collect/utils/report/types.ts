@@ -1,10 +1,6 @@
-import { Budget, Config, FlowResult } from 'lighthouse';
-import Details from 'lighthouse/types/lhr/audit-details.js';
+import { Config, FlowResult } from 'lighthouse';
 import { CLI_MODES } from '../../../../global/cli-mode/index.js';
 import { PickOne } from '../../../../core/types.js';
-
-type OverBudget = { overBudget: number };
-type BudgetAssertion = (Budget.ResourceBudget & OverBudget | Budget.TimingBudget & OverBudget);
 
 type UfrSlice = PickOne<FlowResult>;
 type LhrSlice = PickOne<FlowResult.Step['lhr']>;
@@ -40,9 +36,6 @@ export type ReducedFlowStep =
     name: string;
     fetchTime: string;
     results: ReducedFlowStepResult;
-    resourceCountsBudget?: Details.Table,
-    resourceSizesBudget?: Details.Table,
-    timingsBudget?: Details.Table,
     baseline?: ReducedFlowStepResult;
   };
 
@@ -53,10 +46,6 @@ export type ReducedReport = {
   name: string;
   fetchTime: string;
   steps: ReducedFlowStep[];
-  assertions?: {
-    lhBudgetAssertion: BudgetAssertion,
-    baselineAssertion: BudgetAssertion,
-  }
   config?: Config & { baseline?: any };
 }
 

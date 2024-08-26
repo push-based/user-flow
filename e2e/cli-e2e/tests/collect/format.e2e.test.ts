@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { CliTest, DEFAULT_RC, USER_FLOW_MOCKS } from '../../utils/setup';
 
 const DUMMY_USER_FLOW_NAME = 'Basic Navigation Example';
+const MOCK_MD_REPORT_HEADER = '| Gather Mode | Performance | Accessibility | Best Practices | Seo |';
 
 describe('collect format', () => {
   ['html', 'json', 'md'].forEach((format) => {
@@ -33,7 +34,7 @@ describe('collect format', () => {
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect']);
 
-    expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`)
+    expect(stdout).toContain(MOCK_MD_REPORT_HEADER)
     expect(stdout).toContain(DUMMY_USER_FLOW_NAME);
     expect(stderr).toBe('');
     expect(code).toBe(0);
@@ -54,7 +55,7 @@ describe('collect format', () => {
       expect(isValidFormatedResult(format, content)).toBeTruthy();
     });
 
-    expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`)
+    expect(stdout).toContain(MOCK_MD_REPORT_HEADER)
     expect(stdout).toContain(DUMMY_USER_FLOW_NAME);
     expect(stderr).toBe('');
     expect(code).toBe(0);
@@ -66,7 +67,7 @@ function isValidFormatedResult(format: string, result: string) {
   const isValidFile = {
     'html': (report: string) => report.includes(DUMMY_USER_FLOW_NAME),
     'json': (report: string) => !!(JSON.parse(report)?.name || '').includes(DUMMY_USER_FLOW_NAME),
-    'md': (report: string) => report.includes(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`)
+    'md': (report: string) => report.includes(MOCK_MD_REPORT_HEADER)
   };
   // @ts-ignore
   return isValidFile[format](result);

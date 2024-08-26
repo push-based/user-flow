@@ -8,7 +8,6 @@ import { format } from './format.js';
 import { serveCommand } from './serveCommand.js';
 import { awaitServeStdout } from './awaitServeStdout.js';
 import { dryRun } from './dryRun.js';
-import { assertOptions } from '../../assert/options.js';
 import { config } from './config.js';
 import { GlobalCliOptions } from '../../../global/options/index.js';
 
@@ -27,7 +26,6 @@ export const collectOptions = {
   awaitServeStdout,
   dryRun,
   ...persistOptions,
-  ...assertOptions
 } satisfies Record<string, Options>;
 export type CollectOptions = InferredOptionTypes<typeof collectOptions>;
 export type CollectCommandOptions = CollectOptions & GlobalCliOptions;

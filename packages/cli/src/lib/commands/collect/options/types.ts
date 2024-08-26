@@ -1,4 +1,3 @@
-import { AssertArgvOptions } from '../../assert/options.js';
 import { Config } from 'lighthouse';
 
 export type CollectRcOptions = {
@@ -29,7 +28,6 @@ export type PersistArgvOptions = PersistRcOptions & PersistCliOnlyOptions;
 export type CollectCommandCfg = {
   collect: CollectArgvOptions,
   persist: PersistArgvOptions,
-  assert?: AssertArgvOptions;
 }
 
-export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions & AssertArgvOptions;
+export type CollectCommandArgv = CollectArgvOptions & PersistArgvOptions;

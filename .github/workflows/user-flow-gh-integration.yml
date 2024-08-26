@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
     steps:
       - uses: actions/checkout@v4
       - name: use Node.js ${{ matrix.node-version }}
@@ -19,4 +19,4 @@ jobs:
       - name: run:user-flow-action
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
-          rcPath: packages/user-flow-gh-integration/.user-flowrc.json
+          rcPath: examples/github-report/.user-flowrc.json

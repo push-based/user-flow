@@ -28,8 +28,6 @@ export function updateRcConfig(config: RcJson, rcPath: string = ''): void {
 }
 
 export function getCliOptionsFromRcConfig<T>(rcPath?: string): T {
-  const { collect, persist, assert } = readRcConfig(rcPath || globalOptions.getRcPath());
-  return { ...collect, ...persist, ...assert } as unknown as T;
+  const { collect, persist } = readRcConfig(rcPath || globalOptions.getRcPath());
+  return { ...collect, ...persist } as unknown as T;
 }
-
-

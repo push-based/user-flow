@@ -5,7 +5,7 @@ console.log(`Rename results for comment action`);
 
 const path = './examples/github-report/measures';
 
-const reportPath = readdirSync(path)[0];
+const reportPath = readdirSync(path).find((p) => p.endsWith('.md'));
 
 if (!reportPath) {
   throw new Error('Report file not found');

@@ -4,10 +4,10 @@ import {
   BrowserLaunchArgumentOptions,
   LaunchOptions as PPTLaunchOptions,
   Page,
-  Product
+  SupportedBrowser
 } from 'puppeteer';
 
-import { Config, SharedFlagsSettings, UserFlow } from 'lighthouse';
+import { Config, UserFlow } from 'lighthouse';
 
 export type UserFlowContext = {
   browser: Browser;
@@ -28,9 +28,7 @@ export type UserFlowInteractionsFn = (
 
 export type UserFlowOptions = {
   name: string;
-} & {
-  // throttling
-  /*page: Page,*/ config?: Config /*configContext?: LH.Config.FRContext*/;
+  config?: Config
 };
 
 // @TODO
@@ -39,23 +37,12 @@ export type UserFlowOptions = {
 export type LaunchOptions = PPTLaunchOptions &
   BrowserLaunchArgumentOptions &
   BrowserConnectOptions & {
-  product?: Product;
+  defaultBrowser?: SupportedBrowser;
   extraPrefsFirefox?: Record<string, unknown>;
 };
 
-/**
- * budgets: path to budgets file
- */
-type UserFlowRcOptions = {
-  config: {
-    settings: {
-      budgets: string | SharedFlagsSettings['budgets'];
-    };
-  };
-} & UserFlowOptions;
-
 export type UserFlowProvider = {
-  flowOptions: UserFlowOptions | UserFlowRcOptions;
+  flowOptions: UserFlowOptions;
   interactions: UserFlowInteractionsFn;
   launchOptions?: LaunchOptions;
 };
