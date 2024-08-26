@@ -33,7 +33,7 @@ describe('collect format', () => {
 
     const { code, stdout, stderr } = await cli.run('user-flow', ['collect']);
 
-    expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`)
+    expect(stdout).toContain(`| Gather Mode | Performance | Accessibility | Best Practices | Seo |`)
     expect(stdout).toContain(DUMMY_USER_FLOW_NAME);
     expect(stderr).toBe('');
     expect(code).toBe(0);
