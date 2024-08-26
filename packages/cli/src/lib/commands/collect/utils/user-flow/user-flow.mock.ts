@@ -282,8 +282,8 @@ export class UserFlowMock {
    * @param {LH.NavigationRequestor} requestor
    * @param {StepOptions=} stepOptions
    */
-  async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
-    logVerbose(`flow#navigate: ${stepName || requestor}`);
+  async navigate(requestor: any, { name }: StepOptions = {} as StepOptions): Promise<any> {
+    logVerbose(`flow#navigate: ${name || requestor}`);
     return this.page.goto(requestor);
   }
 
@@ -296,21 +296,21 @@ export class UserFlowMock {
   /**
    * @param {StepOptions=} stepOptions
    */
-  async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#startTimespan: ${stepName}`);
+  async startTimespan({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#startTimespan: ${name}`);
     return Promise.resolve();
   }
 
-  async endTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#endTimespan: ${stepName}`);
+  async endTimespan({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#endTimespan: ${name}`);
     return Promise.resolve();
   }
 
   /**
    * @param {StepOptions=} stepOptions
    */
-  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#snapshot: ${stepName}`);
+  async snapshot({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#snapshot: ${name}`);
     return Promise.resolve();
   }
 
@@ -344,8 +344,8 @@ export class UserFlowReportMock {
    * @param {LH.NavigationRequestor} requestor
    * @param {StepOptions=} stepOptions
    */
-  async navigate(requestor: any, { stepName }: StepOptions = {} as StepOptions): Promise<any> {
-    logVerbose(`flow#navigate: ${stepName || requestor}`);
+  async navigate(requestor: any, { name }: StepOptions = {} as StepOptions): Promise<any> {
+    logVerbose(`flow#navigate: ${name || requestor}`);
     return Promise.resolve();
   }
 
@@ -356,21 +356,21 @@ export class UserFlowReportMock {
   /**
    * @param {StepOptions=} stepOptions
    */
-  async startTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#startTimespan: ${stepName}`);
+  async startTimespan({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#startTimespan: ${name}`);
     return Promise.resolve();
   }
 
-  async endTimespan({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#endTimespan: ${stepName}`);
+  async endTimespan({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#endTimespan: ${name}`);
     return Promise.resolve();
   }
 
   /**
    * @param {StepOptions=} stepOptions
    */
-  async snapshot({ stepName }: StepOptions = {} as StepOptions): Promise<void> {
-    logVerbose(`flow#snapshot: ${stepName}`);
+  async snapshot({ name }: StepOptions = {} as StepOptions): Promise<void> {
+    logVerbose(`flow#snapshot: ${name}`);
     return Promise.resolve();
   }
 

@@ -6,12 +6,7 @@
       "node"
     ]
   },
-  "exclude": [
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ],
   "include": [
-    "src/**/*.ts"
+    "**/*"
   ]
 }

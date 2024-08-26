@@ -5,7 +5,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url} = collectOptions;
 
   await flow.navigate(url, {
-    stepName: '🧭 Navigate to Home',
+    name: '🧭 Navigate to Home',
   });
 };
 
