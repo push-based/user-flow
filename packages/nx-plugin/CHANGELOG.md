@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.4](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.3...nx-plugin-0.1.4) (2024-08-26)
+
+
+### Bug Fixes
+
+* **workspace:** update target config ([2972207](https://github.com/push-based/user-flow/commit/2972207307ba08f8010fdc660dc050c1b2127709))
+
+
+
 ## [0.1.3](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.2...nx-plugin-0.1.3) (2024-08-26)
 
 
