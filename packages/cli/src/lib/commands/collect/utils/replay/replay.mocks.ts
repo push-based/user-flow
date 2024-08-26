@@ -1,4 +1,60 @@
-{
+export const puppeteerReplay = {
+  "title": "Order Coffee",
+  "steps": [
+    {
+      "type": "setViewport",
+      "width": 953,
+      "height": 616,
+      "deviceScaleFactor": 1,
+      "isMobile": false,
+      "hasTouch": false,
+      "isLandscape": false
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "aria/Mocha"
+        ],
+        [
+          "[data-test=Mocha]"
+        ]
+      ],
+      "offsetY": 144.24940490722656,
+      "offsetX": 186.73519897460938
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "aria/Proceed to checkout"
+        ],
+        [
+          "[data-test=checkout]"
+        ]
+      ],
+      "offsetY": 17.7916259765625,
+      "offsetX": 146.8541259765625
+    },
+    {
+      "type": "change",
+      "value": "test@test.at",
+      "selectors": [
+        [
+          "aria/Name"
+        ],
+        [
+          "#name"
+        ]
+      ],
+      "target": "main"
+    }
+  ]
+};
+
+export const userFlowReplay = {
   "title": "Order Coffee",
   "steps": [
     {
@@ -61,4 +117,4 @@
       "type": "snapshot"
     }
   ]
-}
+};
