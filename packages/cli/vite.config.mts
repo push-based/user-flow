@@ -19,6 +19,5 @@ export default defineConfig({
       reportsDirectory: '../../coverage/packages/cli',
       provider: 'v8',
     },
-    watch: false,
   },
 });
