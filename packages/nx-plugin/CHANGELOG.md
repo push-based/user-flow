@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.1.5](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.4...nx-plugin-0.1.5) (2024-08-26)
+
+
+### Bug Fixes
+
+* **workspace:** remove budgets ([c13469f](https://github.com/push-based/user-flow/commit/c13469ff600adfbdb7fe728c22e859387c5afe70))
+
+
+
 ## [0.1.4](https://github.com/push-based/user-flow/compare/nx-plugin-0.1.3...nx-plugin-0.1.4) (2024-08-26)
 
 
