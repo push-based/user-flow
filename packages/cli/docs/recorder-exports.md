@@ -29,19 +29,18 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   const { flow, page, browser } = ctx;
 
-  await flow.startTimespan({ stepName: 'Checkout order' });
+  await flow.startTimespan({ name: 'Checkout order' });
   
   //... Interactions
 
   await flow.endTimespan();
 };
 
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: { name: "Order Coffee" },
   interactions,
-};
+} satisfies UserFlowProvider;
 
-module.exports = userFlowProvider;
 ```
 
 ## Using Recorder Replay files in Userflow
@@ -83,7 +82,7 @@ const interactions: UserFlowInteractionsFn = async (
 ): Promise<any> => {
   // ...
 
-  await flow.startTimespan({ stepName: 'Checkout order' });
+  await flow.startTimespan({ name: 'Checkout order' });
   
   // Use the create function to instanciate a the user-flow runner.
   const runner = await createUserFlowRunner('./recordings/order-coffee.replay.json', ctx)
@@ -140,14 +139,14 @@ const interactions: UserFlowInteractionsFn = async (
 
 ## Combine it with custom code
 
-We can also pass additional options to each step, such as a `stepName` the report: 
+We can also pass additional options to each step, such as a `name` the report: 
 
 ```json
 [
   { 
     "type": "startTimespan",
     "stepOptions": {
-      "stepName": "Select coffee"
+      "name": "Select coffee"
     }
   },
   { 
@@ -159,7 +158,7 @@ We can also pass additional options to each step, such as a `stepName` the repor
 
 ```
 
-![Replay userflow example with custom code and stepnames](./images/lhr-replay-example-results-3.png)
+![Replay userflow example with custom code and names](./images/lhr-replay-example-results-3.png)
 
 # Advanced architecture
 

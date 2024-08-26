@@ -9,14 +9,13 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { flow, collectOptions } = ctx;
   const { url } = collectOptions;
   await flow.navigate(url, {
-    stepName: "Navigate to "+url,
+    name: "Navigate to "+url,
   });
 };
-const userFlowProvider: UserFlowProvider = {
+export default {
   flowOptions: {name: 'Basic Navigation Example'},
-  interactions
-};
-module.exports = userFlowProvider;
+  interactions,
+} satisfies UserFlowProvider;
 `;
 
 const NPM_NAME = '@push-based/user-flow';

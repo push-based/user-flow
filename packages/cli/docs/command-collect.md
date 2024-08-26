@@ -26,8 +26,7 @@ The result can be stored in different formats or printed in the console.
 |  Option                            |  Type     | Default                | Description                                                                                              |  
 | ---------------------------------- | --------- | ---------------------- |----------------------------------------------------------------------------------------------------------|  
 | **`-t`**, **`--url`**              | `string`  | n/a                    | Value for `collect.url` in your                                                                                            |  
-| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containg user-flow files to run. (`*.uf.ts` or`*.uf.js`)                |  
-| **`-b`**, **`--budget-path`**      | `string`  | n/a                    | Path to the lighthouse `budget.json` file                                                                |  
+| **`-u`**, **`--ufPath`**           | `string`  | `./user-flows`         | Path to user-flow file or folder containg user-flow files to run. (`*.uf.mts` or`*.uf.js`)                |  
 | **`-c`**, **`--config-path`**      | `string`  | n/a                    | Path to the lighthouse `config.json` file                                                                |  
 | **`-f`**, **`--format`**           | `string`  | `html`, `json` setting | Format of the creates reports                                                                            |  
 | **`-o`**, **`--outPath`**          | `string`  | `./measures`           | output folder for the user-flow reports                                                                  |  
@@ -100,7 +99,7 @@ npx user-flow collect --ufPath ./user-flows/spectial-folder
   
 # reference a flow directly
 
-npx user-flow collect --ufPath ./user-flows/spectial-flow.uf.ts
+npx user-flow collect --ufPath ./user-flows/spectial-flow.uf.mts
 ```
 
 **Description:**   
@@ -110,7 +109,7 @@ The path to user-flow file or folder containing user-flows.
 You can point to a folder to execute all user flows in there, or execute one file directly.
 
 File formats accepted:
-- `*.uf.ts` 
+- `*.uf.mts` 
 - `*.js`
 
 ### format
@@ -157,25 +156,6 @@ npx user-flow collect --outPath ./measures
 The path to store user-flow reports. 
 The CLI will automatically create the folder if it does not exist.
 
-### budgetPath
-
-|  Option                            |  Type     | Default                |   
-| ---------------------------------- | --------- | ---------------------- |  
-| **`-b`**, **`--budgetPath`**      | `string`  | n/a                    |  
-
-**Execution:**   
-```
-npx user-flow collect --budgetPath ./budgets.json
-```  
-
-**Description:**  
-  
-When used it will parse the given file and uses its content as configuration for budgets in the [LH config](link to docs).
-
-Details on usage and configuration are available in the [lighthouse budgets](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/performance-budgets.md) section.
-
-The `budgets.json` file path can also be placed directly into the rc file under `assert.budgetPath`.
-
 ### configPath
 
 |  Option                            |  Type     | Default                |   
@@ -190,7 +170,6 @@ npx user-flow collect --configPath ./lh-config.json
 **Description:**  
 Path to the lighthouse configuration file.
 When used it will parse the given file and uses its content as configuration.  
-If `budgets` are given it will merge them into the existing LH config.
 
 Details on usage and configuration are available in the [lighthouse configuration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/lighthouse-configuration.md) section.
 

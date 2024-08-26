@@ -56,9 +56,9 @@ This results in the following file:
 }
 ```
 
-2. Create a `basic-navigation.uf.ts` file.
+2. Create a `basic-navigation.uf.mts` file.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/basic-navigation.uf.mts**
 ```typescript
 import {
   UserFlowInteractionsFn,
@@ -72,7 +72,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   const { url } = collectOptions;
 
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    name: 'Navigate to coffee cart',
   });
 
   // Select coffee
@@ -83,12 +83,10 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 };
 
-const userFlowProvider: UserFlowProvider = {
-  flowOptions: {name: 'Order Coffee'},
-  interactions
-};
-
-module.exports = userFlowProvider;
+export default {
+  flowOptions: { name: "Order Coffee" },
+  interactions,
+} satisfies UserFlowProvider;
 ```
 
 3. Run CLI
@@ -96,7 +94,7 @@ You can directly run the CLI command. The typescript files will get resolved and
 
 `npx @push-based/user-flow --url=https://localhost:4200`
 
-Optionally you can pass params to overwrite the values form `.user-flowrc.ts`
+Optionally you can pass params to overwrite the values form `.user-flowrc.mts`
 
 `npx @push-based/user-flow --ufPath=./user-flows --outPath=./user-flows-reports --url=https://localhost:4200`  
   
@@ -113,7 +111,7 @@ Let's start by filling in our interaction logic:
 
 1. Copy and paste the new lines into your flow.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/basic-navigation.uf.mts**
 ```typescript
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   // ... 
@@ -148,28 +146,28 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 // ...
 ```
 
-2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ stepName: 'Select coffee' });` and `await flow.stopTimespan();`.
+2. Wrap the sections interesting for a timespan measure with `await flow.startTimespan({ name: 'Select coffee' });` and `await flow.stopTimespan();`.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/basic-navigation.uf.mts**
 ```typescript
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
   // ...
   
   await flow.navigate(url, {
-    stepName: 'Navigate to coffee cart',
+    name: 'Navigate to coffee cart',
   });
 
-  await flow.startTimespan({ stepName: 'Select coffee' });
+  await flow.startTimespan({ name: 'Select coffee' });
   // Select coffee
   // ...
   await flow.endTimespan();
 
-  await flow.startTimespan({ stepName: 'Checkout order' });
+  await flow.startTimespan({ name: 'Checkout order' });
   // Checkout order
   // ...
   await flow.endTimespan();
 
-  await flow.startTimespan({ stepName: 'Submit order' });
+  await flow.startTimespan({ name: 'Submit order' });
   // Submit order
   // ...
   await flow.endTimespan();
@@ -180,9 +178,9 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 ## Use snapshot measures
 
-2. Wrap the sections interesting for a snapshot measure with `await flow.snapshot({ stepName: 'step name' });`.
+2. Wrap the sections interesting for a snapshot measure with `await flow.snapshot({ name: 'step name' });`.
 
-**./user-flows/basic-navigation.uf.ts**
+**./user-flows/basic-navigation.uf.mts**
 ```typescript
 // Your custom interactions with the page 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
@@ -190,17 +188,17 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
   // Select coffee
   //  endTimespan here ...
   
-  await flow.snapshot({ stepName: 'Coffee selected' });
+  await flow.snapshot({ name: 'Coffee selected' });
 
   // Checkout order
   //  endTimespan here ...
   
-  await flow.snapshot({ stepName: 'Order checked out' });
+  await flow.snapshot({ name: 'Order checked out' });
 
   // Submit order
   //  endTimespan here ...
   
-  await flow.snapshot({ stepName: 'Order submitted' });
+  await flow.snapshot({ name: 'Order submitted' });
 };
 
 // ...
