@@ -31,7 +31,7 @@ jobs:
         run: npm run @push-based/user-flow -- --rcPath ./examples/github-report/.user-flowrc.json --openReport false
 
       - name: Rename Report
-        run: tsx --tsconfig ./examples/github-report/tsconfig.json ./examples/github-report/tools/md-report-rename.mts
+        run: npx tsx --tsconfig ./examples/github-report/tsconfig.json ./examples/github-report/tools/md-report-rename.mts
 
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
