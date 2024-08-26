@@ -17,20 +17,25 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Setup node ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
-      - name: install
+
+      - name: Clean Install
         run: npm ci
-      - name: build
-        run: npm run nx -- affected:build --base=origin/main --head=HEAD
-      - name: run
-        run: npm run md-report-test
+
+      - name: Collect Report
+        run: npm run @push-based/user-flow -- --rcPath ./examples/github-report/.user-flowrc.json --openReport false
+
+      - name: Rename Report
+        run: npx tsx --tsconfig ./examples/github-report/tsconfig.json ./examples/github-report/tools/md-report-rename.mts
+
       - name: Add reduced report as comment to the PR
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           hide_and_recreate: true
           header: md-report-test
-          path: ./dist/user-flow/user-flow-gh-integration/md-report.md
+          path: ./examples/github-report/measures/md-report.md

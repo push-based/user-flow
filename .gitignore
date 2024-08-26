@@ -43,3 +43,5 @@ Thumbs.db
 
 .env
 .code-pushup
+
+examples/**/measures/*
