@@ -16,7 +16,6 @@ export const DEFAULT_RC = {
     outPath: "./measures",
     format: ["html"]
   },
-  assert: {}
 };
 
 export const KEYBOARD = {
