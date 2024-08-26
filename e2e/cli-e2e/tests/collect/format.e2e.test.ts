@@ -66,7 +66,7 @@ function isValidFormatedResult(format: string, result: string) {
   const isValidFile = {
     'html': (report: string) => report.includes(DUMMY_USER_FLOW_NAME),
     'json': (report: string) => !!(JSON.parse(report)?.name || '').includes(DUMMY_USER_FLOW_NAME),
-    'md': (report: string) => report.includes(`| Gather Mode | Performance | Accessibility | Best Practices | Seo | Pwa |`)
+    'md': (report: string) => report.includes(`| Gather Mode | Performance | Accessibility | Best Practices | Seo |`)
   };
   // @ts-ignore
   return isValidFile[format](result);
