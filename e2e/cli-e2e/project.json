@@ -11,7 +11,7 @@
         "lintFilePatterns": ["e2e/cli-e2e/**/*.ts"]
       }
     },
-    "e2e": {
+    "test": {
       "executor": "@nx/vite:test",
       "options": {
         "config": "e2e/cli-e2e/vite.config.e2e.mts"
