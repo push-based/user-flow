@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [0.21.1](https://github.com/push-based/user-flow/compare/cli-0.21.0...cli-0.21.1) (2024-08-26)
+
+
+### Bug Fixes
+
+* **workspace:** update target config ([6f26528](https://github.com/push-based/user-flow/commit/6f265280c8f44ef1b4e1dd150ca697ce8d6784e0))
+
+
+
 # [0.21.0](https://github.com/push-based/user-flow/compare/cli-0.20.8...cli-0.21.0) (2024-08-26)
 
 
