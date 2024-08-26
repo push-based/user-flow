@@ -70,7 +70,7 @@
           "md"
         ],
         "serveCommand": "npm run nx -- serve nx-plugin-integration",
-        "awaitServeStdout": "NX  Web Development Server is listening at http://localhost:4010"
+        "awaitServeStdout": "Web Development Server is listening at http://localhost:4010/"
       }
     },
     "lint": {
