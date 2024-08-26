@@ -24,6 +24,8 @@
     "@types/concurrently": "^7.0.0",
     "@types/puppeteer": "^5.4.7",
     "@types/yargs": "^17.0.32",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "concurrently": "^7.1.0",
     "enquirer": "^2.3.6",
     "lighthouse": "^11.7.1",
@@ -96,8 +98,5 @@
     "vite": "5.2.6",
     "vitest": "^2.0.5",
     "zod": "^3.22.4"
-  },
-  "optionalDependencies": {
-    "@swc/core-darwin-x64": "^1.2.0"
   }
 }
