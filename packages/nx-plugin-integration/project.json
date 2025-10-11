@@ -56,9 +56,7 @@
     },
     "test": {
       "executor": "@push-based/user-flow-nx-plugin:user-flow",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "verbose": true,
         "dryRun": true,
@@ -66,9 +64,7 @@
         "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
         "ufPath": "packages/nx-plugin-integration/user-flows",
         "outputPath": "dist/user-flow/packages/nx-plugin-integration",
-        "format": [
-          "md"
-        ],
+        "format": ["md"],
         "serveCommand": "npm run nx -- serve nx-plugin-integration",
         "awaitServeStdout": "Web Development Server is listening at http://localhost:4010/"
       }
