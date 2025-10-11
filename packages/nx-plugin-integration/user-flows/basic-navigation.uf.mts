@@ -18,4 +18,12 @@ const interactions: UserFlowInteractionsFn = async (
 export default {
   flowOptions: { name: 'Basic Navigation Example' },
   interactions,
+  launchOptions: {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu'
+    ]
+  }
 } satisfies UserFlowProvider;
