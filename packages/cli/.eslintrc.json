@@ -1,6 +1,6 @@
 {
   "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": ["!**/*", "vite.config.mts", "*.config.ts", "*.config.mts"],
   "parserOptions": {
     "project": ["packages/cli/tsconfig.*?.json"]
   }

@@ -19,7 +19,7 @@ describe('collect ufPath', () => {
     setupFns.setupRcJson(DEFAULT_RC)
     mkdirSync(join(root, DEFAULT_RC.collect.ufPath), { recursive: true });
 
-    const { code, stderr, stdout } = await cli.run('user-flow', ['collect']);
+    const { code, stderr } = await cli.run('user-flow', ['collect']);
 
     expect(code).toBe(1);
     expect(stderr).toContain(`No user flows found in ${DEFAULT_RC.collect.ufPath}`);

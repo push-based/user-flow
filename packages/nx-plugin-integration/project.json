@@ -74,11 +74,13 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/nx-plugin-integration/**/*"
+          "packages/nx-plugin-integration/**/*.ts",
+          "packages/nx-plugin-integration/**/*.mts",
+          "packages/nx-plugin-integration/**/*.js"
         ]
       }
     }
