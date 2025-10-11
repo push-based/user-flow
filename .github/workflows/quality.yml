@@ -36,7 +36,7 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=8192
 
       - name: Save report files as workflow artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-pushup-report
           path: .code-pushup/
