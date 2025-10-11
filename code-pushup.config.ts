@@ -22,8 +22,7 @@ const config: CoreConfig = {
       slug: 'code-style',
       title: 'Code style',
       refs: [
-        { type: 'group', plugin: 'eslint', slug: 'suggestions', weight: 75 },
-        { type: 'group', plugin: 'eslint', slug: 'formatting', weight: 25 },
+        { type: 'group', plugin: 'eslint', slug: 'suggestions', weight: 100 },
       ],
     },
   ],
