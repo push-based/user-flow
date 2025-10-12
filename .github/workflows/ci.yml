@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         node-version: [22.x]
-    name: Node ${{ matrix.node }}
+    name: Node ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@v4
