@@ -17,5 +17,13 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 export default {
   flowOptions: {name: 'Basic Navigation Example'},
-  interactions
+  interactions,
+  launchOptions: {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu'
+    ]
+  }
 } satisfies UserFlowProvider;

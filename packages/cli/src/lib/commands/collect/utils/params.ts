@@ -15,7 +15,7 @@ export function getCollectCommandOptionsFromArgv(argv: CollectOptions): CollectC
     outPath, format, configPath, config
   } = (argv || {}) as any as (keyof CollectRcOptions & keyof PersistRcOptions);
 
-  let collect = {} as CollectArgvOptions;
+  const collect = {} as CollectArgvOptions;
   url && (collect.url = url);
   ufPath && (collect.ufPath = ufPath);
   // optional
@@ -26,7 +26,7 @@ export function getCollectCommandOptionsFromArgv(argv: CollectOptions): CollectC
   // cli only
   dryRun !== undefined && (collect.dryRun = Boolean(dryRun));
 
-  let persist = {} as PersistArgvOptions;
+  const persist = {} as PersistArgvOptions;
   outPath && (persist.outPath = outPath);
   format && (persist.format = format);
   // cli only

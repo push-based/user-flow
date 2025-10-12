@@ -33,7 +33,7 @@ export async function setupOutPath(
   // DX create directory if it does ot exist
   try {
     readdirSync(outPath);
-  } catch (e) {
+  } catch {
     mkdirSync(outPath, {recursive: true});
   }
 

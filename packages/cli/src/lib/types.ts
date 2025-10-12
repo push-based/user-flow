@@ -13,4 +13,4 @@ export type ArgvPreset =
 export type RcJson = {
   collect: CollectRcOptions;
   persist: PersistRcOptions;
-} & Object;
+} & object;

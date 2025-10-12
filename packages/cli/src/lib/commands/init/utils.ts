@@ -13,20 +13,20 @@ function sanitizedFormats(formats: string[]) {
 }
 
 export function getInitCommandOptionsFromArgv(argv: InitOptions) {
-  let {
+  const {
     generateFlow, generateGhWorkflow, lhr,
     url, ufPath, serveCommand, awaitServeStdout,
     outPath, format
   } = argv;
 
-  let collect = {} as CollectRcOptions;
+  const collect = {} as CollectRcOptions;
   url && (collect.url = url);
   ufPath && (collect.ufPath = ufPath);
   // optional
   serveCommand && (collect.serveCommand = serveCommand);
   awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
 
-  let persist = {} as PersistRcOptions;
+  const persist = {} as PersistRcOptions;
   outPath && (persist.outPath = outPath);
   format && (persist.format = sanitizedFormats(format));
 

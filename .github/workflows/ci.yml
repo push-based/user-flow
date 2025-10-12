@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
-    name: Node ${{ matrix.node }}
+        node-version: [22.x]
+    name: Node ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,14 +29,14 @@ jobs:
       - name: test
         run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
 
-      # Code PushUp command
-      - name: Collect and upload Code PushUp report
-        run: npx code-pushup autorun
-        env:
-          CP_API_KEY: ${{ secrets.CP_API_KEY }}
-          NODE_OPTIONS: --max-old-space-size=8192
-      - name: Save report files as workflow artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: code-pushup-report
-          path: .code-pushup/
+#      # Code PushUp command
+#      - name: Collect and upload Code PushUp report
+#        run: npx code-pushup autorun
+#        env:
+#          CP_API_KEY: ${{ secrets.CP_API_KEY }}
+#          NODE_OPTIONS: --max-old-space-size=8192
+#      - name: Save report files as workflow artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: code-pushup-report
+#          path: .code-pushup/

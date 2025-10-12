@@ -19,7 +19,7 @@ describe('startServerIfNeeded', () => {
 
   it('should throw if serveCommand is provided but no await string', async () => {
     const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'npm run start' } as CollectRcOptions);
-    expect(fn).rejects.toThrowError('If a serve command is provided awaitServeStdout is also required');
+    await expect(fn).rejects.toThrowError('If a serve command is provided awaitServeStdout is also required');
     expect(userFlowWorkMock).not.toHaveBeenCalled();
   });
 
@@ -36,7 +36,7 @@ describe('startServerIfNeeded', () => {
 
   it('should exit with error if serveCommand throws', async () => {
     const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'Broken Command!', awaitServeStdout: 'v' } as CollectRcOptions);
-    expect(fn).rejects.toThrowError(expect.stringContaining('Broken Command!'));
+    await expect(fn).rejects.toThrowError(expect.stringContaining('Broken Command!'));
   });
 
   it('should run serveCommand', async () => {
@@ -48,6 +48,6 @@ describe('startServerIfNeeded', () => {
   it('should run serveCommand and catch error in user-flows', async () => {
     userFlowWorkMock.mockRejectedValue('user flow error');
     const fn = async () => await startServerIfNeededAndExecute(userFlowWorkMock, { serveCommand: 'node --help', awaitServeStdout: 'Usage: node' } as CollectRcOptions);
-    expect(fn).rejects.toThrowError(expect.stringContaining(`user flow error`));
+    await expect(fn).rejects.toThrowError(expect.stringContaining(`user flow error`));
   });
 });

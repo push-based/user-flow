@@ -1,5 +1,4 @@
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { mkdirSync, readdirSync } from 'node:fs';
 import { RcJson } from '../../../types.js';
 import { readFile, writeFile } from '../../../core/file/index.js';
@@ -26,7 +25,7 @@ async function generateUserFlow(cliCfg: RcJson): Promise<RcJson> {
   // DX create directory if it does ot exist
   try {
     readdirSync(ufPath);
-  } catch (e) {
+  } catch {
     mkdirSync(ufPath, { recursive: true });
   }
   const tplFileName = FlowExampleMap[exampleName];

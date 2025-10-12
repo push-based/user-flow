@@ -9,8 +9,8 @@ import { getGlobalOptionsFromArgv } from './global/utils.js';
  * @param rcPath
  */
 function configParser(rcPath?: string): {} {
-  let rcConfig: any = getCliOptionsFromRcConfig(rcPath);
-  let globalConfig: any = getGlobalOptionsFromArgv(rcConfig);
+  const rcConfig: any = getCliOptionsFromRcConfig(rcPath);
+  const globalConfig: any = getGlobalOptionsFromArgv(rcConfig);
   return { ...globalConfig, ...rcConfig };
 }
 

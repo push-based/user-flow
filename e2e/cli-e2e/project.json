@@ -3,9 +3,11 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "e2e/cli-e2e/src",
   "projectType": "application",
+  "tags": ["type:e2e"],
+  "implicitDependencies": ["cli"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["e2e/cli-e2e/**/*.ts"]
@@ -17,9 +19,5 @@
         "config": "e2e/cli-e2e/vite.config.e2e.mts"
       }
     }
-  },
-  "implicitDependencies": [
-    "cli"
-  ],
-  "tags": ["type:e2e"]
+  }
 }

@@ -46,7 +46,7 @@ export async function persistFlow(
   if (!existsSync(outPath)) {
     try {
       mkdirSync(outPath, { recursive: true });
-    } catch (e) {
+    } catch {
       // @TODO use a constant instead of a string e.g. `OUT_PATH_NO_DIR_ERROR(dir)`
       throw new Error(`outPath: ${outPath} is no directory`);
     }
