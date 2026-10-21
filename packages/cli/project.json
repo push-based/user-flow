@@ -45,6 +45,10 @@
         ]
       }
     },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
     "nx-release-publish": {
       "options": {
         "packageRoot": "dist/packages/cli"
