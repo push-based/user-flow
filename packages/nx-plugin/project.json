@@ -53,34 +53,6 @@
         "jestConfig": "packages/nx-plugin/jest.config.ts"
       }
     },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "dependsOn": [
-        {
-          "target": "build"
-        }
-      ],
-      "options": {
-        "postTargets": ["nx-plugin:npm", "nx-plugin:github"],
-        "commitMessageFormat": "release(${projectName}): ${version}",
-        "noVerify": true,
-        "push": true
-      }
-    },
-    "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
-    },
-    "npm": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public",
-        "distFolderPath": "dist/packages/nx-plugin"
-      }
-    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
@@ -90,6 +62,11 @@
             "command": "npx cpx \"./dist/packages/nx-plugin/**\" ./node_modules/@push-based/user-flow-nx-plugin"
           }
         ]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/packages/nx-plugin"
       }
     }
   }

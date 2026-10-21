@@ -31,34 +31,6 @@
         "config": "{workspaceRoot}/packages/cli/vite.config.mts"
       }
     },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "dependsOn": [
-        {
-          "target": "build"
-        }
-      ],
-      "options": {
-        "postTargets": ["cli:npm", "cli:github"],
-        "commitMessageFormat": "release(${projectName}): ${version}",
-        "noVerify": true,
-        "push": true
-      }
-    },
-    "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
-    },
-    "npm": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public",
-        "distFolderPath": "dist/packages/cli"
-      }
-    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
@@ -73,9 +45,10 @@
         ]
       }
     },
-    "publish": {
-      "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
-      "dependsOn": ["build"]
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/packages/cli"
+      }
     }
   }
 }
