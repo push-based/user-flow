@@ -1,27 +1,31 @@
 import { UserFlow, Step } from '@puppeteer/replay';
+import { UserFlow as LhUserFLow } from 'lighthouse';
 import { Modify } from '../../../../core/types.js';
 
-/**
- *  'navigation' is already covered by `@puppeteer/replay`
- */
-export type MeasureModes = 'navigate' |'snapshot' | 'startTimespan' | 'endTimespan';
+export const MEASURE_MODES = [
+  'startNavigation',
+  'endNavigation',
+  'snapshot',
+  'startTimespan',
+  'endTimespan',
+] as const;
 
-/*
-// Consider modify the Step type
-  | Modify<Step, {
-  type: MeasureModes,
-}>;*/
+export type MeasureModes = (typeof MEASURE_MODES)[number];
+
 export type MeasurementStep = {
-  type: MeasureModes;
-  stepOptions?: { name?: string; }
-  url?: string;
-}
+  [K in MeasureModes]: { type: K } & {
+    stepOptions: Parameters<LhUserFLow[K]>[0];
+  };
+}[MeasureModes];
 
 export type UserFlowRecordingStep = MeasurementStep | Step;
 
-export type UserFlowReportJson = Modify<UserFlow, {
-  steps: UserFlowRecordingStep[];
-}>;
+export type UserFlowReportJson = Modify<
+  UserFlow,
+  {
+    steps: UserFlowRecordingStep[];
+  }
+>;
 
-export type ReadFileExtTypes = { json: {}, html: string, text: string };
-export type ReadFileConfig = { fail?: boolean, ext?: keyof ReadFileExtTypes};
+export type ReadFileExtTypes = { json: {}; html: string; text: string };
+export type ReadFileConfig = { fail?: boolean; ext?: keyof ReadFileExtTypes };
