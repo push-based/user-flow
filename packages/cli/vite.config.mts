@@ -14,7 +14,6 @@ export default defineConfig({
     include: ['src/**/*.test.ts'],
     pool: 'threads',
     maxWorkers: 1,
-    isolate: false,
     reporters: [['default', { summary: false }]],
     coverage: {
       reportsDirectory: '../../coverage/packages/cli',

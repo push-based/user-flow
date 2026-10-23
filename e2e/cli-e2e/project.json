@@ -14,7 +14,7 @@
       }
     },
     "test": {
-      "executor": "@nx/vite:test",
+      "executor": "@nx/vitest:test",
       "options": {
         "config": "e2e/cli-e2e/vite.config.e2e.mts"
       }

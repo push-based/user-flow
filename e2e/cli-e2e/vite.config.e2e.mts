@@ -14,7 +14,6 @@ export default defineConfig({
 
     pool: 'threads',
     maxWorkers: 1,
-    isolate: false,
 
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],

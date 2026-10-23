@@ -39,6 +39,7 @@
     "@nx/jest": "24.0.0",
     "@nx/js": "24.0.0",
     "@nx/vite": "24.0.0",
+    "@nx/vitest": "24.0.0",
     "@nx/webpack": "24.0.0",
     "@nx/workspace": "24.0.0",
     "@swc-node/register": "1.12.1",
@@ -62,8 +63,8 @@
     "verdaccio": "6.9.3",
     "vite": "8.3.5",
     "vitest": "4.1.9",
+    "webpack": "5.112.2",
     "webpack-cli": "^7.0.0",
-    "webpack-dev-server": "5.2.7",
-    "webpack": "5.112.2"
+    "webpack-dev-server": "5.2.7"
   }
 }
