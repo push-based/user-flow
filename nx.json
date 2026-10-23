@@ -103,5 +103,8 @@
     "releaseTag": {
       "pattern": "{projectName}-{version}"
     }
+  },
+  "affected": {
+    "legacy": true
   }
 }
