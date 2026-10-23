@@ -15,8 +15,9 @@ function filePath(p: string): string {
   return paths.splice(0, paths.length - 1).join();
 }
 
-beforeAll((ctx) => {
-  mkdirSync(join(E2E_DIR, filePath(ctx.name)), { recursive: true });
+// eslint-disable-next-line no-empty-pattern
+beforeAll(({}, suite) => {
+  mkdirSync(join(E2E_DIR, filePath(suite.name)), { recursive: true });
 });
 
 beforeEach<CliTest>((ctx) => {
@@ -139,6 +140,7 @@ afterEach<CliTest>((ctx) => {
   rmSync(ctx.root, { recursive: true });
 });
 
-afterAll((ctx) => {
-  rmSync(join(E2E_DIR, filePath(ctx.name)), { recursive: true });
+// eslint-disable-next-line no-empty-pattern
+afterAll(({}, suite) => {
+  rmSync(join(E2E_DIR, filePath(suite.name)), { recursive: true });
 });

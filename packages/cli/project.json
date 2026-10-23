@@ -43,6 +43,12 @@
       "options": {
         "packageRoot": "dist/packages/cli"
       }
+    },
+    "test": {
+      "options": {
+        "cwd": ".",
+        "args": ["--root", "packages/cli"]
+      }
     }
   }
 }

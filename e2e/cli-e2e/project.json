@@ -5,5 +5,12 @@
   "projectType": "application",
   "tags": ["type:e2e"],
   "implicitDependencies": ["cli"],
-  "targets": {}
+  "targets": {
+    "test": {
+      "options": {
+        "cwd": ".",
+        "args": ["--root", "e2e/cli-e2e"]
+      }
+    }
+  }
 }
