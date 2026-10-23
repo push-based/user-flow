@@ -9,11 +9,12 @@ export default defineConfig({
 
   test: {
     globals: true,
-    reporters: ['basic'],
+    reporters: [['default', { summary: false }]],
     testTimeout: 30_000,
 
     pool: 'threads',
-    poolOptions: { threads: { singleThread: true } },
+    maxWorkers: 1,
+    isolate: false,
 
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],

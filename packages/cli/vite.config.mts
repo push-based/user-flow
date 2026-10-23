@@ -13,8 +13,9 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/*.test.ts'],
     pool: 'threads',
-    poolOptions: { threads: { singleThread: true } },
-    reporters: ['basic'],
+    maxWorkers: 1,
+    isolate: false,
+    reporters: [['default', { summary: false }]],
     coverage: {
       reportsDirectory: '../../coverage/packages/cli',
       provider: 'v8',
