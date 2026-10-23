@@ -38,21 +38,6 @@
         ]
       }
     },
-    "test": {
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}",
-        "{workspaceRoot}/coverage/packages/plugin-user-flow"
-      ],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "coverage": true
-        }
-      }
-    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],

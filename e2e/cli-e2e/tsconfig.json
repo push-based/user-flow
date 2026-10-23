@@ -8,8 +8,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest"],
-    "ignoreDeprecations": "6.0"
+    "types": ["vitest"]
   },
   "files": [],
   "include": [],

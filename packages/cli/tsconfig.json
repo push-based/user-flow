@@ -11,8 +11,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "ignoreDeprecations": "6.0"
+    "importHelpers": true
   },
   "files": [],
   "include": [],

@@ -4,6 +4,5 @@
   "sourceRoot": "packages/user-flow-example/src",
   "projectType": "library",
   "tags": [],
-  "// targets": "to see all targets run: nx show project user-flow-example --web",
   "targets": {}
 }

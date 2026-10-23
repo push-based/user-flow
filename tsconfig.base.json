@@ -20,7 +20,6 @@
       "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"]
     },
     "noUncheckedSideEffectImports": false,
-    "types": ["*"],
     "esModuleInterop": false,
     "ignoreDeprecations": "6.0"
   },

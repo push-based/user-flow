@@ -23,38 +23,16 @@
     "build": {
       "inputs": ["production", "^production"]
     },
-    "test": [
-      {
-        "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-      },
-      {
-        "filter": {
-          "plugin": "@nx/vitest"
-        },
-        "inputs": ["default", "^production"]
-      }
-    ],
-    "lint": [
-      {
-        "inputs": [
-          "default",
-          "{workspaceRoot}/.eslintrc.json",
-          "{workspaceRoot}/eslint.config.mjs"
-        ]
-      },
-      {
-        "filter": {
-          "plugin": "@nx/eslint/plugin"
-        },
-        "inputs": [
-          "default",
-          "^default",
-          "{workspaceRoot}/.eslintrc.json",
-          "{workspaceRoot}/eslint.config.mjs",
-          "{workspaceRoot}/tools/eslint-rules/**/*"
-        ]
-      }
-    ],
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    },
+    "lint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/eslint.config.mjs"
+      ]
+    },
     "nx-release-publish": {
       "dependsOn": ["build"],
       "options": {
@@ -99,15 +77,9 @@
       "pattern": "{projectName}-{version}"
     }
   },
-  "affected": {
-    "legacy": true
-  },
   "plugins": [
     {
       "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      },
       "include": [
         "e2e/cli-e2e/**/*",
         "packages/cli/**/*",
@@ -118,26 +90,14 @@
     },
     {
       "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      },
       "include": ["packages/nx-plugin/**/*"]
     },
     {
       "plugin": "@nx/vitest",
       "options": {
-        "testMode": "run",
-        "testTargetName": "test"
+        "testMode": "run"
       }
     },
-    {
-      "plugin": "@nx/webpack/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "previewTargetName": "preview",
-        "serveStaticTargetName": "serve-static",
-        "serveTargetName": "serve"
-      }
-    }
+    "@nx/webpack/plugin"
   ]
 }
