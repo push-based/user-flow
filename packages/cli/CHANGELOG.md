@@ -1,3 +1,13 @@
+## 0.21.5 (2026-10-23)
+
+### 🩹 Fixes
+
+- run vitest from workspace root and update vitest 4 hooks ([0e5620d8](https://github.com/push-based/user-flow/commit/0e5620d8))
+
+### ❤️ Thank You
+
+- ChristopherPHolder
+
 ## 0.21.4 (2026-10-23)
 
 ### 🩹 Fixes
