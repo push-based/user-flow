@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
+import { nxReadySignal } from '@nx/vite/plugins/nx-ready-signal.plugin';
 
 export default defineConfig({
   resolve: {
@@ -7,7 +8,7 @@ export default defineConfig({
   },
   cacheDir: '../../node_modules/.vite/cli-e2e',
 
-  plugins: [],
+  plugins: [nxReadySignal()],
 
   test: {
     globals: true,
