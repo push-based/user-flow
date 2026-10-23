@@ -1,19 +1,22 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { nxReadySignal } from '@nx/vite/plugins/nx-ready-signal.plugin';
 
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
   cacheDir: '../../node_modules/.vite/cli-e2e',
 
-  plugins: [nxViteTsPaths()],
+  plugins: [nxReadySignal()],
 
   test: {
     globals: true,
-    reporters: ['basic'],
+    reporters: [['default', { summary: false }]],
     testTimeout: 30_000,
 
     pool: 'threads',
-    poolOptions: { threads: { singleThread: true } },
+    maxWorkers: 1,
 
     environment: 'node',
     include: ['tests/**/*.e2e.test.ts'],

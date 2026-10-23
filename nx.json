@@ -33,31 +33,6 @@
         "{workspaceRoot}/eslint.config.mjs"
       ]
     },
-    "@nx/jest:jest": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "@nx/vite:test": {
-      "cache": true,
-      "inputs": ["default", "^production"]
-    },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/eslint.config.mjs"
-      ],
-      "cache": true
-    },
     "nx-release-publish": {
       "dependsOn": ["build"],
       "options": {
@@ -77,7 +52,6 @@
   "release": {
     "projects": ["cli", "nx-plugin"],
     "projectsRelationship": "independent",
-    "releaseTagPattern": "{projectName}-{version}",
     "changelog": {
       "automaticFromRef": true,
       "projectChangelogs": {
@@ -98,6 +72,32 @@
       "versionActionsOptions": {
         "skipLockFileUpdate": true
       }
+    },
+    "releaseTag": {
+      "pattern": "{projectName}-{version}"
     }
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "include": [
+        "e2e/cli-e2e/**/*",
+        "packages/cli/**/*",
+        "packages/nx-plugin/**/*",
+        "packages/nx-plugin-integration/**/*",
+        "packages/user-flow-example/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "include": ["packages/nx-plugin/**/*"]
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testMode": "run"
+      }
+    },
+    "@nx/webpack/plugin"
+  ]
 }

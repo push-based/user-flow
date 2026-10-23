@@ -5,9 +5,6 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
@@ -22,13 +19,6 @@
           "packages/cli/*.schema.json",
           "packages/cli/**/static/**"
         ]
-      }
-    },
-    "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/packages/cli"],
-      "options": {
-        "config": "{workspaceRoot}/packages/cli/vite.config.mts"
       }
     },
     "link": {
@@ -52,6 +42,12 @@
     "nx-release-publish": {
       "options": {
         "packageRoot": "dist/packages/cli"
+      }
+    },
+    "test": {
+      "options": {
+        "cwd": ".",
+        "args": ["--root", "packages/cli"]
       }
     }
   }

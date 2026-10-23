@@ -4,9 +4,5 @@
   "sourceRoot": "packages/user-flow-example/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "targets": {}
 }

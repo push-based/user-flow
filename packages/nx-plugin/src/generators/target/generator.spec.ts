@@ -78,8 +78,9 @@ describe('target generator', () => {
       appTree,
       joinPathFragments(opt.projectRoot, 'project.json'),
       (json) => {
-        json.targets[opt.targetName] =
-          '@push-based/user-flow-nx-plugin:user-flow';
+        json.targets[opt.targetName] = {
+          executor: '@push-based/user-flow-nx-plugin:user-flow',
+        };
         return json;
       },
     );
