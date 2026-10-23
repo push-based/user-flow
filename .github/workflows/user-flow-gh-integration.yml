@@ -33,6 +33,11 @@ jobs:
       - name: Install Chrome for Puppeteer
         run: npx puppeteer browsers install chrome
 
+      # The npm cache restores ~/.npm/_npx, so npx would reuse the cached CLI and skip
+      # the puppeteer postinstall that downloads the Chrome version the CLI needs.
+      - name: Clear cached npx installs
+        run: rm -rf ~/.npm/_npx
+
       - name: run:user-flow-action
         uses: push-based/user-flow-gh-action@v0.3.2
         with:
