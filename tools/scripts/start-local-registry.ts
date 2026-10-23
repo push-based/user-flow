@@ -11,7 +11,8 @@ export default async () => {
   // storage folder for the local registry
   const storage = './tmp/local-registry/storage';
 
-  const stopLocalRegistryFn = await startLocalRegistry({
+  // called by stop-local-registry in the global teardown
+  global.stopLocalRegistry = await startLocalRegistry({
     localRegistryTarget,
     storage,
     verbose: true,
@@ -32,7 +33,6 @@ export default async () => {
     ],
     { env: process.env, stdio: 'inherit', shell: true },
   );
-  return stopLocalRegistryFn
 };
 
 // soft copy from https://github.com/nrwl/nx/blob/16.9.x/packages/js/src/plugins/jest/start-local-registry.ts
@@ -78,7 +78,6 @@ function startLocalRegistry({
         );
 
         resolve(() => {
-          console.log('Teardown registry');
           process.kill(-childProcess.pid!);
           execSync(`npm config delete //localhost:${port}/:_authToken`);
         });
