@@ -38,4 +38,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Publish packages to npm
-        run: npx nx release publish
+        # a tag push (e.g. cli-0.21.4) publishes only its project, a manual run publishes all
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            npx nx release publish --projects="${GITHUB_REF_NAME%-*}"
+          else
+            npx nx release publish
+          fi

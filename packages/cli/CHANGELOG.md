@@ -1,3 +1,13 @@
+## 0.21.4 (2026-10-23)
+
+### 🩹 Fixes
+
+- fix replay navigation event ([dca49282](https://github.com/push-based/user-flow/commit/dca49282))
+
+### ❤️ Thank You
+
+- ChristopherPHolder
+
 # Changelog
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
