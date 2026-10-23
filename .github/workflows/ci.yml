@@ -28,3 +28,25 @@ jobs:
         run: npm run nx -- run-many -t build --skip-nx-cache --parallel=false
       - name: test
         run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
+
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    name: E2E Node ${{ matrix.node-version }}
+
+    steps:
+      - uses: actions/checkout@v4
+        # `nx release version` resolves the current version from git tags
+        with:
+          fetch-depth: 0
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+      - name: install
+        run: npm ci
+      - name: e2e
+        run: npm run nx -- run-many -t e2e --skip-nx-cache --parallel=false

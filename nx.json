@@ -82,6 +82,7 @@
       "plugin": "@nx/eslint/plugin",
       "include": [
         "e2e/cli-e2e/**/*",
+        "e2e/nx-plugin-e2e/**/*",
         "packages/cli/**/*",
         "packages/nx-plugin/**/*",
         "packages/nx-plugin-integration/**/*",
@@ -98,6 +99,13 @@
         "testMode": "run"
       }
     },
-    "@nx/webpack/plugin"
+    "@nx/webpack/plugin",
+    {
+      "plugin": "@nx/jest/plugin",
+      "include": ["e2e/nx-plugin-e2e/**/*"],
+      "options": {
+        "targetName": "e2e"
+      }
+    }
   ]
 }
