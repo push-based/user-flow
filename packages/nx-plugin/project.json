@@ -7,12 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ],
+      "dependsOn": ["^build"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-plugin",
