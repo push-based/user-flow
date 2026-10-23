@@ -62,4 +62,9 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 export default {
   flowOptions: { name: '☕ Order Coffee ☕' },
   interactions,
+  launchOptions: {
+    args: [
+      '--no-sandbox',
+    ]
+  }
 } satisfies UserFlowProvider;

@@ -6,7 +6,9 @@ import { join, normalize, sep } from 'node:path';
 import { CliTest, E2E_DIR, normalizePath } from './utils/setup';
 import { spawn } from 'node:child_process';
 
-const ANSI_ESCAPE_REGEX = /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
+const ANSI_ESCAPE_REGEX =
+  // eslint-disable-next-line no-control-regex
+  /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
 function filePath(p: string): string {
   const paths = normalizePath(p).split(sep);
@@ -18,20 +20,25 @@ beforeAll((ctx) => {
 });
 
 beforeEach<CliTest>((ctx) => {
-  ctx.root = join(E2E_DIR, filePath(ctx.task.file.name), normalizePath(join(ctx.task.suite.name, ctx.task.name)));
+  ctx.root = join(
+    E2E_DIR,
+    filePath(ctx.task.file.name),
+    normalizePath(join(ctx.task.suite.name, ctx.task.name)),
+  );
 
   ctx.setupFns = {
-    setupRcJson: (rc: {}, rcName= `.user-flowrc.json`) => {
-      writeFileSync(
-        join(ctx.root, rcName),
-        JSON.stringify(rc, null, 4),
-        { encoding: 'utf8' }
-      );
+    setupRcJson: (rc: {}, rcName = `.user-flowrc.json`) => {
+      writeFileSync(join(ctx.root, rcName), JSON.stringify(rc, null, 4), {
+        encoding: 'utf8',
+      });
     },
     setupUserFlows: (mockUserFlow: string, userFlowDir = 'user-flows') => {
-      cpSync(mockUserFlow, join(ctx.root, userFlowDir, normalize(mockUserFlow).split(sep).at(-1)))
-    }
-  }
+      cpSync(
+        mockUserFlow,
+        join(ctx.root, userFlowDir, normalize(mockUserFlow).split(sep).at(-1)),
+      );
+    },
+  };
 
   mkdirSync(ctx.root, { recursive: true });
 });
@@ -40,7 +47,7 @@ export type CliProcessResult = {
   stdout: string;
   stderr: string;
   code: number | null;
-}
+};
 
 beforeEach<CliTest>((ctx) => {
   ctx.cli = {} as any;
@@ -48,54 +55,56 @@ beforeEach<CliTest>((ctx) => {
   ctx.cli.stderr = '';
   ctx.cli.code = null;
 
-
-  ctx.cli.run = (command: string, args: string[] = [], waitForClose = true) => new Promise<CliProcessResult>((resolve) => {
-    ctx.cli.process = spawn(command, args, { stdio: 'pipe', shell: true, cwd: ctx.root });
-
-    ctx.cli.process.stdout.on('data', (data) => {
-      const stdout = String(data).replace(ANSI_ESCAPE_REGEX, '');
-
-      if (ctx.cli.verbose) {
-        console.log(stdout);
-      }
-
-      ctx.cli.stdout += stdout;
-    });
-
-
-    ctx.cli.process.stderr.on('data', (data) => {
-      const stderr = String(data).replace(ANSI_ESCAPE_REGEX, '');
-
-      if (ctx.cli.verbose) {
-        console.log(stderr);
-      }
-
-      ctx.cli.stderr += stderr;
-    });
-
-
-    ctx.cli.process.on('close', code => {
-      ctx.cli.code = code;
-
-      if (ctx.cli.verbose) {
-        console.log(code);
-      }
-
-      resolve({
-        stdout: ctx.cli.stdout,
-        stderr: ctx.cli.stderr,
-        code: ctx.cli.code
+  ctx.cli.run = (command: string, args: string[] = [], waitForClose = true) =>
+    new Promise<CliProcessResult>((resolve) => {
+      ctx.cli.process = spawn(command, args, {
+        stdio: 'pipe',
+        shell: true,
+        cwd: ctx.root,
       });
-    });
 
-    if (!waitForClose) {
-      resolve({
-        stdout: ctx.cli.stdout,
-        stderr: ctx.cli.stderr,
-        code: ctx.cli.code
+      ctx.cli.process.stdout.on('data', (data) => {
+        const stdout = String(data).replace(ANSI_ESCAPE_REGEX, '');
+
+        if (ctx.cli.verbose) {
+          console.log(stdout);
+        }
+
+        ctx.cli.stdout += stdout;
       });
-    }
-  });
+
+      ctx.cli.process.stderr.on('data', (data) => {
+        const stderr = String(data).replace(ANSI_ESCAPE_REGEX, '');
+
+        if (ctx.cli.verbose) {
+          console.log(stderr);
+        }
+
+        ctx.cli.stderr += stderr;
+      });
+
+      ctx.cli.process.on('close', (code) => {
+        ctx.cli.code = code;
+
+        if (ctx.cli.verbose) {
+          console.log(code);
+        }
+
+        resolve({
+          stdout: ctx.cli.stdout,
+          stderr: ctx.cli.stderr,
+          code: ctx.cli.code,
+        });
+      });
+
+      if (!waitForClose) {
+        resolve({
+          stdout: ctx.cli.stdout,
+          stderr: ctx.cli.stderr,
+          code: ctx.cli.code,
+        });
+      }
+    });
 
   ctx.cli.waitForStdout = (expectedStdout: string) => {
     return new Promise((resolve) => {
@@ -115,7 +124,7 @@ beforeEach<CliTest>((ctx) => {
         resolve({
           stdout: ctx.cli.stdout,
           stderr: ctx.cli.stderr,
-          code: ctx.cli.code
+          code: ctx.cli.code,
         });
       });
     });

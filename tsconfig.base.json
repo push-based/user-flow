@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
-      "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"],
+      "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "code-pushup.config.ts"]

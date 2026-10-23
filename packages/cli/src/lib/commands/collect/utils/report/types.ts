@@ -15,6 +15,7 @@ export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
  * const f2: GatherModeSlice = {gatherMode: 'snapshot'};
  */
 type LhrGatherModeSlice = LhrSlice & { gatherMode: GatherMode };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type UfrNameSlice = UfrSlice & { name: string };
 
 

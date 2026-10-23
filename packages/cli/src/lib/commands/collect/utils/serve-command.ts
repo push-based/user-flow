@@ -32,17 +32,18 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
       cR.kill();
       sub.unsubscribe();
     };
-    const endRes = res.result
+    res.result
       // We resolve when the awaited value arrives
       // .then((v) => console.log('concurrently resolve', v))
-      .catch(e => {
+      .catch(error => {
+        console.error(error);
         reject('Error while executing ' + serveCommand);
       }).finally();
 
 
     let isCollecting = false;
     sub.add(cR.stdout.subscribe(
-      stdout => {
+      (stdout: Buffer) => {
         const out = stdout.toString();
         logVerbose(out);
         // await stdout and start collecting once

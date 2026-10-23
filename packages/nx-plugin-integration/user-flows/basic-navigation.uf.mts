@@ -1,8 +1,14 @@
-import {UserFlowContext, UserFlowInteractionsFn, UserFlowProvider} from '@push-based/user-flow';
+import {
+  UserFlowContext,
+  UserFlowInteractionsFn,
+  UserFlowProvider,
+} from '@push-based/user-flow';
 
-const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<void> => {
-  const { flow, browser, collectOptions} = ctx;
-  const { url} = collectOptions;
+const interactions: UserFlowInteractionsFn = async (
+  ctx: UserFlowContext,
+): Promise<void> => {
+  const { flow, collectOptions } = ctx;
+  const { url } = collectOptions;
 
   await flow.navigate(url, {
     name: '🧭 Navigate to Home',
@@ -10,6 +16,14 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 };
 
 export default {
-  flowOptions: {name: 'Basic Navigation Example'},
-  interactions
+  flowOptions: { name: 'Basic Navigation Example' },
+  interactions,
+  launchOptions: {
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu'
+    ]
+  }
 } satisfies UserFlowProvider;

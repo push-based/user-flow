@@ -223,7 +223,7 @@ const puppeteer = require('puppeteer'); // v13.0.0 or later
     }
     {
         const targetPage = page;
-        let frame = targetPage.mainFrame();
+        const frame = targetPage.mainFrame();
         await waitForElement({"type":"waitForElement","selectors":[["aria/Thanks for your purchase. Please check your email for payment."],["#app > div.snackbar.success"]],"frame":[],"target":"main"}, frame, timeout);
     }
 

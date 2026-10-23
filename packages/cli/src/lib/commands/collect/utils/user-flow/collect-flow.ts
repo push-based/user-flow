@@ -15,14 +15,14 @@ export async function collectFlow(
   userFlowProvider: UserFlowProvider & { path: string },
   argv: CollectCommandOptions
 ) {
-  let {
+  const {
     path,
     flowOptions,
     interactions,
     launchOptions
   } = userFlowProvider;
 
-  let globalLhCfg = getLhConfigFromArgv(cliOption);
+  const globalLhCfg = getLhConfigFromArgv(cliOption);
   const lhConfig = mergeLhConfig(globalLhCfg, flowOptions?.config);
   flowOptions.config = lhConfig;
 
@@ -31,7 +31,7 @@ export async function collectFlow(
 
   logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
   logVerbose(`User-flow path: ${normalize(path)}`);
-  let start = Date.now();
+  const start = Date.now();
 
   const flow: UserFlow = !argv.dryRun ? await startFlow(page, flowOptions) : new UserFlowMock(page, flowOptions) as unknown as UserFlow;
 

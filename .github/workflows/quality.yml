@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ 20.x ]
-    name: Node ${{ matrix.node }}
+    name: Node ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=8192
 
       - name: Save report files as workflow artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-pushup-report
           path: .code-pushup/

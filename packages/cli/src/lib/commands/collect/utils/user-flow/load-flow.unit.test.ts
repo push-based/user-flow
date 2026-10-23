@@ -12,26 +12,26 @@ describe('loading user-flow scripts for execution', () => {
     vi.clearAllMocks();
   })
 
-  it('should throw if ufPath does not exist', () => {
+  it('should throw if ufPath does not exist', async () => {
     const existsSyncSpy = vi.spyOn(fs, 'existsSync').mockReturnValue(false);
-    expect(() => loadFlow({ ufPath: './path' })).rejects.toThrow();
+    await expect(loadFlow({ ufPath: './path' })).rejects.toThrow();
     expect(existsSyncSpy).toHaveBeenCalled();
   });
 
-  it('should throw if ufPath points to a file and it does not end in with ts or js', () => {
+  it('should throw if ufPath points to a file and it does not end in with ts or js', async () => {
     vi.spyOn(fs, 'existsSync').mockReturnValue(true);
     vi.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => false } as fs.Stats);
     const resolveAnyFileSpy = vi.spyOn(fileHelpers, 'resolveAnyFile');
-    expect(() => loadFlow({ ufPath: './path/file.json' })).rejects.toThrow();
+    await expect(loadFlow({ ufPath: './path/file.json' })).rejects.toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 
-  it('should throw if ufPath points to a directory and it does not contain any files that end with ts or js', () => {
+  it('should throw if ufPath points to a directory and it does not contain any files that end with ts or js', async () => {
     vi.spyOn(fs, 'existsSync').mockReturnValue(true);
     vi.spyOn(fs, 'lstatSync').mockReturnValue({ isDirectory: () => true } as fs.Stats);
     vi.spyOn(fs, 'readdirSync').mockReturnValue(['file.json' as unknown as fs.Dirent])
     const resolveAnyFileSpy = vi.spyOn(fileHelpers, 'resolveAnyFile');
-    expect(() => loadFlow({ ufPath: './path' })).rejects.toThrow();
+    await expect(loadFlow({ ufPath: './path' })).rejects.toThrow();
     expect(resolveAnyFileSpy).not.toHaveBeenCalled();
   });
 

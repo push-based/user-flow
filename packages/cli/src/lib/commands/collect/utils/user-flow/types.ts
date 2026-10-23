@@ -1,7 +1,5 @@
 import {
   Browser,
-  BrowserConnectOptions,
-  BrowserLaunchArgumentOptions,
   LaunchOptions as PPTLaunchOptions,
   Page,
   SupportedBrowser
@@ -34,9 +32,9 @@ export type UserFlowOptions = {
 // @TODO
 // LH setting -> check what can be configured,
 // narrow down to smallest possible -> LH will overwrite ppt
-export type LaunchOptions = PPTLaunchOptions &
-  BrowserLaunchArgumentOptions &
-  BrowserConnectOptions & {
+// Note: BrowserConnectOptions and BrowserLaunchArgumentOptions were removed in Puppeteer v24
+// All options are now consolidated in LaunchOptions
+export type LaunchOptions = PPTLaunchOptions & {
   defaultBrowser?: SupportedBrowser;
   extraPrefsFirefox?: Record<string, unknown>;
 };

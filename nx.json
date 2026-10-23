@@ -15,7 +15,8 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/eslint.config.mjs"
     ]
   },
   "targetDefaults": {
@@ -26,7 +27,11 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/eslint.config.mjs"
+      ]
     },
     "@nx/jest:jest": {
       "cache": true,
@@ -46,8 +51,19 @@
       "inputs": ["default", "^production"]
     },
     "@nx/eslint:lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/eslint.config.mjs"
+      ],
       "cache": true
+    },
+    "nx-release-publish": {
+      "dependsOn": ["build"],
+      "options": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+      }
     }
   },
   "generators": {
@@ -63,5 +79,31 @@
   },
   "nxCloudAccessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
   "useInferencePlugins": false,
-  "defaultBase": "origin/main"
+  "defaultBase": "origin/main",
+  "release": {
+    "projects": ["cli", "nx-plugin"],
+    "projectsRelationship": "independent",
+    "releaseTagPattern": "{projectName}-{version}",
+    "changelog": {
+      "automaticFromRef": true,
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commit": true,
+      "commitMessage": "release: publish",
+      "commitArgs": "--no-verify",
+      "tag": true,
+      "push": true,
+      "pushRemote": "origin"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk",
+      "versionActionsOptions": {
+        "skipLockFileUpdate": true
+      }
+    }
+  }
 }
