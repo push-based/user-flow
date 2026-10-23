@@ -22,9 +22,18 @@ jobs:
         with:
           cache: 'npm'
           node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
       - name: install
         run: npm ci
-      - name: build
-        run: npm run nx -- run-many -t build --skip-nx-cache --parallel=false
-      - name: test
-        run: npm run nx -- run-many -t test --skip-nx-cache --parallel=false
+      - name: diag env
+        run: |
+          echo "npm $(npm -v) node $(node -v)"; echo "userconfig=$NPM_CONFIG_USERCONFIG"; cat "$NPM_CONFIG_USERCONFIG" || true
+          echo "--- npx cache"; ls -la ~/.npm/_npx 2>/dev/null || echo "no _npx"; for d in ~/.npm/_npx/*/; do echo "$d"; cat "$d/package.json" 2>/dev/null; ls "$d/node_modules/.bin" 2>/dev/null; done
+      - name: diag npx run
+        run: |
+          set +e
+          npx @push-based/user-flow collect --no-interactive > /tmp/out.txt 2> /tmp/err.txt; echo "exit=$?"
+          echo "--- stdout"; cat /tmp/out.txt; echo "--- stderr"; cat /tmp/err.txt
+          echo "--- npx cache after"; for d in ~/.npm/_npx/*/; do echo "$d"; cat "$d/package.json"; ls -la "$d/node_modules/.bin"; done
+      - name: diag nx-plugin test
+        run: npm run nx -- run nx-plugin:test --skip-nx-cache
