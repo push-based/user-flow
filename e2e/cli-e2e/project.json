@@ -6,13 +6,6 @@
   "tags": ["type:e2e"],
   "implicitDependencies": ["cli"],
   "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["e2e/cli-e2e/**/*.ts"]
-      }
-    },
     "test": {
       "executor": "@nx/vitest:test",
       "options": {

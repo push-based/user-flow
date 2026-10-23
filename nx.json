@@ -26,13 +26,27 @@
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
-    "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/eslint.config.mjs"
-      ]
-    },
+    "lint": [
+      {
+        "inputs": [
+          "default",
+          "{workspaceRoot}/.eslintrc.json",
+          "{workspaceRoot}/eslint.config.mjs"
+        ]
+      },
+      {
+        "filter": {
+          "plugin": "@nx/eslint/plugin"
+        },
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/.eslintrc.json",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*"
+        ]
+      }
+    ],
     "@nx/jest:jest": {
       "cache": true,
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
@@ -45,16 +59,6 @@
           "codeCoverage": true
         }
       }
-    },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ],
-      "cache": true
     },
     "nx-release-publish": {
       "dependsOn": ["build"],
@@ -106,5 +110,20 @@
   },
   "affected": {
     "legacy": true
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "e2e/cli-e2e/**/*",
+        "packages/cli/**/*",
+        "packages/nx-plugin/**/*",
+        "packages/nx-plugin-integration/**/*",
+        "packages/user-flow-example/**/*"
+      ]
+    }
+  ]
 }

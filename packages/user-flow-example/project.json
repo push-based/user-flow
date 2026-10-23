@@ -4,9 +4,6 @@
   "sourceRoot": "packages/user-flow-example/src",
   "projectType": "library",
   "tags": [],
-  "targets": {
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    }
-  }
+  "// targets": "to see all targets run: nx show project user-flow-example --web",
+  "targets": {}
 }
