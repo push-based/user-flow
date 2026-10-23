@@ -2,6 +2,8 @@ import { normalize } from 'node:path';
 import { ChildProcessWithoutNullStreams } from 'node:child_process';
 
 export const E2E_DIR = 'tmp/e2e';
+// the CLI under test is installed here instead of the workspace root, so tasks running in parallel are not affected
+export const E2E_INSTALL_DIR = 'tmp/e2e-install';
 
 export const USER_FLOW_MOCKS = {
   BASIC: 'e2e/cli-e2e/mocks/user-flows/basic-navigation.uf.mts',

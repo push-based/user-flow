@@ -58,7 +58,8 @@ function startLocalRegistry({
         ...`run ${localRegistryTarget} --location none --clear true`.split(' '),
         ...(storage ? [`--storage`, storage] : []),
       ],
-      { stdio: 'pipe', shell: true },
+      // own process group, so stopping it also kills verdaccio and not just the shell/npx wrapper
+      { stdio: 'pipe', shell: true, detached: true },
     );
 
     const listener = data => {
@@ -77,7 +78,8 @@ function startLocalRegistry({
         );
 
         resolve(() => {
-          childProcess.kill();
+          console.log('Teardown registry');
+          process.kill(-childProcess.pid!);
           execSync(`npm config delete //localhost:${port}/:_authToken`);
         });
         childProcess?.stdout?.off('data', listener);

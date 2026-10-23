@@ -1,10 +1,12 @@
 import { afterAll, beforeAll, beforeEach, afterEach } from 'vitest';
 
 import { cpSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { join, normalize, sep } from 'node:path';
+import { delimiter, join, normalize, resolve, sep } from 'node:path';
 
-import { CliTest, E2E_DIR, normalizePath } from './utils/setup';
+import { CliTest, E2E_DIR, E2E_INSTALL_DIR, normalizePath } from './utils/setup';
 import { spawn } from 'node:child_process';
+
+const CLI_BIN_DIR = resolve(E2E_INSTALL_DIR, 'node_modules', '.bin');
 
 const ANSI_ESCAPE_REGEX =
   // eslint-disable-next-line no-control-regex
@@ -61,6 +63,7 @@ beforeEach<CliTest>((ctx) => {
         stdio: 'pipe',
         shell: true,
         cwd: ctx.root,
+        env: { ...process.env, PATH: [CLI_BIN_DIR, process.env['PATH']].join(delimiter) },
       });
 
       ctx.cli.process.stdout.on('data', (data) => {
