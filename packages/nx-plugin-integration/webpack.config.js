@@ -1,5 +1,4 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
-const { useLegacyNxPlugin } = require('@nx/webpack');
 
 // These options were migrated by @nx/webpack:convert-to-inferred from
 // the project.json file and merged with the options in this file
@@ -62,13 +61,5 @@ const devServerOptions = {
  */
 module.exports = async () => ({
   devServer: devServerOptions,
-  plugins: [
-    new NxAppWebpackPlugin(buildOptions),
-    // NOTE: useLegacyNxPlugin ensures that the non-standard Webpack configuration file previously used still works.
-    // To remove its usage, move options such as "plugins" into this file as standard Webpack configuration options.
-    // To enhance configurations after Nx plugins have applied, you can add a new plugin with the \`apply\` method.
-    // e.g. \`{ apply: (compiler) => { /* modify compiler.options */ }\`
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    await useLegacyNxPlugin(require('./webpack.config.old.js'), buildOptions),
-  ],
+  plugins: [new NxAppWebpackPlugin(buildOptions)],
 });
