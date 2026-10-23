@@ -18,7 +18,11 @@
     "paths": {
       "@push-based/user-flow": ["packages/cli/src/index.ts"],
       "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"]
-    }
+    },
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }
