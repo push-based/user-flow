@@ -50,7 +50,7 @@ jobs:
       - name: Build
         run: npx nx run-many -t build
       - name: Test
-        run: npx nx run-many -t test
+        run: npx nx run-many -t test --parallel=false
       - name: Version, release and generate changelog
         run: npx nx release --skip-publish
         env:
