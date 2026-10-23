@@ -21,13 +21,6 @@
         ]
       }
     },
-    "test": {
-      "executor": "@nx/vitest:test",
-      "outputs": ["{workspaceRoot}/coverage/packages/cli"],
-      "options": {
-        "config": "{workspaceRoot}/packages/cli/vite.config.mts"
-      }
-    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
