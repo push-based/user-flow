@@ -77,7 +77,6 @@
   "release": {
     "projects": ["cli", "nx-plugin"],
     "projectsRelationship": "independent",
-    "releaseTagPattern": "{projectName}-{version}",
     "changelog": {
       "automaticFromRef": true,
       "projectChangelogs": {
@@ -98,6 +97,9 @@
       "versionActionsOptions": {
         "skipLockFileUpdate": true
       }
+    },
+    "releaseTag": {
+      "pattern": "{projectName}-{version}"
     }
   }
 }
