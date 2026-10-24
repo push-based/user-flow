@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCS_NAV } from '../docs/nav';
+import { Logo } from '../shared/logo';
 
 @Component({
   selector: 'docs-home',
-  imports: [RouterLink],
+  imports: [RouterLink, Logo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',

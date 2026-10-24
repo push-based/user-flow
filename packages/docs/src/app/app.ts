@@ -17,9 +17,10 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { DOCS_NAV } from './docs/nav';
+import { Logo } from './shared/logo';
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Logo],
   selector: 'docs-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
