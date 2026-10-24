@@ -1,0 +1,15 @@
+{
+  "name": "nx-plugin-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "e2e/nx-plugin-e2e/src",
+  "implicitDependencies": ["nx-plugin"],
+  "targets": {
+    "e2e": {
+      "dependsOn": ["^build"],
+      "options": {
+        "runInBand": true
+      }
+    }
+  }
+}

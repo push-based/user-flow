@@ -10,6 +10,13 @@ import {InitGeneratorSchema} from "./schema";
 import {PLUGIN_NAME} from "../constants";
 import {DEFAULT_TARGET_NAME} from "../target/constants";
 
+/**
+ * The plugin pins itself at the version that did the generating, so the
+ * workspace ends up with a plugin and a config that agree.
+ */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const {version: PLUGIN_VERSION} = require('../../../package.json');
+
 export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): NormalizedSchema {
 
   const projectName = options.projectName;
@@ -25,7 +32,9 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
 export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
   const devDeps = {
     '@push-based/user-flow': '^0.19.0',
-    PLUGIN_NAME: '^0.0.0',
+    // computed key - a bare `PLUGIN_NAME` here wrote a literal "PLUGIN_NAME"
+    // dependency into the consumer's package.json, which no registry resolves
+    [PLUGIN_NAME]: `^${PLUGIN_VERSION}`,
     '@nx/devkit': '^16.0.0'
   };
   addDependenciesToPackageJson(tree, {}, devDeps);

@@ -14,6 +14,8 @@ import {normalizeOptions} from "../target/utils";
 import {NormalizedSchema} from "./types";
 import {PLUGIN_NAME} from "../constants";
 
+const {version: PLUGIN_VERSION} = require('../../../package.json');
+
 const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {projectName: PROJECT_NAME, skipPackageJson: false, url: "https://test-url.com"};
@@ -84,8 +86,15 @@ describe('init generator', () => {
     await generator(appTree, baseOptions);
     const packageJson = readJson(appTree, 'package.json');
     expect(packageJson.devDependencies[NPM_NAME]).toBe('^0.19.0');
-    //expect(packageJson.devDependencies[PLUGIN_NAME]).toBe('^0.0.0'); // TODO implement version test
+    expect(packageJson.devDependencies[PLUGIN_NAME]).toBe(`^${PLUGIN_VERSION}`);
     expect(packageJson.devDependencies['@nx/devkit']).toBe('^16.0.0');
+  });
+
+  it('should add the plugin under its own name, not a literal "PLUGIN_NAME"', async () => {
+    await generator(appTree, baseOptions);
+    const packageJson = readJson(appTree, 'package.json');
+    expect(Object.keys(packageJson.devDependencies)).not.toContain('PLUGIN_NAME');
+    expect(packageJson.devDependencies[PLUGIN_NAME]).toBe(`^${PLUGIN_VERSION}`);
   });
 
   it('should not change dep version if skip option is turned on', async () => {

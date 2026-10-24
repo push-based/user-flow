@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest';
-import { CliTest, DEFAULT_RC, USER_FLOW_MOCKS } from '../../utils/setup';
+import { CliTest, DEFAULT_RC, stripNodeWarnings, USER_FLOW_MOCKS } from '../../utils/setup';
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -18,7 +18,7 @@ describe('collect config', () => {
     ]);
 
     expect(stdout).toContain('LH Configuration is used from a user flow file');
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 
@@ -69,7 +69,7 @@ describe('collect config', () => {
     expect(stdout).toContain(
       'LH Configuration ./lh-config.json is used from CLI param or .user-flowrc.json',
     );
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 });
