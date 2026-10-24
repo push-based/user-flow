@@ -3,6 +3,103 @@
 :root {
   --header-height: 64px;
   --container-width: 80rem;
+  color-scheme: light;
+
+  /* Semantic roles for the docs site, light theme. The design system tokens above stay untouched. */
+  --surface: var(--color-surface);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-raised: var(--color-surface);
+  --surface-header: rgba(255, 255, 255, 0.88);
+  --border: var(--color-neutral-100);
+  --border-strong: var(--color-neutral-200);
+  --text-heading: var(--color-neutral-900);
+  --text: var(--color-neutral-700);
+  --text-muted: var(--color-neutral-500);
+  --text-subtle: var(--color-neutral-400);
+  --link: var(--color-primary-600);
+  --link-underline: var(--color-primary-200);
+  --accent: var(--color-primary-600);
+  --accent-hover: var(--color-primary-700);
+  --accent-soft: var(--color-primary-50);
+  --accent-soft-text: var(--color-primary-700);
+  --accent-outline: var(--color-primary-300);
+  --code-bg: var(--color-neutral-100);
+  --code-text: var(--color-neutral-800);
+  --kbd-border: var(--color-neutral-300);
+  --block-bg: var(--color-neutral-900);
+  --block-title-bg: var(--color-neutral-950);
+  --block-border: var(--color-neutral-800);
+  --ghost-bg: var(--color-primary-50);
+  --ghost-bg-hover: var(--color-primary-25);
+  --ghost-text: var(--color-neutral-600);
+  --ghost-text-hover: var(--color-neutral-900);
+  --ghost-border: var(--color-neutral-300);
+  --callout-tip-bg: var(--color-success-50);
+  --callout-tip-border: var(--color-success-300);
+  --callout-tip-title: var(--color-success-800);
+  --callout-note-bg: var(--color-info-50);
+  --callout-note-border: var(--color-info-300);
+  --callout-note-title: var(--color-info-800);
+  --callout-important-bg: var(--color-primary-50);
+  --callout-important-border: var(--color-primary-300);
+  --callout-important-title: var(--color-primary-800);
+  --callout-warning-bg: var(--color-warning-50);
+  --callout-warning-border: var(--color-warning-300);
+  --callout-warning-title: var(--color-warning-800);
+}
+
+@mixin dark-theme {
+  color-scheme: dark;
+  --surface: var(--color-neutral-950);
+  --surface-subtle: var(--color-neutral-900);
+  --surface-raised: var(--color-neutral-900);
+  --surface-header: rgba(13, 18, 28, 0.88);
+  --border: var(--color-neutral-800);
+  --border-strong: var(--color-neutral-700);
+  --text-heading: var(--color-neutral-50);
+  --text: var(--color-neutral-300);
+  --text-muted: var(--color-neutral-400);
+  --text-subtle: var(--color-neutral-500);
+  --link: var(--color-primary-300);
+  --link-underline: var(--color-primary-800);
+  --accent: var(--color-primary-500);
+  --accent-hover: var(--color-primary-400);
+  --accent-soft: var(--color-primary-950);
+  --accent-soft-text: var(--color-primary-200);
+  --accent-outline: var(--color-primary-700);
+  --code-bg: var(--color-neutral-800);
+  --code-text: var(--color-neutral-100);
+  --kbd-border: var(--color-neutral-600);
+  --block-bg: var(--color-neutral-900);
+  --block-title-bg: var(--color-neutral-950);
+  --block-border: var(--color-neutral-800);
+  --ghost-bg: var(--color-neutral-900);
+  --ghost-bg-hover: var(--color-neutral-800);
+  --ghost-text: var(--color-neutral-200);
+  --ghost-text-hover: var(--color-neutral-50);
+  --ghost-border: var(--color-neutral-700);
+  --callout-tip-bg: var(--color-success-950);
+  --callout-tip-border: var(--color-success-800);
+  --callout-tip-title: var(--color-success-300);
+  --callout-note-bg: var(--color-info-950);
+  --callout-note-border: var(--color-info-800);
+  --callout-note-title: var(--color-info-300);
+  --callout-important-bg: var(--color-primary-950);
+  --callout-important-border: var(--color-primary-800);
+  --callout-important-title: var(--color-primary-300);
+  --callout-warning-bg: var(--color-warning-950);
+  --callout-warning-border: var(--color-warning-800);
+  --callout-warning-title: var(--color-warning-300);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-theme;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-theme;
 }
 
 *,
@@ -21,8 +118,8 @@ body {
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.5rem;
-  color: var(--color-text);
-  background: var(--color-surface);
+  color: var(--text);
+  background: var(--surface);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -32,7 +129,7 @@ img {
 }
 
 a {
-  color: var(--color-brand-hover);
+  color: var(--link);
 }
 
 code,
@@ -88,16 +185,16 @@ pre {
   padding: var(--space-3) var(--space-5);
 }
 .pb-btn-primary {
-  --btn-bg: var(--color-primary-600);
-  --btn-bg-hover: var(--color-primary-700);
+  --btn-bg: var(--accent);
+  --btn-bg-hover: var(--accent-hover);
   --btn-color: #ffffff;
 }
 .pb-btn-ghost {
-  --btn-bg: var(--color-primary-50);
-  --btn-bg-hover: var(--color-primary-25);
-  --btn-color: var(--color-neutral-600);
-  --btn-color-hover: var(--color-neutral-900);
-  --btn-border: 1px solid var(--color-neutral-300);
+  --btn-bg: var(--ghost-bg);
+  --btn-bg-hover: var(--ghost-bg-hover);
+  --btn-color: var(--ghost-text);
+  --btn-color-hover: var(--ghost-text-hover);
+  --btn-border: 1px solid var(--ghost-border);
   --btn-shadow-focus: 0 0 0 4px #98a2b324;
 }
 
@@ -105,8 +202,8 @@ pre {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  background: var(--color-neutral-50);
-  border: 1px solid var(--color-neutral-100);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
 }
@@ -116,21 +213,21 @@ pre {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
-  color: var(--color-neutral-900);
+  color: var(--text-heading);
 }
 .pb-card-body {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   letter-spacing: -0.28px;
-  color: var(--color-neutral-700);
+  color: var(--text);
 }
 
 /* Rendered Markdown */
 .prose {
   font-size: 1rem;
   line-height: 1.75rem;
-  color: var(--color-text);
+  color: var(--text);
 
   > :first-child {
     margin-top: 0;
@@ -140,7 +237,7 @@ pre {
   h3,
   h4 {
     position: relative;
-    color: var(--color-text-heading);
+    color: var(--text-heading);
     font-weight: 600;
     letter-spacing: -0.01em;
     scroll-margin-top: calc(var(--header-height) + var(--space-6));
@@ -151,7 +248,7 @@ pre {
     line-height: 2rem;
     margin: var(--space-12) 0 var(--space-4);
     padding-top: var(--space-6);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--border);
   }
 
   h3 {
@@ -168,7 +265,7 @@ pre {
 
   .heading-anchor {
     margin-left: var(--space-2);
-    color: var(--color-neutral-300);
+    color: var(--text-subtle);
     text-decoration: none;
     font-weight: 400;
     opacity: 0;
@@ -202,14 +299,14 @@ pre {
   }
 
   strong {
-    color: var(--color-text-heading);
+    color: var(--text-heading);
     font-weight: 600;
   }
 
   a {
-    color: var(--color-brand-hover);
+    color: var(--link);
     text-decoration: underline;
-    text-decoration-color: var(--color-primary-200);
+    text-decoration-color: var(--link-underline);
     text-underline-offset: 3px;
 
     &:hover {
@@ -221,8 +318,8 @@ pre {
     font-size: 0.875em;
     padding: 0.125rem 0.375rem;
     border-radius: var(--radius-base);
-    background: var(--color-neutral-100);
-    color: var(--color-neutral-800);
+    background: var(--code-bg);
+    color: var(--code-text);
   }
 
   kbd {
@@ -231,36 +328,36 @@ pre {
     padding: 0 var(--space-1-5);
     font-size: 0.8125rem;
     text-align: center;
-    border: 1px solid var(--color-neutral-300);
+    border: 1px solid var(--kbd-border);
     border-bottom-width: 2px;
     border-radius: var(--radius-base);
-    background: var(--color-surface);
+    background: var(--surface-raised);
   }
 
   img {
     display: block;
     margin: var(--space-6) auto;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
   }
 
   hr {
     border: 0;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--border);
     margin: var(--space-10) 0;
   }
 
   blockquote {
     margin: 0 0 var(--space-4);
     padding: var(--space-1) var(--space-5);
-    border-left: 3px solid var(--color-primary-300);
-    color: var(--color-text-muted);
+    border-left: 3px solid var(--accent-outline);
+    color: var(--text-muted);
   }
 
   .table-wrap {
     overflow-x: auto;
     margin: 0 0 var(--space-6);
-    border: 1px solid var(--color-neutral-200);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-lg);
   }
 
@@ -276,13 +373,13 @@ pre {
     padding: var(--space-3) var(--space-4);
     text-align: left;
     vertical-align: top;
-    border-bottom: 1px solid var(--color-neutral-100);
+    border-bottom: 1px solid var(--border);
   }
 
   th {
     font-weight: 600;
-    color: var(--color-text-heading);
-    background: var(--color-neutral-50);
+    color: var(--text-heading);
+    background: var(--surface-subtle);
     white-space: nowrap;
   }
 
@@ -327,24 +424,24 @@ pre {
 }
 
 .callout-tip {
-  --callout-border: var(--color-success-300);
-  --callout-bg: var(--color-success-50);
-  --callout-title: var(--color-success-800);
+  --callout-border: var(--callout-tip-border);
+  --callout-bg: var(--callout-tip-bg);
+  --callout-title: var(--callout-tip-title);
 }
 .callout-note {
-  --callout-border: var(--color-info-300);
-  --callout-bg: var(--color-info-50);
-  --callout-title: var(--color-info-800);
+  --callout-border: var(--callout-note-border);
+  --callout-bg: var(--callout-note-bg);
+  --callout-title: var(--callout-note-title);
 }
 .callout-important {
-  --callout-border: var(--color-primary-300);
-  --callout-bg: var(--color-primary-50);
-  --callout-title: var(--color-primary-800);
+  --callout-border: var(--callout-important-border);
+  --callout-bg: var(--callout-important-bg);
+  --callout-title: var(--callout-important-title);
 }
 .callout-warning {
-  --callout-border: var(--color-warning-300);
-  --callout-bg: var(--color-warning-50);
-  --callout-title: var(--color-warning-800);
+  --callout-border: var(--callout-warning-border);
+  --callout-bg: var(--callout-warning-bg);
+  --callout-title: var(--callout-warning-title);
 }
 
 /* Code blocks */
@@ -352,8 +449,8 @@ pre {
   margin: 0 0 var(--space-6);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-neutral-800);
-  background: var(--color-neutral-900);
+  border: 1px solid var(--block-border);
+  background: var(--block-bg);
 }
 
 .code-title {
@@ -364,8 +461,8 @@ pre {
   font-size: 0.75rem;
   line-height: 1rem;
   color: var(--color-neutral-400);
-  background: var(--color-neutral-950);
-  border-bottom: 1px solid var(--color-neutral-800);
+  background: var(--block-title-bg);
+  border-bottom: 1px solid var(--block-border);
 }
 
 .code-block pre,
@@ -376,7 +473,7 @@ pre {
   font-size: 0.8125rem;
   line-height: 1.5rem;
   color: var(--color-neutral-100);
-  background: var(--color-neutral-900);
+  background: var(--block-bg);
   tab-size: 2;
 }
 
@@ -391,8 +488,66 @@ pre {
 .hero-code {
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-neutral-800);
-  background: var(--color-neutral-900);
+  border: 1px solid var(--block-border);
+  background: var(--block-bg);
+}
+
+/* Theme toggle: the icon is picked by CSS so server and client markup match */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 0.15s ease-out,
+    border-color 0.15s ease-out,
+    background-color 0.15s ease-out;
+
+  &:hover {
+    color: var(--text-heading);
+    background: var(--surface-subtle);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .icon-sun {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle {
+    .icon-sun {
+      display: block;
+    }
+    .icon-moon {
+      display: none;
+    }
+  }
+}
+
+:root[data-theme='dark'] .theme-toggle {
+  .icon-sun {
+    display: block;
+  }
+  .icon-moon {
+    display: none;
+  }
 }
 
 /* highlight.js theme on neutral-900 */

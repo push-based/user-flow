@@ -22,11 +22,11 @@
 .doc-header {
   padding-bottom: var(--space-8);
   margin-bottom: var(--space-8);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--border);
 }
 
 .doc-section {
-  color: var(--color-brand-hover);
+  color: var(--link);
   margin: 0 0 var(--space-3);
 }
 
@@ -36,14 +36,14 @@
   line-height: 2.5rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--color-text-heading);
+  color: var(--text-heading);
 }
 
 .doc-lead {
   margin: 0;
   font-size: 1.125rem;
   line-height: 1.75rem;
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .doc-pager {
@@ -52,7 +52,7 @@
   gap: var(--space-4);
   margin-top: var(--space-16);
   padding-top: var(--space-8);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
 }
 
 .pager-link {
@@ -60,16 +60,16 @@
   flex-direction: column;
   gap: var(--space-1);
   padding: var(--space-4) var(--space-5);
-  border: 1px solid var(--color-neutral-200);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
   text-decoration: none;
-  background: var(--color-surface);
+  background: var(--surface-raised);
   transition:
     border-color 0.2s ease-out,
     box-shadow 0.2s ease-out;
 
   &:hover {
-    border-color: var(--color-primary-300);
+    border-color: var(--accent-outline);
     box-shadow: var(--shadow-sm);
   }
 }
@@ -81,12 +81,12 @@
 .pager-label {
   font-size: 0.75rem;
   line-height: 1rem;
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .pager-title {
   font-weight: 500;
-  color: var(--color-brand-hover);
+  color: var(--link);
 }
 
 .toc {
@@ -96,7 +96,7 @@
   max-height: calc(100vh - var(--header-height) - var(--space-16));
   overflow: auto;
   padding-left: var(--space-5);
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid var(--border);
 }
 
 @media (min-width: 1200px) {
@@ -107,7 +107,7 @@
 
 .toc-title {
   margin: 0 0 var(--space-3);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 }
 
 .toc-list {
@@ -122,11 +122,11 @@
 .toc-item a {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-text);
+  color: var(--text);
   text-decoration: none;
 
   &:hover {
-    color: var(--color-brand-hover);
+    color: var(--link);
   }
 }
 
@@ -134,6 +134,6 @@
   padding-left: var(--space-3);
 
   a {
-    color: var(--color-text-muted);
+    color: var(--text-muted);
   }
 }

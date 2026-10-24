@@ -9,8 +9,8 @@
   top: -100px;
   left: var(--space-4);
   padding: var(--space-2) var(--space-3);
-  background: var(--color-surface);
-  color: var(--color-brand-hover);
+  background: var(--surface-raised);
+  color: var(--link);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   z-index: 100;
@@ -25,9 +25,9 @@
   top: 0;
   z-index: 20;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--surface-header);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--border);
 }
 
 .site-header-inner {
@@ -42,12 +42,12 @@
   align-items: center;
   gap: var(--space-3);
   text-decoration: none;
-  color: var(--color-text-heading);
+  color: var(--text-heading);
 }
 
 .brand-logo {
-  height: 20px;
-  width: auto;
+  height: 32px;
+  width: 32px;
 }
 
 .brand-name {
@@ -69,17 +69,21 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
-  color: var(--color-neutral-600);
+  color: var(--text-muted);
   text-decoration: none;
 
   &:hover,
   &.active {
-    color: var(--color-text-heading);
+    color: var(--text-heading);
   }
 }
 
 .menu-toggle {
   display: none;
+}
+
+.theme-toggle {
+  flex-shrink: 0;
 }
 
 .page {
@@ -111,7 +115,7 @@
 
 .sidebar-section {
   margin: var(--space-6) 0 var(--space-2);
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 
   &:first-child {
     margin-top: 0;
@@ -133,20 +137,20 @@
   border-radius: var(--radius-md);
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--color-text);
+  color: var(--text);
   text-decoration: none;
   transition:
     background-color 0.15s ease-out,
     color 0.15s ease-out;
 
   &:hover {
-    background: var(--color-neutral-50);
-    color: var(--color-text-heading);
+    background: var(--surface-subtle);
+    color: var(--text-heading);
   }
 
   &.active {
-    background: var(--color-primary-50);
-    color: var(--color-primary-700);
+    background: var(--accent-soft);
+    color: var(--accent-soft-text);
     font-weight: 500;
   }
 }
@@ -174,9 +178,9 @@
     position: static;
     max-height: none;
     padding: var(--space-4);
-    border: 1px solid var(--color-neutral-200);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-lg);
-    background: var(--color-surface);
+    background: var(--surface-raised);
   }
 
   .sidebar-open {
@@ -189,13 +193,13 @@
 }
 
 .site-footer {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
   padding: var(--space-6) 0;
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: var(--text-muted);
 
   a {
-    color: var(--color-brand-hover);
+    color: var(--link);
     text-decoration: none;
   }
 }

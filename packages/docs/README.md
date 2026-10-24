@@ -29,6 +29,8 @@ Markdown extras:
 - Links that start with `/docs/` are in-app links and are rewritten for the base href.
 - Images live in `public/images` and are referenced as `images/<file>`.
 
+The site follows the system colour scheme and offers a toggle in the header; the choice is stored in `localStorage`. Colours come from the push-based design tokens in `src/tokens.scss`, mapped to semantic roles with light and dark values in `src/styles.scss`. Use the semantic roles (`--surface`, `--text`, `--border`, `--accent`, ...) in components, never the raw `--color-*` ramps.
+
 ## Deploy
 
 `.github/workflows/docs.yml` builds and deploys the site on every push to `main` that touches the docs. The repository's Pages source must be set to "GitHub Actions".

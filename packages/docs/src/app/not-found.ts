@@ -24,11 +24,11 @@ import { RouterLink } from '@angular/router';
       margin: var(--space-3) 0;
       font-size: 2rem;
       line-height: 2.5rem;
-      color: var(--color-text-heading);
+      color: var(--text-heading);
     }
     p {
       margin: 0 0 var(--space-6);
-      color: var(--color-text-muted);
+      color: var(--text-muted);
     }
   `,
 })
