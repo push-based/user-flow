@@ -13,7 +13,8 @@
     "@push-based/user-flow:init": "npm run @push-based/user-flow -- init -v",
     "@push-based/user-flow:assert": "npm run @push-based/user-flow -- assert -v",
     "@push-based/user-flow:collect": "npm run @push-based/user-flow -- collect -v",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "e2e:update-workspace-fixture": "tsx e2e/nx-plugin-e2e/tools/update-workspace-fixture.ts"
   },
   "dependencies": {
     "@puppeteer/replay": "^4.0.2",

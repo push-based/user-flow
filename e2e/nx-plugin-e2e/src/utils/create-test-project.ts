@@ -1,19 +1,18 @@
-import { execSync } from 'node:child_process';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 
-/**
- * Pinned to the workspace's own Nx version. With `@latest` the generated
- * workspace can drift ahead of the plugin it is meant to exercise.
- */
-const NX_VERSION = '24.0.0';
+import {
+  assertFixtureMatchesWorkspace,
+  FIXTURE_DIR,
+} from './workspace-fixture';
 
 const PUBLIC_REGISTRY = 'https://registry.npmjs.org/';
 
 /**
  * `startLocalRegistry` points `npm_config_registry` at verdaccio for the whole
- * process. Left alone, scaffolding a workspace drags its entire dependency
+ * process. Left alone, installing a workspace drags its entire dependency
  * tree - ~220MB across 159 scopes - through the local proxy on every run.
  *
  * Only `@push-based/*` has to come from verdaccio, so everything else is sent
@@ -32,14 +31,13 @@ export function publicRegistryEnv(): NodeJS.ProcessEnv {
  * @returns The directory the test workspace was created in
  */
 export function createTestProject(projectName = 'test-project'): string {
+  assertFixtureMatchesWorkspace();
+
   const localRegistry = process.env.npm_config_registry;
   const parentDirectory = mkdtempSync(join(tmpdir(), 'user-flow-e2e-'));
   const projectDirectory = join(parentDirectory, projectName);
 
-  execSync(
-    `npx --yes create-nx-workspace@${NX_VERSION} ${projectName} --preset apps --nxCloud=skip --no-interactive --packageManager=npm`,
-    { cwd: parentDirectory, stdio: 'inherit', env: publicRegistryEnv() },
-  );
+  cpSync(FIXTURE_DIR, projectDirectory, { recursive: true });
 
   if (localRegistry) {
     // Scope the local registry to the packages under test. The default registry
@@ -53,6 +51,14 @@ export function createTestProject(projectName = 'test-project'): string {
       ].join('\n'),
     );
   }
+
+  // `ci` rather than `install`: it reproduces the committed lockfile exactly,
+  // and refuses to run at all if the lockfile and the manifest drift apart.
+  execFileSync('npm', ['ci'], {
+    cwd: projectDirectory,
+    stdio: 'inherit',
+    env: publicRegistryEnv(),
+  });
 
   console.log(`Created test project in "${projectDirectory}"`);
 
