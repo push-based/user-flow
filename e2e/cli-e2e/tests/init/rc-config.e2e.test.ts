@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CliTest, DEFAULT_RC, KEYBOARD } from '../../utils/setup';
+import { CliTest, DEFAULT_RC, KEYBOARD, stripNodeWarnings } from '../../utils/setup';
 import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -18,7 +18,7 @@ describe('.rc.json in empty sandbox', () => {
       ]);
 
       const { code, stderr } = await cli.waitForClose();
-      expect(stderr).toBe('');
+      expect(stripNodeWarnings(stderr)).toBe('');
       expect(code).toBe(0);
 
       const rc = JSON.parse(
@@ -48,7 +48,7 @@ describe('.rc.json in empty sandbox', () => {
       ]);
 
       const { code, stderr } = await cli.waitForClose();
-      expect(stderr).toBe('');
+      expect(stripNodeWarnings(stderr)).toBe('');
       expect(code).toBe(0);
 
       const rc = JSON.parse(
@@ -84,7 +84,7 @@ describe('.rc.json in empty sandbox', () => {
       ]);
 
       const { code, stderr } = await cli.waitForClose();
-      expect(stderr).toBe('');
+      expect(stripNodeWarnings(stderr)).toBe('');
       expect(code).toBe(0);
 
       const rc = JSON.parse(
@@ -192,7 +192,7 @@ describe('.rc.json in remote sandbox', () => {
     expect(stdout).toContain(`outPath: '${DEFAULT_RC.persist.outPath}'`);
     expect(stdout).toContain(`format: [ '${DEFAULT_RC.persist.format}' ]`);
 
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 });

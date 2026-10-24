@@ -1,5 +1,5 @@
 import { describe, expect } from 'vitest';
-import { CliTest, DEFAULT_RC, KEYBOARD, USER_FLOW_MOCKS } from '../../utils/setup';
+import { CliTest, DEFAULT_RC, KEYBOARD, stripNodeWarnings, USER_FLOW_MOCKS } from '../../utils/setup';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -26,7 +26,7 @@ describe('init command', () => {
     const { code, stdout, stderr} = await cli.waitForClose();
 
     expect(stdout).toContain('user-flow CLI is set up now! 🎉');
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 
@@ -37,7 +37,7 @@ describe('init command', () => {
     const { code, stdout, stderr} = await cli.run('user-flow', ['init']);
 
     expect(stdout).toContain('user-flow CLI is set up now! 🎉');
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 
@@ -48,7 +48,7 @@ describe('init command', () => {
     const { code, stdout, stderr} = await cli.run('user-flow', ['init', '--generateGhWorkflow']);
 
     expect(stdout).toContain('user-flow CLI is set up now! 🎉');
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
     expect(existsSync(join(root, '.github', 'workflows', 'user-flow-ci.yml'))).toBeTruthy();
   });

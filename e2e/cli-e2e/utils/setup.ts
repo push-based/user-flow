@@ -54,3 +54,23 @@ export type CliTest = {
     code: number | null;
   }
 };
+
+/**
+ * Node writes its own diagnostics to the CLI's stderr - deprecation and
+ * experimental warnings that come from the runtime, not from user-flow. They
+ * vary by Node version, so asserting on raw stderr makes the suite pass or fail
+ * on which Node happens to be installed rather than on the CLI's behaviour.
+ *
+ * Strips those lines so a test can still assert the CLI itself stayed quiet.
+ */
+export function stripNodeWarnings(stderr: string): string {
+  return stderr
+    // `(node:123) [DEP0205] DeprecationWarning: ...`
+    .replace(/^\(node:\d+\) .*(?:\r?\n|$)/gm, '')
+    // the follow-up hint Node prints under a warning
+    .replace(
+      /^\(Use `node --trace-\S+ \.\.\.` to show where the warning was created\)(?:\r?\n|$)/gm,
+      ''
+    )
+    .trim();
+}

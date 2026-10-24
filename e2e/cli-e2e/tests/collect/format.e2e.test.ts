@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { CliTest, DEFAULT_RC, USER_FLOW_MOCKS } from '../../utils/setup';
+import { CliTest, DEFAULT_RC, stripNodeWarnings, USER_FLOW_MOCKS } from '../../utils/setup';
 
 const DUMMY_USER_FLOW_NAME = 'Basic Navigation Example';
 const MOCK_MD_REPORT_HEADER = '| Gather Mode | Performance | Accessibility | Best Practices | Seo |';
@@ -16,7 +16,7 @@ describe('collect format', () => {
 
       const { code, stderr } = await cli.run('user-flow', ['collect']);
 
-      expect(stderr).toBe('');
+      expect(stripNodeWarnings(stderr)).toBe('');
       expect(code).toBe(0);
 
       const resultFileNames = getResultFile(root);
@@ -36,7 +36,7 @@ describe('collect format', () => {
 
     expect(stdout).toContain(MOCK_MD_REPORT_HEADER)
     expect(stdout).toContain(DUMMY_USER_FLOW_NAME);
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
 
@@ -57,7 +57,7 @@ describe('collect format', () => {
 
     expect(stdout).toContain(MOCK_MD_REPORT_HEADER)
     expect(stdout).toContain(DUMMY_USER_FLOW_NAME);
-    expect(stderr).toBe('');
+    expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   })
 });
