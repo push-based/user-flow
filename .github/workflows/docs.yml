@@ -1,0 +1,58 @@
+name: docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/docs/**'
+      - '.github/workflows/docs.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: docs
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build and prerender
+        run: npx nx build docs --configuration=production --skip-nx-cache
+      - name: Prepare GitHub Pages artifact
+        # Unknown routes fall back to the app shell and `.nojekyll` keeps Pages from ignoring files that start with an underscore.
+        run: |
+          cp dist/packages/docs/browser/index.csr.html dist/packages/docs/browser/404.html
+          touch dist/packages/docs/browser/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/packages/docs/browser
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.repository == 'push-based/user-flow'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

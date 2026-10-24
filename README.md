@@ -3,6 +3,8 @@
 
 [![npm](https://img.shields.io/npm/v/%40push-based%2Fuser-flow.svg)](https://www.npmjs.com/package/%40push-based%2Fuser-flow)
 
+📖 **Documentation:** [push-based.github.io/user-flow](https://push-based.github.io/user-flow/)
+
 ---
 
 ### This is a library & CLI to organize and run Lighthouse user flows in an organized and scalable way 🛸 with CI automation in place

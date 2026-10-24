@@ -39,11 +39,21 @@
         "registry": "https://registry.npmjs.org/",
         "access": "public"
       }
+    },
+    "@angular/build:application": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "generators": {
     "@push-based/user-flow-nx-plugin:target": {
       "targetName": "user-flow"
+    },
+    "@nx/angular:application": {
+      "e2eTestRunner": "none",
+      "style": "scss",
+      "unitTestRunner": "none"
     }
   },
   "nxCloudAccessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
