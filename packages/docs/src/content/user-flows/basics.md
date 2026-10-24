@@ -1,4 +1,4 @@
-A user flow is a small TypeScript module that describes interactions with a page and marks which parts of them Lighthouse should measure. Think of it as a front end end-to-end test that records performance data while it runs.
+A user flow is a small TypeScript module that describes interactions with a page and marks which parts of them Lighthouse should measure. Think of it as a front-end end-to-end test that records performance data while it runs.
 
 ## Anatomy of a flow file
 
@@ -48,11 +48,13 @@ The `UserFlowContext` passed to `interactions` contains:
 
 Lighthouse offers three kinds of steps. Each covers a different question and supports a different set of audits.
 
-| Icon                                                     | Mode           | Measures                      | Performance | Accessibility | Best practices | SEO       | PWA   |
-| -------------------------------------------------------- | -------------- | ----------------------------- | ----------- | ------------- | -------------- | --------- | ----- |
-| ![Navigation icon](images/user-flow_navigation-icon.png) | **Navigation** | A page load                   | 100% / 30   | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
-| ![Timespan icon](images/user-flow_timespan-icon.png)     | **Timespan**   | A user interaction over time  | 10 / 10     | ❌            | 7 / 7          | ❌        | ❌    |
-| ![Snapshot icon](images/user-flow_snapshot-icon.png)     | **Snapshot**   | The current state of the page | 4 / 4       | 16 / 16       | 5 / 5          | 9 / 9     | ❌    |
+| Mode                                                                      | Measures                      | Performance | Accessibility | Best practices | SEO       | PWA   |
+| ------------------------------------------------------------------------- | ----------------------------- | ----------- | ------------- | -------------- | --------- | ----- |
+| ![Navigation](images/user-flow_navigation-icon.png 'icon') **Navigation** | A page load                   | 100% / 30   | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
+| ![Timespan](images/user-flow_timespan-icon.png 'icon') **Timespan**       | A user interaction over time  | 10 / 10     | ❌            | 7 / 7          | ❌        | ❌    |
+| ![Snapshot](images/user-flow_snapshot-icon.png 'icon') **Snapshot**       | The current state of the page | 4 / 4       | 16 / 16       | 5 / 5          | 9 / 9     | ❌    |
+
+The numbers are the audits each mode supports per category, with the share of the category score they cover.
 
 - **Navigation** is the classic Lighthouse run. Use it for cold and warm page loads.
 - **Timespan** records everything between `startTimespan` and `endTimespan`. It is the only mode that captures runtime work such as long tasks, layout shifts and network requests triggered by an interaction.
@@ -64,7 +66,7 @@ The report shows the icon next to each step so you can tell the modes apart at a
 
 ## Choosing selectors
 
-Decouple test selectors from the selectors used for styling. A data attribute that exists only for tests, such as `[data-test="lcp-img"]`, survives refactorings of markup and CSS. The following attributes are recognised by the [DevTools Recorder](https://developer.chrome.com/blog/new-in-devtools-100/#selector) as well, which keeps recordings and hand written flows consistent:
+Decouple test selectors from the selectors used for styling. A data attribute that exists only for tests, such as `[data-test="lcp-img"]`, survives refactorings of markup and CSS. The following attributes are recognised by the [DevTools Recorder](https://developer.chrome.com/blog/new-in-devtools-100/#selector) as well, which keeps recordings and hand-written flows consistent:
 
 `data-testid`, `data-test`, `data-qa`, `data-cy`, `data-test-id`, `data-qa-id`, `data-testing`
 

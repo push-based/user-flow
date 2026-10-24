@@ -2,7 +2,7 @@ Beyond the command options, the CLI has a few conventions that make it quicker t
 
 ## Prompts
 
-When a required value is missing and the CLI runs interactively it asks for it. Single value prompts take text input. Multi-select prompts, such as the report format, support these keys (see the [enquirer multiselect reference](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md) for more):
+When a required value is missing and the CLI runs interactively it asks for it. Single-value prompts take text input. Multi-select prompts, such as the report format, support these keys (see the [enquirer multiselect reference](https://github.com/enquirer/enquirer/blob/master/docs/prompts/multiselect.md) for more):
 
 | Key                          | Effect                                          |
 | ---------------------------- | ----------------------------------------------- |
@@ -12,7 +12,7 @@ When a required value is missing and the CLI runs interactively it asks for it. 
 | <kbd>i</kbd>                 | Invert the current selection.                   |
 | <kbd>g</kbd>                 | Toggle the current choice group.                |
 
-To avoid prompts altogether, run with `--interactive false` (or `-i false`). The CLI then uses the suggested default for every question, or fails with a clear error when there is no sensible default. This is the automatic behaviour in CI mode, see [CLI modes](/docs/cli/overview#cli-modes).
+To avoid prompts altogether, run with `--interactive false` (or `-i false`). The CLI then uses the suggested default for every question, or fails with a clear error when there is no sensible default. This is the automatic behaviour in CI mode; see [CLI modes](/docs/cli/overview#cli-modes).
 
 ## Options with several values
 

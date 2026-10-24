@@ -6,7 +6,7 @@ When you write flows for several pages, many interactions or even different plat
 
 ## The idea
 
-UFOs are close to the [Page Object](https://martinfowler.com/bliki/PageObject.html) pattern: a class per piece of UI that hides _how_ the UI is accessed behind methods that say _what_ happens. The difference is the focus. A UFO cares about performance relevant moments, for example "the LCP element of this list is visible" or "this facade became interactive".
+UFOs are close to the [Page Object](https://martinfowler.com/bliki/PageObject.html) pattern: a class per piece of UI that hides _how_ the UI is accessed behind methods that say _what_ happens. The difference is the focus. A UFO cares about performance-relevant moments, for example "the LCP element of this list is visible" or "this facade became interactive".
 
 The code is split into three layers:
 

@@ -1,4 +1,4 @@
-The Chrome DevTools [Recorder](https://developer.chrome.com/docs/devtools/recorder/) records clicks, inputs and navigations as you use a page and exports them as a JSON file. user-flow can replay such a recording as a Lighthouse user flow and lets you add measurement steps directly to the JSON. The result is a flow without a single line of hand written interaction code.
+The Chrome DevTools [Recorder](https://developer.chrome.com/docs/devtools/recorder/) records clicks, inputs and navigations as you use a page and exports them as a JSON file. user-flow can replay such a recording as a Lighthouse user flow and lets you add measurement steps directly to the JSON. The result is a flow without a single line of hand-written interaction code.
 
 If the Recorder is new to you, these resources cover the basics:
 
@@ -60,7 +60,7 @@ Run `npx user-flow` and the report shows a single timespan covering the entire r
 
 ## 3. Add measurement steps to the recording
 
-One timespan over everything is a coarse measurement. To see each interaction on its own, add measurement steps to the recording's `steps` array. user-flow understands the following step types next to the regular Recorder steps:
+One timespan over everything is a coarse measurement. To see each interaction on its own, add measurement steps to the recording's `steps` array. user-flow understands the following step types in addition to the regular Recorder steps:
 
 | Type                                | Lighthouse call                                   |
 | ----------------------------------- | ------------------------------------------------- |
@@ -89,7 +89,7 @@ Because the recording now contains its own measurement steps, remove the surroun
 
 ```typescript title="user-flows/order-coffee.uf.mts"
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
-  const runner = await createUserFlowRunner('./recordings/order-coffee-2.replay.json', ctx);
+  const runner = await createUserFlowRunner('./recordings/order-coffee.replay.json', ctx);
   await runner.run();
 };
 ```
@@ -126,6 +126,6 @@ Measurement steps accept the same options as their Lighthouse counterparts throu
 
 ## Mixing recordings and code
 
-A recording and hand written code are not mutually exclusive. A flow can navigate with `flow.navigate`, replay a recording for the tricky part of an interaction and finish with a snapshot written by hand. The runner uses the same `page` as the rest of the flow, so state carries over.
+A recording and hand-written code are not mutually exclusive. A flow can navigate with `flow.navigate`, replay a recording for the tricky part of an interaction and finish with a snapshot written by hand. The runner uses the same `page` as the rest of the flow, so state carries over.
 
 The repository contains complete examples under [`packages/user-flow-example/replay-examples`](https://github.com/push-based/user-flow/tree/main/packages/user-flow-example/replay-examples) together with the recordings they use.

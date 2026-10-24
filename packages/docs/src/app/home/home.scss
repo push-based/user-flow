@@ -5,7 +5,7 @@
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-10);
+  gap: var(--space-6);
   align-items: center;
   padding: var(--space-12) 0 var(--space-16);
   border-bottom: 1px solid var(--border);
@@ -14,27 +14,39 @@
 @media (min-width: 900px) {
   .hero {
     grid-template-columns: minmax(0, 1fr) 320px;
+    gap: var(--space-10);
   }
 }
 
 .hero-visual {
-  display: none;
-  justify-content: center;
+  display: flex;
+  justify-content: flex-start;
+  order: -1;
 }
 
 @media (min-width: 900px) {
   .hero-visual {
-    display: flex;
+    justify-content: center;
+    order: 0;
   }
 }
 
 .hero-mark {
-  width: 240px;
-  height: 240px;
-  padding: var(--space-8);
-  border-radius: var(--radius-3xl);
+  width: 96px;
+  height: 96px;
+  padding: var(--space-4);
+  border-radius: var(--radius-2xl);
   background: var(--surface-subtle);
   border: 1px solid var(--border);
+}
+
+@media (min-width: 900px) {
+  .hero-mark {
+    width: 240px;
+    height: 240px;
+    padding: var(--space-8);
+    border-radius: var(--radius-3xl);
+  }
 }
 
 .hero-eyebrow {

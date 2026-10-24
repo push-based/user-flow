@@ -6,7 +6,7 @@
 | [`examples/github-report`](https://github.com/push-based/user-flow/tree/main/examples/github-report)         | A minimal flow executed in a GitHub workflow with the Markdown report posted as a sticky PR comment.        |
 | [`packages/cli/docs/raw`](https://github.com/push-based/user-flow/tree/main/packages/cli/docs/raw)           | Raw reports in every format for the "order coffee" flow, useful to see what the output looks like.          |
 
-## Real world usage
+## Real-world usage
 
 - [angular-movies](https://github.com/tastejs/angular-movies/tree/main/projects/movies-user-flows/src) keeps its user flows in a dedicated project and uses the UFO architecture for a production Angular application.
 

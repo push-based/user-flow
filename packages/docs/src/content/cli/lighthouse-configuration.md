@@ -99,4 +99,4 @@ export default {
 ```
 
 > [!NOTE]
-> Lighthouse offers several command line short-hands, such as `--only-categories`, as shortcuts for common settings. The user-flow CLI ports parts of that behaviour; everything else is available through the config object shown above.
+> Lighthouse offers several command line shorthands, such as `--only-categories`, as shortcuts for common settings. The user-flow CLI ports parts of that behaviour; everything else is available through the config object shown above.

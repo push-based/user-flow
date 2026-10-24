@@ -3,7 +3,7 @@ The CLI runs inside an npm project. It needs Node.js and a folder to keep flows 
 ## Requirements
 
 - **Node.js 22.19 or newer.** Check with `node -v` and `npm -v`.
-- **Chrome.** Lighthouse drives Chrome through Puppeteer. Puppeteer downloads a matching Chrome build during installation; on a CI runner you may need to trigger that explicitly, see [GitHub workflow](/docs/integrations/github-workflow).
+- **Chrome.** Lighthouse drives Chrome through Puppeteer. Puppeteer downloads a matching Chrome build during installation; on a CI runner you may need to trigger that explicitly; see [GitHub workflow](/docs/integrations/github-workflow).
 
 ## Install in an existing project
 

@@ -33,7 +33,7 @@ Supplying every value makes `init` fully non-interactive, which is useful in set
 npx user-flow init --url http://test.io --ufPath user-flows --format json --outPath measures
 ```
 
-Formats accept the flag several times:
+For several formats, repeat the flag:
 
 ```bash
 npx user-flow init --url http://test.io --format json --format md --outPath tmp/user-flows

@@ -120,14 +120,27 @@
 }
 
 .toc-item a {
+  display: block;
+  margin-left: calc(-1 * var(--space-5) - 1px);
+  padding-left: var(--space-5);
+  border-left: 1px solid transparent;
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: var(--text);
   text-decoration: none;
+  transition:
+    color 0.15s ease-out,
+    border-color 0.15s ease-out;
 
   &:hover {
     color: var(--link);
   }
+}
+
+.toc-item-active a {
+  color: var(--link);
+  border-left-color: var(--accent);
+  font-weight: 500;
 }
 
 .toc-item-nested {

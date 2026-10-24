@@ -31,7 +31,7 @@ The prompts write a `.user-flowrc.json` to the current folder:
 - `persist.format` lists the report formats to produce.
 
 > [!TIP]
-> Keep user flows in a sub folder of a larger project by pointing `init` at a different rc file:
+> Keep user flows in a subfolder of a larger project by pointing `init` at a different rc file:
 > `npx user-flow init --rcPath ./path/to/project/.user-flowrc.json`
 
 ## 2. Look at the generated flow
@@ -86,7 +86,7 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 ```
 
 > [!TIP]
-> While you are writing interactions, add `--dryRun`. The CLI performs the interactions but skips the measurements, which turns a 53 second run into roughly 3 seconds for a simple two step flow.
+> While you are writing interactions, add `--dryRun`. The CLI performs the interactions but skips the measurements, which turns a 53-second run into roughly 3 seconds for a simple two-step flow.
 
 ## Next steps
 

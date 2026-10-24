@@ -6,7 +6,7 @@ A classic Lighthouse run audits one cold page load. Real users do more than that
 
 user-flow takes that boilerplate away. You describe interactions in a small TypeScript file, the CLI launches Chrome, drives Lighthouse through the flow and writes the report for you.
 
-![Code reduction when switching from a hand written Lighthouse user flow to user-flow](https://user-images.githubusercontent.com/10064416/197062344-4c49c73b-beed-4a7e-92f9-c4855e9f436d.PNG)
+![Code reduction when switching from a hand-written Lighthouse user flow to user-flow](https://user-images.githubusercontent.com/10064416/197062344-4c49c73b-beed-4a7e-92f9-c4855e9f436d.PNG)
 
 ## What you get
 

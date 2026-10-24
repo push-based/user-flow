@@ -119,13 +119,39 @@ export function renderMarkdown(
         return `<aside class="callout callout-${kind.toLowerCase()}"><p class="callout-title">${CALLOUTS[kind]}</p>${body}</aside>\n`;
       },
       table({ header, rows }: Tokens.Table) {
-        const cell = (c: Tokens.TableCell, tag: 'th' | 'td') =>
-          `<${tag}${c.align ? ` style="text-align:${c.align}"` : ''}>${this.parser.parseInline(c.tokens)}</${tag}>`;
-        const head = `<tr>${header.map((c) => cell(c, 'th')).join('')}</tr>`;
+        const labels = header.map((c) =>
+          this.parser.parseInline(c.tokens).replace(/<[^>]+>/g, ''),
+        );
+        const cell = (c: Tokens.TableCell, tag: 'th' | 'td', index: number) => {
+          const attrs = [
+            c.align ? `style="text-align:${c.align}"` : '',
+            tag === 'td'
+              ? `data-label="${escapeHtml(labels[index] ?? '')}"`
+              : '',
+          ]
+            .filter(Boolean)
+            .join(' ');
+          return `<${tag}${attrs ? ' ' + attrs : ''}>${this.parser.parseInline(c.tokens)}</${tag}>`;
+        };
+        const head = `<tr>${header.map((c, i) => cell(c, 'th', i)).join('')}</tr>`;
         const body = rows
-          .map((r) => `<tr>${r.map((c) => cell(c, 'td')).join('')}</tr>`)
+          .map((r) => `<tr>${r.map((c, i) => cell(c, 'td', i)).join('')}</tr>`)
           .join('');
         return `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>\n`;
+      },
+      image({ href, title, text }: Tokens.Image) {
+        // A title of "icon" marks small inline images, such as the measurement mode icons.
+        const icon = title === 'icon';
+        const attrs = [
+          `src="${href}"`,
+          `alt="${escapeHtml(text)}"`,
+          icon ? 'class="img-icon" width="20" height="20"' : '',
+          !icon && title ? `title="${escapeHtml(title)}"` : '',
+          'loading="lazy"',
+        ]
+          .filter(Boolean)
+          .join(' ');
+        return `<img ${attrs}>`;
       },
       link({ href, title, tokens }: Tokens.Link) {
         const inner = this.parser.parseInline(tokens);

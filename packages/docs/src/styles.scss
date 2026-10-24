@@ -205,7 +205,13 @@ pre {
   background: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: var(--space-8);
+  padding: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .pb-card {
+    padding: var(--space-8);
+  }
 }
 .pb-card-title {
   margin: 0;
@@ -387,7 +393,8 @@ pre {
     border-bottom: 0;
   }
 
-  td code {
+  td code,
+  td:first-child {
     white-space: nowrap;
   }
 
@@ -395,6 +402,77 @@ pre {
     margin: 0;
     border: 0;
     border-radius: 0;
+  }
+
+  .img-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 var(--space-1-5) 0 0;
+    vertical-align: -4px;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+/* Below phone-landscape width, tables stack: every cell becomes a labelled row */
+@media (max-width: 639px) {
+  .prose {
+    .table-wrap {
+      border: 0;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    table,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: var(--space-3);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      background: var(--surface-raised);
+    }
+
+    td {
+      padding: var(--space-2-5) var(--space-3);
+      border-bottom: 1px solid var(--border);
+      white-space: normal;
+    }
+
+    td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: var(--space-0-5);
+      font-size: 0.6875rem;
+      line-height: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    td:empty {
+      display: none;
+    }
+
+    td:last-child {
+      border-bottom: 0;
+    }
+
+    td code {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
   }
 }
 

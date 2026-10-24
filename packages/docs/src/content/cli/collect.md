@@ -116,7 +116,7 @@ npx user-flow collect --dryRun
 npx user-flow collect --no-dryRun
 ```
 
-A simple two step flow with navigation takes about **3 seconds** in a dry run compared to **53 seconds** with measurements. Reports are produced in all configured formats, with dummy numbers.
+A simple two-step flow with navigation takes about **3 seconds** in a dry run compared to **53 seconds** with measurements. Reports are produced in all configured formats, with dummy numbers.
 
 ## openReport
 

@@ -130,7 +130,7 @@ jobs:
 
 ## Measuring a preview deployment
 
-Pass the URL of the deployment under test to the CLI instead of hard coding it in the rc file. Most hosting providers expose the preview URL as an output of their deploy step:
+Pass the URL of the deployment under test to the CLI instead of hard-coding it in the rc file. Most hosting providers expose the preview URL as an output of their deploy step:
 
 ```yaml
 - name: Run user flows against the preview

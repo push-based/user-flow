@@ -7,6 +7,7 @@
     </header>
 
     <div
+      #prose
       class="prose"
       [innerHTML]="html()"
       (click)="onContentClick($event)"
@@ -34,8 +35,16 @@
     <p class="toc-title text-subtitle">On this page</p>
     <ul class="toc-list">
       @for (entry of doc().toc; track entry.id) {
-      <li class="toc-item" [class.toc-item-nested]="entry.level === 3">
-        <a [href]="'#' + entry.id">{{ entry.text }}</a>
+      <li
+        class="toc-item"
+        [class.toc-item-nested]="entry.level === 3"
+        [class.toc-item-active]="entry.id === activeId()"
+      >
+        <a
+          [href]="'#' + entry.id"
+          [attr.aria-current]="entry.id === activeId() ? 'location' : null"
+          >{{ entry.text }}</a
+        >
       </li>
       }
     </ul>

@@ -28,7 +28,7 @@ export class Home {
     },
     {
       title: 'Fast feedback with dry runs',
-      body: 'Skip the measurements while you write interactions. A dry run takes seconds instead of a minute, then switch it off for real numbers.',
+      body: 'Skip the measurements while you write interactions. A dry run takes seconds instead of a minute; then switch it off for real numbers.',
     },
     {
       title: 'Replay DevTools recordings',
