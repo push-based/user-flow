@@ -23,17 +23,44 @@ const VERSIONED_MANIFESTS = [
   'packages/nx-plugin/package.json',
 ].map((manifest) => join(workspaceRoot, manifest));
 
+const REGISTRY_START_TIMEOUT_MS = 180_000;
+
+/**
+ * `startLocalRegistry` resolves only once verdaccio prints its URL, and never
+ * rejects if that line does not arrive - which strands the run until the CI job
+ * is killed. Bound it so the failure is reported instead.
+ */
+function withTimeout<T>(
+  promise: Promise<T>,
+  ms: number,
+  message: string,
+): Promise<T> {
+  let timer: NodeJS.Timeout;
+  return Promise.race([
+    promise.finally(() => clearTimeout(timer)),
+    new Promise<never>((_, reject) => {
+      timer = setTimeout(() => reject(new Error(`${message} (${ms}ms)`)), ms);
+    }),
+  ]);
+}
+
 export default async () => {
   // local registry target to run
   const localRegistryTarget = '@push-based/user-flow-source:local-registry';
   // storage folder for the local registry
   const storage = './tmp/local-registry/storage';
 
-  global.stopLocalRegistry = await startLocalRegistry({
-    localRegistryTarget,
-    storage,
-    verbose: false,
-  });
+  global.stopLocalRegistry = await withTimeout(
+    startLocalRegistry({
+      localRegistryTarget,
+      storage,
+      // verdaccio's own output, otherwise a registry that never reports ready
+      // leaves no trace of why
+      verbose: true,
+    }),
+    REGISTRY_START_TIMEOUT_MS,
+    'local registry did not report ready',
+  );
 
   const originalManifests = new Map(
     VERSIONED_MANIFESTS.map((path) => [path, readFileSync(path, 'utf8')]),
@@ -72,6 +99,11 @@ export default async () => {
         `Failed to publish to the local registry: ${failed.join(', ')}`,
       );
     }
+  } catch (error) {
+    // jest skips globalTeardown when globalSetup throws, which would strand
+    // verdaccio holding its port for every later run on this machine
+    global.stopLocalRegistry?.();
+    throw error;
   } finally {
     for (const [path, contents] of originalManifests) {
       writeFileSync(path, contents);
