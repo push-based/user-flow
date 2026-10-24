@@ -211,6 +211,58 @@
   gap: var(--space-3);
 }
 
+.site-footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  --pb-logo-mark: #2d0064;
+  --pb-logo-red: var(--color-secondary-600);
+  --pb-logo-word: #2d0064;
+  transition: opacity 0.15s ease-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.pb-logo {
+  height: 18px;
+  width: auto;
+  display: block;
+}
+
+.pb-logo-mark {
+  fill: var(--pb-logo-mark);
+}
+.pb-logo-red {
+  fill: var(--pb-logo-red);
+}
+.pb-logo-word {
+  fill: var(--pb-logo-word);
+}
+
+@mixin footer-logo-dark {
+  .site-footer-brand {
+    --pb-logo-mark: var(--color-primary-300);
+    --pb-logo-word: var(--color-neutral-100);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) :host {
+    @include footer-logo-dark;
+  }
+}
+
+:root[data-theme='dark'] :host {
+  @include footer-logo-dark;
+}
+
 @media (max-width: 479px) {
   .brand-name {
     display: none;
