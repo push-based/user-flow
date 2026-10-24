@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 
@@ -71,4 +71,52 @@ export function createTestProject(projectName = 'test-project'): string {
  */
 export function cleanupTestProject(projectDirectory: string): void {
   rmSync(dirname(projectDirectory), { recursive: true, force: true });
+}
+
+export const PLUGIN_PACKAGE_NAME = '@push-based/user-flow-nx-plugin';
+
+/**
+ * Installs the plugin the jest globalSetup built and published to the local
+ * registry, so the generators under test are the ones a consumer would get.
+ */
+export function installPlugin(projectDirectory: string): void {
+  execFileSync('npm', ['install', '-D', `${PLUGIN_PACKAGE_NAME}@e2e`], {
+    cwd: projectDirectory,
+    stdio: 'inherit',
+    env: publicRegistryEnv(),
+  });
+}
+
+/**
+ * Adds a minimal library for the generators to target.
+ *
+ * Hand-written rather than generated, so the suite asserts on our generators
+ * instead of on whatever `@nx/js:library` emits this week.
+ *
+ * @returns The project root, relative to the workspace
+ */
+export function addProject(projectDirectory: string, name: string): string {
+  const projectRoot = `packages/${name}`;
+  const absoluteRoot = join(projectDirectory, projectRoot);
+
+  mkdirSync(absoluteRoot, { recursive: true });
+  writeJson(join(absoluteRoot, 'package.json'), {
+    name,
+    version: '0.0.0',
+    private: true,
+  });
+  writeJson(join(absoluteRoot, 'project.json'), {
+    name,
+    $schema: '../../node_modules/nx/schemas/project-schema.json',
+    root: projectRoot,
+    projectType: 'library',
+    // the target generator writes into this map, so it has to exist
+    targets: {},
+  });
+
+  return projectRoot;
+}
+
+function writeJson(path: string, contents: unknown): void {
+  writeFileSync(path, `${JSON.stringify(contents, null, 2)}\n`);
 }
