@@ -1,0 +1,139 @@
+:host {
+  display: block;
+}
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-12);
+  align-items: start;
+}
+
+@media (min-width: 1200px) {
+  .doc-layout.has-toc {
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+}
+
+.doc {
+  min-width: 0;
+}
+
+.doc-header {
+  padding-bottom: var(--space-8);
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.doc-section {
+  color: var(--color-brand-hover);
+  margin: 0 0 var(--space-3);
+}
+
+.doc-title {
+  margin: 0 0 var(--space-3);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-heading);
+}
+
+.doc-lead {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--color-text-muted);
+}
+
+.doc-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-16);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  background: var(--color-surface);
+  transition:
+    border-color 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+
+  &:hover {
+    border-color: var(--color-primary-300);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.pager-next {
+  text-align: right;
+}
+
+.pager-label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-muted);
+}
+
+.pager-title {
+  font-weight: 500;
+  color: var(--color-brand-hover);
+}
+
+.toc {
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-8));
+  display: none;
+  max-height: calc(100vh - var(--header-height) - var(--space-16));
+  overflow: auto;
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--color-border);
+}
+
+@media (min-width: 1200px) {
+  .toc {
+    display: block;
+  }
+}
+
+.toc-title {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toc-item a {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-brand-hover);
+  }
+}
+
+.toc-item-nested {
+  padding-left: var(--space-3);
+
+  a {
+    color: var(--color-text-muted);
+  }
+}

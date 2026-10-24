@@ -1,0 +1,93 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="brand" routerLink="/" aria-label="user-flow start page">
+      <img
+        class="brand-logo"
+        src="images/pushbased-logo.svg"
+        alt=""
+        width="54"
+        height="20"
+      />
+      <span class="brand-name">user-flow</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a
+        class="site-nav-link"
+        routerLink="/docs/getting-started/introduction"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ matrixParams: 'ignored', queryParams: 'ignored', paths: 'subset', fragment: 'ignored' }"
+        >Docs</a
+      >
+      <a
+        class="site-nav-link"
+        href="https://www.npmjs.com/package/@push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >npm</a
+      >
+      <a
+        class="site-nav-link"
+        href="https://github.com/push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub</a
+      >
+    </nav>
+    @if (isDocs()) {
+    <button
+      class="menu-toggle pb-btn pb-btn-ghost"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="sidebar"
+    >
+      {{ menuOpen() ? 'Close' : 'Menu' }}
+    </button>
+    }
+  </div>
+</header>
+
+<div class="container page" [class.page-docs]="isDocs()">
+  @if (isDocs()) {
+  <aside id="sidebar" class="sidebar" [class.sidebar-open]="menuOpen()">
+    <nav aria-label="Documentation">
+      @for (section of nav; track section.slug) {
+      <p class="sidebar-section text-subtitle">{{ section.title }}</p>
+      <ul class="sidebar-list">
+        @for (page of section.pages; track page.slug) {
+        <li>
+          <a
+            class="sidebar-link"
+            [routerLink]="['/docs', section.slug, page.slug]"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+          >
+            {{ page.title }}
+          </a>
+        </li>
+        }
+      </ul>
+      }
+    </nav>
+  </aside>
+  }
+  <main id="main" class="main">
+    <router-outlet />
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container site-footer-inner">
+    <span>MIT licensed.</span>
+    <span>
+      Made with ❤ by
+      <a
+        href="https://www.push-based.io"
+        target="_blank"
+        rel="noopener noreferrer"
+        >push-based.io</a
+      >
+    </span>
+  </div>
+</footer>
