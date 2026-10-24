@@ -1,6 +1,6 @@
 {
   "name": "@push-based/user-flow-nx-plugin",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "commonjs",
   "repository": {
     "type": "git",

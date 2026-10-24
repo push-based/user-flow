@@ -1,3 +1,13 @@
+## 0.1.8 (2026-10-24)
+
+### 🩹 Fixes
+
+- **nx-plugin:** add the plugin under its own name ([aeb268d6](https://github.com/push-based/user-flow/commit/aeb268d6))
+
+### ❤️ Thank You
+
+- ChristopherPHolder
+
 ## 0.1.7 (2026-10-23)
 
 ### 🧱 Updated Dependencies
