@@ -1,0 +1,81 @@
+<section class="hero">
+  <div class="hero-copy">
+    <p class="text-subtitle hero-eyebrow">&#64;push-based/user-flow</p>
+    <h1 class="hero-title">
+      Runtime performance measurements done right, with Lighthouse user flows.
+    </h1>
+    <p class="hero-lead">
+      A CLI and library to organise and run Lighthouse user flows in a scalable
+      way, with CI automation in place. Measure bootstrap and runtime
+      performance with minimum effort.
+    </p>
+    <div class="hero-actions">
+      <a
+        class="pb-btn pb-btn-lg pb-btn-primary"
+        routerLink="/docs/getting-started/quick-start"
+        >Get started</a
+      >
+      <a
+        class="pb-btn pb-btn-lg pb-btn-ghost"
+        href="https://github.com/push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >View on GitHub</a
+      >
+    </div>
+    <figure class="hero-code">
+      <figcaption class="code-title"><span>Terminal</span></figcaption>
+      <pre><code class="hljs"><span class="hljs-comment"># install, set up and run your first flow</span>
+npm i &#64;push-based/user-flow --save-dev
+npx user-flow init
+npx user-flow collect</code></pre>
+    </figure>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <img
+      class="hero-mark"
+      src="images/user-flow-mark.png"
+      alt=""
+      width="240"
+      height="240"
+    />
+  </div>
+</section>
+
+<section class="benefits">
+  <p class="text-subtitle section-eyebrow">Why user-flow</p>
+  <h2 class="section-title">Less code, more measurements</h2>
+  <div class="benefit-grid">
+    @for (benefit of benefits; track benefit.title) {
+    <article class="pb-card">
+      <h3 class="pb-card-title">{{ benefit.title }}</h3>
+      <p class="pb-card-body">{{ benefit.body }}</p>
+    </article>
+    }
+  </div>
+</section>
+
+<section class="sections">
+  <p class="text-subtitle section-eyebrow">Documentation</p>
+  <h2 class="section-title">Find your way around</h2>
+  <div class="section-grid">
+    @for (section of sections; track section.slug) {
+    <div class="section-card">
+      <h3 class="section-card-title">{{ section.title }}</h3>
+      <ul class="section-links">
+        @for (page of section.pages; track page.slug) {
+        <li>
+          <a
+            class="section-link"
+            [routerLink]="['/docs', section.slug, page.slug]"
+          >
+            {{ page.title }}
+            <span class="pb-arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+    }
+  </div>
+</section>

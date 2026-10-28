@@ -5,4 +5,5 @@
 
 /.nx/cache
 /.nx/workspace-data
+.angular
 /e2e/nx-plugin-e2e/fixtures

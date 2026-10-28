@@ -1,0 +1,148 @@
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="brand" routerLink="/" aria-label="user-flow start page">
+      <img
+        class="brand-logo"
+        src="images/user-flow-mark.png"
+        alt=""
+        width="32"
+        height="32"
+      />
+      <span class="brand-name">user-flow</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a
+        class="site-nav-link"
+        routerLink="/docs/getting-started/introduction"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ matrixParams: 'ignored', queryParams: 'ignored', paths: 'subset', fragment: 'ignored' }"
+        >Docs</a
+      >
+      <a
+        class="site-nav-link"
+        href="https://www.npmjs.com/package/@push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >npm</a
+      >
+      <a
+        class="site-nav-link"
+        href="https://github.com/push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub</a
+      >
+    </nav>
+    <button
+      class="theme-toggle"
+      type="button"
+      (click)="toggleTheme()"
+      aria-label="Toggle dark mode"
+      title="Toggle dark mode"
+    >
+      <svg
+        class="icon-moon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
+      </svg>
+      <svg
+        class="icon-sun"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="4" />
+        <path
+          d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+        />
+      </svg>
+    </button>
+    @if (isDocs()) {
+    <button
+      class="menu-toggle pb-btn pb-btn-ghost"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="sidebar"
+    >
+      {{ menuOpen() ? 'Close' : 'Menu' }}
+    </button>
+    }
+  </div>
+</header>
+
+<div class="container page" [class.page-docs]="isDocs()">
+  @if (isDocs()) {
+  <aside id="sidebar" class="sidebar" [class.sidebar-open]="menuOpen()">
+    <nav aria-label="Documentation">
+      @for (section of nav; track section.slug) {
+      <p class="sidebar-section text-subtitle">{{ section.title }}</p>
+      <ul class="sidebar-list">
+        @for (page of section.pages; track page.slug) {
+        <li>
+          <a
+            class="sidebar-link"
+            [routerLink]="['/docs', section.slug, page.slug]"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+          >
+            {{ page.title }}
+          </a>
+        </li>
+        }
+      </ul>
+      }
+    </nav>
+  </aside>
+  }
+  <main id="main" class="main">
+    <router-outlet />
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container site-footer-inner">
+    <span>MIT licensed.</span>
+    <span class="site-footer-credit">
+      Made with ❤ by
+      <a
+        class="site-footer-brand"
+        href="https://www.push-based.io/?utm_source=user-flow-docs&amp;utm_medium=footer&amp;utm_campaign=user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg
+          class="pb-logo"
+          viewBox="0 0 648.29997 242.30001"
+          role="img"
+          aria-label="push-based.io"
+        >
+          <path
+            class="pb-logo-mark"
+            d="m 61.4,226 c 2.5,-12 1.6,-24.6 3.6,-36.6 1.6,-9.4 4.6,-18.9 10.8,-26.4 5.8,-7 15.6,-14.4 22.6,-19.8 15.8,-12.1 33.7,-23.1 45.7,-39.4 0.1,-0.3 0.4,-0.5 0.5,-0.8 2.5,-3.7 5.4,-7.3 7.5,-11.2 C 156.7,83 159,73 159,63.1 159,23.4 129.2,0 89,0 H 28 C 12.6,0 0,12.5 0,28 v 186 c 0,15.5 12.5,28 28,28 h 17.8 c 9.4,-0.1 13.9,-7.8 15.6,-16 z"
+          />
+          <path
+            class="pb-logo-red"
+            d="m 173.5,185.1 c 0,18.6 -7.4,33.4 -19.7,43.7 -0.5,0.4 -1.1,0.9 -1.6,1.3 -10.4,7.9 -23.4,12 -36.6,12 h -47 c 4,-2.8 6.2,-7.5 7.3,-12.5 2.5,-11.4 1.6,-23.1 3.6,-34.5 1.6,-8.8 4.6,-17.8 10.8,-25 5.8,-6.6 15.6,-13.6 22.6,-18.6 1.7,-1.2 3.3,-2.4 5,-3.6 8.1,-5.7 16.5,-11.2 24.2,-17.4 6.1,4.9 11.8,10.2 16.5,16.2 0.1,0.3 0.4,0.5 0.5,0.8 2.5,3.4 5.4,6.9 7.5,10.6 4.6,8.3 6.9,17.6 6.9,27 z"
+          />
+          <path
+            class="pb-logo-word"
+            d="m 263.1,1 h -35 l -20.3,101 h 14.6 l 8.2,-40.7 H 253 c 23.4,0 36.6,-16.2 36.6,-34.7 C 289.6,12.3 280.8,1 263.1,1 Z m -9.5,47.5 h -20.4 l 6.9,-34.6 h 20.8 c 10.4,0 14,6.4 14,13.8 0.1,10.8 -7.7,20.8 -21.3,20.8 z M 354,66.3 c -3.1,15.7 -12.8,23.5 -24.7,23.5 -11.5,0 -15.9,-8.1 -15.9,-16 0,-2.3 0.3,-5.1 0.7,-6.8 L 327.3,0.9 h -14.6 l -12.9,64.9 c -0.4,2.1 -1,6 -1,8.8 0,18.6 14.2,28.1 29.5,28.1 19.1,0 35.2,-11.3 39.8,-34.7 L 381.6,0.9 H 367 Z M 454,71 c 0,-14.2 -6.4,-21.6 -22.4,-25.4 l -8.8,-2.1 c -6.9,-1.7 -12.6,-4.7 -12.6,-11.9 0,-9.4 8.1,-18.9 21.7,-18.9 9.1,0 14.6,2.7 19.1,8.2 L 461.2,12 C 454.4,3.5 444.9,0.1 433.5,0.1 c -25.2,0 -38,16.4 -38,33 0,12.5 8.9,20.1 22.4,23.4 l 8.9,2.1 c 7.2,1.8 12.5,4.5 12.5,13.3 0,10.4 -10.2,17.9 -23.3,17.9 -10.4,0 -17.6,-3.1 -23.3,-10.4 l -10.8,9.4 c 8.4,9.8 17.7,13.9 32.8,13.9 C 435.8,102.8 454,92.2 454,71 Z M 532.7,44.5 H 493.8 L 502.5,1 h -14.6 l -20.3,101 h 14.6 l 9.1,-44.7 H 530 l -8.9,44.7 h 14.6 L 555.9,1 h -14.6 z m -265.5,145 c 5.1,-2.6 12.5,-9.7 12.5,-20.9 0,-17.2 -11.5,-28.4 -31.4,-28.4 h -40.4 v 101.1 h 42.3 c 18,0 31.1,-10.2 31.1,-29.1 0,-13.5 -7.8,-19.9 -14.1,-22.7 z m -39.6,-31.7 h 19.5 c 8.4,0 12.9,4.7 12.9,11.6 0,7.1 -4.5,11.8 -12.9,11.8 h -19.5 z m 20.7,65.9 h -20.7 v -24.9 h 20.7 c 8.8,0 13.2,5.4 13.2,12.4 0.1,7.1 -4.4,12.5 -13.2,12.5 z m 80.9,-83.5 -36.9,101.1 H 313 l 6.1,-17.9 h 35.8 l 6,17.9 h 20.7 L 344.7,140.2 Z m -4.7,66.6 12.5,-36.6 12.4,36.6 z m 130.9,-16.6 c -4.4,-4.3 -10.1,-6.7 -19.3,-8 L 424,180.4 c -4.3,-0.6 -7.2,-2 -9.2,-3.8 -2.1,-2 -3,-4.5 -3,-7.2 0,-7 5.1,-12.8 15.6,-12.8 9.2,0 15.3,1.6 20.7,7 l 12.5,-12.4 c -8.7,-8.4 -18.7,-11.8 -32.7,-11.8 -21.9,0 -35.2,12.6 -35.2,30.7 0,8.5 2.4,15.2 7.2,19.9 4.5,4.4 11.1,7.1 19.6,8.4 l 12.1,1.8 c 4.8,0.7 7.1,1.6 9.1,3.4 2.1,2.1 3.1,5 3.1,8.4 0,8.1 -6.2,12.6 -18,12.6 -9.2,0 -17.9,-2.1 -24.3,-8.5 l -12.8,12.8 c 9.9,10.1 21.6,13.4 36.9,13.4 21.3,0 37.5,-11.1 37.5,-30.7 0.1,-9.2 -2.3,-16.3 -7.7,-21.4 z m 30,51.1 H 552 v -17.6 h -46.9 v -24.6 h 40.1 V 181.5 H 505.1 V 157.8 H 552 v -17.6 h -66.6 z m 156.5,-86.4 c -7,-9.7 -16.8,-14.8 -30.5,-14.8 h -36.5 v 101.1 h 36.5 c 13.8,0 23.6,-5.1 30.5,-14.8 6.2,-8.7 6.4,-19 6.4,-35.8 0,-16.6 -0.2,-27 -6.4,-35.7 z m -17.5,62.5 c -3.3,4.1 -8.1,6.2 -14.8,6.2 h -15.1 v -65.9 h 15.1 c 6.7,0 11.5,2.1 14.8,6.2 3.7,4.4 4.1,10.8 4.1,26.7 0,16.2 -0.4,22.4 -4.1,26.8 z"
+          />
+        </svg>
+      </a>
+    </span>
+  </div>
+</footer>
