@@ -46,6 +46,8 @@
   --callout-warning-bg: var(--color-warning-50);
   --callout-warning-border: var(--color-warning-300);
   --callout-warning-title: var(--color-warning-800);
+  --logo-ink: var(--color-neutral-950);
+  --logo-paper: var(--color-surface);
 }
 
 @mixin dark-theme {
@@ -90,6 +92,8 @@
   --callout-warning-bg: var(--color-warning-950);
   --callout-warning-border: var(--color-warning-800);
   --callout-warning-title: var(--color-warning-300);
+  --logo-ink: var(--color-neutral-50);
+  --logo-paper: var(--color-neutral-800);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -571,6 +575,13 @@ pre {
 }
 
 /* Theme toggle: the icon is picked by CSS so server and client markup match */
+/* The user-flow mark, drawn with <use> so its outline (stroke) and body (color) follow the theme. */
+.uf-mark {
+  display: block;
+  stroke: var(--logo-ink);
+  color: var(--logo-paper);
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
