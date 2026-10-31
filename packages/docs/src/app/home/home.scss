@@ -18,35 +18,28 @@
   }
 }
 
+// The header already shows the mark, so the hero only repeats it where
+// there is a second column to fill.
 .hero-visual {
-  display: flex;
-  justify-content: flex-start;
-  order: -1;
+  display: none;
 }
 
 @media (min-width: 900px) {
   .hero-visual {
+    display: flex;
     justify-content: center;
-    order: 0;
+    align-self: start;
   }
 }
 
 .hero-mark {
-  width: 96px;
-  height: 96px;
-  padding: var(--space-4);
-  border-radius: var(--radius-2xl);
+  box-sizing: content-box;
+  width: 170px;
+  height: 170px;
+  padding: var(--space-8);
+  border-radius: var(--radius-3xl);
   background: var(--surface-subtle);
   border: 1px solid var(--border);
-}
-
-@media (min-width: 900px) {
-  .hero-mark {
-    width: 240px;
-    height: 240px;
-    padding: var(--space-8);
-    border-radius: var(--radius-3xl);
-  }
 }
 
 .hero-eyebrow {
