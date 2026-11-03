@@ -13,12 +13,18 @@
 
 @media (min-width: 900px) {
   .hero {
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: minmax(0, 1fr) 360px;
     gap: var(--space-10);
   }
 }
 
-// The header already shows the mark, so the hero only repeats it where
+@media (min-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 420px;
+  }
+}
+
+// The header already shows the mark, so the hero scene only appears where
 // there is a second column to fill.
 .hero-visual {
   display: none;
@@ -26,20 +32,9 @@
 
 @media (min-width: 900px) {
   .hero-visual {
-    display: flex;
-    justify-content: center;
+    display: block;
     align-self: start;
   }
-}
-
-.hero-mark {
-  box-sizing: content-box;
-  width: 170px;
-  height: 170px;
-  padding: var(--space-8);
-  border-radius: var(--radius-3xl);
-  background: var(--surface-subtle);
-  border: 1px solid var(--border);
 }
 
 .hero-eyebrow {

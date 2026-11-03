@@ -1,0 +1,50 @@
+<div class="scene" aria-hidden="true">
+  <div class="flight">
+    <div class="ufo">
+      <div class="ufo-tilt">
+        <div class="ufo-bob">
+          <svg class="uf-mark ufo-mark" viewBox="0 0 1360 1360">
+            <use href="images/user-flow-mark.svg#mark" />
+          </svg>
+        </div>
+      </div>
+      <div class="beam"></div>
+    </div>
+  </div>
+
+  <ul class="targets">
+    @for (target of targets; track target.label; let i = $index) {
+    <li class="target" [style.--i]="i">
+      <span class="gauge">
+        <svg class="gauge-ring" viewBox="0 0 40 40">
+          <circle class="gauge-track" cx="20" cy="20" r="17" />
+          <circle class="gauge-fill" cx="20" cy="20" r="17" />
+        </svg>
+        <svg
+          class="gauge-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          @switch (target.icon) { @case ('navigation') {
+          <circle cx="12" cy="12" r="9" />
+          } @case ('timespan') {
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3.5 2" />
+          } @case ('snapshot') {
+          <circle cx="12" cy="12" r="9" />
+          <path
+            d="m14.3 8 5.2 9M9.7 8h10.4M7.4 12l5.2-9M9.7 16 4.5 7M14.3 16H3.9M16.6 12l-5.2 9"
+          />
+          } }
+        </svg>
+      </span>
+      <span class="target-label">{{ target.label }}</span>
+      <span class="target-note">{{ target.note }}</span>
+    </li>
+    }
+  </ul>
+</div>
