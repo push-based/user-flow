@@ -22,7 +22,7 @@ The following selectors are suggested to align with the official [user flow reco
 | ![user-flow_timespan-icon](https://user-images.githubusercontent.com/10064416/165129495-330ddca5-fd8b-4ecc-a839-477302f7f229.PNG) | Timespan   | User Interaction   |  10  / 10    |       ❌      |   7  /  7      |     ❌    |     ❌    |
 | ![user-flow_snapshot-icon](https://user-images.githubusercontent.com/10064416/165129696-68302177-6c7d-4aa2-ba3c-564939cde228.PNG) | Snapshot   | Current page state |   4  /  4    |  16  / 16     |   5  /  5      |   9  /  9 |     ❌    |
 
-[![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
+[![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)](https://github.com/push-based/user-flow/blob/main/README.md)
 
 ## Setup and navigation
 

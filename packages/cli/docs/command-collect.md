@@ -171,7 +171,7 @@ npx user-flow collect --configPath ./lh-config.json
 Path to the lighthouse configuration file.
 When used it will parse the given file and uses its content as configuration.  
 
-Details on usage and configuration are available in the [lighthouse configuration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/lighthouse-configuration.md) section.
+Details on usage and configuration are available in the [lighthouse configuration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/lh-configuraton.md) section.
 
 The `lh-config.json` file path can also be placed directly into the rc file under `collect.configPath`.
 
