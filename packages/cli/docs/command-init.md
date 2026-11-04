@@ -98,7 +98,7 @@ npx user-flow init --no-generateFlow
 If the `init` command is executed with `--generateFlow` it will generate a file named `basic-navigation.uf.mts`.  
 It contains a basic user flow and will be placed in the folder configured in you `.user-flowrc.json` file for `collect.ufPath`.
 
-The `basic-navigation.uf.mts` template can be found [here](https://github.com/push-based/user-flow/blob/ba6a8d4fbf8060bea067e0fa3528611be5653ddf/packages/cli/src/lib/commands/init/static/basic-navigation.uf.mts#L2)
+The `basic-navigation.uf.mts` template can be found [here](https://github.com/push-based/user-flow/blob/main/packages/cli/src/lib/commands/init/static/basic-navigation.uf.ts)
  
 If the `init` command executes with `--no-generateFlow` nothing will be created nor prompted in the console.
 
@@ -122,7 +122,7 @@ npx user-flow init --no-generateGhWorkflow
 If the `init` command is executed with `--generateGhWorkflow` it will generate a file named `user-flow-ci.yml`.  
 It contains a basic workflow to execute the CLI in GitHubs pipe line.
 
-The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/ba6a8d4fbf8060bea067e0fa3528611be5653ddf/packages/cli/src/lib/commands/init/static/basic-navigation.uf.mts#L2)
+The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/main/packages/cli/src/lib/commands/init/static/user-flow-ci.yml)
  
 If the `init` command executes with `--no-generateGhWorkflow` nothing will be created nor prompted in the console.
 
