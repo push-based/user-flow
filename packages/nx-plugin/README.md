@@ -98,5 +98,5 @@ You will find the artefacts in your configured outpath, by default `dist/user-fl
 | **`--cliMode`**,       | `string`  | `DEFAULT`   | CLI mode for execution of user-flows  `SANDBOX`. This is useful when you debug or write tests. |  
 | **`--ouputPath`**      | `boolean` | `undefined` | Alias for `--outPath`.                                                                         |  
 
-Other available options are listed under [collect command](./packages/cli/docs/command-collect.md) options.
+Other available options are listed under [collect command](../cli/docs/command-collect.md) options.
 

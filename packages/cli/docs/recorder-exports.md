@@ -164,7 +164,7 @@ We can also pass additional options to each step, such as a `name` the report:
 
 ### Resources
 
-- [User-flow Replay Example](../../user-flow-replay-example/user-flow-replay-json/)
+- [User-flow Replay Example](../../user-flow-example/replay-examples/)
 
 // Compare programmatic vs recorded
 

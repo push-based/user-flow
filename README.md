@@ -89,7 +89,7 @@ npx user-flow init
 
 in the console and accept the default value for every question.
 
-![Set up user-flow in existing project gif](./docs/images/setup-in-existing-project.gif)
+![Set up user-flow in existing project gif](./packages/cli/docs/images/setup-in-existing-project.gif)
 
 This results in the following file:
 
@@ -252,7 +252,7 @@ Write basic user flows leveraging all 3 measurement modes of lighthouse.
 
 When you execute and open the user-flow report you will see the measurement modes also visualized there.
 
-[![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)](https://github.com/push-based/user-flow/blob/main/packages/cli/README.md)
+[![user-flow--example](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)](https://github.com/push-based/user-flow/blob/main/README.md)
 
 ## [Advanced architecture](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/ufo-architecture.md)
 
@@ -288,16 +288,16 @@ Automatically create a workflow with:
 See [github-workflow-integration](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/github-workflow-integration.md)
 for more details.
 
-## [Nx workspace integration of lighthouse user flows as nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md)
+## [Nx workspace integration of lighthouse user flows as nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/nx-plugin/README.md)
 
 With just a few steps you can run your user flows in as a Nx workspace to enrich your DX with a nx-plugin.
 
 Automatically generate/execute/migrate with `user-flow-nx-plugin`:
 
-- `nx g @push-based/user-flow-nx-plugin:install`
-- `nx g @push-based/user-flow-nx-plugin:target e2e`
+- `nx g @push-based/user-flow-nx-plugin:init`
+- `nx g @push-based/user-flow-nx-plugin:target --targetName=e2e`
 
-See [user-flow-nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/user-flow-nx-plugin/Readme.md) for
+See [user-flow-nx-plugin](https://github.com/push-based/user-flow/blob/main/packages/nx-plugin/README.md) for
 more details.
 
 ## Examples
