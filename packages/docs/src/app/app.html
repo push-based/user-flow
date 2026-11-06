@@ -37,7 +37,7 @@
     <button
       class="theme-toggle"
       type="button"
-      (click)="toggleTheme()"
+      (click)="toggleTheme($event)"
       aria-label="Toggle dark mode"
       title="Toggle dark mode"
     >
@@ -81,6 +81,11 @@
     </button>
     }
   </div>
+  <div
+    class="nav-progress"
+    [class.nav-progress-active]="navigating()"
+    aria-hidden="true"
+  ></div>
 </header>
 
 <div class="container page" [class.page-docs]="isDocs()">

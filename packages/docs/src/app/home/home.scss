@@ -79,6 +79,94 @@
   max-width: 40rem;
 }
 
+/* First paint: the hero copy rises in line by line, then the scene follows. */
+.enter {
+  animation: enter var(--duration-reveal) var(--ease-out) both;
+  animation-delay: calc(80ms + var(--enter, 0) * 90ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* The terminal types each command once, with a cursor that stays on the last line. */
+.type-line {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  // Room for the cursor after the last character.
+  padding-right: 1.2ch;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  // Starts once the terminal has entered, then each line follows the previous.
+  --type-start: calc(700ms + var(--line, 0) * 900ms);
+  --type-duration: calc(var(--chars, 20) * 38ms);
+  animation: type var(--type-duration) steps(var(--chars, 20), end) both;
+  animation-delay: var(--type-start);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.2em;
+    right: 0;
+    width: 0.55ch;
+    height: 1.1em;
+    background: var(--color-neutral-300);
+    opacity: 0;
+    // Shown only while this line is typing (no fill, so it hides again after).
+    animation: cursor-hold var(--type-duration) step-end;
+    animation-delay: var(--type-start);
+  }
+}
+
+.type-line-last::after {
+  animation:
+    cursor-hold var(--type-duration) step-end,
+    cursor-blink 1s step-end infinite;
+  animation-delay:
+    var(--type-start), calc(var(--type-start) + var(--type-duration));
+}
+
+@keyframes type {
+  from {
+    width: 1.2ch;
+  }
+  to {
+    width: calc(var(--chars, 20) * 1ch + 1.2ch);
+  }
+}
+
+@keyframes cursor-hold {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .type-line {
+    animation: none;
+  }
+  .type-line::after {
+    display: none;
+  }
+}
+
 .benefits,
 .sections {
   padding: var(--space-16) 0 0;
@@ -106,6 +194,20 @@
 
 .pb-card {
   max-width: none;
+}
+
+.pb-card,
+.section-card {
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) ease-out;
+
+  &:hover {
+    translate: 0 -3px;
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-outline);
+  }
 }
 
 .section-card {
@@ -141,21 +243,21 @@
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  transition:
-    column-gap 0.2s ease-out,
-    color 0.2s ease-out;
+  transition: color var(--duration-base) ease-out;
 
   .pb-arrow {
     color: var(--text-subtle);
-    transition: color 0.2s ease-out;
+    transition:
+      color var(--duration-base) ease-out,
+      translate var(--duration-base) var(--ease-out);
   }
 
   &:hover {
     color: var(--text-heading);
-    column-gap: var(--space-2);
 
     .pb-arrow {
       color: var(--link);
+      translate: 4px 0;
     }
   }
 }

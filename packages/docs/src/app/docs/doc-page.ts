@@ -20,6 +20,7 @@ import { ResolvedDoc } from './doc.resolver';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './doc-page.html',
   styleUrl: './doc-page.scss',
+  host: { '(window:resize)': 'measureMarker()' },
 })
 export class DocPage {
   private readonly sanitizer = inject(DomSanitizer);
@@ -40,6 +41,10 @@ export class DocPage {
   readonly activeId = signal<string | null>(null);
 
   private readonly prose = viewChild<ElementRef<HTMLElement>>('prose');
+  private readonly tocList = viewChild<ElementRef<HTMLElement>>('tocList');
+
+  /** Position of the sliding marker next to the active table-of-contents entry. */
+  readonly marker = signal<{ top: number; height: number } | null>(null);
 
   /** Routes clicks on in-app links inside the rendered Markdown through the router. */
   onContentClick(event: MouseEvent) {
@@ -105,5 +110,27 @@ export class DocPage {
       this.activeId.set(headings[0]?.id ?? null);
       onCleanup(() => observer.disconnect());
     });
+    // Slide the marker to the active entry whenever it changes, and measure
+    // again once the web font is in, since that can rewrap the entries.
+    afterRenderEffect(() => {
+      this.activeId();
+      this.measureMarker();
+      document.fonts?.ready.then(() => this.measureMarker());
+    });
+  }
+
+  protected measureMarker() {
+    const id = this.activeId();
+    const list = this.tocList()?.nativeElement;
+    const active = id
+      ? list?.querySelector<HTMLElement>(`a[href="#${CSS.escape(id)}"]`)
+      : null;
+    if (!list || !active) {
+      this.marker.set(null);
+      return;
+    }
+    const listRect = list.getBoundingClientRect();
+    const rect = active.getBoundingClientRect();
+    this.marker.set({ top: rect.top - listRect.top, height: rect.height });
   }
 }

@@ -43,11 +43,16 @@
   gap: var(--space-3);
   text-decoration: none;
   color: var(--text-heading);
+
+  &:hover .brand-logo {
+    transform: rotate(-12deg) translateY(-1px);
+  }
 }
 
 .brand-logo {
   height: 32px;
   width: 32px;
+  transition: transform var(--duration-slow) var(--ease-out);
 }
 
 .brand-name {
@@ -66,15 +71,37 @@
 }
 
 .site-nav-link {
+  position: relative;
+  padding: var(--space-1) 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
+  transition: color var(--duration-fast) ease-out;
+
+  // Underline that grows from the centre on hover and stays for the active page.
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
 
   &:hover,
   &.active {
     color: var(--text-heading);
+  }
+
+  &:hover::after,
+  &.active::after {
+    transform: scaleX(1);
   }
 }
 
@@ -106,6 +133,7 @@
 }
 
 .sidebar {
+  view-transition-name: sidebar;
   position: sticky;
   top: calc(var(--header-height) + var(--space-8));
   max-height: calc(100vh - var(--header-height) - var(--space-8));
@@ -140,18 +168,21 @@
   color: var(--text);
   text-decoration: none;
   transition:
-    background-color 0.15s ease-out,
-    color 0.15s ease-out;
+    background-color var(--duration-fast) ease-out,
+    color var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
 
   &:hover {
     background: var(--surface-subtle);
     color: var(--text-heading);
+    translate: 2px 0;
   }
 
   &.active {
     background: var(--accent-soft);
     color: var(--accent-soft-text);
     font-weight: 500;
+    translate: 0;
   }
 }
 
@@ -173,6 +204,9 @@
     padding: var(--space-2) var(--space-3);
   }
 
+  // The mobile menu drops in and fades. `transition-behavior: allow-discrete`
+  // and `@starting-style` let `display` take part in the transition; browsers
+  // without them simply show and hide it.
   .sidebar {
     display: none;
     position: static;
@@ -181,10 +215,23 @@
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-lg);
     background: var(--surface-raised);
+    opacity: 0;
+    translate: 0 -8px;
+    transition:
+      opacity var(--duration-base) var(--ease-out),
+      translate var(--duration-base) var(--ease-out),
+      display var(--duration-base) allow-discrete;
   }
 
   .sidebar-open {
     display: block;
+    opacity: 1;
+    translate: 0;
+
+    @starting-style {
+      opacity: 0;
+      translate: 0 -8px;
+    }
   }
 }
 
@@ -223,10 +270,13 @@
   --pb-logo-mark: #2d0064;
   --pb-logo-red: var(--color-secondary-600);
   --pb-logo-word: #2d0064;
-  transition: opacity 0.15s ease-out;
+  transition:
+    opacity var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
 
   &:hover {
     opacity: 0.8;
+    translate: 0 -1px;
   }
 }
 
