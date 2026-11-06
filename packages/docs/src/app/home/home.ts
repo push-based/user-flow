@@ -4,10 +4,12 @@ import { Meta, Title } from '@angular/platform-browser';
 import { DOCS_NAV } from '../docs/nav';
 import { HeroScene } from './hero-scene';
 import { Reveal } from '../shared/reveal';
+import { HowItWorks } from './how-it-works';
+import { ReportPreview } from './report-preview';
 
 @Component({
   selector: 'docs-home',
-  imports: [RouterLink, HeroScene, Reveal],
+  imports: [RouterLink, HeroScene, Reveal, HowItWorks, ReportPreview],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',
@@ -43,11 +45,13 @@ export class Home {
   ];
 
   constructor() {
-    inject(Title).setTitle('user-flow · Lighthouse user flows done right');
-    inject(Meta).updateTag({
-      name: 'description',
-      content:
-        'A CLI and library to organise and run Lighthouse user flows with CI automation, TypeScript support and zero setup cost.',
-    });
+    const title = 'user-flow · Lighthouse user flows done right';
+    const description =
+      'A CLI and library to organise and run Lighthouse user flows with CI automation, TypeScript support and zero setup cost.';
+    const meta = inject(Meta);
+    inject(Title).setTitle(title);
+    meta.updateTag({ name: 'description', content: description });
+    meta.updateTag({ property: 'og:title', content: title });
+    meta.updateTag({ property: 'og:description', content: description });
   }
 }

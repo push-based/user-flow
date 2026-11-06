@@ -1,5 +1,12 @@
 @use './tokens';
 
+/* Lets gauge numbers on the landing page count up as a transition. */
+@property --gauge-n {
+  syntax: '<integer>';
+  inherits: true;
+  initial-value: 0;
+}
+
 :root {
   --header-height: 64px;
   --container-width: 80rem;
@@ -118,6 +125,10 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+html.drawer-open {
+  overflow: hidden;
 }
 
 html {
@@ -266,7 +277,6 @@ pre {
     color: var(--text-heading);
     font-weight: 600;
     letter-spacing: -0.01em;
-    scroll-margin-top: calc(var(--header-height) + var(--space-6));
   }
 
   h2 {
@@ -365,6 +375,18 @@ pre {
     margin: var(--space-6) auto;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
+  }
+
+  img:not(.img-icon) {
+    cursor: zoom-in;
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out);
+
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: var(--shadow-md);
+    }
   }
 
   hr {
@@ -554,13 +576,142 @@ pre {
 .code-title {
   display: flex;
   align-items: center;
-  padding: var(--space-2) var(--space-4);
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 2.25rem;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1rem;
   color: var(--color-neutral-400);
   background: var(--block-title-bg);
   border-bottom: 1px solid var(--block-border);
+}
+
+/* Copy button: the icon swaps for a check and a "Copied" label slides in. */
+.code-copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 1.75rem;
+  min-width: 1.75rem;
+  padding: 0 var(--space-1-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-neutral-400);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out;
+
+  &:hover {
+    color: var(--color-neutral-100);
+    background: var(--color-neutral-800);
+    border-color: var(--color-neutral-700);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    transition:
+      transform var(--duration-base) var(--ease-out),
+      opacity var(--duration-fast) ease-out;
+  }
+
+  .icon-check {
+    position: absolute;
+    left: var(--space-1-5);
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+    color: var(--color-success-400);
+  }
+
+  .code-copy-label {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    color: var(--color-success-400);
+    transition:
+      max-width var(--duration-base) var(--ease-out),
+      opacity var(--duration-base) ease-out;
+  }
+
+  &.copied {
+    border-color: var(--color-success-800);
+    background: color-mix(in srgb, var(--color-success-500) 12%, transparent);
+
+    .icon-copy {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    .icon-check {
+      opacity: 1;
+      transform: none;
+    }
+    .code-copy-label {
+      max-width: 5rem;
+      opacity: 1;
+    }
+  }
+}
+
+/* Long lines: a fade marks the side that has more code to scroll to. */
+.code-scroll {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--duration-base) ease-out;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--block-bg), transparent);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--block-bg), transparent);
+  }
+}
+
+.overflows-start .code-scroll::before,
+.overflows-end .code-scroll::after {
+  opacity: 1;
+}
+
+/* A heading reached through a link glows briefly so the eye lands on it. */
+.prose .heading-flash {
+  animation: heading-flash 1.6s var(--ease-out);
+}
+
+@keyframes heading-flash {
+  0%,
+  25% {
+    background: var(--accent-soft);
+    box-shadow: 0 0 0 var(--space-2) var(--accent-soft);
+  }
+  100% {
+    background: transparent;
+    box-shadow: 0 0 0 var(--space-2) transparent;
+  }
 }
 
 .code-block pre,
