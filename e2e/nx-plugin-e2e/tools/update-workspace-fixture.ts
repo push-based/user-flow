@@ -37,6 +37,21 @@ try {
     { cwd: scaffoldDirectory, stdio: 'inherit' },
   );
 
+  // The scaffold's template pins its own Nx, which can lag the
+  // create-nx-workspace release that downloaded it. Align it with this
+  // workspace so the fixture passes `assertFixtureMatchesWorkspace`.
+  execFileSync(
+    'npm',
+    [
+      'install',
+      '--save-dev',
+      '--save-exact',
+      `nx@${nxVersion()}`,
+      `@nx/js@${nxVersion()}`,
+    ],
+    { cwd: join(scaffoldDirectory, WORKSPACE_NAME), stdio: 'inherit' },
+  );
+
   rmSync(FIXTURE_DIR, { recursive: true, force: true });
   mkdirSync(join(FIXTURE_DIR, 'packages'), { recursive: true });
   // the target of the generated `workspaces` glob, which npm resolves on install
