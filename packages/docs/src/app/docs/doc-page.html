@@ -49,6 +49,7 @@
       >
         <a
           [href]="'#' + entry.id"
+          (click)="onTocClick($event, entry.id)"
           [attr.aria-current]="entry.id === activeId() ? 'location' : null"
           >{{ entry.text }}</a
         >
@@ -58,3 +59,32 @@
   </aside>
   }
 </div>
+
+<dialog
+  #lightbox
+  class="lightbox"
+  aria-label="Enlarged image"
+  (click)="closeLightbox()"
+  (cancel)="$event.preventDefault(); closeLightbox()"
+>
+  @if (zoomed(); as image) {
+  <figure class="lightbox-figure">
+    <img [src]="image.src" [alt]="image.alt" />
+    @if (image.alt) {
+    <figcaption>{{ image.alt }}</figcaption>
+    }
+  </figure>
+  }
+  <button class="lightbox-close" type="button" aria-label="Close">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  </button>
+</dialog>

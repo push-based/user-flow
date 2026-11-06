@@ -20,20 +20,41 @@
         >Docs</a
       >
       <a
-        class="site-nav-link"
+        class="site-nav-link site-nav-link-secondary"
         href="https://www.npmjs.com/package/@push-based/user-flow"
         target="_blank"
         rel="noopener noreferrer"
         >npm</a
       >
       <a
-        class="site-nav-link"
+        class="site-nav-link site-nav-link-secondary"
         href="https://github.com/push-based/user-flow"
         target="_blank"
         rel="noopener noreferrer"
         >GitHub</a
       >
     </nav>
+    <button
+      class="search-trigger"
+      type="button"
+      (click)="search.open()"
+      aria-label="Search the docs"
+      aria-keyshortcuts="Meta+K Control+K"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </svg>
+      <span class="search-trigger-label">Search docs</span>
+      <kbd class="search-trigger-kbd">{{ shortcutLabel() }}</kbd>
+    </button>
     <button
       class="theme-toggle"
       type="button"
@@ -71,13 +92,17 @@
     </button>
     @if (isDocs()) {
     <button
-      class="menu-toggle pb-btn pb-btn-ghost"
+      class="menu-toggle"
       type="button"
       (click)="toggleMenu()"
+      [class.menu-toggle-open]="menuOpen()"
       [attr.aria-expanded]="menuOpen()"
       aria-controls="sidebar"
+      [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
     >
-      {{ menuOpen() ? 'Close' : 'Menu' }}
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
     </button>
     }
   </div>
@@ -90,13 +115,26 @@
 
 <div class="container page" [class.page-docs]="isDocs()">
   @if (isDocs()) {
-  <aside id="sidebar" class="sidebar" [class.sidebar-open]="menuOpen()">
+  <div
+    class="drawer-backdrop"
+    [class.drawer-backdrop-visible]="menuOpen()"
+    (click)="menuOpen.set(false)"
+    aria-hidden="true"
+  ></div>
+  <aside
+    id="sidebar"
+    class="sidebar"
+    [class.sidebar-open]="menuOpen()"
+    [attr.inert]="drawerMode() && !menuOpen() ? '' : null"
+  >
     <nav aria-label="Documentation">
-      @for (section of nav; track section.slug) {
-      <p class="sidebar-section text-subtitle">{{ section.title }}</p>
+      @for (section of nav; track section.slug; let s = $index) {
+      <p class="sidebar-section text-subtitle" [style.--drawer-i]="s * 4">
+        {{ section.title }}
+      </p>
       <ul class="sidebar-list">
-        @for (page of section.pages; track page.slug) {
-        <li>
+        @for (page of section.pages; track page.slug; let p = $index) {
+        <li [style.--drawer-i]="s * 4 + p + 1">
           <a
             class="sidebar-link"
             [routerLink]="['/docs', section.slug, page.slug]"
@@ -110,6 +148,20 @@
       </ul>
       }
     </nav>
+    <div class="sidebar-extra">
+      <a
+        href="https://www.npmjs.com/package/@push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >npm package</a
+      >
+      <a
+        href="https://github.com/push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub repository</a
+      >
+    </div>
   </aside>
   }
   <main id="main" class="main">
@@ -119,7 +171,21 @@
 
 <footer class="site-footer">
   <div class="container site-footer-inner">
-    <span>MIT licensed.</span>
+    <span class="site-footer-links">
+      <span>MIT licensed.</span>
+      <a
+        href="https://www.npmjs.com/package/@push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >npm</a
+      >
+      <a
+        href="https://github.com/push-based/user-flow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub</a
+      >
+    </span>
     <span class="site-footer-credit">
       Made with ❤ by
       <a
@@ -151,3 +217,5 @@
     </span>
   </div>
 </footer>
+
+<docs-search #search />

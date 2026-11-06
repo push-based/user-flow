@@ -1,0 +1,96 @@
+<section class="report-section">
+  <p class="text-subtitle section-eyebrow">What you get</p>
+  <h2 class="section-title">Every step of the journey in one report</h2>
+
+  <figure class="report" docsReveal>
+    <div class="report-bar" aria-hidden="true">
+      <span class="report-dot"></span><span class="report-dot"></span
+      ><span class="report-dot"></span>
+      <span class="report-file">measures/order-coffee.uf.html</span>
+    </div>
+    <div class="report-head">
+      <div>
+        <p class="report-kicker">Lighthouse user flow report</p>
+        <p class="report-name">Order Coffee</p>
+      </div>
+      <span class="report-badge">Sample</span>
+    </div>
+
+    <ol class="report-steps">
+      @for (step of steps; track step.name; let s = $index) {
+      <li class="report-step" [style.--s]="s">
+        <div class="report-step-head">
+          <span
+            class="report-step-icon"
+            [attr.data-mode]="step.mode"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              @switch (step.mode) { @case ('navigation') {
+              <circle cx="12" cy="12" r="9" />
+              } @case ('timespan') {
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3.5 2" />
+              } @case ('snapshot') {
+              <circle cx="12" cy="12" r="9" />
+              <path
+                d="m14.3 8 5.2 9M9.7 8h10.4M7.4 12l5.2-9M9.7 16 4.5 7M14.3 16H3.9M16.6 12l-5.2 9"
+              />
+              } }
+            </svg>
+          </span>
+          <div class="report-step-text">
+            <span class="report-step-name">{{ step.name }}</span>
+            <span class="report-step-kind">{{ step.kind }}</span>
+          </div>
+        </div>
+        <ul class="gauges">
+          @for (gauge of step.gauges; track gauge.category; let g = $index) {
+          <li
+            class="gauge"
+            [attr.data-rating]="rating(gauge)"
+            [class.gauge-long]="(gauge.total ?? 0) >= 10"
+            [style.--offset]="ring * (1 - ratio(gauge))"
+            [style.--gauge-n]="value(gauge)"
+            [style.--g]="g"
+          >
+            <span class="gauge-dial">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <circle class="gauge-track" cx="24" cy="24" r="20" />
+                <circle
+                  class="gauge-arc"
+                  cx="24"
+                  cy="24"
+                  r="20"
+                  [attr.stroke-dasharray]="ring"
+                />
+              </svg>
+              <span class="gauge-value" aria-hidden="true"
+                ><span class="gauge-count"></span>@if (gauge.total) {<span
+                  class="gauge-total"
+                  >/{{ gauge.total }}</span
+                >}</span
+              >
+            </span>
+            <span class="gauge-label">{{ gauge.category }}</span>
+            <span class="visually-hidden">{{ label(gauge) }}</span>
+          </li>
+          }
+        </ul>
+      </li>
+      }
+    </ol>
+    <figcaption class="report-caption">
+      One flow, three measurement modes. Navigations get scores, timespans and
+      snapshots count passed audits.
+      <a routerLink="/docs/cli/reports">Report formats →</a>
+    </figcaption>
+  </figure>
+</section>

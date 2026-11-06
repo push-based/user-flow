@@ -105,10 +105,6 @@
   }
 }
 
-.menu-toggle {
-  display: none;
-}
-
 .theme-toggle {
   flex-shrink: 0;
 }
@@ -186,12 +182,8 @@
   }
 }
 
+/* Docs menu below 900px: an off-canvas drawer with a dimmed backdrop. */
 @media (max-width: 899px) {
-  .menu-toggle {
-    display: inline-flex;
-    margin-left: var(--space-2);
-  }
-
   .site-header-inner {
     gap: var(--space-3);
   }
@@ -201,37 +193,234 @@
   }
 
   .menu-toggle {
-    padding: var(--space-2) var(--space-3);
+    display: inline-flex;
   }
 
-  // The mobile menu drops in and fades. `transition-behavior: allow-discrete`
-  // and `@starting-style` let `display` take part in the transition; browsers
-  // without them simply show and hide it.
   .sidebar {
-    display: none;
-    position: static;
+    position: fixed;
+    z-index: 30;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+    width: min(320px, 85vw);
     max-height: none;
-    padding: var(--space-4);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-lg);
-    background: var(--surface-raised);
-    opacity: 0;
-    translate: 0 -8px;
+    padding: var(--space-6) var(--space-5) var(--space-8);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--surface);
+    border-right: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-102%);
+    visibility: hidden;
     transition:
-      opacity var(--duration-base) var(--ease-out),
-      translate var(--duration-base) var(--ease-out),
-      display var(--duration-base) allow-discrete;
+      transform var(--duration-slow) var(--ease-out),
+      visibility 0s linear var(--duration-slow);
   }
 
   .sidebar-open {
-    display: block;
-    opacity: 1;
-    translate: 0;
+    transform: none;
+    visibility: visible;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      visibility 0s;
+  }
 
-    @starting-style {
-      opacity: 0;
-      translate: 0 -8px;
+  // Links cascade in as the drawer opens.
+  .sidebar-open .sidebar-list li,
+  .sidebar-open .sidebar-section {
+    animation: drawer-item var(--duration-slow) var(--ease-out) both;
+    animation-delay: calc(80ms + var(--drawer-i, 0) * 18ms);
+  }
+
+  .drawer-backdrop {
+    position: fixed;
+    z-index: 25;
+    inset: var(--header-height) 0 0 0;
+    background: rgb(13 18 28 / 0.4);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-base) ease-out;
+  }
+
+  .drawer-backdrop-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar-extra {
+    display: flex;
+  }
+}
+
+@keyframes drawer-item {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+.drawer-backdrop {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .drawer-backdrop {
+    display: block;
+  }
+}
+
+.sidebar-extra {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link);
     }
+  }
+}
+
+/* Search trigger: a field-like pill on wide screens, an icon button on phones. */
+.search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 2.25rem;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    box-shadow var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--text-heading);
+    border-color: var(--accent-outline);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+.search-trigger-label {
+  min-width: 6.5rem;
+  text-align: left;
+}
+
+.search-trigger-kbd {
+  padding: 0 var(--space-1-5);
+  height: 1.375rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1023px) {
+  .search-trigger {
+    width: 2.25rem;
+    padding: 0;
+    justify-content: center;
+    background: transparent;
+  }
+
+  .search-trigger-label,
+  .search-trigger-kbd {
+    display: none;
+  }
+}
+
+/* Menu button: three bars that fold into a cross. */
+.menu-toggle {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--text-heading);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+.menu-toggle-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1rem;
+  height: 2px;
+  margin: -1px 0 0 -0.5rem;
+  border-radius: 1px;
+  background: currentColor;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-fast) ease-out;
+
+  &:nth-child(1) {
+    transform: translateY(-5px);
+  }
+  &:nth-child(3) {
+    transform: translateY(5px);
+  }
+}
+
+.menu-toggle-open .menu-toggle-bar {
+  &:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  &:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  &:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 899px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 559px) {
+  .site-nav-link-secondary {
+    display: none;
   }
 }
 
@@ -249,6 +438,12 @@
     color: var(--link);
     text-decoration: none;
   }
+}
+
+.site-footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 .site-footer-inner {

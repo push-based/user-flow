@@ -1,10 +1,13 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
+  effect,
   inject,
   PLATFORM_ID,
   signal,
+  viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -20,18 +23,30 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { DOCS_NAV } from './docs/nav';
+import { Search } from './search/search';
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Search],
   selector: 'docs-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  host: {
+    '(document:keydown)': 'onKeydown($event)',
+    '(window:resize)': 'measureDrawerMode()',
+  },
 })
 export class App {
   readonly nav = DOCS_NAV;
   readonly menuOpen = signal(false);
   readonly isDocs = signal(false);
+  /** "⌘K" on Apple platforms, "Ctrl K" elsewhere; set in the browser once it is known. */
+  readonly shortcutLabel = signal('⌘K');
+  /** Below 900px the docs sidebar is an off-canvas drawer. */
+  readonly drawerMode = signal(false);
+
+  private readonly search = viewChild.required(Search);
+
   /** True while a route is resolving, so the progress bar under the header can show. */
   readonly navigating = signal(false);
 
@@ -40,6 +55,20 @@ export class App {
   private static readonly THEME_KEY = 'user-flow-docs-theme';
 
   constructor() {
+    afterNextRender(() => {
+      const platform =
+        (navigator as Navigator & { userAgentData?: { platform: string } })
+          .userAgentData?.platform ?? navigator.platform;
+      if (!/mac|iphone|ipad/i.test(platform)) {
+        this.shortcutLabel.set('Ctrl K');
+      }
+      this.measureDrawerMode();
+    });
+    // Keep the page behind the open drawer from scrolling.
+    effect(() => {
+      const lock = this.menuOpen() && this.drawerMode();
+      this.document.documentElement.classList.toggle('drawer-open', lock);
+    });
     const router = inject(Router);
     this.isDocs.set(router.url.startsWith('/docs'));
     router.events
@@ -66,6 +95,30 @@ export class App {
 
   toggleMenu() {
     this.menuOpen.update((open) => !open);
+  }
+
+  /** Cmd+K / Ctrl+K or "/" opens search; Escape closes the docs drawer. */
+  onKeydown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement | null;
+    const typing =
+      !!target &&
+      (target.isContentEditable ||
+        ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+    if (
+      (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) ||
+      (event.key === '/' && !typing)
+    ) {
+      event.preventDefault();
+      this.search().open();
+    } else if (event.key === 'Escape' && this.menuOpen()) {
+      this.menuOpen.set(false);
+    }
+  }
+
+  measureDrawerMode() {
+    if (this.isBrowser) {
+      this.drawerMode.set(innerWidth < 900);
+    }
   }
 
   /**

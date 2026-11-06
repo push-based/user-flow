@@ -36,6 +36,28 @@ export interface RenderOptions {
   baseHref?: string;
 }
 
+/** Label shown in a code block's header when it has no title. */
+const LANGUAGE_LABELS: Record<string, string> = {
+  typescript: 'TypeScript',
+  ts: 'TypeScript',
+  javascript: 'JavaScript',
+  js: 'JavaScript',
+  json: 'JSON',
+  jsonc: 'JSON',
+  yaml: 'YAML',
+  yml: 'YAML',
+  bash: 'Terminal',
+  sh: 'Terminal',
+  shell: 'Terminal',
+};
+
+const COPY_BUTTON =
+  '<button class="code-copy" type="button" aria-label="Copy code" title="Copy">' +
+  '<svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>' +
+  '<svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>' +
+  '<span class="code-copy-label" aria-hidden="true">Copied</span>' +
+  '</button>';
+
 const CALLOUTS: Record<string, string> = {
   TIP: 'Tip',
   NOTE: 'Note',
@@ -100,10 +122,9 @@ export function renderMarkdown(
         const body = known
           ? hljs.highlight(text, { language }).value
           : escapeHtml(text);
-        const header = title
-          ? `<div class="code-title"><span>${escapeHtml(title)}</span></div>`
-          : '';
-        return `<figure class="code-block${title ? ' has-title' : ''}">${header}<pre><code class="hljs language-${escapeHtml(language || 'text')}">${body}</code></pre></figure>\n`;
+        const label = title ?? LANGUAGE_LABELS[language] ?? '';
+        const header = `<div class="code-title"><span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
+        return `<figure class="code-block${title ? ' has-title' : ''}">${header}<div class="code-scroll"><pre><code class="hljs language-${escapeHtml(language || 'text')}">${body}</code></pre></div></figure>\n`;
       },
       blockquote({ tokens }: Tokens.Blockquote) {
         const inner = this.parser.parse(tokens);
