@@ -105,6 +105,37 @@
   }
 }
 
+// Brand marks in place of text labels: npm keeps its brand red, the GitHub
+// mark follows the text colour so it works in both themes.
+.site-nav-icon {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: currentColor;
+    transition: transform var(--duration-fast) ease-out;
+  }
+
+  &::after {
+    display: none;
+  }
+
+  &:hover svg {
+    transform: translateY(-1px);
+  }
+}
+
+.site-nav-npm {
+  --npm-red: #cb3837;
+
+  &,
+  &:hover {
+    color: var(--npm-red);
+  }
+}
+
 .menu-toggle {
   display: none;
 }
