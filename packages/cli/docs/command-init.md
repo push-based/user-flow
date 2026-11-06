@@ -122,7 +122,7 @@ npx user-flow init --no-generateGhWorkflow
 If the `init` command is executed with `--generateGhWorkflow` it will generate a file named `user-flow-ci.yml`.  
 It contains a basic workflow to execute the CLI in GitHubs pipe line.
 
-The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/main/packages/cli/src/lib/commands/init/static/user-flow-ci.yml)
+The `user-flow-ci.yml` template can be found [here](https://github.com/push-based/user-flow/blob/main/packages/cli/src/lib/commands/init/static/user-flow-ci.ts)
  
 If the `init` command executes with `--no-generateGhWorkflow` nothing will be created nor prompted in the console.
 

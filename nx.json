@@ -116,6 +116,10 @@
       "options": {
         "targetName": "e2e"
       }
+    },
+    {
+      "plugin": "@nx/rolldown",
+      "include": ["packages/cli/**/*"]
     }
   ]
 }
