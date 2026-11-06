@@ -1,3 +1,4 @@
+export const exampleWorkflow = `
 name: user-flow-ci
 on:
   pull_request:
@@ -11,3 +12,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: Executing user-flow CLI
         uses: push-based/user-flow-gh-action@v0.1.0
+`;

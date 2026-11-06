@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Collect Report
-        run: npm run build-cli && node ./dist/packages/cli/src/cli.mjs --rcPath ./examples/github-report/.user-flowrc.json --openReport false
+        run: npm run build-cli && node ./dist/packages/cli/cli.mjs --rcPath ./examples/github-report/.user-flowrc.json --openReport false
 
       - name: Rename Report
         run: npx tsx --tsconfig ./examples/github-report/tsconfig.json ./examples/github-report/tools/md-report-rename.mts

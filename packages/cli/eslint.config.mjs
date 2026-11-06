@@ -8,7 +8,6 @@ export default [
       '**/*.config.ts',
       '**/*.config.mts',
       'eslint.config.mjs',
-      'src/cli.mjs',
       'docs/**',
     ],
   },

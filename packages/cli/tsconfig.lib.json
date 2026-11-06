@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "allowJs": true,
     "paths": {
       "@packageName": [
@@ -13,13 +15,16 @@
       ]
     }
   },
-  "include": ["**/*.ts"],
+  "include": [
+    "**/*.ts"
+  ],
   "exclude": [
     "**/tests/*",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.mocks.ts",
     "**/mocks/**",
-    "vite.config.ts"
+    "vite.config.ts",
+    "tsdown.config.ts"
   ]
 }
