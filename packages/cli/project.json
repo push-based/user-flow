@@ -5,30 +5,9 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "command": "tsdown",
-      "cache": true,
-      "options": {
-        "cwd": "packages/cli"
-      },
-      "inputs": [
-        "production",
-        "^production",
-        {
-          "externalDependencies": [
-            "tsdown"
-          ]
-        }
-      ],
-      "outputs": [
-        "{workspaceRoot}/dist/packages/cli"
-      ]
-    },
     "link": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "options": {
         "commands": [
           {
@@ -42,9 +21,7 @@
     },
     "publish": {
       "command": "node tools/scripts/publish.mjs cli {args.ver} {args.tag}",
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"]
     },
     "nx-release-publish": {
       "options": {
@@ -54,10 +31,7 @@
     "test": {
       "options": {
         "cwd": ".",
-        "args": [
-          "--root",
-          "packages/cli"
-        ]
+        "args": ["--root", "packages/cli"]
       }
     }
   }
