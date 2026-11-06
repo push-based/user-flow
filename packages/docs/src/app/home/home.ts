@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { DOCS_NAV } from '../docs/nav';
 import { HeroScene } from './hero-scene';
+import { Reveal } from '../shared/reveal';
 
 @Component({
   selector: 'docs-home',
-  imports: [RouterLink, HeroScene],
+  imports: [RouterLink, HeroScene, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',

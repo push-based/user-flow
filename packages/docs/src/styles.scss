@@ -48,6 +48,14 @@
   --callout-warning-title: var(--color-warning-800);
   --logo-ink: var(--color-neutral-950);
   --logo-paper: var(--color-surface);
+
+  /* Motion. Every animation on the site reads from these so they stay in step. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 500ms;
+  --duration-reveal: 700ms;
 }
 
 @mixin dark-theme {
@@ -172,11 +180,19 @@ pre {
     background-color 0.2s ease-out,
     color 0.2s ease-out,
     box-shadow 0.2s ease-out,
-    border-color 0.2s ease-out;
+    border-color 0.2s ease-out,
+    transform 0.2s var(--ease-out);
 }
 .pb-btn:hover {
   background-color: var(--btn-bg-hover, var(--btn-bg));
   color: var(--btn-color-hover, var(--btn-color, #ffffff));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.pb-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+  transition-duration: 50ms;
 }
 .pb-btn:focus-visible {
   outline: none;
@@ -583,6 +599,7 @@ pre {
 }
 
 .theme-toggle {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -594,14 +611,20 @@ pre {
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
+  overflow: hidden;
   transition:
-    color 0.15s ease-out,
-    border-color 0.15s ease-out,
-    background-color 0.15s ease-out;
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out,
+    transform var(--duration-fast) ease-out;
 
   &:hover {
     color: var(--text-heading);
     background: var(--surface-subtle);
+  }
+
+  &:active {
+    transform: scale(0.92);
   }
 
   &:focus-visible {
@@ -610,32 +633,167 @@ pre {
   }
 
   svg {
+    position: absolute;
     width: 1.125rem;
     height: 1.125rem;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      opacity var(--duration-base) ease-out;
+  }
+
+  .icon-moon {
+    transform: none;
+    opacity: 1;
   }
 
   .icon-sun {
-    display: none;
+    transform: rotate(-90deg) scale(0.4);
+    opacity: 0;
+  }
+}
+
+@mixin theme-toggle-dark {
+  .icon-sun {
+    transform: none;
+    opacity: 1;
+  }
+  .icon-moon {
+    transform: rotate(90deg) scale(0.4);
+    opacity: 0;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .theme-toggle {
-    .icon-sun {
-      display: block;
-    }
-    .icon-moon {
-      display: none;
-    }
+    @include theme-toggle-dark;
   }
 }
 
 :root[data-theme='dark'] .theme-toggle {
-  .icon-sun {
-    display: block;
+  @include theme-toggle-dark;
+}
+
+/* Navigation progress: a thin accent line that runs under the header while a route resolves. */
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-fast) ease-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transform: translateX(-100%);
   }
-  .icon-moon {
-    display: none;
+
+  &.nav-progress-active {
+    opacity: 1;
+    transition-delay: 120ms;
+
+    &::after {
+      animation: nav-progress 1s var(--ease-in-out) infinite;
+    }
+  }
+}
+
+@keyframes nav-progress {
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* Scroll reveal, paired with the `docsReveal` directive. */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--duration-reveal) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--duration-reveal) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.reveal-instant {
+  transition: none;
+}
+
+/* Route changes: the page slides up a touch while it crossfades. The header and
+   the docs sidebar keep their own snapshot so they stay put. */
+.site-header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(root) {
+  animation: var(--duration-base) ease-out both page-out;
+}
+
+::view-transition-new(root) {
+  animation: var(--duration-slow) var(--ease-out) both page-in;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Theme switch: the new theme spreads out from the toggle as a circle. */
+:root[data-theme-switching] {
+  .site-header,
+  .sidebar,
+  .doc-title {
+    view-transition-name: none;
+  }
+
+  &::view-transition-old(root) {
+    animation: none;
+  }
+
+  &::view-transition-new(root) {
+    animation: var(--duration-slow) var(--ease-in-out) both theme-spread;
+    mix-blend-mode: normal;
+  }
+}
+
+@keyframes theme-spread {
+  from {
+    clip-path: circle(0 at var(--theme-x) var(--theme-y));
+  }
+  to {
+    clip-path: circle(var(--theme-r) at var(--theme-x) var(--theme-y));
+  }
+}
+
+/* Honour the system setting: no movement, instant state changes. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
 

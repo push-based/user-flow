@@ -33,7 +33,14 @@
   @if (hasToc()) {
   <aside class="toc" aria-label="On this page">
     <p class="toc-title text-subtitle">On this page</p>
-    <ul class="toc-list">
+    <ul #tocList class="toc-list">
+      <span
+        class="toc-marker"
+        [class.toc-marker-visible]="marker() !== null"
+        [style.top.px]="marker()?.top"
+        [style.height.px]="marker()?.height"
+        aria-hidden="true"
+      ></span>
       @for (entry of doc().toc; track entry.id) {
       <li
         class="toc-item"

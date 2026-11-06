@@ -31,6 +31,7 @@
 }
 
 .doc-title {
+  view-transition-name: doc-title;
   margin: 0 0 var(--space-3);
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -65,13 +66,40 @@
   text-decoration: none;
   background: var(--surface-raised);
   transition:
-    border-color 0.2s ease-out,
-    box-shadow 0.2s ease-out;
+    border-color var(--duration-base) ease-out,
+    box-shadow var(--duration-base) var(--ease-out),
+    translate var(--duration-base) var(--ease-out);
 
   &:hover {
     border-color: var(--accent-outline);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
+    translate: 0 -2px;
   }
+
+  &:hover .pager-title::before,
+  &:hover .pager-title::after {
+    translate: 0;
+    opacity: 1;
+  }
+}
+
+.pager-prev .pager-title::before,
+.pager-next .pager-title::after {
+  display: inline-block;
+  opacity: 0;
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) ease-out;
+}
+
+.pager-prev .pager-title::before {
+  content: '← ';
+  translate: 6px 0;
+}
+
+.pager-next .pager-title::after {
+  content: ' →';
+  translate: -6px 0;
 }
 
 .pager-next {
@@ -111,12 +139,31 @@
 }
 
 .toc-list {
+  position: relative;
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+/* One marker that slides along the rail to the heading in view. */
+.toc-marker {
+  position: absolute;
+  left: calc(-1 * var(--space-5) - 1px);
+  width: 2px;
+  border-radius: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transition:
+    top var(--duration-slow) var(--ease-out),
+    height var(--duration-slow) var(--ease-out),
+    opacity var(--duration-base) ease-out;
+}
+
+.toc-marker-visible {
+  opacity: 1;
 }
 
 .toc-item a {
@@ -129,17 +176,17 @@
   color: var(--text);
   text-decoration: none;
   transition:
-    color 0.15s ease-out,
-    border-color 0.15s ease-out;
+    color var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
 
   &:hover {
     color: var(--link);
+    translate: 2px 0;
   }
 }
 
 .toc-item-active a {
   color: var(--link);
-  border-left-color: var(--accent);
   font-weight: 500;
 }
 
