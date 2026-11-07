@@ -338,7 +338,11 @@ export class DocPage {
   onScroll() {
     const win = this.document.defaultView;
     if (win) {
-      this.showBackToTop.set(win.scrollY > win.innerHeight);
+      // Hidden again at the very end, where it would sit on the footer.
+      const fromBottom =
+        this.document.documentElement.scrollHeight -
+        (win.scrollY + win.innerHeight);
+      this.showBackToTop.set(win.scrollY > win.innerHeight && fromBottom > 160);
     }
   }
 
