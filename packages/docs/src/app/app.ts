@@ -72,6 +72,44 @@ export class App {
   readonly nav = DOCS_NAV;
   readonly sectionIcons = SECTION_ICONS;
 
+  readonly footerCommunity = [
+    {
+      label: 'GitHub repository',
+      href: 'https://github.com/push-based/user-flow',
+    },
+    {
+      label: 'Report an issue',
+      href: 'https://github.com/push-based/user-flow/issues/new',
+    },
+    {
+      label: 'Releases',
+      href: 'https://github.com/push-based/user-flow/releases',
+    },
+    {
+      label: 'Changelog',
+      href: 'https://github.com/push-based/user-flow/blob/main/packages/cli/CHANGELOG.md',
+    },
+  ];
+
+  readonly footerResources = [
+    {
+      label: 'npm package',
+      href: 'https://www.npmjs.com/package/@push-based/user-flow',
+    },
+    {
+      label: 'GitHub action',
+      href: 'https://github.com/push-based/user-flow-gh-action',
+    },
+    {
+      label: 'Nx plugin',
+      href: 'https://www.npmjs.com/package/@push-based/user-flow-nx-plugin',
+    },
+    {
+      label: 'Lighthouse user flows',
+      href: 'https://web.dev/lighthouse-user-flows/',
+    },
+  ];
+
   /** Sidebar sections the reader folded away. The current section always stays open. */
   readonly collapsed = signal<ReadonlySet<string>>(new Set());
 
