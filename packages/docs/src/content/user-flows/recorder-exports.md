@@ -8,6 +8,8 @@ If the Recorder is new to you, these resources cover the basics:
 
 ## 1. Record and export
 
+<!-- steps -->
+
 1. Open DevTools, switch to the **Recorder** panel and start a new recording for your page.
 
    ![Start a new recording in the DevTools Recorder](images/chrome-recorder-start-new.png)
