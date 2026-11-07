@@ -1,4 +1,4 @@
-import { Marked, Tokens } from 'marked';
+import { Marked, Token, Tokens } from 'marked';
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -65,6 +65,60 @@ const CALLOUTS: Record<string, string> = {
   IMPORTANT: 'Important',
 };
 
+/** Consecutive fenced blocks with a `tab="…"` attribute, shown as one tabbed block. */
+interface CodeTabsToken {
+  type: 'codeTabs';
+  raw: string;
+  tabs: Tokens.Code[];
+}
+
+const tabName = (token: Token) =>
+  token.type === 'code'
+    ? ((token as Tokens.Code).lang ?? '').match(/\btab="([^"]+)"/)?.[1]
+    : undefined;
+
+/**
+ * Folds runs of tab-marked code blocks into one `codeTabs` token, at every
+ * level, so tabs also work inside list items.
+ */
+function groupCodeTabs(tokens: Token[]): Token[] {
+  const out: Token[] = [];
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (!tabName(token)) {
+      for (const key of ['tokens', 'items'] as const) {
+        const children = (token as { [k: string]: unknown })[key];
+        if (Array.isArray(children)) {
+          (token as { [k: string]: unknown })[key] = groupCodeTabs(
+            children as Token[],
+          );
+        }
+      }
+      out.push(token);
+      continue;
+    }
+    const tabs = [token as Tokens.Code];
+    let j = i + 1;
+    while (j < tokens.length) {
+      if (tokens[j].type === 'space') {
+        j++;
+      } else if (tabName(tokens[j])) {
+        tabs.push(tokens[j] as Tokens.Code);
+        j++;
+      } else {
+        break;
+      }
+    }
+    // Keep trailing whitespace tokens: they separate the group from what follows.
+    while (j > i + 1 && tokens[j - 1].type === 'space') {
+      j--;
+    }
+    out.push({ type: 'codeTabs', raw: '', tabs } as unknown as Token);
+    i = j - 1;
+  }
+  return out;
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -83,6 +137,21 @@ function escapeHtml(value: string): string {
     .replace(/"/g, '&quot;');
 }
 
+/** The highlighted `<pre>` for a fenced block, plus its language and title. */
+function codeBody({ text, lang }: Tokens.Code) {
+  const [language, ...meta] = (lang ?? '').trim().split(/\s+/);
+  const title = meta.join(' ').match(/title="?([^"]+)"?/)?.[1];
+  const known = language && hljs.getLanguage(language);
+  const body = known
+    ? hljs.highlight(text, { language }).value
+    : escapeHtml(text);
+  return {
+    title,
+    label: title ?? LANGUAGE_LABELS[language] ?? '',
+    pre: `<div class="code-scroll"><pre><code class="hljs language-${escapeHtml(language || 'text')}">${body}</code></pre></div>`,
+  };
+}
+
 /**
  * Renders a Markdown document to HTML with highlighted code blocks,
  * anchored headings, GitHub-style callouts and a table of contents.
@@ -94,9 +163,36 @@ export function renderMarkdown(
   const baseHref = (options.baseHref ?? '/').replace(/\/$/, '');
   const toc: TocEntry[] = [];
   const usedIds = new Set<string>();
+  let tabGroups = 0;
 
   const marked = new Marked({
     gfm: true,
+    extensions: [
+      {
+        name: 'codeTabs',
+        level: 'block',
+        // Tokens of this type only come from groupCodeTabs, never from the lexer.
+        tokenizer: () => undefined,
+        renderer(token) {
+          const { tabs } = token as unknown as CodeTabsToken;
+          const group = ++tabGroups;
+          const names = tabs.map((tab) => tabName(tab) ?? '');
+          const buttons = names
+            .map(
+              (name, i) =>
+                `<button class="code-tab" type="button" role="tab" id="tab-${group}-${i}" aria-controls="tabpanel-${group}-${i}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" data-tab="${escapeHtml(name)}">${escapeHtml(name)}</button>`,
+            )
+            .join('');
+          const panels = tabs
+            .map(
+              (tab, i) =>
+                `<div class="code-tabpanel" role="tabpanel" id="tabpanel-${group}-${i}" aria-labelledby="tab-${group}-${i}" data-tab="${escapeHtml(names[i])}"${i === 0 ? '' : ' hidden'}>${codeBody(tab).pre}</div>`,
+            )
+            .join('');
+          return `<figure class="code-block code-tabs"><div class="code-title"><div class="code-tablist" role="tablist" aria-label="Choose a variant">${buttons}<span class="code-tab-indicator" aria-hidden="true"></span></div>${COPY_BUTTON}</div>${panels}</figure>\n`;
+        },
+      },
+    ],
     renderer: {
       heading({ tokens, depth }: Tokens.Heading) {
         const inner = this.parser.parseInline(tokens);
@@ -115,16 +211,10 @@ export function renderMarkdown(
             : '';
         return `<h${depth} id="${id}">${inner}${anchor}</h${depth}>\n`;
       },
-      code({ text, lang }: Tokens.Code) {
-        const [language, ...meta] = (lang ?? '').trim().split(/\s+/);
-        const title = meta.join(' ').match(/title="?([^"]+)"?/)?.[1];
-        const known = language && hljs.getLanguage(language);
-        const body = known
-          ? hljs.highlight(text, { language }).value
-          : escapeHtml(text);
-        const label = title ?? LANGUAGE_LABELS[language] ?? '';
+      code(token: Tokens.Code) {
+        const { title, label, pre } = codeBody(token);
         const header = `<div class="code-title"><span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
-        return `<figure class="code-block${title ? ' has-title' : ''}">${header}<div class="code-scroll"><pre><code class="hljs language-${escapeHtml(language || 'text')}">${body}</code></pre></div></figure>\n`;
+        return `<figure class="code-block${title ? ' has-title' : ''}">${header}${pre}</figure>\n`;
       },
       blockquote({ tokens }: Tokens.Blockquote) {
         const inner = this.parser.parse(tokens);
@@ -191,6 +281,7 @@ export function renderMarkdown(
     },
   });
 
-  const html = marked.parse(source) as string;
+  const tokens = groupCodeTabs(marked.lexer(source));
+  const html = marked.parser(tokens);
   return { html, toc };
 }

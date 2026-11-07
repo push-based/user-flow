@@ -4,8 +4,18 @@
 
 1. Install the plugin and run its `init` generator. It adds the required packages to your `package.json` and generator defaults to `nx.json`:
 
-   ```bash
+   ```bash tab="npm"
    npm install --save-dev @push-based/user-flow-nx-plugin
+   nx generate @push-based/user-flow-nx-plugin:init
+   ```
+
+   ```bash tab="yarn"
+   yarn add --dev @push-based/user-flow-nx-plugin
+   nx generate @push-based/user-flow-nx-plugin:init
+   ```
+
+   ```bash tab="pnpm"
+   pnpm add -D @push-based/user-flow-nx-plugin
    nx generate @push-based/user-flow-nx-plugin:init
    ```
 

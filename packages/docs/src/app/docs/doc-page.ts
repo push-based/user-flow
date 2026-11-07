@@ -17,6 +17,9 @@ import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ResolvedDoc } from './doc.resolver';
 
+/** Where the reader's last chosen code tab (npm, yarn, pnpm, …) is remembered. */
+const TAB_KEY = 'user-flow-docs-code-tab';
+
 /** Slack below the spot headings scroll to, within which a heading counts as "current". */
 const ACTIVE_SLACK = 32;
 
@@ -30,6 +33,7 @@ const ACTIVE_SLACK = 32;
     '(window:resize)': 'measureMarker()',
     '(document:keydown.escape)': 'closeLightbox(); closeTocMenu()',
     '(document:click)': 'onDocumentClick($event)',
+    '(keydown)': 'onTabKeydown($event)',
     '(window:scroll)': 'onScroll()',
   },
 })
@@ -109,6 +113,12 @@ export class DocPage {
     }
     const target = event.target as Element;
 
+    const tab = target.closest<HTMLButtonElement>('.code-tab');
+    if (tab) {
+      this.selectTab(tab.dataset['tab'] ?? '', { remember: true, anchor: tab });
+      return;
+    }
+
     const copy = target.closest<HTMLButtonElement>('.code-copy');
     if (copy) {
       this.copyCode(copy);
@@ -132,6 +142,97 @@ export class DocPage {
     if (internal) {
       event.preventDefault();
       this.router.navigateByUrl(internal);
+    }
+  }
+
+  /** Arrow keys, Home and End move between tabs, as in the WAI-ARIA tabs pattern. */
+  onTabKeydown(event: KeyboardEvent) {
+    const tab = (event.target as Element).closest?.<HTMLButtonElement>(
+      '.code-tab',
+    );
+    if (!tab) {
+      return;
+    }
+    const tabs = Array.from(
+      tab.parentElement?.querySelectorAll<HTMLButtonElement>('.code-tab') ?? [],
+    );
+    const index = tabs.indexOf(tab);
+    const next =
+      event.key === 'ArrowRight'
+        ? tabs[(index + 1) % tabs.length]
+        : event.key === 'ArrowLeft'
+          ? tabs[(index - 1 + tabs.length) % tabs.length]
+          : event.key === 'Home'
+            ? tabs[0]
+            : event.key === 'End'
+              ? tabs[tabs.length - 1]
+              : null;
+    if (next) {
+      event.preventDefault();
+      this.selectTab(next.dataset['tab'] ?? '', {
+        remember: true,
+        anchor: next,
+      });
+      next.focus();
+    }
+  }
+
+  /**
+   * Shows the tab named `name` in every tab group that has one, so picking
+   * pnpm once switches all install commands. The clicked group keeps its
+   * place on screen while groups above it change height.
+   */
+  private selectTab(
+    name: string,
+    { remember = false, anchor }: { remember?: boolean; anchor?: Element } = {},
+  ) {
+    const host = this.prose()?.nativeElement;
+    if (!host || !name) {
+      return;
+    }
+    const before = anchor?.getBoundingClientRect().top;
+    host.querySelectorAll<HTMLElement>('.code-tabs').forEach((group) => {
+      const tabs = group.querySelectorAll<HTMLButtonElement>('.code-tab');
+      if (!Array.from(tabs).some((tab) => tab.dataset['tab'] === name)) {
+        return;
+      }
+      tabs.forEach((tab) => {
+        const selected = tab.dataset['tab'] === name;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      group
+        .querySelectorAll<HTMLElement>('.code-tabpanel')
+        .forEach((panel) => (panel.hidden = panel.dataset['tab'] !== name));
+      this.placeTabIndicator(group);
+    });
+    if (anchor && before !== undefined) {
+      const shift = anchor.getBoundingClientRect().top - before;
+      if (shift) {
+        this.document.defaultView?.scrollBy(0, shift);
+      }
+    }
+    host
+      .querySelectorAll('.code-scroll')
+      .forEach((el) => el.dispatchEvent(new Event('scroll')));
+    if (remember) {
+      try {
+        localStorage.setItem(TAB_KEY, name);
+      } catch {
+        // Storage can be unavailable (private mode); the choice just isn't kept.
+      }
+    }
+  }
+
+  /** Moves the underline below the selected tab. */
+  private placeTabIndicator(group: HTMLElement) {
+    const selected = group.querySelector<HTMLElement>(
+      '.code-tab[aria-selected="true"]',
+    );
+    const indicator = group.querySelector<HTMLElement>('.code-tab-indicator');
+    if (selected && indicator) {
+      indicator.style.left = `${selected.offsetLeft}px`;
+      indicator.style.width = `${selected.offsetWidth}px`;
     }
   }
 
@@ -242,7 +343,10 @@ export class DocPage {
   }
 
   private copyCode(button: HTMLButtonElement) {
-    const code = button.closest('.code-block')?.querySelector('code');
+    const block = button.closest('.code-block');
+    const code =
+      block?.querySelector('.code-tabpanel:not([hidden]) code') ??
+      block?.querySelector('code');
     if (!code) {
       return;
     }
@@ -355,6 +459,32 @@ export class DocPage {
       }
     });
 
+    // Bring back the reader's tab choice, and place each tab underline.
+    afterRenderEffect(() => {
+      this.html();
+      const host = this.prose()?.nativeElement;
+      if (!host) {
+        return;
+      }
+      let stored: string | null = null;
+      try {
+        stored = localStorage.getItem(TAB_KEY);
+      } catch {
+        stored = null;
+      }
+      if (stored) {
+        this.selectTab(stored);
+      }
+      host
+        .querySelectorAll<HTMLElement>('.code-tabs')
+        .forEach((group) => this.placeTabIndicator(group));
+      this.document.fonts?.ready.then(() =>
+        host
+          .querySelectorAll<HTMLElement>('.code-tabs')
+          .forEach((group) => this.placeTabIndicator(group)),
+      );
+    });
+
     // Code blocks that scroll sideways get a fade on the edge that has more code.
     afterRenderEffect((onCleanup) => {
       this.html();
@@ -363,30 +493,35 @@ export class DocPage {
         return;
       }
       const cleanups: (() => void)[] = [];
-      host.querySelectorAll<HTMLElement>('.code-block').forEach((block) => {
-        const pre = block.querySelector('pre');
+      host.querySelectorAll<HTMLElement>('.code-scroll').forEach((scroller) => {
+        const pre = scroller.querySelector('pre');
         if (!pre) {
           return;
         }
         const update = () => {
           const overflow = pre.scrollWidth - pre.clientWidth > 1;
-          block.classList.toggle(
+          scroller.classList.toggle(
             'overflows-end',
             overflow && pre.scrollLeft < pre.scrollWidth - pre.clientWidth - 1,
           );
-          block.classList.toggle(
+          scroller.classList.toggle(
             'overflows-start',
             overflow && pre.scrollLeft > 1,
           );
         };
         update();
+        // Re-measured through a synthetic scroll event on the wrapper too, after a tab switch.
         pre.addEventListener('scroll', update, { passive: true });
-        cleanups.push(() => pre.removeEventListener('scroll', update));
+        scroller.addEventListener('scroll', update);
+        cleanups.push(() => {
+          pre.removeEventListener('scroll', update);
+          scroller.removeEventListener('scroll', update);
+        });
       });
       const win = this.document.defaultView;
       const onResize = () =>
         host
-          .querySelectorAll('.code-block pre')
+          .querySelectorAll('.code-scroll pre')
           .forEach((pre) => pre.dispatchEvent(new Event('scroll')));
       win?.addEventListener('resize', onResize);
       onCleanup(() => {

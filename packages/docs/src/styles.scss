@@ -695,9 +695,64 @@ pre {
   }
 }
 
-.overflows-start .code-scroll::before,
-.overflows-end .code-scroll::after {
+.code-scroll.overflows-start::before,
+.code-scroll.overflows-end::after {
   opacity: 1;
+}
+
+/* Tabbed code blocks: the tabs sit in the title bar, an underline slides to the chosen one. */
+.code-tablist {
+  position: relative;
+  display: flex;
+  align-self: stretch;
+  gap: var(--space-1);
+  margin-left: calc(-1 * var(--space-2));
+}
+
+.code-tab {
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  transition: color var(--duration-fast) ease-out;
+
+  &:hover,
+  &[aria-selected='true'] {
+    color: var(--color-neutral-50);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: -4px;
+    border-radius: var(--radius-base);
+  }
+}
+
+.code-tab-indicator {
+  position: absolute;
+  bottom: calc(-1 * var(--space-1) - 1px);
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-primary-400);
+  transition:
+    left var(--duration-base) var(--ease-out),
+    width var(--duration-base) var(--ease-out);
+}
+
+.code-tabpanel[hidden] {
+  display: none;
+}
+
+.code-tabpanel:not([hidden]) {
+  animation: tab-in var(--duration-base) ease-out;
+}
+
+@keyframes tab-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* A heading reached through a link glows briefly so the eye lands on it. */
