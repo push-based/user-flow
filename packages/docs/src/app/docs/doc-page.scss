@@ -115,6 +115,10 @@
   }
 }
 
+.doc-title:focus {
+  outline: none;
+}
+
 .doc-footer {
   display: flex;
   flex-wrap: wrap;
@@ -335,99 +339,5 @@
 
   a {
     color: var(--text-muted);
-  }
-}
-
-/* Lightbox: the image scales up from the page, the backdrop blurs in. */
-.lightbox {
-  width: 100vw;
-  max-width: none;
-  height: 100dvh;
-  max-height: none;
-  margin: 0;
-  padding: var(--space-6);
-  border: 0;
-  background: transparent;
-  cursor: zoom-out;
-  display: grid;
-  place-items: center;
-
-  &:not([open]) {
-    display: none;
-  }
-
-  &::backdrop {
-    background: rgb(13 18 28 / 0.78);
-    backdrop-filter: blur(6px);
-    animation: lightbox-fade var(--duration-base) ease-out;
-  }
-
-  &.lightbox-closing::backdrop {
-    animation: lightbox-fade 200ms ease-in reverse forwards;
-  }
-
-  &.lightbox-closing .lightbox-figure {
-    animation: lightbox-zoom 200ms ease-in reverse forwards;
-  }
-}
-
-.lightbox-figure {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  max-width: min(1200px, 100%);
-  animation: lightbox-zoom var(--duration-slow) var(--ease-out);
-
-  img {
-    display: block;
-    max-width: 100%;
-    max-height: calc(100dvh - var(--space-24));
-    object-fit: contain;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    background: var(--surface);
-  }
-
-  figcaption {
-    max-width: 48rem;
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--color-neutral-200);
-  }
-}
-
-.lightbox-close {
-  position: fixed;
-  top: var(--space-4);
-  right: var(--space-4);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: var(--radius-full);
-  background: rgb(255 255 255 / 0.08);
-  color: #fff;
-  cursor: pointer;
-
-  svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-@keyframes lightbox-fade {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes lightbox-zoom {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(8px);
   }
 }

@@ -10,7 +10,7 @@
           <li aria-current="page">{{ doc().page.title }}</li>
         </ol>
       </nav>
-      <h1 class="doc-title enter" style="--enter: 1">{{ doc().page.title }}</h1>
+      <h1 class="doc-title enter" style="--enter: 1" tabindex="-1">{{ doc().page.title }}</h1>
       <p class="doc-lead enter" style="--enter: 2">
         {{ doc().page.description }}
       </p>
@@ -48,6 +48,42 @@
         }
       </p>
     </header>
+
+    @if (hasToc()) {
+    <details #tocMenu class="toc-menu">
+      <summary class="toc-menu-summary">
+        <span class="toc-menu-label">On this page</span>
+        <span class="toc-menu-current">{{ activeEntry().text }}</span>
+        <svg
+          class="toc-menu-chevron"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <ul class="toc-menu-list">
+        @for (entry of doc().toc; track entry.id) {
+        <li
+          [class.toc-item-nested]="entry.level === 3"
+          [class.toc-menu-active]="entry.id === activeId()"
+        >
+          <a
+            [href]="'#' + entry.id"
+            (click)="onTocClick($event, entry.id); tocMenu.open = false"
+            [attr.aria-current]="entry.id === activeId() ? 'location' : null"
+            >{{ entry.text }}</a
+          >
+        </li>
+        }
+      </ul>
+    </details>
+    }
 
     <div
       #prose
@@ -143,6 +179,31 @@
   </aside>
   }
 </div>
+
+<div class="read-progress" aria-hidden="true"></div>
+
+<button
+  class="back-to-top"
+  type="button"
+  [class.back-to-top-visible]="showBackToTop()"
+  [attr.tabindex]="showBackToTop() ? null : -1"
+  [attr.aria-hidden]="showBackToTop() ? null : 'true'"
+  (click)="backToTop()"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</button>
 
 <dialog
   #lightbox

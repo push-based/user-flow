@@ -17,8 +17,8 @@ import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ResolvedDoc } from './doc.resolver';
 
-/** How far below the top of the viewport a heading counts as "current". */
-const ACTIVE_OFFSET = 120;
+/** Slack below the spot headings scroll to, within which a heading counts as "current". */
+const ACTIVE_SLACK = 32;
 
 @Component({
   selector: 'docs-page',
@@ -28,7 +28,9 @@ const ACTIVE_OFFSET = 120;
   styleUrl: './doc-page.scss',
   host: {
     '(window:resize)': 'measureMarker()',
-    '(document:keydown.escape)': 'closeLightbox()',
+    '(document:keydown.escape)': 'closeLightbox(); closeTocMenu()',
+    '(document:click)': 'onDocumentClick($event)',
+    '(window:scroll)': 'onScroll()',
   },
 })
 export class DocPage {
@@ -65,6 +67,15 @@ export class DocPage {
       : null;
   });
 
+  /** The table-of-contents entry for the heading in view. */
+  readonly activeEntry = computed(() => {
+    const toc = this.doc().toc;
+    return toc.find((entry) => entry.id === this.activeId()) ?? toc[0];
+  });
+
+  /** The back-to-top button shows once the reader is a screen down. */
+  readonly showBackToTop = signal(false);
+
   /** Number of top-level sections on the page. */
   readonly sectionCount = computed(
     () => this.doc().toc.filter((entry) => entry.level === 2).length,
@@ -79,6 +90,8 @@ export class DocPage {
   /** The image shown enlarged in the lightbox, if any. */
   readonly zoomed = signal<{ src: string; alt: string } | null>(null);
 
+  private readonly tocMenu =
+    viewChild<ElementRef<HTMLDetailsElement>>('tocMenu');
   private readonly prose = viewChild<ElementRef<HTMLElement>>('prose');
   private readonly tocList = viewChild<ElementRef<HTMLElement>>('tocList');
   private readonly lightbox =
@@ -166,6 +179,39 @@ export class DocPage {
       () => heading.classList.remove('heading-flash'),
       { once: true },
     );
+  }
+
+  closeTocMenu() {
+    const menu = this.tocMenu()?.nativeElement;
+    if (menu?.open) {
+      menu.open = false;
+    }
+  }
+
+  /** A tap outside the open "On this page" menu closes it. */
+  onDocumentClick(event: MouseEvent) {
+    const menu = this.tocMenu()?.nativeElement;
+    if (menu?.open && !menu.contains(event.target as Node)) {
+      menu.open = false;
+    }
+  }
+
+  onScroll() {
+    const win = this.document.defaultView;
+    if (win) {
+      this.showBackToTop.set(win.scrollY > win.innerHeight);
+    }
+  }
+
+  backToTop() {
+    this.document.defaultView?.scrollTo({
+      top: 0,
+      behavior: this.reducedMotion() ? 'auto' : 'smooth',
+    });
+    // Keep keyboard users at the top too, instead of on the hidden button.
+    this.document
+      .querySelector<HTMLElement>('.doc-title')
+      ?.focus({ preventScroll: true });
   }
 
   closeLightbox() {
@@ -261,9 +307,15 @@ export class DocPage {
         frame = 0;
         const root = this.document.documentElement;
         const atBottom = win.innerHeight + win.scrollY >= root.scrollHeight - 4;
+        // Headings scroll to the scroll padding plus their scroll margin,
+        // which grows below desktop width where the "On this page" bar sticks.
+        const offset =
+          parseFloat(win.getComputedStyle(root).scrollPaddingTop || '0') +
+          parseFloat(win.getComputedStyle(headings[0]).scrollMarginTop || '0') +
+          ACTIVE_SLACK;
         let current = headings[0];
         for (const heading of headings) {
-          if (heading.getBoundingClientRect().top <= ACTIVE_OFFSET) {
+          if (heading.getBoundingClientRect().top <= offset) {
             current = heading;
           }
         }
