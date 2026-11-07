@@ -4,11 +4,17 @@ This walkthrough takes you from an installed CLI to an opened Lighthouse report.
 
 Run the `init` command and accept the default answer for every question:
 
-```bash
-npx user-flow init
+```terminal
+$ npx user-flow init
+? What is the URL to run the user flows for? › https://coffee-cart.netlify.app/
+? Folder of the user flows? › ./user-flows
+? What is the format of user-flow reports? (use ⬇/⬆ to navigate, and SPACE key to select) › HTML
+? What is the directory to store results in? › ./measures
+? Setup user flow › true
+setup user-flow for basic navigation in ./user-flows successfully
+user-flow CLI is set up now! 🎉
+To execute a user flow run `npx user-flow` or `npx user-flow collect`
 ```
-
-![The init command asking for URL, user flow folder, output folder and report format](images/setup-in-existing-project.gif)
 
 The prompts write a `.user-flowrc.json` to the current folder:
 
