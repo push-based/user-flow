@@ -6,6 +6,23 @@ on:
       - '*.md'
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: 22.x
+      - name: install
+        run: npm ci
+      - name: lint
+        # github format turns findings into inline PR annotations
+        run: npm run nx -- run-many -t lint --skip-nx-cache --format=github
+
   build_and_test:
     runs-on: ubuntu-latest
     strategy:
