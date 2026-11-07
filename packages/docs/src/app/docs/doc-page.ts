@@ -437,6 +437,14 @@ export class DocPage {
     session.classList.remove('tl-playing');
   }
 
+  /** Copies the whole page as Markdown, e.g. to paste into an issue or a chat. */
+  copyPage() {
+    navigator.clipboard?.writeText(this.doc().markdown).then(
+      () => this.showToast('Page copied as Markdown'),
+      () => undefined,
+    );
+  }
+
   /** Copies the full URL of a section, for sharing. */
   private copyLink(id: string) {
     const win = this.document.defaultView;
