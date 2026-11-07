@@ -47,6 +47,22 @@ Point `--rcPath` at the file you want to change and pass only the values that sh
 npx user-flow init --rcPath .user-flowrc.ci.json --outPath tmp/measures
 ```
 
+Only the value you passed changes:
+
+```diff title=".user-flowrc.ci.json"
+ {
+   "collect": {
+     "url": "https://coffee-cart.netlify.app/",
+     "ufPath": "./user-flows"
+   },
+   "persist": {
+-    "outPath": "./measures",
++    "outPath": "tmp/measures",
+     "format": ["html"]
+   }
+ }
+```
+
 > [!TIP]
 > Combine `init` with `--verbose` to print the resolved rc file without changing anything:
 > `npx user-flow init --rcPath .user-flowrc.ci.json --verbose`

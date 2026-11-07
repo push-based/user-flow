@@ -77,6 +77,10 @@ export class DocPage {
     return toc.find((entry) => entry.id === this.activeId()) ?? toc[0];
   });
 
+  /** Short confirmation shown at the bottom of the screen, e.g. "Link copied". */
+  readonly toast = signal<string | null>(null);
+  private toastTimer?: ReturnType<typeof setTimeout>;
+
   /** The back-to-top button shows once the reader is a screen down. */
   readonly showBackToTop = signal(false);
 
@@ -136,6 +140,9 @@ export class DocPage {
     if (hash?.startsWith('#')) {
       event.preventDefault();
       this.goToHeading(hash.slice(1));
+      if (anchor?.classList.contains('heading-anchor')) {
+        this.copyLink(hash.slice(1));
+      }
       return;
     }
     const internal = anchor?.dataset['internal'];
@@ -344,6 +351,25 @@ export class DocPage {
     dialog.showModal();
   }
 
+  /** Copies the full URL of a section, for sharing. */
+  private copyLink(id: string) {
+    const win = this.document.defaultView;
+    if (!win) {
+      return;
+    }
+    const url = `${win.location.origin}${win.location.pathname}#${id}`;
+    navigator.clipboard?.writeText(url).then(
+      () => this.showToast('Link copied'),
+      () => undefined,
+    );
+  }
+
+  private showToast(message: string) {
+    clearTimeout(this.toastTimer);
+    this.toast.set(message);
+    this.toastTimer = setTimeout(() => this.toast.set(null), 1800);
+  }
+
   private copyCode(button: HTMLButtonElement) {
     const block = button.closest('.code-block');
     const code =
@@ -361,7 +387,14 @@ export class DocPage {
           .join('\n')
           .replace(/\n{3,}/g, '\n\n')
           .trim()
-      : (code.textContent ?? '');
+      : code.classList.contains('language-diff')
+        ? // A diff copies the result: removed lines go, markers are stripped.
+          (code.textContent ?? '')
+            .split('\n')
+            .filter((line) => !line.startsWith('-'))
+            .map((line) => line.slice(1))
+            .join('\n')
+        : (code.textContent ?? '');
     const markCopied = () => {
       button.classList.add('copied');
       button.setAttribute('aria-label', 'Copied');
