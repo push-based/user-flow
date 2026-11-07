@@ -90,7 +90,6 @@
         />
       </svg>
     </button>
-    @if (isDocs()) {
     <button
       class="menu-toggle"
       type="button"
@@ -104,7 +103,6 @@
       <span class="menu-toggle-bar"></span>
       <span class="menu-toggle-bar"></span>
     </button>
-    }
   </div>
   <div
     class="nav-progress"
@@ -114,7 +112,8 @@
 </header>
 
 <div class="container page" [class.page-docs]="isDocs()">
-  @if (isDocs()) {
+  <!-- The docs menu is part of every page: a sidebar beside doc pages and a
+       drawer behind the menu button on narrow screens. -->
   <div
     class="drawer-backdrop"
     [class.drawer-backdrop-visible]="menuOpen()"
@@ -214,7 +213,6 @@
       >
     </div>
   </aside>
-  }
   <main id="main" class="main">
     <router-outlet />
   </main>
