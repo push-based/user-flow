@@ -39,7 +39,7 @@ export type CliProcessResult = {
 export type CliTest = {
   root: string;
   setupFns: {
-    setupRcJson: (rc: {}, rcName?: string) => void;
+    setupRcJson: (rc: object, rcName?: string) => void;
     setupUserFlows: (mockUserFlow: string, userFlowDir?: string) => void;
   }
   cli: {

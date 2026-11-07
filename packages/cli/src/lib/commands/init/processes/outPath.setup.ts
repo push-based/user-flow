@@ -1,4 +1,4 @@
-import {mkdirSync, readdirSync} from 'fs';
+import {mkdirSync, readdirSync} from 'node:fs';
 import {RcJson} from '../../../types.js';
 import {get as interactive} from '../../../global/options/interactive.js';
 import {promptParam} from '../../../core/prompt/prompt.js';

@@ -1,6 +1,6 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Prettier, { Options as PrettierOptions } from 'prettier';
+import { format, resolveConfig, Options as PrettierOptions } from 'prettier';
 import { SupportedExtname, SupportedParser } from './types.js';
 import { supportedExtname } from './constants.js';
 
@@ -11,12 +11,13 @@ export function getParserFromExtname(extname: SupportedExtname | string): Suppor
     throw new Error(`Extension name ${extname} is not supported.`);
   }
 
-  return (['md', 'ts', 'mts', 'js', 'yml'].includes(extname) ? ({
+  const parserByExtname: Record<string, string> = {
     md: 'markdown',
     ts: 'typescript',
     js: 'javascript',
     yml: 'yaml'
-  } as any)[extname] : extname) as any as SupportedParser;
+  };
+  return (['md', 'ts', 'mts', 'js', 'yml'].includes(extname) ? parserByExtname[extname] : extname) as SupportedParser;
 }
 
 /**
@@ -29,7 +30,7 @@ export async function formatCode(
   code: string,
   parser: PrettierOptions['parser'] = 'typescript'
 ) {
-  const prettierConfig = await Prettier.resolveConfig(dirname(fileURLToPath(import.meta.url)));
-  const content = await Prettier.format(code, { parser, ...prettierConfig })
+  const prettierConfig = await resolveConfig(dirname(fileURLToPath(import.meta.url)));
+  const content = await format(code, { parser, ...prettierConfig })
   return content.trim();
 }

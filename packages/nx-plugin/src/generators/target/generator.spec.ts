@@ -13,7 +13,6 @@ import {
 import generator from './generator';
 import { normalizeOptions } from './utils';
 
-const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {
   projectName: PROJECT_NAME,

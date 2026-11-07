@@ -41,7 +41,7 @@ describe('init command', () => {
     expect(code).toBe(0);
   });
 
-  it.concurrent<CliTest>('should create a workflow if `--generateGhWorkflow is used` ', async ({ root, setupFns, cli }) => {
+  it.concurrent<CliTest>('should create a workflow if `--generateGhWorkflow is used`', async ({ root, setupFns, cli }) => {
     setupFns.setupRcJson(DEFAULT_RC);
     setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);
 

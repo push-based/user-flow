@@ -1,6 +1,6 @@
 import { YargsCommandObject } from '../../core/yargs/types.js';
 import { logVerbose } from '../../core/loggin/index.js';
-import { initOptions } from './options.js';
+import { initOptions, InitOptions } from './options.js';
 import { runInitCommand } from './command-impl.js';
 
 export const initCommand: YargsCommandObject = {
@@ -8,9 +8,9 @@ export const initCommand: YargsCommandObject = {
   description: 'Setup .user-flowrc.json',
   builder: (y) => y.options(initOptions),
   module: {
-    handler: async (argv: any) => {
+    handler: async (argv) => {
       logVerbose(`run "init" as a yargs command`);
-      await runInitCommand(argv);
+      await runInitCommand(argv as unknown as InitOptions);
     }
   }
 };

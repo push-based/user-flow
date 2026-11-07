@@ -1,7 +1,7 @@
 import { ReadFileConfig } from '../../commands/collect/utils/replay/types.js';
 
 type GetDefinedType<
-  T extends {} | undefined,
+  T extends object | undefined,
   K extends keyof T | undefined
   > = T extends undefined ? never :
   K extends undefined ? never
@@ -26,7 +26,7 @@ export type ExtToOutPut<CFG extends ReadFileConfig = ReadFileConfig> =
   // if cfg is given
   GetDefinedType<CFG, 'ext'> extends never ? string :
     // if ext prop present
-    CFG['ext'] extends 'json' ? {}
+    CFG['ext'] extends 'json' ? object
       : never;
 /*
 type aaa = ExtToOutPut<{}>; // string

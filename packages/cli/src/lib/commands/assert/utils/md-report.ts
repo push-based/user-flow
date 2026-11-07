@@ -1,3 +1,4 @@
+import { FlowResult } from 'lighthouse';
 import { FractionResults, ReducedFlowStep, ReducedReport } from '../../collect/utils/report/types.js';
 import { enrichReducedReportWithBaseline } from '../../collect/utils/report/utils.js';
 import { Alignment, table } from '../../../core/md/table.js';
@@ -24,7 +25,7 @@ ${stepsTable}${NEW_LINE}
  * |  Snap   1       |  3/3        | 22/5          | 5/2           | 7/10 |  -  |
  * |  TimeSpan 1     |  10/11      | -             | 4/7           | 7/10 |  -  |
  */
-export async function getStepsTable(reducedReport: ReducedReport, baselineResults?: any): Promise<string> {
+export async function getStepsTable(reducedReport: ReducedReport, baselineResults?: FlowResult): Promise<string> {
   const reportCategories = Object.keys(reducedReport.steps[0].results);
   const tableStepsArr = formatStepsForMdTable(reportCategories, reducedReport, baselineResults);
   const alignOptions = headerAlignment(reportCategories);
@@ -32,7 +33,7 @@ export async function getStepsTable(reducedReport: ReducedReport, baselineResult
   return await table(tableArr, alignOptions);
 }
 
-function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: any): string[][] {
+function formatStepsForMdTable(reportCategories: string[], reducedReport: ReducedReport, baselineResults?: FlowResult): string[][] {
   if (baselineResults) {
     const enrichedReducedReport = enrichReducedReportWithBaseline(reducedReport, baselineResults);
     return enrichedReducedReport.steps.map((step) => {
@@ -47,7 +48,7 @@ function formatStepsForMdTable(reportCategories: string[], reducedReport: Reduce
 }
 
 
-function extractTableArr(reportCategories: string[], steps: any[]): string[][] {
+function extractTableArr(reportCategories: string[], steps: string[][]): string[][] {
   const tableHead = extractTableHead(reportCategories);
   return [tableHead].concat(steps);
 }

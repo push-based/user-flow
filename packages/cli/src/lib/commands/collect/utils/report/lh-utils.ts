@@ -1,7 +1,10 @@
 /**
  * THIS CODE IS MOSTLY COPIED FORM:
  * https://github.com/GoogleChrome/lighthouse
+ *
+ * It normalises raw (and legacy) LHR JSON, which has no usable typings here.
  */
+/* oxlint-disable typescript/no-explicit-any */
 import { FlowResult, Result } from 'lighthouse';
 import { ReducedFlowStep, ReducedFlowStepResult } from './types.js';
 
@@ -100,7 +103,6 @@ function prepareReportResult(result: any) {
   for (const audit of Object.values(clone.audits) as any[]) {
     // Turn 'not-applicable' (LHR <4.0) and 'not_applicable' (older proto versions)
     // into 'notApplicable' (LHR ≥4.0).
-    // eslint-disable-next-line max-len
     if (audit.scoreDisplayMode === 'not_applicable' || audit.scoreDisplayMode === 'not-applicable') {
       audit.scoreDisplayMode = 'notApplicable';
     }
@@ -158,8 +160,7 @@ function prepareReportResult(result: any) {
     });
 
     category.auditRefs.forEach((auditRef: any) => {
-      const result = clone.audits[auditRef.id];
-      auditRef.result = result;
+      auditRef.result = clone.audits[auditRef.id];
 
       // Attach any relevantMetric auditRefs
       if (relevantAuditToMetricsMap.has(auditRef.id)) {

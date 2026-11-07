@@ -12,10 +12,10 @@ export async function runCollectCommand(argv: CollectCommandOptions): Promise<vo
   logVerbose('Collect options: ', cfg);
   await run([
     collectRcJson,
-    (cfg: RcJson) =>
+    (rcJson: RcJson) =>
       startServerIfNeededAndExecute(
-        () => collectReports(cfg, argv),
-        cfg.collect
+        () => collectReports(rcJson, argv),
+        rcJson.collect
       )
   ])(cfg);
 }

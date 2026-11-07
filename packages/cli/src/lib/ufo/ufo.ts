@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import { UserFlowContext } from '../index.js';
+import { UserFlowContext } from '../commands/collect/utils/user-flow/types.js';
 
 /**
  * This class is used in the user-flow interactions to ensure the context of the flow is available in UFO's

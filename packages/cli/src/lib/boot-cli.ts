@@ -8,9 +8,9 @@ import { getGlobalOptionsFromArgv } from './global/utils.js';
  * Merges CLI params into rc config
  * @param rcPath
  */
-function configParser(rcPath?: string): {} {
-  const rcConfig: any = getCliOptionsFromRcConfig(rcPath);
-  const globalConfig: any = getGlobalOptionsFromArgv(rcConfig);
+function configParser(rcPath?: string): Record<string, unknown> {
+  const rcConfig = getCliOptionsFromRcConfig<Record<string, unknown>>(rcPath);
+  const globalConfig = getGlobalOptionsFromArgv(rcConfig);
   return { ...globalConfig, ...rcConfig };
 }
 

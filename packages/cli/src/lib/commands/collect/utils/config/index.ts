@@ -42,8 +42,7 @@ export function mergeLhConfig(globalCfg: Config = {}, localCfg: Config = {}): Co
 
   if (Object.keys(cfg).length) {
     // Add extends if not given
-    // @ts-ignore
-    cfg?.extends || (cfg.extends = 'lighthouse:default');
+    cfg.extends ??= 'lighthouse:default';
   }
   return cfg;
 }

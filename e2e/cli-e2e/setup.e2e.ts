@@ -7,7 +7,7 @@ import { CliTest, E2E_DIR, normalizePath } from './utils/setup';
 import { spawn } from 'node:child_process';
 
 const ANSI_ESCAPE_REGEX =
-  // eslint-disable-next-line no-control-regex
+  // oxlint-disable-next-line no-control-regex
   /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g;
 
 function filePath(p: string): string {
@@ -15,7 +15,7 @@ function filePath(p: string): string {
   return paths.splice(0, paths.length - 1).join();
 }
 
-// eslint-disable-next-line no-empty-pattern
+// oxlint-disable-next-line no-empty-pattern
 beforeAll(({}, suite) => {
   mkdirSync(join(E2E_DIR, filePath(suite.name)), { recursive: true });
 });
@@ -28,7 +28,7 @@ beforeEach<CliTest>((ctx) => {
   );
 
   ctx.setupFns = {
-    setupRcJson: (rc: {}, rcName = `.user-flowrc.json`) => {
+    setupRcJson: (rc: object, rcName = `.user-flowrc.json`) => {
       writeFileSync(join(ctx.root, rcName), JSON.stringify(rc, null, 4), {
         encoding: 'utf8',
       });
@@ -51,7 +51,7 @@ export type CliProcessResult = {
 };
 
 beforeEach<CliTest>((ctx) => {
-  ctx.cli = {} as any;
+  ctx.cli = {} as CliTest['cli'];
   ctx.cli.stdout = '';
   ctx.cli.stderr = '';
   ctx.cli.code = null;
@@ -140,7 +140,7 @@ afterEach<CliTest>((ctx) => {
   rmSync(ctx.root, { recursive: true });
 });
 
-// eslint-disable-next-line no-empty-pattern
+// oxlint-disable-next-line no-empty-pattern
 afterAll(({}, suite) => {
   rmSync(join(E2E_DIR, filePath(suite.name)), { recursive: true });
 });

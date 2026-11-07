@@ -11,6 +11,5 @@ export const rcPath = {
 
 // We don't rely on yargs option normalization features as this can happen before cli bootstrap
 export function get(): string {
-  const { rcPath } = yargs.argv as unknown as { rcPath: string };
-  return rcPath as string
+  return (yargs.argv as unknown as { rcPath: string }).rcPath;
 }

@@ -13,5 +13,5 @@ export function toFileName(s: string): string {
     // make all letters lowercase
     .toLowerCase()
     // replace " ", "/"  and "_"
-    .replace(/[ _\/]/g, '-')
+    .replace(/[ _/]/g, '-')
 }

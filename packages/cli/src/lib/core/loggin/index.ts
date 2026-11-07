@@ -9,7 +9,7 @@ import { get as verbose } from '../../global/options/verbose.js';
  *
  * @param message
  */
-export function logVerbose(...message: Array<string | number | symbol | object | Array<any>>): void {
+export function logVerbose(...message: unknown[]): void {
   if (verbose()) {
     return console.log(...message);
   }
@@ -24,6 +24,6 @@ export function logVerbose(...message: Array<string | number | symbol | object |
  *
  * @param message
  */
-export function log(...message: Array<string | number | symbol | object | Array<any>>): void {
+export function log(...message: unknown[]): void {
   return console.log(...message);
 }

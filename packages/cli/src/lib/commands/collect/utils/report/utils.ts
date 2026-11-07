@@ -2,7 +2,6 @@ import { FlowResult } from 'lighthouse';
 import { ReducedReport } from './types.js';
 import { parseSteps } from './lh-utils.js';
 import { toFileName } from '../../../../core/file/index.js';
-import { isoDateStringToIsoLikeString } from '../persist/utils.js';
 
 export function createReducedReport(flowResult: FlowResult): ReducedReport {
   const steps = parseSteps(flowResult.steps);
@@ -21,6 +20,10 @@ export function enrichReducedReportWithBaseline(reducedReport: ReducedReport, ba
     ...reducedReport,
     steps
   };
+}
+
+export function isoDateStringToIsoLikeString(isoDate: string): string {
+  return isoDate.replace(/[-:]/gm, '').split('.').shift() as string;
 }
 
 export function toReportName(url: string, flowName: string, report: ReducedReport): string {

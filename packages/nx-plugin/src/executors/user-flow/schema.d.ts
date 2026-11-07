@@ -2,4 +2,4 @@ import {CLI_MODES, CollectCommandCfg, GlobalOptionsArgv} from "@push-based/user-
 
 export type UserFlowExecutorSchema = {
   cliMode?: CLI_MODES
-} & CollectCommandCfg & GlobalOptionsArgv; // eslint-disable-line
+} & CollectCommandCfg & GlobalOptionsArgv;

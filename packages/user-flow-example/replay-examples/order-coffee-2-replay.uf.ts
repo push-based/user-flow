@@ -2,7 +2,7 @@ import {createUserFlowRunner, UserFlowContext, UserFlowInteractionsFn, UserFlowP
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
-): Promise<any> => {
+): Promise<void> => {
 
   const path = './recordings/order-coffee-2.replay.json';
   const runner = await createUserFlowRunner(path, ctx);

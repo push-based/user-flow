@@ -14,7 +14,6 @@ import {DEFAULT_TARGET_NAME} from "../target/constants";
  * The plugin pins itself at the version that did the generating, so the
  * workspace ends up with a plugin and a config that agree.
  */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {version: PLUGIN_VERSION} = require('../../../package.json');
 
 export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): NormalizedSchema {
@@ -29,7 +28,7 @@ export function normalizeOptions(tree: Tree, options?: InitGeneratorSchema): Nor
   };
 }
 
-export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
+export function updateDependencies(tree: Tree) {
   const devDeps = {
     '@push-based/user-flow': '^0.19.0',
     // computed key - a bare `PLUGIN_NAME` here wrote a literal "PLUGIN_NAME"
@@ -40,7 +39,7 @@ export function updateDependencies(tree: Tree, options?: NormalizedSchema) {
   addDependenciesToPackageJson(tree, {}, devDeps);
 }
 
-export function updateNxJson(tree: Tree, options?: NormalizedSchema) {
+export function updateNxJson(tree: Tree) {
   updateJson(tree, joinPathFragments('nx.json'), (json) => {
     if (json.tasksRunnerOptions) {
       if (!json.tasksRunnerOptions.default.options.cacheableOperations) {

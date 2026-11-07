@@ -5,5 +5,5 @@ export interface CLIProcess {
 }
 
 export interface Process {
-  (_?: any): Promise<any>;
+  (_?: unknown): Promise<unknown>;
 }

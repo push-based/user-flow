@@ -2,7 +2,7 @@ import { CollectRcOptions, PersistRcOptions, ReportFormat } from '../collect/opt
 import { InitOptions } from './options.js';
 import { REPORT_FORMAT_VALUES } from '../collect/constants.js';
 
-const isValidFormat = (value: any): value is ReportFormat => REPORT_FORMAT_VALUES.includes(value);
+const isValidFormat = (value: string): value is ReportFormat => (REPORT_FORMAT_VALUES as string[]).includes(value);
 
 function sanitizedFormats(formats: string[]) {
   const validatedFormats: ReportFormat[] = formats.filter(isValidFormat);
@@ -20,15 +20,15 @@ export function getInitCommandOptionsFromArgv(argv: InitOptions) {
   } = argv;
 
   const collect = {} as CollectRcOptions;
-  url && (collect.url = url);
-  ufPath && (collect.ufPath = ufPath);
+  if (url) collect.url = url;
+  if (ufPath) collect.ufPath = ufPath;
   // optional
-  serveCommand && (collect.serveCommand = serveCommand);
-  awaitServeStdout && (collect.awaitServeStdout = awaitServeStdout);
+  if (serveCommand) collect.serveCommand = serveCommand;
+  if (awaitServeStdout) collect.awaitServeStdout = awaitServeStdout;
 
   const persist = {} as PersistRcOptions;
-  outPath && (persist.outPath = outPath);
-  format && (persist.format = sanitizedFormats(format));
+  if (outPath) persist.outPath = outPath;
+  if (format) persist.format = sanitizedFormats(format);
 
   return { collect, persist, generateFlow, generateGhWorkflow, lhr };
 }

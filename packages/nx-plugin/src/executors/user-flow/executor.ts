@@ -1,23 +1,23 @@
 import {UserFlowExecutorSchema} from './schema';
-import {execSync} from 'child_process';
+import {execSync} from 'node:child_process';
 import {ExecutorContext} from "nx/src/config/misc-interfaces";
-import * as process from "process";
+import * as process from "node:process";
 import {CLI_MODES} from "@push-based/user-flow";
 import {logger} from "@nx/devkit";
 
 
 export default async function runExecutor(
   options: UserFlowExecutorSchema,
-  context?: ExecutorContext & UserFlowExecutorSchema
+  _context?: ExecutorContext & UserFlowExecutorSchema
 ): Promise<{ success: boolean, output: string }> {
   options.interactive = options.interactive !== undefined;
   const verbose = !!options.verbose;
 
   handleCliMode(options.cliMode, verbose);
-  verbose && console.log('Executor ran for user-flow', options);
-  const cliArgs = ['npx @push-based/user-flow collect'].concat(processParamsToParamsArray(options as any)).join(' ');
+  if (verbose) console.log('Executor ran for user-flow', options);
+  const cliArgs = ['npx @push-based/user-flow collect'].concat(processParamsToParamsArray(options as unknown as Record<string, string | boolean | string[]>)).join(' ');
 
-  verbose && console.log('Execute: ', cliArgs);
+  if (verbose) console.log('Execute: ', cliArgs);
 
   let processOutput: Buffer | Error;
   try {
@@ -32,7 +32,7 @@ export default async function runExecutor(
   const success = !(processOutput instanceof Error);
   const output = processOutput.toString();
 
-  verbose && console.log('Result: ', output);
+  if (verbose) console.log('Result: ', output);
 
   return {
     success,
@@ -76,6 +76,6 @@ function handleCliMode(cliMode: CLI_MODES = 'DEFAULT', verbose = false): void {
     default:
       throw new Error(`Wrong cliMode passed: ${cliMode}`);
   }
-  verbose && logger.log('Nx executor runs in CLI mode: ', cliMode);
+  if (verbose) logger.log('Nx executor runs in CLI mode: ', cliMode);
 }
 

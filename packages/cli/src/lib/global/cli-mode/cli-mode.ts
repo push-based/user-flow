@@ -44,7 +44,7 @@ import { CLI_MODES } from './types.js';
  *
  */
 
-const env: any = process.env;
+const env = process.env;
 
 export const CI_PROPERTY = 'CI';
 export const CLI_MODE_PROPERTY = '__CLI_MODE__';
@@ -104,8 +104,8 @@ export function isEnvCi(): boolean {
 
   const ciValue: string | undefined =
     env[CI_PROPERTY] || // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-    env.CONTINUOUS_INTEGRATION || // Travis CI, Cirrus CI
-    env.BUILD_NUMBER || // Jenkins, TeamCity
-    env.RUN_ID; // TaskCluster, dsari
+    env['CONTINUOUS_INTEGRATION'] || // Travis CI, Cirrus CI
+    env['BUILD_NUMBER'] || // Jenkins, TeamCity
+    env['RUN_ID']; // TaskCluster, dsari
   return ciValue != null;
 }

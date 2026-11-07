@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { existsSync, rmSync } from 'fs';
-import { join } from 'path';
+import { existsSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
 import { handleGhWorkflowGeneration } from './generate-workflow.js';
 
 vi.mock('../../../core/loggin');

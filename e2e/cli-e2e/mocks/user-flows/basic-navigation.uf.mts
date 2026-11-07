@@ -1,4 +1,4 @@
-// @ts-ignore // This is a mock file!
+// @ts-expect-error // This is a mock file!
 import { UserFlowContext, UserFlowInteractionsFn, UserFlowProvider } from '@push-based/user-flow';
 
 const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {

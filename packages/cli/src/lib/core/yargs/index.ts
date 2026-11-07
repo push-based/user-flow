@@ -33,6 +33,6 @@ export function runCli(cliCfg: {
   configParser: Options['configParser'];
 }) {
   // apply `.argv` to get args as plain obj available
-  setupYargs(cliCfg.commands, cliCfg.options, cliCfg.configParser).argv;
+  setupYargs(cliCfg.commands, cliCfg.options, cliCfg.configParser).parse();
 }
 
