@@ -77,19 +77,31 @@ const tabName = (token: Token) =>
     ? ((token as Tokens.Code).lang ?? '').match(/\btab="([^"]+)"/)?.[1]
     : undefined;
 
+/** `<!-- steps -->` right before an ordered list turns it into numbered steps on a rail. */
+const isStepsMarker = (token: Token) =>
+  token.type === 'html' && /^<!--\s*steps\s*-->\s*$/.test(token.raw);
+
 /**
- * Folds runs of tab-marked code blocks into one `codeTabs` token, at every
- * level, so tabs also work inside list items.
+ * Rewrites the token tree before rendering, at every level so it also
+ * works inside list items: runs of tab-marked code blocks fold into one
+ * `codeTabs` token, and a `<!-- steps -->` marker flags the list after it.
  */
-function groupCodeTabs(tokens: Token[]): Token[] {
+function transformTokens(tokens: Token[]): Token[] {
   const out: Token[] = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
+    if (isStepsMarker(token)) {
+      const list = tokens.slice(i + 1).find((t) => t.type !== 'space');
+      if (list?.type === 'list' && (list as Tokens.List).ordered) {
+        (list as Tokens.List & { steps?: boolean }).steps = true;
+      }
+      continue;
+    }
     if (!tabName(token)) {
       for (const key of ['tokens', 'items'] as const) {
         const children = (token as { [k: string]: unknown })[key];
         if (Array.isArray(children)) {
-          (token as { [k: string]: unknown })[key] = groupCodeTabs(
+          (token as { [k: string]: unknown })[key] = transformTokens(
             children as Token[],
           );
         }
@@ -205,16 +217,34 @@ export function renderMarkdown(
         if (depth === 2 || depth === 3) {
           toc.push({ id, text: inner.replace(/<[^>]+>/g, ''), level: depth });
         }
+        // "## 1. Do this" headings get the number in a badge, like the steps rail.
+        const step = depth === 2 ? inner.match(/^(\d+)\.\s+/) : null;
+        const label = step
+          ? `<span class="step-number">${step[1]}<span class="step-dot">.</span></span> ${inner.slice(step[0].length)}`
+          : inner;
         const anchor =
           depth > 1
             ? `<a class="heading-anchor" href="#${id}" aria-label="Link to this section">#</a>`
             : '';
-        return `<h${depth} id="${id}">${inner}${anchor}</h${depth}>\n`;
+        return `<h${depth} id="${id}"${step ? ' class="step-heading"' : ''}>${label}${anchor}</h${depth}>\n`;
       },
       code(token: Tokens.Code) {
         const { title, label, pre } = codeBody(token);
         const header = `<div class="code-title"><span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
         return `<figure class="code-block${title ? ' has-title' : ''}">${header}${pre}</figure>\n`;
+      },
+      list(token: Tokens.List & { steps?: boolean }) {
+        if (!token.steps) {
+          return false;
+        }
+        const items = token.items
+          .map((item) => `<li class="step">${this.parser.parse(item.tokens)}</li>`)
+          .join('');
+        const start =
+          typeof token.start === 'number' && token.start !== 1
+            ? ` start="${token.start}" style="counter-reset: step ${token.start - 1}"`
+            : '';
+        return `<ol class="steps"${start}>${items}</ol>\n`;
       },
       blockquote({ tokens }: Tokens.Blockquote) {
         const inner = this.parser.parse(tokens);
@@ -281,7 +311,7 @@ export function renderMarkdown(
     },
   });
 
-  const tokens = groupCodeTabs(marked.lexer(source));
+  const tokens = transformTokens(marked.lexer(source));
   const html = marked.parser(tokens);
   return { html, toc };
 }

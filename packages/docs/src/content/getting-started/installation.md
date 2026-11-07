@@ -41,6 +41,8 @@ The rest of these docs use the short `npx user-flow` form and assume the package
 
 If you prefer to keep user flows out of your application repository, create a dedicated project for them.
 
+<!-- steps -->
+
 1. Create a folder, for example `user-flow-demo`, and initialise a package inside it:
 
    ```bash tab="npm"

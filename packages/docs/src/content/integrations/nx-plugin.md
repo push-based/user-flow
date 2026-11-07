@@ -2,6 +2,8 @@
 
 ## Quick start
 
+<!-- steps -->
+
 1. Install the plugin and run its `init` generator. It adds the required packages to your `package.json` and generator defaults to `nx.json`:
 
    ```bash tab="npm"

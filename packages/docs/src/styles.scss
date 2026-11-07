@@ -521,6 +521,116 @@ pre {
   }
 }
 
+/* Steps: a numbered rail for sequential guides, opted into with
+   `<!-- steps -->` before an ordered list. */
+.prose ol.steps {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+  margin: var(--space-6) 0 var(--space-8);
+}
+
+.prose .step {
+  counter-increment: step;
+  position: relative;
+  min-width: 0;
+  padding: 0 0 var(--space-6) 3rem;
+
+  + .step {
+    margin-top: 0;
+  }
+
+  // The number, in the same badge the landing page uses for How it works.
+  &::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--accent-outline);
+    border-radius: var(--radius-full);
+    background: var(--accent-soft);
+    color: var(--accent-soft-text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  // The rail down to the next number.
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(1rem - 0.5px);
+    top: 2.5rem;
+    bottom: var(--space-2);
+    width: 1px;
+    background: linear-gradient(var(--accent-outline), var(--border));
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+    padding-top: 0.25rem;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .prose .step {
+    padding-left: 2.5rem;
+
+    &::before {
+      width: 1.75rem;
+      height: 1.75rem;
+      font-size: 0.8125rem;
+    }
+
+    &:not(:last-child)::after {
+      left: calc(0.875rem - 0.5px);
+      top: 2.25rem;
+    }
+  }
+}
+
+/* "## 1. Do this" headings carry their number in the same badge. */
+.prose .step-number {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2rem;
+  height: 2rem;
+  margin-right: var(--space-2);
+  padding: 0 var(--space-1-5);
+  border: 1px solid var(--accent-outline);
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  vertical-align: 0.15em;
+}
+
+// Kept in the text so search snippets and copy-paste still read "1. …".
+.prose .step-dot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Callouts, from GitHub style `> [!TIP]` block quotes */
 .callout {
   margin: 0 0 var(--space-6);
