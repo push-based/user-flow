@@ -61,32 +61,32 @@
   }
 }
 
+// Soft radial gradients rather than blur filters, which cost a lot on phones.
 .hero-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.55;
+  opacity: 0.7;
   animation: blob 18s ease-in-out infinite alternate;
 }
 
 .hero-blob-1 {
-  top: -10%;
-  left: 55%;
-  width: 46vw;
-  height: 30vw;
-  max-width: 620px;
-  max-height: 400px;
-  background: var(--hero-blob-1);
+  top: -30%;
+  left: 45%;
+  width: 70vw;
+  height: 50vw;
+  max-width: 900px;
+  max-height: 620px;
+  background: radial-gradient(closest-side, var(--hero-blob-1), transparent);
 }
 
 .hero-blob-2 {
-  top: 30%;
-  left: -8%;
-  width: 34vw;
-  height: 26vw;
-  max-width: 440px;
-  max-height: 340px;
-  background: var(--hero-blob-2);
+  top: 15%;
+  left: -25%;
+  width: 56vw;
+  height: 44vw;
+  max-width: 680px;
+  max-height: 540px;
+  background: radial-gradient(closest-side, var(--hero-blob-2), transparent);
   animation-delay: -9s;
   animation-duration: 24s;
 }
@@ -113,6 +113,14 @@
   margin: 0;
   max-width: 40rem;
   box-shadow: var(--shadow-md);
+
+  .terminal-replay {
+    margin-left: auto;
+  }
+
+  .terminal-replay + .code-copy {
+    margin-left: 0;
+  }
 }
 
 /* The package pill: a live dot, the name and the version on npm. */
@@ -188,8 +196,8 @@
 
 .word-inner {
   display: inline-block;
-  animation: word-up 1s var(--ease-out) both;
-  animation-delay: calc(160ms + var(--w, 0) * 80ms);
+  animation: word-up 0.8s var(--ease-out) both;
+  animation-delay: calc(80ms + var(--w, 0) * 60ms);
 }
 
 .word-accent {
@@ -205,13 +213,12 @@
   background-clip: text;
   color: transparent;
   animation:
-    word-up 1s var(--ease-out) both,
-    shimmer 2.4s var(--ease-in-out) 1.4s both;
+    word-up 0.8s var(--ease-out) both,
+    shimmer 2.4s var(--ease-in-out) 1.2s both;
 }
 
 @keyframes word-up {
   from {
-    opacity: 0;
     transform: translateY(105%) rotate(2deg);
   }
 }

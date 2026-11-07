@@ -153,18 +153,6 @@ $ring: 106.8;
   );
   opacity: 0;
   animation: beam $cycle ease-in-out infinite;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--accent) 34%, transparent),
-      transparent 60%
-    );
-    animation: beam-pulse 1.6s ease-in-out infinite alternate;
-  }
 }
 
 /* The three targets, one per column, lit in turn. */
@@ -202,13 +190,13 @@ $ring: 106.8;
   right: 8px;
   padding: 1px 7px;
   border-radius: var(--radius-full);
-  background: var(--color-success-500);
-  color: #fff;
+  background: var(--ok-bg);
+  color: var(--ok-fg);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   line-height: 1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--color-success-500) 50%, transparent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ok-bg) 50%, transparent);
   opacity: 0;
   transform: translateY(6px) scale(0.6);
 }
@@ -260,7 +248,7 @@ $ring: 106.8;
   margin-top: calc(-1 * var(--space-1));
   font-size: 0.6875rem;
   line-height: 1rem;
-  color: var(--text-subtle);
+  color: var(--text-muted);
 }
 
 @keyframes flight {
@@ -328,15 +316,6 @@ $ring: 106.8;
   53%,
   63%,
   83% {
-    opacity: 1;
-  }
-}
-
-@keyframes beam-pulse {
-  from {
-    opacity: 0.35;
-  }
-  to {
     opacity: 1;
   }
 }
@@ -469,7 +448,6 @@ $ring: 106.8;
   .ufo-tilt,
   .ufo-bob,
   .beam,
-  .beam::after,
   .target,
   .gauge-fill,
   .chip {

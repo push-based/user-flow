@@ -77,6 +77,13 @@ export class Home {
 
   readonly copied = signal(false);
 
+  /** Bumped by the replay button; the terminal re-renders and types again. */
+  readonly runs = signal(0);
+
+  replay() {
+    this.runs.update((n) => n + 1);
+  }
+
   readonly benefits = [
     {
       icon: 'gauge',

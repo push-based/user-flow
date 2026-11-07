@@ -28,7 +28,9 @@ const REVEAL_BLOCKS = [
   ':scope > .table-wrap',
   ':scope > .options',
   ':scope > .diagram',
-  'img:not(.img-icon)',
+  ':scope > .figure',
+  ':scope > .cta-band',
+  '.step img:not(.img-icon)',
   '.link-card',
   '.step',
 ].join(', ');
@@ -156,6 +158,12 @@ export class DocPage {
     const copy = target.closest<HTMLButtonElement>('.code-copy');
     if (copy) {
       this.copyCode(copy);
+      return;
+    }
+
+    const command = target.closest<HTMLButtonElement>('.cta-command');
+    if (command) {
+      this.copyCommand(command);
       return;
     }
 
@@ -463,6 +471,26 @@ export class DocPage {
     clearTimeout(this.toastTimer);
     this.toast.set(message);
     this.toastTimer = setTimeout(() => this.toast.set(null), 1800);
+  }
+
+  /** The call-to-action band's install command. */
+  private copyCommand(button: HTMLButtonElement) {
+    const state = button.querySelector('.cta-copy-state');
+    const markCopied = () => {
+      button.classList.add('copied');
+      if (state) {
+        state.textContent = 'Copied';
+      }
+      setTimeout(() => {
+        button.classList.remove('copied');
+        if (state) {
+          state.textContent = 'Copy';
+        }
+      }, 1800);
+    };
+    navigator.clipboard
+      ?.writeText(button.dataset['copy'] ?? '')
+      .then(markCopied, () => undefined);
   }
 
   private copyCode(button: HTMLButtonElement) {

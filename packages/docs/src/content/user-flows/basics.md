@@ -48,6 +48,8 @@ The `UserFlowContext` passed to `interactions` contains:
 
 Lighthouse offers three kinds of steps. Each covers a different question and supports a different set of audits.
 
+<!-- diagram: measurement-modes -->
+
 | Mode                                                                      | Measures                      | Performance | Accessibility | Best practices | SEO       | PWA   |
 | ------------------------------------------------------------------------- | ----------------------------- | ----------- | ------------- | -------------- | --------- | ----- |
 | ![Navigation](images/user-flow_navigation-icon.png 'icon') **Navigation** | A page load                   | 100% / 30   | 100% / 30     | 100% / 30      | 100% / 30 | ✔ / 7 |
@@ -62,7 +64,7 @@ The numbers are the audits each mode supports per category, with the share of th
 
 The report shows the icon next to each step so you can tell the modes apart at a glance.
 
-![A report with navigation, timespan and snapshot steps](https://user-images.githubusercontent.com/10064416/166849157-f1d799f5-1f05-481b-8234-ec6645827791.PNG)
+![The summary of a user flow report, with the mode icon next to each step](images/report-steps.png)
 
 ## Choosing selectors
 

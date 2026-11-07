@@ -1,6 +1,5 @@
 import { DOCUMENT, inject, Injectable } from '@angular/core';
 import { ALL_DOC_PAGES } from '../docs/nav';
-import { renderMarkdown } from '../docs/markdown';
 
 /** One searchable chunk: a page's intro, or one of its h2/h3 sections. */
 export interface SearchEntry {
@@ -39,6 +38,7 @@ export class SearchIndex {
   }
 
   private async build(): Promise<SearchEntry[]> {
+    const { renderMarkdown } = await import('../docs/markdown');
     const baseHref =
       this.document.querySelector('base')?.getAttribute('href') ?? '/';
     const parser = new DOMParser();

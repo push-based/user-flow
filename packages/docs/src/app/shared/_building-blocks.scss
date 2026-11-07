@@ -3,8 +3,8 @@
 
 /* First paint: the hero copy rises in line by line, then the scene follows. */
 .enter {
-  animation: enter var(--duration-reveal) var(--ease-out) both;
-  animation-delay: calc(80ms + var(--enter, 0) * 90ms);
+  animation: enter var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(60ms + var(--enter, 0) * 50ms);
 }
 
 @keyframes enter {

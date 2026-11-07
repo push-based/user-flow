@@ -8,12 +8,8 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import hljs from 'highlight.js/lib/core';
-import typescript from 'highlight.js/lib/languages/typescript';
 import { Reveal } from '../shared/reveal';
 import { Mode, ModeIcon } from '../shared/mode-icon';
-
-hljs.registerLanguage('typescript', typescript);
 
 /** How long each step of the walkthrough stays on screen. */
 export const STEP_MS = 3600;
@@ -33,6 +29,40 @@ export default {
     await flow.snapshot({ name: 'Checkout form' });
   },
 } satisfies UserFlowProvider;`;
+
+const KEYWORDS = new Set(['import', 'from', 'export', 'default', 'async', 'await', 'satisfies']);
+
+/**
+ * Highlights one line of the sample flow with the classes the site's
+ * highlight.js theme styles. The snippet is fixed and small, so a few
+ * patterns cover it and the real highlighter can stay out of this bundle.
+ */
+function highlightLine(line: string): string {
+  const escaped = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return (
+    escaped.replace(
+      /('[^']*')|\b([A-Za-z_]\w*)(?=\s*:)|\b([A-Za-z_]\w*)(?=\()|\b([A-Za-z_]\w*)\b/g,
+      (match, string, property, call, word) => {
+        if (string) {
+          return `<span class="hljs-string">${string}</span>`;
+        }
+        if (property) {
+          return `<span class="hljs-attr">${property}</span>`;
+        }
+        if (call) {
+          return `<span class="hljs-title function_">${call}</span>`;
+        }
+        if (KEYWORDS.has(word)) {
+          return `<span class="hljs-keyword">${word}</span>`;
+        }
+        if (word === 'UserFlowProvider') {
+          return `<span class="hljs-title class_">${word}</span>`;
+        }
+        return match;
+      },
+    ) || ' '
+  );
+}
 
 interface Step {
   mode: Mode | 'collect' | 'report';
@@ -103,9 +133,7 @@ export class FlowWalkthrough {
   readonly measured = this.steps.filter((step) => step.score);
 
   /** The source, highlighted one line at a time so each line can be lit on its own. */
-  readonly lines = SOURCE.split('\n').map(
-    (line) => hljs.highlight(line, { language: 'typescript' }).value || ' ',
-  );
+  readonly lines = SOURCE.split('\n').map(highlightLine);
 
   readonly active = signal(0);
   /** True while a mouse hovers the walkthrough. Touch never pauses it. */

@@ -4,6 +4,8 @@ The CLI has two commands, `init` and `collect`, and a handful of global options 
 npx user-flow [command] [options]
 ```
 
+<!-- diagram: command-map -->
+
 | Command                        | Purpose                                                                                 |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
 | [`init`](/docs/cli/init)       | Create or update `.user-flowrc.json` and scaffold an example flow or a GitHub workflow. |

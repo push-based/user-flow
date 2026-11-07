@@ -1,6 +1,6 @@
 With a few steps your user flows run on every pull request and the Markdown report is posted as a comment. Reviewers see the performance impact of a change next to the code.
 
-![A pull request with a user flow report comment](https://user-images.githubusercontent.com/10064416/216605948-b8fffdda-3459-48c9-975a-75ec95544d30.png)
+<!-- diagram: ci-flow -->
 
 If GitHub Actions are new to you, start with the [GitHub Actions features](https://github.com/features/actions) page. The action used here is published on the [marketplace](https://github.com/marketplace/actions/lighthouse-user-flow-ci-action).
 
@@ -67,14 +67,11 @@ What the pieces do:
 
 ## 3. Test the setup
 
-Open a pull request. The workflow appears in the checks of the PR and runs your flows:
+Open a pull request. The workflow appears in the checks of the PR, runs your flows and, when it finishes, attaches the Markdown report to the pull request as a comment:
 
-![The action is executing](https://user-images.githubusercontent.com/10064416/216594684-ea9e3a5e-007e-47d6-b438-c16d2158f940.PNG)
-![The action completed](https://user-images.githubusercontent.com/10064416/216594803-65cb2cfd-1924-44ae-84ec-8b1d09e49ada.PNG)
+<!-- diagram: pr-comment -->
 
-When it finishes, the Markdown report is attached to the pull request as a comment:
-
-![The report comment on the pull request](https://user-images.githubusercontent.com/10064416/216596391-35a041e2-9839-4cf5-b8c5-b55e93cb622e.PNG)
+Every later push updates the same comment, so the report always reflects the latest commit.
 
 ## Alternative: post the report yourself
 
