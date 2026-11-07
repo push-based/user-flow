@@ -7,6 +7,8 @@ export interface ResolvedDoc {
   page: FlatDocPage;
   html: string;
   toc: TocEntry[];
+  /** The page as plain Markdown, with its title and description, for "Copy page". */
+  markdown: string;
   /** Estimated reading time, rounded up to whole minutes. */
   readingMinutes: number;
   previous?: FlatDocPage;
@@ -29,6 +31,7 @@ export const docResolver: ResolveFn<ResolvedDoc> = async (route) => {
     page,
     html,
     toc,
+    markdown: pageMarkdown(page.title, page.description, source),
     readingMinutes: readingMinutes(source),
     previous: ALL_DOC_PAGES[index - 1],
     next: ALL_DOC_PAGES[index + 1],
@@ -44,4 +47,16 @@ export function readingMinutes(markdown: string): number {
   });
   const words = prose.split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 220 + codeLines / 60));
+}
+
+/** The page's source as standalone Markdown: title, description and body, without the site-only markers. */
+export function pageMarkdown(
+  title: string,
+  description: string,
+  source: string,
+): string {
+  const body = source
+    .replace(/^[ \t]*<!--\s*(steps|cards)\s*-->\n\n?/gm, '')
+    .trim();
+  return `# ${title}\n\n${description}\n\n${body}\n`;
 }

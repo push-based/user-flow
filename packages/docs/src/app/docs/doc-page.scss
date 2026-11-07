@@ -89,11 +89,46 @@
 .doc-meta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2) var(--space-5);
   margin: var(--space-5) 0 0;
   font-size: 0.8125rem;
   line-height: 1.25rem;
   color: var(--text-muted);
+}
+
+.doc-copy-page {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  margin-left: auto;
+  padding: var(--space-1) var(--space-2-5, 0.625rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  font: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  &:hover {
+    color: var(--link);
+    border-color: var(--accent-outline);
+    translate: 0 -1px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
 }
 
 .doc-meta-item {
