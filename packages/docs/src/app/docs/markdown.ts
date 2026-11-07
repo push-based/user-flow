@@ -58,6 +58,10 @@ const COPY_BUTTON =
   '<span class="code-copy-label" aria-hidden="true">Copied</span>' +
   '</button>';
 
+/** Window controls drawn in a terminal block's title bar. */
+const WINDOW_DOTS =
+  '<span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+
 const CALLOUTS: Record<string, string> = {
   TIP: 'Tip',
   NOTE: 'Note',
@@ -131,6 +135,43 @@ function transformTokens(tokens: Token[]): Token[] {
   return out;
 }
 
+const SHELL_LANGUAGES = new Set(['bash', 'sh', 'shell']);
+
+/**
+ * Renders a shell block line by line, so commands can carry a prompt (drawn
+ * in CSS, so it is never selected or copied) and output can be told apart.
+ * Lines starting with `$ ` are commands when the block uses that marker;
+ * otherwise every line that is not a comment is a command. A line after one
+ * ending in `\` continues the command and gets no prompt.
+ */
+function renderShell(text: string): string {
+  const lines = text.split('\n');
+  const marked = lines.some((line) => line.startsWith('$ '));
+  let continued = false;
+  return lines
+    .map((line) => {
+      let kind: 'cmd' | 'cont' | 'comment' | 'out' | 'blank';
+      let source = line;
+      if (continued) {
+        kind = 'cont';
+      } else if (!line.trim()) {
+        kind = 'blank';
+      } else if (marked) {
+        kind = line.startsWith('$ ') ? 'cmd' : 'out';
+        source = kind === 'cmd' ? line.slice(2) : line;
+      } else {
+        kind = line.trimStart().startsWith('#') ? 'comment' : 'cmd';
+      }
+      continued = (kind === 'cmd' || kind === 'cont') && /\\\s*$/.test(line);
+      const body =
+        kind === 'out'
+          ? escapeHtml(source)
+          : hljs.highlight(source, { language: 'bash' }).value;
+      return `<span class="term-line term-${kind}">${body}</span>`;
+    })
+    .join('\n');
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -153,12 +194,16 @@ function escapeHtml(value: string): string {
 function codeBody({ text, lang }: Tokens.Code) {
   const [language, ...meta] = (lang ?? '').trim().split(/\s+/);
   const title = meta.join(' ').match(/title="?([^"]+)"?/)?.[1];
+  const shell = SHELL_LANGUAGES.has(language);
   const known = language && hljs.getLanguage(language);
-  const body = known
-    ? hljs.highlight(text, { language }).value
-    : escapeHtml(text);
+  const body = shell
+    ? renderShell(text)
+    : known
+      ? hljs.highlight(text, { language }).value
+      : escapeHtml(text);
   return {
     title,
+    shell,
     label: title ?? LANGUAGE_LABELS[language] ?? '',
     pre: `<div class="code-scroll"><pre><code class="hljs language-${escapeHtml(language || 'text')}">${body}</code></pre></div>`,
   };
@@ -201,7 +246,8 @@ export function renderMarkdown(
                 `<div class="code-tabpanel" role="tabpanel" id="tabpanel-${group}-${i}" aria-labelledby="tab-${group}-${i}" data-tab="${escapeHtml(names[i])}"${i === 0 ? '' : ' hidden'}>${codeBody(tab).pre}</div>`,
             )
             .join('');
-          return `<figure class="code-block code-tabs"><div class="code-title"><div class="code-tablist" role="tablist" aria-label="Choose a variant">${buttons}<span class="code-tab-indicator" aria-hidden="true"></span></div>${COPY_BUTTON}</div>${panels}</figure>\n`;
+          const shell = tabs.every((tab) => codeBody(tab).shell);
+          return `<figure class="code-block code-tabs${shell ? ' code-terminal' : ''}"><div class="code-title">${shell ? WINDOW_DOTS : ''}<div class="code-tablist" role="tablist" aria-label="Choose a variant">${buttons}<span class="code-tab-indicator" aria-hidden="true"></span></div>${COPY_BUTTON}</div>${panels}</figure>\n`;
         },
       },
     ],
@@ -229,9 +275,12 @@ export function renderMarkdown(
         return `<h${depth} id="${id}"${step ? ' class="step-heading"' : ''}>${label}${anchor}</h${depth}>\n`;
       },
       code(token: Tokens.Code) {
-        const { title, label, pre } = codeBody(token);
-        const header = `<div class="code-title"><span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
-        return `<figure class="code-block${title ? ' has-title' : ''}">${header}${pre}</figure>\n`;
+        const { title, label, pre, shell } = codeBody(token);
+        const header = `<div class="code-title">${shell ? WINDOW_DOTS : ''}<span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
+        const classes = ['code-block', title && 'has-title', shell && 'code-terminal']
+          .filter(Boolean)
+          .join(' ');
+        return `<figure class="${classes}">${header}${pre}</figure>\n`;
       },
       list(token: Tokens.List & { steps?: boolean }) {
         if (!token.steps) {

@@ -350,7 +350,16 @@ export class DocPage {
     if (!code) {
       return;
     }
-    const text = code.textContent ?? '';
+    // Terminal blocks copy their commands, not the output shown with them.
+    const lines = code.querySelectorAll('.term-line');
+    const text = lines.length
+      ? Array.from(lines)
+          .filter((line) => !line.classList.contains('term-out'))
+          .map((line) => line.textContent ?? '')
+          .join('\n')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim()
+      : (code.textContent ?? '');
     const markCopied = () => {
       button.classList.add('copied');
       button.setAttribute('aria-label', 'Copied');
