@@ -39,12 +39,17 @@ $ring: 106.8;
 
 .glow {
   position: absolute;
-  inset: -10% -5% 0;
+  inset: -10% 0 0;
   background: radial-gradient(
     ellipse 55% 60% at 50% 38%,
     var(--hero-glow) 0%,
     transparent 70%
   );
+}
+
+/* The glow and the orbit rings reach past the scene, so clip them sideways. */
+:host {
+  overflow-x: clip;
 }
 
 .orbit {
@@ -94,7 +99,9 @@ $ring: 106.8;
   animation-delay: calc(var(--d) * -1s);
 }
 
-/* Flight path: the saucer slides between the three columns and swoops back. */
+/* Flight path: the saucer slides between the three columns and swoops back.
+   The saucer itself moves (by multiples of its own column width), so nothing
+   ever extends past the scene and the page cannot scroll sideways. */
 .flight {
   top: 0;
   bottom: auto;
@@ -102,7 +109,6 @@ $ring: 106.8;
   right: 0;
   height: var(--mark-size);
   translate: calc(var(--px, 0) * 16px) calc(var(--py, 0) * 12px);
-  animation: flight $cycle ease-in-out infinite;
 }
 
 .ufo {
@@ -111,6 +117,7 @@ $ring: 106.8;
   height: 100%;
   display: flex;
   justify-content: center;
+  animation: flight $cycle ease-in-out infinite;
 }
 
 .ufo-tilt {
@@ -263,14 +270,14 @@ $ring: 106.8;
   }
   30%,
   54% {
-    transform: translate(33.333%, 0);
+    transform: translate(100%, 0);
   }
   60%,
   84% {
-    transform: translate(66.667%, 0);
+    transform: translate(200%, 0);
   }
   92% {
-    transform: translate(33.333%, -34px);
+    transform: translate(100%, -34px);
   }
   100% {
     transform: translate(0, 0);
@@ -458,7 +465,7 @@ $ring: 106.8;
   .layer,
   .orbit,
   .mote,
-  .flight,
+  .ufo,
   .ufo-tilt,
   .ufo-bob,
   .beam,
@@ -474,8 +481,8 @@ $ring: 106.8;
     transform: none;
   }
 
-  .flight {
-    transform: translate(33.333%, 0);
+  .ufo {
+    transform: translate(100%, 0);
   }
 
   .beam {
