@@ -88,15 +88,27 @@
     <nav class="doc-pager" aria-label="Previous and next page">
       @if (doc().previous; as previous) {
       <a class="pager-link pager-prev" [routerLink]="previous.path">
-        <span class="pager-label">Previous</span>
+        <span class="pager-label">
+          <span class="pager-arrow" aria-hidden="true">←</span>
+          Previous
+          @if (previous.section !== doc().page.section) {
+          <span class="pager-section">· {{ previous.section.title }}</span>
+          }
+        </span>
         <span class="pager-title">{{ previous.title }}</span>
+        <span class="pager-description">{{ previous.description }}</span>
       </a>
-      } @else {
-      <span></span>
       } @if (doc().next; as next) {
       <a class="pager-link pager-next" [routerLink]="next.path">
-        <span class="pager-label">Next</span>
+        <span class="pager-label">
+          @if (next.section !== doc().page.section) {
+          <span class="pager-section">{{ next.section.title }} ·</span>
+          }
+          Next
+          <span class="pager-arrow" aria-hidden="true">→</span>
+        </span>
         <span class="pager-title">{{ next.title }}</span>
+        <span class="pager-description">{{ next.description }}</span>
       </a>
       }
     </nav>

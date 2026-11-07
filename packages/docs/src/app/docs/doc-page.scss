@@ -156,18 +156,29 @@
 
 .doc-pager {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   margin-top: var(--space-6);
   padding-top: var(--space-8);
   border-top: 1px solid var(--border);
 }
 
+@media (min-width: 640px) {
+  .doc-pager {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  // A lone "next" card stays on the right, where readers look for it.
+  .pager-next:only-child {
+    grid-column: 2;
+  }
+}
+
 .pager-link {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-4) var(--space-5);
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-6);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
   text-decoration: none;
@@ -180,48 +191,70 @@
   &:hover {
     border-color: var(--accent-outline);
     box-shadow: var(--shadow-md);
-    translate: 0 -2px;
+    translate: 0 -3px;
   }
 
-  &:hover .pager-title::before,
-  &:hover .pager-title::after {
-    translate: 0;
-    opacity: 1;
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
-}
-
-.pager-prev .pager-title::before,
-.pager-next .pager-title::after {
-  display: inline-block;
-  opacity: 0;
-  transition:
-    translate var(--duration-base) var(--ease-out),
-    opacity var(--duration-base) ease-out;
-}
-
-.pager-prev .pager-title::before {
-  content: '← ';
-  translate: 6px 0;
-}
-
-.pager-next .pager-title::after {
-  content: ' →';
-  translate: -6px 0;
 }
 
 .pager-next {
   text-align: right;
+
+  .pager-label {
+    justify-content: flex-end;
+  }
 }
 
 .pager-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
 }
 
-.pager-title {
+.pager-section {
+  color: var(--text-subtle);
   font-weight: 500;
+}
+
+.pager-arrow {
   color: var(--link);
+  transition: translate var(--duration-base) var(--ease-out);
+}
+
+.pager-prev:hover .pager-arrow {
+  translate: -4px 0;
+}
+
+.pager-next:hover .pager-arrow {
+  translate: 4px 0;
+}
+
+.pager-title {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  transition: color var(--duration-fast) ease-out;
+}
+
+.pager-link:hover .pager-title {
+  color: var(--link);
+}
+
+.pager-description {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
 }
 
 .toc {
