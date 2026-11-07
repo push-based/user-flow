@@ -5,10 +5,10 @@ import { globalOptions } from '../options/index.js';
 
 export function readRcConfig(rcPath: string = '', options?: {
   fail?: boolean,
-  fallback?: {}
+  fallback?: object
 }): RcJson {
-  let { fail, fallback } = options || {};
-  fallback = fallback || {};
+  const { fail } = options || {};
+  const fallback = options?.fallback || {};
   rcPath = rcPath || globalOptions.getRcPath();
   let repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json', fail: !!fail });
   if (!repoConfigJson) {

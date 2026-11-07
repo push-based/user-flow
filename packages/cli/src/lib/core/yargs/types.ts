@@ -3,7 +3,7 @@ import { Argv, CommandModule, Options } from 'yargs';
 export interface YargsCommandObject {
   command: string | ReadonlyArray<string>;
   description: string;
-  builder?: (y: Argv) => any;
+  builder?: (y: Argv) => Argv;
   module: CommandModule;
 }
 

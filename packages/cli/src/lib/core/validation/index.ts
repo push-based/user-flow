@@ -1,9 +1,11 @@
 import {Error, ValidatorFn} from './types.js';
 
 export function applyValidations<T>(value: T, validators: ValidatorFn[]): Error {
-  return validators.reduce((errors, validator) => {
-    return { ...errors, ...(validator(value) || {}) };
-  }, {});
+  const errors: Error = {};
+  for (const validator of validators) {
+    Object.assign(errors, validator(value));
+  }
+  return errors;
 }
 
 export function hasError(errors: Error): boolean {

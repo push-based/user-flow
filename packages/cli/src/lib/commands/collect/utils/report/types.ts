@@ -2,7 +2,6 @@ import { Config, FlowResult } from 'lighthouse';
 import { CLI_MODES } from '../../../../global/cli-mode/index.js';
 import { PickOne } from '../../../../core/types.js';
 
-type UfrSlice = PickOne<FlowResult>;
 type LhrSlice = PickOne<FlowResult.Step['lhr']>;
 
 export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
@@ -15,8 +14,6 @@ export type GatherMode = FlowResult.Step['lhr']['gatherMode'];
  * const f2: GatherModeSlice = {gatherMode: 'snapshot'};
  */
 type LhrGatherModeSlice = LhrSlice & { gatherMode: GatherMode };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type UfrNameSlice = UfrSlice & { name: string };
 
 
 /**
@@ -47,7 +44,7 @@ export type ReducedReport = {
   name: string;
   fetchTime: string;
   steps: ReducedFlowStep[];
-  config?: Config & { baseline?: any };
+  config?: Config & { baseline?: FlowResult };
 }
 
 export type ReducedFlowStepResult = Record<string, number | FractionResults>;

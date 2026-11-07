@@ -9,7 +9,7 @@ import { RcJson } from '../../../types.js';
 // This fn takes the serve options as well ans the run block and makes sure execution is done correctly and errors are forwarded too.
 // In there we compose easier to test fn's
 
-export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<any>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
+export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<RcJson>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
 
   const { serveCommand, awaitServeStdout } = collectOption;
 
@@ -38,7 +38,7 @@ export async function startServerIfNeededAndExecute(workTargetingServer: () => P
       .catch(error => {
         console.error(error);
         reject('Error while executing ' + serveCommand);
-      }).finally();
+      });
 
 
     let isCollecting = false;

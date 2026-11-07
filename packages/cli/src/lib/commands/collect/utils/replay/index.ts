@@ -1,5 +1,5 @@
 import { createRunner, Runner, UserFlow as PRUserFlow } from '@puppeteer/replay';
-import { UserFlowContext } from '../../../../index.js';
+import { UserFlowContext } from '../user-flow/types.js';
 import { readFile } from '../../../../core/file/index.js';
 import { UserFlowReportJson } from './types.js';
 import { UserFlowRunnerExtension } from './runner-extension.js';

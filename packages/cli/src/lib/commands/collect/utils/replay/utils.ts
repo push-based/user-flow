@@ -34,7 +34,7 @@ export function stringify(enrichedRecordingJson: {
 }
 
 function userFlowStepToCustomStep(step: UserFlowRecordingStep): Step {
-  const { type: name, parameters } = step as any;
+  const { type: name, parameters } = step as { type: string; parameters?: CustomStep['parameters'] };
   const stdStp: CustomStep = {
     type: StepType.CustomStep,
     name,

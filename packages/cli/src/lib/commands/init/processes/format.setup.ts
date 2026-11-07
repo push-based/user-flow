@@ -23,11 +23,11 @@ export async function setupFormat(
         name: 'f',
         message: PROMPT_PERSIST_FORMAT,
         choices: REPORT_FORMAT_OPTIONS,
-        initial: REPORT_FORMAT_VALUES.indexOf((getEnvPreset() as any).format[0]),
+        initial: REPORT_FORMAT_VALUES.indexOf(getEnvPreset().format?.[0] as ReportFormat),
         // @NOTICE typing is broken here
         result(value: string) {
-          const values = value as any as string[];
-          return values.map((name: string) => REPORT_FORMAT_VALUES[REPORT_FORMAT_NAMES.indexOf(name)]) as any as string;
+          const values = value as unknown as string[];
+          return values.map((name: string) => REPORT_FORMAT_VALUES[REPORT_FORMAT_NAMES.indexOf(name)]) as unknown as string;
         },
         multiple: true
       }

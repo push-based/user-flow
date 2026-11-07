@@ -2,7 +2,7 @@ import {createUserFlowRunner, UserFlowContext, UserFlowInteractionsFn, UserFlowP
 
 const interactions: UserFlowInteractionsFn = async (
   ctx: UserFlowContext
-): Promise<any> => {
+): Promise<void> => {
 
   const {flow} = ctx;
 

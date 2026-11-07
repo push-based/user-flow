@@ -24,14 +24,14 @@ export function normalizeOptions(tree: Tree, options?: TargetGeneratorSchema): N
 }
 
 export function setupUserFlow(tree: Tree, cfg: NormalizedSchema): void {
-  const {projectName, targetName, projectRoot, verbose} = cfg;
+  const {projectRoot} = cfg;
   logger.log(`Adding .user-flowrc.json to project`);
   let existing;
   try {
     readJson(tree, joinPathFragments(projectRoot, '.user-flowrc.json'));
     existing = true;
   }
-  catch (e) {
+  catch {
     existing = false;
   }
   if (!existing) {

@@ -6,7 +6,3 @@ export async function generateStdoutReport(flowResult: ReducedReport): Promise<s
   const mdTable = await getStepsTable(flowResult);
   return `# ${flowResult.name}\n\nDate/Time: ${dateTime}\n\n${mdTable}`;
 }
-
-export function isoDateStringToIsoLikeString(isoDate: string): string {
-  return isoDate.replace(/[\-:]/gm, '').split('.').shift() as string;
-}

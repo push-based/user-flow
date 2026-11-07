@@ -24,9 +24,11 @@ describe('nx-plugin', () => {
 
   it('should be installed', () => {
     // npm ls will fail if the package is not installed properly
-    execSync(`npm ls ${PLUGIN_PACKAGE_NAME}`, {
-      cwd: projectDirectory,
-      stdio: 'inherit',
-    });
+    expect(() =>
+      execSync(`npm ls ${PLUGIN_PACKAGE_NAME}`, {
+        cwd: projectDirectory,
+        stdio: 'inherit',
+      }),
+    ).not.toThrow();
   });
 });

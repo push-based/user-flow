@@ -27,5 +27,5 @@ export type UserFlowReportJson = Modify<
   }
 >;
 
-export type ReadFileExtTypes = { json: {}; html: string; text: string };
+export type ReadFileExtTypes = { json: object; html: string; text: string };
 export type ReadFileConfig = { fail?: boolean; ext?: keyof ReadFileExtTypes };

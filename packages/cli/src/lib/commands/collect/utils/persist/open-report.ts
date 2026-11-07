@@ -1,4 +1,4 @@
-import openReport from 'open';
+import open from 'open';
 import { logVerbose } from '../../../../core/loggin/index.js';
 import { CollectCommandOptions } from '../../options/index.js';
 
@@ -6,14 +6,14 @@ export async function openFlowReports(fileNames: string[]): Promise<void> {
   const htmlReport = fileNames.find(i => i.includes('.html'));
   if (htmlReport) {
     logVerbose('open HTML report in browser');
-    await openReport(htmlReport, { wait: false });
+    await open(htmlReport, { wait: false });
     return Promise.resolve(void 0);
   }
 
   const mdReport = fileNames.find(i => i.includes('.md'));
   if (mdReport) {
     logVerbose('open Markdown report in browser');
-    await openReport(mdReport, { wait: false });
+    await open(mdReport, { wait: false });
     return Promise.resolve(void 0);
   }
 
@@ -21,7 +21,7 @@ export async function openFlowReports(fileNames: string[]): Promise<void> {
   if (jsonReport) {
     logVerbose('open JSON report in browser');
     // @TODO if JSON is given open the file in https://googlechrome.github.io/lighthouse/viewer/
-    await openReport(jsonReport, { wait: false });
+    await open(jsonReport, { wait: false });
   }
   return Promise.resolve(void 0);
 }

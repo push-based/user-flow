@@ -14,9 +14,7 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/eslint.config.mjs"
+      "!{projectRoot}/src/test-setup.[jt]s"
     ]
   },
   "targetDefaults": {
@@ -25,13 +23,6 @@
     },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-    },
-    "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/eslint.config.mjs"
-      ]
     },
     "nx-release-publish": {
       "dependsOn": ["build"],
@@ -44,6 +35,12 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "options": {
+        "deny-warnings": true,
+        "report-unused-disable-directives-severity": "error"
+      }
     }
   },
   "generators": {
@@ -89,17 +86,6 @@
   },
   "plugins": [
     {
-      "plugin": "@nx/eslint/plugin",
-      "include": [
-        "e2e/cli-e2e/**/*",
-        "e2e/nx-plugin-e2e/**/*",
-        "packages/cli/**/*",
-        "packages/nx-plugin/**/*",
-        "packages/nx-plugin-integration/**/*",
-        "packages/user-flow-example/**/*"
-      ]
-    },
-    {
       "plugin": "@nx/jest/plugin",
       "include": ["packages/nx-plugin/**/*"]
     },
@@ -115,6 +101,12 @@
       "include": ["e2e/nx-plugin-e2e/**/*"],
       "options": {
         "targetName": "e2e"
+      }
+    },
+    {
+      "plugin": "@nx/oxlint",
+      "options": {
+        "targetName": "lint"
       }
     }
   ]

@@ -3,6 +3,8 @@
  * It is meant to be called in jest's globalSetup.
  */
 
+// registry.d.ts declares a global, which only a reference can pull in
+// oxlint-disable-next-line typescript/triple-slash-reference
 /// <reference path="registry.d.ts" />
 
 import { readFileSync, writeFileSync } from 'node:fs';

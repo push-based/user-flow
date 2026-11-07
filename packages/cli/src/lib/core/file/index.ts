@@ -1,4 +1,4 @@
-import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, lstatSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 import { dirname, join } from 'node:path';
@@ -11,22 +11,15 @@ import { cwd } from 'node:process';
 export {toFileName} from './to-file-name.js';
 
 /*
-type _a = Not<undefined, undefined>;
-type _b = Not<number, undefined>;
-type _c = Not<undefined, number>;
-*/
-type Not<T, R> = R extends T ? never : R;
-
-/*
 // type a1 = ReadFileOutput<{ ext: 'json' }>;  // any
 type a2 = ReadFileOutput<{ ext: 'json' }, undefined>;  // {}
 type a3 = ReadFileOutput<{ ext: 'json' }, number>;  // number
 */
-type ReadFileOutput<CFG extends {}, OVERWRITE extends unknown> =
+type ReadFileOutput<CFG extends ReadFileConfig, OVERWRITE> =
 // if OVERWRITE type is given return it
-  Not<OVERWRITE, undefined> extends never ? ExtToOutPut<CFG> : OVERWRITE;
+  [OVERWRITE] extends [undefined] ? ExtToOutPut<CFG> : OVERWRITE;
 
-function jsonParse<T extends unknown>(str: any): T {
+function jsonParse<T>(str: string): T {
   return JSON.parse(str) as T;
 }
 
@@ -40,7 +33,7 @@ const z = readFile<{ n: number }>('path', {ext: 'json'}) // {n: number}
 /**
  * Ensures the file exists before reading it
  */
-export function readFile<R extends any = undefined, T extends ReadFileConfig = {}>(path: string, cfg?: T) {
+export function readFile<R = undefined, T extends ReadFileConfig = ReadFileConfig>(path: string, cfg?: T) {
   const {fail, ext} = { fail: false, ...cfg } as T;
   type RETURN = ReadFileOutput<T, R>;
 

@@ -48,7 +48,7 @@ describe('collect config', () => {
     cli,
   }) => {
     const rc = structuredClone(DEFAULT_RC);
-    // @ts-ignore
+    // @ts-expect-error -- configPath is not part of the default rc shape
     rc.collect['configPath'] = './lh-config.json';
     setupFns.setupRcJson(rc);
     setupFns.setupUserFlows(USER_FLOW_MOCKS.BASIC);

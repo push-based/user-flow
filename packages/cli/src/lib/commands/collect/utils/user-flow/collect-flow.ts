@@ -2,7 +2,7 @@ import { UserFlowProvider } from './types.js';
 import { logVerbose } from '../../../../core/loggin/index.js';
 import * as puppeteer from 'puppeteer';
 import { Browser, LaunchOptions, Page } from 'puppeteer';
-import { normalize } from 'path';
+import { normalize } from 'node:path';
 import { startFlow, UserFlow } from 'lighthouse';
 import { UserFlowMock } from './user-flow.mock.js';
 import { detectCliMode } from '../../../../global/cli-mode/cli-mode.js';
@@ -57,7 +57,7 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   if (cliMode !== 'DEFAULT' && launchOptions) {
     const headlessMode = 'new';
     logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
-    (launchOptions as any).headless = headlessMode;
+    (launchOptions as { headless?: unknown }).headless = headlessMode;
   }
 
   return launchOptions;

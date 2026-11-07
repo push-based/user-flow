@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
   displayName: 'nx-plugin',
   preset: '../../jest.preset.js',

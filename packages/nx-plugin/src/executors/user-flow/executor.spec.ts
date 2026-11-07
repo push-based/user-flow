@@ -18,7 +18,6 @@ export default {
 } satisfies UserFlowProvider;
 `;
 
-const NPM_NAME = '@push-based/user-flow';
 const PROJECT_NAME = 'generated-test';
 const baseOptions = {
   verbose: true,
@@ -91,12 +90,12 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
       case 'config':
         contains = output.includes(`${k}: { `);
         break;
-      case 'format':
-        // eslint-disable-next-line no-case-declarations
-        let values = (v as any[]).map(i => '\'' + i + '\'').join(', ') || '';
+      case 'format': {
+        let values = (v as string[]).map(i => '\'' + i + '\'').join(', ') || '';
         values = values !== '' ? ' ' + values + ' ' : values;
         contains = output.includes(`${k}: [${values}]`);
         break;
+      }
       case 'verbose':
       case 'interactive':
       case 'openReport':
@@ -105,7 +104,6 @@ function outputContainsConfig(output: string, config: Record<string, unknown>): 
         break;
       default:
         throw new Error(`${k} handling not implemented for configuration check`);
-        break;
     }
     if (!contains) {
       throw new Error(`${k} not present in output ${output}`);

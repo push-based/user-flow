@@ -24,7 +24,7 @@ describe('collect format', () => {
       expect(resultFileNames[0].endsWith(`.${format}`)).toBeTruthy();
 
       const content = getResultContent(root, resultFileNames[0]);
-      expect(isValidFormatedResult(format, content));
+      expect(isValidFormatedResult(format, content)).toBeTruthy();
     });
   });
 
@@ -69,8 +69,7 @@ function isValidFormatedResult(format: string, result: string) {
     'json': (report: string) => !!(JSON.parse(report)?.name || '').includes(DUMMY_USER_FLOW_NAME),
     'md': (report: string) => report.includes(MOCK_MD_REPORT_HEADER)
   };
-  // @ts-ignore
-  return isValidFile[format](result);
+  return isValidFile[format as keyof typeof isValidFile](result);
 }
 
 function getRcWithFormat(format: string[]) {

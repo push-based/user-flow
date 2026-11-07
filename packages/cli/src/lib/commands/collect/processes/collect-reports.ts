@@ -11,11 +11,11 @@ export async function collectReports(cfg: RcJson, argv: CollectCommandOptions): 
 
   const userFlows = await loadFlow(collect);
   await concat(userFlows.map(({ exports: provider, path }) =>
-    (_: any) => {
+    () => {
       return collectFlow({ ...collect, ...persist, }, { ...provider, path }, argv)
         .then((flow) => persistFlow(flow, { ...persist, ...collect }))
         .then(handleOpenFlowReports(argv))
-        .then(_ => cfg);
+        .then(() => cfg);
     })
   )(cfg);
   return Promise.resolve(cfg);

@@ -10,6 +10,5 @@ export const interactive = {
 } satisfies Options;
 
 export function get(): boolean {
-  const { interactive } = yargs.argv as any as { interactive: boolean };
-  return interactive;
+  return (yargs.argv as unknown as { interactive: boolean }).interactive;
 }

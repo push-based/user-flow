@@ -66,8 +66,11 @@ export class SearchIndex {
         for (const node of Array.from(body.children)) {
           if (node.tagName === 'H2' || node.tagName === 'H3') {
             entries.push(current);
+            // A fresh object per section: `current` is already in `entries`.
             current = {
-              ...current,
+              path: current.path,
+              section: current.section,
+              page: current.page,
               heading: node.textContent?.trim() ?? '',
               fragment: node.id,
               text: '',
@@ -77,10 +80,10 @@ export class SearchIndex {
           }
         }
         entries.push(current);
-        return entries.map((e) => ({
-          ...e,
-          text: e.text.replace(/\s+/g, ' ').trim(),
-        }));
+        for (const entry of entries) {
+          entry.text = entry.text.replace(/\s+/g, ' ').trim();
+        }
+        return entries;
       }),
     );
     return pages.flat();

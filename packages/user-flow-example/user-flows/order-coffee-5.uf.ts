@@ -8,7 +8,7 @@ import { CheckoutForm } from '../ufo/checkout.form';
 import { formData } from '../data/checkout.data';
 
 // Your custom interactions with the page
-const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<any> => {
+const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promise<void> => {
   const { flow, collectOptions } = ctx;
   const { url } = collectOptions;
 
