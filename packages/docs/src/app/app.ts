@@ -1,9 +1,11 @@
 import {
   afterNextRender,
+  afterRenderEffect,
   ChangeDetectionStrategy,
   Component,
   DOCUMENT,
   effect,
+  ElementRef,
   inject,
   PLATFORM_ID,
   signal,
@@ -23,6 +25,36 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { DOCS_NAV } from './docs/nav';
+
+/** Icon paths (24px grid, stroked) for each docs section in the sidebar. */
+const SECTION_ICONS: Record<string, string[]> = {
+  // Rocket
+  'getting-started': [
+    'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z',
+    'm12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z',
+    'M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0',
+    'M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5',
+  ],
+  // Terminal
+  cli: ['m4 17 6-6-6-6', 'M12 19h8'],
+  // Route
+  'user-flows': [
+    'M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+    'M9 17h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15',
+    'M18 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  ],
+  // Plug
+  integrations: [
+    'M12 22v-5',
+    'M9 8V2',
+    'M15 8V2',
+    'M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z',
+  ],
+  // Book
+  resources: [
+    'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
+  ],
+};
 import { Search } from './search/search';
 
 @Component({
@@ -38,6 +70,21 @@ import { Search } from './search/search';
 })
 export class App {
   readonly nav = DOCS_NAV;
+  readonly sectionIcons = SECTION_ICONS;
+
+  /** Sidebar sections the reader folded away. The current section always stays open. */
+  readonly collapsed = signal<ReadonlySet<string>>(new Set());
+
+  /** Position of the pill that slides to the current page in the sidebar. */
+  readonly sidebarMarker = signal<{
+    top: number;
+    height: number;
+    /** False while it follows a layout change, so it tracks the link instead of easing behind it. */
+    slide: boolean;
+  } | null>(null);
+
+  private readonly sidebarNav =
+    viewChild<ElementRef<HTMLElement>>('sidebarNav');
   readonly menuOpen = signal(false);
   readonly isDocs = signal(false);
   /** "⌘K" on Apple platforms, "Ctrl K" elsewhere; set in the browser once it is known. */
@@ -79,7 +126,31 @@ export class App {
       .subscribe((e) => {
         this.isDocs.set(e.urlAfterRedirects.startsWith('/docs'));
         this.menuOpen.set(false);
+        // Arriving in a folded section opens it again.
+        const section = e.urlAfterRedirects.split(/[/?#]/)[2];
+        if (section && this.collapsed().has(section)) {
+          this.toggleSection(section);
+        }
+        this.currentUrl.set(e.urlAfterRedirects);
       });
+
+    // Slide the marker to the active link after each navigation, and follow
+    // the sidebar's size while sections fold or the web font loads.
+    afterRenderEffect((onCleanup) => {
+      this.currentUrl();
+      this.collapsed();
+      const nav = this.sidebarNav()?.nativeElement;
+      if (!nav) {
+        this.sidebarMarker.set(null);
+        return;
+      }
+      this.measureSidebarMarker(true);
+      const observer = new ResizeObserver(() =>
+        this.measureSidebarMarker(false),
+      );
+      observer.observe(nav);
+      onCleanup(() => observer.disconnect());
+    });
     router.events.pipe(takeUntilDestroyed()).subscribe((e) => {
       if (e instanceof NavigationStart) {
         this.navigating.set(true);
@@ -91,6 +162,36 @@ export class App {
         this.navigating.set(false);
       }
     });
+  }
+
+  /** Used to re-measure the sidebar marker after each navigation. */
+  private readonly currentUrl = signal('');
+
+  isCollapsed(slug: string) {
+    return this.collapsed().has(slug);
+  }
+
+  toggleSection(slug: string) {
+    this.collapsed.update((set) => {
+      const next = new Set(set);
+      if (!next.delete(slug)) {
+        next.add(slug);
+      }
+      return next;
+    });
+  }
+
+  private measureSidebarMarker(slide: boolean) {
+    const nav = this.sidebarNav()?.nativeElement;
+    const active = nav?.querySelector<HTMLElement>('.sidebar-link.active');
+    const group = active?.closest('.sidebar-group');
+    if (!nav || !active || group?.classList.contains('sidebar-group-collapsed')) {
+      this.sidebarMarker.set(null);
+      return;
+    }
+    const top =
+      active.getBoundingClientRect().top - nav.getBoundingClientRect().top;
+    this.sidebarMarker.set({ top, height: active.offsetHeight, slide });
   }
 
   toggleMenu() {

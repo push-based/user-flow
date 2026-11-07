@@ -1,6 +1,7 @@
 @use './tokens';
 @use './app/shared/building-blocks';
 @use './app/docs/doc-overlays';
+@use './app/sidebar';
 
 /* Lets gauge numbers on the landing page count up as a transition. */
 @property --gauge-n {

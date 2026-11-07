@@ -127,25 +127,76 @@
     [class.sidebar-open]="menuOpen()"
     [attr.inert]="drawerMode() && !menuOpen() ? '' : null"
   >
-    <nav aria-label="Documentation">
+    <nav #sidebarNav class="sidebar-nav" aria-label="Documentation">
+      <span
+        class="sidebar-marker"
+        [class.sidebar-marker-visible]="sidebarMarker() !== null"
+        [class.sidebar-marker-instant]="sidebarMarker()?.slide === false"
+        [style.top.px]="sidebarMarker()?.top"
+        [style.height.px]="sidebarMarker()?.height"
+        aria-hidden="true"
+      ></span>
       @for (section of nav; track section.slug; let s = $index) {
-      <p class="sidebar-section text-subtitle" [style.--drawer-i]="s * 4">
-        {{ section.title }}
-      </p>
-      <ul class="sidebar-list">
-        @for (page of section.pages; track page.slug; let p = $index) {
-        <li [style.--drawer-i]="s * 4 + p + 1">
-          <a
-            class="sidebar-link"
-            [routerLink]="['/docs', section.slug, page.slug]"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
+      <div
+        class="sidebar-group"
+        [class.sidebar-group-collapsed]="isCollapsed(section.slug)"
+      >
+        <button
+          class="sidebar-section text-subtitle"
+          type="button"
+          [style.--drawer-i]="s * 4"
+          [attr.aria-expanded]="!isCollapsed(section.slug)"
+          [attr.aria-controls]="'sidebar-' + section.slug"
+          (click)="toggleSection(section.slug)"
+        >
+          <svg
+            class="sidebar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
-            {{ page.title }}
-          </a>
-        </li>
-        }
-      </ul>
+            @for (d of sectionIcons[section.slug]; track $index) {
+            <path [attr.d]="d" />
+            }
+          </svg>
+          <span class="sidebar-section-title">{{ section.title }}</span>
+          <svg
+            class="sidebar-chevron"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        <div class="sidebar-collapse" [id]="'sidebar-' + section.slug">
+          <ul
+            class="sidebar-list"
+            [attr.inert]="isCollapsed(section.slug) ? '' : null"
+          >
+            @for (page of section.pages; track page.slug; let p = $index) {
+            <li [style.--drawer-i]="s * 4 + p + 1">
+              <a
+                class="sidebar-link"
+                [routerLink]="['/docs', section.slug, page.slug]"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page"
+              >
+                {{ page.title }}
+              </a>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
       }
     </nav>
     <div class="sidebar-extra">
