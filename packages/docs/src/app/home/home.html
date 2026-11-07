@@ -48,7 +48,7 @@
     <p class="text-subtitle section-eyebrow">Why user-flow</p>
     <h2 class="section-title">Less code, more measurements</h2>
   </div>
-  <div class="benefit-grid">
+  <div class="card-grid">
     @for (benefit of benefits; track benefit.title; let i = $index) {
     <article class="pb-card" docsReveal [docsRevealDelay]="(i % 3) * 90">
       <h3 class="pb-card-title">{{ benefit.title }}</h3>
@@ -63,7 +63,7 @@
     <p class="text-subtitle section-eyebrow">Documentation</p>
     <h2 class="section-title">Find your way around</h2>
   </div>
-  <div class="section-grid">
+  <div class="card-grid">
     @for (section of sections; track section.slug; let i = $index) {
     <div class="section-card" docsReveal [docsRevealDelay]="(i % 3) * 90">
       <h3 class="section-card-title">{{ section.title }}</h3>
