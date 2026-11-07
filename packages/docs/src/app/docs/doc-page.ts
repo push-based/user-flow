@@ -16,9 +16,21 @@ import { Location } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ResolvedDoc } from './doc.resolver';
+import { revealOnScroll } from '../shared/reveal';
 
 /** Where the reader's last chosen code tab (npm, yarn, pnpm, …) is remembered. */
 const TAB_KEY = 'user-flow-docs-code-tab';
+
+/** Blocks in rendered Markdown that fade and lift in as they scroll into view. Plain text stays put. */
+const REVEAL_BLOCKS = [
+  ':scope > .code-block',
+  ':scope > .callout',
+  ':scope > .table-wrap',
+  ':scope > .options',
+  'img:not(.img-icon)',
+  '.link-card',
+  '.step',
+].join(', ');
 
 /** Length of the text a terminal line types, from its `--chars`. */
 const typedChars = (line: HTMLElement) =>
@@ -571,6 +583,27 @@ export class DocPage {
           }),
         );
       }
+    });
+
+    // Blocks fade in as they scroll into view, like on the landing page.
+    // Cards and steps that arrive together are staggered. A deep link or a
+    // search result lands mid-page, so then everything just shows.
+    afterRenderEffect((onCleanup) => {
+      this.html();
+      const host = this.prose()?.nativeElement;
+      if (!host || this.document.defaultView?.location.hash) {
+        return;
+      }
+      const stops: (() => void)[] = [];
+      let previous: Element | null = null;
+      let run = 0;
+      host.querySelectorAll<HTMLElement>(REVEAL_BLOCKS).forEach((el) => {
+        // Siblings in one grid or list stagger; anything else starts a new run.
+        run = el.previousElementSibling === previous && previous ? run + 1 : 0;
+        previous = el;
+        stops.push(revealOnScroll(el, (run % 3) * 90));
+      });
+      onCleanup(() => stops.forEach((stop) => stop()));
     });
 
     // Terminal sessions play once when they scroll into view. With reduced
