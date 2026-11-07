@@ -178,7 +178,7 @@ export class DocPage {
       return;
     }
     const text = code.textContent ?? '';
-    const done = () => {
+    const markCopied = () => {
       button.classList.add('copied');
       button.setAttribute('aria-label', 'Copied');
       setTimeout(() => {
@@ -186,7 +186,7 @@ export class DocPage {
         button.setAttribute('aria-label', 'Copy code');
       }, 1800);
     };
-    navigator.clipboard?.writeText(text).then(done, () => undefined);
+    navigator.clipboard?.writeText(text).then(markCopied, () => undefined);
   }
 
   private reducedMotion() {

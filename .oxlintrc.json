@@ -59,7 +59,8 @@
       {
         "allowWithDecorator": true
       }
-    ]
+    ],
+    "unicorn/no-array-sort": "off"
   },
   "overrides": [
     {
