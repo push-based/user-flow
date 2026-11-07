@@ -1104,6 +1104,153 @@ pre {
   color: var(--color-neutral-400);
 }
 
+/* Terminal sessions (```terminal): played back line by line in the browser. */
+.terminal-replay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: auto;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out;
+
+  svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    transition: rotate var(--duration-slow) var(--ease-out);
+  }
+
+  &:hover {
+    color: var(--color-neutral-50);
+    border-color: var(--color-neutral-700);
+
+    svg {
+      rotate: -200deg;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: 1px;
+  }
+
+  .code-terminal .code-title > & + .code-copy {
+    margin-left: 0;
+  }
+}
+
+.terminal-session {
+  // Long prompts wrap instead of hiding their answer off to the side.
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .tl-mark {
+    display: inline-block;
+    width: 1ch;
+  }
+
+  .tl-ok,
+  .tl-mark .tl-ok {
+    color: var(--color-success-400);
+  }
+
+  .tl-q {
+    color: var(--color-info-300, #7dd3fc);
+  }
+
+  .tl-question {
+    font-weight: 600;
+    color: var(--color-neutral-50);
+  }
+
+  .tl-sep .tl-ok {
+    color: var(--color-neutral-500);
+  }
+
+  .tl-answer {
+    color: var(--color-info-300, #7dd3fc);
+  }
+
+  .tl-out {
+    color: var(--color-neutral-300);
+  }
+
+  // Finished state (also what the server renders): answers are confirmed.
+  .tl-q {
+    display: none;
+  }
+
+  .tl-type {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: bottom;
+    white-space: pre;
+  }
+}
+
+// While playing: hidden lines keep their space, prompts start unanswered.
+.tl-playing {
+  .tl:not(.tl-shown) {
+    visibility: hidden;
+  }
+
+  .tl-prompt:not(.tl-done) {
+    .tl-q {
+      display: inline;
+    }
+
+    .tl-ok {
+      display: none;
+    }
+  }
+
+  // Untyped text takes no room, so the cursor sits right after the prompt.
+  .tl:not(.tl-typing) .tl-type {
+    width: 0;
+    overflow: hidden;
+  }
+
+  .tl-typing .tl-type {
+    overflow: hidden;
+    animation: tl-type calc(min(var(--chars) * 35ms, 900ms))
+      steps(var(--chars), end) both;
+  }
+
+  .tl-cmd.tl-typing .tl-type {
+    animation-duration: calc(var(--chars) * 45ms);
+  }
+
+  // A cursor on the line being written.
+  .tl-cursor::after {
+    content: '';
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.1em;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    background: var(--color-neutral-300);
+    animation: cursor-blink 1s step-end infinite;
+  }
+}
+
+@keyframes tl-type {
+  from {
+    width: 0;
+  }
+  to {
+    width: calc(var(--chars) * 1ch);
+  }
+}
+
 /* Tabbed code blocks: the tabs sit in the title bar, an underline slides to the chosen one. */
 .code-tablist {
   position: relative;

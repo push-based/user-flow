@@ -83,9 +83,7 @@ const CALLOUT_ICONS: Record<string, string> = {
   NOTE: calloutIcon(
     '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
   ),
-  IMPORTANT: calloutIcon(
-    '<path d="M4 22V4a1 1 0 0 1 1-1h13l-2.5 5L18 13H5"/>',
-  ),
+  IMPORTANT: calloutIcon('<path d="M4 22V4a1 1 0 0 1 1-1h13l-2.5 5L18 13H5"/>'),
   WARNING: calloutIcon(
     '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>',
   ),
@@ -148,9 +146,7 @@ const tabName = (token: Token) =>
 const listMarker = (token: Token) =>
   token.type === 'html'
     ? (token.raw.match(/^<!--\s*(steps|cards)\s*-->\s*$/)?.[1] as
-        | 'steps'
-        | 'cards'
-        | undefined)
+        'steps' | 'cards' | undefined)
     : undefined;
 
 type MarkedList = Tokens.List & { steps?: boolean; cards?: boolean };
@@ -263,6 +259,35 @@ function escapeHtml(value: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+const REPLAY_BUTTON =
+  '<button class="terminal-replay" type="button" aria-label="Replay" title="Replay">' +
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>' +
+  '</button>';
+
+/**
+ * A `terminal` block is a recorded session that plays back in the browser:
+ * `$ command` lines type themselves out, `? Question › answer` lines are
+ * prompts whose answer is typed before they turn into a check mark, and
+ * every other line is output. The server renders the finished session, so
+ * it reads fine without JavaScript or with reduced motion.
+ */
+function renderTerminal(text: string, title?: string): string {
+  const lines = text.split('\n').map((line) => {
+    if (line.startsWith('$ ')) {
+      const command = line.slice(2);
+      return `<span class="term-line term-cmd tl tl-cmd"><span class="tl-type" style="--chars: ${command.length}">${hljs.highlight(command, { language: 'bash' }).value}</span></span>`;
+    }
+    const prompt = line.match(/^\? (.+?) › (.*)$/);
+    if (prompt) {
+      const [, question, answer] = prompt;
+      return `<span class="term-line term-out tl tl-prompt"><span class="tl-mark"><span class="tl-q">?</span><span class="tl-ok">✔</span></span> <span class="tl-question">${escapeHtml(question)}</span> <span class="tl-sep"><span class="tl-q">›</span><span class="tl-ok">·</span></span> <span class="tl-type tl-answer" style="--chars: ${answer.length}">${escapeHtml(answer)}</span></span>`;
+    }
+    return `<span class="term-line term-out tl tl-out">${escapeHtml(line)}</span>`;
+  });
+  const header = `<div class="code-title">${WINDOW_DOTS}<span>${escapeHtml(title ?? 'Terminal')}</span>${REPLAY_BUTTON}${COPY_BUTTON}</div>`;
+  return `<figure class="code-block code-terminal terminal-session">${header}<div class="code-scroll"><pre><code class="hljs language-bash">${lines.join('\n')}</code></pre></div></figure>\n`;
 }
 
 /** The highlighted `<pre>` for a fenced block, plus its language and title. */
@@ -457,9 +482,20 @@ export function renderMarkdown(
         return `<h${depth} id="${id}"${step ? ' class="step-heading"' : ''}>${label}${anchor}</h${depth}>\n`;
       },
       code(token: Tokens.Code) {
+        const [language, ...meta] = (token.lang ?? '').trim().split(/\s+/);
+        if (language === 'terminal') {
+          return renderTerminal(
+            token.text,
+            meta.join(' ').match(/title="?([^"]+)"?/)?.[1],
+          );
+        }
         const { title, label, pre, shell } = codeBody(token);
         const header = `<div class="code-title">${shell ? WINDOW_DOTS : ''}<span>${escapeHtml(label)}</span>${COPY_BUTTON}</div>`;
-        const classes = ['code-block', title && 'has-title', shell && 'code-terminal']
+        const classes = [
+          'code-block',
+          title && 'has-title',
+          shell && 'code-terminal',
+        ]
           .filter(Boolean)
           .join(' ');
         return `<figure class="${classes}">${header}${pre}</figure>\n`;
@@ -472,7 +508,9 @@ export function renderMarkdown(
           return false;
         }
         const items = token.items
-          .map((item) => `<li class="step">${this.parser.parse(item.tokens)}</li>`)
+          .map(
+            (item) => `<li class="step">${this.parser.parse(item.tokens)}</li>`,
+          )
           .join('');
         const start =
           typeof token.start === 'number' && token.start !== 1
@@ -500,7 +538,9 @@ export function renderMarkdown(
         if (labels[0]?.trim().toLowerCase() === 'option') {
           return optionList(
             labels,
-            rows.map((row) => row.map((c) => this.parser.parseInline(c.tokens))),
+            rows.map((row) =>
+              row.map((c) => this.parser.parseInline(c.tokens)),
+            ),
           );
         }
         const cell = (c: Tokens.TableCell, tag: 'th' | 'td', index: number) => {

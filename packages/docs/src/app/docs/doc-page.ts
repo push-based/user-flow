@@ -20,6 +20,14 @@ import { ResolvedDoc } from './doc.resolver';
 /** Where the reader's last chosen code tab (npm, yarn, pnpm, …) is remembered. */
 const TAB_KEY = 'user-flow-docs-code-tab';
 
+/** Length of the text a terminal line types, from its `--chars`. */
+const typedChars = (line: HTMLElement) =>
+  Number(
+    line
+      .querySelector<HTMLElement>('.tl-type')
+      ?.style.getPropertyValue('--chars') || 0,
+  );
+
 /** Slack below the spot headings scroll to, within which a heading counts as "current". */
 const ACTIVE_SLACK = 32;
 
@@ -116,6 +124,15 @@ export class DocPage {
       return;
     }
     const target = event.target as Element;
+
+    const replay = target.closest<HTMLButtonElement>('.terminal-replay');
+    if (replay) {
+      const session = replay.closest<HTMLElement>('.terminal-session');
+      if (session) {
+        this.playTerminal(session);
+      }
+      return;
+    }
 
     const tab = target.closest<HTMLButtonElement>('.code-tab');
     if (tab) {
@@ -351,6 +368,59 @@ export class DocPage {
     dialog.showModal();
   }
 
+  /** The run of each terminal session currently playing, so a replay can cancel it. */
+  private readonly terminalRuns = new WeakMap<HTMLElement, number>();
+
+  /**
+   * Plays a terminal session line by line: commands type out, prompts wait
+   * a beat, type their answer and turn into a check mark, output follows.
+   * Every line keeps its space while hidden, so nothing below moves.
+   */
+  private async playTerminal(session: HTMLElement) {
+    const run = (this.terminalRuns.get(session) ?? 0) + 1;
+    this.terminalRuns.set(session, run);
+    const lines = Array.from(session.querySelectorAll<HTMLElement>('.tl'));
+    const wait = (ms: number) =>
+      new Promise<boolean>((resolve) =>
+        setTimeout(() => resolve(this.terminalRuns.get(session) === run), ms),
+      );
+    lines.forEach((line) =>
+      line.classList.remove('tl-shown', 'tl-typing', 'tl-done', 'tl-cursor'),
+    );
+    session.classList.add('tl-playing');
+    if (!(await wait(400))) {
+      return;
+    }
+    let previous: HTMLElement | undefined;
+    for (const line of lines) {
+      previous?.classList.remove('tl-cursor');
+      previous = line;
+      line.classList.add('tl-shown', 'tl-cursor');
+      if (line.classList.contains('tl-cmd')) {
+        line.classList.add('tl-typing');
+        if (!(await wait(typedChars(line) * 45 + 450))) {
+          return;
+        }
+      } else if (line.classList.contains('tl-prompt')) {
+        if (!(await wait(550))) {
+          return;
+        }
+        line.classList.add('tl-typing');
+        if (!(await wait(Math.min(typedChars(line) * 35, 900) + 250))) {
+          return;
+        }
+        line.classList.add('tl-done');
+        if (!(await wait(250))) {
+          return;
+        }
+      } else if (!(await wait(140))) {
+        return;
+      }
+    }
+    previous?.classList.remove('tl-cursor');
+    session.classList.remove('tl-playing');
+  }
+
   /** Copies the full URL of a section, for sharing. */
   private copyLink(id: string) {
     const win = this.document.defaultView;
@@ -501,6 +571,34 @@ export class DocPage {
           }),
         );
       }
+    });
+
+    // Terminal sessions play once when they scroll into view. With reduced
+    // motion they stay as rendered: the finished session.
+    afterRenderEffect((onCleanup) => {
+      this.html();
+      const host = this.prose()?.nativeElement;
+      const sessions = host?.querySelectorAll<HTMLElement>('.terminal-session');
+      if (
+        !sessions?.length ||
+        this.reducedMotion() ||
+        typeof IntersectionObserver === 'undefined'
+      ) {
+        return;
+      }
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              observer.unobserve(entry.target);
+              this.playTerminal(entry.target as HTMLElement);
+            }
+          }
+        },
+        { threshold: 0.6 },
+      );
+      sessions.forEach((session) => observer.observe(session));
+      onCleanup(() => observer.disconnect());
     });
 
     // Bring back the reader's tab choice, and place each tab underline.

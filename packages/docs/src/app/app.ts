@@ -51,9 +51,7 @@ const SECTION_ICONS: Record<string, string[]> = {
     'M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z',
   ],
   // Book
-  resources: [
-    'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
-  ],
+  resources: ['M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20'],
 };
 import { Search } from './search/search';
 
@@ -185,7 +183,11 @@ export class App {
     const nav = this.sidebarNav()?.nativeElement;
     const active = nav?.querySelector<HTMLElement>('.sidebar-link.active');
     const group = active?.closest('.sidebar-group');
-    if (!nav || !active || group?.classList.contains('sidebar-group-collapsed')) {
+    if (
+      !nav ||
+      !active ||
+      group?.classList.contains('sidebar-group-collapsed')
+    ) {
       this.sidebarMarker.set(null);
       return;
     }

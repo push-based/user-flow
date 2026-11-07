@@ -10,7 +10,9 @@
           <li aria-current="page">{{ doc().page.title }}</li>
         </ol>
       </nav>
-      <h1 class="doc-title enter" style="--enter: 1" tabindex="-1">{{ doc().page.title }}</h1>
+      <h1 class="doc-title enter" style="--enter: 1" tabindex="-1">
+        {{ doc().page.title }}
+      </h1>
       <p class="doc-lead enter" style="--enter: 2">
         {{ doc().page.description }}
       </p>
@@ -43,7 +45,8 @@
           >
             <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
           </svg>
-          {{ sectionCount() }} {{ sectionCount() === 1 ? 'section' : 'sections' }}
+          {{ sectionCount() }} {{ sectionCount() === 1 ? 'section' : 'sections'
+          }}
         </span>
         }
       </p>
@@ -126,8 +129,7 @@
       <a class="pager-link pager-prev" [routerLink]="previous.path">
         <span class="pager-label">
           <span class="pager-arrow" aria-hidden="true">←</span>
-          Previous
-          @if (previous.section !== doc().page.section) {
+          Previous @if (previous.section !== doc().page.section) {
           <span class="pager-section">· {{ previous.section.title }}</span>
           }
         </span>
@@ -139,8 +141,7 @@
         <span class="pager-label">
           @if (next.section !== doc().page.section) {
           <span class="pager-section">{{ next.section.title }} ·</span>
-          }
-          Next
+          } Next
           <span class="pager-arrow" aria-hidden="true">→</span>
         </span>
         <span class="pager-title">{{ next.title }}</span>
@@ -182,7 +183,12 @@
 
 <div class="read-progress" aria-hidden="true"></div>
 
-<div class="toast" [class.toast-visible]="toast()" role="status" aria-live="polite">
+<div
+  class="toast"
+  [class.toast-visible]="toast()"
+  role="status"
+  aria-live="polite"
+>
   <svg
     viewBox="0 0 24 24"
     fill="none"
