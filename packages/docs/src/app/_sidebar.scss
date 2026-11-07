@@ -4,6 +4,11 @@
 
 .sidebar {
   view-transition-name: sidebar;
+  // Only doc pages show the sidebar beside the content; everywhere else it is
+  // the drawer below 900px.
+  .page:not(.page-docs) > & {
+    display: none;
+  }
   position: sticky;
   top: calc(var(--header-height) + var(--space-8));
   max-height: calc(100vh - var(--header-height) - var(--space-8));
@@ -160,6 +165,10 @@
 
 /* Docs menu below 900px: an off-canvas drawer with a dimmed backdrop. */
 @media (max-width: 899px) {
+  .page:not(.page-docs) > .sidebar {
+    display: block;
+  }
+
   .sidebar {
     position: fixed;
     z-index: 30;
