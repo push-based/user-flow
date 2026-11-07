@@ -145,14 +145,18 @@ export class FlowWalkthrough {
     }
     let visible = false;
     let last = performance.now();
+    // Plays while the browser mock is on screen. On a phone the whole
+    // section is several screens tall, so watching it would stall playback.
+    const host = this.host.nativeElement;
+    const stage = host.querySelector<HTMLElement>('.flow-browser') ?? host;
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
         last = performance.now();
       },
-      { threshold: 0.35 },
+      { threshold: 0.4 },
     );
-    observer.observe(this.host.nativeElement);
+    observer.observe(stage);
     const timer = setInterval(() => {
       const now = performance.now();
       if (visible && !this.paused() && !document.hidden) {
