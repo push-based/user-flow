@@ -90,6 +90,9 @@ npx user-flow --ufPath=./user-flows-new --outPath=./user-flows-reports --url=htt
 
 ## Next steps
 
-- Add interactions and the other measurement modes in [Basic user flows](/docs/user-flows/basics).
-- Read the full option lists for [`init`](/docs/cli/init) and [`collect`](/docs/cli/collect).
-- Put the flow into your pipeline with the [GitHub workflow](/docs/integrations/github-workflow).
+<!-- cards -->
+
+- [Basic user flows](/docs/user-flows/basics): Add interactions and the other measurement modes.
+- [init command](/docs/cli/init): The full option list for creating and updating the rc file.
+- [collect command](/docs/cli/collect): The full option list for running flows and writing reports.
+- [GitHub workflow](/docs/integrations/github-workflow): Put the flow into your pipeline and get a report on every pull request.

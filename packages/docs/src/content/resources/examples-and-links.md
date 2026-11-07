@@ -12,17 +12,21 @@
 
 ## Related projects
 
-- [user-flow-gh-action](https://github.com/push-based/user-flow-gh-action), the GitHub action that runs the CLI and comments on pull requests.
-- [@push-based/user-flow-nx-plugin](https://www.npmjs.com/package/@push-based/user-flow-nx-plugin), the Nx plugin.
+<!-- cards -->
+
+- [user-flow-gh-action](https://github.com/push-based/user-flow-gh-action): The GitHub action that runs the CLI and comments on pull requests.
+- [@push-based/user-flow-nx-plugin](https://www.npmjs.com/package/@push-based/user-flow-nx-plugin): The Nx plugin.
 
 ## Lighthouse and Chrome DevTools
 
-- [Lighthouse user flows](https://web.dev/lighthouse-user-flows/) introduces the navigation, timespan and snapshot modes.
-- [Understanding the Lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md) explains the JSON structure.
-- [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md) documents every config property.
-- [Lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/) renders a JSON report in the browser.
-- [Chrome DevTools Recorder](https://developer.chrome.com/docs/devtools/recorder/) records and exports user flows.
-- [Recorder features](https://m.youtube.com/watch?v=PupwBARjaYU) in a short video.
+<!-- cards -->
+
+- [Lighthouse user flows](https://web.dev/lighthouse-user-flows/): Introduces the navigation, timespan and snapshot modes.
+- [Understanding the Lighthouse result](https://github.com/GoogleChrome/lighthouse/blob/master/docs/understanding-results.md): Explains the JSON structure.
+- [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md): Documents every config property.
+- [Lighthouse viewer](https://googlechrome.github.io/lighthouse/viewer/): Renders a JSON report in the browser.
+- [Chrome DevTools Recorder](https://developer.chrome.com/docs/devtools/recorder/): Records and exports user flows.
+- [Recorder features](https://m.youtube.com/watch?v=PupwBARjaYU): The Recorder's features in a short video.
 
 ## Getting help
 

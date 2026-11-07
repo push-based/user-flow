@@ -81,9 +81,21 @@ const tabName = (token: Token) =>
     ? ((token as Tokens.Code).lang ?? '').match(/\btab="([^"]+)"/)?.[1]
     : undefined;
 
-/** `<!-- steps -->` right before an ordered list turns it into numbered steps on a rail. */
-const isStepsMarker = (token: Token) =>
-  token.type === 'html' && /^<!--\s*steps\s*-->\s*$/.test(token.raw);
+/**
+ * A marker comment right before a list changes how it renders:
+ * `<!-- steps -->` turns an ordered list into numbered steps on a rail,
+ * `<!-- cards -->` turns a list of `[Title](href): description` items into
+ * a grid of link cards.
+ */
+const listMarker = (token: Token) =>
+  token.type === 'html'
+    ? (token.raw.match(/^<!--\s*(steps|cards)\s*-->\s*$/)?.[1] as
+        | 'steps'
+        | 'cards'
+        | undefined)
+    : undefined;
+
+type MarkedList = Tokens.List & { steps?: boolean; cards?: boolean };
 
 /**
  * Rewrites the token tree before rendering, at every level so it also
@@ -94,10 +106,15 @@ function transformTokens(tokens: Token[]): Token[] {
   const out: Token[] = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    if (isStepsMarker(token)) {
+    const marker = listMarker(token);
+    if (marker) {
       const list = tokens.slice(i + 1).find((t) => t.type !== 'space');
-      if (list?.type === 'list' && (list as Tokens.List).ordered) {
-        (list as Tokens.List & { steps?: boolean }).steps = true;
+      if (list?.type === 'list') {
+        if (marker === 'steps' && (list as Tokens.List).ordered) {
+          (list as MarkedList).steps = true;
+        } else if (marker === 'cards') {
+          (list as MarkedList).cards = true;
+        }
       }
       continue;
     }
@@ -222,6 +239,47 @@ export function renderMarkdown(
   const usedIds = new Set<string>();
   let tabGroups = 0;
 
+  /** Resolves an in-app link against the base href and marks it for the router. */
+  const linkTarget = (href: string) => {
+    const external = /^https?:\/\//.test(href);
+    const internal = href.startsWith('/');
+    return {
+      external,
+      attrs: [
+        `href="${internal ? baseHref + href : href}"`,
+        internal ? `data-internal="${href}"` : '',
+        external ? 'target="_blank" rel="noopener noreferrer"' : '',
+      ]
+        .filter(Boolean)
+        .join(' '),
+    };
+  };
+
+  /** One `[Title](href): description` list item as a card. */
+  const linkCard = (
+    parser: { parseInline: (tokens: Token[]) => string },
+    item: Tokens.ListItem,
+  ) => {
+    const inline =
+      (item.tokens[0] as Tokens.Text | undefined)?.tokens ?? item.tokens;
+    const [first, ...rest] = inline;
+    if (first?.type !== 'link') {
+      return `<div class="link-card">${parser.parseInline(inline)}</div>`;
+    }
+    const link = first as Tokens.Link;
+    const { external, attrs } = linkTarget(link.href);
+    const title = parser.parseInline(link.tokens);
+    // Links inside the description would nest inside the card's link.
+    const description = parser
+      .parseInline(rest)
+      .replace(/<\/?a\b[^>]*>/g, '')
+      .replace(/^\s*[:,\u2013\u2014-]\s*/, '');
+    const host = external
+      ? `<span class="link-card-host">${escapeHtml(new URL(link.href).host.replace(/^www\./, ''))}</span>`
+      : '';
+    return `<a class="link-card${external ? ' link-card-external' : ''}" ${attrs}><span class="link-card-title">${title}<span class="link-card-arrow" aria-hidden="true">${external ? '↗' : '→'}</span></span>${description ? `<span class="link-card-body">${description}</span>` : ''}${host}</a>`;
+  };
+
   const marked = new Marked({
     gfm: true,
     extensions: [
@@ -282,7 +340,10 @@ export function renderMarkdown(
           .join(' ');
         return `<figure class="${classes}">${header}${pre}</figure>\n`;
       },
-      list(token: Tokens.List & { steps?: boolean }) {
+      list(token: MarkedList) {
+        if (token.cards) {
+          return `<div class="link-cards">${token.items.map((item) => linkCard(this.parser, item)).join('')}</div>\n`;
+        }
         if (!token.steps) {
           return false;
         }
@@ -345,17 +406,9 @@ export function renderMarkdown(
       },
       link({ href, title, tokens }: Tokens.Link) {
         const inner = this.parser.parseInline(tokens);
-        const external = /^https?:\/\//.test(href);
-        const internal = href.startsWith('/');
-        const attrs = [
-          `href="${internal ? baseHref + href : href}"`,
-          internal ? `data-internal="${href}"` : '',
-          title ? `title="${escapeHtml(title)}"` : '',
-          external ? 'target="_blank" rel="noopener noreferrer"' : '',
-        ]
-          .filter(Boolean)
-          .join(' ');
-        return `<a ${attrs}>${inner}</a>`;
+        const { attrs } = linkTarget(href);
+        const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
+        return `<a ${attrs}${titleAttr}>${inner}</a>`;
       },
     },
   });

@@ -33,6 +33,8 @@ The rc file holds project defaults. Every value in it can be overridden on the c
 
 ## Where to go next
 
-1. [Install the CLI](/docs/getting-started/installation) in your project.
-2. Follow the [Quick start](/docs/getting-started/quick-start) to run your first flow.
-3. Learn the three measurement modes in [Basic user flows](/docs/user-flows/basics).
+<!-- cards -->
+
+- [Installation](/docs/getting-started/installation): Install the CLI in your project, or start from an empty folder.
+- [Quick start](/docs/getting-started/quick-start): Initialise a config and run your first flow in minutes.
+- [Basic user flows](/docs/user-flows/basics): Learn the navigation, timespan and snapshot measurement modes.
