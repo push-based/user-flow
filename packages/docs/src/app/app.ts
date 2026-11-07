@@ -9,6 +9,7 @@ import {
   inject,
   PLATFORM_ID,
   signal,
+  untracked,
   viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -54,6 +55,7 @@ const SECTION_ICONS: Record<string, string[]> = {
   resources: ['M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20'],
 };
 import { Search } from './search/search';
+import { SearchOpener } from './search/search-opener';
 
 @Component({
   imports: [RouterOutlet, RouterLink, RouterLinkActive, Search],
@@ -108,6 +110,13 @@ export class App {
         this.shortcutLabel.set('Ctrl K');
       }
       this.measureDrawerMode();
+    });
+    // Pages ask for search through SearchOpener, e.g. the 404 page.
+    const opener = inject(SearchOpener);
+    effect(() => {
+      if (opener.requests()) {
+        untracked(() => this.search().open());
+      }
     });
     // Keep the page behind the open drawer from scrolling.
     effect(() => {
