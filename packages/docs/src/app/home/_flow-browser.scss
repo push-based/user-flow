@@ -43,7 +43,7 @@
     width: 0;
     background: var(--accent);
 
-    [data-step='0'] & {
+    [data-step='1'] & {
       animation: load 1.4s var(--ease-out) forwards;
     }
   }
@@ -67,24 +67,69 @@
   }
 
   .screen-cart {
-    [data-step='0'] &,
-    [data-step='1'] & {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .screen-form {
+    [data-step='1'] &,
     [data-step='2'] & {
       opacity: 1;
       transform: none;
     }
   }
 
-  .screen-report {
+  .screen-form {
     [data-step='3'] & {
       opacity: 1;
       transform: none;
+    }
+  }
+
+  .screen-report {
+    [data-step='4'] & {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* The run: the command, then Chrome launches and the flow starts. */
+  .screen-launch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+
+    [data-step='0'] & {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .launch-prompt {
+    color: var(--text-heading);
+  }
+
+  .launch-line {
+    opacity: 0;
+
+    &::before {
+      content: '›';
+      margin-right: var(--space-2);
+      color: var(--accent);
+    }
+
+    [data-step='0'] & {
+      animation: launch-in 0.4s ease-out both;
+    }
+  }
+
+  .launch-line-1 {
+    [data-step='0'] & {
+      animation-delay: 0.9s;
+    }
+  }
+
+  .launch-line-2 {
+    [data-step='0'] & {
+      animation-delay: 1.9s;
     }
   }
 
@@ -114,7 +159,7 @@
     color: var(--text-heading);
     font-size: 0.625rem;
 
-    [data-step='1'] & {
+    [data-step='2'] & {
       content: '1';
       background: var(--accent);
       color: #fff;
@@ -144,7 +189,7 @@
     color: var(--text-muted);
     transition: border-color var(--duration-base) ease-out, box-shadow var(--duration-base) ease-out;
 
-    [data-step='0'] & {
+    [data-step='1'] & {
       animation: pop 0.6s var(--ease-out) both;
       animation-delay: calc(1.2s + var(--c, 0) * 0.1s);
     }
@@ -158,7 +203,7 @@
   }
 
   .cup-target {
-    [data-step='1'] & {
+    [data-step='2'] & {
       animation: picked 0.4s ease-out 1.4s both;
     }
   }
@@ -207,7 +252,7 @@
     transform: translateY(6px);
     transition: opacity var(--duration-base), transform var(--duration-base) var(--ease-out);
 
-    [data-step='1'] & {
+    [data-step='2'] & {
       opacity: 1;
       transform: none;
       transition-delay: 1.8s;
@@ -226,7 +271,7 @@
     box-shadow: 0 0 0 3px var(--surface-raised);
     opacity: 0;
 
-    [data-step='1'] & {
+    [data-step='2'] & {
       animation: cursor 2.2s var(--ease-in-out) forwards;
     }
   }
@@ -240,7 +285,7 @@
     opacity: 0;
     pointer-events: none;
 
-    [data-step='2'] & {
+    [data-step='3'] & {
       animation: flash 0.7s ease-out 0.9s both;
     }
   }
@@ -300,7 +345,7 @@
       color: var(--link);
     }
 
-    [data-step='3'] & {
+    [data-step='4'] & {
       animation: pop 0.5s var(--ease-out) both;
       animation-delay: calc(0.3s + var(--r) * 0.25s);
     }
@@ -374,5 +419,15 @@
   to {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+}
+
+@keyframes launch-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
   }
 }

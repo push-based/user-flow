@@ -12,8 +12,8 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     'copy'
-    'visual'
-    'code';
+    'code'
+    'visual';
   gap: var(--space-8);
   padding: var(--space-8) 0 var(--space-16);
 }
@@ -335,6 +335,13 @@
   }
   50% {
     opacity: 0;
+  }
+}
+
+/* On narrow screens the long result line wraps instead of scrolling off. */
+@media (max-width: 639px) {
+  .term-ok {
+    white-space: normal;
   }
 }
 

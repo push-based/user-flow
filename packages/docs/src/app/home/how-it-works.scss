@@ -216,7 +216,8 @@
   }
 }
 
-/* Narrow screens: the steps stack and the line runs down the left. */
+/* Narrow screens: the steps stack and each step draws its own segment of
+   the line down to the next marker, so the line ends at the last one. */
 @media (max-width: 767px) {
   .steps {
     grid-template-columns: minmax(0, 1fr);
@@ -224,30 +225,7 @@
   }
 
   .steps-line {
-    top: calc(var(--marker) / 2);
-    bottom: calc(var(--marker) * 2);
-    left: calc(var(--marker) / 2 - 1px);
-    right: auto;
-    width: 2px;
-    height: auto;
-
-    span {
-      background: linear-gradient(180deg, var(--accent), var(--accent-outline));
-      transform-origin: top;
-    }
-  }
-
-  .steps-pulse {
-    top: auto;
-    left: 0;
-    right: 0;
-    width: auto;
-    height: 56px;
-    background: linear-gradient(180deg, transparent, #fff 50%, transparent);
-  }
-
-  .reveal-in .steps-pulse {
-    animation-name: pulse-y;
+    display: none;
   }
 
   .step {
@@ -255,27 +233,33 @@
     align-items: flex-start;
   }
 
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--marker) / 2 - 1px);
+    top: var(--marker);
+    bottom: calc(-1 * var(--space-4));
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-outline));
+    transform-origin: top;
+  }
+
   .step-card {
     min-width: 0;
   }
 
-  .reveal-pending:not(.reveal-in) .steps-line span {
+  .reveal-pending:not(.reveal-in) .step::before {
     transform: scaleY(0);
   }
-}
 
-@keyframes pulse-y {
-  0% {
-    top: -56px;
-    opacity: 0;
+  .reveal-in .step::before {
+    transition: transform 0.6s var(--ease-in-out);
+    transition-delay: calc(300ms + var(--i) * 380ms);
   }
-  10%,
-  80% {
-    opacity: 0.9;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
+
+  .reveal-instant .step::before {
+    transition: none;
   }
 }
 

@@ -16,9 +16,13 @@
       <figcaption class="code-title">
         <span>order-coffee.uf.mts</span>
         <span class="code-kind">
-          @if (steps[active()].mode !== 'collect') {
+          @switch (steps[active()].mode) { @case ('collect') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 4 14 8-14 8V4z" /></svg>
+          } @case ('report') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18M8 17V9M13 17V5M18 17v-3" /></svg>
+          } @default {
           <docs-mode-icon [mode]="$any(steps[active()].mode)" />
-          }
+          } }
           {{ steps[active()].kind }}
         </span>
       </figcaption>
@@ -32,6 +36,11 @@
         <span class="browser-load"></span>
       </div>
       <div class="screens">
+        <div class="screen screen-launch">
+          <span class="launch-prompt">$ npx user-flow collect</span>
+          <span class="launch-line launch-line-1">Launching Chrome</span>
+          <span class="launch-line launch-line-2">Running order-coffee.uf.mts</span>
+        </div>
         <div class="screen screen-cart">
           <div class="shop-bar">
             <span class="shop-name">Coffee cart</span>
@@ -55,7 +64,7 @@
         </div>
         <div class="screen screen-report">
           <span class="report-title">Order coffee</span>
-          @for (step of steps.slice(0, 3); track step.name; let i = $index) {
+          @for (step of measured; track step.name; let i = $index) {
           <span class="report-row" [style.--r]="i">
             <docs-mode-icon [mode]="$any(step.mode)" />
             <span class="report-row-name">{{ step.name }}</span>
@@ -80,13 +89,17 @@
           (click)="select(i)"
         >
           <span class="stepper-icon">
-            @if (step.mode === 'collect') {
+            @switch (step.mode) { @case ('collect') {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="m6 4 14 8-14 8V4z" />
             </svg>
-            } @else {
+            } @case ('report') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3v18h18M8 17V9M13 17V5M18 17v-3" />
+            </svg>
+            } @default {
             <docs-mode-icon [mode]="$any(step.mode)" />
-            }
+            } }
           </span>
           <span class="stepper-text">
             <span class="stepper-kind">{{ step.kind }}</span>
