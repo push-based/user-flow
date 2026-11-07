@@ -6,6 +6,7 @@ import json from 'highlight.js/lib/languages/json';
 import yaml from 'highlight.js/lib/languages/yaml';
 import bash from 'highlight.js/lib/languages/bash';
 import plaintext from 'highlight.js/lib/languages/plaintext';
+import diff from 'highlight.js/lib/languages/diff';
 
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('ts', typescript);
@@ -19,6 +20,7 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('sh', bash);
 hljs.registerLanguage('shell', bash);
 hljs.registerLanguage('text', plaintext);
+hljs.registerLanguage('diff', diff);
 
 export interface TocEntry {
   id: string;
@@ -49,6 +51,7 @@ const LANGUAGE_LABELS: Record<string, string> = {
   bash: 'Terminal',
   sh: 'Terminal',
   shell: 'Terminal',
+  diff: 'Diff',
 };
 
 const COPY_BUTTON =
@@ -68,6 +71,61 @@ const CALLOUTS: Record<string, string> = {
   WARNING: 'Warning',
   IMPORTANT: 'Important',
 };
+
+const calloutIcon = (paths: string) =>
+  `<svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+/** Icons for callouts: a light bulb, an info circle, a flag and a warning triangle. */
+const CALLOUT_ICONS: Record<string, string> = {
+  TIP: calloutIcon(
+    '<path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.74V16h8v-1.26A7 7 0 0 0 12 2z"/>',
+  ),
+  NOTE: calloutIcon(
+    '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  ),
+  IMPORTANT: calloutIcon(
+    '<path d="M4 22V4a1 1 0 0 1 1-1h13l-2.5 5L18 13H5"/>',
+  ),
+  WARNING: calloutIcon(
+    '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/>',
+  ),
+};
+
+const LINK_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+
+/** Line numbers from a `{1,3-4}` fence attribute. */
+function lineRanges(meta: string): Set<number> {
+  const lines = new Set<number>();
+  const spec = meta.match(/\{([\d,\s-]+)\}/)?.[1];
+  for (const part of spec?.split(',') ?? []) {
+    const [from, to = from] = part.trim().split('-').map(Number);
+    for (let n = from; n <= to; n++) {
+      lines.add(n);
+    }
+  }
+  return lines;
+}
+
+/**
+ * Splits highlighted HTML into lines. Highlighting can open a span on one
+ * line and close it on a later one, so open spans are closed at each line
+ * end and reopened on the next line.
+ */
+function splitLines(html: string): string[] {
+  const open: string[] = [];
+  return html.split('\n').map((line) => {
+    const prefix = open.join('');
+    for (const tag of line.match(/<span[^>]*>|<\/span>/g) ?? []) {
+      if (tag === '</span>') {
+        open.pop();
+      } else {
+        open.push(tag);
+      }
+    }
+    return prefix + line + '</span>'.repeat(open.length);
+  });
+}
 
 /** Consecutive fenced blocks with a `tab="…"` attribute, shown as one tabbed block. */
 interface CodeTabsToken {
@@ -213,11 +271,30 @@ function codeBody({ text, lang }: Tokens.Code) {
   const title = meta.join(' ').match(/title="?([^"]+)"?/)?.[1];
   const shell = SHELL_LANGUAGES.has(language);
   const known = language && hljs.getLanguage(language);
-  const body = shell
+  const highlighted = lineRanges(meta.join(' '));
+  let body = shell
     ? renderShell(text)
     : known
       ? hljs.highlight(text, { language }).value
       : escapeHtml(text);
+  // Highlighted lines and diffs wrap each line, so it can be marked.
+  if (!shell && (highlighted.size || language === 'diff')) {
+    const raw = text.split('\n');
+    body = splitLines(body)
+      .map((line, i) => {
+        const classes = ['code-line'];
+        if (highlighted.has(i + 1)) {
+          classes.push('is-highlighted');
+        }
+        if (language === 'diff' && (raw[i] ?? '').startsWith('+')) {
+          classes.push('is-added');
+        } else if (language === 'diff' && (raw[i] ?? '').startsWith('-')) {
+          classes.push('is-removed');
+        }
+        return `<span class="${classes.join(' ')}">${line}</span>`;
+      })
+      .join('\n');
+  }
   return {
     title,
     shell,
@@ -375,7 +452,7 @@ export function renderMarkdown(
           : inner;
         const anchor =
           depth > 1
-            ? `<a class="heading-anchor" href="#${id}" aria-label="Link to this section">#</a>`
+            ? `<a class="heading-anchor" href="#${id}" aria-label="Copy link to this section" title="Copy link">${LINK_ICON}</a>`
             : '';
         return `<h${depth} id="${id}"${step ? ' class="step-heading"' : ''}>${label}${anchor}</h${depth}>\n`;
       },
@@ -414,7 +491,7 @@ export function renderMarkdown(
         const kind = match[1];
         const rest = inner.slice(match[0].length);
         const body = rest.startsWith('</p>') ? rest.slice(4) : `<p>${rest}`;
-        return `<aside class="callout callout-${kind.toLowerCase()}"><p class="callout-title">${CALLOUTS[kind]}</p>${body}</aside>\n`;
+        return `<aside class="callout callout-${kind.toLowerCase()}"><p class="callout-title">${CALLOUT_ICONS[kind]}${CALLOUTS[kind]}</p>${body}</aside>\n`;
       },
       table({ header, rows }: Tokens.Table) {
         const labels = header.map((c) =>

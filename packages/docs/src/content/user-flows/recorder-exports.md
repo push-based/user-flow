@@ -70,7 +70,7 @@ One timespan over everything is a coarse measurement. To see each interaction on
 | `startTimespan` / `endTimespan`     | `flow.startTimespan()` / `flow.endTimespan()`     |
 | `snapshot`                          | `flow.snapshot()`                                 |
 
-```json title="recordings/order-coffee.replay.json"
+```json {4,11,12} title="recordings/order-coffee.replay.json"
 {
   "title": "Order coffee",
   "steps": [
@@ -102,7 +102,7 @@ const interactions: UserFlowInteractionsFn = async (ctx: UserFlowContext): Promi
 
 Measurement steps accept the same options as their Lighthouse counterparts through `stepOptions`. A `name` makes the report readable:
 
-```json title="recordings/order-coffee.replay.json"
+```json {5,16} title="recordings/order-coffee.replay.json"
 {
   "steps": [
     {

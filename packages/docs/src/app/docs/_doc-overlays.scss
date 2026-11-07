@@ -316,3 +316,51 @@
     transform: scale(0.92) translateY(8px);
   }
 }
+
+/* A small confirmation that rises from the bottom, e.g. after copying a link. */
+.toast {
+  position: fixed;
+  z-index: 40;
+  left: 50%;
+  bottom: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-50);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  opacity: 0;
+  translate: -50% 12px;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) ease-out,
+    translate var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-success-400);
+  }
+}
+
+.toast-visible {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+:root[data-theme='dark'] .toast {
+  background: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .toast {
+    background: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+  }
+}
