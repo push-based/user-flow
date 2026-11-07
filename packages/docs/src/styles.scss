@@ -810,6 +810,65 @@ pre {
   opacity: 1;
 }
 
+/* Terminal blocks: window dots in the title bar, a prompt before each
+   command (a pseudo-element, so it is never selected or copied), muted
+   comments and dimmer output. */
+.window-dots {
+  display: inline-flex;
+  gap: 6px;
+  margin-right: var(--space-1);
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: var(--color-neutral-700);
+  }
+
+  i:nth-child(1) {
+    background: #ff5f57;
+  }
+
+  i:nth-child(2) {
+    background: #febc2e;
+  }
+
+  i:nth-child(3) {
+    background: #28c840;
+  }
+}
+
+.code-terminal .code-title {
+  justify-content: flex-start;
+
+  > .code-copy {
+    margin-left: auto;
+  }
+}
+
+.term-cmd::before {
+  content: '$ ';
+  color: var(--color-primary-400);
+  user-select: none;
+}
+
+.term-cont {
+  padding-left: 2ch;
+}
+
+.term-comment {
+  color: var(--color-neutral-500);
+  font-style: italic;
+
+  .hljs-comment {
+    color: inherit;
+  }
+}
+
+.term-out {
+  color: var(--color-neutral-400);
+}
+
 /* Tabbed code blocks: the tabs sit in the title bar, an underline slides to the chosen one. */
 .code-tablist {
   position: relative;
