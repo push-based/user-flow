@@ -1,9 +1,52 @@
 <div class="doc-layout" [class.has-toc]="hasToc()">
   <article class="doc">
     <header class="doc-header">
-      <p class="text-subtitle doc-section">{{ doc().page.section.title }}</p>
-      <h1 class="doc-title">{{ doc().page.title }}</h1>
-      <p class="doc-lead">{{ doc().page.description }}</p>
+      <nav class="breadcrumbs enter" style="--enter: 0" aria-label="Breadcrumb">
+        <ol>
+          <li><a routerLink="/docs">Docs</a></li>
+          <li>
+            <a [routerLink]="sectionPath()">{{ doc().page.section.title }}</a>
+          </li>
+          <li aria-current="page">{{ doc().page.title }}</li>
+        </ol>
+      </nav>
+      <h1 class="doc-title enter" style="--enter: 1">{{ doc().page.title }}</h1>
+      <p class="doc-lead enter" style="--enter: 2">
+        {{ doc().page.description }}
+      </p>
+      <p class="doc-meta enter" style="--enter: 3">
+        <span class="doc-meta-item">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+          {{ doc().readingMinutes }} min read
+        </span>
+        @if (doc().toc.length) {
+        <span class="doc-meta-item">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+          </svg>
+          {{ sectionCount() }} {{ sectionCount() === 1 ? 'section' : 'sections' }}
+        </span>
+        }
+      </p>
     </header>
 
     <div

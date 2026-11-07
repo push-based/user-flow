@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   DOCUMENT,
   effect,
   ElementRef,
@@ -46,6 +47,17 @@ export class DocPage {
   );
 
   readonly hasToc = computed(() => this.doc().toc.length > 1);
+
+  /** The section's first page stands in for the section in the breadcrumbs. */
+  readonly sectionPath = computed(() => {
+    const { section } = this.doc().page;
+    return ['/docs', section.slug, section.pages[0].slug];
+  });
+
+  /** Number of top-level sections on the page. */
+  readonly sectionCount = computed(
+    () => this.doc().toc.filter((entry) => entry.level === 2).length,
+  );
 
   /** Id of the heading currently in view, for the table of contents. */
   readonly activeId = signal<string | null>(null);
@@ -197,6 +209,10 @@ export class DocPage {
   }
 
   constructor() {
+    inject(DestroyRef).onDestroy(() =>
+      this.document.head.querySelector('#breadcrumb-data')?.remove(),
+    );
+
     effect(() => {
       const { page } = this.doc();
       this.title.setTitle(`${page.title} · user-flow`);
@@ -209,6 +225,7 @@ export class DocPage {
         property: 'og:description',
         content: page.description,
       });
+      this.setBreadcrumbData();
     });
 
     // Track the heading in view. Runs in the browser only, after the content rendered.
@@ -321,6 +338,35 @@ export class DocPage {
       this.activeId();
       this.measureMarker();
       this.document.fonts?.ready.then(() => this.measureMarker());
+    });
+  }
+
+  /** Breadcrumb structured data for search engines, rendered into the head. */
+  private setBreadcrumbData() {
+    const { page } = this.doc();
+    const head = this.document.head;
+    const base = 'https://push-based.github.io/user-flow';
+    const items = [
+      { name: 'Docs', path: '/docs' },
+      { name: page.section.title, path: this.sectionPath().join('/') },
+      { name: page.title, path: page.path },
+    ];
+    let script = head.querySelector<HTMLScriptElement>('#breadcrumb-data');
+    if (!script) {
+      script = this.document.createElement('script');
+      script.id = 'breadcrumb-data';
+      script.type = 'application/ld+json';
+      head.appendChild(script);
+    }
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        item: base + item.path,
+      })),
     });
   }
 

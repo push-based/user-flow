@@ -7,6 +7,8 @@ export interface ResolvedDoc {
   page: FlatDocPage;
   html: string;
   toc: TocEntry[];
+  /** Estimated reading time, rounded up to whole minutes. */
+  readingMinutes: number;
   previous?: FlatDocPage;
   next?: FlatDocPage;
 }
@@ -27,7 +29,19 @@ export const docResolver: ResolveFn<ResolvedDoc> = async (route) => {
     page,
     html,
     toc,
+    readingMinutes: readingMinutes(source),
     previous: ALL_DOC_PAGES[index - 1],
     next: ALL_DOC_PAGES[index + 1],
   };
 };
+
+/** Prose reads at about 220 words a minute; code is skimmed, at about a third of that per line. */
+export function readingMinutes(markdown: string): number {
+  let codeLines = 0;
+  const prose = markdown.replace(/```[\s\S]*?```/g, (block) => {
+    codeLines += block.split('\n').length - 2;
+    return ' ';
+  });
+  const words = prose.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 220 + codeLines / 60));
+}
