@@ -7,16 +7,18 @@ The CLI runs inside an npm project. It needs Node.js and a folder to keep flows 
 
 ## Install in an existing project
 
-Add the package as a development dependency:
+Add the package as a development dependency with your package manager:
 
-```bash
+```bash tab="npm"
 npm i @push-based/user-flow --save-dev
 ```
 
-or with Yarn:
-
-```bash
+```bash tab="yarn"
 yarn add @push-based/user-flow --dev
+```
+
+```bash tab="pnpm"
+pnpm add -D @push-based/user-flow
 ```
 
 Afterwards the `user-flow` binary is available through `npx`:
@@ -39,17 +41,35 @@ The rest of these docs use the short `npx user-flow` form and assume the package
 
 If you prefer to keep user flows out of your application repository, create a dedicated project for them.
 
-1. Create a folder, for example `user-flow-demo`, and initialise npm inside it:
+1. Create a folder, for example `user-flow-demo`, and initialise a package inside it:
 
-   ```bash
+   ```bash tab="npm"
    mkdir user-flow-demo && cd user-flow-demo
    npm init -y
    ```
 
+   ```bash tab="yarn"
+   mkdir user-flow-demo && cd user-flow-demo
+   yarn init -y
+   ```
+
+   ```bash tab="pnpm"
+   mkdir user-flow-demo && cd user-flow-demo
+   pnpm init
+   ```
+
 2. Install the CLI:
 
-   ```bash
+   ```bash tab="npm"
    npm i @push-based/user-flow --save-dev
+   ```
+
+   ```bash tab="yarn"
+   yarn add @push-based/user-flow --dev
+   ```
+
+   ```bash tab="pnpm"
+   pnpm add -D @push-based/user-flow
    ```
 
 3. Verify the installation:
@@ -64,7 +84,17 @@ From here the [Quick start](/docs/getting-started/quick-start) applies in exactl
 
 Nx users can skip the manual setup and let the [Nx plugin](/docs/integrations/nx-plugin) install the dependency and generate a target:
 
-```bash
+```bash tab="npm"
 npm install --save-dev @push-based/user-flow-nx-plugin
+nx generate @push-based/user-flow-nx-plugin:init
+```
+
+```bash tab="yarn"
+yarn add --dev @push-based/user-flow-nx-plugin
+nx generate @push-based/user-flow-nx-plugin:init
+```
+
+```bash tab="pnpm"
+pnpm add -D @push-based/user-flow-nx-plugin
 nx generate @push-based/user-flow-nx-plugin:init
 ```
