@@ -1,4 +1,5 @@
 @use './tokens';
+@use './app/shared/building-blocks';
 
 /* Lets gauge numbers on the landing page count up as a transition. */
 @property --gauge-n {
