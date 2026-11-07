@@ -7,7 +7,8 @@ export function readRcConfig(rcPath: string = '', options?: {
   fail?: boolean,
   fallback?: object
 }): RcJson {
-  const { fail, fallback = {} } = options || {};
+  const { fail } = options || {};
+  const fallback = options?.fallback || {};
   rcPath = rcPath || globalOptions.getRcPath();
   let repoConfigJson = readFile<RcJson>(rcPath, { ext: 'json', fail: !!fail });
   if (!repoConfigJson) {
