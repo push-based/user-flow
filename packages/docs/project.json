@@ -4,11 +4,22 @@
   "projectType": "application",
   "prefix": "docs",
   "sourceRoot": "packages/docs/src",
-  "tags": ["type:docs"],
+  "tags": [
+    "type:docs"
+  ],
   "targets": {
+    "content-dates": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "node packages/docs/scripts/content-dates.mjs"
+      }
+    },
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/packages/docs",
@@ -23,7 +34,9 @@
             "input": "packages/docs/public"
           }
         ],
-        "styles": ["packages/docs/src/styles.scss"],
+        "styles": [
+          "packages/docs/src/styles.scss"
+        ],
         "loader": {
           ".md": "text"
         }
@@ -50,7 +63,10 @@
           "extractLicenses": false,
           "sourceMap": true
         }
-      }
+      },
+      "dependsOn": [
+        "content-dates"
+      ]
     },
     "serve": {
       "continuous": true,
@@ -69,14 +85,19 @@
         "development": {
           "buildTarget": "docs:build:development"
         }
-      }
+      },
+      "dependsOn": [
+        "content-dates"
+      ]
     },
     "serve-static": {
       "continuous": true,
       "readyWhen": {
         "signal": true
       },
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "docs:build:development",
