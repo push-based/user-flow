@@ -1470,22 +1470,25 @@ pre {
   }
 }
 
-/* Scroll reveal, paired with the `docsReveal` directive. */
+/* Scroll reveal, paired with `revealOnScroll` (and the `docsReveal`
+   directive). An animation rather than a transition, filling backwards
+   only, so it never overrides an element's own transitions or hover
+   transforms once it has played. */
 .reveal-pending {
   opacity: 0;
-  transform: translateY(20px);
 }
 
-.reveal-in {
+.reveal-in:not(.reveal-instant) {
   opacity: 1;
-  transform: none;
-  transition:
-    opacity var(--duration-reveal) var(--ease-out) var(--reveal-delay, 0ms),
-    transform var(--duration-reveal) var(--ease-out) var(--reveal-delay, 0ms);
+  animation: reveal var(--duration-reveal) var(--ease-out) backwards;
+  animation-delay: var(--reveal-delay, 0ms);
 }
 
-.reveal-instant {
-  transition: none;
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 20px;
+  }
 }
 
 /* Route changes: the page slides up a touch while it crossfades. The header and
