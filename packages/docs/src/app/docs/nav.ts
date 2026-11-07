@@ -1,3 +1,5 @@
+import { LAST_UPDATED } from '../../content/last-updated.generated';
+
 export interface DocPageEntry {
   /** URL segment inside its section, e.g. `quick-start`. */
   slug: string;
@@ -156,14 +158,26 @@ export const DOCS_NAV: DocSection[] = [
 export interface FlatDocPage extends DocPageEntry {
   section: DocSection;
   path: string;
+  /** Link to edit the page's Markdown source on GitHub. */
+  editUrl: string;
+  /** ISO date of the last commit that touched the page, when known. */
+  lastUpdated?: string;
 }
 
+const EDIT_BASE =
+  'https://github.com/push-based/user-flow/edit/main/packages/docs/src/content';
+
 export const ALL_DOC_PAGES: FlatDocPage[] = DOCS_NAV.flatMap((section) =>
-  section.pages.map((page) => ({
-    ...page,
-    section,
-    path: `/docs/${section.slug}/${page.slug}`,
-  })),
+  section.pages.map((page) => {
+    const file = `${section.slug}/${page.slug}.md`;
+    return {
+      ...page,
+      section,
+      path: `/docs/${section.slug}/${page.slug}`,
+      editUrl: `${EDIT_BASE}/${file}`,
+      lastUpdated: LAST_UPDATED[file],
+    };
+  }),
 );
 
 export function findDocPage(

@@ -54,6 +54,17 @@ export class DocPage {
     return ['/docs', section.slug, section.pages[0].slug];
   });
 
+  /** "Nov 6, 2026", formatted in UTC so the server and browser agree. */
+  readonly lastUpdated = computed(() => {
+    const iso = this.doc().page.lastUpdated;
+    return iso
+      ? new Intl.DateTimeFormat('en-US', {
+          dateStyle: 'medium',
+          timeZone: 'UTC',
+        }).format(new Date(iso))
+      : null;
+  });
+
   /** Number of top-level sections on the page. */
   readonly sectionCount = computed(
     () => this.doc().toc.filter((entry) => entry.level === 2).length,

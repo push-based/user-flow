@@ -115,11 +115,50 @@
   }
 }
 
+.doc-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-6);
+  margin-top: var(--space-16);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+}
+
+.doc-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease-out;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    transition: rotate var(--duration-base) var(--ease-out);
+  }
+
+  &:hover {
+    color: var(--link);
+
+    svg {
+      rotate: -12deg;
+    }
+  }
+}
+
+.doc-updated {
+  margin: 0;
+}
+
 .doc-pager {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
-  margin-top: var(--space-16);
+  margin-top: var(--space-6);
   padding-top: var(--space-8);
   border-top: 1px solid var(--border);
 }
