@@ -270,7 +270,9 @@ export class DocPage {
       const path = this.router.url.split('#')[0];
       this.location.replaceState(`${path}#${id}`);
     }
-    this.activeId.set(id);
+    if (this.doc().toc.some((entry) => entry.id === id)) {
+      this.activeId.set(id);
+    }
     heading.classList.remove('heading-flash');
     // Restart the animation when the same heading is picked twice in a row.
     void heading.offsetWidth;
