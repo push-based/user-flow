@@ -26,8 +26,17 @@
   z-index: 20;
   height: var(--header-height);
   background: var(--surface-header);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--duration-base) ease-out,
+    box-shadow var(--duration-base) ease-out;
+}
+
+/* Once the page scrolls, the header separates from the content. */
+.site-header-scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .site-header-inner {

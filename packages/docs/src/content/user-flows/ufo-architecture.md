@@ -2,7 +2,7 @@ When you write flows for several pages, many interactions or even different plat
 
 > **Organise cluttered Lighthouse user flow code 👽 in developer friendly shells 🛸**
 
-![Advanced architecture: fixtures, UFOs and user flows](https://user-images.githubusercontent.com/10064416/208248762-504897a3-3ef5-42dc-8060-70cda0ad682f.PNG)
+<!-- diagram: ufo-architecture -->
 
 ## The idea
 

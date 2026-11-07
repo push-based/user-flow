@@ -49,6 +49,36 @@
   }
 }
 
+/* Once the line has drawn, a pulse keeps travelling along it. */
+.steps-pulse {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 56px;
+  background: linear-gradient(90deg, transparent, #fff 50%, transparent);
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.reveal-in .steps-pulse {
+  animation: pulse-x 3.2s var(--ease-in-out) 2s infinite;
+}
+
+@keyframes pulse-x {
+  0% {
+    left: -56px;
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
 .step {
   position: relative;
   display: flex;
@@ -92,6 +122,23 @@
     translate: 0 -3px;
     box-shadow: var(--shadow-md);
     border-color: var(--accent-outline);
+  }
+}
+
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.step-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--link);
+  transition: rotate var(--duration-slow) var(--ease-out);
+
+  .step-card:hover & {
+    rotate: -10deg;
   }
 }
 
@@ -190,6 +237,19 @@
     }
   }
 
+  .steps-pulse {
+    top: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 56px;
+    background: linear-gradient(180deg, transparent, #fff 50%, transparent);
+  }
+
+  .reveal-in .steps-pulse {
+    animation-name: pulse-y;
+  }
+
   .step {
     flex-direction: row;
     align-items: flex-start;
@@ -201,5 +261,26 @@
 
   .reveal-pending:not(.reveal-in) .steps-line span {
     transform: scaleY(0);
+  }
+}
+
+@keyframes pulse-y {
+  0% {
+    top: -56px;
+    opacity: 0;
+  }
+  10%,
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steps-pulse {
+    display: none;
   }
 }

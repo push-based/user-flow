@@ -1,11 +1,10 @@
 // One pass of the saucer across the three steps. Every keyframe set below
 // shares this duration, so the beam, the tilt and the target highlights stay
-// in step with the flight path.
+// in step with the flight path. Timeline, in percent of the cycle:
+// hover 0–24, travel 24–30, hover 30–54, travel 54–60, hover 60–84,
+// swoop back 84–100. Target keyframes are generated per column in absolute
+// time, so each column's window starts 30% after the previous one.
 $cycle: 14s;
-// Each target lags the first by one hover-and-travel segment (30% of $cycle).
-// Target highlights are keyed for the first column and shifted with a
-// negative delay of (cycle - i * segment), which starts them i segments late.
-$segment: $cycle * 0.3;
 // Circumference of the gauge ring (r = 17).
 $ring: 106.8;
 
@@ -15,47 +14,94 @@ $ring: 106.8;
 }
 
 .scene {
-  --scene-height: 300px;
-  --mark-size: 108px;
-  --target-gap: var(--space-2);
+  --scene-height: clamp(250px, 68vw, 340px);
+  --mark-size: clamp(88px, 24vw, 124px);
 
   position: relative;
   height: var(--scene-height);
-  padding: var(--space-5);
-  border-radius: var(--radius-3xl);
-  border: 1px solid var(--border);
-  background: var(--surface-subtle);
-  overflow: hidden;
-  isolation: isolate;
+  // The pointer over the hero (see the docsTilt directive) tilts the scene.
+  transform: perspective(1100px) rotateX(calc(var(--py, 0) * -5deg))
+    rotateY(calc(var(--px, 0) * 7deg));
+  transform-style: preserve-3d;
+  transition: transform 700ms var(--ease-out);
+}
 
-  // A faint dot grid behind everything, fading towards the edges.
-  &::before {
+.layer {
+  position: absolute;
+  inset: 0;
+  transition: translate 700ms var(--ease-out);
+}
+
+/* Back layer: a glow, two orbit rings and a few motes, drifting least. */
+.layer-back {
+  translate: calc(var(--px, 0) * -10px) calc(var(--py, 0) * -8px);
+}
+
+.glow {
+  position: absolute;
+  inset: -10% -5% 0;
+  background: radial-gradient(
+    ellipse 55% 60% at 50% 38%,
+    var(--hero-glow) 0%,
+    transparent 70%
+  );
+}
+
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--mark-size) * 0.55);
+  border-radius: 50%;
+  border: 1px dashed var(--border-strong);
+  translate: -50% -50%;
+  animation: orbit 60s linear infinite;
+
+  &::after {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: -1;
-    background-image: radial-gradient(
-      var(--border-strong) 1px,
-      transparent 1.5px
-    );
-    background-size: 20px 20px;
-    background-position: 10px 10px;
-    mask-image: radial-gradient(
-      ellipse 70% 65% at 50% 42%,
-      #000 30%,
-      transparent 100%
-    );
-    opacity: 0.8;
+    top: -3px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px 2px var(--hero-glow-strong);
   }
 }
 
-/* Flight path: the saucer slides between the four columns and swoops back. */
-.flight {
+.orbit-1 {
+  width: calc(var(--mark-size) * 2.1);
+  height: calc(var(--mark-size) * 2.1);
+  opacity: 0.8;
+}
+
+.orbit-2 {
+  width: calc(var(--mark-size) * 3.3);
+  height: calc(var(--mark-size) * 3.3);
+  opacity: 0.5;
+  animation-direction: reverse;
+  animation-duration: 90s;
+}
+
+.mote {
   position: absolute;
-  top: var(--space-4);
-  left: var(--space-5);
-  right: var(--space-5);
+  width: calc(var(--s) * 4px);
+  height: calc(var(--s) * 4px);
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.35;
+  animation: mote 6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--d) * -1s);
+}
+
+/* Flight path: the saucer slides between the three columns and swoops back. */
+.flight {
+  top: 0;
+  bottom: auto;
+  left: 0;
+  right: 0;
   height: var(--mark-size);
+  translate: calc(var(--px, 0) * 16px) calc(var(--py, 0) * 12px);
   animation: flight $cycle ease-in-out infinite;
 }
 
@@ -80,24 +126,22 @@ $ring: 106.8;
 .ufo-mark {
   width: var(--mark-size);
   height: var(--mark-size);
-  filter: drop-shadow(
-    0 10px 14px color-mix(in srgb, var(--color-neutral-950) 18%, transparent)
-  );
+  filter: drop-shadow(0 14px 18px var(--hero-shadow));
 }
 
 /* The beam hangs from the saucer and only shows while it hovers a target. */
 .beam {
   position: absolute;
-  top: calc(var(--mark-size) * 0.64);
+  top: calc(var(--mark-size) * 0.62);
   left: 50%;
-  width: 164px;
-  height: 124px;
+  width: calc(var(--mark-size) * 1.55);
+  height: calc(var(--scene-height) - var(--mark-size) * 0.62 - 96px);
   translate: -50% 0;
-  clip-path: polygon(41% 0, 59% 0, 100% 100%, 0 100%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
   background: linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--accent) 42%, transparent),
-    color-mix(in srgb, var(--accent) 10%, transparent) 70%,
+    color-mix(in srgb, var(--accent) 48%, transparent),
+    color-mix(in srgb, var(--accent) 12%, transparent) 70%,
     transparent
   );
   opacity: 0;
@@ -109,28 +153,28 @@ $ring: 106.8;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--accent) 30%, transparent),
+      color-mix(in srgb, var(--accent) 34%, transparent),
       transparent 60%
     );
     animation: beam-pulse 1.6s ease-in-out infinite alternate;
   }
 }
 
-/* The four targets, one per column, lit in turn. */
+/* The three targets, one per column, lit in turn. */
 .targets {
-  position: absolute;
-  left: var(--space-5);
-  right: var(--space-5);
-  bottom: var(--space-4);
+  top: auto;
+  bottom: 0;
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--target-gap);
+  gap: var(--space-2);
+  translate: calc(var(--px, 0) * 6px) calc(var(--py, 0) * 4px);
 }
 
 .target {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -138,10 +182,28 @@ $ring: 106.8;
   padding: var(--space-3) var(--space-2) var(--space-2-5);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  background: var(--surface-raised);
+  background: var(--surface-glass);
+  backdrop-filter: blur(6px);
+  color: var(--text-muted);
   text-align: center;
-  animation: target-lift $cycle ease-in-out infinite;
-  animation-delay: calc(var(--i) * #{$segment} - #{$cycle});
+}
+
+/* The score the saucer leaves behind. */
+.chip {
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-success-500);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--color-success-500) 50%, transparent);
+  opacity: 0;
+  transform: translateY(6px) scale(0.6);
 }
 
 .gauge {
@@ -171,28 +233,20 @@ $ring: 106.8;
   stroke: var(--accent);
   stroke-dasharray: $ring;
   stroke-dashoffset: $ring;
-  animation:
-    gauge-fill $cycle ease-in-out infinite,
-    gauge-visibility $cycle linear infinite;
-  animation-delay: calc(var(--i) * #{$segment} - #{$cycle});
 }
 
 .gauge-icon {
   position: relative;
   width: 20px;
   height: 20px;
-  color: var(--text-subtle);
-  animation: icon-colour $cycle ease-in-out infinite;
-  animation-delay: calc(var(--i) * #{$segment} - #{$cycle});
+  color: inherit;
 }
 
 .target-label {
   font-size: 0.8125rem;
   line-height: 1.125rem;
   font-weight: 500;
-  color: var(--text-muted);
-  animation: label-colour $cycle ease-in-out infinite;
-  animation-delay: calc(var(--i) * #{$segment} - #{$cycle});
+  color: inherit;
 }
 
 .target-note {
@@ -202,9 +256,6 @@ $ring: 106.8;
   color: var(--text-subtle);
 }
 
-/* Timeline, in percent of $cycle:
-   hover 0–24, travel 24–30, hover 30–54, travel 54–60, hover 60–84,
-   swoop back 84–100. */
 @keyframes flight {
   0%,
   24% {
@@ -283,79 +334,130 @@ $ring: 106.8;
   }
 }
 
-/* Target highlights are written for the first column; the others shift by
-   their animation-delay. */
-@keyframes target-lift {
-  0%,
-  24%,
-  100% {
-    transform: translateY(-4px);
-    border-color: var(--accent-outline);
-    background: var(--accent-soft);
-    box-shadow: var(--shadow-md);
+@keyframes orbit {
+  to {
+    rotate: 360deg;
   }
-  28%,
-  96% {
+}
+
+@keyframes mote {
+  from {
     transform: translateY(0);
-    border-color: var(--border);
-    background: var(--surface-raised);
-    box-shadow: none;
+    opacity: 0.15;
+  }
+  to {
+    transform: translateY(-14px);
+    opacity: 0.6;
   }
 }
 
-@keyframes gauge-fill {
-  0%,
-  2% {
-    stroke-dashoffset: $ring;
+/* Per column: lift while the saucer hovers, fill the ring, then pop a chip
+   that stays until the swoop back. */
+@for $i from 0 through 2 {
+  $a: $i * 30%;
+
+  .target:nth-child(#{$i + 1}) {
+    animation: target-#{$i} $cycle ease-in-out infinite;
+
+    .gauge-fill {
+      animation: gauge-#{$i} $cycle ease-in-out infinite;
+    }
+
+    .chip {
+      animation: chip-#{$i} $cycle cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+    }
   }
-  19%,
-  27% {
-    stroke-dashoffset: 0;
+
+  @keyframes target-#{$i} {
+    @if $i == 0 {
+      96%,
+      100%,
+      0%,
+      24% {
+        transform: translateY(-4px);
+        border-color: var(--accent-outline);
+        background: var(--accent-soft);
+        box-shadow: var(--shadow-md), 0 0 24px -6px var(--hero-glow-strong);
+        color: var(--accent-soft-text);
+      }
+      28%,
+      92% {
+        transform: translateY(0);
+        border-color: var(--border);
+        background: var(--surface-glass);
+        box-shadow: none;
+        color: var(--text-muted);
+      }
+    } @else {
+      0%,
+      #{$a - 4%},
+      #{$a + 28%},
+      100% {
+        transform: translateY(0);
+        border-color: var(--border);
+        background: var(--surface-glass);
+        box-shadow: none;
+        color: var(--text-muted);
+      }
+      #{$a},
+      #{$a + 24%} {
+        transform: translateY(-4px);
+        border-color: var(--accent-outline);
+        background: var(--accent-soft);
+        box-shadow: var(--shadow-md), 0 0 24px -6px var(--hero-glow-strong);
+        color: var(--accent-soft-text);
+      }
+    }
   }
-  28%,
-  100% {
-    stroke-dashoffset: $ring;
+
+  @keyframes gauge-#{$i} {
+    0%,
+    #{$a + 2%} {
+      stroke-dashoffset: $ring;
+      opacity: 1;
+    }
+    #{$a + 19%},
+    #{$a + 24%} {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+    #{$a + 27%} {
+      stroke-dashoffset: 0;
+      opacity: 0;
+    }
+    #{$a + 27.5%},
+    100% {
+      stroke-dashoffset: $ring;
+      opacity: 0;
+    }
+  }
+
+
+  @keyframes chip-#{$i} {
+    0%,
+    #{$a + 18%} {
+      opacity: 0;
+      transform: translateY(6px) scale(0.6);
+    }
+    #{$a + 22%},
+    86% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    90%,
+    100% {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.8);
+    }
   }
 }
 
-@keyframes gauge-visibility {
-  0%,
-  24%,
-  100% {
-    opacity: 1;
-  }
-  27%,
-  99% {
-    opacity: 0;
-  }
-}
-
-@keyframes icon-colour {
-  0%,
-  24%,
-  100% {
-    color: var(--accent);
-  }
-  28%,
-  96% {
-    color: var(--text-subtle);
-  }
-}
-
-@keyframes label-colour {
-  0%,
-  24%,
-  100% {
-    color: var(--text-heading);
-  }
-  28%,
-  96% {
-    color: var(--text-muted);
-  }
-}
-
-/* Reduced motion: park the saucer above the row, light everything. */
+/* Reduced motion: park the saucer above the middle step, light everything. */
 @media (prefers-reduced-motion: reduce) {
+  .scene,
+  .layer,
+  .orbit,
+  .mote,
   .flight,
   .ufo-tilt,
   .ufo-bob,
@@ -363,9 +465,13 @@ $ring: 106.8;
   .beam::after,
   .target,
   .gauge-fill,
-  .gauge-icon,
-  .target-label {
+  .chip {
     animation: none;
+    transition: none;
+  }
+
+  .scene {
+    transform: none;
   }
 
   .flight {
@@ -381,17 +487,15 @@ $ring: 106.8;
   .target {
     border-color: var(--accent-outline);
     background: var(--accent-soft);
+    color: var(--accent-soft-text);
   }
 
   .gauge-fill {
     stroke-dashoffset: 0;
   }
 
-  .gauge-icon {
-    color: var(--accent);
-  }
-
-  .target-label {
-    color: var(--text-heading);
+  .chip {
+    opacity: 1;
+    transform: none;
   }
 }

@@ -7,6 +7,7 @@ import yaml from 'highlight.js/lib/languages/yaml';
 import bash from 'highlight.js/lib/languages/bash';
 import plaintext from 'highlight.js/lib/languages/plaintext';
 import diff from 'highlight.js/lib/languages/diff';
+import { DIAGRAMS, modeIcon } from './diagrams';
 
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('ts', typescript);
@@ -560,9 +561,20 @@ export function renderMarkdown(
           .join('');
         return `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>\n`;
       },
+      html({ raw }: Tokens.HTML | Tokens.Tag) {
+        // `<!-- diagram: name -->` draws one of the inline diagrams.
+        const name = raw.match(/^<!--\s*diagram:\s*([\w-]+)\s*-->\s*$/)?.[1];
+        const diagram = name ? DIAGRAMS[name] : undefined;
+        return diagram ? diagram() + '\n' : false;
+      },
       image({ href, title, text }: Tokens.Image) {
-        // A title of "icon" marks small inline images, such as the measurement mode icons.
+        // A title of "icon" marks small inline images, such as the measurement
+        // mode icons, which are drawn inline when the alt text names a mode.
         const icon = title === 'icon';
+        const inline = icon ? modeIcon(text.toLowerCase()) : null;
+        if (inline) {
+          return inline;
+        }
         const attrs = [
           `src="${href}"`,
           `alt="${escapeHtml(text)}"`,

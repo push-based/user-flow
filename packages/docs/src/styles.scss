@@ -1,8 +1,10 @@
 @use './tokens';
 @use './app/shared/building-blocks';
 @use './app/docs/doc-overlays';
+@use './app/docs/diagrams';
 @use './app/sidebar';
 @use './app/footer';
+@use './app/home/flow-browser';
 
 /* Lets gauge numbers on the landing page count up as a transition. */
 @property --gauge-n {
@@ -60,6 +62,17 @@
   --logo-ink: var(--color-neutral-950);
   --logo-paper: var(--color-surface);
 
+  /* Ambient colour for the landing page: glows, blobs, glass and the headline gradient. */
+  --hero-glow: color-mix(in srgb, var(--color-primary-400) 26%, transparent);
+  --hero-glow-strong: color-mix(in srgb, var(--color-primary-500) 50%, transparent);
+  --hero-blob-1: color-mix(in srgb, var(--color-primary-300) 70%, transparent);
+  --hero-blob-2: color-mix(in srgb, var(--color-secondary-200) 55%, transparent);
+  --hero-shadow: rgb(16 24 40 / 0.22);
+  --surface-glass: rgb(255 255 255 / 0.72);
+  --spot: color-mix(in srgb, var(--color-primary-200) 55%, transparent);
+  --grad-a: var(--color-primary-600);
+  --grad-b: var(--color-secondary-500);
+
   /* Motion. Every animation on the site reads from these so they stay in step. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -113,6 +126,15 @@
   --callout-warning-title: var(--color-warning-300);
   --logo-ink: var(--color-neutral-50);
   --logo-paper: var(--color-neutral-800);
+  --hero-glow: color-mix(in srgb, var(--color-primary-500) 32%, transparent);
+  --hero-glow-strong: color-mix(in srgb, var(--color-primary-400) 60%, transparent);
+  --hero-blob-1: color-mix(in srgb, var(--color-primary-700) 60%, transparent);
+  --hero-blob-2: color-mix(in srgb, var(--color-secondary-800) 45%, transparent);
+  --hero-shadow: rgb(0 0 0 / 0.55);
+  --surface-glass: rgb(18 25 38 / 0.72);
+  --spot: color-mix(in srgb, var(--color-primary-400) 18%, transparent);
+  --grad-a: var(--color-primary-300);
+  --grad-b: var(--color-secondary-300);
 }
 
 @media (prefers-color-scheme: dark) {

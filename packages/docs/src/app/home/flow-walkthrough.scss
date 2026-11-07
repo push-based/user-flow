@@ -1,0 +1,262 @@
+// The stage reads the current step from `data-step` on `.stage`, so the
+// browser mock and the stepper are pure CSS; only the lit code lines and the
+// stepper's active class come from the component.
+$step: 3600ms;
+
+:host {
+  display: block;
+}
+
+.walkthrough {
+  padding: var(--space-20) 0 0;
+}
+
+.walkthrough-head {
+  display: grid;
+  gap: var(--space-2) var(--space-10);
+  align-items: end;
+  margin-bottom: var(--space-8);
+
+  .section-title {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+  }
+}
+
+.walkthrough-lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--link);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'code'
+    'browser'
+    'stepper';
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .stage {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    grid-template-areas:
+      'code browser'
+      'code stepper';
+    gap: var(--space-4) var(--space-5);
+  }
+}
+
+/* Code: lines outside the running step dim; the running ones get a bar. */
+.code {
+  grid-area: code;
+  margin: 0;
+  box-shadow: var(--shadow-md);
+
+  pre {
+    padding: var(--space-3) 0;
+  }
+}
+
+.code-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  color: var(--color-primary-300);
+
+  docs-mode-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+.wt-line {
+  display: block;
+  padding: 0 var(--space-4) 0 0;
+  border-left: 2px solid transparent;
+  opacity: 0.38;
+  transition:
+    opacity var(--duration-slow) ease-out,
+    border-color var(--duration-slow) ease-out,
+    background-color var(--duration-slow) ease-out;
+
+  &.lit {
+    opacity: 1;
+    border-color: var(--color-primary-400);
+    background: color-mix(in srgb, var(--color-primary-500) 12%, transparent);
+  }
+}
+
+.wt-no {
+  display: inline-block;
+  width: 2.75rem;
+  padding-right: var(--space-3);
+  text-align: right;
+  color: var(--color-neutral-600);
+  user-select: none;
+}
+
+/* The browser mock is styled in `_flow-browser.scss`, outside this
+   component's style budget. */
+.flow-browser {
+  grid-area: browser;
+}
+
+/* The stepper: four buttons, the active one with a bar that fills over the step. */
+.stepper {
+  grid-area: stepper;
+  align-content: start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stepper-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+  width: 100%;
+  padding: var(--space-2-5) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  color: var(--text-muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color var(--duration-base) ease-out,
+    color var(--duration-base) ease-out,
+    background-color var(--duration-base) ease-out;
+
+  &:hover {
+    border-color: var(--accent-outline);
+    color: var(--text-heading);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.stepper-active {
+  border-color: var(--accent-outline);
+  background: var(--accent-soft);
+  color: var(--text-heading);
+}
+
+.stepper-done .stepper-icon {
+  color: var(--color-success-600);
+}
+
+.stepper-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  background: var(--surface-subtle);
+  color: var(--text-subtle);
+
+  .stepper-active & {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  svg,
+  docs-mode-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.stepper-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stepper-kind {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+}
+
+.stepper-name {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepper-score {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity var(--duration-base) ease-out;
+
+  .stepper-done & {
+    opacity: 1;
+    color: var(--color-success-600);
+  }
+}
+
+.stepper-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  animation: fill $step linear forwards;
+
+  .stage-paused & {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (max-width: 479px) {
+  .stepper {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper-bar {
+    display: none;
+  }
+}
