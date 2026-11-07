@@ -338,11 +338,10 @@
   }
 }
 
-/* On narrow screens the result lines wrap instead of scrolling off. */
+/* On narrow screens the long result line wraps instead of scrolling off. */
 @media (max-width: 639px) {
-  .type-out {
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
+  .term-ok {
+    white-space: normal;
   }
 }
 
