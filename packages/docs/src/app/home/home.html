@@ -1,50 +1,107 @@
-<section class="hero">
+<section class="hero" docsTilt [docsTiltReach]="1.3">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="hero-blob hero-blob-1"></span>
+    <span class="hero-blob hero-blob-2"></span>
+  </div>
+
   <div class="hero-copy">
-    <p class="text-subtitle hero-eyebrow enter" style="--enter: 0">
-      &#64;push-based/user-flow
-    </p>
-    <h1 class="hero-title enter" style="--enter: 1">
-      Runtime performance measurements done right, with Lighthouse user flows.
+    <a
+      class="hero-pill enter"
+      style="--enter: 0"
+      href="https://www.npmjs.com/package/@push-based/user-flow"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="hero-pill-dot" aria-hidden="true"></span>
+      <span class="hero-pill-name">&#64;push-based/user-flow</span>
+      <span class="hero-pill-version">v{{ version }}</span>
+    </a>
+    <h1 class="hero-title">
+      @for (word of titleWords; track $index) {
+      <span class="word" [style.--w]="$index"
+        ><span class="word-inner" [class.word-accent]="word.accent">{{
+          word.text
+        }}</span></span
+      >&ngsp; }
     </h1>
-    <p class="hero-lead enter" style="--enter: 2">
-      A CLI and library to organise and run Lighthouse user flows in a scalable
-      way, with CI automation in place. Measure bootstrap and runtime
-      performance with minimum effort.
+    <p class="hero-lead enter" style="--enter: 4">
+      Measure page loads, interactions and page states with one CLI. Flows are
+      TypeScript, setup is three prompts, and every pull request gets a
+      report.
     </p>
-    <div class="hero-actions enter" style="--enter: 3">
+    <div class="hero-actions enter" style="--enter: 5">
       <a
-        class="pb-btn pb-btn-lg pb-btn-primary"
+        class="pb-btn pb-btn-lg pb-btn-primary pb-btn-glow"
         routerLink="/docs/getting-started/quick-start"
-        >Get started</a
       >
+        Get started
+        <svg
+          class="btn-arrow"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
       <a
         class="pb-btn pb-btn-lg pb-btn-ghost"
         href="https://github.com/push-based/user-flow"
         target="_blank"
         rel="noopener noreferrer"
-        >View on GitHub</a
       >
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.3 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"
+          />
+        </svg>
+        GitHub
+      </a>
     </div>
-    <figure class="hero-code code-terminal enter" style="--enter: 4">
-      <figcaption class="code-title">
-        <span class="window-dots" aria-hidden="true"
-          ><i></i><i></i><i></i
-        ></span>
-        <span>Terminal</span>
-      </figcaption>
-      <!-- Each command types itself out once; the server renders them in full. -->
-      <pre><code class="hljs"><span class="hljs-comment"># install, set up and run your first flow</span>
-<span class="type-line" style="--chars: 38; --line: 0">npm i &#64;push-based/user-flow --save-dev</span>
-<span class="type-line" style="--chars: 18; --line: 1">npx user-flow init</span>
-<span class="type-line type-line-last" style="--chars: 21; --line: 2">npx user-flow collect</span></code></pre>
-    </figure>
   </div>
-  <div class="hero-visual enter" style="--enter: 2">
+
+  <div class="hero-visual enter" style="--enter: 3">
     <docs-hero-scene />
   </div>
+
+  <figure class="hero-code code-terminal enter" style="--enter: 6">
+    <figcaption class="code-title">
+      <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>Terminal</span>
+      <button
+        class="code-copy"
+        type="button"
+        [class.copied]="copied()"
+        (click)="copyInstall()"
+        aria-label="Copy the install command"
+        title="Copy the install command"
+      >
+        <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="9" width="12" height="12" rx="2" />
+          <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+        </svg>
+        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m5 12.5 4.5 4.5L19 7.5" />
+        </svg>
+        <span class="code-copy-label" aria-hidden="true">Copied</span>
+      </button>
+    </figcaption>
+    <!-- Each command types itself out once; the server renders them in full. -->
+    <pre><code><span class="term-comment"># install, set up and run your first flow</span>
+@for (line of commands; track line.text) {<span class="term-prompt">$ </span><span class="type-line" [style.--chars]="line.chars" [style.--start]="line.start + 'ms'">{{ line.text }}</span>
+}<span class="term-out type-out type-out-spinner" [style.--start]="outputStart + 'ms'" [style.--end]="outputStart + 1500 + 'ms'"><i class="term-spinner" aria-hidden="true"></i> running order-coffee.uf.mts</span><span class="term-out term-ok type-out" [style.--start]="outputStart + 1500 + 'ms'">✔ order-coffee.uf.mts <span class="term-dim">· 1 navigation · 2 timespans · 2 snapshots</span></span>
+<span class="term-out type-out" [style.--start]="outputStart + 1900 + 'ms'">→ measures/order-coffee.uf.html</span>
+<span class="term-prompt type-out" [style.--start]="outputStart + 2400 + 'ms'">$ <i class="term-cursor" aria-hidden="true"></i></span></code></pre>
+  </figure>
 </section>
 
 <docs-how-it-works />
+
+<docs-flow-walkthrough />
 
 <docs-report-preview />
 
@@ -55,9 +112,28 @@
   </div>
   <div class="card-grid">
     @for (benefit of benefits; track benefit.title; let i = $index) {
-    <article class="pb-card" docsReveal [docsRevealDelay]="(i % 3) * 90">
-      <h3 class="pb-card-title">{{ benefit.title }}</h3>
-      <p class="pb-card-body">{{ benefit.body }}</p>
+    <article
+      class="feature-card"
+      docsReveal
+      [docsRevealDelay]="(i % 3) * 90"
+      docsSpotlight
+    >
+      <span class="icon-tile" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          @for (d of icons[benefit.icon]; track $index) {
+          <path [attr.d]="d" />
+          }
+        </svg>
+      </span>
+      <h3 class="feature-title">{{ benefit.title }}</h3>
+      <p class="feature-body">{{ benefit.body }}</p>
     </article>
     }
   </div>
@@ -68,10 +144,31 @@
     <p class="text-subtitle section-eyebrow">Documentation</p>
     <h2 class="section-title">Find your way around</h2>
   </div>
-  <div class="card-grid">
+  <div class="section-grid">
     @for (section of sections; track section.slug; let i = $index) {
-    <div class="section-card" docsReveal [docsRevealDelay]="(i % 3) * 90">
-      <h3 class="section-card-title">{{ section.title }}</h3>
+    <div
+      class="section-card"
+      docsReveal
+      [docsRevealDelay]="(i % 5) * 70"
+      docsSpotlight
+    >
+      <h3 class="section-card-title">
+        <svg
+          class="section-card-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          @for (d of sectionIcons[section.slug]; track $index) {
+          <path [attr.d]="d" />
+          }
+        </svg>
+        {{ section.title }}
+      </h3>
       <ul class="section-links">
         @for (page of section.pages; track page.slug) {
         <li>
@@ -87,5 +184,42 @@
       </ul>
     </div>
     }
+  </div>
+</section>
+
+<section class="cta" docsReveal>
+  <div class="cta-band">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <svg class="uf-mark cta-mark" viewBox="0 0 1360 1360" aria-hidden="true">
+      <use href="images/user-flow-mark.svg#mark" />
+    </svg>
+    <div class="cta-copy">
+      <h2 class="cta-title">Ready to measure what your users actually do?</h2>
+      <p class="cta-body">
+        Three prompts and one command stand between you and your first user
+        flow report.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <button
+        class="cta-command"
+        type="button"
+        (click)="copyInstall()"
+        [class.copied]="copied()"
+        title="Copy the install command"
+      >
+        <span class="cta-prompt" aria-hidden="true">$</span>
+        <code>{{ install }}</code>
+        <span class="cta-copy-state" aria-live="polite">{{
+          copied() ? 'Copied' : 'Copy'
+        }}</span>
+      </button>
+      <a class="pb-btn pb-btn-lg cta-btn" routerLink="/docs/getting-started/quick-start">
+        Read the quick start
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
   </div>
 </section>

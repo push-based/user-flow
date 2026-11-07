@@ -20,9 +20,28 @@
 }
 
 .doc-header {
+  position: relative;
   padding-bottom: var(--space-8);
   margin-bottom: var(--space-8);
   border-bottom: 1px solid var(--border);
+
+  // A faint glow behind the title, in the hero's colour.
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: calc(-1 * var(--space-12));
+    left: calc(-1 * var(--space-10));
+    width: min(36rem, 80vw);
+    height: 14rem;
+    background: radial-gradient(
+      ellipse at 20% 30%,
+      var(--hero-glow) 0%,
+      transparent 70%
+    );
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
 
 .breadcrumbs ol {

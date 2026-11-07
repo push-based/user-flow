@@ -2,12 +2,28 @@
   <p class="text-subtitle section-eyebrow">How it works</p>
   <h2 class="section-title">From zero to a report in four steps</h2>
   <ol class="steps">
-    <li class="steps-line" aria-hidden="true"><span></span></li>
+    <li class="steps-line" aria-hidden="true"><span></span><i class="steps-pulse"></i></li>
     @for (step of steps; track step.title; let i = $index) {
     <li class="step" [style.--i]="i">
       <span class="step-marker" aria-hidden="true">{{ i + 1 }}</span>
       <a class="step-card" [routerLink]="step.link">
-        <span class="step-title">{{ step.title }}</span>
+        <span class="step-head">
+          <svg
+            class="step-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            @for (d of icons[step.icon]; track $index) {
+            <path [attr.d]="d" />
+            }
+          </svg>
+          <span class="step-title">{{ step.title }}</span>
+        </span>
         <code class="step-code">{{ step.code }}</code>
         <span class="step-body">{{ step.body }}</span>
       </a>

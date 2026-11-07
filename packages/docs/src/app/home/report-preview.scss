@@ -20,12 +20,50 @@
 }
 
 .report {
+  position: relative;
   margin: 0;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-2xl);
   background: var(--surface-raised);
   box-shadow: var(--shadow-md);
   overflow: hidden;
+
+  // A scan line sweeps down the report as its numbers come in.
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20%;
+    height: 20%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--accent) 14%, transparent) 60%,
+      var(--accent-outline) 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.reveal-in::after {
+    animation: scan 1.8s var(--ease-in-out) 300ms both;
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
 .report-bar {
@@ -102,6 +140,14 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: var(--surface);
+  transition:
+    border-color var(--duration-base) ease-out,
+    box-shadow var(--duration-base) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent-outline);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
 }
 
 .report-step-head {
@@ -325,6 +371,10 @@
   .gauge,
   .gauge-arc {
     transition: none;
+  }
+
+  &::after {
+    animation: none;
   }
 }
 

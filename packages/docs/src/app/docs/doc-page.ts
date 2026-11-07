@@ -27,6 +27,7 @@ const REVEAL_BLOCKS = [
   ':scope > .callout',
   ':scope > .table-wrap',
   ':scope > .options',
+  ':scope > .diagram',
   'img:not(.img-icon)',
   '.link-card',
   '.step',

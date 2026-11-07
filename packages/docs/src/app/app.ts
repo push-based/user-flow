@@ -25,35 +25,8 @@ import {
 } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
-import { DOCS_NAV } from './docs/nav';
+import { DOCS_NAV, SECTION_ICONS } from './docs/nav';
 
-/** Icon paths (24px grid, stroked) for each docs section in the sidebar. */
-const SECTION_ICONS: Record<string, string[]> = {
-  // Rocket
-  'getting-started': [
-    'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z',
-    'm12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z',
-    'M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0',
-    'M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5',
-  ],
-  // Terminal
-  cli: ['m4 17 6-6-6-6', 'M12 19h8'],
-  // Route
-  'user-flows': [
-    'M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
-    'M9 17h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15',
-    'M18 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
-  ],
-  // Plug
-  integrations: [
-    'M12 22v-5',
-    'M9 8V2',
-    'M15 8V2',
-    'M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z',
-  ],
-  // Book
-  resources: ['M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20'],
-};
 import { Search } from './search/search';
 import { SearchOpener } from './search/search-opener';
 
@@ -66,6 +39,7 @@ import { SearchOpener } from './search/search-opener';
   host: {
     '(document:keydown)': 'onKeydown($event)',
     '(window:resize)': 'measureDrawerMode()',
+    '(window:scroll)': 'onScroll()',
   },
 })
 export class App {
@@ -134,6 +108,9 @@ export class App {
 
   /** True while a route is resolving, so the progress bar under the header can show. */
   readonly navigating = signal(false);
+
+  /** True once the page has scrolled, so the header can separate from the content. */
+  readonly scrolled = signal(false);
 
   private readonly document = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -263,6 +240,10 @@ export class App {
     } else if (event.key === 'Escape' && this.menuOpen()) {
       this.menuOpen.set(false);
     }
+  }
+
+  onScroll() {
+    this.scrolled.set(scrollY > 8);
   }
 
   measureDrawerMode() {

@@ -1,0 +1,246 @@
+// Inline diagrams placed in Markdown with `<!-- diagram: name -->`, drawn in
+// `diagrams.ts`. They use the site's colour roles and animate in through the
+// reveal classes the doc page adds when they scroll into view.
+
+.diagram {
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface-subtle);
+  overflow: hidden;
+}
+
+/* Code reduction: three columns of code rows, each line a row of bars. */
+.dg-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.dg-head {
+  margin: 0 0 var(--space-4) !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.dg-row {
+  display: grid;
+  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  min-height: 1.25rem;
+  padding: var(--space-1) 0;
+
+  + .dg-row {
+    border-top: 1px dashed var(--border);
+  }
+}
+
+.dg-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dg-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 5px;
+}
+
+.dg-line {
+  display: flex;
+  gap: 3px;
+  height: 10px;
+}
+
+.dg-line-empty {
+  height: 10px;
+  width: 1.5rem;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--border-strong) 0 3px,
+    transparent 3px 6px
+  );
+  opacity: 0.6;
+}
+
+.dg-seg {
+  display: inline-block;
+  width: calc(var(--w, 2) * 7px);
+  height: 100%;
+  border-radius: 3px;
+  background: var(--seg);
+  transform-origin: left;
+}
+
+.dg-m {
+  --seg: var(--accent);
+}
+.dg-g {
+  --seg: var(--color-neutral-300);
+}
+.dg-r {
+  --seg: var(--color-error-400);
+}
+.dg-i {
+  --seg: var(--color-success-500);
+}
+.dg-h {
+  --seg: var(--color-warning-400);
+}
+
+.dg-arrow {
+  align-self: center;
+  color: var(--text-subtle);
+  font-size: 1.25rem;
+}
+
+.dg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-6) 0 0 !important;
+  padding: 0 !important;
+  list-style: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0 !important;
+  }
+
+  .dg-seg {
+    width: 14px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dg-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dg-arrow {
+    rotate: 90deg;
+    justify-self: center;
+  }
+}
+
+/* The bars grow in from the left, in order, when the figure scrolls into view. */
+.reveal-pending:not(.reveal-in) .dg-cols .dg-seg {
+  transform: scaleX(0);
+}
+
+.reveal-in .dg-cols .dg-seg {
+  transition: transform 0.5s var(--ease-out);
+  transition-delay: calc(100ms + var(--n, 0) * 12ms);
+}
+
+/* UFO architecture: layers of boxes joined by curves that draw themselves. */
+.diagram-ufo {
+  padding: var(--space-4) var(--space-6);
+}
+
+.dg-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-mono);
+}
+
+.dg-layer {
+  fill: var(--text-heading);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dg-layer-note {
+  fill: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.dg-box {
+  rect {
+    fill: var(--surface-raised);
+    stroke: var(--dg-stroke, var(--border-strong));
+    stroke-width: 1.5;
+  }
+
+  text {
+    fill: var(--text-heading);
+    font-size: 13px;
+  }
+}
+
+.dg-box-fixture {
+  --dg-stroke: var(--color-info-400);
+}
+.dg-box-ufo {
+  --dg-stroke: var(--accent-outline);
+
+  rect {
+    fill: var(--accent-soft);
+  }
+}
+.dg-box-flow {
+  --dg-stroke: var(--color-success-400);
+}
+.dg-box-report {
+  --dg-stroke: var(--color-warning-400);
+}
+
+.dg-mark {
+  overflow: visible;
+}
+
+.dg-link {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.reveal-pending:not(.reveal-in) .dg-link {
+  stroke-dashoffset: 1;
+}
+
+.reveal-pending:not(.reveal-in) .dg-box {
+  opacity: 0;
+}
+
+.reveal-in {
+  .dg-link {
+    transition: stroke-dashoffset 0.9s var(--ease-in-out);
+    transition-delay: calc(200ms + var(--n, 0) * 60ms);
+  }
+
+  .dg-box {
+    transition: opacity 0.5s ease-out;
+  }
+}
+
+/* Mode icons inline in text and tables */
+.prose svg.img-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 0 var(--space-1-5) 0 0;
+  vertical-align: -4px;
+  color: var(--link);
+}

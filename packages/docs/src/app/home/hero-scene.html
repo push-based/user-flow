@@ -1,20 +1,23 @@
 <div class="scene" aria-hidden="true">
-  <div class="flight">
-    <div class="ufo">
-      <div class="ufo-tilt">
-        <div class="ufo-bob">
-          <svg class="uf-mark ufo-mark" viewBox="0 0 1360 1360">
-            <use href="images/user-flow-mark.svg#mark" />
-          </svg>
-        </div>
-      </div>
-      <div class="beam"></div>
-    </div>
+  <div class="layer layer-back">
+    <div class="glow"></div>
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    @for (mote of motes; track $index) {
+    <i
+      class="mote"
+      [style.left.%]="mote.x"
+      [style.top.%]="mote.y"
+      [style.--s]="mote.s"
+      [style.--d]="mote.d"
+    ></i>
+    }
   </div>
 
-  <ul class="targets">
+  <ul class="layer targets">
     @for (target of targets; track target.label; let i = $index) {
     <li class="target" [style.--i]="i">
+      <span class="chip">{{ target.score }}</span>
       <span class="gauge">
         <svg class="gauge-ring" viewBox="0 0 40 40">
           <circle class="gauge-track" cx="20" cy="20" r="17" />
@@ -47,4 +50,17 @@
     </li>
     }
   </ul>
+
+  <div class="layer flight">
+    <div class="ufo">
+      <div class="ufo-tilt">
+        <div class="ufo-bob">
+          <svg class="uf-mark ufo-mark" viewBox="0 0 1360 1360">
+            <use href="images/user-flow-mark.svg#mark" />
+          </svg>
+        </div>
+      </div>
+      <div class="beam"></div>
+    </div>
+  </div>
 </div>
