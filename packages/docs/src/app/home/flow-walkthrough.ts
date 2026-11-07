@@ -35,7 +35,7 @@ export default {
 } satisfies UserFlowProvider;`;
 
 interface Step {
-  mode: Mode | 'collect';
+  mode: Mode | 'collect' | 'report';
   name: string;
   kind: string;
   /** First and last source line (0-based) the step runs, inclusive. */
@@ -44,10 +44,10 @@ interface Step {
 }
 
 /**
- * The flow file next to the page it drives. Each step lights up its lines
- * of code while the browser mock acts them out, then the report comes
- * together. It plays by itself while on screen, pauses under the pointer and
- * lets the reader pick a step.
+ * The flow file next to the page it drives. The collect command starts the
+ * run, each step lights up its lines of code while the browser mock acts
+ * them out, then the report comes together. It plays by itself while on
+ * screen, pauses under a mouse and lets the reader pick a step.
  */
 @Component({
   selector: 'docs-flow-walkthrough',
@@ -56,14 +56,19 @@ interface Step {
   templateUrl: './flow-walkthrough.html',
   styleUrl: './flow-walkthrough.scss',
   host: {
-    '(pointerenter)': 'paused.set(true)',
-    '(pointerleave)': 'paused.set(false)',
-    '(focusin)': 'paused.set(true)',
-    '(focusout)': 'paused.set(false)',
+    '(pointerenter)': 'onPointer($event, true)',
+    '(pointerleave)': 'onPointer($event, false)',
   },
 })
 export class FlowWalkthrough {
   readonly steps: Step[] = [
+    {
+      mode: 'collect',
+      name: 'npx user-flow collect',
+      kind: 'Run',
+      lines: [0, 14],
+      score: '',
+    },
     {
       mode: 'navigation',
       name: 'Navigate to coffee cart',
@@ -86,13 +91,16 @@ export class FlowWalkthrough {
       score: '18/19',
     },
     {
-      mode: 'collect',
-      name: 'npx user-flow collect',
+      mode: 'report',
+      name: 'measures/order-coffee.uf.html',
       kind: 'Report',
       lines: [0, 14],
       score: '',
     },
   ];
+
+  /** The measured steps, in order, for the report screen. */
+  readonly measured = this.steps.filter((step) => step.score);
 
   /** The source, highlighted one line at a time so each line can be lit on its own. */
   readonly lines = SOURCE.split('\n').map(
@@ -100,9 +108,12 @@ export class FlowWalkthrough {
   );
 
   readonly active = signal(0);
+  /** True while a mouse hovers the walkthrough. Touch never pauses it. */
   readonly paused = signal(false);
   /** Bumped on every step change so the progress bar restarts. */
   readonly tick = signal(0);
+  /** Time the current step has been on screen, so a picked step gets its full turn. */
+  private elapsed = 0;
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
@@ -114,6 +125,13 @@ export class FlowWalkthrough {
   select(index: number) {
     this.active.set(index);
     this.tick.update((n) => n + 1);
+    this.elapsed = 0;
+  }
+
+  onPointer(event: PointerEvent, inside: boolean) {
+    if (event.pointerType === 'mouse') {
+      this.paused.set(inside);
+    }
   }
 
   isLit(line: number) {
@@ -126,7 +144,6 @@ export class FlowWalkthrough {
       return;
     }
     let visible = false;
-    let elapsed = 0;
     let last = performance.now();
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -139,11 +156,10 @@ export class FlowWalkthrough {
     const timer = setInterval(() => {
       const now = performance.now();
       if (visible && !this.paused() && !document.hidden) {
-        elapsed += now - last;
+        this.elapsed += now - last;
       }
       last = now;
-      if (elapsed >= STEP_MS) {
-        elapsed = 0;
+      if (this.elapsed >= STEP_MS) {
         this.select((this.active() + 1) % this.steps.length);
       }
     }, 100);
