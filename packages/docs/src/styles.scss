@@ -631,6 +631,112 @@ pre {
   white-space: nowrap;
 }
 
+/* CLI options, from tables whose first column is "Option". */
+.prose .options {
+  margin: 0 0 var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.prose .option {
+  padding: var(--space-4) var(--space-5);
+  scroll-margin-top: var(--space-4);
+
+  + .option {
+    border-top: 1px solid var(--border);
+  }
+
+  &:target,
+  &.heading-flash {
+    background: var(--accent-soft);
+  }
+}
+
+.option-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.prose a.option-name {
+  text-decoration: none;
+
+  code {
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--accent-outline);
+    background: var(--accent-soft);
+    color: var(--accent-soft-text);
+    font-weight: 600;
+  }
+
+  &:hover code {
+    border-color: var(--accent);
+  }
+}
+
+.option-alias code {
+  background: none;
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+}
+
+.option-type {
+  padding: 0.0625rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+}
+
+.option-default {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+
+  code {
+    font-size: 0.8125rem;
+  }
+}
+
+.option-body {
+  margin-top: var(--space-2);
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: var(--space-1);
+  }
+}
+
+.option-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .prose .option {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .option-default {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
 /* Link cards, from a `<!-- cards -->` list: the landing page's section cards for next steps and further reading. */
 .link-cards {
   display: grid;

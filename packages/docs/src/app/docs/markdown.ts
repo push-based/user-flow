@@ -239,6 +239,53 @@ export function renderMarkdown(
   const usedIds = new Set<string>();
   let tabGroups = 0;
 
+  /**
+   * An options table (first column "Option") as a definition list: each
+   * option gets its flag, alias, type and default on one line, the
+   * description below and an anchor of its own.
+   */
+  const optionList = (labels: string[], rows: string[][]) => {
+    const column = (name: string) =>
+      labels.findIndex((label) => label.trim().toLowerCase() === name);
+    const alias = column('alias');
+    const type = column('type');
+    const fallback = column('default');
+    const known = new Set([0, alias, type, fallback]);
+    const items = rows.map((cells) => {
+      const flag = cells[0].replace(/<[^>]+>/g, '');
+      let id = `option-${slugify(flag.replace(/^-+/, '')) || 'value'}`;
+      let suffix = 1;
+      while (usedIds.has(id)) {
+        id = `option-${slugify(flag.replace(/^-+/, ''))}-${++suffix}`;
+      }
+      usedIds.add(id);
+      const meta = [
+        alias >= 0 && cells[alias]
+          ? `<span class="option-alias">${cells[alias]}</span>`
+          : '',
+        type >= 0 && cells[type]
+          ? `<span class="option-type">${cells[type].replace(/<\/?code>/g, '')}</span>`
+          : '',
+        fallback >= 0 && cells[fallback]
+          ? `<span class="option-default">default ${cells[fallback]}</span>`
+          : '',
+      ].join('');
+      // Remaining columns: "Description" reads on its own, others keep their label.
+      const body = labels
+        .map((label, i) => {
+          if (known.has(i) || !cells[i]) {
+            return '';
+          }
+          return label.trim().toLowerCase() === 'description'
+            ? `<p>${cells[i]}</p>`
+            : `<p><span class="option-label">${escapeHtml(label.trim())}</span> ${cells[i]}</p>`;
+        })
+        .join('');
+      return `<div class="option" id="${id}"><div class="option-head"><a class="option-name" href="#${id}">${cells[0]}</a>${meta}</div>${body ? `<div class="option-body">${body}</div>` : ''}</div>`;
+    });
+    return `<div class="options">${items.join('')}</div>\n`;
+  };
+
   /** Resolves an in-app link against the base href and marks it for the router. */
   const linkTarget = (href: string) => {
     const external = /^https?:\/\//.test(href);
@@ -373,6 +420,12 @@ export function renderMarkdown(
         const labels = header.map((c) =>
           this.parser.parseInline(c.tokens).replace(/<[^>]+>/g, ''),
         );
+        if (labels[0]?.trim().toLowerCase() === 'option') {
+          return optionList(
+            labels,
+            rows.map((row) => row.map((c) => this.parser.parseInline(c.tokens))),
+          );
+        }
         const cell = (c: Tokens.TableCell, tag: 'th' | 'td', index: number) => {
           const attrs = [
             c.align ? `style="text-align:${c.align}"` : '',
