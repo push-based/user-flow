@@ -73,6 +73,18 @@
       <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
       <span>Terminal</span>
       <button
+        class="terminal-replay"
+        type="button"
+        (click)="replay()"
+        aria-label="Replay"
+        title="Replay"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+          <path d="M3 3v5h5" />
+        </svg>
+      </button>
+      <button
         class="code-copy"
         type="button"
         [class.copied]="copied()"
@@ -90,12 +102,15 @@
         <span class="code-copy-label" aria-hidden="true">Copied</span>
       </button>
     </figcaption>
-    <!-- Each command types itself out once; the server renders them in full. -->
+    <!-- Each command types itself out once; the server renders them in full.
+         Replaying re-creates the block so the animations run again. -->
+    @for (run of [runs()]; track run) {
     <pre><code><span class="term-comment"># install, set up and run your first flow</span>
 @for (line of commands; track line.text) {<span class="term-prompt">$ </span><span class="type-line" [style.--chars]="line.chars" [style.--start]="line.start + 'ms'">{{ line.text }}</span>
 }<span class="term-out type-out type-out-spinner" [style.--start]="outputStart + 'ms'" [style.--end]="outputStart + 1500 + 'ms'"><i class="term-spinner" aria-hidden="true"></i> running order-coffee.uf.mts</span><span class="term-out term-ok type-out" [style.--start]="outputStart + 1500 + 'ms'">✔ order-coffee.uf.mts <span class="term-dim">· 1 navigation · 2 timespans · 2 snapshots</span></span>
 <span class="term-out type-out" [style.--start]="outputStart + 1900 + 'ms'">→ measures/order-coffee.uf.html</span>
 <span class="term-prompt type-out" [style.--start]="outputStart + 2400 + 'ms'">$ <i class="term-cursor" aria-hidden="true"></i></span></code></pre>
+    }
   </figure>
 </section>
 

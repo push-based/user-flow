@@ -38,3 +38,5 @@ The rc file holds project defaults. Every value in it can be overridden on the c
 - [Installation](/docs/getting-started/installation): Install the CLI in your project, or start from an empty folder.
 - [Quick start](/docs/getting-started/quick-start): Initialise a config and run your first flow in minutes.
 - [Basic user flows](/docs/user-flows/basics): Learn the navigation, timespan and snapshot measurement modes.
+
+<!-- cta -->

@@ -33,6 +33,8 @@
   --link-underline: var(--color-primary-200);
   --accent: var(--color-primary-600);
   --accent-hover: var(--color-primary-700);
+  /* White text needs the 600 shade for 4.5:1, in both themes. */
+  --btn-primary-bg: var(--color-primary-600);
   --accent-soft: var(--color-primary-50);
   --accent-soft-text: var(--color-primary-700);
   --accent-outline: var(--color-primary-300);
@@ -72,6 +74,9 @@
   --spot: color-mix(in srgb, var(--color-primary-200) 55%, transparent);
   --grad-a: var(--color-primary-600);
   --grad-b: var(--color-secondary-500);
+  --ok: var(--color-success-700);
+  --ok-bg: var(--color-success-700);
+  --ok-fg: #fff;
 
   /* Motion. Every animation on the site reads from these so they stay in step. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -98,6 +103,7 @@
   --link-underline: var(--color-primary-800);
   --accent: var(--color-primary-500);
   --accent-hover: var(--color-primary-400);
+  --btn-primary-bg: var(--color-primary-600);
   --accent-soft: var(--color-primary-950);
   --accent-soft-text: var(--color-primary-200);
   --accent-outline: var(--color-primary-700);
@@ -135,6 +141,9 @@
   --spot: color-mix(in srgb, var(--color-primary-400) 18%, transparent);
   --grad-a: var(--color-primary-300);
   --grad-b: var(--color-secondary-300);
+  --ok: var(--color-success-400);
+  --ok-bg: var(--color-success-400);
+  --ok-fg: var(--color-neutral-950);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -244,7 +253,7 @@ pre {
   padding: var(--space-3) var(--space-5);
 }
 .pb-btn-primary {
-  --btn-bg: var(--accent);
+  --btn-bg: var(--btn-primary-bg);
   --btn-bg-hover: var(--accent-hover);
   --btn-color: #ffffff;
 }
@@ -1117,7 +1126,7 @@ pre {
 }
 
 .term-comment {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-400);
   font-style: italic;
 
   .hljs-comment {

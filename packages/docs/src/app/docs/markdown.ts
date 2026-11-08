@@ -291,6 +291,25 @@ function renderTerminal(text: string, title?: string): string {
   return `<figure class="code-block code-terminal terminal-session">${header}<div class="code-scroll"><pre><code class="hljs language-bash">${lines.join('\n')}</code></pre></div></figure>\n`;
 }
 
+/** Pixel sizes of the screenshots under `public/images`, so they reserve their space before they load. */
+const IMAGE_SIZES: Record<string, [number, number]> = {
+  'images/chrome-recorder-export-json.png': [1020, 336],
+  'images/chrome-recorder-start-new.png': [1269, 622],
+  'images/getting-started-resulting-navigation-report.png': [1920, 926],
+  'images/github-report-comment.png': [918, 811],
+  'images/lhr-replay-example-results-1.png': [2576, 975],
+  'images/lhr-replay-example-results-2.png': [2724, 1965],
+  'images/lhr-replay-example-results-3.png': [2724, 1971],
+  'images/lighthouse-viewer-drop.png': [1181, 361],
+  'images/report-steps.png': [1904, 978],
+};
+
+/** The landing page's call to action, for the end of a guide. */
+function ctaBand(quickStartAttrs: string): string {
+  const command = 'npm i @push-based/user-flow --save-dev';
+  return `<aside class="cta-band cta-band-doc"><div class="cta-glow" aria-hidden="true"></div><svg class="uf-mark cta-mark" viewBox="0 0 1360 1360" aria-hidden="true"><use href="images/user-flow-mark.svg#mark"/></svg><div class="cta-copy"><p class="cta-title">Ready to measure what your users actually do?</p><p class="cta-body">Three prompts and one command stand between you and your first user flow report.</p></div><div class="cta-actions"><button class="cta-command" type="button" data-copy="${command}" title="Copy the install command"><span class="cta-prompt" aria-hidden="true">$</span><code>${command}</code><span class="cta-copy-state" aria-live="polite">Copy</span></button><a class="pb-btn pb-btn-lg cta-btn" ${quickStartAttrs}>Read the quick start <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></aside>\n`;
+}
+
 /** The highlighted `<pre>` for a fenced block, plus its language and title. */
 function codeBody({ text, lang }: Tokens.Code) {
   const [language, ...meta] = (lang ?? '').trim().split(/\s+/);
@@ -565,7 +584,29 @@ export function renderMarkdown(
         // `<!-- diagram: name -->` draws one of the inline diagrams.
         const name = raw.match(/^<!--\s*diagram:\s*([\w-]+)\s*-->\s*$/)?.[1];
         const diagram = name ? DIAGRAMS[name] : undefined;
-        return diagram ? diagram() + '\n' : false;
+        if (diagram) {
+          return diagram() + '\n';
+        }
+        // `<!-- cta -->` adds the landing page's call to action.
+        if (/^<!--\s*cta\s*-->\s*$/.test(raw)) {
+          return ctaBand(linkTarget('/docs/getting-started/quick-start').attrs);
+        }
+        return false;
+      },
+      paragraph({ tokens }: Tokens.Paragraph) {
+        const inner = this.parser.parseInline(tokens);
+        // A paragraph that is just an image becomes a captioned figure.
+        const [only, ...rest] = tokens.filter(
+          (t) => !(t.type === 'text' && !t.raw.trim()),
+        );
+        if (
+          only?.type === 'image' &&
+          !rest.length &&
+          (only as Tokens.Image).title !== 'icon'
+        ) {
+          return `<figure class="figure">${inner}<figcaption>${escapeHtml((only as Tokens.Image).text)}</figcaption></figure>\n`;
+        }
+        return `<p>${inner}</p>\n`;
       },
       image({ href, title, text }: Tokens.Image) {
         // A title of "icon" marks small inline images, such as the measurement
@@ -575,10 +616,12 @@ export function renderMarkdown(
         if (inline) {
           return inline;
         }
+        const size = IMAGE_SIZES[href];
         const attrs = [
           `src="${href}"`,
           `alt="${escapeHtml(text)}"`,
           icon ? 'class="img-icon" width="20" height="20"' : '',
+          !icon && size ? `width="${size[0]}" height="${size[1]}"` : '',
           !icon && title ? `title="${escapeHtml(title)}"` : '',
           'loading="lazy"',
         ]
