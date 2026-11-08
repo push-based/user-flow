@@ -1,0 +1,35 @@
+{
+  "name": "@push-based/user-flow",
+  "version": "0.21.5",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "user-flow": "src/cli.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/push-based/user-flow.git"
+  },
+  "keywords": [
+    "web performance",
+    "performance",
+    "lighthouse",
+    "UX",
+    "user flow",
+    "CI",
+    "CWV"
+  ],
+  "peerDdependencies": {},
+  "dependencies": {
+    "tsx": "^4.23.15",
+    "tslib": "^2.9.1",
+    "yargs": "^18.2.0",
+    "lighthouse": "^13.6.0",
+    "puppeteer": "^25.16.0",
+    "@puppeteer/replay": "^4.0.2",
+    "prettier": "^3.9.10",
+    "enquirer": "^2.4.1",
+    "concurrently": "^10.0.6"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "nx-plugin-integration",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/nx-plugin-integration/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "outputs": ["{workspaceRoot}/dist/packages/nx-plugin-integration"],
+      "defaultConfiguration": "production",
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "configurations": {
+        "production": {}
+      }
+    },
+    "test": {
+      "executor": "@push-based/user-flow-nx-plugin:user-flow",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "verbose": true,
+        "dryRun": true,
+        "url": "http://localhost:4010",
+        "rcPath": "packages/nx-plugin-integration/.user-flowrc.json",
+        "ufPath": "packages/nx-plugin-integration/user-flows",
+        "outputPath": "dist/user-flow/packages/nx-plugin-integration",
+        "format": ["md"],
+        "serveCommand": "npm run nx -- serve nx-plugin-integration",
+        "awaitServeStdout": "webpack compiled"
+      }
+    }
+  }
+}

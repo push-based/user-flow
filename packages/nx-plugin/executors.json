@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "user-flow": {
+      "implementation": "./src/executors/user-flow/executor",
+      "schema": "./src/executors/user-flow/schema.json",
+      "description": "user-flow executor"
+    }
+  }
+}

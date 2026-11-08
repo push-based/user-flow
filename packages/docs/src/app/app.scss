@@ -1,0 +1,300 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-raised);
+  color: var(--link);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+
+  &:focus {
+    top: var(--space-2);
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: var(--header-height);
+  background: var(--surface-header);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--duration-base) ease-out,
+    box-shadow var(--duration-base) ease-out;
+}
+
+/* Once the page scrolls, the header separates from the content. */
+.site-header-scrolled {
+  border-bottom-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  height: 100%;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--text-heading);
+
+  &:hover .brand-logo {
+    transform: rotate(-12deg) translateY(-1px);
+  }
+}
+
+.brand-logo {
+  height: 32px;
+  width: 32px;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.brand-name {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-left: auto;
+}
+
+.site-nav-link {
+  position: relative;
+  padding: var(--space-1) 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease-out;
+
+  // Underline that grows from the centre on hover and stays for the active page.
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  &:hover,
+  &.active {
+    color: var(--text-heading);
+  }
+
+  &:hover::after,
+  &.active::after {
+    transform: scaleX(1);
+  }
+}
+
+.theme-toggle {
+  flex-shrink: 0;
+}
+
+.page {
+  flex: 1;
+  width: 100%;
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-16);
+}
+
+.page-docs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+}
+
+@media (min-width: 900px) {
+  .page-docs {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+
+/* Below 900px the header makes room for the docs menu button. The sidebar
+   and its drawer are styled in _sidebar.scss. */
+@media (max-width: 899px) {
+  .site-header-inner {
+    gap: var(--space-3);
+  }
+
+  .site-nav {
+    gap: var(--space-3);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+/* Search trigger: a field-like pill on wide screens, an icon button on phones. */
+.search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 2.25rem;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-subtle);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease-out,
+    border-color var(--duration-fast) ease-out,
+    box-shadow var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--text-heading);
+    border-color: var(--accent-outline);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+.search-trigger-label {
+  min-width: 6.5rem;
+  text-align: left;
+}
+
+.search-trigger-kbd {
+  padding: 0 var(--space-1-5);
+  height: 1.375rem;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1023px) {
+  .search-trigger {
+    width: 2.25rem;
+    padding: 0;
+    justify-content: center;
+    background: transparent;
+  }
+
+  .search-trigger-label,
+  .search-trigger-kbd {
+    display: none;
+  }
+}
+
+/* Menu button: three bars that fold into a cross. */
+.menu-toggle {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--ghost-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--text-heading);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+}
+
+.menu-toggle-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1rem;
+  height: 2px;
+  margin: -1px 0 0 -0.5rem;
+  border-radius: 1px;
+  background: currentColor;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-fast) ease-out;
+
+  &:nth-child(1) {
+    transform: translateY(-5px);
+  }
+  &:nth-child(3) {
+    transform: translateY(5px);
+  }
+}
+
+.menu-toggle-open .menu-toggle-bar {
+  &:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  &:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  &:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 899px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 559px) {
+  .site-nav-link-secondary {
+    display: none;
+  }
+}
+
+.main {
+  min-width: 0;
+}
+
+
+@media (max-width: 479px) {
+  .brand-name {
+    display: none;
+  }
+}

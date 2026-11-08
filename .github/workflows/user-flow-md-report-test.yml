@@ -1,0 +1,41 @@
+name: user-flow-md-report-test
+
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    name: Node ${{ matrix.node-version }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clean Install
+        run: npm ci
+
+      - name: Collect Report
+        run: npm run build-cli && node ./dist/packages/cli/src/cli.mjs --rcPath ./examples/github-report/.user-flowrc.json --openReport false
+
+      - name: Rename Report
+        run: npx tsx --tsconfig ./examples/github-report/tsconfig.json ./examples/github-report/tools/md-report-rename.mts
+
+      - name: Add reduced report as comment to the PR
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          hide_and_recreate: true
+          header: md-report-test
+          path: ./examples/github-report/measures/md-report.md

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "strict": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@push-based/user-flow": ["packages/cli/src/index.ts"],
+      "@push-based/user-flow-nx-plugin": ["packages/nx-plugin/src/index.ts"]
+    },
+    "noUncheckedSideEffectImports": false,
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
+  },
+  "exclude": ["node_modules", "tmp"]
+}

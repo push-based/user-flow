@@ -1,0 +1,2 @@
+# the e2e installs this frozen scaffold into a temp dir; it is not a project here
+e2e/nx-plugin-e2e/fixtures

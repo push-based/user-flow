@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": ["node"],
+    "allowJs": true,
+    "paths": {
+      "@packageName": [
+        "../../asva/wgra/af",
+        "dist/asva/wgra/af",
+        "node_modules/asva/wgra/af"
+      ]
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": [
+    "**/tests/*",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.mocks.ts",
+    "**/mocks/**",
+    "vite.config.ts"
+  ]
+}

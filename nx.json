@@ -1,0 +1,113 @@
+{
+  "extends": "nx/presets/core.json",
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "sharedGlobals": ["{workspaceRoot}/babel.config.json"],
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "inputs": ["production", "^production"]
+    },
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    },
+    "nx-release-publish": {
+      "dependsOn": ["build"],
+      "options": {
+        "registry": "https://registry.npmjs.org/",
+        "access": "public"
+      }
+    },
+    "@angular/build:application": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "lint": {
+      "options": {
+        "deny-warnings": true,
+        "report-unused-disable-directives-severity": "error"
+      }
+    }
+  },
+  "generators": {
+    "@push-based/user-flow-nx-plugin:target": {
+      "targetName": "user-flow"
+    },
+    "@nx/angular:application": {
+      "e2eTestRunner": "none",
+      "style": "scss",
+      "unitTestRunner": "none"
+    }
+  },
+  "nxCloudAccessToken": "MDlmODg4OTQtYWVlZC00OGVkLTgyMjktMDc3OWQ5ZjU1ZTAxfHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false,
+  "defaultBase": "origin/main",
+  "release": {
+    "projects": ["cli", "nx-plugin"],
+    "projectsRelationship": "independent",
+    "changelog": {
+      "automaticFromRef": true,
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commit": true,
+      "commitMessage": "release: publish",
+      "commitArgs": "--no-verify",
+      "tag": true,
+      "push": true,
+      "pushRemote": "origin"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk",
+      "versionActionsOptions": {
+        "skipLockFileUpdate": true
+      }
+    },
+    "releaseTag": {
+      "pattern": "{projectName}-{version}"
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/jest/plugin",
+      "include": ["packages/nx-plugin/**/*"]
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testMode": "run"
+      }
+    },
+    "@nx/webpack/plugin",
+    {
+      "plugin": "@nx/jest/plugin",
+      "include": ["e2e/nx-plugin-e2e/**/*"],
+      "options": {
+        "targetName": "e2e"
+      }
+    },
+    {
+      "plugin": "@nx/oxlint",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ]
+}

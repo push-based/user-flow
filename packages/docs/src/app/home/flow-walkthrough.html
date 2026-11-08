@@ -1,0 +1,119 @@
+<section class="walkthrough" docsReveal>
+  <div class="walkthrough-head">
+    <div>
+      <p class="text-subtitle section-eyebrow">Write a flow</p>
+      <h2 class="section-title">A flow is a few lines of TypeScript</h2>
+    </div>
+    <p class="walkthrough-lead">
+      Drive the page with Puppeteer and mark what Lighthouse should measure.
+      user-flow runs it and turns every step into a report.
+      <a routerLink="/docs/user-flows/basics">Writing user flows →</a>
+    </p>
+  </div>
+
+  <div class="stage" [attr.data-step]="active()" [class.stage-paused]="paused()">
+    <figure class="code code-block">
+      <figcaption class="code-title">
+        <span>order-coffee.uf.mts</span>
+        <span class="code-kind">
+          @switch (steps[active()].mode) { @case ('collect') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 4 14 8-14 8V4z" /></svg>
+          } @case ('report') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18M8 17V9M13 17V5M18 17v-3" /></svg>
+          } @default {
+          <docs-mode-icon [mode]="$any(steps[active()].mode)" />
+          } }
+          {{ steps[active()].kind }}
+        </span>
+      </figcaption>
+      <pre><code>@for (line of lines; track $index) {<span class="wt-line" [class.lit]="isLit($index)"><span class="wt-no">{{ $index + 1 }}</span><span class="wt-src" [innerHTML]="line"></span></span>}</code></pre>
+    </figure>
+
+    <div class="flow-browser" aria-hidden="true">
+      <div class="browser-bar">
+        <span class="window-dots"><i></i><i></i><i></i></span>
+        <span class="browser-url">coffee-cart.netlify.app</span>
+        <span class="browser-load"></span>
+      </div>
+      <div class="screens">
+        <div class="screen screen-launch">
+          <span class="launch-prompt">$ npx user-flow collect</span>
+          <span class="launch-line launch-line-1">Launching Chrome</span>
+          <span class="launch-line launch-line-2">Running order-coffee.uf.mts</span>
+        </div>
+        <div class="screen screen-cart">
+          <div class="shop-bar">
+            <span class="shop-name">Coffee cart</span>
+            <span class="shop-cart">cart <b class="shop-count"></b></span>
+          </div>
+          <ul class="cups">
+            @for (cup of ['Espresso', 'Cappuccino', 'Latte']; track cup) {
+            <li class="cup" [class.cup-target]="cup === 'Espresso'">
+              <span class="cup-body"><i></i></span>
+              <span class="cup-name">{{ cup }}</span>
+            </li>
+            }
+          </ul>
+          <span class="checkout-btn">Checkout</span>
+        </div>
+        <div class="screen screen-form">
+          <span class="form-title">Payment details</span>
+          <span class="form-field"><i>Name</i></span>
+          <span class="form-field"><i>Email</i></span>
+          <span class="form-submit">Submit</span>
+        </div>
+        <div class="screen screen-report">
+          <span class="report-title">Order coffee</span>
+          @for (step of measured; track step.name; let i = $index) {
+          <span class="report-row" [style.--r]="i">
+            <docs-mode-icon [mode]="$any(step.mode)" />
+            <span class="report-row-name">{{ step.name }}</span>
+            <b class="report-score">{{ step.score }}</b>
+          </span>
+          }
+        </div>
+        <span class="cursor"></span>
+        <span class="flash"></span>
+      </div>
+    </div>
+
+    <ol class="stepper">
+      @for (step of steps; track step.name; let i = $index) {
+      <li>
+        <button
+          class="stepper-btn"
+          type="button"
+          [class.stepper-active]="i === active()"
+          [class.stepper-done]="i < active()"
+          [attr.aria-current]="i === active() ? 'step' : null"
+          (click)="select(i)"
+        >
+          <span class="stepper-icon">
+            @switch (step.mode) { @case ('collect') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m6 4 14 8-14 8V4z" />
+            </svg>
+            } @case ('report') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3v18h18M8 17V9M13 17V5M18 17v-3" />
+            </svg>
+            } @default {
+            <docs-mode-icon [mode]="$any(step.mode)" />
+            } }
+          </span>
+          <span class="stepper-text">
+            <span class="stepper-kind">{{ step.kind }}</span>
+            <span class="stepper-name">{{ step.name }}</span>
+          </span>
+          @if (step.score) {
+          <span class="stepper-score">{{ step.score }}</span>
+          }
+          @if (i === active()) {
+          <span class="stepper-bar" [attr.data-tick]="tick()"></span>
+          }
+        </button>
+      </li>
+      }
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,159 @@
+// The site footer: brand, link columns and the credit row. Global so the app
+// component's styles stay within their size budget.
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--space-12) 0 var(--space-6);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+}
+
+.site-footer-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.site-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.site-footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  --pb-logo-mark: #2d0064;
+  --pb-logo-red: var(--color-secondary-600);
+  --pb-logo-word: #2d0064;
+  transition:
+    opacity var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
+
+  &:hover {
+    opacity: 0.8;
+    translate: 0 -1px;
+  }
+}
+
+.pb-logo {
+  height: 18px;
+  width: auto;
+  display: block;
+}
+
+.pb-logo-mark {
+  fill: var(--pb-logo-mark);
+}
+.pb-logo-red {
+  fill: var(--pb-logo-red);
+}
+.pb-logo-word {
+  fill: var(--pb-logo-word);
+}
+
+@mixin footer-logo-dark {
+  .site-footer-brand {
+    --pb-logo-mark: var(--color-primary-300);
+    --pb-logo-word: var(--color-neutral-100);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include footer-logo-dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include footer-logo-dark;
+}
+
+/* Top of the footer: the brand with a line about the project, then link columns. */
+.site-footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-10);
+  padding-bottom: var(--space-10);
+}
+
+@media (min-width: 900px) {
+  .site-footer-top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+}
+
+.site-footer-about {
+  max-width: 22rem;
+
+  .brand {
+    color: var(--text-heading);
+  }
+
+  // The header hides the name on phones; the footer has the room.
+  .site-footer & .brand-name {
+    display: inline;
+  }
+
+  p {
+    margin: var(--space-3) 0 0;
+    line-height: 1.375rem;
+  }
+}
+
+.site-footer-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: var(--space-8) var(--space-6);
+}
+
+.site-footer-column {
+  .text-subtitle {
+    margin: 0 0 var(--space-3);
+    font-size: 0.75rem;
+    color: var(--text-heading);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    color: var(--text-muted);
+    transition:
+      color var(--duration-fast) ease-out,
+      translate var(--duration-base) var(--ease-out);
+
+    &:hover {
+      color: var(--link);
+      translate: 2px 0;
+    }
+  }
+
+  .external {
+    font-size: 0.75em;
+    color: var(--text-subtle);
+  }
+}

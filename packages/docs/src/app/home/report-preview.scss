@@ -1,0 +1,426 @@
+:host {
+  display: block;
+}
+
+.report-section {
+  padding: var(--space-16) 0 0;
+}
+
+.section-eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--text-muted);
+}
+
+.section-title {
+  margin: 0 0 var(--space-8);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.report {
+  position: relative;
+  margin: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-2xl);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+
+  // A scan line sweeps down the report as its numbers come in.
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20%;
+    height: 20%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--accent) 14%, transparent) 60%,
+      var(--accent-outline) 100%
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.reveal-in::after {
+    animation: scan 1.8s var(--ease-in-out) 300ms both;
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.report-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-2-5) var(--space-4);
+  background: var(--surface-subtle);
+  border-bottom: 1px solid var(--border);
+}
+
+.report-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+
+.report-file {
+  margin-left: var(--space-3);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+
+.report-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-6) var(--space-2);
+}
+
+.report-kicker {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.report-name {
+  margin: var(--space-1) 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.report-badge {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--accent-outline);
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.report-steps {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) var(--space-6) var(--space-2);
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr 1.25fr;
+  gap: var(--space-4);
+}
+
+.report-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  transition:
+    border-color var(--duration-base) ease-out,
+    box-shadow var(--duration-base) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent-outline);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+}
+
+.report-step-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.report-step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  color: var(--link);
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+}
+
+.report-step-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.report-step-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.report-step-kind {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.gauges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.gauge {
+  --color: var(--color-success-600);
+  --tint: var(--color-success-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1-5);
+  width: 4.5rem;
+
+  &[data-rating='average'] {
+    --color: var(--color-warning-600);
+    --tint: var(--color-warning-100);
+  }
+
+  &[data-rating='fail'] {
+    --color: var(--color-error-600);
+    --tint: var(--color-error-100);
+  }
+}
+
+.gauge-dial {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+}
+
+.gauge-track,
+.gauge-arc {
+  fill: none;
+  stroke-width: 4;
+}
+
+.gauge-track {
+  stroke: var(--tint);
+}
+
+.gauge-arc {
+  stroke: var(--color);
+  stroke-linecap: round;
+  stroke-dashoffset: var(--offset);
+}
+
+.gauge-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color);
+}
+
+/* The number is a CSS counter, so it can count up with the ring. */
+.gauge-count::after {
+  counter-reset: gauge var(--gauge-n);
+  content: counter(gauge);
+}
+
+.gauge-total {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.gauge-label {
+  text-align: center;
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.report-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4) var(--space-6) var(--space-6);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--link);
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+
+/* Dark theme: tinted tracks would glow, so they use the dark end of each ramp. */
+@mixin dark-gauges {
+  .gauge {
+    --color: var(--color-success-400);
+    --tint: color-mix(in srgb, var(--color-success-500) 18%, transparent);
+
+    &[data-rating='average'] {
+      --color: var(--color-warning-400);
+      --tint: color-mix(in srgb, var(--color-warning-500) 18%, transparent);
+    }
+
+    &[data-rating='fail'] {
+      --color: var(--color-error-400);
+      --tint: color-mix(in srgb, var(--color-error-500) 18%, transparent);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :host-context(:root:not([data-theme='light'])) {
+    @include dark-gauges;
+  }
+}
+
+:host-context(:root[data-theme='dark']) {
+  @include dark-gauges;
+}
+
+/* Entrance: steps rise in turn, then each gauge fills and counts up. */
+.reveal-pending:not(.reveal-in) {
+  .report-step {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .gauge {
+    --gauge-n: 0 !important;
+  }
+
+  .gauge-arc {
+    stroke-dashoffset: var(--ring-full, 125.66);
+  }
+}
+
+.reveal-in {
+  .report-step {
+    transition:
+      opacity var(--duration-slow) ease-out,
+      transform var(--duration-slow) var(--ease-out);
+    transition-delay: calc(150ms + var(--s) * 220ms);
+  }
+
+  .gauge {
+    transition: --gauge-n 1.3s var(--ease-out);
+    transition-delay: calc(450ms + var(--s) * 220ms + var(--g) * 90ms);
+  }
+
+  .gauge-arc {
+    transition: stroke-dashoffset 1.3s var(--ease-out);
+    transition-delay: calc(450ms + var(--s) * 220ms + var(--g) * 90ms);
+  }
+}
+
+.reveal-instant {
+  .report-step,
+  .gauge,
+  .gauge-arc {
+    transition: none;
+  }
+
+  &::after {
+    animation: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .report-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .report-head,
+  .report-steps,
+  .report-caption {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  .report-step {
+    padding: var(--space-4);
+  }
+
+  .gauges {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .gauge {
+    width: auto;
+  }
+
+  .gauge-dial {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .gauge-value {
+    font-size: 0.875rem;
+  }
+
+  .gauge-long .gauge-value {
+    font-size: 0.75rem;
+    letter-spacing: -0.04em;
+  }
+
+  .gauge-long .gauge-total {
+    font-size: 0.5625rem;
+  }
+}

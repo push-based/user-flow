@@ -1,0 +1,58 @@
+{
+  "name": "nx-plugin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nx-plugin/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "dependsOn": ["^build"],
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-plugin",
+        "main": "packages/nx-plugin/src/index.ts",
+        "tsConfig": "packages/nx-plugin/tsconfig.lib.json",
+        "assets": [
+          "packages/nx-plugin/*.md",
+          {
+            "input": "./packages/nx-plugin/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-plugin",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-plugin",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "link": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "commands": [
+          {
+            "command": "npx cpx \"./dist/packages/nx-plugin/**\" ./node_modules/@push-based/user-flow-nx-plugin"
+          }
+        ]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/packages/nx-plugin"
+      }
+    }
+  }
+}

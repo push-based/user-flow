@@ -1,0 +1,774 @@
+// Inline diagrams placed in Markdown with `<!-- diagram: name -->`, drawn in
+// `diagrams.ts`. They use the site's colour roles and animate in through the
+// reveal classes the doc page adds when they scroll into view.
+
+.diagram {
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface-subtle);
+  overflow: hidden;
+}
+
+/* Code reduction: three columns of code rows, each line a row of bars. */
+.dg-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.dg-head {
+  margin: 0 0 var(--space-4) !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.dg-row {
+  display: grid;
+  grid-template-columns: minmax(0, 6.5rem) minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  min-height: 1.25rem;
+  padding: var(--space-1) 0;
+
+  + .dg-row {
+    border-top: 1px dashed var(--border);
+  }
+}
+
+.dg-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dg-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 5px;
+}
+
+.dg-line {
+  display: flex;
+  gap: 3px;
+  height: 10px;
+}
+
+.dg-line-empty {
+  height: 10px;
+  width: 1.5rem;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--border-strong) 0 3px,
+    transparent 3px 6px
+  );
+  opacity: 0.6;
+}
+
+.dg-seg {
+  display: inline-block;
+  width: calc(var(--w, 2) * 7px);
+  height: 100%;
+  border-radius: 3px;
+  background: var(--seg);
+  transform-origin: left;
+}
+
+.dg-m {
+  --seg: var(--accent);
+}
+.dg-g {
+  --seg: var(--color-neutral-300);
+}
+.dg-r {
+  --seg: var(--color-error-400);
+}
+.dg-i {
+  --seg: var(--color-success-500);
+}
+.dg-h {
+  --seg: var(--color-warning-400);
+}
+
+.dg-arrow {
+  align-self: center;
+  color: var(--text-subtle);
+  font-size: 1.25rem;
+}
+
+.dg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-6) 0 0 !important;
+  padding: 0 !important;
+  list-style: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0 !important;
+  }
+
+  .dg-seg {
+    width: 14px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .dg-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dg-arrow {
+    rotate: 90deg;
+    justify-self: center;
+  }
+}
+
+/* The bars grow in from the left, in order, when the figure scrolls into view. */
+.reveal-pending:not(.reveal-in) .dg-cols .dg-seg {
+  transform: scaleX(0);
+}
+
+.reveal-in .dg-cols .dg-seg {
+  transition: transform 0.5s var(--ease-out);
+  transition-delay: calc(100ms + var(--n, 0) * 12ms);
+}
+
+/* UFO architecture: layers of boxes joined by curves that draw themselves. */
+.diagram-ufo {
+  padding: var(--space-4) var(--space-6);
+}
+
+.dg-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-mono);
+}
+
+.dg-layer {
+  fill: var(--text-heading);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dg-layer-note {
+  fill: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.dg-box {
+  rect {
+    fill: var(--surface-raised);
+    stroke: var(--dg-stroke, var(--border-strong));
+    stroke-width: 1.5;
+  }
+
+  text {
+    fill: var(--text-heading);
+    font-size: 13px;
+  }
+}
+
+.dg-box-fixture {
+  --dg-stroke: var(--color-info-400);
+}
+.dg-box-ufo {
+  --dg-stroke: var(--accent-outline);
+
+  rect {
+    fill: var(--accent-soft);
+  }
+}
+.dg-box-flow {
+  --dg-stroke: var(--color-success-400);
+}
+.dg-box-report {
+  --dg-stroke: var(--color-warning-400);
+}
+
+.dg-mark {
+  overflow: visible;
+}
+
+.dg-link {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.reveal-pending:not(.reveal-in) .dg-link {
+  stroke-dashoffset: 1;
+}
+
+.reveal-pending:not(.reveal-in) .dg-box {
+  opacity: 0;
+}
+
+.reveal-in {
+  .dg-link {
+    transition: stroke-dashoffset 0.9s var(--ease-in-out);
+    transition-delay: calc(200ms + var(--n, 0) * 60ms);
+  }
+
+  .dg-box {
+    transition: opacity 0.5s ease-out;
+  }
+}
+
+/* Mode icons inline in text and tables */
+.prose svg.img-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: 0 var(--space-1-5) 0 0;
+  vertical-align: -4px;
+  color: var(--link);
+}
+
+/* Screenshots: a standalone image becomes a framed, captioned figure. */
+.prose .figure {
+  margin: var(--space-6) 0 var(--space-8);
+
+  img {
+    margin: 0;
+    width: 100%;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  figcaption {
+    margin-top: var(--space-3);
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    text-align: center;
+    color: var(--text-muted);
+  }
+}
+
+/* Report formats: the code tab chrome on the doc surface, so the HTML and
+   Markdown panels sit on a light (or dark) page rather than in a terminal. */
+.prose .format-tabs {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+
+  > .code-title {
+    justify-content: space-between;
+    background: var(--surface-subtle);
+    border-bottom-color: var(--border);
+    color: var(--text-muted);
+  }
+
+  .code-tab {
+    color: var(--text-muted);
+
+    &:hover,
+    &[aria-selected='true'] {
+      color: var(--text-heading);
+    }
+  }
+
+  .code-tab-indicator {
+    background: var(--accent);
+  }
+
+  .code-tabpanel {
+    padding: var(--space-5);
+  }
+
+  .code-tabpanel:has(.code-scroll) {
+    padding: 0;
+  }
+}
+
+.format-tabs-hint {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-subtle);
+}
+
+.rf-report {
+  font-size: 0.875rem;
+}
+
+.rf-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.rf-kicker {
+  margin: 0 !important;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.rf-title {
+  margin: 0 !important;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: var(--text-heading);
+}
+
+.rf-badge {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--accent-outline);
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+
+.rf-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.rf-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  margin: 0 !important;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+
+  @media (min-width: 640px) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+.rf-step-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  .img-icon {
+    margin: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  b {
+    color: var(--text-heading);
+    font-weight: 600;
+  }
+
+  small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+}
+
+.rf-gauges {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.rf-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 4.25rem;
+
+  small {
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+    text-align: center;
+    color: var(--text-muted);
+  }
+}
+
+.rf-gauge {
+  --ok: var(--color-success-700);
+  --ok-tint: var(--color-success-100);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--ok);
+
+  &[data-rating='average'] {
+    --ok: var(--color-warning-700);
+    --ok-tint: var(--color-warning-100);
+  }
+
+  &[data-rating='fail'] {
+    --ok: var(--color-error-700);
+    --ok-tint: var(--color-error-100);
+  }
+
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    rotate: -90deg;
+  }
+
+  circle {
+    fill: none;
+    stroke-width: 3;
+  }
+
+  .rf-track {
+    stroke: var(--ok-tint);
+  }
+
+  .rf-arc {
+    stroke: var(--ok);
+    stroke-linecap: round;
+    stroke-dasharray: var(--pct) 100;
+  }
+
+  b {
+    position: relative;
+    font-weight: 600;
+  }
+}
+
+.rf-gauge-none {
+  color: var(--text-subtle);
+}
+
+.reveal-pending:not(.reveal-in) .rf-arc {
+  stroke-dasharray: 0 100;
+}
+
+.reveal-in .rf-arc {
+  transition: stroke-dasharray 1s var(--ease-out) 300ms;
+}
+
+.rf-md-title {
+  margin: 0 0 var(--space-1) !important;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.rf-md-date {
+  margin: 0 0 var(--space-3) !important;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.prose .rf-md .table-wrap,
+.prose .prc .table-wrap {
+  margin: 0;
+
+  table {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+
+  th,
+  td {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .img-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: var(--space-1);
+    vertical-align: -3px;
+  }
+}
+
+.rf-cell {
+  font-family: var(--font-mono);
+  text-align: center;
+
+  &[data-rating='pass'] {
+    color: var(--color-success-700);
+  }
+  &[data-rating='average'] {
+    color: var(--color-warning-700);
+  }
+  &[data-rating='fail'] {
+    color: var(--color-error-700);
+  }
+}
+
+/* The pull request comment */
+.diagram-pr {
+  padding: var(--space-4);
+}
+
+.prc {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+
+.prc-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2-5) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-subtle);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+
+  b {
+    color: var(--text-heading);
+  }
+}
+
+.prc-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}
+
+.prc-bot {
+  padding: 0 var(--space-1-5);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+}
+
+.prc-time {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.prc-body {
+  padding: var(--space-4);
+}
+
+/* SVG figures: shared text and icon styles */
+.dg-strong {
+  fill: var(--text-heading);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dg-note {
+  fill: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.dg-item {
+  fill: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.dg-icon {
+  color: var(--dg-stroke, var(--link));
+  overflow: visible;
+}
+
+.dg-arrowhead,
+.dg-loop {
+  stroke: var(--border-strong);
+}
+
+.diagram-ci,
+.diagram-cli {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* Measurement modes: three cards with the categories each one can score. */
+.modes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  padding: var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+
+  b {
+    color: var(--text-heading);
+    font-size: 0.9375rem;
+  }
+}
+
+.mode-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+
+  .img-icon {
+    margin: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: inherit;
+  }
+}
+
+.mode-what {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mode-note {
+  color: var(--text-muted);
+}
+
+.mode-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5);
+  margin: var(--space-2) 0 0 !important;
+  padding: 0 !important;
+  list-style: none;
+
+  li {
+    margin: 0 !important;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: 0.6875rem;
+    line-height: 1.25rem;
+    font-family: var(--font-mono);
+  }
+
+  .on {
+    background: color-mix(in srgb, var(--color-success-500) 16%, transparent);
+    color: var(--color-success-700);
+  }
+
+  .off {
+    background: var(--surface-subtle);
+    color: var(--text-subtle);
+    text-decoration: line-through;
+  }
+}
+
+/* The call to action at the end of a guide */
+.prose .cta-band-doc {
+  margin: var(--space-10) 0 0;
+
+  .cta-title {
+    margin: 0;
+  }
+
+  .cta-body {
+    margin: var(--space-2) 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+  }
+
+  a.cta-btn {
+    text-decoration: none;
+    color: var(--btn-color);
+  }
+
+  code {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+@mixin dark-figures {
+  .rf-gauge {
+    --ok: var(--color-success-400);
+    --ok-tint: color-mix(in srgb, var(--color-success-500) 18%, transparent);
+
+    &[data-rating='average'] {
+      --ok: var(--color-warning-400);
+      --ok-tint: color-mix(in srgb, var(--color-warning-500) 18%, transparent);
+    }
+
+    &[data-rating='fail'] {
+      --ok: var(--color-error-400);
+      --ok-tint: color-mix(in srgb, var(--color-error-500) 18%, transparent);
+    }
+  }
+
+  .rf-cell[data-rating='pass'],
+  .mode-cats .on {
+    color: var(--color-success-400);
+  }
+  .rf-cell[data-rating='average'] {
+    color: var(--color-warning-400);
+  }
+  .rf-cell[data-rating='fail'] {
+    color: var(--color-error-400);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-figures;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-figures;
+}

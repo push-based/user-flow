@@ -1,0 +1,102 @@
+<dialog
+  #dialog
+  class="search"
+  [class.search-closing]="closing()"
+  aria-label="Search the documentation"
+  (click)="onDialogClick($event)"
+  (cancel)="$event.preventDefault(); close()"
+>
+  <div class="search-panel">
+    <label class="search-field">
+      <svg
+        class="search-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-3.5-3.5" />
+      </svg>
+      <input
+        #input
+        class="search-input"
+        type="search"
+        placeholder="Search the docs"
+        autocomplete="off"
+        spellcheck="false"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-controls="search-results"
+        [attr.aria-activedescendant]="results().length ? 'search-result-' + selected() : null"
+        aria-expanded="true"
+        [value]="query()"
+        (input)="onInput(input.value)"
+        (keydown)="onKeydown($event)"
+      />
+      <kbd class="search-esc">esc</kbd>
+    </label>
+
+    <div class="search-body">
+      @if (query().trim() && !entries()) {
+      <p class="search-status">Indexing pages…</p>
+      } @else if (!results().length) {
+      <p class="search-status">
+        No results for <strong>“{{ query() }}”</strong>
+      </p>
+      } @else {
+      <p class="search-group">{{ query().trim() ? 'Results' : 'All pages' }}</p>
+      <ul #list id="search-results" class="search-results" role="listbox">
+        @for (result of results(); track $index; let i = $index) {
+        <li
+          class="search-result"
+          role="option"
+          [id]="'search-result-' + i"
+          [attr.aria-selected]="i === selected()"
+          [style.--i]="i"
+          (click)="go(result)"
+          (mousemove)="selected.set(i)"
+        >
+          <span class="search-result-path">
+            {{ result.entry.section }}
+            <span aria-hidden="true">›</span>
+            {{ result.entry.page }}
+          </span>
+          <span class="search-result-title">
+            @if (result.entry.heading) {
+            <span class="search-hash" aria-hidden="true">#</span>{{
+            result.entry.heading }} } @else { {{ result.entry.page }} }
+          </span>
+          <span class="search-result-snippet">
+            @for (part of result.snippet; track $index) { @if (part.hit) {
+            <mark>{{ part.text }}</mark>
+            } @else {{{ part.text }}} }
+          </span>
+          <svg
+            class="search-result-enter"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 10 4 15l5 5" />
+            <path d="M20 4v7a4 4 0 0 1-4 4H4" />
+          </svg>
+        </li>
+        }
+      </ul>
+      }
+    </div>
+
+    <footer class="search-footer" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> to move</span>
+      <span><kbd>↵</kbd> to open</span>
+      <span><kbd>esc</kbd> to close</span>
+    </footer>
+  </div>
+</dialog>

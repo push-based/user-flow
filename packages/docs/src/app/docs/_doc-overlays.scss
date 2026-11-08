@@ -1,0 +1,367 @@
+// Doc page overlays: the "On this page" bar below desktop width, reading
+// progress, back to top and the image lightbox. Global because the doc page
+// component's styles would otherwise exceed their size budget.
+
+/* "On this page" below desktop width: a bar that sticks under the header,
+   names the section in view and opens into the full outline. */
+// Headings land below the sticky bar too (html already pads for the header).
+@media (max-width: 1199.98px) {
+  .prose :is(h2, h3, h4) {
+    scroll-margin-top: 3.5rem;
+  }
+}
+
+.toc-menu {
+  position: sticky;
+  z-index: 10;
+  top: calc(var(--header-height) + var(--space-2));
+  margin: calc(-1 * var(--space-4)) 0 var(--space-8);
+
+  @media (min-width: 1200px) {
+    display: none;
+  }
+}
+
+.toc-menu-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-header);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.toc-menu-label {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.toc-menu-current {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--link);
+  font-weight: 500;
+}
+
+.toc-menu-chevron {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-muted);
+  transition: rotate var(--duration-base) var(--ease-out);
+
+  .toc-menu[open] & {
+    rotate: 180deg;
+  }
+}
+
+.toc-menu-list {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  right: 0;
+  max-height: min(60vh, 28rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-lg);
+  transform-origin: top center;
+  animation: toc-menu-in var(--duration-base) var(--ease-out);
+
+  a {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--text);
+    text-decoration: none;
+
+    &:hover {
+      background: var(--surface-subtle);
+      color: var(--text-heading);
+    }
+  }
+
+  .toc-item-nested a {
+    padding-left: var(--space-6);
+    color: var(--text-muted);
+  }
+
+  .toc-menu-active a {
+    background: var(--accent-soft);
+    color: var(--accent-soft-text);
+    font-weight: 500;
+  }
+}
+
+@keyframes toc-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+}
+
+/* Reading progress: a hairline under the header, driven by the scroll
+   position where scroll-driven animations are supported. */
+.read-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .read-progress {
+    display: block;
+    position: fixed;
+    z-index: 21;
+    top: calc(var(--header-height) - 2px);
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    transform-origin: left center;
+    transform: scaleX(0);
+    pointer-events: none;
+    animation: read-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes read-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.back-to-top {
+  position: fixed;
+  z-index: 15;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--surface-raised);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  translate: 0 12px;
+  scale: 0.9;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) ease-out,
+    translate var(--duration-base) var(--ease-out),
+    scale var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) ease-out,
+    color var(--duration-fast) ease-out;
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    transition: translate var(--duration-base) var(--ease-out);
+  }
+
+  &:hover {
+    border-color: var(--accent-outline);
+    color: var(--link);
+
+    svg {
+      translate: 0 -2px;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (min-width: 768px) {
+    right: var(--space-6);
+    bottom: var(--space-6);
+  }
+}
+
+.back-to-top-visible {
+  opacity: 1;
+  translate: 0;
+  scale: 1;
+  pointer-events: auto;
+}
+
+/* Lightbox: the image scales up from the page, the backdrop blurs in. */
+.lightbox {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-6);
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
+  display: grid;
+  place-items: center;
+
+  &:not([open]) {
+    display: none;
+  }
+
+  &::backdrop {
+    background: rgb(13 18 28 / 0.78);
+    backdrop-filter: blur(6px);
+    animation: lightbox-fade var(--duration-base) ease-out;
+  }
+
+  &.lightbox-closing::backdrop {
+    animation: lightbox-fade 200ms ease-in reverse forwards;
+  }
+
+  &.lightbox-closing .lightbox-figure {
+    animation: lightbox-zoom 200ms ease-in reverse forwards;
+  }
+}
+
+.lightbox-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: min(1200px, 100%);
+  animation: lightbox-zoom var(--duration-slow) var(--ease-out);
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100dvh - var(--space-24));
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    background: var(--surface);
+  }
+
+  figcaption {
+    max-width: 48rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-neutral-200);
+  }
+}
+
+.lightbox-close {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: var(--radius-full);
+  background: rgb(255 255 255 / 0.08);
+  color: #fff;
+  cursor: pointer;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@keyframes lightbox-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes lightbox-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+}
+
+/* A small confirmation that rises from the bottom, e.g. after copying a link. */
+.toast {
+  position: fixed;
+  z-index: 40;
+  left: 50%;
+  bottom: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-50);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  translate: -50% 12px;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) ease-out,
+    translate var(--duration-base) var(--ease-out);
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-success-400);
+  }
+}
+
+.toast-visible {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+:root[data-theme='dark'] .toast {
+  background: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .toast {
+    background: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+  }
+}

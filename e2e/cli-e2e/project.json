@@ -1,0 +1,16 @@
+{
+  "name": "cli-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "e2e/cli-e2e/src",
+  "projectType": "application",
+  "tags": ["type:e2e"],
+  "implicitDependencies": ["cli"],
+  "targets": {
+    "test": {
+      "options": {
+        "cwd": ".",
+        "args": ["--root", "e2e/cli-e2e"]
+      }
+    }
+  }
+}

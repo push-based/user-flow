@@ -1,0 +1,396 @@
+:host {
+  display: block;
+}
+
+/* Hero: copy on the left, the scene on the right, the terminal below the copy.
+   A full-bleed backdrop with a dot grid and two drifting colour blobs sits
+   behind all of it. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'copy'
+    'code'
+    'visual';
+  gap: var(--space-8);
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 400px;
+    grid-template-areas:
+      'copy visual'
+      'code visual';
+    gap: var(--space-6) var(--space-10);
+    align-items: center;
+    padding-top: var(--space-12);
+  }
+}
+
+@media (min-width: 1100px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 460px;
+    gap: var(--space-8) var(--space-16);
+  }
+}
+
+.hero-bg {
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--space-8));
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  translate: -50% 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 20%, #000 20%, transparent 85%);
+
+  &::after {
+    // Fade the grid out towards the content below.
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 40%;
+    background: linear-gradient(transparent, var(--surface));
+  }
+}
+
+// Soft radial gradients rather than blur filters, which cost a lot on phones.
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: blob 18s ease-in-out infinite alternate;
+}
+
+.hero-blob-1 {
+  top: -30%;
+  left: 45%;
+  width: 70vw;
+  height: 50vw;
+  max-width: 900px;
+  max-height: 620px;
+  background: radial-gradient(closest-side, var(--hero-blob-1), transparent);
+}
+
+.hero-blob-2 {
+  top: 15%;
+  left: -25%;
+  width: 56vw;
+  height: 44vw;
+  max-width: 680px;
+  max-height: 540px;
+  background: radial-gradient(closest-side, var(--hero-blob-2), transparent);
+  animation-delay: -9s;
+  animation-duration: 24s;
+}
+
+@keyframes blob {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-6%, 8%) scale(1.12);
+  }
+}
+
+.hero-copy {
+  grid-area: copy;
+}
+
+.hero-visual {
+  grid-area: visual;
+}
+
+.hero-code {
+  grid-area: code;
+  margin: 0;
+  max-width: 40rem;
+  box-shadow: var(--shadow-md);
+
+  .terminal-replay {
+    margin-left: auto;
+  }
+
+  .terminal-replay + .code-copy {
+    margin-left: 0;
+  }
+}
+
+/* The package pill: a live dot, the name and the version on npm. */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2-5);
+  border: 1px solid var(--accent-outline);
+  border-radius: var(--radius-full);
+  background: var(--surface-glass);
+  backdrop-filter: blur(6px);
+  color: var(--accent-soft-text);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) ease-out,
+    box-shadow var(--duration-base) var(--ease-out),
+    translate var(--duration-base) var(--ease-out);
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    translate: 0 -1px;
+  }
+}
+
+.hero-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success-500);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-success-500) 60%, transparent);
+  animation: ping 2.2s ease-out infinite;
+}
+
+@keyframes ping {
+  70%,
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+.hero-pill-version {
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--accent-outline);
+  color: var(--text-muted);
+}
+
+/* The headline rises one word at a time; the accent words carry a gradient
+   that catches the light once. */
+.hero-title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--text-heading);
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: 0.06em 0.04em 0.14em 0;
+  margin: -0.06em 0 -0.14em;
+}
+
+.word-inner {
+  display: inline-block;
+  animation: word-up 0.8s var(--ease-out) both;
+  animation-delay: calc(80ms + var(--w, 0) * 60ms);
+}
+
+.word-accent {
+  background: linear-gradient(
+    100deg,
+    var(--grad-a) 0%,
+    var(--grad-b) 45%,
+    var(--grad-a) 100%
+  );
+  background-size: 220% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    word-up 0.8s var(--ease-out) both,
+    shimmer 2.4s var(--ease-in-out) 1.2s both;
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(105%) rotate(2deg);
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 0 0;
+  }
+}
+
+.hero-lead {
+  margin: var(--space-6) 0 0;
+  max-width: 34rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--text-muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.btn-arrow,
+.btn-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-left: var(--space-1);
+}
+
+.btn-arrow {
+  transition: translate var(--duration-base) var(--ease-out);
+}
+
+.pb-btn:hover .btn-arrow {
+  translate: 3px 0;
+}
+
+.btn-icon {
+  margin: 0 var(--space-1) 0 0;
+}
+
+/* Terminal output lines appear once their command has typed. */
+.term-prompt {
+  color: var(--color-primary-400);
+  user-select: none;
+}
+
+.type-out {
+  display: inline-block;
+  opacity: 0;
+  animation: fade-up var(--duration-base) ease-out both;
+  animation-delay: var(--start);
+}
+
+.type-out-spinner {
+  animation:
+    fade-up var(--duration-base) ease-out both,
+    hide 1ms linear forwards;
+  animation-delay: var(--start), var(--end);
+}
+
+.term-ok {
+  color: var(--color-success-300);
+}
+
+.term-dim {
+  color: var(--color-neutral-400);
+}
+
+.term-spinner {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.3ch;
+  vertical-align: -0.1em;
+  border-radius: 50%;
+  border: 2px solid var(--color-neutral-600);
+  border-top-color: var(--color-primary-300);
+  animation: spin 0.8s linear infinite;
+}
+
+.term-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.1em;
+  vertical-align: -0.2em;
+  background: var(--color-neutral-300);
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  to {
+    display: none;
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* On narrow screens the long result line wraps instead of scrolling off. */
+@media (max-width: 639px) {
+  .term-ok {
+    white-space: normal;
+  }
+}
+
+.benefits,
+.sections,
+.cta {
+  padding: var(--space-20) 0 0;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr));
+  gap: var(--space-4);
+}
+
+.section-card-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: var(--space-2);
+  vertical-align: -3px;
+  color: var(--link);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob,
+  .hero-pill-dot,
+  .word-inner,
+  .type-out,
+  .term-spinner,
+  .term-cursor {
+    animation: none;
+  }
+
+  .type-out {
+    opacity: 1;
+  }
+
+  .type-out-spinner {
+    display: none;
+  }
+
+  .word-accent {
+    background-position: 0 0;
+  }
+}

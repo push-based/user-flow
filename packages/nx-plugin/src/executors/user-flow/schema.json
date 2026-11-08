@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "version": 2,
+  "title": "user-flow executor",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "verbose": {
+      "type": "boolean",
+      "description": "Verbose logging on/off"
+    },
+    "url": {
+      "type": "string",
+      "description": "Target URL"
+    },
+    "cliMode": {
+      "type": "string",
+      "description": "CLI mode for execution of user-flows. This is useful when you debug or write tests. (DEFAULT | SANDBOX | CI)"
+    },
+    "rcPath": {
+      "type": "string",
+      "description": "Path to `.user-flowrc.json`"
+    },
+    "interactive": {
+      "type": "boolean",
+      "description": "Prompt active"
+    },
+    "ufPath": {
+      "type": "string",
+      "description": "Path to user-flow file or folder containing user-flow files to run. (`*.uf.ts` or`*.uf.js`) "
+    },
+    "configPath": {
+      "type": "string",
+      "description": "Path to the lighthouse `config.json` file"
+    },
+    "config": {
+      "type": "string"
+    },
+    "serveCommand": {
+      "type": "string",
+      "description": "Runs a npm script to serve the target app. This has to be used in combination with `--awaitServeStdout`"
+    },
+    "awaitServeStdout": {
+      "type": "string",
+      "description": "Waits for stdout from the serve command to start collecting user-flows ()"
+    },
+    "outPath": {
+      "type": "string",
+      "description": "Output folder for the user-flow reports"
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Output folder for the user-flow reports"
+    },
+    "format": {
+      "type": "array",
+      "description": "Format of the creates reports ( `html`, `json`, `md`, `stdout`)"
+    },
+    "openReport": {
+      "type": "boolean",
+      "description": "Opens file automatically after the user-flow is captured"
+    },
+    "budgetPath": {
+      "type": "string",
+      "description": "Path to the lighthouse `budget.json` file"
+    },
+    "dryRun": {
+      "type": "boolean",
+      "description": "When true the user-flow test will get executed without measures (for fast development)"
+    }
+  },
+  "required": [
+    "rcPath",
+    "outputPath"
+  ]
+}

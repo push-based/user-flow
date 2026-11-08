@@ -1,0 +1,276 @@
+<div class="doc-layout" [class.has-toc]="hasToc()">
+  <article class="doc">
+    <header class="doc-header">
+      <nav class="breadcrumbs enter" style="--enter: 0" aria-label="Breadcrumb">
+        <ol>
+          <li><a routerLink="/docs">Docs</a></li>
+          <li>
+            <a [routerLink]="sectionPath()">{{ doc().page.section.title }}</a>
+          </li>
+          <li aria-current="page">{{ doc().page.title }}</li>
+        </ol>
+      </nav>
+      <h1 class="doc-title enter" style="--enter: 1" tabindex="-1">
+        {{ doc().page.title }}
+      </h1>
+      <p class="doc-lead enter" style="--enter: 2">
+        {{ doc().page.description }}
+      </p>
+      <p class="doc-meta enter" style="--enter: 3">
+        <span class="doc-meta-item">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+          {{ doc().readingMinutes }} min read
+        </span>
+        @if (doc().toc.length) {
+        <span class="doc-meta-item">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+          </svg>
+          {{ sectionCount() }} {{ sectionCount() === 1 ? 'section' : 'sections'
+          }}
+        </span>
+        }
+        <button
+          class="doc-copy-page"
+          type="button"
+          (click)="copyPage()"
+          title="Copy this page as Markdown"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="9" y="9" width="12" height="12" rx="2" />
+            <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+          </svg>
+          Copy page
+        </button>
+      </p>
+    </header>
+
+    @if (hasToc()) {
+    <details #tocMenu class="toc-menu">
+      <summary class="toc-menu-summary">
+        <span class="toc-menu-label">On this page</span>
+        <span class="toc-menu-current">{{ activeEntry().text }}</span>
+        <svg
+          class="toc-menu-chevron"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <ul class="toc-menu-list">
+        @for (entry of doc().toc; track entry.id) {
+        <li
+          [class.toc-item-nested]="entry.level === 3"
+          [class.toc-menu-active]="entry.id === activeId()"
+        >
+          <a
+            [href]="'#' + entry.id"
+            (click)="onTocClick($event, entry.id); tocMenu.open = false"
+            [attr.aria-current]="entry.id === activeId() ? 'location' : null"
+            >{{ entry.text }}</a
+          >
+        </li>
+        }
+      </ul>
+    </details>
+    }
+
+    <div
+      #prose
+      class="prose"
+      [innerHTML]="html()"
+      (click)="onContentClick($event)"
+    ></div>
+
+    <footer class="doc-footer">
+      <a
+        class="doc-edit"
+        [href]="doc().page.editUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 20h9" />
+          <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+        </svg>
+        Edit this page on GitHub
+      </a>
+      @if (lastUpdated(); as date) {
+      <p class="doc-updated">
+        Last updated
+        <time [attr.datetime]="doc().page.lastUpdated">{{ date }}</time>
+      </p>
+      }
+    </footer>
+
+    <nav class="doc-pager" aria-label="Previous and next page">
+      @if (doc().previous; as previous) {
+      <a class="pager-link pager-prev" [routerLink]="previous.path">
+        <span class="pager-label">
+          <span class="pager-arrow" aria-hidden="true">←</span>
+          Previous @if (previous.section !== doc().page.section) {
+          <span class="pager-section">· {{ previous.section.title }}</span>
+          }
+        </span>
+        <span class="pager-title">{{ previous.title }}</span>
+        <span class="pager-description">{{ previous.description }}</span>
+      </a>
+      } @if (doc().next; as next) {
+      <a class="pager-link pager-next" [routerLink]="next.path">
+        <span class="pager-label">
+          @if (next.section !== doc().page.section) {
+          <span class="pager-section">{{ next.section.title }} ·</span>
+          } Next
+          <span class="pager-arrow" aria-hidden="true">→</span>
+        </span>
+        <span class="pager-title">{{ next.title }}</span>
+        <span class="pager-description">{{ next.description }}</span>
+      </a>
+      }
+    </nav>
+  </article>
+
+  @if (hasToc()) {
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title text-subtitle">On this page</p>
+    <ul #tocList class="toc-list">
+      <span
+        class="toc-marker"
+        [class.toc-marker-visible]="marker() !== null"
+        [style.top.px]="marker()?.top"
+        [style.height.px]="marker()?.height"
+        aria-hidden="true"
+      ></span>
+      @for (entry of doc().toc; track entry.id) {
+      <li
+        class="toc-item"
+        [class.toc-item-nested]="entry.level === 3"
+        [class.toc-item-active]="entry.id === activeId()"
+      >
+        <a
+          [href]="'#' + entry.id"
+          (click)="onTocClick($event, entry.id)"
+          [attr.aria-current]="entry.id === activeId() ? 'location' : null"
+          >{{ entry.text }}</a
+        >
+      </li>
+      }
+    </ul>
+  </aside>
+  }
+</div>
+
+<div class="read-progress" aria-hidden="true"></div>
+
+<div
+  class="toast"
+  [class.toast-visible]="toast()"
+  role="status"
+  aria-live="polite"
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="m5 12.5 4.5 4.5L19 7.5" />
+  </svg>
+  {{ toast() }}
+</div>
+
+<button
+  class="back-to-top"
+  type="button"
+  [class.back-to-top-visible]="showBackToTop()"
+  [attr.tabindex]="showBackToTop() ? null : -1"
+  [attr.aria-hidden]="showBackToTop() ? null : 'true'"
+  (click)="backToTop()"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</button>
+
+<dialog
+  #lightbox
+  class="lightbox"
+  aria-label="Enlarged image"
+  (click)="closeLightbox()"
+  (cancel)="$event.preventDefault(); closeLightbox()"
+>
+  @if (zoomed(); as image) {
+  <figure class="lightbox-figure">
+    <img [src]="image.src" [alt]="image.alt" />
+    @if (image.alt) {
+    <figcaption>{{ image.alt }}</figcaption>
+    }
+  </figure>
+  }
+  <button class="lightbox-close" type="button" aria-label="Close">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  </button>
+</dialog>

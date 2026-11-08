@@ -1,0 +1,15 @@
+{
+  "name": "@push-based/user-flow-nx-plugin",
+  "version": "0.1.8",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/push-based/user-flow.git",
+    "directory": "packages/nx-plugin"
+  },
+  "executors": "./executors.json",
+  "generators": "./generators.json",
+  "peerDependencies": {
+    "@nx/devkit": ">=16.3.2"
+  }
+}

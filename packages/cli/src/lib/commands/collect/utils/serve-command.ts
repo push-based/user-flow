@@ -1,0 +1,61 @@
+import { concurrently } from 'concurrently';
+import { logVerbose } from '../../../core/loggin/index.js';
+import { Subscription } from 'rxjs';
+import { CollectRcOptions } from '../options/types.js';
+import { RcJson } from '../../../types.js';
+
+// @TODO as it is quite har to maintain and test the serve command we have to think about a better way to wrap it
+// I suggest a single function returning a promise.
+// This fn takes the serve options as well ans the run block and makes sure execution is done correctly and errors are forwarded too.
+// In there we compose easier to test fn's
+
+export async function startServerIfNeededAndExecute(workTargetingServer: () => Promise<RcJson>, collectOption: CollectRcOptions = {} as CollectRcOptions): Promise<RcJson> {
+
+  const { serveCommand, awaitServeStdout } = collectOption;
+
+  if (serveCommand && !awaitServeStdout) {
+    return Promise.reject(new Error('If a serve command is provided awaitServeStdout is also required'));
+  }
+
+  if (!serveCommand || !awaitServeStdout) {
+    return workTargetingServer();
+  }
+
+  logVerbose('execute serve command');
+  return new Promise((resolve, reject) => {
+    const sub = new Subscription();
+    const res = concurrently([serveCommand]);
+
+    const cR = res.commands[0];
+    const stopServer = () => {
+      logVerbose('stop server');
+      cR.kill();
+      sub.unsubscribe();
+    };
+    res.result
+      // We resolve when the awaited value arrives
+      // .then((v) => console.log('concurrently resolve', v))
+      .catch(error => {
+        console.error(error);
+        reject('Error while executing ' + serveCommand);
+      });
+
+
+    let isCollecting = false;
+    sub.add(cR.stdout.subscribe(
+      (stdout: Buffer) => {
+        const out = stdout.toString();
+        logVerbose(out);
+        // await stdout and start collecting once
+        if (out.includes(awaitServeStdout) && !isCollecting) {
+          isCollecting = true;
+          workTargetingServer()
+            .then(resolve)
+            .catch(e => {
+              reject('Error while running user flows. ' + e);
+            }).finally(stopServer);
+        }
+      }));
+  });
+
+}

@@ -1,0 +1,443 @@
+// Building blocks shared by the landing page, doc pages and the 404 page.
+// Component styles are scoped, so anything more than one page uses lives here.
+
+/* First paint: the hero copy rises in line by line, then the scene follows. */
+.enter {
+  animation: enter var(--duration-slow) var(--ease-out) both;
+  animation-delay: calc(60ms + var(--enter, 0) * 50ms);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* The terminal types each command once, with a cursor that stays on the last line. */
+.type-line {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  // Room for the cursor after the last character.
+  padding-right: 1.2ch;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  // Starts once the terminal has entered, then each line follows the previous.
+  --type-start: calc(700ms + var(--line, 0) * 900ms);
+  --type-duration: calc(var(--chars, 20) * 38ms);
+  animation: type var(--type-duration) steps(var(--chars, 20), end) both;
+  animation-delay: var(--type-start);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.2em;
+    right: 0;
+    width: 0.55ch;
+    height: 1.1em;
+    background: var(--color-neutral-300);
+    opacity: 0;
+    // Shown only while this line is typing (no fill, so it hides again after).
+    animation: cursor-hold var(--type-duration) step-end;
+    animation-delay: var(--type-start);
+  }
+}
+
+.type-line-last::after {
+  animation:
+    cursor-hold var(--type-duration) step-end,
+    cursor-blink 1s step-end infinite;
+  animation-delay:
+    var(--type-start), calc(var(--type-start) + var(--type-duration));
+}
+
+@keyframes type {
+  from {
+    width: 1.2ch;
+  }
+  to {
+    width: calc(var(--chars, 20) * 1ch + 1.2ch);
+  }
+}
+
+@keyframes cursor-hold {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cursor-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .type-line {
+    animation: none;
+  }
+  .type-line::after {
+    display: none;
+  }
+}
+
+/* Section heading: a small mono eyebrow over a title. */
+.section-eyebrow {
+  margin: 0 0 var(--space-3);
+  color: var(--text-muted);
+}
+
+.section-title {
+  margin: 0 0 var(--space-8);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.pb-card,
+.section-card {
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) ease-out;
+
+  &:hover {
+    translate: 0 -3px;
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-outline);
+  }
+}
+
+.section-card {
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+.section-card-title {
+  margin: 0 0 var(--space-3);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  color: var(--text-heading);
+}
+
+.section-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration-base) ease-out;
+
+  .pb-arrow {
+    color: var(--text-subtle);
+    transition:
+      color var(--duration-base) ease-out,
+      translate var(--duration-base) var(--ease-out);
+  }
+
+  &:hover {
+    color: var(--text-heading);
+
+    .pb-arrow {
+      color: var(--link);
+      translate: 4px 0;
+    }
+  }
+}
+
+/* Spotlight: a soft highlight that follows the pointer over a card, paired
+   with the `docsSpotlight` directive. */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 50%),
+      var(--spot),
+      transparent 65%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-slow) ease-out;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Feature cards: an icon tile over a title and a short body. */
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface-raised);
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) ease-out;
+
+  &:hover {
+    translate: 0 -3px;
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-outline);
+  }
+
+  &:hover .icon-tile {
+    background: var(--accent);
+    color: #fff;
+    rotate: -6deg;
+    box-shadow: 0 8px 20px -6px var(--hero-glow-strong);
+  }
+}
+
+.icon-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  transition:
+    background-color var(--duration-base) ease-out,
+    color var(--duration-base) ease-out,
+    rotate var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-base) ease-out;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.feature-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.feature-body {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  color: var(--text-muted);
+}
+
+/* Call to action band: a gradient panel with the install command and a link. */
+.cta-band {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+  padding: var(--space-8);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+  background: linear-gradient(
+    120deg,
+    var(--color-primary-700),
+    var(--color-primary-900) 60%,
+    var(--color-neutral-950)
+  );
+  box-shadow:
+    var(--shadow-md),
+    0 30px 60px -30px var(--hero-glow-strong);
+}
+
+@media (min-width: 900px) {
+  .cta-band {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-8);
+    padding: var(--space-10);
+  }
+}
+
+.cta-glow {
+  position: absolute;
+  z-index: -1;
+  inset: -40% -20% auto;
+  height: 160%;
+  background: radial-gradient(
+    ellipse 40% 60% at 80% 30%,
+    color-mix(in srgb, var(--color-secondary-500) 45%, transparent),
+    transparent 70%
+  );
+  animation: cta-glow 10s ease-in-out infinite alternate;
+}
+
+@keyframes cta-glow {
+  to {
+    transform: translateX(-12%) scale(1.15);
+  }
+}
+
+.cta-mark {
+  display: none;
+  width: 84px;
+  height: 84px;
+  --logo-ink: var(--color-neutral-950);
+  --logo-paper: #fff;
+  filter: drop-shadow(0 12px 16px rgb(0 0 0 / 0.35));
+  animation: bob 3.2s ease-in-out infinite alternate;
+}
+
+@media (min-width: 900px) {
+  .cta-mark {
+    display: block;
+  }
+}
+
+@keyframes bob {
+  from {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+  to {
+    transform: translateY(4px) rotate(3deg);
+  }
+}
+
+.cta-title {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cta-body {
+  margin: var(--space-2) 0 0;
+  max-width: 34rem;
+  color: var(--color-primary-200);
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.cta-command {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: var(--radius-lg);
+  background: rgb(0 0 0 / 0.28);
+  color: #fff;
+  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast) ease-out,
+    background-color var(--duration-fast) ease-out;
+
+  code {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    border-color: rgb(255 255 255 / 0.4);
+    background: rgb(0 0 0 / 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.cta-prompt {
+  color: var(--color-primary-300);
+}
+
+.cta-copy-state {
+  margin-left: var(--space-2);
+  padding-left: var(--space-2);
+  border-left: 1px solid rgb(255 255 255 / 0.18);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-primary-200);
+  transition: color var(--duration-fast) ease-out;
+
+  .copied & {
+    color: var(--color-success-300);
+  }
+}
+
+.cta-btn {
+  --btn-bg: #fff;
+  --btn-bg-hover: var(--color-primary-50);
+  --btn-color: var(--color-primary-800);
+  --btn-color-hover: var(--color-primary-900);
+}
+
+/* A primary button that glows a little, for the one call to action in the hero. */
+.pb-btn-glow {
+  box-shadow: 0 10px 24px -8px var(--hero-glow-strong);
+
+  &:hover {
+    box-shadow: 0 14px 28px -8px var(--hero-glow-strong);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-glow,
+  .cta-mark {
+    animation: none;
+  }
+}

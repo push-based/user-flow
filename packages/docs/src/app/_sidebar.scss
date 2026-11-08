@@ -1,0 +1,263 @@
+// The docs sidebar: sections, the sliding active marker and, below 900px,
+// the off-canvas drawer. Global so the app component's styles stay within
+// their size budget.
+
+.sidebar {
+  view-transition-name: sidebar;
+  // Only doc pages show the sidebar beside the content; everywhere else it is
+  // the drawer below 900px.
+  .page:not(.page-docs) > & {
+    display: none;
+  }
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-8));
+  max-height: calc(100vh - var(--header-height) - var(--space-8));
+  overflow: auto;
+  padding-right: var(--space-4);
+}
+
+.sidebar-nav {
+  position: relative;
+}
+
+/* One pill that slides to the current page, like the table-of-contents marker. */
+.sidebar-marker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    top var(--duration-slow) var(--ease-out),
+    height var(--duration-slow) var(--ease-out),
+    opacity var(--duration-base) ease-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 0;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--accent);
+  }
+}
+
+.sidebar-marker-visible {
+  opacity: 1;
+}
+
+.sidebar-marker-instant {
+  transition: opacity var(--duration-base) ease-out;
+}
+
+.sidebar-group + .sidebar-group {
+  margin-top: var(--space-4);
+}
+
+.sidebar-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  margin: 0 0 var(--space-1);
+  padding: var(--space-1-5) var(--space-3) var(--space-1-5) 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease-out;
+
+  &:hover {
+    color: var(--text-heading);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-base);
+  }
+}
+
+.sidebar-icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--link);
+}
+
+.sidebar-section-title {
+  flex: 1;
+}
+
+.sidebar-chevron {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--text-subtle);
+  transition: rotate var(--duration-base) var(--ease-out);
+
+  .sidebar-group-collapsed & {
+    rotate: -90deg;
+  }
+}
+
+/* Folding animates the row height from its content to zero. */
+.sidebar-collapse {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-out);
+
+  > .sidebar-list {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .sidebar-group-collapsed & {
+    grid-template-rows: 0fr;
+  }
+}
+
+.sidebar-list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-link {
+  display: block;
+  padding: var(--space-1-5) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) ease-out,
+    color var(--duration-fast) ease-out,
+    translate var(--duration-base) var(--ease-out);
+
+  &:hover {
+    background: var(--surface-subtle);
+    color: var(--text-heading);
+    translate: 2px 0;
+  }
+
+  &.active {
+    color: var(--accent-soft-text);
+    font-weight: 500;
+    translate: 0;
+  }
+
+  &.active:hover {
+    background: none;
+  }
+}
+
+/* Docs menu below 900px: an off-canvas drawer with a dimmed backdrop. */
+@media (max-width: 899px) {
+  .page:not(.page-docs) > .sidebar {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    z-index: 30;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+    width: min(320px, 85vw);
+    max-height: none;
+    padding: var(--space-6) var(--space-5) var(--space-8);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--surface);
+    border-right: 1px solid var(--border-strong);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-102%);
+    visibility: hidden;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      visibility 0s linear var(--duration-slow);
+  }
+
+  .sidebar-open {
+    transform: none;
+    visibility: visible;
+    transition:
+      transform var(--duration-slow) var(--ease-out),
+      visibility 0s;
+  }
+
+  // Links cascade in as the drawer opens.
+  .sidebar-open .sidebar-list li,
+  .sidebar-open .sidebar-section {
+    animation: drawer-item var(--duration-slow) var(--ease-out) both;
+    animation-delay: calc(80ms + var(--drawer-i, 0) * 18ms);
+  }
+
+  .drawer-backdrop {
+    position: fixed;
+    z-index: 25;
+    inset: var(--header-height) 0 0 0;
+    background: rgb(13 18 28 / 0.4);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-base) ease-out;
+  }
+
+  .drawer-backdrop-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar-extra {
+    display: flex;
+  }
+}
+
+@keyframes drawer-item {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+.drawer-backdrop {
+  display: none;
+}
+
+@media (max-width: 899px) {
+  .drawer-backdrop {
+    display: block;
+  }
+}
+
+.sidebar-extra {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--link);
+    }
+  }
+}

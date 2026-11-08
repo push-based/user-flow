@@ -1,0 +1,130 @@
+// The stage reads the current step from `data-step` on `.stage`, so the
+// browser mock and the stepper are pure CSS; only the lit code lines and the
+// stepper's active class come from the component.
+
+:host {
+  display: block;
+}
+
+.walkthrough {
+  padding: var(--space-20) 0 0;
+}
+
+.walkthrough-head {
+  display: grid;
+  gap: var(--space-2) var(--space-10);
+  align-items: end;
+  margin-bottom: var(--space-8);
+
+  .section-title {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+  }
+}
+
+.walkthrough-lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--link);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'browser'
+    'stepper'
+    'code';
+  gap: var(--space-4);
+}
+
+@media (min-width: 900px) {
+  .stage {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'code browser'
+      'code stepper';
+    gap: var(--space-4) var(--space-5);
+  }
+}
+
+/* Code: lines outside the running step dim; the running ones get a bar. */
+.code {
+  grid-area: code;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  box-shadow: var(--shadow-md);
+
+  // Fills the column so it matches the browser and the step list beside it.
+  pre {
+    flex: 1;
+    padding: var(--space-3) 0;
+  }
+}
+
+.flow-browser {
+  align-self: start;
+}
+
+.code-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  color: var(--color-primary-300);
+
+  docs-mode-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+.wt-line {
+  display: block;
+  padding: 0 var(--space-4) 0 0;
+  border-left: 2px solid transparent;
+  opacity: 0.38;
+  transition:
+    opacity var(--duration-slow) ease-out,
+    border-color var(--duration-slow) ease-out,
+    background-color var(--duration-slow) ease-out;
+
+  &.lit {
+    opacity: 1;
+    border-color: var(--color-primary-400);
+    background: color-mix(in srgb, var(--color-primary-500) 12%, transparent);
+  }
+}
+
+.wt-no {
+  display: inline-block;
+  width: 2.75rem;
+  padding-right: var(--space-3);
+  text-align: right;
+  color: var(--color-neutral-600);
+  user-select: none;
+}
+
+/* The browser mock is styled in `_flow-browser.scss`, outside this
+   component's style budget. */
+.flow-browser {
+  grid-area: browser;
+}
+
+/* The step list is styled in `_flow-browser.scss` as well. */
+.stepper {
+  grid-area: stepper;
+}
+
