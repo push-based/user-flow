@@ -140,14 +140,6 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background: var(--surface);
-  transition:
-    border-color var(--duration-base) ease-out,
-    box-shadow var(--duration-base) var(--ease-out);
-
-  &:hover {
-    border-color: var(--accent-outline);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-  }
 }
 
 .report-step-head {
