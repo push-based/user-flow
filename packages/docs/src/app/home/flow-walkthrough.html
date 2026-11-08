@@ -11,7 +11,7 @@
     </p>
   </div>
 
-  <div class="stage" [attr.data-step]="active()" [class.stage-paused]="paused()">
+  <div class="stage" [attr.data-step]="active()" [class.stage-paused]="paused()" [class.stage-idle]="!started()">
     <figure class="code code-block">
       <figcaption class="code-title">
         <span>order-coffee.uf.mts</span>
