@@ -109,8 +109,17 @@
   gap: var(--space-4);
 }
 
-.pb-card,
 .section-card {
+  padding: var(--space-6);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-raised);
+}
+
+/* Only a card that is itself a link lifts on hover; a card that merely groups
+   links (the landing page sections) stays put so a tap doesn't promise a
+   navigation that never comes. */
+a.section-card {
   transition:
     translate var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
@@ -121,13 +130,6 @@
     box-shadow: var(--shadow-md);
     border-color: var(--accent-outline);
   }
-}
-
-.section-card {
-  padding: var(--space-6);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: var(--surface-raised);
 }
 
 .section-card-title {
@@ -175,38 +177,8 @@
   }
 }
 
-/* Spotlight: a soft highlight that follows the pointer over a card, paired
-   with the `docsSpotlight` directive. */
-.spotlight {
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: radial-gradient(
-      260px circle at var(--mx, 50%) var(--my, 50%),
-      var(--spot),
-      transparent 65%
-    );
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--duration-slow) ease-out;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-}
-
-/* Feature cards: an icon tile over a title and a short body. */
+/* Feature cards: an icon tile over a title and a short body. They are plain
+   content, not links, so they have no hover or tap state. */
 .feature-card {
   display: flex;
   flex-direction: column;
@@ -215,23 +187,6 @@
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xl);
   background: var(--surface-raised);
-  transition:
-    translate var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out),
-    border-color var(--duration-base) ease-out;
-
-  &:hover {
-    translate: 0 -3px;
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent-outline);
-  }
-
-  &:hover .icon-tile {
-    background: var(--accent);
-    color: #fff;
-    rotate: -6deg;
-    box-shadow: 0 8px 20px -6px var(--hero-glow-strong);
-  }
 }
 
 .icon-tile {
@@ -243,11 +198,6 @@
   border-radius: var(--radius-lg);
   background: var(--accent-soft);
   color: var(--accent-soft-text);
-  transition:
-    background-color var(--duration-base) ease-out,
-    color var(--duration-base) ease-out,
-    rotate var(--duration-slow) var(--ease-out),
-    box-shadow var(--duration-base) ease-out;
 
   svg {
     width: 1.25rem;

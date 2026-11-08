@@ -10,7 +10,6 @@ import { DOCS_NAV, SECTION_ICONS } from '../docs/nav';
 import { HeroScene } from './hero-scene';
 import { Reveal } from '../shared/reveal';
 import { Tilt } from '../shared/tilt';
-import { Spotlight } from '../shared/spotlight';
 import { HowItWorks } from './how-it-works';
 import { ReportPreview } from './report-preview';
 import { FlowWalkthrough } from './flow-walkthrough';
@@ -34,7 +33,6 @@ const COMMANDS = [
     HeroScene,
     Reveal,
     Tilt,
-    Spotlight,
     HowItWorks,
     FlowWalkthrough,
     ReportPreview,
