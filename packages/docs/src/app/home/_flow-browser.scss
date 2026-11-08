@@ -564,6 +564,16 @@
   }
 }
 
+// Before the walkthrough first scrolls into view every animation waits at
+// its first frame, so the opening step plays when the reader gets there.
+.stage-idle {
+  .flow-browser *,
+  .flow-browser *::after,
+  .stepper-bar {
+    animation-play-state: paused;
+  }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .stepper-bar {

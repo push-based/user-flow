@@ -77,7 +77,8 @@ interface Step {
  * The flow file next to the page it drives. The collect command starts the
  * run, each step lights up its lines of code while the browser mock acts
  * them out, then the report comes together. It plays by itself while on
- * screen, pauses under a mouse and lets the reader pick a step.
+ * screen, pauses under a mouse and lets the reader pick a step. Nothing
+ * moves until the reader scrolls to it.
  */
 @Component({
   selector: 'docs-flow-walkthrough',
@@ -136,6 +137,12 @@ export class FlowWalkthrough {
   readonly lines = SOURCE.split('\n').map(highlightLine);
 
   readonly active = signal(0);
+  /**
+   * False until the walkthrough first scrolls into view. Until then the
+   * stage holds its animations at their first frame, so the first step plays
+   * from the start when the reader gets there instead of having run at load.
+   */
+  readonly started = signal(false);
   /** True while a mouse hovers the walkthrough. Touch never pauses it. */
   readonly paused = signal(false);
   /** Bumped on every step change so the progress bar restarts. */
@@ -169,16 +176,25 @@ export class FlowWalkthrough {
 
   private autoplay() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.started.set(true);
       return;
     }
     let visible = false;
     let last = performance.now();
+    // Visible means part of the walkthrough is in the middle half of the
+    // viewport. A share of the section's own height would not do: on a
+    // phone the section is several screens tall, so no scroll position
+    // ever shows enough of it at once and the walkthrough would never start.
     const observer = new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
         last = performance.now();
+        if (visible && !this.started()) {
+          this.started.set(true);
+          this.elapsed = 0;
+        }
       },
-      { threshold: 0.35 },
+      { rootMargin: '-25% 0px', threshold: 0 },
     );
     observer.observe(this.host.nativeElement);
     const timer = setInterval(() => {
