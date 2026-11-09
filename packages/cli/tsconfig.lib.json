@@ -20,6 +20,7 @@
     "**/*.test.ts",
     "**/*.mocks.ts",
     "**/mocks/**",
-    "vite.config.ts"
+    "vite.config.ts",
+    "rolldown.config.ts"
   ]
 }

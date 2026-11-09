@@ -10,21 +10,22 @@ export { PROMPT_PERSIST_FORMAT } from './commands/collect/options/format.constan
 export { getInitCommandOptionsFromArgv } from './commands/init/utils.js';
 export { UserFlowMock } from './commands/collect/utils/user-flow/user-flow.mock.js';
 export { Ufo } from './ufo/ufo.js';
-export {
+export type {
   StepOptions, UserFlowOptions, LaunchOptions, UserFlowContext, UserFlowProvider, UserFlowInteractionsFn
 } from './commands/collect/utils/user-flow/types.js';
 export { createUserFlowRunner } from './commands/collect/utils/replay/index.js';
-export { MeasureModes } from './commands/collect/utils/replay/types.js';
-export { RcJson } from './types.js';
-export { CLI_MODES, CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode/index.js';
+export type { MeasureModes } from './commands/collect/utils/replay/types.js';
+export type { RcJson } from './types.js';
+export type { CLI_MODES } from './global/cli-mode/index.js';
+export { CI_PROPERTY, CLI_MODE_PROPERTY } from './global/cli-mode/index.js';
 export { getEnvPreset, SANDBOX_PRESET, CI_PRESET, DEFAULT_PRESET } from './pre-set.js';
-export { GlobalOptionsArgv } from './global/options/types.js';
-export { CollectCommandArgv, CollectArgvOptions } from './commands/collect/options/types.js';
+export type { GlobalOptionsArgv } from './global/options/types.js';
+export type { CollectCommandArgv, CollectArgvOptions } from './commands/collect/options/types.js';
 export { DEFAULT_RC_NAME } from './constants.js';
 export { DEFAULT_COLLECT_URL } from './commands/collect/options/url.constant.js';
 export { DEFAULT_COLLECT_UF_PATH } from './commands/collect/options/ufPath.constant.js';
 export { DEFAULT_PERSIST_OUT_PATH } from './commands/collect/options/outPath.constant.js';
-export { ReportFormat } from './commands/collect/options/types.js';
+export type { ReportFormat } from './commands/collect/options/types.js';
 export { createReducedReport } from './commands/collect/utils/report/utils.js';
 export {enrichReducedReportWithBaseline} from './commands/collect/utils/report/utils.js';
 export {runInitCommand} from './commands/init/command-impl.js';

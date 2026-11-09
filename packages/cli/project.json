@@ -5,22 +5,6 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/cli",
-        "main": "packages/cli/src/index.ts",
-        "tsConfig": "packages/cli/tsconfig.lib.json",
-        "assets": [
-          "README.md",
-          "packages/cli/*.md",
-          "packages/cli/src/cli.mjs",
-          "packages/cli/*.schema.json",
-          "packages/cli/**/static/**"
-        ]
-      }
-    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
