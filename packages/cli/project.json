@@ -5,6 +5,9 @@
   "projectType": "library",
   "tags": [],
   "targets": {
+    "build": {
+      "inputs": ["production", "^production", "{workspaceRoot}/README.md"]
+    },
     "link": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
