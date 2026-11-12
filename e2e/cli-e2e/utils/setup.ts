@@ -5,6 +5,7 @@ export const E2E_DIR = 'tmp/e2e';
 
 export const USER_FLOW_MOCKS = {
   BASIC: 'e2e/cli-e2e/mocks/user-flows/basic-navigation.uf.mts',
+  COMPLETE_CONFIG: 'e2e/cli-e2e/mocks/user-flows/complete-config.uf.mts',
 } as const;
 
 export const DEFAULT_RC = {
