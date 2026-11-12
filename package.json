@@ -29,7 +29,7 @@
     "enquirer": "^2.4.1",
     "lighthouse": "^13.6.0",
     "prettier": "^3.9.10",
-    "puppeteer": "^25.16.0",
+    "puppeteer": "^25.17.0",
     "rxjs": "^7.8.2",
     "ts-node": "^10.9.2",
     "tslib": "^2.9.1",

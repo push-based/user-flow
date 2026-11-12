@@ -43,7 +43,7 @@ export async function collectFlow(
   return flow;
 }
 
-function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
+export function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
     // has to be false to run in the CI because of a bug :(
@@ -55,9 +55,9 @@ function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
   if (cliMode !== 'DEFAULT' && launchOptions) {
-    const headlessMode = 'new';
-    logVerbose(`Set options#headless to ${headlessMode} in puppeteer#launch as we are running in ${cliMode} mode`);
-    (launchOptions as { headless?: unknown }).headless = headlessMode;
+    // `true` is Chrome's new headless mode since Puppeteer v22, `'new'` is no longer a valid value
+    logVerbose(`Set options#headless to true in puppeteer#launch as we are running in ${cliMode} mode`);
+    launchOptions.headless = true;
   }
 
   return launchOptions;
