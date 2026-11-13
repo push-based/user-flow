@@ -1,3 +1,16 @@
+## 0.21.6 (2026-11-13)
+
+### 🩹 Fixes
+
+- **cli:** only use the mobile fallback viewport for dry runs ([#353](https://github.com/push-based/user-flow/pull/353), [#352](https://github.com/push-based/user-flow/issues/352))
+- **cli:** run flows on Chrome 157 with puppeteer 25.17 ([#349](https://github.com/push-based/user-flow/issues/349))
+- **cli:** keep complete lighthouse configs from extending the default ([#348](https://github.com/push-based/user-flow/issues/348))
+
+### ❤️ Thank You
+
+- Christopher Holder @ChristopherPHolder
+- ChristopherPHolder
+
 ## 0.21.5 (2026-10-23)
 
 ### 🩹 Fixes

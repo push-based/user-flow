@@ -1,3 +1,9 @@
+## 0.1.9 (2026-11-13)
+
+### 🧱 Updated Dependencies
+
+- Updated cli to 0.21.6
+
 ## 0.1.8 (2026-10-24)
 
 ### 🩹 Fixes
