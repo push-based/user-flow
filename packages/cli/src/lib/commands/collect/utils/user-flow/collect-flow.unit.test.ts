@@ -14,6 +14,26 @@ describe('parseLaunchOptions', () => {
     expect(parseLaunchOptions().headless).toBe(false);
   });
 
+  it('should use the default viewport of Puppeteer if no launch options are given', () => {
+    vi.spyOn(cliMode, 'detectCliMode').mockReturnValue('DEFAULT');
+    expect(parseLaunchOptions().defaultViewport).toBeUndefined();
+  });
+
+  it('should use a mobile viewport for a dry run if no launch options are given', () => {
+    vi.spyOn(cliMode, 'detectCliMode').mockReturnValue('DEFAULT');
+    expect(parseLaunchOptions(undefined, { dryRun: true }).defaultViewport).toEqual({
+      isMobile: true,
+      isLandscape: false,
+      width: 800,
+      height: 600,
+    });
+  });
+
+  it('should keep the given launch options for a dry run', () => {
+    vi.spyOn(cliMode, 'detectCliMode').mockReturnValue('DEFAULT');
+    expect(parseLaunchOptions({ headless: 'shell' }, { dryRun: true })).toEqual({ headless: 'shell' });
+  });
+
   it('should keep the given launch options in DEFAULT mode', () => {
     vi.spyOn(cliMode, 'detectCliMode').mockReturnValue('DEFAULT');
     expect(parseLaunchOptions({ headless: 'shell' })).toEqual({ headless: 'shell' });
