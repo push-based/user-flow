@@ -26,7 +26,7 @@ export async function collectFlow(
   const lhConfig = mergeLhConfig(globalLhCfg, flowOptions?.config);
   flowOptions.config = lhConfig;
 
-  const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions));
+  const browser: Browser = await puppeteer.launch(parseLaunchOptions(launchOptions, argv));
   const page: Page = await browser.newPage();
 
   logVerbose(`Collect: ${flowOptions.name} from URL ${cliOption.url}`);
@@ -43,15 +43,19 @@ export async function collectFlow(
   return flow;
 }
 
-export function parseLaunchOptions(launchOptions?: LaunchOptions): LaunchOptions {
+export function parseLaunchOptions(
+  launchOptions?: LaunchOptions,
+  { dryRun }: { dryRun?: boolean } = {}
+): LaunchOptions {
   // object containing the options for puppeteer/chromium
   launchOptions = launchOptions || {
     // has to be false to run in the CI because of a bug :(
     // https://github.com/puppeteer/puppeteer/issues/8148
     headless: false,
-    // hack for dryRun => should get fixed inside user flow in future
-    defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 }
-  } as LaunchOptions;
+    // Only for dry runs. In a real run, a mobile viewport makes Puppeteer reload the page
+    // when a recording's setViewport step sets isMobile: false.
+    ...(dryRun && { defaultViewport: { isMobile: true, isLandscape: false, width: 800, height: 600 } }),
+  };
   const cliMode = detectCliMode();
   // cli mode is "CI" or "SANDBOX"
   if (cliMode !== 'DEFAULT' && launchOptions) {
