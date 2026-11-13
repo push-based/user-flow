@@ -108,6 +108,10 @@
       "options": {
         "targetName": "lint"
       }
+    },
+    {
+      "plugin": "@nx/rolldown",
+      "include": ["packages/cli/**/*"]
     }
   ]
 }
