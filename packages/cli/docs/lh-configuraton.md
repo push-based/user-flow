@@ -8,18 +8,95 @@ Lighthouse itself can get configured over a json object where any detail regards
 The official docs on [how to configure lighthouse](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md) are located in their repository's docs.
 The [default lighthouse config](https://github.com/GoogleChrome/lighthouse/blob/946075bb7f0858861067d161a414bdccc0a19007/core/config/constants.js#L92) can be found in their repository's source.
  
-The CLI will start lighthouse as with its default configuration.
+Unless configured otherwise, the CLI starts lighthouse with its default configuration.
 
-### Configuration Options
+### Where configuration can live
 
-The CLI provides multiple ways of configuration, every one with a different granularity.  
+Each flow gets its Lighthouse config from at most two sources: one **global** config shared by every flow, and the **flow** config in the flow file.
 
-Places to put configurations:
-- in a `.user-flowrc.json` - used for all flows (**global**)
-- in the console as CLI param - used for all flows, overwrites rc file (**global**)
-- in a `<user-flow-name>.uf.mts` - used for 1 specific flow (**local**)
+| Level  | Place                                       | Applies to                |
+| ------ | ------------------------------------------- | ------------------------- |
+| Global | `--configPath` on the command line          | Every flow in this run    |
+| Global | `collect.configPath` in `.user-flowrc.json` | Every flow in the project |
+| Global | `collect.config` in `.user-flowrc.json`     | Every flow in the project |
+| Flow   | `flowOptions.config` in a `*.uf.mts` file   | That one flow             |
 
-Local configurations will overwrite global configurations.
+There is only ever one global config. `--configPath` on the command line replaces `collect.configPath` from the rc file. A path and an inline config can't be mixed, though: if the rc file has `collect.config` and you pass `--configPath`, the run stops with `configPath and config can't be used together`.
+
+### How the configs are combined
+
+For each flow, user-flow builds a single config and passes it to Lighthouse's `startFlow`. It gets there in four steps.
+
+1. The flow config is laid over the global config. `settings` are merged key by key, and the flow wins when both set the same key. Every other top-level key, such as `audits`, `categories` or `artifacts`, is taken whole from the flow config if it has one, and from the global config otherwise. They are not combined, so flow `audits` replace the global `audits`.
+2. If the result has no `extends`, user-flow adds `extends: 'lighthouse:default'`. Without it, a config that only sets `settings` would run no audits at all. Configs that define their own artifacts are the exception, see [Complete configs](#complete-configs).
+3. Lighthouse resolves `extends` by merging the config into its default config. Artifacts are matched by `id`, audits and category `auditRefs` are added to the default ones, and `settings` override the default settings. An array inside `settings`, such as `onlyCategories`, replaces the default array instead of extending it. A config without `extends` is used exactly as written.
+4. `flowOptions.flags` and the options passed to a step override `settings` for that step. Step options, as in `flow.navigate(url, { onlyCategories: ['performance'] })`, win over `flowOptions.flags`.
+
+For a single setting, the order from lowest to highest priority is:
+
+Lighthouse default → global config → flow config → `flowOptions.flags` → step options
+
+#### Example
+
+**.user-flowrc.json (collect.config)**
+```json
+{
+  "settings": {
+    "formFactor": "mobile",
+    "onlyCategories": ["performance", "accessibility"]
+  },
+  "audits": ["my-global-audit"]
+}
+```
+
+**user-flows/checkout.uf.mts (flowOptions.config)**
+```typescript
+config: {
+  settings: { formFactor: 'desktop' },
+  audits: ['my-flow-audit'],
+}
+```
+
+For the checkout flow, Lighthouse receives:
+
+```json
+{
+  "extends": "lighthouse:default",
+  "settings": {
+    "formFactor": "desktop",
+    "onlyCategories": ["performance", "accessibility"]
+  },
+  "audits": ["my-flow-audit"]
+}
+```
+
+`formFactor` comes from the flow and `onlyCategories` from the global config. `my-global-audit` is gone because the flow sets its own `audits`. Lighthouse then runs `my-flow-audit` next to its default audits.
+
+### Complete configs
+
+Some configs bring every artifact, audit and category they need and are written to run without the default config. Configs exported by Lighthouse plugin packages are a common case. If user-flow added `extends` to one of them, Lighthouse would merge its artifacts with the default ones, and that fails when both describe the same artifact differently.
+
+user-flow therefore treats a flow config with `artifacts` and no `extends` as complete. For a complete config it:
+
+- does not add `extends`, so Lighthouse runs the config as written, the same as `startFlow(page, { config })`;
+- takes only `settings` from the global config, and ignores a global `extends`, `audits` or `categories` for this flow.
+
+**user-flows/soft-navigation.uf.mts**
+```typescript
+import { softNavigationConfig } from '@push-based/lighthouse-soft-navigation';
+
+export default {
+  flowOptions: { name: 'Soft navigation', config: softNavigationConfig() },
+  interactions: async ({ flow, collectOptions: { url } }) => {
+    await flow.navigate(url);
+  },
+};
+```
+
+> [!IMPORTANT]
+> To add your own artifacts on top of the default config, set `extends: 'lighthouse:default'` yourself. Without it the config counts as complete, and the report only contains the audits it lists. Lighthouse treats a config without `extends` the same way.
+
+### Where to put the config
 
 Custom configurations can be provided over a external `.json` file using `--configPath <path/to/config.json>`.  
 This option is also available in the `.user-flowrc.json` file under the `collect.configPath` property.
