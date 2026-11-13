@@ -42,9 +42,7 @@ export const SECTION_ICONS: Record<string, string[]> = {
     'M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z',
   ],
   // Book
-  resources: [
-    'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20',
-  ],
+  resources: ['M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20'],
 };
 
 export const DOCS_NAV: DocSection[] = [
@@ -167,6 +165,15 @@ export const DOCS_NAV: DocSection[] = [
         description:
           'Generators and an executor that make user flows a first-class target in an Nx workspace.',
         load: md(() => import('../../content/integrations/nx-plugin.md')),
+      },
+      {
+        slug: 'soft-navigations',
+        title: 'Soft navigations',
+        description:
+          'Measure single page app route changes as navigation steps with @push-based/lighthouse-soft-navigation.',
+        load: md(
+          () => import('../../content/integrations/soft-navigations.md'),
+        ),
       },
     ],
   },

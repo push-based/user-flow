@@ -80,6 +80,8 @@ export default {
 };
 ```
 
+The [soft navigations integration](/docs/integrations/soft-navigations) shows this config in a complete flow.
+
 > [!IMPORTANT]
 > To add your own artifacts on top of the default config, set `extends: 'lighthouse:default'` yourself. Without it the config counts as complete, and the report only contains the audits it lists. Lighthouse treats a config without `extends` the same way.
 
