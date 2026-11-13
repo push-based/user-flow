@@ -2,13 +2,86 @@ user-flow wraps [Lighthouse](https://www.npmjs.com/package/lighthouse) and runs 
 
 ## Where configuration can live
 
-The CLI accepts the same configuration at three levels of granularity. More specific levels win over more general ones.
+Each flow gets its Lighthouse config from at most two sources: one **global** config shared by every flow, and the **flow** config in the flow file.
 
-| Level  | Place                                                           | Applies to                                    |
-| ------ | --------------------------------------------------------------- | --------------------------------------------- |
-| Global | `collect.configPath` or `collect.config` in `.user-flowrc.json` | Every flow in the project                     |
-| Global | `--configPath` on the command line                              | Every flow in this run, overrides the rc file |
-| Local  | `flowOptions.config` in a `*.uf.mts` file                       | That one flow only                            |
+| Level  | Place                                       | Applies to                |
+| ------ | ------------------------------------------- | ------------------------- |
+| Global | `--configPath` on the command line          | Every flow in this run    |
+| Global | `collect.configPath` in `.user-flowrc.json` | Every flow in the project |
+| Global | `collect.config` in `.user-flowrc.json`     | Every flow in the project |
+| Flow   | `flowOptions.config` in a `*.uf.mts` file   | That one flow             |
+
+There is only ever one global config. `--configPath` on the command line replaces `collect.configPath` from the rc file. A path and an inline config can't be mixed, though: if the rc file has `collect.config` and you pass `--configPath`, the run stops with `configPath and config can't be used together`.
+
+## How the configs are combined
+
+For each flow, user-flow builds a single config and passes it to Lighthouse's `startFlow`. It gets there in four steps.
+
+1. The flow config is laid over the global config. `settings` are merged key by key, and the flow wins when both set the same key. Every other top-level key, such as `audits`, `categories` or `artifacts`, is taken whole from the flow config if it has one, and from the global config otherwise. They are not combined, so flow `audits` replace the global `audits`.
+2. If the result has no `extends`, user-flow adds `extends: 'lighthouse:default'`. Without it, a config that only sets `settings` would run no audits at all. Configs that define their own artifacts are the exception, see [Complete configs](#complete-configs).
+3. Lighthouse resolves `extends` by merging the config into its default config. Artifacts are matched by `id`, audits and category `auditRefs` are added to the default ones, and `settings` override the default settings. An array inside `settings`, such as `onlyCategories`, replaces the default array instead of extending it. A config without `extends` is used exactly as written.
+4. `flowOptions.flags` and the options passed to a step override `settings` for that step. Step options, as in `flow.navigate(url, { onlyCategories: ['performance'] })`, win over `flowOptions.flags`.
+
+For a single setting, the order from lowest to highest priority is:
+
+Lighthouse default → global config → flow config → `flowOptions.flags` → step options
+
+### Example
+
+```json title=".user-flowrc.json (collect.config)"
+{
+  "settings": {
+    "formFactor": "mobile",
+    "onlyCategories": ["performance", "accessibility"]
+  },
+  "audits": ["my-global-audit"]
+}
+```
+
+```typescript title="user-flows/checkout.uf.mts (flowOptions.config)"
+config: {
+  settings: { formFactor: 'desktop' },
+  audits: ['my-flow-audit'],
+}
+```
+
+For the checkout flow, Lighthouse receives:
+
+```json
+{
+  "extends": "lighthouse:default",
+  "settings": {
+    "formFactor": "desktop",
+    "onlyCategories": ["performance", "accessibility"]
+  },
+  "audits": ["my-flow-audit"]
+}
+```
+
+`formFactor` comes from the flow and `onlyCategories` from the global config. `my-global-audit` is gone because the flow sets its own `audits`. Lighthouse then runs `my-flow-audit` next to its default audits.
+
+## Complete configs
+
+Some configs bring every artifact, audit and category they need and are written to run without the default config. Configs exported by Lighthouse plugin packages are a common case. If user-flow added `extends` to one of them, Lighthouse would merge its artifacts with the default ones, and that fails when both describe the same artifact differently.
+
+user-flow therefore treats a flow config with `artifacts` and no `extends` as complete. For a complete config it:
+
+- does not add `extends`, so Lighthouse runs the config as written, the same as `startFlow(page, { config })`;
+- takes only `settings` from the global config, and ignores a global `extends`, `audits` or `categories` for this flow.
+
+```typescript title="user-flows/soft-navigation.uf.mts"
+import { softNavigationConfig } from '@push-based/lighthouse-soft-navigation';
+
+export default {
+  flowOptions: { name: 'Soft navigation', config: softNavigationConfig() },
+  interactions: async ({ flow, collectOptions: { url } }) => {
+    await flow.navigate(url);
+  },
+};
+```
+
+> [!IMPORTANT]
+> To add your own artifacts on top of the default config, set `extends: 'lighthouse:default'` yourself. Without it the config counts as complete, and the report only contains the audits it lists. Lighthouse treats a config without `extends` the same way.
 
 ## Option reference
 
@@ -77,7 +150,7 @@ Small configurations can go straight into the rc file under `collect.config`:
 
 ## Configure a single flow
 
-`flowOptions` accepts a `config` property with the same shape. It applies to that flow only and overrides the global configuration:
+`flowOptions` accepts a `config` property with the same shape. It applies to that flow only and is combined with the global configuration as described in [How the configs are combined](#how-the-configs-are-combined):
 
 ```typescript title="user-flows/checkout.uf.mts"
 import { UserFlowProvider } from '@push-based/user-flow';

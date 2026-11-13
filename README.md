@@ -228,9 +228,17 @@ This command executes a set of user-flow definitions against the target URL and 
 
 ## Configuration
 
-The CLI supports the official [user-flow/lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md). 
+The CLI supports the official [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md).
 
-Details on how to work with configurations can be found in the [configuratin section](./packages/cli/docs/lh-configuraton.md).    
+A flow gets its Lighthouse config from at most two sources: one global config for every flow (`--configPath`, or `collect.configPath` or `collect.config` in `.user-flowrc.json`) and `flowOptions.config` in the flow file. user-flow combines them like this:
+
+1. `settings` are merged key by key, and the flow config wins. Every other top-level key, such as `audits` or `categories`, is taken whole from the flow config if it has one, otherwise from the global config.
+2. If the result has no `extends`, user-flow adds `extends: 'lighthouse:default'`, so a settings-only config still runs the default audits.
+3. A flow config with `artifacts` and no `extends` is complete. It runs exactly as written, without `extends`, and takes only `settings` from the global config. To add artifacts on top of the default config, set `extends: 'lighthouse:default'` yourself.
+
+For a single setting, the order from lowest to highest priority is: Lighthouse default → global config → flow config → `flowOptions.flags` → options passed to a step.
+
+The [Lighthouse configuration guide](https://push-based.github.io/user-flow/docs/cli/lighthouse-configuration) has examples and the full rules (also on [GitHub](https://github.com/push-based/user-flow/blob/main/packages/cli/docs/lh-configuraton.md)).
 
 
 # Writing user flows for the CLI

@@ -72,4 +72,39 @@ describe('collect config', () => {
     expect(stripNodeWarnings(stderr)).toBe('');
     expect(code).toBe(0);
   });
+
+  it<CliTest>('should collect a flow with a complete LH config', async ({
+    setupFns,
+    cli,
+  }) => {
+    setupFns.setupRcJson(DEFAULT_RC);
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.COMPLETE_CONFIG);
+
+    const { code, stderr } = await cli.run('user-flow', ['collect']);
+
+    expect(stripNodeWarnings(stderr)).toBe('');
+    expect(code).toBe(0);
+  });
+
+  it<CliTest>('should collect a complete LH config with a global config that extends', async ({
+    setupFns,
+    cli,
+  }) => {
+    setupFns.setupRcJson({
+      ...DEFAULT_RC,
+      collect: {
+        ...DEFAULT_RC.collect,
+        config: {
+          extends: 'lighthouse:default',
+          settings: { onlyCategories: ['network'] },
+        },
+      },
+    });
+    setupFns.setupUserFlows(USER_FLOW_MOCKS.COMPLETE_CONFIG);
+
+    const { code, stderr } = await cli.run('user-flow', ['collect']);
+
+    expect(stripNodeWarnings(stderr)).toBe('');
+    expect(code).toBe(0);
+  });
 });

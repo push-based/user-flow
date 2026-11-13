@@ -25,7 +25,25 @@ export function getLhConfigFromArgv(rc: Partial<Pick<CollectCommandArgv, 'config
   return cfg;
 }
 
+/**
+ * A config that lists its own `artifacts` and has no `extends` is complete:
+ * Lighthouse runs it as it is. Extending the default config merges its
+ * artifacts with the default ones by id, which fails when the two describe the
+ * same gatherer differently.
+ */
+export function isCompleteLhConfig(cfg: Config = {}): boolean {
+  return !!cfg.artifacts && !cfg.extends;
+}
+
 export function mergeLhConfig(globalCfg: Config = {}, localCfg: Config = {}): Config {
+  if (isCompleteLhConfig(localCfg)) {
+    logVerbose(`LH Configuration is used from a user flow file`);
+    // Only the global settings apply, a global `extends` would turn the
+    // complete config into an extension of another config.
+    const settings = { ...globalCfg?.settings, ...localCfg.settings };
+    return Object.keys(settings).length ? { ...localCfg, settings } : { ...localCfg };
+  }
+
   let cfg = { ...globalCfg };
 
   if (localCfg) {
